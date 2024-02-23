@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34">
+    <defs>
+        <style>
+            .prefix__cls-2{fill:none;stroke:#f0f0f0;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.5px}
+        </style>
+    </defs>
+    <g id="prefix__Group_390" data-name="Group 390" transform="translate(234 -544)">
+        <g id="prefix__Rectangle_15" data-name="Rectangle 15" transform="translate(-234 544)" style="fill:#191970;stroke:#191970">
+            <rect width="34" height="34" rx="5" style="stroke:none"/>
+            <rect width="33" height="33" x=".5" y=".5" rx="4.5" style="fill:none"/>
+        </g>
+        <g id="prefix__Group_417" data-name="Group 417" transform="translate(-228 586)">
+            <path id="prefix__Path_330" d="M20.01-16.781a.792.792 0 0 1-.792.792H1.792A.792.792 0 0 1 1-16.781v-17.427A.792.792 0 0 1 1.792-35h17.427a.792.792 0 0 1 .792.792z" class="prefix__cls-2" data-name="Path 330"/>
+            <path id="prefix__Path_331" d="M20.01-16h-3.978a5.619 5.619 0 0 1-5.413 3.282A5.619 5.619 0 0 1 5.205-16H1" class="prefix__cls-2" data-name="Path 331" transform="translate(0 -8.377)"/>
+            <path id="prefix__Path_332" d="M18.025-29.841v6.769" class="prefix__cls-2" data-name="Path 332" transform="translate(-7.506 -2.275)"/>
+            <path id="prefix__Path_333" d="M13.43-22.254L16-19.406l2.569-2.848" class="prefix__cls-2" data-name="Path 333" transform="translate(-5.48 -5.619)"/>
+        </g>
+    </g>
+</svg>

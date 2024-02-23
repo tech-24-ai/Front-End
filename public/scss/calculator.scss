@@ -1,0 +1,250 @@
+.calculatorContainer {
+  padding: 3rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  .disabled {
+    pointer-events: none;
+    background: transparent;
+    opacity: 0.4;
+  }
+  .heading {
+    text-transform: capitalize;
+    text-align: start;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.6px;
+    color: #272727;
+    margin: 0;
+  }
+  .calculatorGrid {
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 25px;
+  }
+  .inputTitle {
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.24px;
+    color: #272727;
+  }
+  .inputStyling {
+    border: none;
+    font-weight: 600;
+    font-size: 15px;
+    height: 40px;
+    border-radius: 4px;
+    width: 135px;
+    text-align: center;
+    border: 1px solid $grey;
+  }
+  .driveSizeSection {
+    margin-top: 10px;
+    margin-left: 50px;
+  }
+  .radioBox {
+    width: 70%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .leftHeadings {
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.45px;
+    color: #272727;
+    margin-bottom: 25px;
+    margin-top: 40px;
+  }
+  .terabytesSpan {
+    font-weight: 300;
+    margin-left: 8px;
+  }
+  .readmoreStyling {
+    text-transform: none;
+    color: #0062bb;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.45px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  .resultText {
+    font-weight: bold;
+    font-size: 28px;
+  }
+  .raidTableContainer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .raidStyling {
+    width: 110px;
+    padding: 20px 15px;
+    text-align: center;
+    border: 2px solid transparent;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #272727;
+    box-shadow: 0 1.5px 3px 0 rgb(0 0 0 / 16%);
+    background-color: #f0f0f0;
+  }
+  .raidLabel {
+    font-size: 12px;
+    opacity: 0.6;
+    font-weight: 400;
+    text-transform: lowercase;
+  }
+  .resultSpace {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    // background: #fff;
+    // border: none;
+    border: 1px solid $grey;
+    overflow: hidden;
+    text-align: start;
+    // padding-left: 20px;
+    padding: 5px 0 5px 20px;
+  }
+  .calcActive {
+    border: 2px solid transparent;
+    background: #c16a10;
+    color: #fff;
+    cursor: default;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+  .readMoreSpan {
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: normal;
+  }
+  .totalGrid {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .totalSpace {
+    margin-top: 25px;
+  }
+  .description {
+    font-family: Poppins, sans-serif !important;
+    width: 60%;
+    padding-bottom: 20px;
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 14px;
+    line-height: 1.5715;
+    color: #272727;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+  td:first-child {
+    width: 100px;
+    text-align: center;
+  }
+  td,
+  th {
+    border: 1px solid lightgrey;
+    text-align: left;
+    padding: 10px;
+  }
+  FormGroup {
+    width: 110px;
+    height: 40px;
+  }
+  Label {
+    width: 135px;
+    height: 40px;
+    text-align: center;
+    line-height: 30px;
+  }
+}
+
+// resposive web design
+
+@media (max-width: 480px) {
+  .calculatorContainer {
+    // padding: 0px 20px;
+    padding: 0px !important;
+    display: grid;
+
+    // .radioBox {
+    //   width: 100%;
+    // }
+    .heading {
+      font-size: 18px;
+    }
+    .inputTitle {
+      font-size: 14px;
+    }
+    .driveSizeSection {
+      margin-left: 35px;
+    }
+    .terabytesSpan {
+      font-size: 12px;
+    }
+    .totalGrid {
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .readmoreStyling {
+      font-size: 14px;
+    }
+    .resultSpace {
+      padding-left: 20px;
+      width: 100%;
+    }
+    .leftHeadings {
+      font-size: 14px;
+    }
+    .totalSpace {
+      font-size: 14px;
+      margin-top: 20px !important;
+    }
+    .description {
+      width: 100%;
+      margin-top: 15px;
+      padding-bottom: 50px;
+      padding: 0;
+      margin: 0;
+    }
+    .inputStyling {
+      height: 35px;
+      width: 100px;
+    }
+    FormGroup {
+      width: 100px;
+      height: 35px;
+    }
+    Label {
+      width: 100px;
+      height: 35px;
+      text-align: center;
+      line-height: 25px;
+      font-size: 14px;
+    }
+    .upperConatiner {
+      padding: 16px;
+    }
+    .upperContainer {
+      padding-top: 15px;
+    }
+  }
+}

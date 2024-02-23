@@ -1,0 +1,44 @@
+.donations-page {
+  .donation-radio-container {
+    margin: 50px 0px;
+    .input {
+      height: 55px;
+      width: 500px;
+      border-radius: 16px;
+      margin-top: 18px;
+    }
+    .connect-radio-box-wrapper {
+      display: flex;
+      width: 100%;
+      text-align: center;
+      .form-group {
+        margin-left: 30px;
+        width: 100px;
+        label {
+          height: 50px;
+        }
+      }
+      .form-group:first-child {
+        margin-left: 0px;
+      }
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .donations-page {
+    .donation-radio-container {
+      .input {
+        width: 100%;
+      }
+      .connect-radio-box-wrapper {
+        flex-direction: inherit;
+        flex-wrap: wrap;
+        .form-group {
+          display: flex;
+          margin-left: 0px;
+        }
+      }
+    }
+  }
+}

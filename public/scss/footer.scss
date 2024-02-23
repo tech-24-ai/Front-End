@@ -1,0 +1,135 @@
+// new design
+.footer-block {
+  width: 100%;
+  // padding: 10px 0px 10px 0px;
+  padding: 5px 0px;
+  background-color: $footerBackground;
+
+  .logo-wrapper {
+    text-align: center;
+    margin-top: 5px;
+    img {
+      width: 90px !important;
+      // width: 155px;
+      // height: 45px;
+    }
+  }
+
+  // links
+  .link-wrapper {
+    // border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    a {
+      color: $footerTextColor;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      &:not(:first-child) {
+        margin-left: 15px;
+      }
+    }
+  }
+
+  .divider {
+    border: 1px solid #fff;
+    opacity: 0.2;
+    height: 0px;
+    margin: 5px 0;
+  }
+
+  .social-wrapper {
+    // border: 1px solid red;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .copy-right {
+      color: #d1d5db;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 20px;
+    }
+    .social-link {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+
+      a {
+        width: 30px;
+        height: 30px;
+        background-color: rgb($white, 0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+
+        svg {
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .footer-block {
+    .divider {
+      margin: 0;
+    }
+    .row {
+      > div {
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 3rem;
+
+        .logo-wrapper {
+          margin-top: 0px;
+          img {
+            width: 120px !important;
+          }
+        }
+
+        .link-wrapper {
+          flex-wrap: wrap;
+          gap: 0.5rem 2.5rem;
+          justify-content: center;
+          margin-bottom: 0.5rem;
+
+          a:not(:first-child) {
+            margin: 0;
+          }
+        }
+        .social-wrapper {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.5rem;
+          margin-top: 1.5rem;
+
+          a:not(:first-child) {
+            margin: 0;
+          }
+        }
+      }
+    }
+    div.row:nth-child(3) {
+      > div {
+        display: flex;
+        .social-wrapper {
+          margin: 0;
+          flex-direction: column-reverse;
+          align-items: center;
+
+          .social-link {
+            display: inline-flex;
+            flex-direction: row;
+            gap: 1rem;
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+  }
+}

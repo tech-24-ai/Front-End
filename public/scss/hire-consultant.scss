@@ -1,0 +1,275 @@
+.hire-consultant-page {
+  margin: 4rem 0px;
+  .container {
+    // width: 90%;
+    display: flex;
+    justify-content: space-between;
+    > div {
+      width: 482px;
+    }
+    .heading-flex {
+      display: flex;
+      margin-left: 20px;
+      h4 {
+        font-size: 32px;
+        font-weight: 600;
+        line-height: 42px;
+        letter-spacing: 0px;
+        margin-top: 5px;
+        margin-left: 20px;
+      }
+    }
+    .hire-flex {
+      display: flex;
+      margin-top: 20px;
+      img {
+        width: 65px;
+        margin-top: 10px;
+      }
+      .inputBox {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 20px;
+        letter-spacing: 0px;
+        height: 52px;
+        width: 100%;
+      }
+      .description {
+        border: 2px solid #a5a8b5;
+        border-radius: 8px;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 20px;
+        min-height: 118px;
+      }
+    }
+    .hire-calculation {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      margin-left: 5px;
+      p {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 20px;
+        letter-spacing: 0px;
+        color: #a5a8b5;
+      }
+      .total {
+        color: $black;
+      }
+      .calc {
+        text-align: end;
+        button {
+          margin-top: 10px;
+          height: 56px;
+          width: 149px;
+          border-radius: 12px;
+          border: none;
+          background-color: $backgroundColor;
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 20px;
+          letter-spacing: 0px;
+          color: #fff;
+        }
+      }
+    }
+
+    .right-section {
+      margin-top: 1rem;
+      width: 482px;
+      .self-description-section {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        .logo {
+          width: 128px;
+          height: 128px;
+          border: 4px solid $backgroundColor;
+          padding: 9px;
+          border-radius: 50%;
+        }
+        .designation {
+          font-weight: 500;
+          font-size: 18px;
+          line-height: 20px;
+          color: #545353;
+          text-align: center;
+        }
+
+        .title {
+          font-style: normal;
+          font-weight: 600;
+          font-size: 24px;
+          line-height: 36px;
+        }
+        .address {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          font-style: normal;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 20px;
+          color: #9ca3af;
+
+          span {
+            display: flex;
+            flex-direction: row;
+            margin-right: 4px;
+
+            span.anticon svg {
+              color: inherit;
+            }
+          }
+        }
+
+        .rate-detail {
+          min-width: fit-content;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: flex-start;
+          padding: 10px;
+          border-radius: 10px;
+          background-color: rgba($backgroundColor, 0.1);
+
+          p {
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 18px;
+            color: $backgroundColor;
+            margin-bottom: 0px;
+            span {
+              font-weight: 600;
+              font-size: 18px;
+              line-height: 26px;
+            }
+          }
+        }
+      }
+    }
+
+    .payment-protection-section {
+      // height: 245.62899780273438px;
+      width: 482px;
+      border-radius: 16px;
+      background-color: $backgroundColor;
+      text-align: center;
+      padding: 30px 40px;
+      margin-top: 1.5rem;
+      color: #fff;
+      h4 {
+        color: #fff;
+        margin-top: 20px;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 42px;
+        letter-spacing: 0px;
+      }
+      p {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        letter-spacing: 0px;
+        margin: 0;
+      }
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .hire-consultant-page {
+    margin: 1rem 0;
+    .container {
+      flex-direction: column-reverse;
+      > div {
+        width: 100%;
+      }
+
+      .right-section {
+        width: 100%;
+        margin-top: 0;
+
+        .card {
+          padding: 1rem;
+        }
+
+        .self-description-section {
+          .logo {
+            width: 80px;
+            height: 80px;
+            border-width: 3px;
+            padding: 5px;
+            > span {
+              border-radius: inherit;
+            }
+          }
+          .title {
+            font-size: 16px;
+            line-height: 20px;
+            margin-bottom: 0;
+            letter-spacing: 0;
+          }
+          .address {
+            font-size: 12px;
+            line-height: 16px;
+            span {
+              margin-right: 2px;
+            }
+          }
+          .designation {
+            text-align: center;
+            font-size: 14px;
+          }
+          .rate-detail {
+            width: 100%;
+            gap: 10px;
+            p {
+              font-size: 14px;
+              line-height: 20px;
+
+              span {
+                font-size: 24px;
+              }
+            }
+          }
+        }
+      }
+
+      .payment-protection-section {
+        width: auto;
+        height: auto;
+        margin-top: 2rem;
+      }
+
+      .heading-flex {
+        margin-top: 2rem;
+        margin-left: 0;
+        img {
+          width: 60px;
+          height: 40px;
+        }
+        h4 {
+          font-size: 22px;
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+      }
+
+      .hire-flex {
+        img {
+          width: auto;
+          margin-right: 10px;
+        }
+      }
+      .hire-calculation {
+        margin-top: 1rem;
+        margin-left: 0;
+      }
+    }
+  }
+}

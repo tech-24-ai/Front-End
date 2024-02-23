@@ -1,0 +1,1333 @@
+.profile-user {
+  display: flex;
+  flex-direction: row;
+  // justify-content: space-evenly;
+  justify-content: center;
+  min-height: 80em;
+  gap: 1.2em;
+
+  .card-tab {
+    min-height: 800px;
+    max-height: 840px;
+    width: 480px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 16px;
+    top: 60px;
+    position: relative;
+    border: 1px solid #f5f5f5;
+
+    span.anticon {
+      svg {
+        // color: $backgroundColor;
+        color: $grey;
+      }
+    }
+
+    .mask {
+      min-height: 128px;
+      width: 95%;
+      border-radius: 10px;
+      background: $backgroundColor;
+      margin: 0px auto;
+      mix-blend-mode: normal;
+      opacity: 0.1;
+      transform: matrix(-1, 0, 0, 1, 0, 0);
+    }
+    .profile-alt {
+      text-align: center;
+      position: relative;
+      top: -40px;
+      img {
+        padding: 4px;
+        border: 2px solid $backgroundColor;
+        border-radius: 100%;
+        border-width: thick;
+      }
+      h4 {
+        margin-top: 10px;
+        font-family: "Poppins";
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 27px;
+        letter-spacing: 0px;
+        text-align: center;
+      }
+      h6 {
+        font-family: "Poppins";
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 18px;
+        letter-spacing: 0px;
+        text-align: center;
+        bottom: 6px;
+        position: relative;
+        color: $grey;
+      }
+    }
+
+    .ctrl {
+      height: 64px;
+      width: 95%;
+      margin: auto;
+      border-radius: 12px;
+      background-color: $white;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+
+      img {
+        margin-left: 24px;
+      }
+
+      .ctrl-title {
+        font-family: "Poppins";
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0px;
+        color: $textBlack;
+        text-align: left;
+        margin-top: 4px;
+      }
+      .ctrl-detail {
+        font-family: "Poppins";
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 18px;
+        letter-spacing: 0px;
+        color: $grey;
+        text-align: left;
+      }
+    }
+    .ctrl.selected {
+      height: 64px;
+      width: 95%;
+      margin: auto;
+      border-radius: 12px;
+      background-color: rgba($backgroundColor, 0.1);
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+
+      span.anticon {
+        svg {
+          color: $backgroundColor;
+        }
+      }
+      img {
+        margin-left: 24px;
+      }
+
+      .ctrl-title {
+        font-family: "Poppins";
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0px;
+        color: $backgroundColor;
+        text-align: left;
+        margin-top: 4px;
+      }
+      .ctrl-detail {
+        font-family: "Poppins";
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 18px;
+        letter-spacing: 0px;
+        color: $backgroundColor;
+        text-align: left;
+      }
+    }
+  }
+  .profile-content{
+      min-width: 670px; 
+      max-width: 670px; 
+  }
+.user-profile{
+  .card-content {
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    top: 60px;
+    position: relative;
+    border: 1px solid #f5f5f5;
+    height: 310px;
+    width: 670px;
+
+    .content-title {
+      font-family: "Poppins";
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 32px;
+      letter-spacing: 0px;
+      text-align: left;
+      margin-top: 24px;
+      margin-left: 24px;
+    }
+    .form-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: max-content;
+      width: 100%;
+
+      .content-lable {
+        margin-left: 24px;
+        margin-top: 24px;
+        font-family: "Poppins";
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 24px;
+        letter-spacing: 0px;
+        text-align: left;
+      }
+      .content-input {
+        top: 8px;
+        height: 58px;
+        width: 92%;
+        top: 8px;
+        position: relative;
+        margin: 0px auto;
+        border-radius: 10px;
+      }
+      .input-text {
+        font-family: "Poppins";
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 18px;
+        letter-spacing: 0px;
+        text-align: left;
+      }
+    }
+  }
+}
+
+  .account-content-btn {
+    margin: 0%;
+    position: relative;
+    top: 120px;
+    margin: 36px auto;
+    .back-btn {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.45px;
+      text-align: center;
+      line-height: 20px;
+      padding: 0;
+      height: 56px;
+      width: 165px;
+      border-radius: 16px;
+      display: inline-block;
+      vertical-align: middle;
+      font-family: "Poppins";
+      background-color: $gray;
+      border-width: 0px;
+
+      &:hover {
+        border: 1px solid $gray;
+        color: $textBlack;
+      }
+
+      & + {
+        button {
+          margin-left: 20px;
+        }
+      }
+    }
+    .nxt-btn {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.45px;
+      text-align: center;
+      line-height: 20px;
+      padding: 0;
+      height: 56px;
+      width: 165px;
+      border-radius: 16px;
+      display: inline-block;
+      vertical-align: middle;
+      font-family: "Poppins";
+      background-color: $backgroundColor;
+      color: $textColor;
+      border-width: 0px;
+      &:hover {
+        border: 1px solid $gray;
+        color: $textColor;
+      }
+    }
+  }
+
+  //login
+  .login-card {
+    height: 750px;
+
+    .card-login-content {
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      top: 100px;
+      position: relative;
+      border: 1px solid #f5f5f5;
+      height: 453px;
+      width: 680px;
+      .content-lable {
+        margin-left: 24px;
+        margin-top: 24px;
+        font-family: "Poppins";
+        text-align: left;
+        width: 420px;
+        span {
+          font-size: 22px;
+          font-weight: 600;
+          line-height: 32px;
+          letter-spacing: 0px;
+        }
+        p {
+          font-family: "Poppins";
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 21px;
+          letter-spacing: 0px;
+          color: $grey;
+        }
+      }
+
+      .content-title {
+        font-family: "Poppins";
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 32px;
+        letter-spacing: 0px;
+        text-align: left;
+        margin-top: 24px;
+        margin-left: 24px;
+      }
+
+      .form-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: max-content;
+        width: 100%;
+        margin-top: -14px;
+
+        .content-lable {
+          margin-left: 24px;
+          margin-top: 24px;
+          font-family: "Poppins";
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 24px;
+          letter-spacing: 0px;
+          text-align: left;
+        }
+        .content-input {
+          top: 6px;
+          height: 58px;
+          width: 93%;
+          top: 8px;
+          position: relative;
+          margin: 0px auto;
+          border-radius: 10px;
+        }
+      }
+    }
+
+    .content-btn {
+      margin: 36px auto;
+      position: relative;
+      top: 12%;
+      .back-btn {
+        font-family: "Poppins";
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 21px;
+        letter-spacing: 0px;
+        text-align: center;
+        padding: 0;
+        height: 56px;
+        width: 165px;
+        border-radius: 16px;
+        display: inline-block;
+        vertical-align: middle;
+        font-family: "Poppins";
+        background-color: $gray;
+        border-width: 0px;
+
+        &:hover {
+          border: 1px solid $gray;
+          color: $textBlack;
+        }
+
+        & + {
+          button {
+            margin-left: 20px;
+          }
+        }
+      }
+      .nxt-btn {
+        padding: 0;
+        height: 56px;
+        width: 165px;
+        font-family: "Poppins";
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 21px;
+        letter-spacing: 0px;
+        text-align: center;
+        border-radius: 16px;
+        display: inline-block;
+        vertical-align: middle;
+        font-family: "Poppins";
+        background-color: $backgroundColor;
+        color: $textColor;
+        border-width: 0px;
+        &:hover {
+          border: 1px solid $gray;
+          color: $textColor;
+        }
+      }
+    }
+  }
+
+  //professional details
+  .professional-card {
+    // height: 750px;
+    height: max-content;
+    .card-professional-content {
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      top: 100px;
+      position: relative;
+      border: 1px solid #f5f5f5;
+      height: 411px;
+      border-radius: 16px;
+      width: 680px;
+      .content-lable {
+        margin-left: 24px;
+        margin-top: 24px;
+        font-family: "Poppins";
+        text-align: left;
+        width: 420px;
+        span {
+          font-size: 22px;
+          font-weight: 600;
+          line-height: 32px;
+          letter-spacing: 0px;
+        }
+        p {
+          font-family: "Poppins";
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 21px;
+          letter-spacing: 0px;
+          color: $grey;
+        }
+      }
+
+      .content-title {
+        font-family: "Poppins";
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 32px;
+        letter-spacing: 0px;
+        text-align: left;
+        margin-top: 24px;
+        margin-left: 24px;
+      }
+
+      .form-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: max-content;
+        width: 100%;
+        margin-top: -4px;
+
+        .content-lable {
+          margin-left: 24px;
+          margin-top: 24px;
+          font-family: "Poppins";
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 24px;
+          letter-spacing: 0px;
+          text-align: left;
+        }
+        .content-input-about {
+          height: 142px;
+          width: 93%;
+          border-radius: 10px;
+          margin: 10px auto;
+          padding: 10px;
+        }
+        .content-input-about::placeholder {
+          line-height: 1.2;
+        }
+        .content-input {
+          top: 6px;
+          height: 58px;
+          width: 93%;
+          top: 8px;
+          position: relative;
+          margin: 0px auto;
+          border-radius: 10px;
+        }
+      }
+    }
+    .card-professional-location {
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      // top: 200px;
+      // position: relative;
+      margin-top: 136px;
+      border: 1px solid #f5f5f5;
+      height: 138px;
+      width: 680px;
+      border-radius: 16px;
+      width: 680px;
+      .content-lable {
+        margin-left: 24px;
+        font-family: "Poppins";
+        text-align: left;
+        width: 420px;
+        span {
+          font-size: 22px;
+          font-weight: 600;
+          line-height: 32px;
+          letter-spacing: 0px;
+        }
+        p {
+          font-family: "Poppins";
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 21px;
+          letter-spacing: 0px;
+          color: $grey;
+        }
+      }
+
+      .form-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: max-content;
+        width: 100%;
+        margin-top: -4px;
+
+        .content-lable {
+          margin-left: 24px;
+          margin-top: 24px;
+          font-family: "Poppins";
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 24px;
+          letter-spacing: 0px;
+          text-align: left;
+        }
+
+        .content-input {
+          top: 6px;
+          height: 58px;
+          width: 93%;
+          top: 8px;
+          position: relative;
+          margin: 0px auto;
+          border-radius: 10px;
+        }
+      }
+    }
+    .card-professional-rate {
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      // top: 236px;
+      // position: relative;
+      margin-top: 36px;
+      border: 1px solid #f5f5f5;
+      width: 680px;
+      border-radius: 16px;
+      height: 301px;
+      border-radius: 16px;
+
+      .content-lable {
+        margin-left: 24px;
+        margin-top: 24px;
+        font-family: "Poppins";
+        text-align: left;
+        width: 420px;
+        span {
+          font-size: 22px;
+          font-weight: 600;
+          line-height: 32px;
+          letter-spacing: 0px;
+        }
+        p {
+          font-family: "Poppins";
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 21px;
+          letter-spacing: 0px;
+          color: $grey;
+        }
+      }
+
+      .form-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: max-content;
+        width: 100%;
+        margin-top: -4px;
+
+        .content-lable {
+          margin-left: 24px;
+          margin-top: 24px;
+          font-family: "Poppins";
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 24px;
+          letter-spacing: 0px;
+          text-align: left;
+        }
+
+        .content-input {
+          top: 6px;
+          height: 58px;
+          width: 93%;
+          top: 8px;
+          position: relative;
+          margin: 0px auto;
+          border-radius: 10px;
+        }
+        .content-input-division {
+          height: 58px;
+          top: 8px;
+          position: relative;
+          border-radius: 10px;
+          height: 58px;
+          width: 304px;
+          border-radius: 10px;
+        }
+      }
+    }
+    .card-professional-expertise {
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      margin-top: 36px;
+      // top: 272px;
+      // position: relative;
+      border: 1px solid #f5f5f5;
+      height: 189px;
+      width: 680px;
+      border-radius: 16px;
+      width: 680px;
+
+      .form-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: max-content;
+        width: 100%;
+        margin-top: -4px;
+
+        .selection-container {
+          border-radius: 17.5px;
+          background-color: rgba($backgroundColor, 0.1);
+          height: 35px;
+          width: max-content;
+          text-align: center;
+          padding: 0px 18px;
+          margin-left: 24px;
+          line-height: 35px;
+          // justify-content:space-between;
+        }
+        .content-lable {
+          margin-left: 24px;
+          margin-top: 24px;
+          font-family: "Poppins";
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 24px;
+          letter-spacing: 0px;
+          text-align: left;
+        }
+
+        .content-input {
+          top: 6px;
+          height: 58px;
+          width: 93%;
+          top: 8px;
+          position: relative;
+          margin: 0px auto;
+          border-radius: 10px;
+        }
+      }
+    }
+    .card-professional-industries {
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      margin-top: 36px;
+      // top: 308px;
+      // position: relative;
+      border: 1px solid #f5f5f5;
+      height: 189px;
+      width: 680px;
+      border-radius: 16px;
+      width: 680px;
+
+      .form-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: max-content;
+        width: 100%;
+        margin-top: -4px;
+
+        .selection-container {
+          border-radius: 17.5px;
+          background-color: rgba($backgroundColor, 0.1);
+          height: 35px;
+          width: max-content;
+          text-align: center;
+          padding: 0px 18px;
+          margin-left: 24px;
+          line-height: 35px;
+          // justify-content:space-between;
+        }
+        .content-lable {
+          margin-left: 24px;
+          margin-top: 24px;
+          font-family: "Poppins";
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 24px;
+          letter-spacing: 0px;
+          text-align: left;
+        }
+
+        .content-input {
+          top: 6px;
+          height: 58px;
+          width: 93%;
+          top: 8px;
+          position: relative;
+          margin: 0px auto;
+          border-radius: 10px;
+        }
+      }
+    }
+    .card-professional-languages {
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      margin-top: 36px;
+      // top: 344px;
+      // position: relative;
+      border: 1px solid #f5f5f5;
+      height: 189px;
+      width: 680px;
+      border-radius: 16px;
+      width: 680px;
+
+      .form-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: max-content;
+        width: 100%;
+        margin-top: -4px;
+
+        .selection-container {
+          border-radius: 17.5px;
+          background-color: rgba($backgroundColor, 0.1);
+          height: 35px;
+          width: max-content;
+          text-align: center;
+          padding: 0px 18px;
+          margin-left: 24px;
+          line-height: 35px;
+          // justify-content:space-between;
+        }
+        .content-lable {
+          margin-left: 24px;
+          margin-top: 24px;
+          font-family: "Poppins";
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 24px;
+          letter-spacing: 0px;
+          text-align: left;
+        }
+
+        .content-input {
+          top: 6px;
+          height: 58px;
+          width: 93%;
+          top: 8px;
+          position: relative;
+          margin: 0px auto;
+          border-radius: 10px;
+        }
+      }
+    }
+    .card-work-details {
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      margin-top: 36px;
+      // top: 380px;
+      // position: relative;
+      border: 1px solid #f5f5f5;
+      width: 680px;
+      height: 552px;
+      border-radius: 16px;
+
+      .form-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: max-content;
+        width: 100%;
+        margin-top: 24px;
+        .add-more-btn {
+          height: 56px;
+          width: 159px;
+          background-color: $black;
+          border-radius: 16px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-evenly;
+          margin-right: 40px;
+          button {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            background-color: $black;
+            border: none;
+            color: $textColor;
+          }
+        }
+        .selection-container {
+          border-radius: 17.5px;
+          background-color: rgba($backgroundColor, 0.1);
+          height: 35px;
+          width: max-content;
+          text-align: center;
+          padding: 0px 18px;
+          margin-left: 24px;
+          line-height: 35px;
+          // justify-content:space-between;
+        }
+        .content-lable {
+          margin-left: 24px;
+          margin-top: 24px;
+          font-family: "Poppins";
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 24px;
+          letter-spacing: 0px;
+          text-align: left;
+        }
+
+        .content-input {
+          top: 6px;
+          height: 58px;
+          width: 93%;
+          top: 8px;
+          position: relative;
+          margin: 0px auto;
+          border-radius: 10px;
+        }
+      }
+      .work-details-block {
+        height: 212px;
+        width: 632px;
+        border-radius: 10px;
+        border: 1px solid #f5f5f5;
+        border-radius: 16px;
+        position: relative;
+        top: 24px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+
+        .award-text {
+          font-family: "Poppins";
+          font-size: 20px;
+          font-weight: 600;
+          line-height: 16px;
+          letter-spacing: 0px;
+          text-align: left;
+        }
+        .education-text {
+          font-family: "Poppins";
+          font-size: 20px;
+          font-weight: 600;
+          line-height: 0px;
+          letter-spacing: 0px;
+          text-align: left;
+          margin-top: 14px;
+        }
+        .award-text1 {
+          font-family: "Poppins";
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 10px;
+          letter-spacing: 0px;
+          text-align: left;
+          color: $lightBlack;
+        }
+        .award-text2 {
+          font-family: "Poppins";
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 0px;
+          letter-spacing: 0px;
+          text-align: left;
+          color: $grey;
+        }
+        .details-text {
+          font-family: "Poppins";
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 20px;
+          letter-spacing: 0px;
+          text-align: left;
+          width: 608px;
+          margin: auto;
+        }
+        .content-block {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          width: 85%;
+        }
+        .edit-block {
+          button {
+            border: none;
+            background-color: $white;
+          }
+          &:hover {
+            background-color: $white !important;
+          }
+        }
+      }
+    }
+    .card-professional-education {
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      margin-top: 36px;
+      // top: 416px;
+      // position: relative;
+      border: 1px solid #f5f5f5;
+      width: 680px;
+      border-radius: 16px;
+      height: 324px;
+
+      .form-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: max-content;
+        width: 100%;
+        margin-top: 24px;
+        .add-more-btn {
+          height: 56px;
+          width: 159px;
+          background-color: $black;
+          border-radius: 16px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-evenly;
+          margin-right: 40px;
+          button {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            background-color: $black;
+            border: none;
+            color: $textColor;
+          }
+        }
+        .selection-container {
+          border-radius: 17.5px;
+          background-color: rgba($backgroundColor, 0.1);
+          height: 35px;
+          width: max-content;
+          text-align: center;
+          padding: 0px 18px;
+          margin-left: 24px;
+          line-height: 35px;
+          // justify-content:space-between;
+        }
+        .content-lable {
+          margin-left: 24px;
+          margin-top: 24px;
+          font-family: "Poppins";
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 24px;
+          letter-spacing: 0px;
+          text-align: left;
+        }
+
+        .content-input {
+          top: 6px;
+          height: 58px;
+          width: 93%;
+          top: 8px;
+          position: relative;
+          margin: 0px auto;
+          border-radius: 10px;
+        }
+      }
+      .education-block {
+        height: 86px;
+        width: 632px;
+        border-radius: 10px;
+        border: 1px solid #f5f5f5;
+        border-radius: 16px;
+        position: relative;
+        top: 24px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+
+        .award-text {
+          font-family: "Poppins";
+          font-size: 20px;
+          font-weight: 600;
+          line-height: 16px;
+          letter-spacing: 0px;
+          text-align: left;
+        }
+        .education-text {
+          font-family: "Poppins";
+          font-size: 20px;
+          font-weight: 600;
+          line-height: 0px;
+          letter-spacing: 0px;
+          text-align: left;
+          margin-top: 14px;
+        }
+        .award-text1 {
+          font-family: "Poppins";
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 10px;
+          letter-spacing: 0px;
+          text-align: left;
+          color: $lightBlack;
+        }
+        .award-text2 {
+          font-family: "Poppins";
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 0px;
+          letter-spacing: 0px;
+          text-align: left;
+          color: $grey;
+        }
+        .content-block {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          width: 85%;
+        }
+        .edit-block {
+          button {
+            border: none;
+            background-color: $white;
+          }
+          &:hover {
+            background-color: $white !important;
+          }
+        }
+      }
+    }
+    .card-professional-awards {
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      margin-top: 36px;
+      // top: 452px;
+      // position: relative;
+      border: 1px solid #f5f5f5;
+      width: 680px;
+      border-radius: 16px;
+      height: 324px;
+
+      .form-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: max-content;
+        width: 100%;
+        margin-top: 24px;
+        .add-more-btn {
+          height: 56px;
+          width: 159px;
+          background-color: $black;
+          border-radius: 16px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-evenly;
+          margin-right: 40px;
+          button {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            background-color: $black;
+            border: none;
+            color: $textColor;
+          }
+        }
+        .selection-container {
+          border-radius: 17.5px;
+          background-color: rgba($backgroundColor, 0.1);
+          height: 35px;
+          width: max-content;
+          text-align: center;
+          padding: 0px 18px;
+          margin-left: 24px;
+          line-height: 35px;
+          // justify-content:space-between;
+        }
+        .content-lable {
+          margin-left: 24px;
+          margin-top: 24px;
+          font-family: "Poppins";
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 24px;
+          letter-spacing: 0px;
+          text-align: left;
+        }
+
+        .content-input {
+          top: 6px;
+          height: 58px;
+          width: 93%;
+          top: 8px;
+          position: relative;
+          margin: 0px auto;
+          border-radius: 10px;
+        }
+      }
+      .award-block {
+        height: 86px;
+        width: 632px;
+        border-radius: 10px;
+        border: 1px solid #f5f5f5;
+        border-radius: 16px;
+        position: relative;
+        top: 24px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+
+        .award-text {
+          font-family: "Poppins";
+          font-size: 20px;
+          font-weight: 600;
+          line-height: 24px;
+          letter-spacing: 0px;
+          text-align: left;
+        }
+        .award-text2 {
+          font-family: "Poppins";
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 0px;
+          letter-spacing: 0px;
+          text-align: left;
+        }
+        .content-block {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          width: 85%;
+        }
+        .edit-block {
+          button {
+            border: none;
+            background-color: $white;
+          }
+          &:hover {
+            background-color: $white !important;
+          }
+        }
+      }
+    }
+    .content-btn {
+      // margin: 0%;
+      position: relative;
+      top: 20px;
+      // margin-top: 36px;
+      .back-btn {
+        font-family: "Poppins";
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 21px;
+        letter-spacing: 0px;
+        text-align: center;
+        padding: 0;
+        height: 56px;
+        width: 165px;
+        border-radius: 16px;
+        display: inline-block;
+        vertical-align: middle;
+        font-family: "Poppins";
+        background-color: $gray;
+        border-width: 0px;
+
+        &:hover {
+          border: 1px solid $gray;
+          color: $textBlack;
+        }
+
+        & + {
+          button {
+            margin-left: 20px;
+          }
+        }
+      }
+      .nxt-btn {
+        padding: 0;
+        height: 56px;
+        width: 165px;
+        font-family: "Poppins";
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 21px;
+        letter-spacing: 0px;
+        text-align: center;
+        border-radius: 16px;
+        display: inline-block;
+        vertical-align: middle;
+        font-family: "Poppins";
+        background-color: $backgroundColor;
+        color: $textColor;
+        border-width: 0px;
+        &:hover {
+          border: 1px solid $gray;
+          color: $textColor;
+        }
+      }
+    }
+    .professional-btn {
+      margin: 36px auto;
+      // position: relative;
+      // top: 0px;
+      .back-btn {
+        font-family: "Poppins";
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 21px;
+        letter-spacing: 0px;
+        text-align: center;
+        padding: 0;
+        height: 56px;
+        width: 165px;
+        border-radius: 16px;
+        display: inline-block;
+        vertical-align: middle;
+        font-family: "Poppins";
+        background-color: $gray;
+        border-width: 0px;
+
+        &:hover {
+          border: 1px solid $gray;
+          color: $textBlack;
+        }
+
+        & + {
+          button {
+            margin-left: 20px;
+          }
+        }
+      }
+      .nxt-btn {
+        padding: 0;
+        height: 56px;
+        width: 165px;
+        font-family: "Poppins";
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 21px;
+        letter-spacing: 0px;
+        text-align: center;
+        border-radius: 16px;
+        display: inline-block;
+        vertical-align: middle;
+        font-family: "Poppins";
+        background-color: $backgroundColor;
+        color: $textColor;
+        border-width: 0px;
+        &:hover {
+          border: 1px solid $gray;
+          color: $textColor;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .profile-user {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 1.2em;
+
+    .profile-content{
+      margin-top: 20px;
+      min-width: 100%; 
+      max-width: 100%; 
+  }
+  }
+  .card-tab {
+    width: 100% !important;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 16px;
+    top: 30px;
+    position: relative;
+    border: 1px solid #f5f5f5;
+  }
+    
+  .user-profile{
+    display: flex;
+    flex-direction: column;
+    min-height: 28em;
+
+    .card-content{
+       border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      top: 30px;
+      position: relative;
+      border: 1px solid #f5f5f5;
+      width: 100% !important;
+    }
+  }
+}

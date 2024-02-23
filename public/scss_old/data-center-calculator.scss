@@ -1,0 +1,268 @@
+.DataCenterCalculatorContainer {
+  // padding: 0px 50px;
+  .resultHeading {
+    font-size: 18px;
+    padding: 20px 0;
+    font-weight: 500;
+  }
+  .lastChind:last-child{
+    font-weight: bold;
+  }
+  .heading {
+    text-transform: capitalize;
+    text-align: start;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.6px;
+    color: #272727;
+  }
+  .heading h4 {
+    font-size: 16px;
+  }
+  table thead th {
+    font-size: 15px;
+    font-weight: 500;
+  }
+  table tbody th {
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .flexTitle {
+    text-transform: capitalize;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.45px;
+    color: #272727;
+    margin: 15px 0 5px;
+  }
+  .flexInput {
+    border: 0.5px solid #000;
+    font-weight: 600;
+    font-size: 15px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 4px;
+    width: 110px;
+    text-align: left;
+    padding-left: 5px;
+    background-color: #fff;
+  }
+  .colocationConatiner {
+    display: flex;
+    justify-content: space-between;
+    // align-items: center;
+    width: 400px;
+  }
+  .questionsContainer {
+    width: 850px;
+    margin: 30px 0px;
+  }
+  .greyedOut {
+    background-color: lightgrey;
+    border: 0.5px solid #000;
+    font-weight: 600;
+    font-size: 12px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 4px;
+    width: 400px;
+    text-align: left;
+    padding: 0px 5px;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  .greyedOutInActive {
+    background-color: #fff;
+    border: 0.5px solid #000;
+    font-weight: 600;
+    font-size: 12px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 4px;
+    width: 400px;
+    text-align: left;
+    padding: 0px 5px;
+  }
+  .countryContainer {
+    width: 850px;
+    display: flex;
+    align-items: center;
+  }
+  .inputDiv {
+    display: flex;
+    margin: 25px 0px;
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+  // .checkBoxConatiner {
+  //   display: flex;
+  //   align-items: flex-end;
+  // }
+  .checkBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-top: -30px;
+  }
+  .ant-divider-horizontal {
+    margin: 10px 0 20px;
+  }
+  table tr {
+    :first-child {
+      padding-left: 5px;
+    }
+    :last-child {
+      padding-right: 0;
+    }
+  }
+  table tbody tr,
+  table thead tr {
+    :not(:first-child) {
+      text-align: center;
+    }
+    td,
+    th {
+      border: 1px solid #000;
+      vertical-align: middle;
+    }
+  }
+
+  .table-responsive {
+    margin-bottom: 1rem;
+    table {
+      margin-bottom: 0;
+    }
+  }
+
+  .ant-divider-dashed {
+    border-color: rgba(0, 0, 0, 0.3);
+  }
+  .react-select-container {
+    .react-select__control {
+      border: 1px solid #000;
+      .react-select__indicator-separator {
+        display: none;
+      }
+    }
+  }
+  ::-webkit-scrollbar {
+    width: 5px;
+    background-color: transparent;
+    border-radius: 20px;
+    height: 5px;
+  }
+  // new code for checkBox
+  .checkBoxContainer {
+    display: flex;
+    justify-content: center;
+  }
+  .inputBoxContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .placeholder {
+    text-transform: capitalize;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.45px;
+    color: #272727;
+    margin-bottom: 0px;
+    margin-top: 10px;
+  }
+}
+
+@media (min-width: 576px) {
+  .DataCenterCalculatorContainer {
+    .react-select-container {
+      .react-select__control {
+        width: 400px;
+      }
+    }
+  }
+}
+@media (max-width: 480px) {
+  .DataCenterCalculatorContainer {
+    // padding: 0px 20px;
+    .colocationConatiner {
+      width: unset !important;
+      flex-direction: column;
+    }
+    select {
+      width: 100% !important;
+    }
+    .questionsContainer {
+      margin: unset;
+      width: 100%;
+    }
+    // .checkBoxConatiner {
+    //   flex-direction: column;
+    //   align-items: flex-start;
+    // }
+    .greyedOut {
+      width: 100%;
+    }
+    .checkBox {
+      // display: unset;
+      // margin: unset;
+      width: 100%;
+      // flex-direction: column-reverse;
+      margin-top: -10px;
+    }
+    label,
+    input {
+      margin-left: unset !important;
+    }
+    .greyedOutInActive {
+      width: 100%;
+      margin: 5px 0px;
+    }
+    .greyedOut {
+      margin: 5px 0px;
+    }
+    .inputDiv {
+      flex-direction: column;
+      margin: 0px;
+    }
+    .flexTitle {
+      margin: 10px 0px;
+      margin-top: 20px;
+    }
+    .countryContainer {
+      width: 100%;
+      flex-direction: column;
+      align-items: unset;
+    }
+    .countryContainer div {
+      margin: unset !important;
+    }
+    table tr {
+      padding: 0px !important;
+    }
+    // new code for checkBox
+    .checkBoxContainer {
+      display: unset !important;
+    }
+    .inputBoxContainer {
+      display: unset !important;
+    }
+    .questionsContainer div {
+      margin: 0px !important;
+    }
+    .checkBoxContainer label {
+      margin: 0px !important;
+      margin-bottom: 10px !important;
+      padding: 0px !important;
+    }
+
+    .questionsContainer .ant-slider {
+      margin: 10px 0 40px !important;
+    }
+  }
+}

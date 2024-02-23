@@ -1,0 +1,69 @@
+@import "swiper/css/bundle";
+// @import "swiper/css/free-mode";
+
+@import "variable.scss";
+@import "datatable.scss";
+@import "style.scss";
+@import "responsive.scss";
+@import "steps.scss";
+@import "select-box.scss";
+@import "radio-box.scss";
+@import "check-box.scss";
+@import "breadcrumb.scss";
+@import "swiper.scss";
+@import "ant-modal.scss";
+@import "reactToolTop.scss";
+@import "cookies.scss";
+@import "footer.scss";
+@import "header.scss";
+@import "categories.scss";
+@import "button.scss";
+@import "document.scss";
+@import "card.scss";
+@import "pricing.scss";
+@import "market-research.scss";
+@import "consultant.scss";
+@import "about-us.scss";
+@import "blogs.scss";
+@import "login_new.scss";
+@import "legal.scss";
+@import "privacy-policy.scss";
+@import "terms-and-conditions.scss";
+@import "faqs.scss";
+@import "calculator.scss";
+@import "backup-capacity-calculator.scss";
+@import "bandwidth-calculator.scss";
+@import "file-transfer-time-calculator.scss";
+@import "video-storage-calculator.scss";
+@import "server-rack-power-consumption-calculator.scss";
+@import "downtime-calculator.scss";
+@import "splunk-storage-sizing.scss";
+@import "data-center-calculator.scss";
+@import "cloud-build-vs-buy-calculator.scss";
+@import "connect.scss";
+@import "connect-radio-box.scss";
+@import "pricing-pg.scss";
+@import "blog-detail.scss";
+@import "profile.scss";
+@import "hire-consultant.scss";
+@import "vulnerability.scss";
+@import "message.scss";
+@import "profile_component.scss";
+@import "donations.scss";
+
+.pragraph-wrapper {
+  p {
+    margin-top: 3rem;
+  }
+}
+
+.ant-drawer-content {
+  height: 100% !important;
+  overflow-y: scroll !important;
+  background-color: $danger;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+}

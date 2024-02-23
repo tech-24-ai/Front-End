@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34">
+    <defs>
+        <style>
+            .prefix__cls-2{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.5px}
+        </style>
+    </defs>
+    <g id="prefix__Group_416" data-name="Group 416" transform="translate(-2266 -6657)">
+        <g id="prefix__Group_390" data-name="Group 390" transform="translate(2461 6147)">
+            <g id="prefix__Rectangle_15" data-name="Rectangle 15" transform="translate(-195 510)" style="fill:#191970;stroke:#191970">
+                <rect width="34" height="34" rx="5" style="stroke:none"/>
+                <rect width="33" height="33" x=".5" y=".5" rx="4.5" style="fill:none"/>
+            </g>
+            <g id="prefix__Group_415" data-name="Group 415" transform="translate(-189 552)">
+                <path id="prefix__Path_334" d="M20.011-16.781a.792.792 0 0 1-.792.792H1.792A.792.792 0 0 1 1-16.781v-17.427A.792.792 0 0 1 1.792-35h17.427a.792.792 0 0 1 .792.792z" class="prefix__cls-2" data-name="Path 334"/>
+                <path id="prefix__Path_335" d="M20.181-30.6l-9.505 4.985L1.5-30.4" class="prefix__cls-2" data-name="Path 335" transform="translate(-.22 -1.94)"/>
+            </g>
+        </g>
+    </g>
+</svg>

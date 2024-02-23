@@ -1,0 +1,234 @@
+.pricing-advisor-section {
+  .pricing-advisor-content {
+    // padding: 3rem 0;
+    > .card {
+      width: 100%;
+      min-height: 13rem;
+      display: flex;
+      flex-direction: column;
+      padding: 0 0 1.5rem 0px;
+      // chatbot card
+      .card {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+        padding: 1.5rem 2rem;
+        .title {
+          margin: 0;
+        }
+
+        .dots {
+          color: #6c7275;
+          font-size: 16px;
+          font-weight: 800;
+          line-height: 16px;
+        }
+      }
+      .chat-container {
+        display: flex;
+        flex-direction: column;
+        padding: 1.5rem;
+        .chat-body {
+          margin-top: 1rem;
+          .ant-card {
+            max-width: 80%;
+          }
+        }
+      }
+
+      .ask-question {
+        // margin: 5rem 0 0.5rem;
+        padding: 1.5rem;
+        .col-md-8 {
+          margin: 0px auto;
+        }
+        h5 {
+          text-align: center;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 24px;
+          line-height: 40px;
+          letter-spacing: -0.02em;
+          color: #000;
+        }
+
+        input.ant-input,
+        .ant-input-affix-wrapper {
+          border-radius: 8px;
+        }
+        .ant-input-affix-wrapper {
+          .ant-input-suffix {
+            rotate: -45deg;
+          }
+        }
+      }
+    }
+  }
+
+  // css for trouble-subject page
+  .trouble-section {
+    margin: 20px 0px;
+    .chat-container {
+      display: -webkit-inline-flex !important;
+      flex-wrap: wrap !important;
+      // display: flex;
+      flex-direction: unset !important;
+      padding: 1.5rem;
+      .chat-body {
+        margin-top: 1rem;
+        margin: 0px 10px;
+        .ant-card {
+          max-width: fit-content !important;
+          text-align: center;
+          margin-bottom: unset;
+        }
+        .radio-button {
+          height: auto;
+          z-index: auto;
+          border: none;
+          background: none;
+          max-width: fit-content;
+          text-align: center;
+        }
+      }
+    }
+    .title {
+      margin-left: 30px;
+    }
+  }
+
+  // css for troubleshoot page
+  .troubleshoot {
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+      overflow-y: scroll;
+      max-height: 550px;
+      scroll-behavior: smooth;
+      .chat-body {
+        margin-top: 0px;
+        .ant-card {
+          max-width: 80%;
+          margin-bottom: 1rem;
+        }
+      }
+    }
+    .chat-button-container {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      .input {
+        margin-left: 25px;
+        padding: 14px;
+        border-radius: 10px;
+      }
+      .animation {
+        width: 100px;
+        margin-right: 25px;
+        margin-left: 50px;
+      }
+      .send-button {
+        background-color: #000;
+        padding: 14px 30px;
+        width: 100px;
+        text-align: center;
+        border-radius: 10px;
+        color: #fff;
+        cursor: pointer;
+        margin-right: 25px;
+        margin-left: 50px;
+      }
+      .stop-chat-button {
+        margin: 0px;
+        background-color: $backgroundColor;
+        width: 200px;
+        margin-right: 25px;
+      }
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .troubleshoot {
+    .chat-button-container {
+      padding: 16px;
+    }
+  }
+  .pricing-advisor-section {
+    .page-heading {
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .pricing-advisor-content {
+      .card {
+        margin-bottom: 1rem;
+        padding: 0;
+        .ask-question {
+          padding: 1rem;
+          h5 {
+            font-size: 16px;
+            line-height: 24px;
+          }
+          .ant-radio-group {
+            flex-direction: column;
+            margin-bottom: 2rem;
+          }
+          .chat-body {
+            .ant-card {
+              margin-bottom: 0;
+            }
+          }
+
+          > div:nth-of-type(2) {
+            p {
+              margin-left: 10px !important;
+              margin-bottom: 0 !important;
+              padding: 15px !important;
+            }
+          }
+        }
+
+        .chat-container {
+          padding: 0 1rem;
+          .chat-body .ant-card {
+            max-width: 100%;
+          }
+        }
+      }
+    }
+    .trouble-section {
+      .chat-container {
+        padding-bottom: 20px !important;
+        .chat-body {
+          width: 100%;
+          .ant-card {
+            max-width: 100% !important;
+            text-align: start;
+          }
+          .radio-button {
+            text-align: start;
+          }
+        }
+      }
+    }
+
+    .chat-button-container {
+      align-items: flex-end !important;
+      flex-direction: column;
+      .send-button {
+        margin: unset !important;
+        margin: 20px 0px !important;
+      }
+      .stop-chat-button {
+        margin: unset !important;
+        width: auto !important;
+        margin-bottom: 20px !important;
+      }
+    }
+  }
+}

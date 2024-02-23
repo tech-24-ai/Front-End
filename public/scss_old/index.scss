@@ -1,0 +1,58 @@
+// @import url("https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap");
+@import "variable.scss";
+@import "steps.scss";
+@import "select-box.scss";
+@import "radio-box.scss";
+@import "check-box.scss";
+@import "breadcrumb.scss";
+@import "search-box.scss";
+@import "button.scss";
+@import "datatable.scss";
+@import "ant-modal.scss";
+@import "reactToolTop.scss";
+@import "style.scss";
+@import "responsive.scss";
+@import "categories.scss";
+@import "document.scss";
+@import "profile.scss";
+@import "document.scss";
+@import "landing-page.scss";
+@import "cookies.scss";
+@import "about-us.scss";
+@import "calculator.scss";
+@import "backup-capacity-calculator.scss";
+@import "bandwidth-calculator.scss";
+@import "file-transfer-time-calculator.scss";
+@import "blogs.scss";
+@import "video-storage-calculator.scss";
+@import "vulnerability.scss";
+@import "server-rack-power-consumption-calculator.scss";
+@import "downtime-calculator.scss";
+@import "splunk-storage-sizing.scss";
+@import "data-center-calculator.scss";
+@import "old-data-center-calculator.scss";
+@import "cloud-build-vs-buy-calculator.scss";
+@import "consultant-list.scss";
+@import "consultant-card.scss";
+@import "consultant-details.scss";
+@import "booking-details.scss";
+@import "consultant-chats.scss";
+@import "booked-consultant.scss";
+@import "visitor-credit-history.scss";
+
+.pragraph-wrapper {
+  p {
+    margin-top: 3rem;
+  }
+}
+
+.ant-drawer-content {
+  height: 100% !important;
+  overflow-y: scroll !important;
+  background-color: $danger;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+}

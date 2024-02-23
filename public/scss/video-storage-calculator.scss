@@ -1,0 +1,228 @@
+.videoStorageContainer {
+  padding: 3rem 0;
+  .heading {
+    text-transform: capitalize;
+    text-align: start;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.6px;
+    color: #272727;
+    margin: 0;
+  }
+  .inputTitle {
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.24px;
+    color: #272727;
+  }
+  .sliderTitle {
+    text-transform: capitalize;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.45px;
+    color: #272727;
+    margin: 15px 0px;
+  }
+  .videoContainer {
+    width: 535px;
+  }
+  .resolutionDivTwo {
+    margin: -15px 0px 20px 50px;
+  }
+  .compressionDiv label {
+    padding: 12px 28px;
+    border: 1px solid black;
+    display: unset;
+    margin: unset;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+  input[type="radio"] {
+    list-style-type: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+  }
+  .boxText {
+    text-transform: capitalize;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.45px;
+    color: #272727;
+  }
+  .active {
+    text-transform: capitalize;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.45px;
+    color: #272727;
+    background-color: $backgroundColor;
+    border: none !important;
+    color: #fff;
+  }
+  .antInput {
+    font-weight: 600;
+    font-size: 15px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 4px;
+    border: 1px solid $grey;
+    width: 110px;
+    text-align: left;
+    padding-left: 5px;
+
+    &:hover {
+      border: 1px solid $grey;
+    }
+
+    &.ant-input-number-focused {
+      box-shadow: none;
+    }
+  }
+  .result {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    position: absolute;
+    top: 140px;
+    left: 55%;
+  }
+  .resultText {
+    min-height: 50px;
+    margin-top: 10px;
+    border-radius: 4px;
+    line-height: 50px;
+    background: #fff;
+    border: 1px solid $grey;
+    text-align: start;
+    font-size: 25px;
+    font-weight: 600;
+    min-width: 258px;
+  }
+  .resultText span {
+    padding: 10px;
+  }
+  .ant-slider-rail {
+    background-color: #fff !important;
+  }
+  .ant-slider-dot {
+    display: none !important;
+  }
+  .ant-slider-handle {
+    height: 15px;
+    width: 15px;
+    margin-top: -6px;
+    margin-left: 5px;
+    border-color: #000;
+  }
+  .ant-slider-handle:focus {
+    border-color: #000;
+  }
+  .ant-slider-track {
+    background-color: #000;
+  }
+  .ant-radio-wrapper {
+    border: none;
+    padding: 0px 10px !important;
+    margin: 0px;
+    padding: 0px;
+    width: 200px;
+  }
+  .space {
+    display: flex;
+    flex-direction: column;
+  }
+  .ant-slider-mark-text:first-child {
+    margin-left: 13px;
+  }
+  .ant-slider-mark-text:last-child {
+    margin-left: -13px;
+  }
+  .rowWithFlex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 505px;
+  }
+  .compressionDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 535px;
+    height: 50px;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .videoStorageContainer {
+    padding: 0px 20px;
+    .resolutionDivTwo {
+      width: 10%;
+      margin: 10px 0px 0px 70px;
+    }
+    .antInput {
+      height: 35px !important;
+      line-height: 35px !important;
+      width: 90px !important;
+    }
+    .ant-slider {
+      margin: unset !important;
+    }
+    .resolutionDivTwo {
+      margin: 5px 15px 0px 20px !important;
+    }
+    .compressionDiv {
+      width: 100% !important;
+    }
+    .result {
+      position: unset !important;
+      width: 100% !important;
+      font-size: 16px !important;
+      min-height: 50px;
+      flex-direction: column;
+      align-items: flex-start !important;
+    }
+    .result div {
+      padding: unset !important;
+    }
+    .space {
+      flex-direction: row !important;
+    }
+    .ant-radio-wrapper {
+      width: unset !important;
+    }
+    .videoStorageContainer .ant-slider {
+      margin: -10px 0px -10px;
+    }
+    .videoContainer {
+      width: unset !important;
+    }
+    .compressionType {
+      margin-top: 30px;
+    }
+    .resolutionDivTwo {
+      width: unset !important;
+      position: absolute;
+      right: 15px;
+      margin: -6px 15px 0px 0px !important;
+    }
+    .heading {
+      font-size: 18px !important;
+      margin-top: 8px !important;
+    }
+    .resultText {
+      min-width: 100% !important;
+      padding: 10px !important;
+    }
+    .ant-col-4 {
+      max-width: unset !important;
+    }
+    .rowWithFlex {
+      width: unset !important;
+    }
+  }
+}

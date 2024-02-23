@@ -1,0 +1,290 @@
+.market-research-portal-section {
+  .market-research-body-container {
+    // margin: 1rem 0;
+    margin-top: 3.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .title {
+    text-align: center;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 35px;
+    line-height: 125%;
+  }
+
+  .research-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    // margin: 1rem 0;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+
+    .research-card {
+      .custom-icon {
+        position: absolute;
+        bottom: 40px;
+      }
+    }
+  }
+
+  .market-trend-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4rem;
+
+    .title {
+      width: 80%;
+      font-weight: 600;
+    }
+
+    .market-trend-content {
+      display: flex;
+      flex-direction: column;
+      margin: 3rem;
+      width: 100%;
+      .market-trend-card-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        &:not(:first-child) {
+          margin-top: 30px;
+        }
+      }
+    }
+    .card {
+      display: inline-flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-end;
+      width: 624px;
+      height: 341px;
+      padding: 1.5rem;
+
+      span.anticon {
+        svg {
+          // width: 150px;
+          // height: auto;
+        }
+      }
+
+      p {
+        // width: 151px;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 32px;
+        line-height: 39px;
+        margin: 0;
+      }
+    }
+
+    .card:not(:first-child) {
+      margin-left: 20px;
+    }
+  }
+
+  .template-toolkit-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .title {
+      width: 1110px;
+      font-weight: 600;
+    }
+    .template-card-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 0;
+      width: 100%;
+
+      .template-card {
+        width: 238px;
+        height: 200px;
+        &:not(:first-child) {
+          margin-left: 20px;
+        }
+        .template-card-title {
+          font-style: normal;
+          font-weight: 500;
+          font-size: 20px;
+          line-height: 30px;
+          letter-spacing: -0.66px;
+          // width: 100px;
+        }
+
+        .template-card-icon {
+          margin-top: 2rem;
+          // width: 30px;
+          // height: 30px;
+        }
+      }
+    }
+  }
+
+  .itmap-new-way-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 3rem 0;
+
+    .title {
+      font-weight: 600;
+      line-height: 150%;
+    }
+
+    p.sub-title {
+      margin: 0;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 30px;
+      text-align: center;
+      letter-spacing: 0.02em;
+      color: #94959b;
+    }
+
+    .content {
+      // width: 60%;
+      margin-top: 1rem;
+      // margin-left: 5rem;
+
+      > div.row {
+        > div {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          margin-top: 2rem;
+
+          div.custom-icon {
+            width: 72px;
+            height: 72px;
+
+            span.anticon {
+              svg {
+                width: 32px;
+                height: 32px;
+              }
+            }
+          }
+
+          p {
+            margin: 0;
+            margin-left: 2rem;
+            font-weight: 600;
+            font-size: 24px;
+            line-height: 36px;
+            letter-spacing: 0.02em;
+          }
+        }
+      }
+    }
+  }
+}
+@media (min-width: 1024px) and (max-width: 1366px) {
+  .market-research-portal-section {
+    .market-research-body-container {
+      // margin: 1rem 0;
+      margin-top: 3.5rem;
+      margin-bottom: 1rem;
+    }
+    .title {
+      text-align: center;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 35px;
+      line-height: 125%;
+    }
+    .donation {
+      .donate {
+        margin-left: -3rem;
+      }
+    }
+    .research-content {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      // margin: 1rem 0;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+
+      .research-card {
+        .custom-icon {
+          position: absolute;
+          bottom: 40px;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 576px) {
+  .market-research-portal-section {
+    .page-banner .banner-bg .banner-container .banner-title-container {
+      .custom-btn {
+        margin-top: 3rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .market-research-portal-section {
+    .banner-image-container,
+    .sub-title {
+      display: none;
+    }
+    .title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .research-content {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      justify-content: space-between;
+      gap: 2rem 18px;
+
+      .research-card {
+        width: auto;
+        height: 205px;
+
+        .ant-card-body {
+          padding: 12px;
+
+          .research-card-text {
+            display: none;
+          }
+
+          .research-card-title {
+            font-size: 20px;
+            line-height: 20px;
+            letter-spacing: 0;
+          }
+        }
+
+        .custom-icon {
+          bottom: 1rem;
+          width: 32px !important;
+          height: 32px !important;
+          min-height: 32px !important;
+          min-width: 32px !important;
+        }
+      }
+    }
+
+    .market-trend-section {
+      .title {
+        width: 100%;
+      }
+    }
+  }
+}

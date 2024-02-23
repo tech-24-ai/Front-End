@@ -1,0 +1,258 @@
+.splunk-sizing {
+  .description {
+    color: #5e5e5e;
+    font-size: small;
+  }
+
+  .ant-divider-dashed {
+    border-color: rgba(0, 0, 0, 0.3);
+  }
+
+  .ant-divider-horizontal {
+    margin: 10px 0 20px;
+  }
+
+  .ant-slider-track {
+    background-color: #000;
+  }
+  .ant-slider-handle {
+    border-color: #000;
+  }
+
+  .data-retention {
+    .retention-time {
+      .bar-container {
+        .bar {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          border: 1px solid #515862;
+          //   background-color: #67707F;
+          height: 1.5rem;
+          overflow: hidden;
+          border-radius: 4px;
+
+          > div {
+            height: 100%;
+          }
+        }
+
+        .legend {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: 10px;
+
+          > div {
+            display: flex;
+            align-items: center;
+
+            span {
+              height: 14px;
+              width: 14px;
+              border-radius: 4px;
+              display: inline-block;
+              margin-right: 5px;
+            }
+          }
+        }
+
+        .bar,
+        .legend {
+          .hot {
+            background-color: #a5d686;
+          }
+          .cold {
+            background-color: #acd8f6;
+          }
+          .archived {
+            background-color: #d5d7d6;
+          }
+        }
+      }
+
+      .total > p {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .storage-required {
+    table {
+      thead tr {
+        color: #5e5e5e;
+      }
+    }
+  }
+}
+
+.splunk-sizing-tooltip {
+  max-width: 300px !important;
+  .ant-tooltip-content {
+    background-color: #d4e0fe;
+    margin-top: 1rem;
+  }
+  .ant-tooltip-arrow {
+    display: none;
+  }
+  .ant-tooltip-inner {
+    background-color: unset;
+    color: #5e5e5e;
+    border: 1px solid #5e5e5e;
+  }
+}
+@media (min-width: 576px) {
+  .splunk-sizing {
+    .heading {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      h5 {
+        margin-bottom: 0;
+        font-size: 18px;
+      }
+      .ant-checkbox-wrapper {
+        margin-left: 30px;
+      }
+    }
+
+    .slider {
+      padding: 30px 0;
+      .ant-slider {
+        margin: 10px 0 5px 5px;
+      }
+
+      > span:not(:first-child) {
+        margin-left: 20px;
+      }
+
+      > span > span {
+        > div {
+          width: 13rem;
+        }
+      }
+    }
+
+    .architecture {
+      .slider {
+        display: flex;
+        flex-direction: row;
+      }
+    }
+
+    .data-retention {
+      .slider {
+        display: flex;
+        flex-direction: row;
+      }
+      .retention-time {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        margin-left: 25px;
+        position: relative;
+        top: -3px;
+
+        .bar-container {
+          display: flex;
+          flex-direction: column;
+          width: 67%;
+        }
+
+        .total {
+          margin-left: 10px;
+          width: auto;
+        }
+      }
+    }
+    .storage-required {
+      table {
+        width: 50%;
+        // thead tr,
+        // tbody tr {
+        //   :not(:first-child) {
+        //     text-align: right;
+        //   }
+        // }
+      }
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .heading {
+    flex-direction: column;
+    align-items: flex-start;
+    h5 {
+      font-size: 16px;
+    }
+    .ant-checkbox-wrapper {
+      margin-left: 0 !important;
+    }
+  }
+  .splunk-sizing {
+    .slider {
+      > div {
+        margin-top: 2rem;
+      }
+    }
+  }
+
+  .data-retention {
+    .slider {
+      display: flex;
+      flex-direction: column;
+
+      > span:not(:first-child) {
+        margin-top: 2rem;
+      }
+    }
+    .retention-time {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+      position: relative;
+
+      .bar-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 1rem;
+      }
+      .total {
+        margin-top: 1rem;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .architecture {
+    .slider {
+      display: flex;
+      flex-direction: column;
+
+      > span {
+        margin-left: 0;
+        margin-top: 2rem;
+      }
+    }
+  }
+
+  .storage-required {
+    table {
+      thead tr td {
+        padding: 0.27rem;
+      }
+
+      thead tr,
+      tbody tr {
+        :not(:first-child) {
+          text-align: center;
+        }
+      }
+    }
+  }
+}

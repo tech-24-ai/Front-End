@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="53.026" height="46.231" viewBox="0 0 53.026 46.231">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #ebb500;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 3px;
+      }
+    </style>
+  </defs>
+  <g id="alert-triangle" transform="translate(0.009 -1.397)">
+    <path id="Path_360" data-name="Path 360" class="cls-1" d="M22.419,5.2,2.192,38.964a4.776,4.776,0,0,0,4.084,7.164H46.73a4.776,4.776,0,0,0,4.084-7.164L30.587,5.2a4.776,4.776,0,0,0-8.167,0Z" transform="translate(0)"/>
+    <line id="Line_19" data-name="Line 19" class="cls-1" y2="9.552" transform="translate(26.503 17.471)"/>
+    <line id="Line_20" data-name="Line 20" class="cls-1" x2="0.024" transform="translate(26.503 36.576)"/>
+  </g>
+</svg>

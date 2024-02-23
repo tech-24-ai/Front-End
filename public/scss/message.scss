@@ -1,0 +1,114 @@
+.message-page-section {
+  margin-top: 1rem;
+
+  // .container {
+  //   padding-right: 80px;
+  //   padding-left: 80px;
+  // }
+  .page-content {
+    // display: inline-flex;
+    // flex-direction: row;
+    // border: 1px solid red;
+
+    .message-box-card {
+      border-radius: 8px;
+    }
+
+    .card {
+      padding: 1rem;
+
+      .min-rate-wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        background: $backgroundColor;
+        width: 100%;
+        padding: 1rem 10px;
+        border-radius: 0.375rem;
+        font-size: 16px;
+        font-weight: 500;
+        color: #fff;
+        cursor: pointer;
+
+        div.min-rate-title {
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+
+          div.icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 35px;
+            width: 35px;
+            border-radius: 50%;
+            background-color: $white;
+
+            // span.anticon svg {
+            //   //   color: #fff;
+            //   width: 18px;
+            //   height: 18px;
+            // }
+          }
+
+          div.title {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+          }
+        }
+
+        div.min-rate {
+          display: inline-flex;
+          align-items: center;
+          p {
+            display: inline-flex;
+            align-items: center;
+            margin: 0;
+            margin-right: 5px;
+            font-size: 20px;
+            font-weight: 600;
+
+            span {
+              font-size: 14px;
+              font-weight: 400;
+              padding: 0 2px;
+            }
+          }
+
+          span:nth-child(1) {
+            align-self: flex-start;
+            margin-top: 0.2rem;
+          }
+          span:nth-child(2) {
+            align-self: flex-end;
+            margin-bottom: 0.2rem;
+          }
+
+          span.anticon svg {
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .message-page-section {
+    margin-bottom: 1rem;
+    .page-content {
+      .ant-row {
+        .message-box-card {
+          padding: 1rem 0;
+        }
+        div.ant-col:nth-of-type(2) {
+          display: none;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22.949" height="19.51" viewBox="0 0 22.949 19.51">
+    <defs>
+        <style>
+            .prefix__cls-1{fill:none;stroke:#191970;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px}
+        </style>
+    </defs>
+    <g id="prefix__Component_4_3" data-name="Component 4 – 3" transform="translate(1.414 1.288)">
+        <path id="prefix__Path_320" d="M13.876-40.32l-8.03 8.1a.429.429 0 0 0-.124.3v8.269a.428.428 0 0 0 .428.428h15.624a.428.428 0 0 0 .428-.428v-8.269a.429.429 0 0 0-.124-.3l-8.03-8.1c-.168-.169-.004-.169-.172 0z" class="prefix__cls-1" data-name="Path 320" transform="translate(-3.841 40.446)"/>
+        <path id="prefix__Path_321" d="M23.517-8.546h-3.545a.437.437 0 0 1-.437-.437v-4.974a.437.437 0 0 1 .437-.437h3.545a.437.437 0 0 1 .437.437v4.974a.437.437 0 0 1-.437.437z" class="prefix__cls-1" data-name="Path 321" transform="translate(-11.623 25.768)"/>
+        <path id="prefix__Path_322" d="M1.414-30.3l10.036-9.857" class="prefix__cls-1" data-name="Path 322" transform="translate(-1.414 40.283)"/>
+        <path id="prefix__Path_323" d="M34.55-30.3l-10.036-9.857" class="prefix__cls-1" data-name="Path 323" transform="translate(-14.429 40.283)"/>
+    </g>
+</svg>

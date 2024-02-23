@@ -1,0 +1,453 @@
+.cky-consent-container {
+    position: fixed;
+    width: 440px;
+    box-sizing: border-box;
+    z-index: 9999999;
+    border-radius: 6px;
+}
+
+.cky-box-bottom-left {
+    bottom: 40px;
+    left: 40px;
+}
+
+.cky-consent-container .cky-consent-bar {
+    background: #ffffff;
+    border: 1px solid;
+    padding: 20px 26px;
+    box-shadow: 0 -1px 10px 0 #acabab4d;
+    border-radius: 6px;
+}
+
+.cky-notice .cky-title {
+    color: #212121;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 24px;
+    margin: 0 0 12px 0;
+}
+
+.cky-notice-group {
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 400;
+    color: #212121;
+}
+
+.cky-notice-des {
+    color: #212121;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 400;
+
+    a{
+        color: #1863DC;
+    }
+}
+
+.cky-notice-btn-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+.cky-notice-des p:last-child {
+    margin-bottom: 0;
+}
+
+.cky-notice-des p {
+    margin-top: 0;
+}
+
+.cky-notice-des * {
+    font-size: 14px;
+}
+
+.cky-notice-des a.cky-policy, .cky-notice-des button.cky-policy {
+    font-size: 14px;
+    color: #1863dc;
+    white-space: nowrap;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid;
+    text-decoration: underline;
+}
+
+.cky-notice-btn-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+.cky-btn-customize {
+    color: #1863dc;
+    background: transparent;
+    border: 2px solid #1863dc;
+}
+.cky-btn-reject {
+    color: #1863dc;
+    background: transparent;
+    border: 2px solid #1863dc;
+}
+
+.cky-btn {
+    flex: auto;
+    max-width: 100%;
+    font-size: 14px;
+    font-family: inherit;
+    line-height: 24px;
+    padding: 8px;
+    font-weight: 500;
+    margin: 0 8px 0 0;
+    border-radius: 2px;
+    cursor: pointer;
+    text-transform: none;
+}
+
+.cky-btn:last-child {
+    margin-right: 0;
+}
+
+.cky-btn-accept {
+    background: #1863dc;
+    color: #ffffff;
+    border: 2px solid #1863dc;
+}
+
+// Modal style
+.cky-modal {
+    box-shadow: 0 32px 68px rgb(0 0 0 / 30%);
+    margin: 0 auto;
+    position: fixed;
+    max-width: 100%;
+    background: #ffffff;
+    top: 50%;
+    box-sizing: border-box;
+    border-radius: 6px;
+    z-index: 999999999;
+    color: #212121;
+    // -webkit-transform: translate(-50%, 100%);
+    // -moz-transform: translate(-50%, 100%);
+    // -ms-transform: translate(-50%, 100%);
+    // -o-transform: translate(-50%, 100%);
+    transform: translate(-50%, 100%);
+    visibility: hidden;
+    transition: all 0s ease;
+}
+
+.cky-modal.cky-modal-open {
+    display: flex;
+    visibility: visible;
+    // -webkit-transform: translate(-50%, -50%);
+    // -moz-transform: translate(-50%, -50%);
+    // -ms-transform: translate(-50%, -50%);
+    // -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    transition: all 1s ease;
+}
+
+.cky-preference-center {
+    height: 100vh;
+    max-height: 79vh;
+    overflow: hidden;
+    width: 845px;
+    overflow: hidden;
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    border-radius: 6px;
+}
+.cky-preference-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 24px;
+    border-bottom: 1px solid;
+}
+.cky-preference-header, .cky-preference-body-wrapper, .cky-preference-content-wrapper, .cky-accordion-wrapper, .cky-accordion, .cky-accordion-wrapper, .cky-footer-wrapper, .cky-prefrence-btn-wrapper {
+    border-color: inherit;
+}
+
+.cky-preference-body-wrapper {
+    padding: 0 24px;
+    flex: 1;
+    overflow: auto;
+    box-sizing: border-box;
+}
+
+
+.cky-footer-wrapper {
+    position: relative;
+}
+
+.cky-preference-header .cky-preference-title {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24px;
+}
+
+.cky-preference-header .cky-btn-close {
+    margin: 0;
+    cursor: pointer;
+    vertical-align: middle;
+    padding: 0;
+    background: none;
+    border: none;
+    height: auto;
+    width: auto;
+}
+
+button.cky-accordion-btn:not(:hover):not(:active), button.cky-banner-btn-close:not(:hover):not(:active), button.cky-btn-revisit:not(:hover):not(:active), button.cky-btn-close:not(:hover):not(:active) {
+    background: transparent;
+}
+
+img, iframe {
+    max-width: 100%;
+}
+
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+
+.cky-preference-content-wrapper {
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 400;
+    padding: 12px 0;
+    border-bottom: 1px solid;
+}
+
+.cky-preference-content-wrapper * {
+    font-size: 14px;
+}
+.cky-preference-content-wrapper p {
+    margin-top: 0;
+}
+.cky-preference-content-wrapper p:last-child {
+    margin-bottom: 0;
+}
+.cky-accordion-wrapper {
+    margin-bottom: 10px;
+}
+
+.cky-accordion {
+    border-bottom: 1px solid;
+    border-color: inherit;
+}
+.cky-accordion .cky-accordion-item {
+    display: flex;
+    margin-top: 10px;
+}
+.cky-accordion-chevron {
+    margin-right: 22px;
+    position: relative;
+    cursor: pointer;
+}
+
+.cky-accordion .cky-accordion-chevron i::before {
+    content: "";
+    position: absolute;
+    border-right: 1.4px solid;
+    border-bottom: 1.4px solid;
+    border-color: inherit;
+    height: 6px;
+    width: 6px;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    transition: all 0.2s ease-in-out;
+    top: 8px;
+}
+
+.cky-accordion.cky-accordion-active .cky-accordion-chevron i::before {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.cky-accordion-header-wrapper {
+    cursor: pointer;
+    width: 100%;
+}
+.cky-accordion-item .cky-accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cky-accordion-header .cky-accordion-btn {
+    font-size: 16px;
+    font-family: inherit;
+    color: #212121;
+    line-height: 24px;
+    background: none;
+    border: none;
+    font-weight: 700;
+    padding: 0;
+    cursor: pointer;
+    text-transform: none;
+}
+
+button.cky-accordion-btn:not(:hover):not(:active), button.cky-banner-btn-close:not(:hover):not(:active), button.cky-btn-revisit:not(:hover):not(:active), button.cky-btn-close:not(:hover):not(:active) {
+    background: transparent;
+}
+
+.cky-accordion-header .cky-always-active {
+    color: #008000;
+    font-weight: 600;
+    line-height: 24px;
+    font-size: 14px;
+}
+.cky-accordion-header-des {
+    font-size: 14px;
+    line-height: 24px;
+    margin: 10px 0 16px 0;
+}
+
+.cky-accordion-header-des * {
+    font-size: 14px;
+}
+.cky-accordion-header-des p {
+    margin-top: 0;
+}
+.cky-accordion .cky-accordion-body {
+    display: none;
+}
+.cky-accordion.cky-accordion-active .cky-accordion-body {
+    display: block;
+    padding: 0 22px;
+    margin-bottom: 16px;
+}
+.cky-audit-table {
+    background: #f4f4f4;
+    border-radius: 6px;
+}
+.cky-audit-table .cky-cookie-des-table {
+    font-size: 12px;
+    line-height: 24px;
+    font-weight: normal;
+    padding: 15px 10px;
+    border-bottom: 1px solid;
+    border-bottom-color: inherit;
+    margin: 0;
+}
+.cky-audit-table .cky-cookie-des-table li {
+    list-style-type: none;
+    display: flex;
+    padding: 3px 0;
+}
+.cky-audit-table .cky-cookie-des-table li:first-child {
+    padding-top: 0;
+}
+.cky-cookie-des-table li div:first-child {
+    width: 100px;
+    font-weight: 600;
+    word-break: break-word;
+    word-wrap: break-word;
+}
+.cky-cookie-des-table li div:last-child {
+    flex: 1;
+    word-break: break-word;
+    word-wrap: break-word;
+    margin-left: 8px;
+}
+
+.cky-footer-shadow {
+    display: block;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
+    position: absolute;
+    bottom: calc(100% - 1px);
+}
+.cky-prefrence-btn-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 22px 24px;
+    border-top: 1px solid;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+button, input, optgroup, select, textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+button, input {
+    overflow: visible;
+}
+input[type=checkbox], input[type=radio] {
+    box-sizing: border-box;
+    padding: 0;
+}
+.cky-switch input[type=checkbox] {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    margin: 0;
+    background: #d0d5d2;
+    -webkit-appearance: none;
+    border-radius: 50px;
+    cursor: pointer;
+    outline: 0;
+    border: none;
+    top: 0;
+}
+
+.cky-switch input[type=checkbox]:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 2px;
+    bottom: 2px;
+    border-radius: 50%;
+    background-color: white;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    margin: 0;
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+.cky-switch input[type=checkbox]:checked:before {
+    -webkit-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    transform: translateX(20px);
+}
+.cky-switch input[type=checkbox]:checked {
+    background: #1863dc;
+}
+
+@media (max-width: 480px){
+    .cky-box-bottom-left{
+        left: unset;
+    }
+    .cky-consent-container{
+        width: auto;
+    }
+
+    .cky-btn:last-child{
+        // margin-top: 10px;
+    }
+}

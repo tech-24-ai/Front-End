@@ -1,0 +1,817 @@
+//Booked History
+.history-detail-card {
+  .ant-tabs {
+    border-radius: 16px !important;
+  }
+  width: 100%;
+  height: max-content;
+  border-radius: 16px;
+
+  .data-unavailable {
+    margin: 50px auto;
+    font-size: x-large;
+    font-family: "Poppins";
+    font-weight: 500;
+    color: $gray;
+  }
+  a,
+  a:hover {
+    margin-top: 24px;
+    // border-radius: 16px;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 5px 10px 0 #c2c2c2;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .consultant-description {
+    // width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-top: 24px;
+    width: 20rem;
+  }
+  .profile-img {
+    margin-right: 10px;
+    margin-left: -30px;
+  }
+  .environ-icon {
+    position: relative;
+    bottom: 3px;
+  }
+
+  .pay-detail {
+    min-width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    border-radius: 10px;
+    width: fit-content;
+    height: fit-content;
+    background-color: rgba($backgroundColor, 0.1);
+    margin-top: 24px;
+
+    p {
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 18px;
+      color: $backgroundColor;
+    }
+  }
+  .consultant-rate-detail {
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+    margin-bottom: 18px;
+    width: 100%;
+    .consultant-detail-block {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      margin-top: 14px;
+      .consultant-detail-content {
+        width: 96%;
+      }
+    }
+
+    .consultant-lable {
+      margin-top: 24px;
+      font-family: "Poppins";
+      text-align: left;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 32px;
+      letter-spacing: 0px;
+    }
+    .consultant-value2 {
+      // height: 58px;
+      border-radius: 10px;
+
+      p {
+        margin: 10px 0px;
+        font-family: "Poppins";
+        font-size: 12px;
+        color: $grey;
+        font-weight: 500;
+        line-height: 18px;
+        letter-spacing: 0px;
+      }
+    }
+    .consultant-value {
+      height: 58px;
+      width: 93%;
+      border-radius: 10px;
+      border: 1px solid #f5f5f5;
+      margin: 0px auto;
+      p {
+        margin: 16px 12px;
+        font-family: "Poppins";
+        font-size: 12px;
+        color: $grey;
+        font-weight: 500;
+        line-height: 18px;
+        letter-spacing: 0px;
+      }
+    }
+  }
+}
+.cosnultant-detail-description-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  .consultant-profile-description {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    width: 100%;
+  }
+}
+
+.booked-consultant-wrapper {
+  span.anticon svg {
+    color: #ddd;
+  }
+  .ant-rate-star-full span.anticon svg,
+  .ant-rate-star-first span.anticon svg {
+    color: $backgroundColor !important;
+  }
+}
+
+.profile-text-consultant {
+  .ant-space {
+    gap: 0px !important;
+  }
+}
+
+@media (max-width: 575px) {
+  // .history-detail-card .profile-img {
+  //   margin-left: unset;
+  // }
+  .con-his-count-sec {
+    margin-left: 5px;
+  }
+  .con-his-count-icon {
+    font-size: 0.7rem !important;
+  }
+  .booking-history-case {
+    .history-detail-card {
+      .consultant-rate-detail p {
+        margin: 0px !important;
+      }
+      .card {
+        padding: 0.5rem;
+      }
+      width: 100%;
+      height: max-content;
+      border-radius: 16px;
+
+      .data-unavailable {
+        margin: 50px auto;
+        font-size: x-large;
+        font-family: "Poppins";
+        font-weight: 500;
+        color: $gray;
+      }
+      a,
+      a:hover {
+        margin-top: 24px;
+        border-radius: 16px;
+        border: 1px solid #f0f0f0;
+        box-shadow: 0 5px 10px 0 #c2c2c2;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .consultant-description {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        margin-top: 24px;
+        width: 100%;
+        h5 {
+          font-size: 0.9rem;
+        }
+      }
+      .profile-img {
+        margin-right: 0px;
+        margin-left: 0px;
+        img {
+          height: 60px !important;
+          width: 60px !important;
+          // margin-left: 10px;
+        }
+        .ant-image {
+          height: 60px !important;
+          width: 60px !important;
+        }
+      }
+      .profile-text-consultant {
+        .ant-space {
+          gap: 0px !important;
+        }
+      }
+      .profile-text {
+        margin-left: -10px;
+        h5 {
+          font-size: 14px;
+        }
+        p {
+          font-size: 12px;
+        }
+      }
+      .environ-icon {
+        position: relative;
+        bottom: 3px;
+      }
+
+      .pay-detail {
+        // min-width: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 6px;
+        margin: 0 10px;
+        border-radius: 10px;
+        width: fit-content;
+        height: fit-content;
+        background-color: rgba($backgroundColor, 0.1);
+        margin-top: 24px;
+
+        p {
+          font-weight: 600;
+          font-size: 8px;
+          line-height: 8px;
+          color: $backgroundColor;
+          .rate-star {
+            font-size: 6px !important;
+          }
+        }
+      }
+      .consultant-rate-detail {
+        display: flex;
+        flex-direction: column;
+        margin-top: 16px;
+        margin-bottom: 18px;
+        width: 100%;
+        .consultant-detail-block {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-around;
+          margin-top: 12px;
+          .consultant-detail-content {
+            width: 90%;
+          }
+        }
+        .consultant-lable {
+          margin-top: 24px;
+          font-family: "Poppins";
+          text-align: left;
+          font-size: 11px;
+          font-weight: 600;
+          line-height: 32px;
+          letter-spacing: 0px;
+        }
+        .consultant-value2 {
+          border-radius: 10px;
+
+          p {
+            margin: 10px 0px;
+            font-family: "Poppins";
+            font-size: 12px;
+            color: $grey;
+            font-weight: 500;
+            line-height: 18px;
+            letter-spacing: 0px;
+          }
+        }
+        .consultant-value {
+          height: 58px;
+          width: 93%;
+          border-radius: 10px;
+          border: 1px solid #f5f5f5;
+          margin: 0px auto;
+          p {
+            margin: 16px 12px;
+            font-family: "Poppins";
+            font-size: 12px;
+            color: $grey;
+            font-weight: 500;
+            line-height: 18px;
+            letter-spacing: 0px;
+          }
+        }
+      }
+    }
+  }
+
+  .donation-history {
+    .card {
+      padding: unset;
+    }
+    h6 {
+      font-size: 0.8rem;
+    }
+  }
+
+  .booked-consultant-wrapper {
+    .card {
+      padding: 0.5rem;
+    }
+  }
+}
+
+//Subscription Detail
+.subscription-detail {
+  position: relative;
+  top: 60px;
+  .pro-subscription-history-section {
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #f5f5f5;
+    // height: max-content;
+    width: 670px;
+    // background-color: $backgroundColor;
+    .subsciption-history-section {
+      width: 100%;
+
+      h4 {
+        font-family: "Poppins";
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 24px;
+        letter-spacing: 0px;
+        text-align: left;
+        margin: 24px;
+      }
+      .detail-subcription-case {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        margin-top: 14px;
+
+        .detail-subscription-lable {
+          // margin-top: 24px;
+          font-family: "Poppins";
+          text-align: left;
+          font-size: 18px;
+          font-weight: 500;
+          line-height: 32px;
+          letter-spacing: 0px;
+        }
+        .detail-subscription-value {
+          // height: 58px;
+          border-radius: 10px;
+
+          p {
+            // margin: 16px 12px;
+            font-family: "Poppins";
+            font-size: 12px;
+            color: $grey;
+            font-weight: 500;
+            line-height: 18px;
+            letter-spacing: 0px;
+          }
+        }
+      }
+    }
+  }
+  .card {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 575px) {
+  .profile-content {
+    //  margin-top: 20px;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 30em;
+
+    .subscription-detail {
+      position: relative;
+      top: 60px;
+      .pro-subscription-history-section {
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #f5f5f5;
+        // height: max-content;
+        width: 100%;
+        // background-color: $backgroundColor;
+        .subsciption-history-section {
+          width: 100%;
+
+          h4 {
+            font-family: "Poppins";
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 24px;
+            letter-spacing: 0px;
+            text-align: left;
+            margin: 24px;
+          }
+          .detail-subcription-case {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            margin-top: 14px;
+
+            .detail-subscription-lable {
+              font-family: "Poppins";
+              text-align: left;
+              font-size: 13px;
+              font-weight: 500;
+              line-height: 32px;
+              letter-spacing: 0px;
+            }
+            .detail-subscription-value {
+              // height: 58px;
+              border-radius: 10px;
+
+              p {
+                // margin: 16px 12px;
+                font-family: "Poppins";
+                font-size: 10px;
+                color: $grey;
+                font-weight: 500;
+                line-height: 18px;
+                letter-spacing: 0px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+//Credit Purchase
+.credit-purchase-component {
+  width: 670px;
+  .credit-purchase-vessel {
+    .purchase-case {
+      border: 1px solid #f5f5f5;
+      border-radius: 16px;
+      position: relative;
+      top: 60px;
+    }
+    .credit-buy-case {
+      margin: 24px;
+      h4 {
+        font-family: "Poppins";
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 32px;
+        letter-spacing: 0px;
+        text-align: left;
+      }
+      .credit-detail-case {
+        margin-top: 30px;
+
+        p {
+          font-family: "Poppins";
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 24px;
+          letter-spacing: 0px;
+          text-align: left;
+
+          span {
+            font-family: "Poppins";
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 32px;
+            letter-spacing: 0px;
+            text-align: left;
+            color: $grey;
+            margin-left: 20px;
+          }
+        }
+      }
+      .payment-adv-case {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+        .credit-input-case {
+          .input-detail {
+            height: 58px;
+            width: 16rem;
+            border-radius: 10px;
+            box-shadow: "0 3px 6px 0 rgba(0,0,0,.16)";
+          }
+          .input-detail::placeholder {
+            font-family: "Poppins";
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 18px;
+            letter-spacing: 0px;
+            text-align: left;
+          }
+        }
+      }
+      .nxt-btn {
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.45px;
+        text-align: center;
+        line-height: 20px;
+        padding: 0;
+        height: 56px;
+        width: 165px;
+        border-radius: 16px;
+        display: inline-block;
+        vertical-align: middle;
+        font-family: "Poppins";
+        background-color: $backgroundColor;
+        color: $textColor;
+        border-width: 0px;
+        &:hover {
+          border: 1px solid $gray;
+          color: $textColor;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .credit-purchase-component {
+    width: 100%;
+    .credit-purchase-vessel {
+      min-height: max-content;
+      .purchase-case {
+        border: 1px solid #f5f5f5;
+        border-radius: 16px;
+        position: relative;
+        top: 60px;
+      }
+      .credit-buy-case {
+        margin: 24px;
+        h4 {
+          font-family: "Poppins";
+          font-size: 22px;
+          font-weight: 600;
+          line-height: 32px;
+          letter-spacing: 0px;
+          text-align: left;
+        }
+        .credit-detail-case {
+          margin-top: 30px;
+
+          p {
+            font-family: "Poppins";
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 24px;
+            letter-spacing: 0px;
+            text-align: left;
+
+            span {
+              font-family: "Poppins";
+              font-size: 16px;
+              font-weight: 500;
+              line-height: 32px;
+              letter-spacing: 0px;
+              text-align: left;
+              color: $grey;
+              margin-left: 20px;
+            }
+          }
+        }
+        .payment-adv-case {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: flex-start;
+          margin-bottom: 24px;
+          height: 8rem;
+          .credit-input-case {
+            width: inherit;
+            .input-detail {
+              height: 58px;
+              width: 100%;
+              border-radius: 10px;
+              box-shadow: "0 3px 6px 0 rgba(0,0,0,.16)";
+            }
+            .input-detail::placeholder {
+              font-family: "Poppins";
+              font-size: 12px;
+              font-weight: 500;
+              line-height: 18px;
+              letter-spacing: 0px;
+              text-align: left;
+            }
+          }
+        }
+        .nxt-btn {
+          font-size: 16px;
+          font-weight: 600;
+          letter-spacing: 0.45px;
+          text-align: center;
+          line-height: 20px;
+          padding: 0;
+          height: 56px;
+          width: 165px;
+          border-radius: 16px;
+          display: inline-block;
+          vertical-align: middle;
+          font-family: "Poppins";
+          background-color: $backgroundColor;
+          color: $textColor;
+          border-width: 0px;
+          &:hover {
+            border: 1px solid $gray;
+            color: $textColor;
+          }
+        }
+      }
+    }
+  }
+}
+
+//Visitor Credit History
+.visitor-credit-history-case {
+  width: 100%;
+  position: relative;
+  top: 40px;
+  height: max-content;
+
+  .credit-purchase-history-case {
+    width: 100%;
+
+    .credit-purchase-history-card-case {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      border: 1px solid #f5f5f5;
+      border-radius: 16px;
+      padding-bottom: 20px;
+      margin-top: 16px;
+      .credit-content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 24px;
+        .trn-text {
+          padding: 0px 30px;
+        }
+      }
+      .download-detail {
+        min-width: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        padding: 8px 16px;
+        border-radius: 10px;
+        width: fit-content;
+        height: fit-content;
+        background-color: rgba($backgroundColor, 0.1);
+        margin-right: 3.5rem;
+
+        .download-text {
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 18px;
+          color: $backgroundColor;
+        }
+        h5 {
+          font-family: "Poppins";
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 24px;
+          letter-spacing: 0px;
+          text-align: left;
+        }
+        p {
+          font-family: "Poppins";
+          font-size: 12px;
+          font-weight: 500;
+          line-height: 18px;
+          letter-spacing: 0px;
+          text-align: left;
+        }
+      }
+      .flex-content {
+        flex-grow: 1;
+        padding: 0 30px;
+        // text-align: center;
+        // p{
+        //   text-align:inherit;
+        // }
+      }
+    }
+  }
+}
+@media (max-width: 575px) {
+  .visitor-credit-history-case {
+    .card {
+      padding: 0.5rem;
+      h6 {
+        font-size: 0.8rem;
+      }
+    }
+    width: 100%;
+    position: relative;
+    top: 40px;
+    height: max-content;
+
+    .credit-purchase-history-case {
+      width: 100%;
+
+      .credit-purchase-history-card-case {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        border: 1px solid #f5f5f5;
+        border-radius: 16px;
+        padding-bottom: 0px;
+        margin-top: 16px;
+        .credit-content {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          margin-top: 24px;
+          .trn-text {
+            padding: 6px 10px !important;
+            h4 {
+              font-family: "Poppins";
+              font-size: 16px;
+              font-weight: 600;
+              line-height: 21px;
+              letter-spacing: 0px;
+              text-align: left;
+            }
+          }
+        }
+
+        .download-detail {
+          min-width: fit-content;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          align-items: center;
+          padding: 8px 12px;
+          border-radius: 10px;
+          background-color: rgba($backgroundColor, 0.1);
+          margin-right: 24px;
+
+          .download-text {
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 18px;
+            color: $backgroundColor;
+          }
+          h5 {
+            font-family: "Poppins";
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 24px;
+            letter-spacing: 0px;
+            text-align: left;
+          }
+          p {
+            font-family: "Poppins";
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 18px;
+            letter-spacing: 0px;
+            text-align: left;
+          }
+        }
+        .flex-content {
+          flex-grow: 1;
+          padding: 10px;
+
+          h5 {
+            font-size: 10px;
+          }
+          p {
+            font-size: 10px;
+          }
+          // text-align: center;
+          // p{
+          //   text-align:inherit;
+          // }
+        }
+      }
+    }
+  }
+}

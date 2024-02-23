@@ -1,0 +1,361 @@
+.button-wrapper {
+  text-align: left;
+  margin-top: 60px;
+
+  .custom-btn {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .btn {
+    padding: 10px 40px 10px 40px;
+    background-color: transparent;
+    color: $lightBlack;
+    border: 1px solid $lightBlack;
+    &:hover {
+      background-color: $lightBlack;
+      color: $white;
+    }
+
+    &:active {
+      background-color: $lightBlack;
+      color: $white;
+    }
+  }
+
+  .btn-group > .btn:not(:last-child):not(.dropdown-toggle),
+  .btn-group > .btn-group:not(:last-child) > .btn {
+    border-radius: 8px;
+  }
+
+  .btn-group > .btn:not(:first-child),
+  .btn-group > .btn-group:not(:first-child) > .btn {
+    border-radius: 8px;
+    margin-left: 30px;
+  }
+}
+
+.btn-secondary {
+  background-color: $white;
+  color: $lightBlack;
+  border: 1px solid $lightBlack;
+  width: auto;
+
+  &:hover {
+    background-color: $lightBlack;
+    color: $white;
+  }
+
+  &:active {
+    background-color: $lightBlack;
+    color: $white;
+  }
+}
+
+.btn-default {
+  background-color: $lightBlack;
+  color: $white;
+  border: 1px solid $lightBlack;
+  width: auto;
+
+  &:hover {
+    background-color: $white;
+    color: $lightBlack;
+  }
+
+  &:active {
+    background-color: $white;
+    color: $lightBlack;
+  }
+}
+
+.button-dark-wrapper {
+  .btn {
+    padding: 10px 15px 10px 15px;
+    font-size: 12px;
+    background-color: $lightBlack;
+    color: $white;
+    // border: 1px solid $lightBlack;
+    border: none;
+    width: 80px;
+
+    &:hover {
+      background-color: $lightBlack;
+      color: $white;
+    }
+
+    &:active {
+      background-color: $lightBlack;
+      color: $white;
+    }
+  }
+
+  .btn-group > .btn:not(:last-child):not(.dropdown-toggle),
+  .btn-group > .btn-group:not(:last-child) > .btn {
+    border-radius: 5px;
+  }
+
+  .btn-group > .btn:not(:first-child),
+  .btn-group > .btn-group:not(:first-child) > .btn {
+    border-radius: 5px;
+    margin-left: 10px;
+  }
+}
+
+.loginWrapper {
+  margin-top: 10%;
+  margin-bottom: 10%;
+
+  .btn-group {
+    width: 100%;
+
+    .btn:nth-child(1):not(.dropdown-toggle),
+    .btn-group > .btn-group:nth-child(1) > .btn {
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      width: 20%;
+      height: 40px;
+      margin-right: 10px;
+      text-align: center;
+      padding-left: 15px;
+
+      .arrow {
+        width: 10px;
+        float: right;
+        margin-top: 2%;
+      }
+    }
+
+    .btn:not(:first-child):not(.dropdown-toggle),
+    .btn-group > .btn-group:not(:first-child) > .btn {
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      height: 40px;
+      background-color: $backgroundColor;
+      color: $white;
+      text-align: center;
+
+      .icon {
+        width: 25px;
+        float: left;
+        margin-right: 10px;
+      }
+
+      .arrow {
+        width: 10px;
+        float: right;
+        margin-top: 2%;
+      }
+    }
+  }
+}
+
+.researchBtnWrapper {
+  float: left;
+  position: absolute;
+  margin-left: -50%;
+
+  .btn-secondary {
+    background-color: $white;
+    color: $blue;
+
+    width: auto;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16);
+
+    &:hover {
+      background-color: $white;
+      color: $blue;
+    }
+
+    &:active {
+      background-color: $white;
+      color: $blue;
+    }
+  }
+
+  .btn-secondary:focus,
+  .btn-secondary.focus,
+  .btn-secondary:not(:disabled):not(.disabled):active,
+  .btn-secondary:not(:disabled):not(.disabled).active,
+  .show > .btn-secondary.dropdown-toggle {
+    background-color: $white;
+    color: $blue;
+  }
+}
+
+// new design button
+.custom-btn {
+  display: inline-block;
+  border-radius: 8px;
+  // width: 220px;
+  // height: 52px;
+  padding: 16px 22px;
+  gap: 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  &.with-bg {
+    background-color: $backgroundColor;
+    color: #fff;
+    &:hover {
+      background-color: rgba($backgroundColor, 0.4);
+      color: $backgroundColor;
+    }
+  }
+
+  &.with-bg-light {
+    background-color: rgba($backgroundColor, 0.2);
+    &:hover {
+      background-color: rgba($backgroundColor, 0.4);
+    }
+
+    &:active {
+      background-color: rgba($backgroundColor, 0.4);
+    }
+  }
+
+  &.bg-white {
+    background-color: #fff;
+  }
+  &.text-bg {
+    color: $backgroundColor;
+    &:hover {
+      color: $backgroundColor;
+    }
+  }
+
+  &.gray {
+    background-color: $gray;
+    color: $blackTwo;
+  }
+
+  &.btn-gray {
+    background-color: $gray;
+    color: $blackTwo;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    gap: 10px;
+    // width: 138px;
+    // height: 44px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    margin-top: 10px;
+    position: absolute;
+    bottom: 10px;
+    a {
+      color: #000;
+    }
+
+    &:hover {
+      background-color: $lightBlack;
+      color: $white;
+      a {
+        color: $white;
+      }
+    }
+
+    &:active {
+      background-color: $lightBlack;
+      color: $white;
+      a {
+        color: $white;
+      }
+    }
+  }
+
+  &.outline {
+    border: 1px solid $grey;
+  }
+
+  &.fill {
+    background-color: $blackTwo;
+    color: $white;
+    span.anticon svg {
+      color: $white !important;
+    }
+  }
+
+  &:hover,
+  &:active {
+    background-color: $lightBlack;
+    color: $white;
+    span.anticon svg {
+      color: $white !important;
+    }
+  }
+
+  &[disabled],
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  & + {
+    div.custom-btn {
+      margin-left: 20px;
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .loginWrapper {
+    margin-top: 0%;
+    margin-bottom: 4%;
+
+    .btn-group {
+      width: 100%;
+      display: grid;
+
+      .btn:nth-child(1):not(.dropdown-toggle),
+      .btn-group > .btn-group:nth-child(1) > .btn {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        width: 100%;
+        height: 50px;
+        margin-right: 10px;
+        background-color: $white;
+        color: $blue;
+
+        .arrow {
+          width: 10px;
+          float: right;
+          margin-top: 2%;
+        }
+      }
+
+      .btn:not(:first-child):not(.dropdown-toggle),
+      .btn-group > .btn-group:not(:first-child) > .btn {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        height: 50px;
+        background-color: $backgroundColor;
+        color: $white;
+        margin-top: 5%;
+
+        .icon {
+          width: 25px;
+          float: left;
+        }
+
+        .arrow {
+          width: 10px;
+          float: right;
+          margin-top: 2%;
+        }
+      }
+    }
+  }
+}

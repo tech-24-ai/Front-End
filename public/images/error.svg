@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="53" height="53" viewBox="0 0 53 53">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #da4b00;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 3px;
+      }
+    </style>
+  </defs>
+  <g id="x-circle" transform="translate(-0.5 -0.871)">
+    <circle id="Ellipse_16" data-name="Ellipse 16" class="cls-1" cx="25" cy="25" r="25" transform="translate(2 2.371)"/>
+    <line id="Line_17" data-name="Line 17" class="cls-1" x1="15" y2="15" transform="translate(20 19.371)"/>
+    <line id="Line_18" data-name="Line 18" class="cls-1" x2="15" y2="15" transform="translate(20 19.371)"/>
+  </g>
+</svg>

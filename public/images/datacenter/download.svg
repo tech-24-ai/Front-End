@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="9.004" height="13.506" viewBox="0 0 9.004 13.506">
+    <defs>
+        <style>
+            .prefix__cls-1{fill:#fff}
+        </style>
+    </defs>
+    <g id="prefix__download" transform="translate(-85.334)">
+        <g id="prefix__Group_315" data-name="Group 315" transform="translate(85.334)">
+            <g id="prefix__Group_314" data-name="Group 314">
+                <path id="prefix__Path_283" d="M89.438 11.09l.041.037.02.015.024.018.025.015.023.013.026.012.024.011.025.009.027.009.026.007.028.007h.055a.566.566 0 00.111 0h.055l.028-.007.024-.005.027-.009.025-.009.024-.011.026-.012.023-.013.025-.015.024-.018.02-.015.041-.037 3.939-3.939a.563.563 0 00-.8-.8L90.4 9.334V.563a.563.563 0 00-1.125 0v8.771l-2.981-2.979a.563.563 0 00-.8.8z" class="prefix__cls-1" data-name="Path 283" transform="translate(-85.334)"/>
+                <path id="prefix__Path_284" d="M93.775 469.333H85.9a.563.563 0 100 1.125h7.878a.563.563 0 100-1.125z" class="prefix__cls-1" data-name="Path 284" transform="translate(-85.334 -456.953)"/>
+            </g>
+        </g>
+    </g>
+</svg>
