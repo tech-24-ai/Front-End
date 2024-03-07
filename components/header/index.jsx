@@ -66,6 +66,7 @@ function Header(props) {
     "/blogs/[slug]",
     "/connect",
     "/login",
+    "/community",
   ];
   if (!isloggedIn && !unProtectedRoutes.includes(router.pathname)) {
     // window.location.replace("/login");
@@ -143,6 +144,11 @@ function Header(props) {
                         <NavItem>
                           <Link href="/about-us">
                             <a>About us</a>
+                          </Link>
+                        </NavItem>
+                        <NavItem>
+                          <Link href="/community">
+                            <a>Community Service</a>
                           </Link>
                         </NavItem>
                         {!isloggedIn && (
