@@ -55,51 +55,235 @@ class Community extends Component {
             image={blogsBannerImage}
           />
           <Container className="community-container mt-3 mb-5">
-          <div className="upper-content threadlist-content" id="pageLabel" data-grid="container">
-        <div className="thread-list-header-label">
-                <div className="non-branded-forum">
-                    <h1 className="m-heading-3">Windows</h1>
-                </div>
-        </div>
+          <div className="row search-container" 
+              style={{
+                backgroundImage: "url(https://answersstaticfilecdnv2.azureedge.net/static/images/banner.png)",
+                height: "350px",
+                alignItems: "center",
+                flexdirection: "column",
+                flexwrap: "nowrap",
+               } } >
+                 <h2 className="detailtitle text-white ">Community > Community1</h2>
+                
+                 <div className="" >
+                    <form>
+                        <div className="input-group mt-5" style={{marginLeft:"260px",width:"400px",}} >
+                        <Input  id="search-input-text" data-testid="search-input-text" role="combobox" aria-haspopup="true" aria-expanded="false" autocomplete="off" aria-label="Search the community" aria-controls="forum-dropdown" type="search" placeholder="Search the community" title="Search the community" className="searchCommunity form-control" 
+                         / >
+                        {/* <h2 className="text-white totalQueries">Total Queries : 24</h2> */}
 
-        <div className="thread-list-categories">
-            <div data-grid="col-12">
-                <div data-grid="col-12">
-                    <div className="forum-filter-container c-group f-wrap-items">
-                        <div id="forumFilter">
-                            <div className="forumScopeBox c-group f-wrap-items">
-                                <label for="forumSelect">Categories :</label>
-                                <select id="forumSelect" autocomplete="off">
-                                            <option value="windowsclient">Windows Client for IT Pros</option>
-                                            <option value="skype">Skype</option>
-                                            <option value="officeinsider">Microsoft 365 Insider</option>
-                                            <option value="microsoftedge">Microsoft Edge</option>
-                                            <option value="msteams">Microsoft Teams</option>
-                                            <option value="windowserver">Windows Server</option>
-                                            <option value="surface">Surface</option>
-                                            <option value="insider">Windows Insider Program</option>
-                                            <option value="bing">Bing</option>
-                                            <option value="msoffice">Microsoft 365 and Office</option>
-                                            <option value="msadvs">Microsoft Advertising</option>
-                                            <option value="outlook_com">Outlook</option>
-                                            <option value="windows" selected="selected">Windows</option>
-                                            <option value="xbanswers">Gaming and Xbox</option>
-                                            <option disabled="">-------------------------------------</option>
-                                            <option value="feedback">Community Center</option>
-                                </select>
-                            </div>
                         </div>
-                        <div id="MetadataFilters" className="c-group f-wrap-items">
-                        <div id="metadataFilterItemLevel-0" className="scopebox metadataFIlterItemLevel0" data-scopefor="windowsversionscope"><label className="filterHeader" for="windowsversionscope">Versions</label><select id="windowsversionscope" className="scopelist" data-level="0" data-shortname="windowsversion" data-metaid="0e5aec0e-adb4-47f3-b6de-2702acbc71d0" fdprocessedid="0ebo6"><option className="scopeitem" data-itemnum="-1" value="">Show all</option><option className="scopeitem" data-itemnum="0" value="windows_11">Windows 11</option><option className="scopeitem" data-itemnum="1" value="windows_10">Windows 10</option><option className="scopeitem" data-itemnum="2" value="windows8_1">Windows 8.1</option><option className="scopeitem" data-itemnum="3" value="windowsrt8_1">Windows RT 8.1</option><option className="scopeitem" data-itemnum="4" value="windows_8">Windows 8</option><option className="scopeitem" data-itemnum="5" value="windows_rt">Windows RT</option><option className="scopeitem" data-itemnum="6" value="windows_7">Windows 7</option><option className="scopeitem" data-itemnum="7" value="windows_vista">Windows Vista</option><option className="scopeitem" data-itemnum="8" value="windows_xp">Windows XP</option><option className="scopeitem" data-itemnum="9" value="windows_other">Other/Unknown</option></select></div><div id="metadataFilterItemLevel-2" className="scopebox metadataFIlterItemLevel2" data-scopefor="windowstopicscope"><label className="filterHeader" for="windowstopicscope">Topics</label><select id="windowstopicscope" className="scopelist" data-level="2" data-shortname="windowstopic" data-metaid="331f9bab-f247-4d52-8b96-ed6271eb4314" fdprocessedid="yraxif"><option className="scopeitem" data-itemnum="-1" value="">Show all</option><option className="scopeitem" data-itemnum="0" value="desktop">Accessibility</option><option className="scopeitem" data-itemnum="1" value="start">Desktop, Start, and personalization</option><option className="scopeitem" data-itemnum="2" value="hardware">Devices and drivers</option><option className="scopeitem" data-itemnum="3" value="ecoms">Email and communications</option><option className="scopeitem" data-itemnum="4" value="files">Files, folders, and storage</option><option className="scopeitem" data-itemnum="5" value="gaming">Gaming</option><option className="scopeitem" data-itemnum="6" value="wintop_language">Input and language</option><option className="scopeitem" data-itemnum="7" value="windows_install">Install, upgrade, and activate</option><option className="scopeitem" data-itemnum="8" value="pictures">Music, photos, and video</option><option className="scopeitem" data-itemnum="9" value="networking">Network and internet</option><option className="scopeitem" data-itemnum="10" value="winapps">Other Windows apps</option><option className="scopeitem" data-itemnum="11" value="performance">Performance and system failures</option><option className="scopeitem" data-itemnum="12" value="windows_programs">Programs</option><option className="scopeitem" data-itemnum="13" value="tms">Search, touch, and mouse</option><option className="scopeitem" data-itemnum="14" value="security">Security and privacy</option><option className="scopeitem" data-itemnum="15" value="update">Windows update, recovery, and backup</option></select></div></div>
+                        {/* <h6 className="text-white">New to the Community?
+                        <a className="cta text-white link-with-chevron" href="/en-us/page/gettingstarted" title="Learn more" aria-label="Learn more" />Learn more<span class="glyph" aria-hidden="true"></span></h6> */}
+                    </form>
+                 </div>
+                 <div>
+             
+                 </div>
+                
+               </div>
+          <div data-grid="col-12" className="threadlist-filter-options">
+                        <div id="filterByTypeControls "  >
+                            <fieldset className="c-radio f-inline">
+                                <h3 className="c-subheading-5 " id="filterByTypeLabel" style={{font:"800"}}>Queries</h3>
+                               
+                                    <button id="applyButton"   name="button" className="c-button btn btn-round btn-primary" type="submit" fdprocessedid="vwz0lf">Post New</button>
+                               
+                                <div>
+                                   
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        {/* <div id="AdvancedFilterBar" >
+                            <div id="advancedFilterDateBar" style={{display:"flex",}}>
+                                        <div className="dateFilterBox">
+                                            <label for="postedAfter" className="filterHeader" title="Select a date to show only questions posted after that date">Posted after:</label>
+                                            <div className="date-filter-wrapper">
+                                                <Input type="date" id="postedAfter" alt="Select a date to show only questions posted after that date" title="Posted after:" style={{width:"280px",}}/ >
+                                            </div>
+                                        </div>
+                                        <div className="dateFilterBox ml-3">
+                                            <label for="postedBefore" className="filterHeader" title="Select a date to show only questions posted before that date">Posted before:</label>
+                                            <div className="date-filter-wrapper">
+                                                <Input type="date" id="postedBefore" alt="Select a date to show only questions posted before that date" title="Posted before:" style={{width:"280px",}}/>
+                                            </div>
+                                        </div>
+                            </div>
+                        </div> */}
+                        
+                    </div> 
+                   
+             
+                <div className="card mt-4" style={{background:"gainsboro",}}>
+                    <div className="card-body">
+                            <div class="col-md-12 mb-2">  
+                                <div data-grid="col-12" className="thread-title single-line-text" aria-live="polite">
+                                        <span data-bi-id="thread-link" data-bi-index="0" data-bi-linkthreadid="63400f39-b2b7-4b28-88e9-569c183e0d63" href="https://answers.microsoft.com/en-us/windows/forum/all/windows-10-updates-fixes-2023/63400f39-b2b7-4b28-88e9-569c183e0d63" 
+                                  style={{color:"black"}}  >Query 1</span>
+                               
+                                </div>
+                             </div> 
+                             <div class="col-md-12 mt-3">   
+                                <span className="ml-5 "
+                                  style={{color:"black",fontSize:"20px",marginTop:"50",}}  >Total Answers :</span>
+                               <span className=""
+                                  style={{color:"black",fontSize:"20px",marginTop:"30",marginLeft:"400px",}}  >XXX Total Views : YYY </span>
+                                    <span className=""
+                                  style={{color:"black",fontSize:"20px",marginTop:"30",marginLeft:"360px",}}  >Upvotes : ZZZ </span>
+                                   
+                            </div>    
+                            <div class="col-md-12" style={{marginTop:20,}}>   
+                                <span className="mt-5"
+                                  style={{color:"black",fontSize:"20px",}}  >Tags </span>
+                              <span className="mt-5"
+                                  style={{color:"black",fontSize:"20px",marginLeft:"1300px",}}  >Posted By </span>
+                                   
+                            </div> 
 
                     </div>
                 </div>
-            </div>
-        </div>
-        <a className="ask-question-button-forum" data-bi-id="askAQuestionButton" href="https://answers.microsoft.com/en-us/newthread?threadtype=Questions&amp;cancelurl=%2Fen-us%2Fwindows%2Fforum&amp;forum=windows&amp;filter="> Ask a new question <span className="c-glyph glyph-chevron-right button-glyph-thread"></span></a>
-    </div>
-             
-             
+                <div className="card mt-4" style={{background:"gainsboro",}}>
+                    <div className="card-body">
+                            <div class="col-md-12 mb-2">  
+                                <div data-grid="col-12" className="thread-title single-line-text" aria-live="polite">
+                                        <span data-bi-id="thread-link" data-bi-index="0" data-bi-linkthreadid="63400f39-b2b7-4b28-88e9-569c183e0d63" href="https://answers.microsoft.com/en-us/windows/forum/all/windows-10-updates-fixes-2023/63400f39-b2b7-4b28-88e9-569c183e0d63" 
+                                  style={{color:"black"}}  >Query 1</span>
+                               
+                                </div>
+                             </div> 
+                             <div class="col-md-12 mt-3">   
+                                <span className="ml-5 "
+                                  style={{color:"black",fontSize:"20px",marginTop:"50",}}  >Total Answers :</span>
+                               <span className=""
+                                  style={{color:"black",fontSize:"20px",marginTop:"30",marginLeft:"400px",}}  >XXX Total Views : YYY </span>
+                                    <span className=""
+                                  style={{color:"black",fontSize:"20px",marginTop:"30",marginLeft:"360px",}}  >Upvotes : ZZZ </span>
+                                   
+                            </div>    
+                            <div class="col-md-12" style={{marginTop:20,}}>   
+                                <span className="mt-5"
+                                  style={{color:"black",fontSize:"20px",}}  >Tags </span>
+                              <span className="mt-5"
+                                  style={{color:"black",fontSize:"20px",marginLeft:"1300px",}}  >Posted By </span>
+                                   
+                            </div> 
+
+                    </div>
+                </div>
+                <div className="card mt-4" style={{background:"gainsboro",}}>
+                    <div className="card-body">
+                            <div class="col-md-12 mb-2">  
+                                <div data-grid="col-12" className="thread-title single-line-text" aria-live="polite">
+                                        <span data-bi-id="thread-link" data-bi-index="0" data-bi-linkthreadid="63400f39-b2b7-4b28-88e9-569c183e0d63" href="https://answers.microsoft.com/en-us/windows/forum/all/windows-10-updates-fixes-2023/63400f39-b2b7-4b28-88e9-569c183e0d63" 
+                                  style={{color:"black"}}  >Query 1</span>
+                               
+                                </div>
+                             </div> 
+                             <div class="col-md-12 mt-3">   
+                                <span className="ml-5 "
+                                  style={{color:"black",fontSize:"20px",marginTop:"50",}}  >Total Answers :</span>
+                               <span className=""
+                                  style={{color:"black",fontSize:"20px",marginTop:"30",marginLeft:"400px",}}  >XXX Total Views : YYY </span>
+                                    <span className=""
+                                  style={{color:"black",fontSize:"20px",marginTop:"30",marginLeft:"360px",}}  >Upvotes : ZZZ </span>
+                                   
+                            </div>    
+                            <div class="col-md-12" style={{marginTop:20,}}>   
+                                <span className="mt-5"
+                                  style={{color:"black",fontSize:"20px",}}  >Tags </span>
+                              <span className="mt-5"
+                                  style={{color:"black",fontSize:"20px",marginLeft:"1300px",}}  >Posted By </span>
+                                   
+                            </div> 
+
+                    </div>
+                </div>
+                <div className="card mt-4" style={{background:"gainsboro",}}>
+                    <div className="card-body">
+                            <div class="col-md-12 mb-2">  
+                                <div data-grid="col-12" className="thread-title single-line-text" aria-live="polite">
+                                        <span data-bi-id="thread-link" data-bi-index="0" data-bi-linkthreadid="63400f39-b2b7-4b28-88e9-569c183e0d63" href="https://answers.microsoft.com/en-us/windows/forum/all/windows-10-updates-fixes-2023/63400f39-b2b7-4b28-88e9-569c183e0d63" 
+                                  style={{color:"black"}}  >Query 1</span>
+                               
+                                </div>
+                             </div> 
+                             <div class="col-md-12 mt-3">   
+                                <span className="ml-5 "
+                                  style={{color:"black",fontSize:"20px",marginTop:"50",}}  >Total Answers :</span>
+                               <span className=""
+                                  style={{color:"black",fontSize:"20px",marginTop:"30",marginLeft:"400px",}}  >XXX Total Views : YYY </span>
+                                    <span className=""
+                                  style={{color:"black",fontSize:"20px",marginTop:"30",marginLeft:"360px",}}  >Upvotes : ZZZ </span>
+                                   
+                            </div>    
+                            <div class="col-md-12" style={{marginTop:20,}}>   
+                                <span className="mt-5"
+                                  style={{color:"black",fontSize:"20px",}}  >Tags </span>
+                              <span className="mt-5"
+                                  style={{color:"black",fontSize:"20px",marginLeft:"1300px",}}  >Posted By </span>
+                                   
+                            </div> 
+
+                    </div>
+                </div>
+                <div className="card mt-4" style={{background:"gainsboro",}}>
+                    <div className="card-body">
+                            <div class="col-md-12 mb-2">  
+                                <div data-grid="col-12" className="thread-title single-line-text" aria-live="polite">
+                                        <span data-bi-id="thread-link" data-bi-index="0" data-bi-linkthreadid="63400f39-b2b7-4b28-88e9-569c183e0d63" href="https://answers.microsoft.com/en-us/windows/forum/all/windows-10-updates-fixes-2023/63400f39-b2b7-4b28-88e9-569c183e0d63" 
+                                  style={{color:"black"}}  >Query 1</span>
+                               
+                                </div>
+                             </div> 
+                             <div class="col-md-12 mt-3">   
+                                <span className="ml-5 "
+                                  style={{color:"black",fontSize:"20px",marginTop:"50",}}>Total Answers :</span>
+                               <span className=""
+                                  style={{color:"black",fontSize:"20px",marginTop:"30",marginLeft:"400px",}}  >XXX Total Views : YYY </span>
+                                    <span className=""
+                                  style={{color:"black",fontSize:"20px",marginTop:"30",marginLeft:"360px",}}  >Upvotes : ZZZ </span>
+                                   
+                            </div>    
+                            <div class="col-md-12" style={{marginTop:20,}}>   
+                                <span className="mt-5"
+                                  style={{color:"black",fontSize:"20px",}}  >Tags </span>
+                              <span className="mt-5"
+                                  style={{color:"black",fontSize:"20px",marginLeft:"1300px",}}  >Posted By </span>
+                                   
+                            </div> 
+
+                    </div>
+                </div>
+                <div className="card mt-4" style={{background:"gainsboro",}}>
+                    <div className="card-body">
+                            <div class="col-md-12 mb-2">  
+                                <div data-grid="col-12" className="thread-title single-line-text" aria-live="polite">
+                                        <span data-bi-id="thread-link" data-bi-index="0" data-bi-linkthreadid="63400f39-b2b7-4b28-88e9-569c183e0d63" href="https://answers.microsoft.com/en-us/windows/forum/all/windows-10-updates-fixes-2023/63400f39-b2b7-4b28-88e9-569c183e0d63" 
+                                  style={{color:"black"}}  >Query 1</span>
+                               
+                                </div>
+                             </div> 
+                             <div class="col-md-12 mt-3">   
+                                <span className="ml-5 "
+                                  style={{color:"black",fontSize:"20px",marginTop:"50",}}  >Total Answers :</span>
+                               <span className=""
+                                  style={{color:"black",fontSize:"20px",marginTop:"30",marginLeft:"400px",}}  >XXX Total Views : YYY </span>
+                                    <span className=""
+                                  style={{color:"black",fontSize:"20px",marginTop:"30",marginLeft:"360px",}}  >Upvotes : ZZZ </span>
+                                   
+                            </div>    
+                            <div class="col-md-12" style={{marginTop:20,}}>   
+                                <span className="mt-5"
+                                  style={{color:"black",fontSize:"20px",}}  >Tags </span>
+                              <span className="mt-5"
+                                  style={{color:"black",fontSize:"20px",marginLeft:"1300px",}}  >Posted By </span>
+                                   
+                            </div> 
+
+                    </div>
+                </div>
+           
 
           </Container>
         </section>

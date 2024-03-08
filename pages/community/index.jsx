@@ -69,8 +69,10 @@ class Community extends Component {
                 flexdirection: "column",
                 flexwrap: "nowrap",
                } } >
-                 <h2 className="welcometitle text-white  mt-5">Welcome to the Microsoft Support Community</h2>
+                 <h2 className="welcometitle text-white  mt-5">Welcome to the Tech 24 Community</h2>
                  <h6 className="h6class text-center mb-2  text-white" style={{paddingLeft:570, paddingBottom:190,}}>Get answers from our community of experts.</h6>
+
+                 
                  <div className="">
                     <form>
                         <div className="input-group mt-2" >
@@ -87,56 +89,27 @@ class Community extends Component {
                  </div>
                 
                </div>
-               <div className="row banner-container mt-5 mb-5">
+               {/* <div className="row banner-container mt-5">
                     <div className="container">
                         <div className="row">
                             <div className="text-center mt-5 mb-3 col-12">
                                 <h3>Didn’t find an answer?</h3>
                             </div>
                         </div>
-                        <div className="row mb-3">
+                        <div className="row">
                             <button id="homepage-banner" className="mx-auto btn btn-primary" type="button">Ask a new question</button>
                         </div>
-                        <div className="row flex-column flex-md-row align-items-center justify-content-center">
-                            <div className="text-center my-3 pb-2 pt-2 col col-xs-auto col-xl-3">
-                                <div>
-                                    <img className="mb-2" src="https://answers.microsoft.com/Static/resourceimages/Icons/people.png" alt="2.5 million"/>
-                                    <h4>2.5 million</h4>
-                                    <p>average daily visitors</p>
-                                    </div>
-                                </div>
-                                <div className="text-center my-3 pb-2 pt-2 col col-xs-auto col-xl-3">
-                                    <div>
-                                        <img className="mb-2" src="https://answers.microsoft.com/Static/resourceimages/Icons/issue-tracking.png" alt="6000"/>
-                                        <h4>6000</h4>
-                                        <p>posts daily</p>
-                                    </div>
-                                </div>
-                                <div className="text-center my-3 pb-2 pt-2 col col-xs-auto col-xl-3">
-                                    <div>
-                                        <img className="mb-2" src="https://answers.microsoft.com/Static/resourceimages/Icons/chat-bubbles.png" alt="2 hour"/>
-                                        <h4>2 hour</h4>
-                                        <p>average response time</p>
-                                    </div>
-                                </div>
-                                <div className="text-center my-3 pb-2 pt-2 col col-xs-auto col-xl-3">
-                                    <div>
-                                        <img className="mb-2" src="https://answers.microsoft.com/Static/resourceimages/Icons/heart.png" alt="330 million"/>
-                                        <h4>330 million</h4>
-                                        <p>customers helped annually</p>
-                                    </div>
-                                </div>
-                            </div>
+                      
                         </div>
-                </div>
-               <h2 className="h4 categoryListTitle" id="categoryListTitle">Browse Product</h2>
+                </div> */}
+                     <h2 className="h2 categoryListTitle" id="categoryListTitle"> Browse Products</h2>
                
-                <div className="row browseProduct" >
-                <div className="col-md-2 mt-5" >
-                {/* to={"./Dashboard"} */}
+                <div className="row browseProduct">
+                <div className="col-md-2 mt-5">
+                
                     <a href="/community/detail">
                       <img src="https://answersstaticfilecdnv2.azureedge.net/static/resourceimages/categories/windows.svg" className="productImage"  />
-                     <div className="text-center mt-2 browseProductName" style={{textDecoration:"underline",}}>Windows</div>
+                     <div className="text-center mt-2 browseProductName">Community 1 Total Queries : X total Answers Y</div>
                      </a>
                    
                 </div>
@@ -144,21 +117,25 @@ class Community extends Component {
                 <div className="col-md-2 icon mt-5 " >
                     <a href="/">
                         <img src="https://answersstaticfilecdnv2.azureedge.net/static/resourceimages/categories/windows.svg" className="productImage" />
-                       <div className="text-center mt-2 browseProductName" style={{textDecoration:"underline",}}>Windows Server</div>
+                        <div className="text-center mt-2 browseProductName">Community 1 Total Queries : X total Answers Y</div>
+
                     </a>   
                 </div>
 
                 <div className="col-md-2 icon mt-5 " >
                     <img src="https://answersstaticfilecdnv2.azureedge.net/static/resourceimages/categories/windows.svg" className="productImage"  />
-                    <div className="text-center mt-2 browseProductName" style={{textDecoration:"underline",}}>Windows Client for IT Pros</div>
+                    <div className="text-center mt-2 browseProductName">Community 1 Total Queries : X total Answers Y</div>
+
                 </div>
                 <div className="col-md-2 icon mt-5 " >
                     <img src="https://answersstaticfilecdnv2.azureedge.net/static/resourceimages/categories/msoffice.svg" className="productImage"  />
-                    <div className="text-center mt-2 browseProductName" style={{textDecoration:"underline",}}>Microsoft 365 and Office</div>
+                    <div className="text-center mt-2 browseProductName">Community 1 Total Queries : X total Answers Y</div>
+
                 </div>
                 <div className="col-md-2 icon mt-5 " >
                     <img src="https://answersstaticfilecdnv2.azureedge.net/static/resourceimages/categories/xbanswers.svg" className="productImage"  />
-                    <div className="text-center mt-2 browseProductName" style={{textDecoration:"underline",}}>Gaming and Xbox</div>
+                    <div className="text-center mt-2 browseProductName">Community 1 Total Queries : X total Answers Y</div>
+
                 </div>
                 
                 </div>
@@ -167,23 +144,28 @@ class Community extends Component {
                 
                 <div className="col-md-2 mt-5 ">
                     <img src="https://answersstaticfilecdnv2.azureedge.net/static/resourceimages/categories/outlook_com.svg" className="productImage"  />
-                    <div className="text-center mt-2 browseProductName" style={{textDecoration:"underline",}}>Outlook</div>
+                    <div className="text-center mt-2 browseProductName">Community 1 Total Queries : X total Answers Y</div>
+
                 </div>
                 <div className="col-md-2 icon mt-5 ">
                     <img src="https://answersstaticfilecdnv2.azureedge.net/static/resourceimages/categories/skype.svg" className="productImage"  />
-                    <div className="text-center mt-2 browseProductName" style={{textDecoration:"underline",}}>Skype</div>
+                    <div className="text-center mt-2 browseProductName">Community 1 Total Queries : X total Answers Y</div>
+
                 </div>
                 <div className="col-md-2 icon  mt-5">
                     <img src="https://answersstaticfilecdnv2.azureedge.net/static/resourceimages/categories/surface.svg" className="productImage"  />
-                    <div className="text-center mt-2 browseProductName" style={{textDecoration:"underline",}}>Surface</div>
+                    <div className="text-center mt-2 browseProductName">Community 1 Total Queries : X total Answers Y</div>
+
                 </div>
                 <div className="col-md-2 icon mt-5">
                     <img src="https://answersstaticfilecdnv2.azureedge.net/static/resourceimages/categories/msteams.svg" className="productImage"  />
-                    <div className="text-center mt-2 browseProductName" style={{textDecoration:"underline",}}>Microsoft Teams</div>
+                    <div className="text-center mt-2 browseProductName">Community 1 Total Queries : X total Answers Y</div>
+
                 </div>
                 <div className="col-md-2 icon mt-5">
                     <img src="https://answersstaticfilecdnv2.azureedge.net/static/resourceimages/categories/insider.svg" className="productImage"  />
-                    <div className="text-center mt-2 browseProductName" style={{textDecoration:"underline",}}>Windows Insider Program</div>
+                    <div className="text-center mt-2 browseProductName">Community 1 Total Queries : X total Answers Y</div>
+
                 </div>
                 </div>
 
@@ -191,11 +173,13 @@ class Community extends Component {
                 
                 <div className="col-md-2 mt-5" >
                     <img src="https://answersstaticfilecdnv2.azureedge.net/static/resourceimages/categories/msoffice.svg" className="productImage"  />
-                    <div className="text-center mt-2 browseProductName" style={{textDecoration:"underline",}}>Microsoft 365 Insider</div>
+                    <div className="text-center mt-2 browseProductName">Community 1 Total Queries : X total Answers Y</div>
+
                 </div>
                 <div className="col-md-2 icon mt-5" >
                     <img src="https://answersstaticfilecdnv2.azureedge.net/static/resourceimages/categories/microsoftedge.svg" className="productImage"  />
-                    <div className="text-center mt-2 browseProductName" style={{textDecoration:"underline",}}>Microsoft Edge</div>
+                    <div className="text-center mt-2 browseProductName">Community 1 Total Queries : X total Answers Y</div>
+
                 </div>
                 
                 </div>

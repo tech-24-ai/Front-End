@@ -23,7 +23,17 @@
       }
      .welcometitle{
         text-align: "center"; color:"white"; 
-        margin-left: 430px;
+        margin-left: 500px;
+     }
+     .detailtitle{
+        text-align: "center"; color:"white"; 
+        margin-left: 200px;
+        margin-bottom:200px;
+     }
+     .totalQueries{
+        // margin-bottom:20px;
+        // margin-right: 250px;
+        
      }
      .h6class{
         padding-left:590px; padding-bottom:130px;
@@ -33,8 +43,9 @@
          height:50px; 
          text-align: center;
          margin-left: -520px;
-         margin-bottom: 100px
-         ;
+         margin-bottom: 100px;
+         margin-top: 40px;
+
      }
      .leranmoreClass{
         margin-bottom: 80px;
@@ -64,10 +75,57 @@
     margin-left: 75px;  
     width: 65px;
    }
-   .banner-container {
-    background-color: #a4bed4;
-    margin-bottom: 3rem;
-}
+        .banner-container {
+            // background-color: #a4bed4;
+            margin-bottom: 3rem;
+        }
+
+        .thread-title {
+            font-size: 23px;
+            font-weight: bold;
+            line-height: 28px;
+            color: #0067b8;
+        }
+        .v3 .threadlist .lower-content .m-card-group .c-card .dates-line {
+            font-size: 13px;
+            color: #000;
+            line-height: 24px;
+        }
+        .v3 .threadlist .lower-content .m-card-group .c-card .thread-summary {
+            margin-bottom: 4px;
+        }
+        .double-line-text {
+            overflow: hidden;
+            position: relative;
+            line-height: 24px;
+            max-height: 48px;
+            margin-right: -1em;
+            padding-right: 1em;
+            margin-top: 2px;
+            font-size: 20px;
+        }
+        .threadlist-filter-options {
+            margin-top: 12px;
+        }
+        .v3 .threadlist .lower-content #filterSection #filterByTypeControls {
+            display: inline-block;
+        }
+        .c-label{
+            margin-left: 60px;
+        }
+        .filterClass{
+        font-weight: 600;
+        }
+        .c-button{
+            width: 150px;
+            height: 40px;
+            background-color: #0067b8;
+            color: white;
+            margin-bottom: 15px;
+            margin-left: 1500px;
+                        
+        }
+        
     }
 
   
