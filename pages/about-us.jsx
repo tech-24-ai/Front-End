@@ -46,7 +46,7 @@ function aboutUs() {
             <Button className="download-btn">download company profile</Button> */}
 
             <div>
-              <p className="inner-heading">Who are we</p>
+              <p className="inner-heading">Who we are</p>
               <p className="paragraph">
                 TECH24 is industry's first community-led Market Research and
                 Consulting company.
