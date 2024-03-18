@@ -79,7 +79,7 @@ class Connect extends React.PureComponent {
     if (contactTypeId) {
       Router.push("/connect-detail");
     } else {
-      this.props.showError("Please select option");
+      this.props.showError("Please select an option");
     }
   };
 
