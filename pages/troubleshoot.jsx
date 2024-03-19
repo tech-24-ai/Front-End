@@ -10,6 +10,7 @@ import { alertActions, crudActions, loaderActions } from "../_actions";
 import { useRouter, withRouter } from "next/router";
 import { connect } from "react-redux";
 import { LoadingDotIcon } from "../components/icons";
+import themeConfig from "../config/themeConfig";
 
 function troubleshoot({ getAllCrud, showLoader, hideLoader, error }) {
   const [chatInput, setChatInput] = useState("");
@@ -46,7 +47,7 @@ function troubleshoot({ getAllCrud, showLoader, hideLoader, error }) {
         ...prevData,
         {
           type: "received",
-          message: `Welcome to TECH24, we will be happy to assist you in troubleshooting your issues for ${selectData.subject}`,
+          message: `Welcome to ${themeConfig.appName}, we will be happy to assist you in troubleshooting your issues for ${selectData.subject}`,
         },
       ]);
 

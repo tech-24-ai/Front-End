@@ -89,7 +89,7 @@ function Header(props) {
                         className="mdg"
                         src={isMainHeader ? LogoBlack : LogoWhite}
                         alt=""
-                        placeholder="ITMAPLogo"
+                        placeholder="Logo"
                         width={140}
                         height={40}
                       />
@@ -104,7 +104,7 @@ function Header(props) {
                   loader={myImageLoader}
                   src={isMainHeader ? LogoBlack : LogoWhite}
                   alt=""
-                  placeholder="ITMAPLogo"
+                  placeholder="Logo"
                   layout="raw"
                   style={{
                     objectFit: "contain",

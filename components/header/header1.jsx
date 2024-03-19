@@ -66,7 +66,7 @@ function Header1(props) {
                       className="logo"
                       src={LogoNew}
                       alt=""
-                      placeholder="ITMAPLogo"
+                      placeholder="Logo"
                       width={140}
                       height={40}
                     />

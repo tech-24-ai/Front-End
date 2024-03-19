@@ -214,7 +214,7 @@ const WebList = ({
     );
   }
   return (
-    <div className="itmap-datatable">
+    <div className="datatable">
       {/* <BootstrapTable keyField="id" data={documents} columns={columnData} /> */}
       <div className="react-bootstrap-table">
         {/* previous code start here */}

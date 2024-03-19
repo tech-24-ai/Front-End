@@ -1,5 +1,5 @@
 .documentListContainer {
-  .itmap-datatable {
+  .datatable {
     .table {
       display: inline-grid;
       // justify-content: center;
@@ -47,7 +47,7 @@
   border-radius: 8px;
 }
 
-.itmap-datatable {
+.datatable {
   padding-bottom: 50px;
 
   .table {
@@ -66,7 +66,7 @@
     vertical-align: initial;
   }
 
-  .itmap-datatable-pagination {
+  .datatable-pagination {
     .btn {
       padding: 5px 10px 5px 10px;
       font-size: 10px;
@@ -113,7 +113,7 @@
 }
 
 .report-table .row,
-.documentListContainer .itmap-datatable table tbody tr {
+.documentListContainer .datatable table tbody tr {
   padding-inline: 1rem;
   margin: 0.6rem 0rem;
   background-color: transparent;
@@ -124,7 +124,7 @@
   max-width: 60%;
 }
 .report-table .dataRow,
-.documentListContainer .itmap-datatable table tbody tr {
+.documentListContainer .datatable table tbody tr {
   padding: 1rem;
   display: flex;
   align-items: center;
@@ -137,7 +137,7 @@
   // max-height: auto;
 }
 
-.documentListContainer .itmap-datatable table tbody tr {
+.documentListContainer .datatable table tbody tr {
   justify-content: space-between;
 }
 
@@ -161,7 +161,7 @@
   color: #685e68;
 }
 .report-table .dataRow:hover,
-.documentListContainer .itmap-datatable table tbody tr:hover {
+.documentListContainer .datatable table tbody tr:hover {
   background-color: #fdf8fd;
   // background-color: #f189f1;
   transition: ease all 0.5s;

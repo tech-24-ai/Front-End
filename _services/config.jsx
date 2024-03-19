@@ -48,10 +48,13 @@ const errorHandler = async (error) => {
         dispatch(alertActions.error(response.data.message));
         break;
       case 401:
-        const token = localStorage.getItem("itmapToken");
+        const token = localStorage.getItem("tech24Token");
         if (!token && window.location.pathname === "/login") {
           dispatch(alertActions.warning(response.data.message));
-        } else if (!token && window.location.pathname === "/troubleshoot-subject") {
+        } else if (
+          !token &&
+          window.location.pathname === "/troubleshoot-subject"
+        ) {
           dispatch(
             alertActions.warning("To Access this feature, please login")
           );

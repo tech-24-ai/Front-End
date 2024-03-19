@@ -19,6 +19,7 @@ import DualProfileIcon from "../../public/new_images/DualProfileIcon.svg";
 import myImageLoader from "../../components/imageLoader";
 import { isBrowser, isMobile } from "react-device-detect";
 import momentTimezone from "moment-timezone";
+import themeConfig from "../../config/themeConfig";
 
 const createMeeting = ({
   consultant,
@@ -386,7 +387,7 @@ const createMeeting = ({
               </div>
               <div className="amount">
                 <h5 className="rate">${isNaN(totalPrice) ? 0 : totalPrice}</h5>
-                <p className="text">Inclusive of Tech24 fees</p>
+                <p className="text">Inclusive of {themeConfig.appName} fees</p>
               </div>
             </div>
 

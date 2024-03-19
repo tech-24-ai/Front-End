@@ -217,15 +217,15 @@ class Connect extends React.PureComponent {
                 <h4>Our Email</h4>
                 <p>
                   For sales inquiries write to{" "}
-                  <a href="mailto:sales@itmap.com">sales@itmap.com</a>
+                  <a href="mailto:sales@tech24.ai">sales@tech24.ai</a>
                   <br />
                   <br />
                   For support inquiries write to{" "}
-                  <a href="mailto:support@itmap.com">support@itmap.com</a>
+                  <a href="mailto:support@tech24.ai">support@tech24.ai</a>
                   <br />
                   <br />
                   For others write to{" "}
-                  <a href="mailto:inquiry@itmap.com">inquiry@itmap.com</a>
+                  <a href="mailto:inquiry@tech24.ai">inquiry@tech24.ai</a>
                 </p>
               </div>
             </div>

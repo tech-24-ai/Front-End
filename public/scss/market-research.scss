@@ -128,65 +128,6 @@
       }
     }
   }
-
-  .itmap-new-way-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 3rem 0;
-
-    .title {
-      font-weight: 600;
-      line-height: 150%;
-    }
-
-    p.sub-title {
-      margin: 0;
-      font-weight: 400;
-      font-size: 20px;
-      line-height: 30px;
-      text-align: center;
-      letter-spacing: 0.02em;
-      color: #94959b;
-    }
-
-    .content {
-      // width: 60%;
-      margin-top: 1rem;
-      // margin-left: 5rem;
-
-      > div.row {
-        > div {
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
-          margin-top: 2rem;
-
-          div.custom-icon {
-            width: 72px;
-            height: 72px;
-
-            span.anticon {
-              svg {
-                width: 32px;
-                height: 32px;
-              }
-            }
-          }
-
-          p {
-            margin: 0;
-            margin-left: 2rem;
-            font-weight: 600;
-            font-size: 24px;
-            line-height: 36px;
-            letter-spacing: 0.02em;
-          }
-        }
-      }
-    }
-  }
 }
 @media (min-width: 1024px) and (max-width: 1366px) {
   .market-research-portal-section {
