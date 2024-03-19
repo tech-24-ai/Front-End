@@ -114,7 +114,7 @@ const Community = ({ router, getCrud, details }) => {
                       ))}
                     </div>
                     <div className="col-md-4" style={styles.item}>
-                      <span>Total Views: 1</span>
+                      <span>Total Views: {item.views_counter}</span>
                     </div>
                     <div className="col-md-3" style={styles.item}>
                     <span>Upvotes : </span>
