@@ -22,6 +22,7 @@ import Download from "../public/images/datacenter/download.svg";
 import Summary from "./summary";
 import { crudService } from "../_services";
 import Link from "next/link";
+import themeConfig from "../config/themeConfig";
 
 class Products extends React.PureComponent {
   constructor(props) {
@@ -185,7 +186,7 @@ class Products extends React.PureComponent {
       },
       {
         dataField: "rating",
-        text: "ITMAP Score",
+        text: "Score",
         sort: true,
         formatter: (cell, row) => {
           if (row && row.rating) {
@@ -222,7 +223,7 @@ class Products extends React.PureComponent {
 
       return (
         <div className="col-md-6 col-xs-6 col-sm-6 col-lg-6">
-          <div className="itmap-datatable-pagination">
+          <div className="datatable-pagination">
             <ButtonGroup className="float-right">
               {pageWithoutIndication.map((p) => (
                 <Button
@@ -336,7 +337,9 @@ class Products extends React.PureComponent {
                               <div className="col"></div>
                               <div className="col">Vendor Name</div>
                               <div className="col">Product</div>
-                              <div className="col">Tech24 Score</div>
+                              <div className="col">
+                                {themeConfig.appName} Score
+                              </div>
                             </div>
                             {products
                               .slice(
@@ -489,7 +492,7 @@ class Products extends React.PureComponent {
                 )}
               </div>
 
-              {/* <div className="itmap-datatable productTable">
+              {/* <div className="datatable productTable">
                 <BootstrapTable
                   keyField="id"
                   data={products}

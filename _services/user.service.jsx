@@ -23,7 +23,7 @@ function login(email, password) {
 
   return apiConfig.post(`/login`, user).then((user) => {
     if (user.status && user.status == 200) {
-      localStorage.setItem("itmapToken", user.data.data.access_token.token);
+      localStorage.setItem("tech24Token", user.data.data.access_token.token);
       window.location.replace("/");
       return user;
     }
@@ -56,7 +56,7 @@ function linkedInLogin(code) {
 
   return apiConfig.post(`/linkedin_login`, data).then((user) => {
     if (user.status && user.status == 200) {
-      localStorage.setItem("itmapToken", user.data.data.access_token.token);
+      localStorage.setItem("tech24Token", user.data.data.access_token.token);
       window.location.replace("/");
       return user;
     }
@@ -65,7 +65,7 @@ function linkedInLogin(code) {
 
 function logout() {
   if (process.browser) {
-    localStorage.removeItem("itmapToken");
+    localStorage.removeItem("tech24Token");
     window.location.replace("/login");
   }
 }

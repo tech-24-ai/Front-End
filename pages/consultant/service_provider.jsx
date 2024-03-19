@@ -17,6 +17,7 @@ import ConsultantFilter from "../../components/consultant/ConsultantFilter";
 import ConsultantCard from "../../components/consultant/ConsultantCard";
 import NotFound from "../../components/notFound";
 import { LoadingDotIcon } from "../../components/icons";
+import themeConfig from "../../config/themeConfig";
 
 const consultantList = ({ consultants, getAllCrud, authentication }) => {
   const [page, setPage] = useState(0);
@@ -112,7 +113,7 @@ const consultantList = ({ consultants, getAllCrud, authentication }) => {
                 height={20}
                 style={{ objectFit: "contain" }}
               />
-              <p>TECH24 will manage SLAs and payments</p>
+              <p>{themeConfig.appName} will manage SLAs and payments</p>
             </div>
             {/* <div className="title-content">
                             <Image

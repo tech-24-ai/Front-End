@@ -23,6 +23,7 @@ import {
   Cursor,
   User,
 } from "../components/icons";
+import themeConfig from "../config/themeConfig";
 
 function TermsConditions() {
   return (
@@ -39,20 +40,23 @@ function TermsConditions() {
       <Container className="pr-body-container">
         <div className="para-box">
           <p className="para-graph">
-            Welcome to TECH24.AI, (“TECH24” or “we” or “our” or “this website”).
-            Subject to and without limiting the terms of or your obligations
-            under any legally binding contract pertaining to the subject matter
-            hereof between TECH24 and you or between TECH24 and your employer or
-            a party for whom you perform services, by using TECH24.ai or any
-            mobile application or other website operated by TECH24 (each, a
-            “Site”), you agree to each of the terms of use set forth herein.
+            Welcome to {themeConfig.appName}.AI, (“{themeConfig.appName}” or
+            “we” or “our” or “this website”). Subject to and without limiting
+            the terms of or your obligations under any legally binding contract
+            pertaining to the subject matter hereof between{" "}
+            {themeConfig.appName} and you or between {themeConfig.appName} and
+            your employer or a party for whom you perform services, by using{" "}
+            {themeConfig.appName}.ai or any mobile application or other website
+            operated by {themeConfig.appName} (each, a “Site”), you agree to
+            each of the terms of use set forth herein.
           </p>
 
           <p className="para-graph">
-            TECH24 reserves the right to modify these Terms of Use at any time
-            without prior notice to you or your organization. Your continued use
-            of the Site after any such changes constitutes your agreement to
-            follow and be bound by these Terms of Use as modified.
+            {themeConfig.appName} reserves the right to modify these Terms of
+            Use at any time without prior notice to you or your organization.
+            Your continued use of the Site after any such changes constitutes
+            your agreement to follow and be bound by these Terms of Use as
+            modified.
           </p>
         </div>
 
@@ -61,7 +65,7 @@ function TermsConditions() {
           <ul className="step-list">
             <li className="step-cookies">
               External citation to the Content on this website is prohibited
-              without TECH24’s written permission.
+              without {themeConfig.appName}’s written permission.
             </li>
             <li className="step-cookies">
               You will not reverse engineer, impair or otherwise bypass any
@@ -85,7 +89,7 @@ function TermsConditions() {
             <li className="step-cookies">
               You will not impersonate any person or entity that otherwise
               misrepresents your affiliation with a person or entity, including
-              TECH24.
+              {themeConfig.appName}.
             </li>
             <li className="step-cookies">
               You will not infringe on any third party's copyright, patent,
@@ -94,12 +98,13 @@ function TermsConditions() {
             </li>
           </ul>
           <p className="para-graph">
-            This above list of restrictions is not exhaustive. TECH24 reserves
-            the right to terminate access to your account with or without cause
-            or notice for any action that is determined as inappropriate to this
-            website or to any other user of this website. TECH24 may report to
-            law enforcement authorities any actions that may be illegal, and any
-            reports it receives of such conduct.
+            This above list of restrictions is not exhaustive.{" "}
+            {themeConfig.appName} reserves the right to terminate access to your
+            account with or without cause or notice for any action that is
+            determined as inappropriate to this website or to any other user of
+            this website. {themeConfig.appName} may report to law enforcement
+            authorities any actions that may be illegal, and any reports it
+            receives of such conduct.
           </p>
         </div>
 
@@ -107,10 +112,11 @@ function TermsConditions() {
           <h4 className="para-title">PAYMENT TERMS:</h4>
           <ul className="step-list">
             <li className="step-cookies">
-              TECH24 uses the PayPal payment gateway for all transactions made
-              through the TECH24.com portal. Registered users can complete the
-              transaction through a credit card, Debit card or through their
-              PayPal account. TECH24 does not store any card or account
+              {themeConfig.appName} uses the PayPal payment gateway for all
+              transactions made through the {themeConfig.appName}.com portal.
+              Registered users can complete the transaction through a credit
+              card, Debit card or through their PayPal account.{" "}
+              {themeConfig.appName} does not store any card or account
               information on its servers.
             </li>
             <li className="step-cookies">
@@ -163,15 +169,16 @@ function TermsConditions() {
         <div className="para-box">
           <h4 className="step-title">LIMITATION OF LIABILITY:</h4>
           <p className="para-graph">
-            TECH24 DOES NOT WARRANT OR MAKE ANY REPRESENTATIONS REGARDING THE
-            USE, VALIDITY, ACCURACY OR RELIABILITY OF THIS WEBSITE (TECH24.COM)
-            OR THE RESULTS OF THE USE OF THE WEBSITE. IN NO EVENT SHALL TECH24
+            {themeConfig.appName} DOES NOT WARRANT OR MAKE ANY REPRESENTATIONS
+            REGARDING THE USE, VALIDITY, ACCURACY OR RELIABILITY OF THIS WEBSITE
+            ({themeConfig.appName}.COM) OR THE RESULTS OF THE USE OF THE
+            WEBSITE. IN NO EVENT SHALL {themeConfig.appName}
             BE LIABLE FOR ANY DAMAGES, INCLUDING THOSE ARISING AS A RESULT OF
-            TECH24'S NEGLIGENCE, WHETHER THOSE DAMAGES ARE DIRECT,
-            CONSEQUENTIAL, INCIDENTAL, OR SPECIAL, FLOWING FROM YOUR USE OF OR
-            INABILITY TO USE THE WEBSITE OR INFORMATION PROVIDED HEREWITH OR
-            RESULTS OF THE WEBSITE.THE ULTIMATE RESPONSIBILITY FOR ACHIEVING THE
-            RESULTS REMAINS WITH YOU.
+            {themeConfig.appName}'S NEGLIGENCE, WHETHER THOSE DAMAGES ARE
+            DIRECT, CONSEQUENTIAL, INCIDENTAL, OR SPECIAL, FLOWING FROM YOUR USE
+            OF OR INABILITY TO USE THE WEBSITE OR INFORMATION PROVIDED HEREWITH
+            OR RESULTS OF THE WEBSITE.THE ULTIMATE RESPONSIBILITY FOR ACHIEVING
+            THE RESULTS REMAINS WITH YOU.
           </p>
         </div>
       </Container>

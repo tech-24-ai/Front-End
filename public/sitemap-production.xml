@@ -7,127 +7,127 @@
 	xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
 	xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 	<url>
-		<loc>https://www.itmap.com</loc>
+		<loc>https://www.tech24.ai</loc>
 		<lastmod>2022-11-01T10:29:25.446Z</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>1.0</priority>
 	</url>
 	<url>
-		<loc>https://www.itmap.com/about-us</loc>
+		<loc>https://www.tech24.ai/about-us</loc>
 		<lastmod>2022-11-01T10:29:25.446Z</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.7</priority>
 	</url>
 	<url>
-		<loc>https://www.itmap.com/blogs</loc>
+		<loc>https://www.tech24.ai/blogs</loc>
 		<lastmod>2022-11-01T10:29:25.446Z</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.7</priority>
 	</url>
 	<url>
-		<loc>https://www.itmap.com/blogs/categories</loc>
+		<loc>https://www.tech24.ai/blogs/categories</loc>
 		<lastmod>2022-11-01T10:29:25.446Z</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.7</priority>
 	</url>
 	<url>
-		<loc>https://www.itmap.com/connect</loc>
+		<loc>https://www.tech24.ai/connect</loc>
 		<lastmod>2022-11-01T10:29:25.446Z</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.7</priority>
 	</url>
 	<url>
-		<loc>https://www.itmap.com/faq</loc>
+		<loc>https://www.tech24.ai/faq</loc>
 		<lastmod>2022-11-01T10:29:25.446Z</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.7</priority>
 	</url>
 	<url>
-		<loc>https://www.itmap.com/legal</loc>
+		<loc>https://www.tech24.ai/legal</loc>
 		<lastmod>2022-11-01T10:29:25.446Z</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.7</priority>
 	</url>
 	<url>
-		<loc>https://www.itmap.com/linkedin</loc>
+		<loc>https://www.tech24.ai/linkedin</loc>
 		<lastmod>2022-11-01T10:29:25.446Z</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.7</priority>
 	</url>
 	<url>
-		<loc>https://www.itmap.com/login</loc>
+		<loc>https://www.tech24.ai/login</loc>
 		<lastmod>2022-11-01T10:29:25.446Z</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.7</priority>
 	</url>
 	<url>
-		<loc>https://www.itmap.com/logout</loc>
+		<loc>https://www.tech24.ai/logout</loc>
 		<lastmod>2022-11-01T10:29:25.446Z</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.7</priority>
 	</url>
 	<url>
-		<loc>https://www.itmap.com/profile</loc>
+		<loc>https://www.tech24.ai/profile</loc>
 		<lastmod>2022-11-01T10:29:25.446Z</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.7</priority>
 	</url>
 	<url>
-		<loc>https://www.itmap.com/signup</loc>
+		<loc>https://www.tech24.ai/signup</loc>
 		<lastmod>2022-11-01T10:29:25.447Z</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.7</priority>
 	</url>
 	<url>
-		<loc>https://www.itmap.com/technology/business_applications</loc>
-		<lastmod>2022-11-01T10:29:25.447Z</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.5</priority>
-	</url>
-	<url>
-		<loc>https://www.itmap.com/technology/it_infrastructure</loc>
+		<loc>https://www.tech24.ai/technology/business_applications</loc>
 		<lastmod>2022-11-01T10:29:25.447Z</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.5</priority>
 	</url>
 	<url>
-		<loc>https://www.itmap.com/technology/data_management</loc>
+		<loc>https://www.tech24.ai/technology/it_infrastructure</loc>
 		<lastmod>2022-11-01T10:29:25.447Z</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.5</priority>
 	</url>
 	<url>
-		<loc>https://www.itmap.com/technology/cybersecurity</loc>
+		<loc>https://www.tech24.ai/technology/data_management</loc>
 		<lastmod>2022-11-01T10:29:25.447Z</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.5</priority>
 	</url>
 	<url>
-		<loc>https://www.itmap.com/technology/physical_security</loc>
+		<loc>https://www.tech24.ai/technology/cybersecurity</loc>
 		<lastmod>2022-11-01T10:29:25.447Z</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.5</priority>
 	</url>
 	<url>
-		<loc>https://www.itmap.com/product_comparisons_and_templates</loc>
+		<loc>https://www.tech24.ai/technology/physical_security</loc>
 		<lastmod>2022-11-01T10:29:25.447Z</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.5</priority>
 	</url>
 	<url>
-		<loc>https://www.itmap.com/content/terms-and-conditions</loc>
+		<loc>https://www.tech24.ai/product_comparisons_and_templates</loc>
 		<lastmod>2022-11-01T10:29:25.447Z</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.5</priority>
 	</url>
 	<url>
-		<loc>https://www.itmap.com/content/privacy-and-policy</loc>
+		<loc>https://www.tech24.ai/content/terms-and-conditions</loc>
 		<lastmod>2022-11-01T10:29:25.447Z</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.5</priority>
 	</url>
 	<url>
-		<loc>https://www.itmap.com/content/cookies-setting</loc>
+		<loc>https://www.tech24.ai/content/privacy-and-policy</loc>
+		<lastmod>2022-11-01T10:29:25.447Z</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.5</priority>
+	</url>
+	<url>
+		<loc>https://www.tech24.ai/content/cookies-setting</loc>
 		<lastmod>2022-11-01T10:29:25.447Z</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.5</priority>

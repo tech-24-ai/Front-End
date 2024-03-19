@@ -66,7 +66,7 @@ class ConnectSuccess extends React.PureComponent {
             </p> */}
             <p>
               <strong>Email:</strong>{" "}
-              <a href="mailto:support@itmap.com">support@itmap.com</a>
+              <a href="mailto:support@tech24.ai">support@tech24.ai</a>
             </p>
 
             <div className="button-wrapper" style={{ marginBottom: "2rem" }}>

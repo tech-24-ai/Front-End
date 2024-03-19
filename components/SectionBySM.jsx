@@ -3,7 +3,6 @@ import { Button, Container, Row } from "reactstrap";
 import { isMobile, isBrowser } from "react-device-detect";
 import menIcon from "../public/images/header/804@2x.png";
 import beforeLine from "../public/images/header/Rectangle 124.png";
-import newWayLogo from "../public/images/header/ITMAP A new way to buy.png";
 import ellipsLogo from "../public/images/header/Ellipse 21.png";
 import greenTick from "../public/images/header/Group 619.png";
 import firstGroup from "../public/images/header/Group 599.png";
@@ -15,18 +14,13 @@ import RFPIcon from "../public/images/header/Group 624.png";
 import CostIcon from "../public/images/header/Group 650.png";
 import ITStrategyIcon from "../public/images/header/Group 651.png";
 import JobIcon from "../public/images/header/Group 627.png";
-import trustedIcon from "../public/images/header/ITMAP Your trusted IT insights partner​.png";
-import allGroup from "../public/images/header/Group 649.png";
-import socialIcons from "../public/images/header/Group 652.png";
 import beforeLine2 from "../public/images/header/Rectangle 133.png";
 import ellips25 from "../public/images/header/Ellipse 25.png";
 import laptopLogo from "../public/images/header/Group 674.png";
-import menLogo from "../public/images/header/Group 675.png";
 import girlLogo from "../public/images/header/2518626e.png";
 import girlLogo2 from "../public/images/header/2518626.png";
 import bestPracticeLogo2 from "../public/images/header/bestPracticeLogo2.png";
-import bgYellow from "../public/images/header/Rectangle 121.png";
-import verticalLine from "../public/images/header/Rectangle 126.png";
+
 import Curve from "../pages/svgLine";
 import { Line } from "../pages/svgLine";
 import Footer from "./footer";
@@ -40,6 +34,7 @@ import { connect } from "react-redux";
 import { withRouter } from "next/router";
 import Image from "next/image";
 import myImageLoader from "./imageLoader";
+import themeConfig from "../config/themeConfig";
 
 const SectionBySM = ({ isloggedIn }) => {
   const linkedinOpenUrl = () => {
@@ -98,9 +93,9 @@ const SectionBySM = ({ isloggedIn }) => {
                   color: "#5C5C5C",
                 }}
               >
-                TECH24 is industry’s first automated IT products recommendation
-                platform that helps customers find the right product specific to
-                their needs.
+                {themeConfig.appName} is industry’s first automated IT products
+                recommendation platform that helps customers find the right
+                product specific to their needs.
                 <br />
                 <br />
                 Software, hardware or services you name it - our algorithms
@@ -406,7 +401,7 @@ const SectionBySM = ({ isloggedIn }) => {
             >
               <div style={{ fontSize: "20px" }}>
                 <span style={{ fontWeight: "bold", fontSize: "24px" }}>
-                  TECH24 <br />
+                  {themeConfig.appName} <br />
                 </span>
                 A new way to
                 <span style={{ fontWeight: "bold", fontSize: "20px" }}>
@@ -651,28 +646,6 @@ const SectionBySM = ({ isloggedIn }) => {
             </div>
           </div>
         </Container>
-        {/* new section - Meraj */}
-        {/* <section
-          style={{
-            marginTop: "5rem",
-            marginBottom: "3rem",
-          }}
-        >
-          <div className="itmap-new-way-section">
-            <div className="text-section">
-              <p className="itmap-text">ITMAP</p>
-              <p className="new-way-to-buy">
-                A new way to <span>buy</span>
-              </p>
-            </div>
-
-            <div className="path-section">
-              <img src="../public/images/header/path1-new.png" alt="" />
-              <p className="text">Eliminate Time consuming web searches</p>
-            </div>
-          </div>
-        </section> */}
-        {/* new div started */}
         <div
           style={{
             height: "1100px",
@@ -1120,7 +1093,7 @@ const SectionBySM = ({ isloggedIn }) => {
                 marginLeft: "3rem",
               }}
             >
-              ITMAP
+              {themeConfig.appName}
               <br />
               <span style={{ fontWeight: 300 }}>Your</span>
               &nbsp;trusted&nbsp;
@@ -1129,7 +1102,7 @@ const SectionBySM = ({ isloggedIn }) => {
                 <br />
                 insights&nbsp;
               </span>
-              partner​
+              partner
             </div>
           </div>
           <div style={{ width: "60%" }}>
@@ -1575,7 +1548,7 @@ const SectionBySM = ({ isloggedIn }) => {
                 padding: "0px auto",
               }}
             >
-              <span style={{ fontWeight: "bold" }}>ITMAP</span> <br />
+              <span style={{ fontWeight: "bold" }}>{themeConfig.appName}</span> <br />
               Your <span style={{ fontWeight: "bold" }}>trusted</span> IT <br />
               insights <span style={{ fontWeight: "bold" }}>partner​</span>
             </p>
@@ -1665,7 +1638,7 @@ const SectionBySM = ({ isloggedIn }) => {
               8909
             </p>
             <p style={{ color: "#707070", fontSize: "13px" }}>
-              Email : support@itmap.com
+              Email : support@tech24.ai
             </p>
           </div>
 
@@ -1687,7 +1660,7 @@ const SectionBySM = ({ isloggedIn }) => {
               marginLeft: "-40px",
             }}
           >
-            ALL RIGHTS RESERVED © ITMAP PVT LTD.
+            ALL RIGHTS RESERVED © {themeConfig.appName}.
           </footer> */}
         {/* <Footer /> */}
         {/* </Container> */}

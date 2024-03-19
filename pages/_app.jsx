@@ -23,6 +23,7 @@ import Cookies from "../components/cookies/";
 // import appleIcon from "../public/images/header/apple-icon-57x57.png";
 import favicon from "../public/images/header/favicon-32x32.png";
 import appleIcon from "../public/images/header/apple-touch-icon.png";
+import themeConfig from "../config/themeConfig";
 
 class MyApp extends App {
   state = {
@@ -66,7 +67,7 @@ class MyApp extends App {
       <Provider store={store}>
         <PersistGate persistor={persistor} loading={null}>
           <Head>
-            <title>TECH24 - IT Market Research for All</title>
+            <title>{themeConfig.appName} - IT Market Research for All</title>
             <meta
               name="viewport"
               content="width=device-width, minimum-scale=1.0, maximum-scale=5.0, user-scalable=no"
