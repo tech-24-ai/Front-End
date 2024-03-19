@@ -44,7 +44,7 @@
          text-align: center;
          margin-left: -520px;
          margin-bottom: 100px;
-         margin-top: 40px;
+        //  margin-top: 40px;
 
      }
      .leranmoreClass{
@@ -57,25 +57,23 @@
      }
 
      .browseProduct{
-        // display:"flex";
-        margin-top:"60px";
+        margin-top:60px;
         margin-left: 100px;
+
      }
      .icon{
         margin-left: 50px;
      }
      .browseProductName{
-        text-align: left;
-        // margin-left: -40px;
         color: black;
         font-size: 16px;
+        // margin-left: 40px;
+        margin-top:30px;
+        // text-align: center;
 
      }
-     .productImage{
-    margin-left: 75px;  
-    width: 65px;
-   }
-        .banner-container {
+    
+      .banner-container {
             // background-color: #a4bed4;
             margin-bottom: 3rem;
         }
@@ -85,6 +83,37 @@
             font-weight: bold;
             line-height: 28px;
             color: #0067b8;
+        }
+        .round-button {
+          -webkit-border-radius: 20px;
+          -moz-border-radius: 20px;
+          border-radius: 20px;
+          width: 120px; /* Set the width and height to make it round */
+          height: 38px;
+          background-color: #007bff; /* Set the background color */
+          color: #ffffff; /* Set the text color */
+          border: none; /* Remove border */
+          outline: none; /* Remove outline */
+          cursor: pointer; /* Add cursor pointer on hover */
+          margin-top:-45px;
+          float: right;
+        }
+        .query-button {
+          -webkit-border-radius: 20px;
+          -moz-border-radius: 20px;
+          border-radius: 20px;
+          width: 120px; /* Set the width and height to make it round */
+          height: 38px;
+          background-color: #b3c6da; /* Set the background color */
+          color: #007bff; /* Set the text color */
+          border: none; /* Remove border */
+          outline: none; /* Remove outline */
+          cursor: pointer; /* Add cursor pointer on hover */
+          margin-top:-45px;
+          float: right;
+        }
+        .pagination li > a{
+          opacity: 1.5;
         }
         .v3 .threadlist .lower-content .m-card-group .c-card .dates-line {
             font-size: 13px;
