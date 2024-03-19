@@ -73,7 +73,7 @@ const Community = ({ community, getAllCrud }) => {
                 </div>
                 <h2 className="h2 categoryListTitle mb-5" id="categoryListTitle"> Browse Products</h2>
                 <div className="row justify-content-center">
-                    {communityFeature.map((item) => (
+                    {communityFeature?.map((item) => (
                         <div className="col-lg-3 col-md-4 col-sm-6 col-12 mb-3" style={styles.productCol} key={item.id}>
                             <a href={`community/${item.url_slug}`} className="text-center d-block" style={styles.productLink}>
                                 <img src={item.image_url} width={110} alt="" style={styles.image} />

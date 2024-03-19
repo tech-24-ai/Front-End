@@ -16,6 +16,7 @@ const Community = ({ router, getCrud, details }) => {
   const [fnColor, setFnColor] = useState("");
   const [isActive, setIsActive] = useState("All");
   const [isHover, setIsHover] = useState("All");
+  const [community, setCommunity] = useState([]);
   const [communityData, setCommunityData] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -25,11 +26,11 @@ const Community = ({ router, getCrud, details }) => {
   useEffect(() => {
     const { asPath } = router;
     let slug = asPath.slice(1).split("/")[1];
-    console.log("Slug:", slug);
+    // console.log("Slug:", slug);
     const searchComm = async () => {
       try {
         const data = await crudService._getAll(`communitypost/${slug}`, { search });
-        console.log("data", data);
+        // console.log("data", data);
         setCommunityData(data.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -39,27 +40,24 @@ const Community = ({ router, getCrud, details }) => {
       searchComm();
     }, 300);
   }, [search]);
-  console.log("search", search);
+  // console.log("search", search);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
+    // const fetchData = async () => {
         const { asPath } = router;
         let slug = asPath.slice(1).split("/")[1];
-        console.log("Slug:", slug); // Log slug for debugging
+        // console.log("Slug:", slug); // Log slug for debuggin
         // const data = await getCrud("details");
-        const data = await crudService._getAll("community", `communitypost/${slug}`).then((data) => setCommunityData(data.data))
-        this.props.getCrud("community", "community");
-        console.log("Data:", data); // Log fetched data for debugging
+        crudService._getAll(`communitypost/${slug}`).then((data) => setCommunityData(data.data))
+        crudService._getAll(`community/details/${slug}`).then((data) => setCommunity(data.data))
 
-        console.log("Community data updated:", response.data);
-      }
-      catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+        // this.props.getCrud("community", "community");
+        // console.log("Data:", data); // Log fetched data for debugging
+        // console.log("community-new-data", community);
 
-    fetchData();
+        // console.log("Community data updated:", response.data);
+
+    // fetchData();
   },
 
     []);
@@ -68,37 +66,11 @@ const Community = ({ router, getCrud, details }) => {
     <>
       <section className="community-section">
         <Container className="community-container mt-3 mb-5">
-          {/* <div className="row search-container" style={styles.searchContainer}>
-  <h2 className="detailtitle text-white mt-5">
-    <span className="mt-2">Community</span>
-    <RightOutlined twoToneColor="black" />
-    <span className="mt-3">Community 1</span>
-  </h2>
-
-  <div className="search-form" style={styles.searchForm}>
-    <form>
-      <div className="input-group">
-        <Input
-          id="search-input-text"
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search the community"
-          className="searchCommunity form-control mb-5"
-          style={styles.input}
-        />
-      </div>
-    </form>
-  </div>
-
-  <div className="total-queries" style={styles.totalQueries}>
-    <span className="text-white">Total Queries : {communityData.total_posts}</span>
-  </div>
-</div> */}
-
           <div style={styles.searchContainer}>
             <h2 className="" style={styles.title}>
               <span>Community</span>
               <RightOutlined twoToneColor="black" />
-              <span>Community 1</span>
+              <span>{community.name}</span>
             </h2>
 
             <form>
@@ -112,7 +84,8 @@ const Community = ({ router, getCrud, details }) => {
               </div>
             </form>
             <div style={styles.totalQueries}>
-              <span className="text-white">Total Queries : {communityData.total_posts}</span>
+              <span className="text-white">Total Queries : {community?.__meta__?.total_posts}</span>
+            
             </div>
           </div>
 
@@ -128,34 +101,38 @@ const Community = ({ router, getCrud, details }) => {
 
           {communityData.map((item, index) => (
             <a href="/community/community_details" key={index}>
-              <div className="card mt-4" style={{backgroundColor:"gainsboro", height:"80%"}}>
+              <div className="card mt-4" style={{ backgroundColor: "gainsboro", height: "80%" }}>
                 <div className="card-body">
                   <div className="thread-title single-line-text mb-2">
                     <span style={{ color: "black" }}>{item.title}</span>
                   </div>
                   <div className="row total-answers ml-5 mt-4">
                     <div className="col-md-4" style={styles.item}>
-                      <span>Total Answers:</span>
-                      {item?.metaTag?.map((meta, index) => (
-                        <span key={index}>{meta.total_post_replies}</span>
+                      <span>Total Answers : </span>
+                      {communityData?.map((item, index) => (
+                        <span key={index}>{item?.__meta__?.total_post_replies}</span>
                       ))}
                     </div>
                     <div className="col-md-4" style={styles.item}>
                       <span>Total Views: 1</span>
                     </div>
                     <div className="col-md-3" style={styles.item}>
-                      <span>Upvotes: 6</span>
+                    <span>Upvotes : </span>
+
+                    {communityData?.map((item, index) => (
+                      <span>{item?.__meta__?.total_helpful}</span>
+                    ))}
                     </div>
                   </div>
-                  <div className="row total-answers ml-5 mt-5">
+                  <div className="row total-answers ml-5 mt-4">
                     <div className="col-md-6" style={styles.item}>
                       <span > Tags : </span>
                       {item?.postTags?.map((tag, index) => (
                         <span key={index} style={styles.value}> #{tag.name} , </span>
                       ))}
                     </div>
-                    <div className="col-md-4" style={styles.item}>
-                      <span>Posted By : Vandan{item.name} </span>
+                    <div className="col-md-4 ml-5" style={styles.item}>
+                      <span>Posted By : {item?.visitor?.name} </span>
                     </div>
                   </div>
                 </div>
