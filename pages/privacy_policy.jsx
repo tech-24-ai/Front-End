@@ -23,6 +23,7 @@ import {
   Cursor,
   User,
 } from "../components/icons";
+import themeConfig from "../config/themeConfig";
 
 function PrivacyPolicy() {
   return (
@@ -40,25 +41,28 @@ function PrivacyPolicy() {
         <div className="para-box">
           <h4 className="para-title">Effective Date – September 2022</h4>
           <p className="para-graph">
-            This privacy policy sets out how TECH24 uses and protects any
-            information that you give TECH24 when you use this website.
+            This privacy policy sets out how {themeConfig.appName} uses and
+            protects any information that you give {themeConfig.appName} when
+            you use this website.
           </p>
           <p className="para-graph">
-            TECH24 is committed to ensuring that your privacy is protected.
-            Should we ask you to provide certain information by which you can be
-            identified when using this website, then you can be assured that it
-            will only be used in accordance with this privacy statement.
+            {themeConfig.appName} is committed to ensuring that your privacy is
+            protected. Should we ask you to provide certain information by which
+            you can be identified when using this website, then you can be
+            assured that it will only be used in accordance with this privacy
+            statement.
           </p>
           <p className="para-graph">
-            TECH24 may change this policy from time to time by updating this
-            page. We encourage you to visit this page regularly.
+            {themeConfig.appName} may change this policy from time to time by
+            updating this page. We encourage you to visit this page regularly.
           </p>
         </div>
 
         <div className="para-box">
           <h4 className="para-title">What we collect</h4>
           <p className="para-graph">
-            When you register or log-in with your LinkedIn account, TECH24
+            When you register or log-in with your LinkedIn account,{" "}
+            {themeConfig.appName}
             receives the following information: first name, last name, profile
             photo, and profile URL. When you login after registering with us
             directly or you are contacting us for consulting services through
@@ -67,7 +71,8 @@ function PrivacyPolicy() {
             number. If you are vendor reaching out to us for inclusion or
             correction, we collect your full name, business email address, your
             company name and location. Payment for subscription services can be
-            made using a credit card or PayPal account. In such cases TECH24
+            made using a credit card or PayPal account. In such cases{" "}
+            {themeConfig.appName}
             does not collect your personal data connected to your payment card
             or PayPal account.
           </p>
@@ -80,11 +85,11 @@ function PrivacyPolicy() {
           <p className="para-graph">
             We require this information to understand your needs and provide you
             with a better service. We may periodically send emails or contact
-            you via phone about our new services and promotions. TECH24 may also
-            use & share your personal information to investigate or respond to
-            illegal or suspected illegal activities on our website. TECH24 may
-            share your organization name and interested services with technology
-            providers.
+            you via phone about our new services and promotions.{" "}
+            {themeConfig.appName} may also use & share your personal information
+            to investigate or respond to illegal or suspected illegal activities
+            on our website. {themeConfig.appName} may share your organization
+            name and interested services with technology providers.
           </p>
         </div>
 
@@ -136,12 +141,13 @@ function PrivacyPolicy() {
             unless you have consented to do so. If you would like a copy of the
             information held on you, or want to opt-out of marketing
             communications, or want to restrict the use of your personal
-            information, please write to support@tech24.com. TECH24 has
-            implemented technical, administrative, security measures designed to
-            help prevent unauthorized access. However, despite these measures,
-            data transmissions over the Internet cannot be considered fully
-            secure. Therefore, TECH24 cannot guarantee or warrant the security
-            of any information you transmit while using our website. We are not
+            information, please write to support@tech24.com.{" "}
+            {themeConfig.appName} has implemented technical, administrative,
+            security measures designed to help prevent unauthorized access.
+            However, despite these measures, data transmissions over the
+            Internet cannot be considered fully secure. Therefore,{" "}
+            {themeConfig.appName} cannot guarantee or warrant the security of
+            any information you transmit while using our website. We are not
             responsible for protecting any personal data that we share with a
             third-party based on an account connection that you have authorized.
           </p>

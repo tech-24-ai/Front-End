@@ -17,7 +17,7 @@ import fileLogo from "../public/images/header/fileLogo.png";
 import sycnIcon from "../public/images/header/Group 690@3x.png";
 import lineGreen from "../public/images/header/Rectangle 148.png";
 
-import ITMAPLogo from "../public/images/header/Group 641 m.png";
+import Logo from "../public/images/header/Group 641 m.png";
 import Link from "next/link";
 import { VLine } from "../pages/svgLine";
 import { Button } from "reactstrap";
@@ -40,6 +40,7 @@ import LinkedinIcon from "../public/images/header/Linkedin-icon.svg";
 import TwitterIcon from "../public/images/header/Twitter-icon.svg";
 import myImageLoader from "./imageLoader";
 import Image from "next/image";
+import themeConfig from "../config/themeConfig";
 
 const SectionBySMMobile = ({ isloggedIn }) => {
   const [scrollSize, setScrollSize] = useState(0);
@@ -117,9 +118,9 @@ const SectionBySMMobile = ({ isloggedIn }) => {
                 margin: "30px auto",
               }}
             >
-              ITMAP is industry’s first automated IT products recommendation
-              platform that helps customers find the right product specific to
-              their needs.
+              {themeConfig.appName} is industry’s first automated IT products
+              recommendation platform that helps customers find the right
+              product specific to their needs.
               <br /> <br /> Software, hardware or services you name it - our
               algorithms provide instant recommendations.
             </p>
@@ -510,7 +511,7 @@ const SectionBySMMobile = ({ isloggedIn }) => {
                 color: "#5d5d5d",
               }}
             >
-              <span style={{ fontWeight: "bold" }}>ITMAP</span>
+              <span style={{ fontWeight: "bold" }}>{themeConfig.appName}</span>
               <br /> A new way to{" "}
               <span style={{ fontWeight: "bold" }}>buy</span>
             </p>
@@ -1263,7 +1264,10 @@ const SectionBySMMobile = ({ isloggedIn }) => {
                   padding: "0px auto",
                 }}
               >
-                <span style={{ fontWeight: "bold" }}>ITMAP</span> <br />
+                <span style={{ fontWeight: "bold" }}>
+                  {themeConfig.appName}
+                </span>{" "}
+                <br />
                 Your <span style={{ fontWeight: "bold" }}>trusted</span> IT{" "}
                 <br />
                 insights <span style={{ fontWeight: "bold" }}>partner​</span>
@@ -1479,10 +1483,10 @@ const SectionBySMMobile = ({ isloggedIn }) => {
               <div>
                 <Image
                   loader={myImageLoader}
-                  src={ITMAPLogo}
+                  src={Logo}
                   alt=""
                   layout="raw"
-                  placeholder="ITMAPLogo"
+                  placeholder="Logo"
                   style={{ padding: "20px", height: "auto", width: "auto" }}
                 />
                 <p
@@ -1493,8 +1497,8 @@ const SectionBySMMobile = ({ isloggedIn }) => {
                     padding: "0px 20px 20px 20px",
                   }}
                 >
-                  TECH24 is industry's first automated product recommendation
-                  engine that helps enterprises choose the right
+                  {themeConfig.appName} is industry's first automated product
+                  recommendation engine that helps enterprises choose the right
                   product/services best suited to their needs.
                 </p>
               </div>
@@ -1525,7 +1529,7 @@ const SectionBySMMobile = ({ isloggedIn }) => {
                         fontSize: "17px",
                       }}
                     >
-                      ITMAP DMCC
+                      {themeConfig.appName}
                     </p>
                     <br />
                     Unit No: 3O-01-BA1437
@@ -1564,17 +1568,17 @@ const SectionBySMMobile = ({ isloggedIn }) => {
                 >
                   For sales inquiries write to
                   <br />
-                  <a href="mailto:sales@itmap.com">sales@itmap.com</a>
+                  <a href="mailto:sales@tech24.ai">sales@tech24.ai</a>
                   <br />
                   <br />
                   For support inquiries write to
                   <br />
-                  <a href="mailto:support@itmap.com">support@itmap.com</a>
+                  <a href="mailto:support@tech24.ai">support@tech24.ai</a>
                   <br />
                   <br />
                   For others write to
                   <br />
-                  <a href="mailto:inquiry@itmap.com">inquiry@itmap.com</a>
+                  <a href="mailto:inquiry@tech24.ai">inquiry@tech24.ai</a>
                   {/* NY Office : +1 234 567 8909
                   <br/>
                   <br />
@@ -1602,12 +1606,12 @@ const SectionBySMMobile = ({ isloggedIn }) => {
                     alignItems: "flex-end",
                   }}
                 >
-                  {/* <a href="https://www.linkedin.com/company/itmap-research-advisory-services/" target="_blank">
+                  {/* <a href="https://www.linkedin.com/company/tech24.ai/" target="_blank">
                   <img  src={LinkedinIcon.src} alt="" />
                   </a> */}
                   <a
                     // style={{ marginLeft: "20px" }}
-                    href="https://twitter.com/ITMAP_research"
+                    href="https://twitter.com/tech24.ai"
                     target="_blank"
                     aria-label="redirect to twitter page"
                   >

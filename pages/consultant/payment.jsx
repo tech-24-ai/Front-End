@@ -26,6 +26,7 @@ import myImageLoader from "../../components/imageLoader";
 import { PayPalButton } from "react-paypal-button-v2";
 import Link from "next/link";
 import { isBrowser, isMobile } from "react-device-detect";
+import themeConfig from "../../config/themeConfig";
 
 const createMeeting = ({
   consultant,
@@ -279,7 +280,7 @@ const createMeeting = ({
               </div>
               <div className="amount">
                 <h5 className="rate">${meetingData?.totalPrice}</h5>
-                <p className="text">Inclusive of Tech24 fees</p>
+                <p className="text">Inclusive of {themeConfig.appName} fees</p>
               </div>
             </div>
 
@@ -309,7 +310,7 @@ const createMeeting = ({
                     : visitor_credit && visitorCredit}
                 </h5>
                 {/* <p className="text">Available Credit Balance</p> */}
-                {/* <p className="text">Inclusive of Tech24 fees</p> */}
+                {/* <p className="text">Inclusive of {themeConfig.appName} fees</p> */}
               </div>
             </div>
 

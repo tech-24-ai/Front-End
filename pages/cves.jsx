@@ -231,7 +231,7 @@ const index = ({ showLoader, hideLoader }) => {
       >
         <div className="vulnerability-section">
           <BrowserView>
-            <div className="itmap-datatable mt-2">
+            <div className="datatable mt-2">
               <div className="react-bootstrap-table">
                 {data && (
                   <div className="documentSearchPanel">

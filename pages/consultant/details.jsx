@@ -27,6 +27,7 @@ import ProtectionIcon from "../../public/new_images/ProtectionIcon.svg";
 import { SearchOutlined, EnvironmentOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { isMobile, isBrowser } from "react-device-detect";
+import themeConfig from "../../config/themeConfig";
 
 const consultantDetails = ({
   consultant,
@@ -498,7 +499,7 @@ const consultantDetails = ({
               />
               <h4>100% payment protection</h4>
               <p>
-                Your funds are safe with Tech24 until you approve{" "}
+                Your funds are safe with {themeConfig.appName} until you approve{" "}
                 {profile?.name}
                 's work
               </p>

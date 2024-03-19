@@ -19,6 +19,7 @@ import {
   ITBuyerIcon,
 } from "../components/icons";
 import { isBrowser, isMobile } from "react-device-detect";
+import themeConfig from "../config/themeConfig";
 
 function aboutUs() {
   return (
@@ -46,17 +47,17 @@ function aboutUs() {
             <Button className="download-btn">download company profile</Button> */}
 
             <div>
-              <p className="inner-heading">Who are we</p>
+              <p className="inner-heading">Who we are</p>
               <p className="paragraph">
-                TECH24 is industry's first community-led Market Research and
-                Consulting company.
+                {themeConfig.appName} is industry's first community-led Market
+                Research and Consulting company.
               </p>
             </div>
             <div>
               <p className="inner-heading">Our Mission</p>
               <p className="paragraph">
-                TECH24 is on a mission to make IT Market Research affordable for
-                everyone. Our goal is to simplify and accelerate
+                {themeConfig.appName} is on a mission to make IT Market Research
+                affordable for everyone. Our goal is to simplify and accelerate
                 technology-decision making for IT buyers and sellers.
               </p>
             </div>
@@ -85,7 +86,7 @@ function aboutUs() {
           <div>
             <p className="inner-heading">Who we are</p>
             <p className="paragraph">
-              ITMAP is industry's first automated product recommendation engine
+              {themeConfig.appName} is industry's first automated product recommendation engine
               that helps enterprises choose the right product/services best
               suited to their needs.
             </p>
@@ -93,7 +94,7 @@ function aboutUs() {
           <div>
             <p className="inner-heading">Our Mission</p>
             <p className="paragraph">
-              ITMAP is on a mission to make IT Market Research affordable for
+              {themeConfig.appName} is on a mission to make IT Market Research affordable for
               everyone. Our goal is to simplify and accelerate
               technology-decision making for IT buyers and sellers.
             </p>
@@ -108,9 +109,9 @@ function aboutUs() {
               <div>
                 <p className="box-heading">Unbiased</p>
                 <p className="paragraph">
-                  TECH24 strives to provide a neutral view of the market by
-                  automating the technology decision-making process through its
-                  proprietary algorithms.
+                  {themeConfig.appName} strives to provide a neutral view of the
+                  market by automating the technology decision-making process
+                  through its proprietary algorithms.
                 </p>
               </div>
             </div>
@@ -148,7 +149,7 @@ function aboutUs() {
       </Container>
       <Container className="recommendation-section">
         {/* <p className="heading">
-          The ITMAP Recommendation <br /> Platform
+          The {themeConfig.appName} Recommendation <br /> Platform
         </p>
         <div className="box-container">
           <div className="recommendation-boxes">
@@ -182,7 +183,7 @@ function aboutUs() {
           {isMobile && (
             <div className="recommendation-boxes">
               <p className="box-heading">
-                ITMAP Recommendation <br /> Engine Algorithm
+                {themeConfig.appName} Recommendation <br /> Engine Algorithm
               </p>
               <SettingsIcon />
             </div>
@@ -192,7 +193,7 @@ function aboutUs() {
           {isBrowser && (
             <div className="algorithm-div">
               <p className="box-heading">
-                ITMAP Recommendation <br /> Engine Algorithm
+                {themeConfig.appName} Recommendation <br /> Engine Algorithm
               </p>
               <SettingsIcon />
             </div>

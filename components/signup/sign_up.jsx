@@ -23,6 +23,7 @@ import {
   isBrowser,
   isMobile,
 } from "react-device-detect";
+import themeConfig from "../../config/themeConfig";
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -320,7 +321,7 @@ class SignUp extends React.Component {
                     width: "max-content",
                   }}
                 >
-                  <p>By Signing in, you agree to TECH24’s</p>
+                  <p>By Signing in, you agree to {themeConfig.appName}’s</p>
                   <div style={{ marginLeft: "6px" }}>
                     <Link
                       href="/content/[slug]"
