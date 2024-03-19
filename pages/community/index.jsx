@@ -55,74 +55,91 @@ const Community = ({ community, getAllCrud }) => {
 
     return (
         <>
-            <section className="community-section">
-                {/* <PageBanner
-                    titleNode={
-                        <div>
-                            <h4>Community Service</h4>
+           <section className="community-section">
+            <Container className="community-container mt-3 mb-5">
+                <div style={styles.searchContainer}>
+                    <h2 style={styles.title}>Welcome to the Tech 24 Community</h2>
+                    <h6 style={styles.subtitle}>Get answers from our community of experts.</h6>
+                    <form>
+                        <div style={styles.inputGroup}>
+                            <Input
+                                id="search-input-text"
+                                onChange={(e) => setSearch(e.target.value)}
+                                placeholder="Search the community"
+                                style={styles.input}
+                            />
                         </div>
-                    }
-                    image={blogsBannerImage}
-                /> */}
-                <Container className="community-container mt-3 mb-5">
-
-                    <div className="row search-container"
-                        style={{
-                            backgroundImage: "url(https://answersstaticfilecdnv2.azureedge.net/static/images/banner.png)",
-                            height: "350px",
-                            alignItems: "center",
-                            flexdirection: "column",
-                            flexwrap: "nowrap",
-                        }} >
-                        <h2 className="welcometitle text-white  mt-5">Welcome to the Tech 24 Community</h2>
-                        <h6 className="h6class text-center mb-2  text-white" style={{ paddingLeft: 570, paddingBottom: 190, }}>Get answers from our community of experts.</h6>
-
-
-                        <div className="">
-                            <form>
-                                <div className="input-group mt-2" >
-                                    <Input id="search-input-text" onChange={((e) => setSearch(e.target.value))} data-testid="search-input-text" role="combobox" aria-haspopup="true" aria-expanded="false" autocomplete="off" aria-label="Search the community" aria-controls="forum-dropdown" type="search" placeholder="Search the community" title="Search the community" className="searchCommunity form-control"
-                                    />
-                                    {/* <button className="btn btn-secondary" style={{ height: "52px", marginTop: "39px", }}><SearchOutlined /></button> */}
-
-                                </div>
-
-                            </form>
+                    </form>
+                </div>
+                <h2 className="h2 categoryListTitle mb-5" id="categoryListTitle"> Browse Products</h2>
+                <div className="row">
+                    {communityFeature.map((item) => (
+                        <div className="col-lg-2 col-md-4 col-sm-6 col-12 mb-3" style={styles.productCol} key={item.id}>
+                            <a href={`community/${item.url_slug}`} className="text-center d-block" style={styles.productLink}>
+                                <img src={item.image_url} width={110} alt="" style={styles.image} />
+                                <div className="text-center mt-2 browseProductName">{item.name}</div>
+                            </a>
                         </div>
-                        <br />
-                        <div>
-
-                        </div>
-
-                    </div>
-
-
-                    <h2 className="h2 categoryListTitle" id="categoryListTitle"> Browse Products</h2>
-
-
-                    <div className="row">
-                        {communityFeature.map((item) => (
-                            <div className="col-md-2 d-flex browseProduct" >
-
-                                <a href={`community/${item.url_slug}`}>
-
-                                    <img src={item.image_url} width={110} alt="" className="productImage" />
-                                    <div className="text-center mt-2 browseProductName">{item.name}</div>
-                                </a>
-
-                            </div>
-
-
-                        ))}
-                    </div>
-
-
-
-
-                </Container>
-            </section>
+                    ))}
+                </div>
+            </Container>
+        </section>
         </>
     );
+};
+
+// Define styles object
+const styles = {
+    searchContainer: {
+        backgroundImage: "url(https://answersstaticfilecdnv2.azureedge.net/static/images/banner.png)",
+        height: "350px",
+        alignItems: "center",
+        flexDirection: "column",
+        flexWrap: "nowrap"
+    },
+    title: {
+        color: "white",
+        textAlign: "center",
+        
+    },
+    subtitle: {
+        color: "white",
+        textAlign: "center",
+    },
+    inputGroup: {
+        width : "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    searchContainer: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center", // Center align content horizontally
+        backgroundImage: "url(https://answersstaticfilecdnv2.azureedge.net/static/images/banner.png)",
+        height: "300px",
+        
+    },
+    input: {
+        width: "200%",
+        height: "38px",
+        textAlign: "center", display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    productCol: {
+        marginBottom: "20px"
+    },
+    productLink: {
+        textDecoration: "none"
+    },
+    image: {
+        maxWidth: "100%",
+        height: "auto"
+    }
 };
 
 const mapStateToProps = (state) => {
