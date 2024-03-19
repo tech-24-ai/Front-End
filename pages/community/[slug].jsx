@@ -131,7 +131,7 @@ const Community = ({ router, getCrud, details }) => {
                         <span key={index} style={styles.value}> #{tag.name} , </span>
                       ))}
                     </div>
-                    <div className="col-md-4 ml-5" style={styles.item}>
+                    <div className="col-md-4 " style={{marginLeft:"128px",color:"black"}}>
                       <span>Posted By : {item?.visitor?.name} </span>
                     </div>
                   </div>
