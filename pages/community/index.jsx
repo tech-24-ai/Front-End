@@ -55,7 +55,7 @@ const Community = ({ community, getAllCrud }) => {
 
     return (
         <>
-           <section className="community-section">
+           <section className="community-section mt-4">
             <Container className="community-container mt-3 mb-5">
                 <div style={styles.searchContainer}>
                     <h2 style={styles.title}>Welcome to the Tech 24 Community</h2>
@@ -72,9 +72,9 @@ const Community = ({ community, getAllCrud }) => {
                     </form>
                 </div>
                 <h2 className="h2 categoryListTitle mb-5" id="categoryListTitle"> Browse Products</h2>
-                <div className="row">
+                <div className="row justify-content-center">
                     {communityFeature.map((item) => (
-                        <div className="col-lg-2 col-md-4 col-sm-6 col-12 mb-3" style={styles.productCol} key={item.id}>
+                        <div className="col-lg-3 col-md-4 col-sm-6 col-12 mb-3" style={styles.productCol} key={item.id}>
                             <a href={`community/${item.url_slug}`} className="text-center d-block" style={styles.productLink}>
                                 <img src={item.image_url} width={110} alt="" style={styles.image} />
                                 <div className="text-center mt-2 browseProductName">{item.name}</div>

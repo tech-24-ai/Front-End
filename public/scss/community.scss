@@ -44,7 +44,7 @@
          text-align: center;
          margin-left: -520px;
          margin-bottom: 100px;
-        //  margin-top: 40px;
+         margin-top: 40px;
 
      }
      .leranmoreClass{
@@ -65,7 +65,7 @@
         margin-left: 50px;
      }
      .browseProductName{
-        color: black;
+        color: #007bff;
         font-size: 16px;
         // margin-left: 40px;
         margin-top:30px;
@@ -98,18 +98,16 @@
           margin-top:-45px;
           float: right;
         }
-        .query-button {
+         .round-button {
           -webkit-border-radius: 20px;
           -moz-border-radius: 20px;
           border-radius: 20px;
-          width: 120px; /* Set the width and height to make it round */
-          height: 38px;
-          background-color: #b3c6da; /* Set the background color */
-          color: #007bff; /* Set the text color */
+          width: 100px; /* Set the width and height to make it round */
+          height: 30px;
+          color: white; /* Set the text color */
           border: none; /* Remove border */
           outline: none; /* Remove outline */
           cursor: pointer; /* Add cursor pointer on hover */
-          margin-top:-45px;
           float: right;
         }
         .pagination li > a{
