@@ -148,7 +148,7 @@ function Header(props) {
                         </NavItem>
                         <NavItem>
                           <Link href="/community">
-                            <a>Community Service</a>
+                            <a>Community</a>
                           </Link>
                         </NavItem>
                         {!isloggedIn && (
