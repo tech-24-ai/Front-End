@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { Container, Col, Row } from "reactstrap";
 import { isMobile, isBrowser } from "react-device-detect";
@@ -33,6 +33,7 @@ import TreeSelect from "../components/form/treeSelect";
 import CategoryList from "../components/categories/categoryList";
 import { OneIcon, TwoIcon, ThreeIcon } from "../components/icons";
 import themeConfig from "../config/themeConfig";
+import LatestResearch from "../components/marketResearch/LatestResearch";
 
 let counter = 6;
 let arrLength = 6;
@@ -103,7 +104,7 @@ class Home extends React.PureComponent {
     const { isloggedIn } = this.props;
     const { changeIcon } = this.state;
     return (
-      <section className="explore-wrapper">
+      <Fragment>
         <Head>
           <meta
             name="viewport"
@@ -119,20 +120,25 @@ class Home extends React.PureComponent {
             content={`Top 10 vendors, Product recommendations, IT Market Research, Market Insights, Product reviews, Vendor reviews, ${themeConfig.appName} Top 10.`}
           />
         </Head>
-        <Container>
-          <div className="content-wrapper">
-            <div className="content-title-wrapper">
-              <h3 className="main-title text-center">
-                {themeConfig.appName} - Your One Stop Shop for All IT needs!
-              </h3>
-              <p className="main-title-two text-center">
-                What would you like to do today?
-              </p>
-            </div>
-          </div>
-        </Container>
-        <Categories />
-      </section>
+        <section className="explore-wrapper">
+          <section className="home-page-title">
+            <Container>
+              <div className="content-wrapper">
+                <div className="content-title-wrapper">
+                  <h3 className="main-title text-center">
+                    {themeConfig.appName} - Your One Stop Shop for All IT needs!
+                  </h3>
+                  <p className="main-title-two text-center">
+                    What would you like to do today?
+                  </p>
+                </div>
+              </div>
+            </Container>
+          </section>
+          <Categories />
+          {/* <LatestResearch /> */}
+        </section>
+      </Fragment>
     );
   }
 }
