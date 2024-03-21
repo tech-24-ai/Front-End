@@ -79,7 +79,7 @@ function Header(props) {
     >
       <Container>
         <Row className="align-items-center">
-          <Col md={4} className="left-block">
+          <Col md={3} className="left-block">
             {isBrowser && (
               <div className="logo-content-block">
                 <div className="logo-wrapper">
@@ -116,7 +116,7 @@ function Header(props) {
               </Link>
             </MobileView>
           </Col>
-          <Col md={8} className="right-block">
+          <Col md={9} className="right-block">
             {isBrowser && (
               <div className="main-menu-wrapper">
                 <Navbar expand="md" className="p-0">
