@@ -110,6 +110,9 @@
           cursor: pointer; /* Add cursor pointer on hover */
           float: right;
         }
+        .ant-tree-select {
+          min-width: "50%";
+        }
         .pagination li > a{
           opacity: 1.5;
         }
