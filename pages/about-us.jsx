@@ -49,8 +49,9 @@ function aboutUs() {
             <div>
               <p className="inner-heading">Who we are</p>
               <p className="paragraph">
-                {themeConfig.appName} is industry's first community-led Market
-                Research and Consulting company.
+
+                TECH24 is industry's first community-led market research and
+                consulting company.
               </p>
             </div>
             <div>
