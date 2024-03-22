@@ -72,7 +72,7 @@ const DocumentResearchBV = ({
   };
 
   return (
-    <div className="itmap-datatable table-responsive">
+    <div className="datatable table-responsive">
       <div
         className="react-bootstrap-table"
         style={{ maxHeight: "430px", overflow: "auto" }}

@@ -66,6 +66,7 @@ function Header(props) {
     "/blogs/[slug]",
     "/connect",
     "/login",
+    "/community",
   ];
   if (!isloggedIn && !unProtectedRoutes.includes(router.pathname)) {
     // window.location.replace("/login");
@@ -78,7 +79,7 @@ function Header(props) {
     >
       <Container>
         <Row className="align-items-center">
-          <Col md={4} className="left-block">
+          <Col md={3} className="left-block">
             {isBrowser && (
               <div className="logo-content-block">
                 <div className="logo-wrapper">
@@ -89,7 +90,7 @@ function Header(props) {
                         className="mdg"
                         src={isMainHeader ? LogoBlack : LogoWhite}
                         alt=""
-                        placeholder="ITMAPLogo"
+                        placeholder="Logo"
                         width={140}
                         height={40}
                       />
@@ -104,7 +105,7 @@ function Header(props) {
                   loader={myImageLoader}
                   src={isMainHeader ? LogoBlack : LogoWhite}
                   alt=""
-                  placeholder="ITMAPLogo"
+                  placeholder="Logo"
                   layout="raw"
                   style={{
                     objectFit: "contain",
@@ -115,7 +116,7 @@ function Header(props) {
               </Link>
             </MobileView>
           </Col>
-          <Col md={8} className="right-block">
+          <Col md={9} className="right-block">
             {isBrowser && (
               <div className="main-menu-wrapper">
                 <Navbar expand="md" className="p-0">
@@ -143,6 +144,11 @@ function Header(props) {
                         <NavItem>
                           <Link href="/about-us">
                             <a>About us</a>
+                          </Link>
+                        </NavItem>
+                        <NavItem>
+                          <Link href="/community">
+                            <a>Community</a>
                           </Link>
                         </NavItem>
                         {!isloggedIn && (

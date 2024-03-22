@@ -1,7 +1,7 @@
 import { userConstants } from "../_constants";
 let token;
 if (process.browser) {
-  token = localStorage.getItem("itmapToken");
+  token = localStorage.getItem("tech24Token");
 }
 
 // const initialState = token ? { loggedIn: true } : { loggedIn: false };

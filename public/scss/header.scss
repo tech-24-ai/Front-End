@@ -1,14 +1,9 @@
 // header
 .header-block {
-  // padding: 40px 30px;
-  // padding: 40px 0; //last active
   padding: 20px 0; // new design
 
   &.header1 {
-    // padding-top: 38px;
-    // padding-bottom: 38px;
     padding: 10px 0;
-    // box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16);
     position: fixed;
     width: 100%;
     top: 0;
@@ -82,7 +77,7 @@
     li {
       display: inline-block;
       vertical-align: middle;
-      margin: 0 15px;
+      margin: 0 0.6rem;
 
       &:last-child {
         margin-right: 0;

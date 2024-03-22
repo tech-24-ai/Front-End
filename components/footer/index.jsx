@@ -18,6 +18,7 @@ import InstaIcon from "../../public/new_images/instagram.svg";
 import GlobIcon from "../../public/new_images/glob.svg";
 import TwitterIcon from "../../public/new_images/twitter.svg";
 import YoutubeIcon from "../../public/new_images/youtube.svg";
+import themeConfig from "../../config/themeConfig";
 
 const Footer = (props) => {
   return (
@@ -38,7 +39,7 @@ const Footer = (props) => {
                         className="mdg"
                         src={LogoNew}
                         alt=""
-                        placeholder="ITMAPLogo"
+                        placeholder="Logo"
                         width={140}
                         height={40}
                       />
@@ -85,7 +86,8 @@ const Footer = (props) => {
             <Col md={12}>
               <div className="social-wrapper">
                 <div className="copy-right">
-                  © {new Date().getFullYear()} Tech24. All rights reserved
+                  © {new Date().getFullYear()} {themeConfig.appName}. All rights
+                  reserved
                 </div>
                 <div className="social-link">
                   {/* <a
@@ -121,52 +123,19 @@ const Footer = (props) => {
                     />
                   </a> */}
                   <a
-                    href="https://www.linkedin.com/company/itmap-research-advisory-services/"
+                    href="https://www.linkedin.com/company/tech24.ai/"
                     target="_blank"
                     aria-label="redirect to LinkedIn page"
                   >
                     <Icon icon={linkedin} size={16} />
                   </a>
                   <a
-                    href="https://twitter.com/ITMAP_research"
+                    href="https://twitter.com/tech24.ai"
                     target="_blank"
                     aria-label="redirect to twitter page"
                   >
                     <Icon icon={twitter} size={16} />
                   </a>
-                  {/* <a
-                    href="https://twitter.com/ITMAP_research"
-                    target="_blank"
-                    style={{ marginTop: "10px" }}
-                    aria-label="redirect to twitter page"
-                  >
-                    <Image
-                      loader={myImageLoader}
-                      src={TwitterIcon}
-                      alt=""
-                      placeholder="twitter"
-                      layout="raw"
-                      height={30}
-                      width={25}
-                    />
-                  </a> */}
-
-                  {/* <a
-                    href=""
-                    target="_blank"
-                    style={{ marginTop: "10px" }}
-                    aria-label="redirect to youtube page"
-                  >
-                    <Image
-                      loader={myImageLoader}
-                      src={YoutubeIcon}
-                      alt=""
-                      placeholder="Youtube"
-                      layout="raw"
-                      height={30}
-                      width={25}
-                    />
-                  </a> */}
                 </div>
               </div>
             </Col>
@@ -182,7 +151,7 @@ const Footer = (props) => {
             textAlign: "center",
           }}
         >
-          © {new Date().getFullYear()} ITMAP : An IT Research & Advisory company
+          © {new Date().getFullYear()} {themeConfig.appName} : An IT Research & Advisory company
         </footer> */}
     </Fragment>
   );

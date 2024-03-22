@@ -21,6 +21,7 @@ import { crudActions } from "../../_actions";
 import { withRouter } from "next/router";
 import { connect } from "react-redux";
 import moment from "moment";
+import themeConfig from "../../config/themeConfig";
 
 const HireConsultant = ({ consultant, getAllCrud }) => {
   const [profile, setProfile] = useState();
@@ -190,7 +191,7 @@ const HireConsultant = ({ consultant, getAllCrud }) => {
           <div className="hire-calculation">
             <div>
               <p>Project cost</p>
-              <p>Tech24 fee</p>
+              <p>{themeConfig.appName} fee</p>
               <p className="total">Total</p>
             </div>
             <div className="calc">
@@ -249,7 +250,10 @@ const HireConsultant = ({ consultant, getAllCrud }) => {
               layout="raw"
             />
             <h4>100% payment protection</h4>
-            <p>Your funds are safe with Tech24 until you approve Mike's work</p>
+            <p>
+              Your funds are safe with {themeConfig.appName} until you approve
+              Mike's work
+            </p>
           </div>
         </div>
       </Container>

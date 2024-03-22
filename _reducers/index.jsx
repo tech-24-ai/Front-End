@@ -64,6 +64,9 @@ const rootReducer = combineReducers({
   credit_redeem_history: crud("credit_redeem_history"),
   chat_gpt: crud("chat_gpt"),
   donations: crud("donations"),
+  community: crud("community"),
+  details : crud("communitypost"),
+
 });
 
 export default rootReducer;

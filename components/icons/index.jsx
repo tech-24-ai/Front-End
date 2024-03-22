@@ -3579,3 +3579,30 @@ export const NotFoundIcon = (props) => {
     </span>
   );
 };
+
+export const DocumentIcon = (props) => {
+  return (
+    <span
+      role="img"
+      aria-label="document-icon"
+      className="anticon anticon-document-icon"
+    >
+      <svg
+        width="50"
+        height="64"
+        viewBox="0 0 50 64"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}
+      >
+        <path
+          d="M11.2308 15.8462H20.4615M11.2308 32H38.9231M11.2308 41.2308H38.9231M11.2308 50.4615H20.4615M6.61538 62H43.5385C44.7625 62 45.9365 61.5137 46.802 60.6482C47.6676 59.7826 48.1538 58.6087 48.1538 57.3846V6.61538C48.1538 5.39131 47.6676 4.21737 46.802 3.35181C45.9365 2.48626 44.7625 2 43.5385 2H6.61538C5.39131 2 4.21737 2.48626 3.35181 3.35181C2.48626 4.21737 2 5.39131 2 6.61538V57.3846C2 58.6087 2.48626 59.7826 3.35181 60.6482C4.21737 61.5137 5.39131 62 6.61538 62Z"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </span>
+  );
+};
