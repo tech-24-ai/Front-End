@@ -66,6 +66,7 @@ const rootReducer = combineReducers({
   donations: crud("donations"),
   community: crud("community"),
   details : crud("communitypost"),
+  communitypost : crud("communitypost"),
 
 });
 
