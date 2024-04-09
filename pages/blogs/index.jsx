@@ -113,6 +113,8 @@ class Blogs extends Component {
                           style={{
                             borderTopRightRadius: "10px",
                             borderTopLeftRadius: "10px",
+                            borderBottomLeftRadius: "10px",
+                            borderBottomRightRadius: "10px",
                           }}
                         />
                       }
@@ -132,17 +134,6 @@ class Blogs extends Component {
                             ).toLocaleDateString("en-US", options)}
                         </p>
                       </div>
-                      {/* <p className="read-more">
-                          Read More{" "}
-                          <Image
-                            loader={myImageLoader}
-                            src={rightArrow}
-                            alt=""
-                            layout="raw"
-                            width={20}
-                            height={20}
-                          />
-                        </p> */}
                     </Card>
                   </Link>
                 ))
