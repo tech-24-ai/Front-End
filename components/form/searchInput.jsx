@@ -3,7 +3,7 @@ import { Input } from "antd";
 
 function SearchInput({ placeholder = "Search", suffix, prefix, ...more }) {
   return (
-    <div className="custom-search-input">
+    <div className="new-custom-search-input">
       <Input
         placeholder={placeholder}
         suffix={suffix}

@@ -20,7 +20,7 @@ import {
   isMobile,
 } from "react-device-detect";
 import LogoBlack from "../../public/images/header/logo.svg";
-import LogoWhite from "../../public/images/header/tech24-logo-white.png";
+import LogoWhite from "../../public/images/header/tech24.ai.png";
 import Drawer from "./drawer";
 import myImageLoader from "../imageLoader";
 import Image from "next/image";
@@ -92,7 +92,7 @@ function Header(props) {
                         alt=""
                         placeholder="Logo"
                         width={140}
-                        height={40}
+                        height={30}
                       />
                     </a>
                   </Link>
