@@ -190,10 +190,23 @@ class TrendingQuestion extends React.PureComponent {
                                                     <p>{data.posted}</p>
                                                 </div>
                                             </div>
-                                            <div class="card-body">
+                                            {/* <div class="card-body">
                                                 <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
                                                 <p class="card-text"><b><small class="text-muted">
-                                                    <UsergroupAddOutlined style={{ fontSize: "10px" }} />Members : 103  <MessageOutlined />Queries : 309</small></b></p>
+                                                    <UsergroupAddOutlined style={{ fontSize: "10px",  }} />Members : 103  <MessageOutlined />Queries : 309</small></b>
+                                                </p>
+                                            </div> */}
+                                            <div className="card-trend-body">
+                                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+                                                <div className="content-x">
+                                                    <div className="design-content">
+                                                        <p>Product Design</p>
+                                                    </div>
+                                                    <div className="experience-content">
+                                                        <p>User Experience</p>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                             <div className="learn-more-btn">
                                                 <h6 className="btn-text">

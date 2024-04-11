@@ -129,7 +129,7 @@ class CommunityCategory extends React.PureComponent {
             {
                 title: (
                     <Fragment>
-                        Primary Advisor
+                        Primary Storage Discussion Group
                     </Fragment>
                 ),
                 description: [
@@ -142,7 +142,7 @@ class CommunityCategory extends React.PureComponent {
                 urlTarge: "/it-robo",
             },
             {
-                title: "Primary Advisor",
+                title: "File & Object Storage",
                 description: [
                     "Engage with a consultant over a video conference.",
                     "Pay per minute.",
@@ -153,7 +153,7 @@ class CommunityCategory extends React.PureComponent {
                 urlTarge: "/consultant",
             },
             {
-                title: "Primary Advisor",
+                title: "Data Protection",
                 description: [
                     "Pay at 20% less than market rates",
                     "App development, managed services, custom integration, UI design, Assessments & more",
@@ -186,10 +186,17 @@ class CommunityCategory extends React.PureComponent {
                                                     <h6>{data.title}</h6>
                                                 </div>
                                             </div>
-                                            <div class="card-body">
+                                            <div className="card-body">
                                                 <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-                                                <p class="card-text"><b><small class="text-muted">
-                                                    <UsergroupAddOutlined style={{ fontSize: "10px" }} />Members : 103  <MessageOutlined />Queries : 309</small></b></p>
+                                                <div className="content-x">
+                                                 <div className="user-icon">
+                                                        <p><UsergroupAddOutlined style={{ fontSize: "16px" }} /> {" "}Members : 103</p>
+                                                 </div>
+                                                    <div className="query-icon">
+                                                        <p><MessageOutlined style={{ fontSize: "16px" }} /> {" "}Queries : 103</p>
+                                                 </div>
+                                                </div>
+
                                             </div>
                                             <div className="learn-more-btn">
                                                 <h6 className="btn-text">
