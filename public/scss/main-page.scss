@@ -1,8 +1,10 @@
 section.explore-wrapper {
+    background: url(../images/home/Hero.png) center center;
+    background-size: cover;
   .home-page-title {
-    background: url(../images/home-bg-img.png) no-repeat center center;
+    // background: url(../images/home-bg-img.png) no-repeat center center;
     margin-top: 2rem;
-    margin-bottom: 4rem;
+    // margin-bottom: 4rem;
   }
 
   .content-wrapper {
