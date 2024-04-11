@@ -4,7 +4,7 @@ import { Container, Input } from "reactstrap";
 import { crudService } from "../../_services";
 import SearchInput from "../../components/form/searchInput";
 import Image from "next/image";
-import CommunityImage from "../../public/images/Community.png";
+import CommunityImage from "../../public/images/communityList.png";
 import CheckableTag from "antd/lib/tag/CheckableTag";
 import { DateIcon, ProfileIcon } from "../../components/icons";
 import { Icon } from "react-icons-kit";
