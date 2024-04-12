@@ -73,206 +73,75 @@ class Blogs extends Component {
             titleNode={
               <div>
                 <h4>Blogs</h4>
+                <hr></hr>
+                <SearchInput
+                  style={{
+                    minWidth: "unset",
+                    height: "unset",
+                    margin: "5px 0px 15px 0px",
+                  }}
+                  className="testSearchInput"
+                  suffix={<SearchOutlined />}
+                />
               </div>
             }
             image={blogsBannerImage}
           />
           <Container className="blog-container">
-            <div className="div-one" style={{ padding: "20px" }}>
-              <SearchInput
-                style={{
-                  minWidth: "unset",
-                  height: "unset",
-                  margin: "5px 0px 15px 0px",
-                }}
-                className="testSearchInput"
-                suffix={<SearchOutlined />}
-              />
-
-              <div className="blogs-category-filters">
-                <p className="card-heading">Blog Categories</p>
-                <hr />
-                {this.state.posting &&
-                  this.state.posting
-                    .filter((e) => e.id != 5 && e.id != 1)
-                    .map((post, key) => (
-                      <a
-                        key={key}
-                        onMouseOver={(e) =>
-                          this.setState({ isHover: post.name })
-                        }
-                        onMouseOut={(e) => this.setState({ isHover: "" })}
-                        onClick={() => {
-                          this.setState({ isActive: post.name });
-                          this.blogsList(post.id);
-                        }}
-                        style={{
-                          padding: "5px 6px",
-                          borderRadius: "5px",
-                          fontWeight: "500",
-                          fontSize:
-                            this.state.isActive === post.name
-                              ? "1.1rem"
-                              : "0.8rem" && this.state.isHover === post.name
-                              ? "1.1rem"
-                              : "0.8rem",
-                        }}
-                      >
-                        {post.name}
-                        <hr />
-                      </a>
-                    ))}
-              </div>
-
-              {/* <p className="card-heading" style={{ marginTop: "80px" }}>
-                Recent Posts
-              </p> */}
-              {/* <hr /> */}
-              {/* <div className="recent-container">
-                <Image
-                  loader={myImageLoader}
-                  src={blogsProfile}
-                  alt=""
-                  layout="raw"
-                  width={135}
-                  height={100}
-                  style={{ borderRadius: "10px" }}
-                />
-                <div style={{ marginLeft: "10px" }}>
-                  <p className="recent-header-text">
-                    Don't Count on Freeto Win You Customers
-                  </p>
-                  <p className="recent-body-text">March 04, 2023</p>
-                </div>
-              </div>
-              <div className="recent-container">
-                <Image
-                  loader={myImageLoader}
-                  src={blogsProfile}
-                  alt=""
-                  layout="raw"
-                  width={135}
-                  height={100}
-                  style={{ borderRadius: "10px" }}
-                />
-                <div style={{ marginLeft: "10px" }}>
-                  <p className="recent-header-text">
-                    Is Your Organization Building Bridges?
-                  </p>
-                  <p className="recent-body-text">March 04, 2023</p>
-                </div>
-              </div>
-              <div className="recent-container">
-                <Image
-                  loader={myImageLoader}
-                  src={blogsProfile}
-                  alt=""
-                  layout="raw"
-                  width={135}
-                  height={100}
-                  style={{ borderRadius: "10px" }}
-                />
-                <div style={{ marginLeft: "10px" }}>
-                  <p className="recent-header-text">
-                    What Makes a Degree Review Successful?
-                  </p>
-                  <p className="recent-body-text">March 04, 2023</p>
-                </div>
-              </div> */}
-
-              <p className="card-heading">
-                Tags
-              </p>
-              <hr />
-              <div className="tags-container">
-                <Space wrap>
-                  {this.state.posts &&
-                    this.state.posts
-                      .filter((e) => e.id != 5 && e.id != 1)
-                      .map((post, key) => (
-                        <a
-                          key={key}
-                          onClick={() => {
-                            // setIsActive(post.name);
-                            // blogsList(post.id);
-                          }}
-                        >
-                          <CheckableTag
-                            className="tags"
-                            // checked={selectedTags.includes(post)}
-                            // onChange={(checked) => handleChange(post, checked)}
-                          >
-                            {post.details}
-                          </CheckableTag>
-                          <hr />
-                        </a>
-                      ))}
-                </Space>
-              </div>
-            </div>
-
+            <h4 style={{ color: "#005dd4", paddingLeft: "14px", paddingBottom: "20px" }}>Blogs</h4>
             <div className="second-div">
               {this.state.posts.length > 0
                 ? this.state.posts.map((post, key) => (
-                    <Link href={`blogs/${post.slug}`}>
-                      <Card
-                        key={key}
-                        hoverable
-                        className="blog-card"
-                        onClick={() => <Link href={`blogs/${post.slug}`} />}
-                        cover={
-                          <Image
-                            loader={myImageLoader}
-                            src={
-                              post.image
-                                ? post.image
-                                : "images/img_not_available.jpg"
-                            }
-                            alt=""
-                            layout="raw"
-                            width={380}
-                            height={283}
-                            style={{
-                              borderTopRightRadius: "10px",
-                              borderTopLeftRadius: "10px",
-                            }}
-                          />
-                        }
-                      >
-                        <div style={{ display: "flex" }}>
-                          <ProfileIcon />
-                          <p className="admin-text">Admin</p>
+                  <Link href={`blogs/${post.slug}`}>
+                    <Card
+                      key={key}
+                      hoverable
+                      className="blog-card"
+                      onClick={() => <Link href={`blogs/${post.slug}`} />}
+                      cover={
+                        <Image
+                          loader={myImageLoader}
+                          src={
+                            post.image
+                              ? post.image
+                              : "images/img_not_available.jpg"
+                          }
+                          alt=""
+                          layout="raw"
+                          width={380}
+                          height={283}
+                          style={{
+                            borderTopRightRadius: "10px",
+                            borderTopLeftRadius: "10px",
+                            borderBottomLeftRadius: "10px",
+                            borderBottomRightRadius: "10px",
+                          }}
+                        />
+                      }
+                    >
+                      <p className="card-heading">{post.blog_topic_name}</p>
+                      <p className="blogs-card-body">{post.name}</p>
+                      {/* <p className="blogs-card-text">{post.name}</p> */}
+                      <div style={{ display: "flex" }}>
+                        <ProfileIcon />
+                        <p className="admin-text">Admin</p>
+                        <DateIcon />
 
-                          <DateIcon />
-
-                          <p className="admin-text">
-                            {post &&
-                              new Date(
-                                Date.parse(post.created_at.replace(/-/g, "/"))
-                              ).toLocaleDateString("en-US", options)}
-                          </p>
-                        </div>
-                        <p className="card-heading">{post.blog_topic_name}</p>
-                        <p className="blogs-card-body">{post.name}</p>
-                        <p className="read-more">
-                          Read More{" "}
-                          <Image
-                            loader={myImageLoader}
-                            src={rightArrow}
-                            alt=""
-                            layout="raw"
-                            width={20}
-                            height={20}
-                          />
+                        <p className="admin-text">
+                          {post &&
+                            new Date(
+                              Date.parse(post.created_at.replace(/-/g, "/"))
+                            ).toLocaleDateString("en-US", options)}
                         </p>
-                      </Card>
-                    </Link>
-                  ))
+                      </div>
+                    </Card>
+                  </Link>
+                ))
                 : this.state.posts && this.state.posts.length == 0
-                ?<p style={{padding: "20px"}}>
-                No Blogs
-                </p> 
-                : ""}
+                  ? <p style={{ padding: "20px" }}>
+                    No Blogs
+                  </p>
+                  : ""}
             </div>
           </Container>
         </section>

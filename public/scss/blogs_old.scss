@@ -1,21 +1,18 @@
 .blogs-section {
-  // background-color: $bodyBackgroundColor;
-  background-color: #ffffff;
+  background-color: $bodyBackgroundColor;
   .blog-container {
     display: flex;
     justify-content: space-between;
     margin: 100px 0px;
-    flex-direction: column;
     .tags {
       width: 100%;
       white-space: pre-line;
     }
     .admin-text {
-      // color: $backgroundColor;
-      color: #54616c;
-      font: "12px";
-      font-weight: 300;
-      font-size: 12px;
+      //   color: $backgroundColor;
+      color: $backgroundColor;
+      font-weight: 400;
+      font-size: 14px;
     }
     .profile-icons {
       object-fit: contain;
@@ -27,41 +24,22 @@
     }
     .blog-card {
       border-radius: 10px;
-      width: 100%;
-      height: 480px;
-      border: 0;
-      // height: 547px;
-    }
-    .ant-card-hoverable:hover {
-      border-color: transparent;
-      box-shadow: none !important;
+      width: 48%;
+      height: 547px;
     }
     .card-heading {
-      font-weight: 500;
-      font-size: 16px;
-      line-height: 20px;
-      // color: $textBlack;
-      text-transform: uppercase;
-      width: max-content;
-      color: #0074d9;
-      padding: 8px 10px;
-      border: 1px solid #005dd4;
-      border-radius: 5px;
-      background-color: #e8f3fd;
-    }
-    .ant-card-body {
-      padding: 24px;
-      padding-left: 0;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 26px;
+      color: $textBlack;
     }
     .blogs-card-body {
-      font-weight: 500;
-      font-size: 20px;
-      font-family: "Inter";
+      font-weight: 400;
+      font-size: 16px;
       line-height: 26px;
-      min-height: 50px;
       opacity: 0.8;
       padding: 0px;
-      color: #00192f;
+      color: $textBlack;
     }
     .read-more {
       position: absolute;
@@ -95,12 +73,8 @@
       row-gap: 15px;
       column-gap: 10px;
       margin-left: 12px;
-      width: 100%;
+      width: 70%;
       align-content: baseline;
-
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
     }
     .search-container {
       display: flex;
@@ -164,7 +138,7 @@
       .second-div {
         width: 100%;
         margin-left: 0;
-        grid-template-columns: repeat(1, 1fr);
+
         .blog-card {
           width: 100%;
           height: auto;

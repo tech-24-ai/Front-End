@@ -9,6 +9,10 @@ import { SearchOutlined } from "@ant-design/icons";
 import { RightOutlined } from '@ant-design/icons';
 import { Container, Input } from "reactstrap";
 import ReactPaginate from "react-paginate-next";
+import Link from "next/link";
+import Router from "next/router";;
+import { TreeSelect } from "antd";
+const unProtectedRoutes = ["/community", "/community/[communitypost_details]"];
 
 const Community = ({ router, getCrud, details }) => {
   const dispatch = useDispatch();
@@ -22,6 +26,7 @@ const Community = ({ router, getCrud, details }) => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [pageCount, setPageCount] = useState(0);
   const [search, setSearch] = useState("");
+  const [value, setValue] = useState();
 
   useEffect(() => {
     const { asPath } = router;
@@ -29,7 +34,7 @@ const Community = ({ router, getCrud, details }) => {
     // console.log("Slug:", slug);
     const searchComm = async () => {
       try {
-        const data = await crudService._getAll(`communitypost/${slug}`, { search });
+        const data = await crudService._getAll(`communitypost/${slug}`, { search:value  });
         // console.log("data", data);
         setCommunityData(data.data);
       } catch (error) {
@@ -39,29 +44,61 @@ const Community = ({ router, getCrud, details }) => {
     setTimeout(() => {
       searchComm();
     }, 300);
-  }, [search]);
+  }, [value]);
   // console.log("search", search);
 
   useEffect(() => {
-    // const fetchData = async () => {
         const { asPath } = router;
         let slug = asPath.slice(1).split("/")[1];
-        // console.log("Slug:", slug); // Log slug for debuggin
-        // const data = await getCrud("details");
         crudService._getAll(`communitypost/${slug}`).then((data) => setCommunityData(data.data))
         crudService._getAll(`community/details/${slug}`).then((data) => setCommunity(data.data))
 
-        // this.props.getCrud("community", "community");
-        // console.log("Data:", data); // Log fetched data for debugging
-        // console.log("community-new-data", community);
-
-        // console.log("Community data updated:", response.data);
-
-    // fetchData();
+      
   },
 
     []);
+    let arrData = []
+    communityData?.map((item) => {
+        const random = Math.random().toString(36).substring(2, 6);
+        const data = {
+            id: random,
+            value: item.title, title: item.title
+        }
+        arrData.push(data)
+    })
 
+    console.log("tree data", arrData)
+    const genTreeNode = (parentId, isLeaf = false) => {
+        const random = Math.random().toString(36).substring(2, 6);
+        return {
+            id: random,
+            pId: parentId,
+            value: random,
+            title: isLeaf ? 'Tree Node' : 'Expand to load',
+            isLeaf,
+        };
+    };
+    const onLoadData = ({ id }) =>
+        new Promise((resolve) => {
+            setTimeout(() => {
+              
+                resolve(undefined);
+            }, 300);
+        });
+    const onChange = (newValue) => {
+        setValue(newValue);
+    };
+
+    // const user = ( slug ) => ( state ) => state.users[state.slugs[slug]];
+    const redirectToPostDetail = (id)=>{
+    localStorage.setItem("post_id",id)
+    Router.push("communityPost_details")
+    }
+
+    const getPostDetail = (url_slug)=>{
+      localStorage.setItem("url_slug",url_slug)
+      Router.push("communityPost_details")
+      }
   return (
     <>
       <section className="community-section">
@@ -73,18 +110,24 @@ const Community = ({ router, getCrud, details }) => {
               <span>{community.name}</span>
             </h2>
 
-            <form>
-              <div style={styles.inputGroup}>
-                <Input
-                  id="search-input-text"
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search the community"
-                  style={styles.input}
-                />
-              </div>
-            </form>
+            <div className=""   style={styles.inputGroup}>
+                        <TreeSelect 
+                            treeDataSimpleMode
+                          
+                            defaultValue={value}
+                            showSearch={true}
+                            dropdownStyle={{
+                                maxHeight: 400,
+                                overflow: 'auto',
+                            }}
+                            placeholder="Search the community"
+                            onChange={onChange}
+                            loadData={onLoadData}
+                            treeData={arrData}
+                        />
+                        </div>
             <div style={styles.totalQueries}>
-              <span className="text-white">Total Queries : {community?.__meta__?.total_posts}</span>
+              <span className="text-white ml-5">Total Queries : {community?.__meta__?.total_posts}</span>
             
             </div>
           </div>
@@ -94,14 +137,18 @@ const Community = ({ router, getCrud, details }) => {
             <div id="filterByTypeControls">
               <fieldset className="c-radio f-inline">
                 <h3 className="c-subheading-5 mt-3" id="filterByTypeLabel" style={{ fontWeight: "bold" }}>Queries</h3>
+             <a href="/community/add_query" >
                 <button id="applyButton" name="button" className="round-button btn btn-primary btn-sm" type="submit" fdprocessedid="vwz0lf">Post New</button>
+              </a>  
               </fieldset>
             </div>
           </div>
 
           {communityData.map((item, index) => (
-            <a href="/community/community_details" key={index}>
-              <div className="card mt-4" style={{ backgroundColor: "gainsboro", height: "80%" }}>
+            
+            //  <a href="/community/communityPost_details" key={index}>
+           <div onClick={(()=>redirectToPostDetail(item.id))}  key={index}> 
+              <div onClick={(()=>getPostDetail(item.url_slug))} className="card mt-4" style={{ backgroundColor: "gainsboro", height: "80%" }}>
                 <div className="card-body">
                   <div className="thread-title single-line-text mb-2">
                     <span style={{ color: "black" }}>{item.title}</span>
@@ -110,7 +157,7 @@ const Community = ({ router, getCrud, details }) => {
                     <div className="col-md-4" style={styles.item}>
                       <span>Total Answers : </span>
                       {communityData?.map((item, index) => (
-                        <span key={index}>{item?.__meta__?.total_post_replies}</span>
+                        <span>{item?.__meta__?.total_post_replies}</span>
                       ))}
                     </div>
                     <div className="col-md-4" style={styles.item}>
@@ -137,7 +184,7 @@ const Community = ({ router, getCrud, details }) => {
                   </div>
                 </div>
               </div>
-            </a>
+            </div>
           ))}
           <div className="pagination mt-3" style={{ float: "right", }}>
             <nav aria-label="Page navigation example">
@@ -165,7 +212,7 @@ const Community = ({ router, getCrud, details }) => {
 const styles = {
   searchContainer: {
     backgroundImage: "url(https://answersstaticfilecdnv2.azureedge.net/static/images/banner.png)",
-    height: "200px",
+    height: "250px",
     alignItems: "center",
     flexDirection: "column",
     flexWrap: "nowrap"

@@ -3,7 +3,8 @@
   width: 100%;
   // padding: 10px 0px 10px 0px;
   padding: 5px 0px;
-  background-color: $footerBackground;
+  // background-color: $footerBackground;
+  background-color: #f2f4f7;
 
   .logo-wrapper {
     text-align: center;
@@ -23,7 +24,8 @@
     align-items: center;
     margin-top: 10px;
     a {
-      color: $footerTextColor;
+      // color: $footerTextColor;
+      color: $blackTwo;
       font-size: 16px;
       font-weight: 400;
       line-height: 24px;

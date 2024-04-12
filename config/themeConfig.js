@@ -1,5 +1,5 @@
 const themeConfig = {
-  appName: "TECH24" /* App Name */,
+  appName: "Tech24.ai" /* App Name */,
   themeColor: "",
   fontColor: "",
   buttonColor: "",
