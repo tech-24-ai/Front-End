@@ -34,7 +34,7 @@ const Community = ({ router, getCrud, details }) => {
     // console.log("Slug:", slug);
     const searchComm = async () => {
       try {
-        const data = await crudService._getAll(`communitypost/${slug}`, { search:value  });
+        const data = await crudService._getAll(`community/${slug}`, { search:value  });
         // console.log("data", data);
         setCommunityData(data.data);
       } catch (error) {

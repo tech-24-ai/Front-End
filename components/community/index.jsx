@@ -1,13 +1,15 @@
 import React, { Fragment } from "react";
 import Router, { useRouter, withRouter } from "next/router";
 import { connect } from "react-redux";
-import { Container } from "reactstrap";
+import { Button, Container } from "reactstrap";
 import { crudService } from "../../_services";
 import { userActions } from "../../_actions";
 import { UsergroupAddOutlined, MessageOutlined } from "@ant-design/icons";
 import { RoboAdvisor, ServiceProvider, Consultant } from "../icons";
 import Image from "next/image";
-
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 let counter = 7;
 
@@ -95,7 +97,7 @@ class CommunityCategory extends React.PureComponent {
     };
 
     handleGoToPage = (url) => {
-        const restrictedUrls = ["/consultant", "/consultant/service_provider"];
+        const restrictedUrls = ["/cummunity", "/community/query_detail"];
         if (!this.props.isloggedIn && restrictedUrls.includes(url)) {
             this.props.toggleLoginPopup(true);
             return false;
@@ -110,6 +112,8 @@ class CommunityCategory extends React.PureComponent {
         if (!Array.isArray(communityFeature)) {
             return <div style={{paddingLeft: "100px"}}>No community data available</div>;
         }
+       
+       
         return (
             <div className="community-category-below">
                 <Container>
@@ -120,13 +124,12 @@ class CommunityCategory extends React.PureComponent {
                                     className="category-banner-block"
                                     data-index={i}
                                     key={i}
-                                // onClick={() => this.handleGoToPage(data.urlTarge)}
+                                // onClick={() => this.handleGoToPage(data.urlTarget)}
                                 >
                                     <div className="category-banner">
                                         <div className="category-content">
                                             <div className="content-head">
                                                 <div className="custom-icon white medium">
-                                                    {/* {data.icon} */}
                                                     <Image
                                                         src={data.image_url} 
                                                         alt={data.name} 
@@ -151,31 +154,12 @@ class CommunityCategory extends React.PureComponent {
 
                                             </div>
                                             <div className="learn-more-btn">
-                                                <h6 className="btn-text">
-                                                    Join Community
-                                                </h6>
+                                                <Button className="btn-text">
+                                                     Join Community
+                                                </Button>
                                             </div>
                                         </div>
-                                        {/* {isBrowser && (
-                                            <div className="category-hover">
-                                                <div className="category-hover-content">
-                                                    <div className="custom-icon white medium">
-                                                        {data.icon}
-                                                    </div>
-                                                    <div className="category-content">
-                                                        <h6>{data.title}</h6>
-                                                    </div>
-                                                    <ul>
-                                                        {data.description.map((des, idx) => (
-                                                            <li key={idx}>{des}</li>
-                                                        ))}
-                                                    </ul>
-                                                    <a href={data.urlTarge} className="learn-more-btn">
-                                                        Join CommunityCategory
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        )} */}
+                                       
                                     </div>
                                 </div>
                             ))}

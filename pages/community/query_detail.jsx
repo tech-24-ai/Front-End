@@ -115,6 +115,12 @@ const Community = ({ router }) => {
         setActiveIndex(activeIndex === index ? null : index);
     };
 
+    const communityDetails = (data) =>{
+console.log("data",data);
+        sessionStorage.setItem("community_id",data?.name)
+        Router.push('community_detail')
+    }
+
     const accordionData = [
         {
             title: 'FILTERS',
@@ -177,7 +183,7 @@ const Community = ({ router }) => {
                     <div className="search-box">
                     <input
                         type="text"
-                        placeholder="Search anything........"
+                        placeholder="Search anything.."
                         prefix={<SearchOutlined />}
                         style={{
                         width: '100%',
@@ -188,7 +194,7 @@ const Community = ({ router }) => {
                         }}
                     />
                      </div>
-                    <div className="row">
+                    {/* <div className="row">
                         <div className="col-md-3">
                             <div className="accordion mt-5" style={{width:"380px"}}>
                                 {accordionData.map((item, index) => (
@@ -210,8 +216,8 @@ const Community = ({ router }) => {
                             </div>
                         </div>
                         <div className="col-md-9 mt-5">
-                            <h5  style={{ marginLeft: "150px",color:"grey" }}>Result : 6</h5>
-                            {/* <div className="sort-by " style={{float:"right",marginBottom:"-30px"}}>
+                            <h5  style={{ color:"grey" }}>Result : 6</h5>
+                            <div className="sort-by " style={{float:"right",marginBottom:"-30px"}}>
                                 <label htmlFor="sort-select">Sort By: </label>
                                 <select id="sort-select">
                                     <option value="name-asc">Name (A-Z)</option>
@@ -219,14 +225,13 @@ const Community = ({ router }) => {
                                     <option value="date-asc">Date (Oldest first)</option>
                                     <option value="date-desc">Date (Newest first)</option>
                                 </select>
-                                </div> */}
+                                </div>
                             <div className="row">
                             {communityFeature?.map((item, index) => (
                                     <div className="col-6 community-category-below mt-5">
-                                        <Container style={{ marginLeft: "60px", }}>
-                                            <div className="category-box" style={{ width: "300px", }}>
+                                        
+                                            <div className="category-box" style={{ minWidth: "100%"  }}>
                                                 <div className="category-banner-wrapper" id="categoryWrapper">
-                                                    {/* {categoryList.map((data, i) => ( */}
                                                     <div
                                                         className="category-banner-block"
                                                     >
@@ -261,15 +266,76 @@ const Community = ({ router }) => {
                                                             
                                                         </div>
                                                     </div>
-                                                    {/* ))} */}
                                                 </div>
                                             </div>
-                                        </Container>
+                                        
                                     </div>
                             ))}
                             </div>
-                           
-                         
+                        </div>
+                    </div> */}
+                    {/* <h5 style={{ color: "grey" }}>Result : 6</h5> */}
+                    <div style={{ display: "flex", justifyContent: "space-between" }} className="mt-5">
+                        <div style={{width: "25%"}}>
+                            {accordionData.map((item, index) => (
+                                <div className="accordion-item" key={index} style={accordionItemStyle}>
+                                    <button
+                                        className="accordion-title"
+                                        style={{ ...accordionTitleStyle, ...(activeIndex === index ? activeAccordionTitleStyle : {}) }}
+                                        onClick={() => toggleAccordion(index)}
+                                        aria-expanded={activeIndex === index ? 'true' : 'false'}
+                                    >
+                                        {item.title}
+                                        <span style={{ float: "right" }}>{activeIndex === index ? '-' : '+'}</span>
+                                    </button>
+                                    {activeIndex === index && <div className="accordion-content" style={accordionContentStyle}>
+                                        {item.content}</div>}
+                                </div>
+                            ))}
+                        </div>
+                        <div className="mt-5" style={{width: "75%", display: "flex", flexWrap: "wrap", marginLeft: "2rem"}}>
+                            {communityFeature?.map((item, index) => (
+                                <div className="col-6 community-category-below" style={{marginTop: "-1rem"}}>
+
+                                    <div className="category-box" style={{ minWidth: "100%" }} onClick={() => communityDetails(item)}>
+                                        <div className="category-banner-wrapper" id="categoryWrapper">
+                                            <div
+                                                className="category-banner-block"
+                                            >
+                                                <div className="category-banner" style={{ maxWidth: "100%"}}>
+                                                    <div className="category-content">
+                                                        <div className="content-head">
+                                                            <div className="custom-icon white medium">
+                                                                <img src={item.image_url} />
+                                                            </div>
+                                                            <div className="category-content" style={{ minWidth: "70%" }}>
+                                                                <h6>{item.name}</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div className="card-body">
+                                                            <p class="card-text">{item.description}</p>
+                                                            <div className="content-x">
+                                                                <div className="user-icon">
+                                                                    <p><UsergroupAddOutlined style={{ fontSize: "16px" }} /> {" "}Members : {item?.__meta__?.total_members}</p>
+                                                                </div>
+                                                                <div className="query-icon">
+                                                                    <p><MessageOutlined style={{ fontSize: "16px" }} /> {" "}Queries : {item?.__meta__?.total_post_reply}</p>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div className="learn-more-btn">
+                                                            <h6 className="btn-text">
+                                                                Join Community
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </Container>

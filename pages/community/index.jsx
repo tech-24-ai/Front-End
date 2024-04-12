@@ -96,6 +96,9 @@ const Community = ({ community, getAllCrud }) => {
     //     getAllPosts();
     // }, []);
 
+    const handleViewAll = () => {
+        Router.push('/community/query_detail');
+    };
 
     let arrData = [];
 
@@ -186,7 +189,10 @@ const Community = ({ community, getAllCrud }) => {
                             <h4 className="mt-5 mb-5" style={{ borderLeft: "5px solid #007aff " }}><span className="ml-2">Top</span> <span style={{ color: "#007aff" }}>Rated</span></h4>
                         </div>
                         <div className="community-category-container" style={{ width: "100%" }}>
-                            <CommunityCategory communityFeature={topRatedCommunityFeature} />
+                            {/* <CommunityCategory communityFeature={topRatedCommunityFeature} /> */}
+                            {communityFeature.map((item) => (
+                                <CommunityCategory key={item.id} data={item} communityFeature={allCommunityFeature} />
+                            ))}
                         </div>
                     </div>
                    
@@ -203,11 +209,15 @@ const Community = ({ community, getAllCrud }) => {
 
 
                     <div className="row">
-                        <div className="col-md-12" style={{ paddingLeft: "100px" }}>
+                        <div className="col-md-12 d-flex flex-row justify-content-between" style={{ paddingLeft: "100px" }}>
                             <h4 className="mt-5 mb-5" style={{ borderLeft: "5px solid #007aff " }}><span className="ml-2">All</span> <span style={{ color: "#007aff" }}>Community</span></h4>
+                            <h4 className="d-flex align-items-center justify-content-center" style={{ color: "rgb(0, 122, 255)", textDecoration: "underline", cursor: "pointer" }} onClick={handleViewAll}>View all</h4>
                         </div>
                         <div className="community-category-container" style={{width:"100%"}}>
-                            <CommunityCategory communityFeature={allCommunityFeature} />
+                            {/* <CommunityCategory communityFeature={allCommunityFeature} /> */}
+                            {communityFeature.map((item) => (
+                                <CommunityCategory key={item.id} data={item} communityFeature={allCommunityFeature} />
+                            ))}
                         </div>
                     </div>
                  
