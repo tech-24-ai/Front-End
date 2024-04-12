@@ -17,7 +17,7 @@
 // import { TreeSelect } from "antd";
 // import Image from "next/image";
 // import myImageLoader from "../imageLoader";
- 
+
 // import {
 //   RoboAdvisor,
 //   ResearchTool,
@@ -235,8 +235,6 @@
 
 // export default withRouter(connect(mapStateToProps, actionCreators)(Categories));
 
-
-
 import React, { Fragment } from "react";
 import Router, { useRouter, withRouter } from "next/router";
 import { connect } from "react-redux";
@@ -257,6 +255,9 @@ import { TreeSelect } from "antd";
 import Image from "next/image";
 import myImageLoader from "../imageLoader";
 
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 import {
   RoboAdvisor,
@@ -265,9 +266,7 @@ import {
   Consultant,
 } from "../icons";
 
-
 let counter = isMobile ? 7 : 7;
-
 
 class Categories extends React.PureComponent {
   constructor(props) {
@@ -278,11 +277,10 @@ class Categories extends React.PureComponent {
       changeIcon: false,
       hoverId: false,
       activeIndex: 0,
-      animating: false
+      animating: false,
     };
     console.log("props", props);
   }
-
 
   componentDidMount() {
     crudService
@@ -296,11 +294,9 @@ class Categories extends React.PureComponent {
       });
   }
 
-
   bindSlides = () => {
     const { categories, changeIcon } = this.state;
     let slides = [];
-
 
     if (categories && categories.length) {
       categories.forEach((element, index) => {
@@ -320,14 +316,12 @@ class Categories extends React.PureComponent {
     });
   };
 
-
   goToModules = (data) => {
     sessionStorage.removeItem("bgColor");
     sessionStorage.removeItem("categoryId");
     sessionStorage.removeItem("moduleId");
     sessionStorage.removeItem("childrenIds");
     sessionStorage.removeItem("isAdvanced");
-
 
     sessionStorage.setItem("categoryId", data.id);
     sessionStorage.setItem("bgColor", data.bg_color);
@@ -343,7 +337,6 @@ class Categories extends React.PureComponent {
     }
   };
 
-
   handleScroll = () => {
     const { changeIcon } = this.state;
     this.setState(
@@ -354,13 +347,11 @@ class Categories extends React.PureComponent {
     );
   };
 
-
   onCatHover = (id) => {
     this.setState({
       hoverId: id,
     });
   };
-
 
   handleGoToPage = (url) => {
     const restrictedUrls = ["/consultant", "/consultant/service_provider"];
@@ -369,34 +360,32 @@ class Categories extends React.PureComponent {
       return false;
     }
 
-
     Router.push(url);
   };
 
-
   next = () => {
     if (this.state.animating) return;
-    const nextIndex = this.state.activeIndex === this.state.slides.length - 1 ? 0 : this.state.activeIndex + 1;
+    const nextIndex =
+      this.state.activeIndex === this.state.slides.length - 1
+        ? 0
+        : this.state.activeIndex + 1;
     this.setState({ activeIndex: nextIndex });
-  }
-
+  };
 
   previous = () => {
     if (this.state.animating) return;
-    const nextIndex = this.state.activeIndex === 0 ? this.state.slides.length - 1 : this.state.activeIndex - 1;
+    const nextIndex =
+      this.state.activeIndex === 0
+        ? this.state.slides.length - 1
+        : this.state.activeIndex - 1;
     this.setState({ activeIndex: nextIndex });
-  }
-
+  };
 
   render() {
     const { changeIcon, slides, hoverId, activeIndex } = this.state;
     const categoryList = [
       {
-        title: (
-          <Fragment>
-            Talk to a Robo-Advisor
-          </Fragment>
-        ),
+        title: <Fragment>Talk to a Robo-Advisor</Fragment>,
         description: [
           "Find the right software, hardware or service",
           "Troubleshoot problems",
@@ -414,7 +403,6 @@ class Categories extends React.PureComponent {
           "Discuss strategy, technology and costs.",
         ],
 
-
         icon: <Consultant />,
         urlTarge: "/consultant",
       },
@@ -425,7 +413,6 @@ class Categories extends React.PureComponent {
           "App development, managed services, custom integration, UI design, Assessments & more",
         ],
         icon: <ServiceProvider />,
-
 
         urlTarge: "/consultant/service_provider",
       },
@@ -439,11 +426,41 @@ class Categories extends React.PureComponent {
         ],
         icon: <ResearchTool />,
 
-
         urlTarge: "market-research",
       },
     ];
 
+    const settings = {
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      className: "slider-container",
+      centerMode: true,
+      centerPadding: "60px",
+      slidesToShow: 1,
+    };
+
+    return (
+      <div className="category category-below">
+        <Container>
+          <div className="category-box">
+            <Slider {...settings}>
+              {categoryList.map((data, i) => (
+                <div className="category-card">
+                  <h5 className="title">{data.title}</h5>
+                  <p>{data.description}</p>
+                  <a href={data.urlTarge} className="learn-more-btn">
+                    Learn More
+                  </a>
+                </div>
+              ))}
+            </Slider>
+          </div>
+        </Container>
+      </div>
+    );
 
     return (
       <div className="category-below">
@@ -462,14 +479,37 @@ class Categories extends React.PureComponent {
                     className="category-banner-block"
                     data-index={i}
                     onClick={() => this.handleGoToPage(data.urlTarge)}
-                    style={{ width: '60%', margin: '0 auto' }}
+                    style={{ width: "60%", margin: "0 auto" }}
                   >
-                    <div className="category-banner" style={{ color: 'white', padding: '20px', borderRadius: '10px' }}>
+                    <div
+                      className="category-banner"
+                      style={{
+                        color: "white",
+                        padding: "20px",
+                        borderRadius: "10px",
+                      }}
+                    >
                       <div className="category-content">
-                        {typeof data.title === 'string' ? (
-                          <h6 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '10px' }}>{data.title}</h6>
+                        {typeof data.title === "string" ? (
+                          <h6
+                            style={{
+                              fontSize: "18px",
+                              fontWeight: "bold",
+                              marginBottom: "10px",
+                            }}
+                          >
+                            {data.title}
+                          </h6>
                         ) : (
-                          <h6 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '10px' }}>{data.title}</h6>
+                          <h6
+                            style={{
+                              fontSize: "18px",
+                              fontWeight: "bold",
+                              marginBottom: "10px",
+                            }}
+                          >
+                            {data.title}
+                          </h6>
                         )}
                         <div className="learn-more-btn">Learn More</div>
                       </div>
@@ -483,9 +523,10 @@ class Categories extends React.PureComponent {
                               <h6>{data.title}</h6>
                             </div>
                             <ul>
-                              {data.description && data.description.map((des, idx) => (
-                                <li key={idx}>{des}</li>
-                              ))}
+                              {data.description &&
+                                data.description.map((des, idx) => (
+                                  <li key={idx}>{des}</li>
+                                ))}
                             </ul>
                             <a href={data.urlTarge} className="learn-more-btn">
                               Learn More
@@ -499,8 +540,6 @@ class Categories extends React.PureComponent {
               ))}
               <CarouselItem />
             </Carousel>
-
-
           </div>
         </Container>
       </div>
@@ -508,17 +547,14 @@ class Categories extends React.PureComponent {
   }
 }
 
-
 const mapStateToProps = (state) => {
   const { authentication, confirm } = state;
   const { user, loggedIn } = authentication;
   return { user, confirm, isloggedIn: loggedIn };
 };
 
-
 const actionCreators = {
   toggleLoginPopup: userActions.toggleLoginPopup,
 };
-
 
 export default withRouter(connect(mapStateToProps, actionCreators)(Categories));
