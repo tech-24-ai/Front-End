@@ -450,7 +450,7 @@ class Categories extends React.PureComponent {
               {categoryList.map((data, i) => (
                 <div className="category-card">
                   <h5 className="title">{data.title}</h5>
-                  <p>{data.description}</p>
+                  <p className="description">{data.description}</p>
                   <a href={data.urlTarge} className="learn-more-btn">
                     Learn More
                   </a>
