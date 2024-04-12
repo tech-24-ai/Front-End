@@ -113,9 +113,9 @@ section {
 
 .ant-tree-select {
   font-weight: 500;
-  // width: 100%;
-  max-width: 80%;
-  min-width: 80%;
+  width: 100%;
+  // max-width: 80%;
+  min-width: 58%;
   .ant-select-selector {
     border-radius: 10px !important;
     height: 80px !important;
@@ -320,6 +320,43 @@ span.anticon {
 
         &.left {
           left: 10px;
+        }
+      }
+    }
+  }
+}
+
+// new custom search input
+div.new-custom-search-input {
+  width: 403px;
+  .ant-input-affix-wrapper {
+    border-radius: 8px;
+    padding: 4px 7px 4px 20px;
+    height: 50px;
+    min-width: 403px;
+    background-color: #141414;
+
+    input.ant-input {
+      // height: 25px;
+      font-size: 1rem;
+      background-color: #141414;
+      color: #fff;
+    }
+    .ant-input-suffix,
+    .ant-input-prefix {
+      span.anticon-search {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        border-radius: 50%;
+        cursor: pointer;
+        svg {
+          color: #005dd4;
+          font-size: 20px;
+          margin-bottom: 6px;
+          margin-right: 6px;
         }
       }
     }

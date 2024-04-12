@@ -13,7 +13,7 @@ import { useLayoutEffect, useEffect } from "react";
 import LinkedinIcon from "../../public/images/header/Linkedin-icon.svg";
 import myImageLoader from "../imageLoader";
 import Image from "next/image";
-import LogoNew from "../../public/images/header/tech24-logo-white.png";
+import LogoNew from "../../public/images/header/tech24-footer.png";
 import InstaIcon from "../../public/new_images/instagram.svg";
 import GlobIcon from "../../public/new_images/glob.svg";
 import TwitterIcon from "../../public/new_images/twitter.svg";
