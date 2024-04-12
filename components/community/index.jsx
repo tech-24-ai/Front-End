@@ -142,10 +142,10 @@ class CommunityCategory extends React.PureComponent {
                                                 <p class="card-text">{data.description}</p>
                                                 <div className="content-x">
                                                     <div className="user-icon">
-                                                        <p><UsergroupAddOutlined style={{ fontSize: "16px" }} /> {" "}Members : 103</p>
+                                                        <p><UsergroupAddOutlined style={{ fontSize: "16px" }} /> {" "}Members : {data.__meta__.total_members}</p>
                                                     </div>
                                                     <div className="query-icon">
-                                                        <p><MessageOutlined style={{ fontSize: "16px" }} /> {" "}Queries : 103</p>
+                                                        <p><MessageOutlined style={{ fontSize: "16px" }} /> {" "}Queries : {data.__meta__.total_posts}</p>
                                                     </div>
                                                 </div>
 
