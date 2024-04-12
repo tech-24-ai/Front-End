@@ -909,7 +909,7 @@ const Profile = ({
               railStyle={{ display: "none" }}
               marks={topMarks}
               step={null}
-              defaultValue={50}
+              defaultValue={100}
               style={{ marginBottom: 20 }}
             />
             <Slider
