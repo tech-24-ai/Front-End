@@ -441,6 +441,7 @@ import { crudActions, alertActions } from "../_actions";
 import { connect } from "react-redux";
 import Router from "next/router";
 import moment from "moment";
+import { crudService } from "../_services";
 
 const Profile = ({
   getAllCrud,
@@ -454,12 +455,12 @@ const Profile = ({
   visitor_profile_levels,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [updateCom, setUpdateCom] = useState(false);
   const [updateProfileData, setUpdateProfileData] = useState({
     alternate_email: "",
     country_code: 0,
     mobile: 0,
-    profile_pic_url:
-      "https://cdn.pixabay.com/photo/2024/02/29/21/39/squirrel-8605258_1280.jpg",
+    profile_pic_url: "",
   });
 
   const onChange = (key) => {
@@ -482,7 +483,8 @@ const Profile = ({
     getAllCrud("visitor_queries_history", "visitor_queries_history");
     // getAllCrud("visitor_points_history", "visitor_points_history");
     getAllCrud("visitor_profile_levels", "visitor_profile_levels");
-  }, []);
+  }, [updateCom]);
+
   const fetchCountry = () => {
     getAllCrud("countries", "countries");
   };
@@ -492,12 +494,16 @@ const Profile = ({
   });
 
   const updateProfile = () => {
-    updateCrud("visitorprofile", "visitorprofile", visitorprofile?.id, {
-      alternate_email: updateProfileData.alternate_email,
-      country_code: updateProfileData.country_code,
-      mobile: updateProfileData.mobile,
-      profile_pic_url: updateProfileData.profile_pic_url,
-    });
+    crudService
+      ._update("visitorprofile", visitorprofile?.id, {
+        alternate_email: updateProfileData.alternate_email,
+        country_code: updateProfileData.country_code,
+        mobile: updateProfileData.mobile,
+        profile_pic_url: updateProfileData.profile_pic_url,
+      })
+      .then((data) => {
+        data.status == 200 && setUpdateCom(true);
+      });
     setIsModalOpen(false);
   };
 
