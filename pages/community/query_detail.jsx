@@ -206,21 +206,11 @@ const Community = ({ router }) => {
                                             {item.content}</div>}
                                     </div>
                                 ))}
-                                 {/* <ul>
-                                 {accordionData.map((item, index) => (
-                                      <li key={index}>
-                                        <div onClick={() => toggleAccordion(index)} className="accordion-header">
-                                          <span>{item.title}</span>
-                                          <span>{activeIndex === index ? '-' : '+'}</span>
-                                        </div>
-                                        {activeIndex === index && <div className="accordion-content">{item.content}</div>}
-                                      </li>
-                                    ))}
-                                  </ul> */}
+                              
                             </div>
                         </div>
                         <div className="col-md-9 mt-5">
-                            <span style={{ marginLeft: "150px",color:"grey" }}>Result : 6</span>
+                            <h5  style={{ marginLeft: "150px",color:"grey" }}>Result : 6</h5>
                             {/* <div className="sort-by " style={{float:"right",marginBottom:"-30px"}}>
                                 <label htmlFor="sort-select">Sort By: </label>
                                 <select id="sort-select">
