@@ -124,7 +124,7 @@ function _update(kind, url, id, data, showSucess = false) {
         if (showSucess) {
           dispatch(alertActions.success(result.data.message));
         }
-        dispatch(success(result.data.data));
+        dispatch(success(result.data));
       },
       (error) => {
         dispatch(loaderActions.hide());
