@@ -65,9 +65,15 @@ const rootReducer = combineReducers({
   chat_gpt: crud("chat_gpt"),
   donations: crud("donations"),
   community: crud("community"),
-  details : crud("communitypost"),
-  communitypost : crud("communitypost"),
-
+  details: crud("communitypost"),
+  communitypost: crud("communitypost"),
+  details: crud("communitypost"),
+  visitorcommunityprofile: crud("visitorcommunityprofile"),
+  visitorprofile: crud("visitorprofile"),
+  visitor_community: crud("visitor_community"),
+  visitor_queries_history: crud("visitor_queries_history"),
+  visitor_points_history: crud("visitor_points_history"),
+  visitor_profile_levels: crud("visitor_profile_levels"),
 });
 
 export default rootReducer;
