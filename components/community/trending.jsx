@@ -2,33 +2,15 @@ import React, { Fragment } from "react";
 import Router, { useRouter, withRouter } from "next/router";
 import { connect } from "react-redux";
 import { Container } from "reactstrap";
-import { isMobile, isTablet, isBrowser } from "react-device-detect";
-import { Icon } from "react-icons-kit";
-import { iosArrowBack } from "react-icons-kit/ionicons/iosArrowBack";
-import { iosArrowForward } from "react-icons-kit/ionicons/iosArrowForward";
-import Arrow from "../../public/images/category/arrow.svg";
 import { crudService } from "../../_services";
 import { userActions } from "../../_actions";
-
-import ArrowDown from "../../public/images/category/arrowdown.svg";
-import ArrowUp from "../../public/images/category/arrowup.svg";
-import centerLogo from "../../public/images/header/Group 594.png";
-import moreIcon from "../../public/images/header/Group 550.png";
-import { Col, Row, FormGroup } from "reactstrap";
-import { TreeSelect } from "antd";
+import { UsergroupAddOutlined, MessageOutlined } from "@ant-design/icons";
+import { RoboAdvisor, ServiceProvider, Consultant } from "../icons";
 import Image from "next/image";
-import myImageLoader from "../imageLoader";
-import { UsergroupAddOutlined } from "@ant-design/icons";
-import { MessageOutlined } from "@ant-design/icons";
 
-import {
-    RoboAdvisor,
-    ResearchTool,
-    ServiceProvider,
-    Consultant,
-} from "../icons";
 
-let counter = isMobile ? 7 : 7;
+let counter = 7;
+
 class TrendingQuestion extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -38,7 +20,6 @@ class TrendingQuestion extends React.PureComponent {
             changeIcon: false,
             hoverId: false,
         };
-        console.log("props", props);
     }
 
     componentDidMount() {
@@ -123,56 +104,17 @@ class TrendingQuestion extends React.PureComponent {
         Router.push(url);
     };
 
+
     render() {
         const { changeIcon, slides, hoverId } = this.state;
-        const categoryList = [
-            {
-                title: (
-                    <Fragment>
-                        Mark Smith
-                    </Fragment>
-                ),
-                posted: (<Fragment>15min ago</Fragment>),
-                description: [
-                    "Find the right software, hardware or service",
-                    "Troubleshoot problems",
-                    "Reduce costs",
-                    "Get best practice guidance",
-                ],
-                icon: <RoboAdvisor />,
-                urlTarge: "/it-robo",
-            },
-            {
-                title: "Mark Smith",
-                posted: "15min ago",
-                description: [
-                    "Engage with a consultant over a video conference.",
-                    "Pay per minute.",
-                    "Discuss strategy, technology and costs.",
-                ],
-
-                icon: <Consultant />,
-                urlTarge: "/consultant",
-            },
-            {
-                title: "Mark Smith",
-                posted: "15min ago",
-                description: [
-                    "Pay at 20% less than market rates",
-                    "App development, managed services, custom integration, UI design, Assessments & more",
-                ],
-                icon: <ServiceProvider />,
-
-                urlTarge: "/consultant/service_provider",
-            },
-        ];
+        const { trendingQuestions } = this.props;
 
         return (
             <div className="trending-category-below">
                 <Container>
                     <div className="category-box">
                         <div className="category-banner-wrapper" id="categoryWrapper">
-                            {categoryList.map((data, i) => (
+                            {trendingQuestions.map((data, i) => (
                                 <div
                                     className="category-banner-block"
                                     data-index={i}
@@ -183,27 +125,32 @@ class TrendingQuestion extends React.PureComponent {
                                         <div className="category-content">
                                             <div className="content-head">
                                                 <div className="custom-icon white medium">
-                                                    {data.icon}
+                                                    {data.visitor && data.visitor.profile_pic_url ? (
+                                                        <Image
+                                                            src={data.visitor.profile_pic_url}
+                                                            alt={data.visitor.name}
+                                                            width={100}
+                                                            height={100}
+                                                        />
+                                                    ) : (
+                                                        <div>No image available</div>
+                                                    )}
                                                 </div>
                                                 <div className="category-content" style={{ minWidth: "70%" }}>
                                                     <h6>{data.title}</h6>
                                                     <p>{data.posted}</p>
                                                 </div>
                                             </div>
-                                            {/* <div class="card-body">
-                                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-                                                <p class="card-text"><b><small class="text-muted">
-                                                    <UsergroupAddOutlined style={{ fontSize: "10px",  }} />Members : 103  <MessageOutlined />Queries : 309</small></b>
-                                                </p>
-                                            </div> */}
+
                                             <div className="card-trend-body">
-                                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+                                                <p class="card-text">
+                                                    {data.description}
+                                                    </p>
                                                 <div className="content-x">
-                                                    <div className="design-content">
-                                                        <p>Product Design</p>
-                                                    </div>
-                                                    <div className="experience-content">
-                                                        <p>User Experience</p>
+                                                    <div className="design-content" style={{display: "flex", flexDirection: "row"}}>
+                                                        {data.postTags.map((tag, index) => (
+                                                            <p key={index}>{tag.name}</p>
+                                                        ))}
                                                     </div>
                                                 </div>
 
@@ -214,7 +161,7 @@ class TrendingQuestion extends React.PureComponent {
                                                 </h6>
                                             </div>
                                         </div>
-                                    
+
                                     </div>
                                 </div>
                             ))}
