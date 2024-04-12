@@ -162,7 +162,7 @@ const consultantList = ({ consultants, getAllCrud, authentication }) => {
         ) : (
           <Fragment>
             <ConsultantCard />
-            {consultants && consultants.data.length > 0 ? (
+            {consultants && consultants?.data?.length > 0 ? (
               <div
                 style={{ marginTop: "40px" }}
                 className="pagination d-flex justify-content-between align-items-center"

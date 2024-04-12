@@ -35,6 +35,8 @@ import CategoryList from "../components/categories/categoryList";
 import { OneIcon, TwoIcon, ThreeIcon } from "../components/icons";
 import themeConfig from "../config/themeConfig";
 import LatestResearch from "../components/marketResearch/LatestResearch";
+import LatestBlog from "../components/blog/LatestBlog";
+import TopConsultant from "../components/consultant/TopConsultant";
 
 let counter = 6;
 let arrLength = 6;
@@ -140,6 +142,10 @@ class Home extends React.PureComponent {
           </section>
           <Categories />
           {/* <LatestResearch /> */}
+        </section>
+        <section>
+          <LatestBlog />
+          <TopConsultant />
         </section>
       </Fragment>
     );
