@@ -35,6 +35,38 @@ const Community = ({ community, getAllCrud }) => {
     const [search, setSearch] = useState("");
     const [value, setValue] = useState();
 
+
+    const [allCommunityFeature, setAllCommunityFeature] = useState([]);
+    const [topRatedCommunityFeature, setTopRatedCommunityFeature] = useState([]);
+    const [trendingQuestions, setTrendingQuestions] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const allCommunityData = await crudService._getAll("community");
+                setAllCommunityFeature(allCommunityData.data);
+                const topRatedCommunityData = await crudService._getAll("community?top_rated");
+                setTopRatedCommunityFeature(topRatedCommunityData.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+    useEffect(() => {
+        const fetchTrendingQuestions = async () => {
+            try {
+                const trendingData = await crudService._getAll("tranding_question");
+                setTrendingQuestions(trendingData.data);
+            } catch (error) {
+                console.error("Error fetching trending questions:", error);
+            }
+        };
+
+        fetchTrendingQuestions();
+    }, []);
+   
     useEffect(() => {
         const searchPosts = async () => {
             try {
@@ -51,31 +83,36 @@ const Community = ({ community, getAllCrud }) => {
     }, [value]);
     console.log("search", search);
 
-    useEffect(() => {
-        const getAllPosts = async () => {
-            try {
-                const data = await crudService._getAll("community");
-                console.log("data", data);
-                setCommunityFeature(data.data);
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
-        getAllPosts();
-    }, []);
+    // useEffect(() => {
+    //     const getAllPosts = async () => {
+    //         try {
+    //             const data = await crudService._getAll("community");
+    //             console.log("data", data);
+    //             setCommunityFeature(data.data);
+    //         } catch (error) {
+    //             console.error("Error fetching data:", error);
+    //         }
+    //     };
+    //     getAllPosts();
+    // }, []);
 
 
-    let arrData = []
+    let arrData = [];
+
+    console.log("communityFeature", communityFeature);
+
     communityFeature?.map((item) => {
         const random = Math.random().toString(36).substring(2, 6);
         const data = {
             id: random,
-            value: item.name, title: item.name
-        }
-        arrData.push(data)
-    })
+            value: item.name, 
+            title: item.name 
+        };
+        arrData.push(data);
+    });
 
-    console.log("tree data", arrData)
+    console.log("tree data", arrData);
+
     const genTreeNode = (parentId, isLeaf = false) => {
         const random = Math.random().toString(36).substring(2, 6);
         return {
@@ -95,8 +132,20 @@ const Community = ({ community, getAllCrud }) => {
                 resolve(undefined);
             }, 300);
         });
+  
+    // const onChange = (newValue) => {
+    //     const selectedCommunity = allCommunityFeature.find(feature => feature.name === newValue);
+    //     setAllCommunityFeature(selectedCommunity ? [selectedCommunity] : []);
+    //     setValue(newValue); 
+    // };
     const onChange = (newValue) => {
-        setValue(newValue);
+        const selectedAllCommunity = allCommunityFeature.find(feature => feature.name === newValue);
+        const selectedTopRatedCommunity = topRatedCommunityFeature.find(feature => feature.name === newValue);
+
+        setAllCommunityFeature(selectedAllCommunity ? [selectedAllCommunity] : []);
+        setTopRatedCommunityFeature(selectedTopRatedCommunity ? [selectedTopRatedCommunity] : []);
+
+        setValue(newValue); 
     };
 
 
@@ -136,8 +185,8 @@ const Community = ({ community, getAllCrud }) => {
                         <div className="col-md-12" style={{paddingLeft: "100px"}}>
                             <h4 className="mt-5 mb-5" style={{ borderLeft: "5px solid #007aff " }}><span className="ml-2">Top</span> <span style={{ color: "#007aff" }}>Rated</span></h4>
                         </div>
-                        <div className="community-category-container">
-                            <CommunityCategory />
+                        <div className="community-category-container" style={{ width: "100%" }}>
+                            <CommunityCategory communityFeature={topRatedCommunityFeature} />
                         </div>
                     </div>
                    
@@ -147,7 +196,8 @@ const Community = ({ community, getAllCrud }) => {
                             <h4 className="mt-5 mb-5" style={{ borderLeft: "5px solid #007aff " }}><span className="ml-2">Trending</span> <span style={{ color: "#007aff" }}>Question</span></h4>
                         </div>
                         <div className="community-category-container">
-                            <TrendingCategory />
+                            {/* <TrendingCategory /> */}
+                            <TrendingCategory trendingQuestions={trendingQuestions} />
                         </div>
                     </div>
 
@@ -156,8 +206,8 @@ const Community = ({ community, getAllCrud }) => {
                         <div className="col-md-12" style={{ paddingLeft: "100px" }}>
                             <h4 className="mt-5 mb-5" style={{ borderLeft: "5px solid #007aff " }}><span className="ml-2">All</span> <span style={{ color: "#007aff" }}>Community</span></h4>
                         </div>
-                        <div className="community-category-container">
-                            <CommunityCategory />
+                        <div className="community-category-container" style={{width:"100%"}}>
+                            <CommunityCategory communityFeature={allCommunityFeature} />
                         </div>
                     </div>
                  

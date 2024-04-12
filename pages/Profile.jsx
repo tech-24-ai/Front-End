@@ -909,7 +909,7 @@ const Profile = ({
               railStyle={{ display: "none" }}
               marks={topMarks}
               step={null}
-              defaultValue={50}
+              defaultValue={100}
               style={{ marginBottom: 20 }}
             />
             <Slider
@@ -986,64 +986,66 @@ const Profile = ({
   return (
     <Container>
       <div className="profile-container">
-        <Tabs
-          className="header-tabs"
-          defaultActiveKey="1"
-          items={items}
-          onChange={onChange}
-        />
-        <Card
-          bordered={true}
-          style={{
-            minWidth: "368",
-            height: "fit-content",
-          }}
-        >
-          <div className="card-header-data">
-            <Image
-              loader={myImageLoader}
-              style={{ borderRadius: "2px" }}
-              width={80}
-              height={80}
-              preview="false"
-              src={
-                visitorcommunityprofile?.data[0]?.profile_pic_url ||
-                "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
-              }
-              alt="profile"
-            />
+        <Tabs className="header-tabs" defaultActiveKey="1" onChange={onChange}>
+          {items.map((tab) => (
+            <Tabs.TabPane tab={tab.label} key={tab.key}>
+              {tab.children}
+            </Tabs.TabPane>
+          ))}
+        </Tabs>
+        <div>
+          <Card
+            bordered={true}
+            style={{
+              minWidth: "368",
+              height: "fit-content",
+            }}
+          >
+            <div className="card-header-data">
+              <Image
+                loader={myImageLoader}
+                style={{ borderRadius: "2px" }}
+                width={80}
+                height={80}
+                preview="false"
+                src={
+                  visitorcommunityprofile?.data[0]?.profile_pic_url ||
+                  "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                }
+                alt="profile"
+              />
 
-            <div className="level">Level 2: Starter</div>
-            <div>
-              <span>{visitorcommunityprofile?.data[0]?.level_up_points}</span>{" "}
-              {visitorcommunityprofile?.data[0]?.level_up_text}
-            </div>
-          </div>
-          <hr />
-          <div className="following-section">
-            <div>
-              <p className="head">Contributions</p>
-              <p className="count">
-                {visitorcommunityprofile?.data[0]?.contributions}
-              </p>
-            </div>
-            <div style={{ display: "flex" }}>
-              <span className="custom-border"></span>
-              <div style={{ flexDirection: "column" }}>
-                <p className="head">Followers</p>
-                <p className="count">200</p>
+              <div className="level">Level 2: Starter</div>
+              <div>
+                <span>{visitorcommunityprofile?.data[0]?.level_up_points}</span>{" "}
+                {visitorcommunityprofile?.data[0]?.level_up_text}
               </div>
-              <span className="custom-border"></span>
             </div>
-            <div>
-              <p className="head">Following</p>
-              <p className="count">100</p>
+            <hr />
+            <div className="following-section">
+              <div>
+                <p className="head">Contributions</p>
+                <p className="count">
+                  {visitorcommunityprofile?.data[0]?.contributions}
+                </p>
+              </div>
+              <div style={{ display: "flex" }}>
+                <span className="custom-border"></span>
+                <div style={{ flexDirection: "column" }}>
+                  <p className="head">Followers</p>
+                  <p className="count">200</p>
+                </div>
+                <span className="custom-border"></span>
+              </div>
+              <div>
+                <p className="head">Following</p>
+                <p className="count">100</p>
+              </div>
             </div>
-          </div>
-          <hr />
-          <div className="online-section">
-            <div>
-              {/* <Image
+            <hr />
+            <div className="online-section">
+              <div>
+                {/* <Image
                 loader={myImageLoader}
                 width={16}
                 height={16}
@@ -1052,98 +1054,68 @@ const Profile = ({
                 alt="online-now"
               />
               <span className="online">Online Now</span> */}
-            </div>
+              </div>
 
-            <div>
-              <Image
-                loader={myImageLoader}
-                width={16}
-                height={16}
-                preview="false"
-                src={date_image}
-                alt="date-icon"
-              />
-              <span className="join-date">
-                {visitorcommunityprofile?.data[0]?.joined_at}
-              </span>
-            </div>
-            <hr />
-            <div onClick={showEditModal} className="button">
-              Edit Profile
-            </div>
-          </div>
-        </Card>
-        <Modal
-          title="Edit Profile"
-          open={isModalOpen}
-          onOk={handleOk}
-          onCancel={handleCancel}
-          footer={[
-            <div onClick={updateProfile} className="profile-modal-button">
-              Save
-            </div>,
-          ]}
-        >
-          <div className="edit-profile-container">
-            <div className="profile-header">
               <div>
                 <Image
-                  style={{ borderRadius: "4px" }}
-                  // loader={myImageLoader}
-                  className="mdg"
-                  src={
-                    visitorcommunityprofile?.data[0]?.profile_pic_url ||
-                    "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
-                  }
-                  alt=""
-                  placeholder="Logo"
-                  width={64}
-                  height={64}
+                  loader={myImageLoader}
+                  width={16}
+                  height={16}
+                  preview="false"
+                  src={date_image}
+                  alt="date-icon"
                 />
+                <span className="join-date">
+                  {visitorcommunityprofile?.data[0]?.joined_at}
+                </span>
               </div>
-              <div className="profile-button">
-                <h6>Profile Picture</h6>
-                <div>
-                  <div className="remove">Remove</div>
-                  <div className="upload">Upload</div>
-                </div>
+              <hr />
+              <div onClick={showEditModal} className="button">
+                Edit Profile
               </div>
             </div>
-            <div className="profile-details">
-              <div>
-                <p>Alternate Email</p>
-                <Input
-                  name="alternate_email"
-                  onChange={(e) => {
-                    const { name, value } = e.target;
-                    setUpdateProfileData((prev) => ({
-                      ...prev,
-                      [name]: value,
-                    }));
-                  }}
-                  placeholder="Enter your email ID here"
-                />
-              </div>
-              <div>
-                <p>Phone Number</p>
-                <div className="phone-number">
-                  <Select
-                    showSearch
-                    placeholder="+91"
-                    optionFilterProp="children"
-                    onSearch={onSearch}
-                    filterOption={filterOption}
-                    options={countyList}
-                    onClick={fetchCountry}
-                    onChange={(e) => {
-                      setUpdateProfileData((prev) => ({
-                        ...prev,
-                        ["country_code"]: e,
-                      }));
-                    }}
+          </Card>
+          <Modal
+            title="Edit Profile"
+            open={isModalOpen}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            footer={[
+              <div onClick={updateProfile} className="profile-modal-button">
+                Save
+              </div>,
+            ]}
+          >
+            <div className="edit-profile-container">
+              <div className="profile-header">
+                <div>
+                  <Image
+                    style={{ borderRadius: "4px" }}
+                    // loader={myImageLoader}
+                    className="mdg"
+                    src={
+                      visitorcommunityprofile?.data[0]?.profile_pic_url ||
+                      "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                    }
+                    alt=""
+                    placeholder="Logo"
+                    width={64}
+                    height={64}
                   />
+                </div>
+                <div className="profile-button">
+                  <h6>Profile Picture</h6>
+                  <div>
+                    <div className="remove">Remove</div>
+                    <div className="upload">Upload</div>
+                  </div>
+                </div>
+              </div>
+              <div className="profile-details">
+                <div>
+                  <p>Alternate Email</p>
                   <Input
-                    name="mobile"
+                    name="alternate_email"
                     onChange={(e) => {
                       const { name, value } = e.target;
                       setUpdateProfileData((prev) => ({
@@ -1151,13 +1123,44 @@ const Profile = ({
                         [name]: value,
                       }));
                     }}
-                    placeholder="Enter phone number"
+                    placeholder="Enter your email ID here"
                   />
+                </div>
+                <div>
+                  <p>Phone Number</p>
+                  <div className="phone-number">
+                    <Select
+                      showSearch
+                      placeholder="+91"
+                      optionFilterProp="children"
+                      onSearch={onSearch}
+                      filterOption={filterOption}
+                      options={countyList}
+                      onClick={fetchCountry}
+                      onChange={(e) => {
+                        setUpdateProfileData((prev) => ({
+                          ...prev,
+                          ["country_code"]: e,
+                        }));
+                      }}
+                    />
+                    <Input
+                      name="mobile"
+                      onChange={(e) => {
+                        const { name, value } = e.target;
+                        setUpdateProfileData((prev) => ({
+                          ...prev,
+                          [name]: value,
+                        }));
+                      }}
+                      placeholder="Enter phone number"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </Modal>
+          </Modal>
+        </div>
       </div>
     </Container>
   );
