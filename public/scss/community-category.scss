@@ -10,6 +10,7 @@
   .category-box {
     position: relative;
     height: 350px;
+    // width: 300px;
 
     h5 {
       font-size: 16px;
@@ -47,6 +48,7 @@
       .category-banner {
         width: 100%;
         height: 300px;
+        max-width: 350px;
         background-color: #fff;
         // height: 100%;
         padding: 0px;
@@ -186,6 +188,16 @@
             line-height: 28px;
             color: $black;
           }
+           .card-text {
+            // font-weight: 600;
+            // font-family: "Inter";
+            font-size: 16px;
+            margin-bottom: 44px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3; 
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+          }
           .content-x {
             // background-color: $backgroundColor;
             display: flex;
@@ -195,7 +207,6 @@
             width: 100%;
           }
           .user-icon {
-
             // display: flex;
             // flex-direction: row;
             // justify-content: space-between;
@@ -207,9 +218,9 @@
               color: #000;
             }
           }
-          .query-icon{
+          .query-icon {
             padding-left: 10px;
-             p {
+            p {
               font-size: 12px;
               font-weight: 500;
               color: #000;

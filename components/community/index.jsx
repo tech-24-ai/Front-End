@@ -2,33 +2,15 @@ import React, { Fragment } from "react";
 import Router, { useRouter, withRouter } from "next/router";
 import { connect } from "react-redux";
 import { Container } from "reactstrap";
-import { isMobile, isTablet, isBrowser } from "react-device-detect";
-import { Icon } from "react-icons-kit";
-import { iosArrowBack } from "react-icons-kit/ionicons/iosArrowBack";
-import { iosArrowForward } from "react-icons-kit/ionicons/iosArrowForward";
-import Arrow from "../../public/images/category/arrow.svg";
 import { crudService } from "../../_services";
 import { userActions } from "../../_actions";
-
-import ArrowDown from "../../public/images/category/arrowdown.svg";
-import ArrowUp from "../../public/images/category/arrowup.svg";
-import centerLogo from "../../public/images/header/Group 594.png";
-import moreIcon from "../../public/images/header/Group 550.png";
-import { Col, Row, FormGroup } from "reactstrap";
-import { TreeSelect } from "antd";
+import { UsergroupAddOutlined, MessageOutlined } from "@ant-design/icons";
+import { RoboAdvisor, ServiceProvider, Consultant } from "../icons";
 import Image from "next/image";
-import myImageLoader from "../imageLoader";
-import { UsergroupAddOutlined } from "@ant-design/icons";
-import { MessageOutlined } from "@ant-design/icons";
 
-import {
-    RoboAdvisor,
-    ResearchTool,
-    ServiceProvider,
-    Consultant,
-} from "../icons";
 
-let counter = isMobile ? 7 : 7;
+let counter = 7;
+
 class CommunityCategory extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -38,7 +20,6 @@ class CommunityCategory extends React.PureComponent {
             changeIcon: false,
             hoverId: false,
         };
-        console.log("props", props);
     }
 
     componentDidMount() {
@@ -125,51 +106,16 @@ class CommunityCategory extends React.PureComponent {
 
     render() {
         const { changeIcon, slides, hoverId } = this.state;
-        const categoryList = [
-            {
-                title: (
-                    <Fragment>
-                        Primary Storage Discussion Group
-                    </Fragment>
-                ),
-                description: [
-                    "Find the right software, hardware or service",
-                    "Troubleshoot problems",
-                    "Reduce costs",
-                    "Get best practice guidance",
-                ],
-                icon: <RoboAdvisor />,
-                urlTarge: "/it-robo",
-            },
-            {
-                title: "File & Object Storage",
-                description: [
-                    "Engage with a consultant over a video conference.",
-                    "Pay per minute.",
-                    "Discuss strategy, technology and costs.",
-                ],
-
-                icon: <Consultant />,
-                urlTarge: "/consultant",
-            },
-            {
-                title: "Data Protection",
-                description: [
-                    "Pay at 20% less than market rates",
-                    "App development, managed services, custom integration, UI design, Assessments & more",
-                ],
-                icon: <ServiceProvider />,
-
-                urlTarge: "/consultant/service_provider",
-            },
-        ];
-
+        const { communityFeature } = this.props;
+        if (!Array.isArray(communityFeature)) {
+            return <div style={{paddingLeft: "100px"}}>No community data available</div>;
+        }
         return (
             <div className="community-category-below">
                 <Container>
                     <div className="category-box">
                         <div className="category-banner-wrapper" id="categoryWrapper">
-                            {categoryList.map((data, i) => (
+                            {communityFeature.map((data, i) => (
                                 <div
                                     className="category-banner-block"
                                     data-index={i}
@@ -180,21 +126,27 @@ class CommunityCategory extends React.PureComponent {
                                         <div className="category-content">
                                             <div className="content-head">
                                                 <div className="custom-icon white medium">
-                                                    {data.icon}
+                                                    {/* {data.icon} */}
+                                                    <Image
+                                                        src={data.image_url} 
+                                                        alt={data.name} 
+                                                        width={100} 
+                                                        height={100}
+                                                    />
                                                 </div>
                                                 <div className="category-content" style={{ minWidth: "70%" }}>
-                                                    <h6>{data.title}</h6>
+                                                    <h6>{data.name}</h6>
                                                 </div>
                                             </div>
                                             <div className="card-body">
-                                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+                                                <p class="card-text">{data.description}</p>
                                                 <div className="content-x">
-                                                 <div className="user-icon">
+                                                    <div className="user-icon">
                                                         <p><UsergroupAddOutlined style={{ fontSize: "16px" }} /> {" "}Members : 103</p>
-                                                 </div>
+                                                    </div>
                                                     <div className="query-icon">
                                                         <p><MessageOutlined style={{ fontSize: "16px" }} /> {" "}Queries : 103</p>
-                                                 </div>
+                                                    </div>
                                                 </div>
 
                                             </div>
