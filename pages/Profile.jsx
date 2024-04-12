@@ -992,6 +992,11 @@ const Profile = ({
           items={items}
           onChange={onChange}
         />
+        {items.map((tab) => (
+          <Tabs.TabPane tab={tab.label} key={tab.key}>
+            {tab.children}
+          </Tabs.TabPane>
+        ))}
         <Card
           bordered={true}
           style={{
