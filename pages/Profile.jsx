@@ -870,25 +870,33 @@ const Profile = ({
   };
 
   const Tab4 = () => {
-    console.log("visitor_profile_levels", visitor_profile_levels?.[0]);
+    const calculateMarks = () => {
+      const topMarks = {};
+      const bottomMarks = {};
+      const levelCount = visitor_profile_levels?.[0]?.leavels.length;
+      const interval = levelCount ? 100 / (levelCount - 1) : 0;
 
-    const topMarks = {
-      0: { label: "Level l \n New Bee", style: { whiteSpace: "pre" } },
-      20: { label: "Level 2 \n Starter", style: { whiteSpace: "pre" } },
-      40: { label: "Level 3 \n Action Taker", style: { whiteSpace: "pre" } },
-      60: { label: "Level 4 \n Contributor", style: { whiteSpace: "pre" } },
-      80: { label: "Level 5 \n Pro", style: { whiteSpace: "pre" } },
-      100: { label: "Level 6 \n Legend", style: { whiteSpace: "pre" } },
+      visitor_profile_levels?.[0]?.leavels.forEach((level, index) => {
+        const label = Math.round(interval * index);
+        topMarks[label] = {
+          label: `${level.level} \n ${level.title}`,
+          style: { whiteSpace: "pre" },
+        };
+        bottomMarks[label] = level.max_range;
+      });
+
+      topMarks[100] = {
+        label: `${
+          visitor_profile_levels?.[0]?.leavels[levelCount - 1].level
+        } \n ${visitor_profile_levels?.[0]?.leavels[levelCount - 1].title}`,
+        style: { whiteSpace: "pre" },
+      };
+
+      return { topMarks, bottomMarks };
     };
 
-    const bottomMarks = {
-      0: "3000 pts",
-      20: "3000 pts",
-      40: "3000 pts",
-      60: "3000 pts",
-      80: "3000 pts",
-      100: "3000 pts",
-    };
+    const { topMarks, bottomMarks } = calculateMarks();
+
     return (
       <div className="levels-tab-container">
         <Card
@@ -922,7 +930,7 @@ const Profile = ({
               }}
               trackStyle={{ backgroundColor: "#0074D9", height: "8px" }}
               railStyle={{ backgroundColor: "#EBEBF0", height: "8px" }}
-              defaultValue={50}
+              defaultValue={visitor_profile_levels?.[0]?.total_points_earned}
               onChange={(value) => console.log(value)}
               tooltipVisible={false}
             />
