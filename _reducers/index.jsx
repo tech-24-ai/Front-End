@@ -46,6 +46,7 @@ const rootReducer = combineReducers({
   purchase_history: crud("purchase_history"),
   pages: crud("page"),
   blog: crud("blog"),
+  blogs: crud("blogs"),
   consultants: crud("consultants"),
   consultant: crud("consultant"), //created for detail routing or routing using session
   booking_history: crud("booking_history"),
