@@ -36,7 +36,7 @@ const TopQuestion = ({ getAllCrud, communitypost }) => {
                       height={50}
                       src={
                         data.visitor.profile_pic_url ??
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSegdLPBUw9F-YVGoqjyYcgSA8VQOfyF4aFTg&usqp=CAU"
+                        "https://iaauae.s3.me-central-1.amazonaws.com/mR0LnX8AYR"
                       }
                       alt=""
                       placeholder="blog banner"

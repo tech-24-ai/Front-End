@@ -10,7 +10,7 @@ const TopConsultant = ({ getAllCrud, consultants }) => {
   useEffect(() => {
     getAllCrud("consultants", "consultants", {
       pageSize: 3,
-      isCompany: false,
+      is_company: false,
     });
   }, []);
 
