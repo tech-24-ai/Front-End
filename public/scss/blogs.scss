@@ -184,6 +184,8 @@
       .blog-card {
         img {
           border-radius: 6px;
+          width: 350px;
+          height: 210px;
         }
         .category {
           border-radius: 4px;
@@ -226,7 +228,7 @@
 
           .time {
             padding: 0 5px;
-            border-left: 1.5px solid #54616c;
+            // border-left: 1.5px solid #54616c;
           }
         }
       }
@@ -302,6 +304,25 @@
           }
         }
       }
+    }
+  }
+}
+
+// For Scale 125% (Zoom Level)
+@media (min-width: 1536px) and (max-width: 1920px) {
+  .blog-section {
+    .blog-list {
+      .blog-card {
+        img {
+          width: 412px !important;
+          height: 320px !important;
+        }
+      }
+    }
+
+    .view-more-icon {
+      margin-top: 10% !important;
+      right: 110px !important;
     }
   }
 }

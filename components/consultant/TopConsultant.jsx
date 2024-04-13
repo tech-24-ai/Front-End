@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "reactstrap";
-import Image from "next/image";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { crudActions } from "../../_actions";
 import { connect } from "react-redux";
+import { Image } from "antd";
 import Router, { withRouter } from "next/router";
 const TopConsultant = ({ getAllCrud, consultants }) => {
   useEffect(() => {
@@ -34,8 +34,7 @@ const TopConsultant = ({ getAllCrud, consultants }) => {
             <div className="consultant-list">
               <div className="consultant-card">
                 <Image
-                  width={300}
-                  height={300}
+                  preview={false}
                   src={
                     data.image ??
                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSegdLPBUw9F-YVGoqjyYcgSA8VQOfyF4aFTg&usqp=CAU"

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "reactstrap";
-import Image from "next/image";
+
 import { ArrowRightOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { crudActions } from "../../_actions";
 import { connect } from "react-redux";
 import Router, { withRouter } from "next/router";
 import moment from "moment";
+import { Image } from "antd";
 const LatestBlog = ({ getAllCrud, blogs }) => {
   useEffect(() => {
     getAllCrud("blogs", "blogs", {
@@ -30,9 +31,10 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
             <div className="blog-list">
               <div className="blog-card">
                 <Image
-                  width={350}
-                  height={210}
+                  // width={350}
+                  // height={210}
                   src={data.image}
+                  preview={false}
                   alt=""
                   placeholder="blog banner"
                 />
@@ -43,7 +45,7 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
                   <div className="date">
                     {moment(data.created_at).format("LL")}
                   </div>
-                  <div className="line"></div>
+                  <div className="custom-divider"></div>
                   {<div className="time">10 min read</div>}
                 </div>
               </div>

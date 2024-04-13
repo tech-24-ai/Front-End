@@ -91,8 +91,8 @@ function Header(props) {
                         src={isMainHeader ? LogoBlack : LogoWhite}
                         alt=""
                         placeholder="Logo"
-                        width={140}
-                        height={30}
+                        width={150}
+                        height={40}
                       />
                     </a>
                   </Link>
