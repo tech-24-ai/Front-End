@@ -11,6 +11,7 @@
   .category-box {
     position: relative;
     height: 350px;
+    display: flex;
     // width: 300px;
 
     h5 {
@@ -189,7 +190,7 @@
             line-height: 28px;
             color: $black;
           }
-          
+
           .card-text {
             // font-weight: 600;
             // font-family: "Inter";
