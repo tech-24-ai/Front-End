@@ -8,7 +8,10 @@ import { connect } from "react-redux";
 import Router, { withRouter } from "next/router";
 const TopConsultant = ({ getAllCrud, consultants }) => {
   useEffect(() => {
-    getAllCrud("consultants", "consultants");
+    getAllCrud("consultants", "consultants", {
+      pageSize: 3,
+      isCompany: false,
+    });
   }, []);
 
   if (!Array.isArray(consultants)) {

@@ -9,7 +9,9 @@ import Router, { withRouter } from "next/router";
 import moment from "moment";
 const LatestBlog = ({ getAllCrud, blogs }) => {
   useEffect(() => {
-    getAllCrud("blogs", "blogs", {});
+    getAllCrud("blogs", "blogs", {
+      pageSize: 3,
+    });
   }, []);
 
   return (
