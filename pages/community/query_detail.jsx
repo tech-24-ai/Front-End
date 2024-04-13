@@ -18,183 +18,186 @@ import { SearchOutlined } from "@ant-design/icons";
 import { Card, Space } from "antd";
 import { crudActions } from "../../_actions";
 import { connect } from "react-redux";
-import { RightOutlined } from '@ant-design/icons';
+import { RightOutlined } from "@ant-design/icons";
 import { UsergroupAddOutlined } from "@ant-design/icons";
 import { MessageOutlined } from "@ant-design/icons";
-import { SettingOutlined } from '@ant-design/icons';
-import { Collapse, Select } from 'antd';
+import { SettingOutlined } from "@ant-design/icons";
+import { Collapse, Select } from "antd";
 const text = `
   A dog is a type of domesticated animal.
   Known for its loyalty and faithfulness,
   it can be found as a welcome guest in many households across the world.
 `;
 const items = [
-    {
-        key: '1',
-        label: 'This is panel header with arrow icon',
-        children: <p>{text}</p>,
-    },
-    {
-        key: '2',
-        label: 'This is panel header with no arrow icon',
-        children: <p>{text}</p>,
-        showArrow: false,
-    },
+  {
+    key: "1",
+    label: "This is panel header with arrow icon",
+    children: <p>{text}</p>,
+  },
+  {
+    key: "2",
+    label: "This is panel header with no arrow icon",
+    children: <p>{text}</p>,
+    showArrow: false,
+  },
 ];
-import axios from 'axios';
+import axios from "axios";
 const options = {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
+  day: "numeric",
+  month: "long",
+  year: "numeric",
 };
 
 const Community = ({ router }) => {
-    const [posts, setPosts] = useState([]);
-    const [fnColor, setFnColor] = useState("");
-    const [isActive, setIsActive] = useState("All");
-    const [isHover, setIsHover] = useState("All");
-    const [communityFeature, setCommunityFeature] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [fnColor, setFnColor] = useState("");
+  const [isActive, setIsActive] = useState("All");
+  const [isHover, setIsHover] = useState("All");
+  const [communityFeature, setCommunityFeature] = useState([]);
 
-    useEffect(() => {
-        // Fetch data or perform any side effect here
-        // Example: fetchPosts();
-    }, []); // Empty dependency array ensures this effect runs only once on component mount
+  useEffect(() => {
+    // Fetch data or perform any side effect here
+    // Example: fetchPosts();
+  }, []); // Empty dependency array ensures this effect runs only once on component mount
 
-    useEffect(() => {
-        const getAllPosts = async () => {
-            try {
-                const data = await crudService._getAll("community");
-                console.log("data", data);
-                setCommunityFeature(data.data);
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
-        getAllPosts();
-    }, []);
-
-
-    let arrData = []
-    communityFeature?.map((item) => {
-        const random = Math.random().toString(36).substring(2, 6);
-        const data = {
-            id: random,
-            value: item.name, title: item.name
-        }
-        arrData.push(data)
-    })
-   
-    const [formData, setFormData, communitypost] = useState({
-        // Initialize form data fields
-        query: '',
-        tag: '',
-        // Add more fields as needed
-    });
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+  useEffect(() => {
+    const getAllPosts = async () => {
+      try {
+        const data = await crudService._getAll("community");
+        console.log("data", data);
+        setCommunityFeature(data.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
+    getAllPosts();
+  }, []);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            // const response =   await crudService._getAll("communitypost",formData);
-            const response = await axios.post('communitypost', formData);
-            console.log('Data added successfully:', formData);
-            // Optionally, update UI or show success message
-        } catch (error) {
-            console.error('Error adding data:', error);
-            // Optionally, show error message
-        }
+  let arrData = [];
+  communityFeature?.map((item) => {
+    const random = Math.random().toString(36).substring(2, 6);
+    const data = {
+      id: random,
+      value: item.name,
+      title: item.name,
     };
+    arrData.push(data);
+  });
 
-    const [activeIndex, setActiveIndex] = useState(null);
+  const [formData, setFormData, communitypost] = useState({
+    // Initialize form data fields
+    query: "",
+    tag: "",
+    // Add more fields as needed
+  });
 
-    const toggleAccordion = (index) => {
-        setActiveIndex(activeIndex === index ? null : index);
-    };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-    const communityDetails = (data) =>{
-console.log("data",data);
-        sessionStorage.setItem("community_id",data?.name)
-        Router.push('community_detail')
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // const response =   await crudService._getAll("communitypost",formData);
+      const response = await axios.post("communitypost", formData);
+      console.log("Data added successfully:", formData);
+      // Optionally, update UI or show success message
+    } catch (error) {
+      console.error("Error adding data:", error);
+      // Optionally, show error message
     }
+  };
 
-    const accordionData = [
-        {
-            title: 'FILTERS',
-        },
-        {
-            title: 'Research Type',
-            content: 'o Applied Research',
-        },
-        {
-            title: 'Research Category',
-            content: 'o Applied Research',
-        },
-        {
-            title: 'Research Topics',
-            content: 'o Applied Research',
-        },
-        {
-            title: 'Research Vendors',
-            content: 'o Applied Research',
-        },
-        {
-            title: 'Research Tags',
-            content: 'o Applied Research',
-        },
-    ];
+  const [activeIndex, setActiveIndex] = useState(null);
 
-    const accordionItemStyle = {
-        borderBottom: '1px solid #ccc',
-        marginBottom: '10px',
-    };
+  const toggleAccordion = (index) => {
+    setActiveIndex(activeIndex === index ? null : index);
+  };
 
-    const accordionTitleStyle = {
-        backgroundColor: '#f4f4f4',
-        border: 'none',
-        cursor: 'pointer',
-        padding: '10px',
-        width: '100%',
-        textAlign: 'left',
-        outline: 'none',
-    };
+  const communityDetails = (data) => {
+    sessionStorage.setItem("community_id", data?.url_slug);
+    Router.push("community_detail");
+  };
 
-    const activeAccordionTitleStyle = {
-        backgroundColor: '#ddd',
-    };
+  const accordionData = [
+    {
+      title: "FILTERS",
+    },
+    {
+      title: "Research Type",
+      content: "o Applied Research",
+    },
+    {
+      title: "Research Category",
+      content: "o Applied Research",
+    },
+    {
+      title: "Research Topics",
+      content: "o Applied Research",
+    },
+    {
+      title: "Research Vendors",
+      content: "o Applied Research",
+    },
+    {
+      title: "Research Tags",
+      content: "o Applied Research",
+    },
+  ];
 
-    const accordionContentStyle = {
-        padding: '10px',
-    };
+  const accordionItemStyle = {
+    borderBottom: "1px solid #ccc",
+    marginBottom: "10px",
+  };
 
+  const accordionTitleStyle = {
+    backgroundColor: "#f4f4f4",
+    border: "none",
+    cursor: "pointer",
+    padding: "10px",
+    width: "100%",
+    textAlign: "left",
+    outline: "none",
+  };
 
-    return (
-        <>
-            <section className="community-section mt-4">
-                <Container>
-                    <div className="row">
-                        <div className="col-md-12">
-                            <h4 className="mt-5 mb-3"><span className="ml-2" style={{color:"grey",}}>Community <RightOutlined /></span> <span style={{ color: "#007aff" }}>All Community</span></h4>
-                        </div>
-                    </div>
-                    <div className="search-box">
-                    <input
-                        type="text"
-                        placeholder="Search anything.."
-                        prefix={<SearchOutlined />}
-                        style={{
-                        width: '100%',
-                        padding: '10px',
-                        border: '1px solid #ccc',
-                        borderRadius: '5px',
-                        boxSizing: 'border-box',
-                        }}
-                    />
-                     </div>
-                    {/* <div className="row">
+  const activeAccordionTitleStyle = {
+    backgroundColor: "#ddd",
+  };
+
+  const accordionContentStyle = {
+    padding: "10px",
+  };
+
+  return (
+    <>
+      <section className="community-section mt-4">
+        <Container>
+          <div className="row">
+            <div className="col-md-12">
+              <h4 className="mt-5 mb-3">
+                <span className="ml-2" style={{ color: "grey" }}>
+                  Community <RightOutlined />
+                </span>{" "}
+                <span style={{ color: "#007aff" }}>All Community</span>
+              </h4>
+            </div>
+          </div>
+          <div className="search-box">
+            <input
+              type="text"
+              placeholder="Search anything.."
+              prefix={<SearchOutlined />}
+              style={{
+                width: "100%",
+                padding: "10px",
+                border: "1px solid #ccc",
+                borderRadius: "5px",
+                boxSizing: "border-box",
+              }}
+            />
+          </div>
+          {/* <div className="row">
                         <div className="col-md-3">
                             <div className="accordion mt-5" style={{width:"380px"}}>
                                 {accordionData.map((item, index) => (
@@ -274,86 +277,133 @@ console.log("data",data);
                             </div>
                         </div>
                     </div> */}
-                    {/* <h5 style={{ color: "grey" }}>Result : 6</h5> */}
-                    <div style={{ display: "flex", justifyContent: "space-between" }} className="mt-5">
-                        <div style={{width: "25%"}}>
-                            {accordionData.map((item, index) => (
-                                <div className="accordion-item" key={index} style={accordionItemStyle}>
-                                    <button
-                                        className="accordion-title"
-                                        style={{ ...accordionTitleStyle, ...(activeIndex === index ? activeAccordionTitleStyle : {}) }}
-                                        onClick={() => toggleAccordion(index)}
-                                        aria-expanded={activeIndex === index ? 'true' : 'false'}
-                                    >
-                                        {item.title}
-                                        <span style={{ float: "right" }}>{activeIndex === index ? '-' : '+'}</span>
-                                    </button>
-                                    {activeIndex === index && <div className="accordion-content" style={accordionContentStyle}>
-                                        {item.content}</div>}
-                                </div>
-                            ))}
-                        </div>
-                        <div className="mt-5" style={{width: "75%", display: "flex", flexWrap: "wrap", marginLeft: "2rem"}}>
-                            {communityFeature?.map((item, index) => (
-                                <div className="col-6 community-category-below" style={{marginTop: "-1rem"}}>
-
-                                    <div className="category-box" style={{ minWidth: "100%" }} onClick={() => communityDetails(item)}>
-                                        <div className="category-banner-wrapper" id="categoryWrapper">
-                                            <div
-                                                className="category-banner-block"
-                                            >
-                                                <div className="category-banner" style={{ maxWidth: "100%"}}>
-                                                    <div className="category-content">
-                                                        <div className="content-head">
-                                                            <div className="custom-icon white medium">
-                                                                <img src={item.image_url} />
-                                                            </div>
-                                                            <div className="category-content" style={{ minWidth: "70%" }}>
-                                                                <h6>{item.name}</h6>
-                                                            </div>
-                                                        </div>
-                                                        <div className="card-body">
-                                                            <p class="card-text">{item.description}</p>
-                                                            <div className="content-x">
-                                                                <div className="user-icon">
-                                                                    <p><UsergroupAddOutlined style={{ fontSize: "16px" }} /> {" "}Members : {item?.__meta__?.total_members}</p>
-                                                                </div>
-                                                                <div className="query-icon">
-                                                                    <p><MessageOutlined style={{ fontSize: "16px" }} /> {" "}Queries : {item?.__meta__?.total_post_reply}</p>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                        <div className="learn-more-btn">
-                                                            <h6 className="btn-text">
-                                                                Join Community
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+          {/* <h5 style={{ color: "grey" }}>Result : 6</h5> */}
+          <div
+            style={{ display: "flex", justifyContent: "space-between" }}
+            className="mt-5"
+          >
+            <div style={{ width: "25%" }}>
+              {accordionData.map((item, index) => (
+                <div
+                  className="accordion-item"
+                  key={index}
+                  style={accordionItemStyle}
+                >
+                  <button
+                    className="accordion-title"
+                    style={{
+                      ...accordionTitleStyle,
+                      ...(activeIndex === index
+                        ? activeAccordionTitleStyle
+                        : {}),
+                    }}
+                    onClick={() => toggleAccordion(index)}
+                    aria-expanded={activeIndex === index ? "true" : "false"}
+                  >
+                    {item.title}
+                    <span style={{ float: "right" }}>
+                      {activeIndex === index ? "-" : "+"}
+                    </span>
+                  </button>
+                  {activeIndex === index && (
+                    <div
+                      className="accordion-content"
+                      style={accordionContentStyle}
+                    >
+                      {item.content}
                     </div>
-                </Container>
-            </section>
-        </>
-    );
+                  )}
+                </div>
+              ))}
+            </div>
+            <div
+              className="mt-5"
+              style={{
+                width: "75%",
+                display: "flex",
+                flexWrap: "wrap",
+                marginLeft: "2rem",
+              }}
+            >
+              {communityFeature?.map((item, index) => (
+                <div
+                  className="col-6 community-category-below"
+                  style={{ marginTop: "-1rem" }}
+                >
+                  <div
+                    className="category-box"
+                    style={{ minWidth: "100%" }}
+                    onClick={() => communityDetails(item)}
+                  >
+                    <div
+                      className="category-banner-wrapper"
+                      id="categoryWrapper"
+                    >
+                      <div className="category-banner-block">
+                        <div
+                          className="category-banner"
+                          style={{ maxWidth: "100%" }}
+                        >
+                          <div className="category-content">
+                            <div className="content-head">
+                              <div className="custom-icon white medium">
+                                <img src={item.image_url} />
+                              </div>
+                              <div
+                                className="category-content"
+                                style={{ minWidth: "70%" }}
+                              >
+                                <h6>{item.name}</h6>
+                              </div>
+                            </div>
+                            <div className="card-body">
+                              <p class="card-text">{item.description}</p>
+                              <div className="content-x">
+                                <div className="user-icon">
+                                  <p>
+                                    <UsergroupAddOutlined
+                                      style={{ fontSize: "16px" }}
+                                    />{" "}
+                                    Members : {item?.__meta__?.total_members}
+                                  </p>
+                                </div>
+                                <div className="query-icon">
+                                  <p>
+                                    <MessageOutlined
+                                      style={{ fontSize: "16px" }}
+                                    />{" "}
+                                    Queries : {item?.__meta__?.total_post_reply}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="learn-more-btn">
+                              <h6 className="btn-text">Join Community</h6>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Container>
+      </section>
+    </>
+  );
 };
 
 const mapStateToProps = (state) => {
-    const { community } = state;
-    return {
-        community,
-    };
+  const { community } = state;
+  return {
+    community,
+  };
 };
 
 const actionCreators = {
-    getCrud: crudActions._getAll,
+  getCrud: crudActions._getAll,
 };
 
 export default withRouter(connect(mapStateToProps, actionCreators)(Community));
-
