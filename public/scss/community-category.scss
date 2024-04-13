@@ -7,9 +7,11 @@
     padding-left: 100px;
     padding-right: 100px;
   }
+
   .category-box {
     position: relative;
     height: 350px;
+    display: flex;
     // width: 300px;
 
     h5 {
@@ -188,13 +190,14 @@
             line-height: 28px;
             color: $black;
           }
-           .card-text {
+
+          .card-text {
             // font-weight: 600;
             // font-family: "Inter";
             font-size: 16px;
             margin-bottom: 44px;
             display: -webkit-box;
-            -webkit-line-clamp: 3; 
+            -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
           }
@@ -249,6 +252,13 @@
             .btn-text {
               color: #0065d8;
               border: 1px solid #0065d8;
+              width: 100%;
+              font-size: 18px;
+              padding: 6px;
+            }
+            .btn-text:hover {
+              background-color: #0065d8;
+              color: #fff;
               width: 100%;
               font-size: 18px;
               padding: 6px;
