@@ -1198,11 +1198,14 @@
     .consultant-list {
       width: 33.33%;
       .consultant-card {
-        border: 1px solid #54616c;
+        // border: 1px solid #54616c;
         border-radius: 8px;
         text-align: center;
-        img {
+
+        img.ant-image-img {
           border-radius: 8px;
+          width: 100%;
+          height: auto;
         }
       }
     }
@@ -1856,6 +1859,18 @@
       width: 100%;
       .ant-input {
         width: 100% !important;
+      }
+    }
+  }
+}
+
+// For Scale 125% (Zoom Level)
+@media (min-width: 1536px) and (max-width: 1920px) {
+  .top-consultant {
+    .consultant-section .consultant-card {
+      img.ant-image-img {
+        width: 412px !important;
+        height: 412px !important;
       }
     }
   }

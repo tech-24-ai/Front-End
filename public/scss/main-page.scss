@@ -42,7 +42,7 @@ section.explore-wrapper {
     button.slick-prev {
       z-index: 1;
       border: none;
-      left: 60px;
+      left: 15.5rem;
     }
     button.slick-prev:before {
       font-size: 2.5rem;
@@ -51,50 +51,70 @@ section.explore-wrapper {
     button.slick-next {
       z-index: 1;
       border: none;
-      right: 70px;
+      right: 16.2rem;
     }
     button.slick-next:before {
       font-size: 2.5rem;
     }
 
+    .slick-dots {
+      margin-top: 1rem;
+      bottom: -3rem;
+    }
+
     .slick-dots li button:before {
       color: #fff;
-      font-size: 10px;
-      margin-top: 10px;
-    }
-
-    .slick-dots li.slick-active button:before {
       font-size: 12px;
+      margin-top: -3px;
+      opacity: 1;
+      &.slick-active {
+        content: "";
+      }
     }
 
-    .slick-list .slick-track {
-      gap: 1.5rem;
-      display: flex;
-      .slick-slide {
-        color: #fff;
-        border: 1px solid #2c2c2c;
-        padding: 48px 32px;
-        border-radius: 17px;
-        background-color: #1e1e1e;
-        height: auto;
-        min-height: 14rem;
+    .slick-dots li.slick-active {
+      width: 2rem;
+      height: 0.75rem;
+      border-radius: 1000px;
+      background-color: #fff;
+    }
 
-        .category-card {
-          .title {
-            color: #fff;
+    .slick-list {
+      .slick-track {
+        gap: 1.5rem;
+        display: flex;
+        padding-top: 2rem;
+        // width: 47rem !important;
+        .slick-slide {
+          color: #fff;
+          border: 1px solid #2c2c2c;
+          padding: 48px 32px;
+          border-radius: 17px;
+          background-color: #1e1e1e;
+          height: 236px;
+          // min-height: 14rem;
+
+          &.slick-current {
+            height: 268px;
+            margin-top: -1rem;
+            .learn-more-btn {
+              bottom: 1.5rem !important;
+            }
           }
 
-          // .description {
-          //   margin-bottom: 3rem;
-          // }
+          .category-card {
+            .title {
+              color: #fff;
+            }
 
-          .learn-more-btn {
-            border: 1.5px solid #fff;
-            padding: 12px 16px;
-            border-radius: 2px;
-            color: #fff;
-            position: absolute;
-            bottom: 1.5rem;
+            .learn-more-btn {
+              border: 1.5px solid #fff;
+              padding: 12px 16px;
+              border-radius: 2px;
+              color: #fff;
+              position: absolute;
+              bottom: 2.5rem;
+            }
           }
         }
       }
