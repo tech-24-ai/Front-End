@@ -436,29 +436,31 @@ class Categories extends React.PureComponent {
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1,
-      className: "slider-container",
+      className: "center slider-container",
       centerMode: true,
-      centerPadding: "60px",
-      slidesToShow: 1,
+      centerPadding: "250px",
+      appendDots: (dots) => (
+        <div>
+          <ul> {dots} </ul>
+        </div>
+      ),
     };
 
     return (
       <div className="category category-below">
-        <Container>
-          <div className="category-box">
-            <Slider {...settings}>
-              {categoryList.map((data, i) => (
-                <div className="category-card">
-                  <h5 className="title">{data.title}</h5>
-                  <p className="description">{data.description}</p>
-                  <a href={data.urlTarge} className="learn-more-btn">
-                    Learn More
-                  </a>
-                </div>
-              ))}
-            </Slider>
-          </div>
-        </Container>
+        <div className="category-box">
+          <Slider {...settings}>
+            {categoryList.map((data, i) => (
+              <div className="category-card">
+                <h5 className="title">{data.title}</h5>
+                <p className="description">{data.description}</p>
+                <a href={data.urlTarge} className="learn-more-btn">
+                  Learn More
+                </a>
+              </div>
+            ))}
+          </Slider>
+        </div>
       </div>
     );
 

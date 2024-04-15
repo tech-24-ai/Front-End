@@ -316,6 +316,7 @@
             font-size: 12px;
             line-height: 16px;
             text-align: center;
+            background-color: #ffffff;
           }
         }
 
@@ -594,6 +595,16 @@
           }
         }
       }
+    }
+  }
+}
+
+// For Scale 125% (Zoom Level)
+@media (min-width: 1536px) and (max-width: 1920px) {
+  .top-question {
+    .view-more-icon {
+      right: 110px !important;
+      margin-top: 6% !important;
     }
   }
 }

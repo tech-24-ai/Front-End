@@ -2240,6 +2240,7 @@ export const RoboAdvisor = (props) => {
     </span>
   );
 };
+
 export const Consultant = (props) => {
   return (
     <span
