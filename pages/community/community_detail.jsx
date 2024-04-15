@@ -11,16 +11,78 @@ import { crudActions } from "../../_actions";
 import { connect } from "react-redux";
 import moment from "moment";
 import { crudService } from "../../_services";
+import { Button, Modal } from 'antd';
+import { Form, Space , Upload} from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { Editor } from '@tinymce/tinymce-react';
+const SubmitButton = ({ form, children }) => {
+  const [submittable, setSubmittable] = React.useState(false);
 
+  // Watch all values
+  const values = Form.useWatch([], form);
+  React.useEffect(() => {
+    form
+      .validateFields({
+        validateOnly: true,
+      })
+      .then(() => setSubmittable(true))
+      .catch(() => setSubmittable(false));
+  }, [form, values]);
+  return (
+    <Button type="primary" htmlType="submit" disabled={!submittable}>
+      {children}
+    </Button>
+  );
+};
 const Profile = ({ getAllCrud, visitor_queries_history }) => {
+  const [updateCom, setUpdateCom] = useState(false);
+  const [updateProfileData, setUpdateProfileData] = useState({
+    community_id: "",
+    title: 0,
+    tags: [],
+    description: "",
+    url: "",
+
+  });
+  const [form] = Form.useForm();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const onChange = (key) => {
     console.log(key);
+  };
+
+  useEffect(() => {
+    getAllCrud("visitorprofile", "visitorprofile");
+  }, [updateCom]);
+
+  const updateProfile = () => {
+    crudService
+      ._update("communitypost", communitypost, {
+        community_id: updateProfileData.community_id,
+        title: updateProfileData.title,
+        tags: updateProfileData.tags,
+        description: updateProfileData.description,
+        url: updateProfileData.url,
+      })
+      .then((data) => {
+        data.status == 200 && setUpdateCom(true);
+      });
+    setIsModalOpen(false);
   };
   const [communityData, setCommunityData] = useState();
   useEffect(() => {
     getAllCrud("visitor_queries_history", "visitor_queries_history");
   }, []);
 
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+  
   useEffect(() => {
     const id = sessionStorage.getItem("community_id");
     if (id) {
@@ -45,6 +107,7 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
     };
 
     const calculateTimeAgo = (createdAt) => {
+      
       const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
       const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
       const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
@@ -52,6 +115,11 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
       const humanReadableDiff = duration.humanize(true);
       return humanReadableDiff;
     };
+
+
+  
+
+   
 
     return (
       <div className="community-tab-container questions-tab-container">
@@ -324,6 +392,17 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
     },
   ];
 
+  const normFile = (e) => {
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e?.fileList;
+  };
+ 
+  const handleEditorChange = (content, editor) => {
+      // Your code to handle editor content changes
+  };
+
   return (
     <Container>
       <div className="profile-container">
@@ -336,7 +415,7 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
         </Tabs>
         <div className="community-tab-container">
           <div className="cards-container">
-            <div
+            <div  onClick={showModal}
               style={{
                 width: "100%",
                 padding: "12px 16px",
@@ -351,6 +430,105 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
             >
               Ask a Question
             </div>
+            <div>
+            {/* <Button type="primary" onClick={showModal}>
+              Open Modal
+            </Button> */}
+            <Modal title="Ask a Question" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+              
+           <span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Egit liboro erat curcus</span>
+             
+               <Form form={form} name="validateOnly" layout="vertical" autoComplete="off">
+                <Form.Item
+                 rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+                  name="Question"
+                  label="Question"
+                 
+                >
+                    <Editor
+                      initialValue="<p>Please enter content</p>"
+                      init={{
+                          height: 300,
+                          menubar: true,
+                          plugins: [
+                              'advlist autolink lists link image',
+                              'charmap print preview anchor help',
+                              'searchreplace visualblocks code',
+                              'insertdatetime media table paste wordcount'
+                          ],
+                          toolbar:
+                              'undo redo | formatselect | bold italic | \
+                              alignleft aligncenter alignright | \
+                              bullist numlist outdent indent | help'
+                      }}
+                    onEditorChange={handleEditorChange}
+                  />
+                </Form.Item>
+               
+                <Form.Item
+                 rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+                  name="Title"
+                  label="Title"
+                 
+                >
+                  <Input />
+                </Form.Item>
+
+                <Form.Item label="Attachment" valuePropName="fileList" getValueFromEvent={normFile}>
+                <Upload action="/upload.do" listType="picture-card" style={{height:"30px"}}>
+                  <button
+                    style={{
+                      border: 0,
+                      background: 'none',
+                    
+                    }}
+                    type="button"
+                  >
+                    <PlusOutlined />Add
+                  </button>
+                </Upload>
+              </Form.Item>
+                <Form.Item label="Tags"  rules={[
+                  {
+                    required: true,
+                  },
+                ]}>
+                  <Space.Compact>
+                    <Form.Item
+                      name={['Tag1', 'Tag2']}
+                      noStyle
+                      rules={[{ required: true, message: 'Tags is required' }]}
+                    >
+                      <Select placeholder="Select Tags" style={{width:"460px"}}>
+                        <Option value="1">Tag 1</Option>
+                        <Option value="2">Tag 2</Option>
+                        <Option value="3">ag 3</Option>
+                        <Option value="4">Tag 4</Option>
+
+                      </Select>
+                    </Form.Item>
+                  
+                  </Space.Compact>
+                </Form.Item>
+             
+                <Form.Item>
+                  <Space>
+                    <SubmitButton onClick={updateProfile}  form={form}>Submit</SubmitButton>
+                    <Button htmlType="reset">Reset</Button>
+                  </Space>
+                </Form.Item>
+              </Form>
+            </Modal>
+            </div>
+          
             <Card
               bordered={true}
               style={{
@@ -428,9 +606,9 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
 };
 
 const mapStateToProps = (state) => {
-  const { visitor_queries_history } = state;
+  const { communitypost } = state;
   return {
-    visitor_queries_history,
+    communitypost,
   };
 };
 
