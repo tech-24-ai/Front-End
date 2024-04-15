@@ -319,7 +319,12 @@ const Community = ({ router }) => {
                                                         <div className="category-content">
                                                             <div className="content-head" onClick={() => communityDetails(item)}>
                                                                 <div className="custom-icon white medium">
-                                                                    <img src={item.image_url} />
+                                                                    <img src={item.image_url} 
+                                                                        style={{ borderRadius: "4.8px" }}
+                                                                        alt={item.name}
+                                                                        width={48}
+                                                                        height={48}
+                                                                />
                                                                 </div>
                                                                 <div
                                                                     className="category-content"
@@ -349,6 +354,7 @@ const Community = ({ router }) => {
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <hr class="dotted-hr"></hr>
                                                             <div className="learn-more-btn">
                                                                 {item.communityMember.length === 0 ? (
                                                                     <Button className="btn-text"
@@ -368,6 +374,7 @@ const Community = ({ router }) => {
                                             </div>
                                         </div>
                                     </div>
+                                  
                                 ))}
                             </div>
                         </div>
