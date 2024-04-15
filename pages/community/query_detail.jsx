@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { withRouter } from "next/router";
-import { Container, Button } from "reactstrap";
+import { Container, Button, Pagination } from "reactstrap";
 import { crudService } from "../../_services";
 import SearchInput from "../../components/form/searchInput";
 import Image from "next/image";
@@ -54,19 +54,11 @@ const options = {
 };
 
 const Community = ({ router }) => {
-    const [posts, setPosts] = useState([]);
-    const [fnColor, setFnColor] = useState("");
-    const [isActive, setIsActive] = useState("All");
-    const [isHover, setIsHover] = useState("All");
+
     const [communityFeature, setCommunityFeature] = useState([]);
     const [sortBy, setSortBy] = useState("recent");
-    const [currentPage, setCurrentPage] = useState(0); 
-    const [totalPages, setTotalPages] = useState(0); 
-
-    useEffect(() => {
-        // Fetch data or perform any side effect here
-        // Example: fetchPosts();
-    }, []); // Empty dependency array ensures this effect runs only once on component mount
+    const [currentPage, setCurrentPage] = useState(0);
+    const itemsPerPage = 6;
 
     useEffect(() => {
         const getAllPosts = async () => {
@@ -80,33 +72,13 @@ const Community = ({ router }) => {
         };
         getAllPosts();
     }, []);
-    //pagination
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await crudService._getAll("community");
-                setCommunityFeature(data.data);
-                setTotalPages(Math.ceil(data.data.length / postsPerPage));
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
-        fetchData();
-    }, []);
-
-    const handlePageChange = ({ selected }) => {
-        setCurrentPage(selected);
-    };
-
-    const postsPerPage = 10;
-    const pageCount = Math.ceil(communityFeature.length / postsPerPage);
-    const offset = currentPage * postsPerPage;
-    const currentPageData = communityFeature.slice(offset, offset + postsPerPage);
-
-
-
-    //
+    // Pagination
+    const slicedData = communityFeature.slice(
+        currentPage * itemsPerPage,
+        (currentPage + 1) * itemsPerPage
+    );
+    //pagination above
     let arrData = [];
     communityFeature?.map((item) => {
         const random = Math.random().toString(36).substring(2, 6);
@@ -215,6 +187,9 @@ const Community = ({ router }) => {
     const handleSort = (e) => {
         setSortBy(e.target.value);
     };
+
+    //
+
     return (
         <>
             <section className="query-section mt-4">
@@ -250,69 +225,58 @@ const Community = ({ router }) => {
                     >
                         <div className="mobile-display-n" style={{ width: "272px" }}>
                             <div className="accordion-container">
-                            {accordionData.map((item, index) => (
-                                <div
-                                    className="accordion-item"
-                                    key={index}
-                                    style={accordionItemStyle}
-                                >
-                                    <button
-                                        className="accordion-title"
-                                        style={{
-                                            ...accordionTitleStyle,
-                                            ...(item.title === "FILTERS" ? { background: "#f2f4f7", color: "#001622", fontFamily: "Inter", fontSize: "16px", fontWeight: "600"} : {}),
-                                            ...(activeIndex === index
-                                                ? activeAccordionTitleStyle
-                                                : {}),
-                                        }}
-                                        onClick={() => toggleAccordion(index)}
-                                        aria-expanded={activeIndex === index ? "true" : "false"}
+                                {accordionData.map((item, index) => (
+                                    <div
+                                        className="accordion-item"
+                                        key={index}
+                                        style={accordionItemStyle}
                                     >
-                                        {item.title}
-                                        {item.title !== "FILTERS" && (
-                                            <span style={{ float: "right", color: "#0074D9"}}>
-                                                {activeIndex === index ? "-" : "+"}
-                                            </span>
-                                        )}
-                                    </button>
-                                    {activeIndex === index && (
-                                        <div
-                                            className="accordion-content"
-                                            style={accordionContentStyle}
+                                        <button
+                                            className="accordion-title"
+                                            style={{
+                                                ...accordionTitleStyle,
+                                                ...(item.title === "FILTERS" ? { background: "#f2f4f7", color: "#001622", fontFamily: "Inter", fontSize: "16px", fontWeight: "600" } : {}),
+                                                ...(activeIndex === index
+                                                    ? activeAccordionTitleStyle
+                                                    : {}),
+                                            }}
+                                            onClick={() => toggleAccordion(index)}
+                                            aria-expanded={activeIndex === index ? "true" : "false"}
                                         >
-                                            {item.content}
-                                        </div>
-                                    )}
-                                </div>
-                            ))}
+                                            {item.title}
+                                            {item.title !== "FILTERS" && (
+                                                <span style={{ float: "right", color: "#0074D9" }}>
+                                                    {activeIndex === index ? "-" : "+"}
+                                                </span>
+                                            )}
+                                        </button>
+                                        {activeIndex === index && (
+                                            <div
+                                                className="accordion-content"
+                                                style={accordionContentStyle}
+                                            >
+                                                {item.content}
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
                             </div>
                         </div>
-                        <div className="content-wrap" 
-                        // style={{
-                        //     width: "75%",
-                        //     display: "flex",
-                        //     flexDirection: "column",
-                        //     marginLeft: "2rem",
-                        // }}
+                        <div className="content-wrap"
                         >
                             <div className="result-sort">
                                 <div className="results">Results: {communityFeature.length}</div>
                                 <div className="sorting mobile-display-n">
                                     <label className="sortby" htmlFor="sortDropdown">Sort By: </label>
-                                    <select id="sortDropdown" style={{border: "none", background: "transparent"}} value={sortBy} onChange={handleSort}>
-                                        <option className="sortby" style={{ color: "#001622"}} value="recent">Most Recent</option>
+                                    <select id="sortDropdown" style={{ border: "none", background: "transparent" }} value={sortBy} onChange={handleSort}>
+                                        <option className="sortby" style={{ color: "#001622" }} value="recent">Most Recent</option>
                                     </select>
                                 </div>
                             </div>
                             <div
                                 className="mt-5 content-card-display content-card-mobile"
-                                // style={{
-                                //     width: "100%",
-                                //     display: "flex",
-                                //     flexWrap: "wrap",
-                                // }}
                             >
-                                {communityFeature?.map((item, index) => (
+                                {slicedData.map((item, index) => (
                                     <div
                                         className="col-6 community-category-below community-category-mobile"
                                         style={{ marginTop: "-1rem" }}
@@ -371,7 +335,7 @@ const Community = ({ router }) => {
                                                                         Join Community
                                                                     </Button>
                                                                 ) : (
-                                                                    <p style={{ textAlign: "left", width: "100%", paddingLeft: "5px" }}>
+                                                                    <p style={{ textAlign: "left", width: "100%", paddingLeft: "5px", marginTop: "14px" }}>
                                                                         Member since {item.communityMember[0]?.created_at ? parseDate(item.communityMember[0].created_at) : 'N/A'}
                                                                     </p>
                                                                 )}
@@ -386,14 +350,14 @@ const Community = ({ router }) => {
                             </div>
                         </div>
                     </div>
+                   
                     <ReactPaginate
-                        pageCount={totalPages}
-                        onPageChange={handlePageChange}
-                        initialPage={currentPage}
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={5}
-                        containerClassName={"pagination"}
-                        activeClassName={"active"}
+                        pageCount={Math.ceil(communityFeature.length / itemsPerPage)}
+                        onPageChange={({ selected }) => setCurrentPage(selected)}
+                        previousLabel={"<"}
+                        nextLabel={">"}
+                        activeClassName={"selected-page"}
+                        pageClassName={"other-page"}
                     />
                 </Container>
             </section>

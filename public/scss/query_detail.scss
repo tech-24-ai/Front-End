@@ -9,13 +9,14 @@
     font-size: 18px;
     line-height: 28;
   }
+
   .card-description {
     font-size: 16px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-}
+  }
   .content-card-display {
     width: 100%;
     display: flex;
@@ -33,6 +34,44 @@
     font-family: "Inter";
     font-weight: 400;
   }
+ 
+  .pagination {
+  // list-style: none;
+  // height: 31.5px;
+  // width: 31.5px;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // margin-top: 2px;
+  // cursor: pointer;
+  margin: 0px auto;
+  background-color: #007bff;
+}
+  ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 10rem;
+  }
+  .other-page {
+    background: #fff;
+    color: #000;
+    width: 2rem;
+    text-align: center;
+    padding: 6px 8px;
+    border-radius: 4px;
+  }
+  .selected-page {
+    background: #000000;
+    color: #fff;
+    width: 2rem;
+    text-align: center;
+    padding: 6px 8px;
+    border-radius: 4px;
+  }
+ 
+
   .accordion-item {
     border: none;
     cursor: pointer;
