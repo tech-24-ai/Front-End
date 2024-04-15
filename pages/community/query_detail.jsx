@@ -60,6 +60,9 @@ const Community = ({ router }) => {
     const [currentPage, setCurrentPage] = useState(0);
     const itemsPerPage = 6;
 
+    const [searchQuery, setSearchQuery] = useState("");
+    const [filteredData, setFilteredData] = useState([]);
+
     useEffect(() => {
         const getAllPosts = async () => {
             try {
@@ -73,12 +76,29 @@ const Community = ({ router }) => {
         getAllPosts();
     }, []);
 
+    useEffect(() => {
+        const filtered = communityFeature.filter(item =>
+            item.name.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        setFilteredData(filtered);
+    }, [searchQuery, communityFeature]);
+
+
+   //Filter
+    const handleSearch = (e) => {
+        setSearchQuery(e.target.value);
+        setCurrentPage(0); 
+    };
     // Pagination
-    const slicedData = communityFeature.slice(
+    const slicedData = filteredData.slice(
         currentPage * itemsPerPage,
         (currentPage + 1) * itemsPerPage
     );
-    //pagination above
+    // const slicedData = communityFeature.slice(
+    //     currentPage * itemsPerPage,
+    //     (currentPage + 1) * itemsPerPage
+    // );
+ 
     let arrData = [];
     communityFeature?.map((item) => {
         const random = Math.random().toString(36).substring(2, 6);
@@ -208,6 +228,8 @@ const Community = ({ router }) => {
                         <Input
                             placeholder="Search anything.."
                             prefix={<SearchOutlined style={{ color: "#0074D9", padding: "0 6px" }} />}
+                            value={searchQuery}
+                            onChange={handleSearch}
                             style={{
                                 width: "100%",
                                 padding: "10px",
