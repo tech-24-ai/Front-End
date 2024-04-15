@@ -442,6 +442,7 @@ import { connect } from "react-redux";
 import Router from "next/router";
 import moment from "moment";
 import { crudService } from "../_services";
+import { isMobile } from "react-device-detect";
 
 const Profile = ({
   getAllCrud,
@@ -526,6 +527,7 @@ const Profile = ({
             <h6>First Name</h6>
             <h5>Meraj</h5>
           </div>
+          {isMobile && <hr />}
           <div>
             <h6>Last Name</h6>
             <h5>Shekh</h5>
@@ -537,6 +539,7 @@ const Profile = ({
             <h6>Country/Region</h6>
             <h5>India</h5>
           </div>
+          {isMobile && <hr />}
           <div>
             <h6>City/District</h6>
             <h5>{visitorprofile?.visitor_ip_city}</h5>
@@ -548,6 +551,7 @@ const Profile = ({
             <h6>Job Title</h6>
             <h5>Software Developer</h5>
           </div>
+          {isMobile && <hr />}
           <div>
             <h6>Company Name</h6>
             <h5>Intelloger</h5>
@@ -559,18 +563,33 @@ const Profile = ({
             <h6>Email</h6>
             <h5>{visitorprofile?.email}</h5>
           </div>
-          <div>
-            <h6>Contact Number</h6>
-            <h5>{visitorprofile?.mobile || "-"}</h5>
-          </div>
-          {!visitorprofile?.mobile && (
-            <div onClick={() => setIsModalOpen(true)} className="add">
-              Add
+          {isMobile && <hr />}
+          <div
+            style={{
+              display: !visitorprofile?.mobile && isMobile && "flex",
+              justifyContent:
+                !visitorprofile?.mobile && isMobile && "space-between",
+            }}
+          >
+            <div>
+              <h6>Contact Number</h6>
+              <h5>{visitorprofile?.mobile || "-"}</h5>
             </div>
-          )}
+            {!visitorprofile?.mobile && (
+              <div onClick={() => setIsModalOpen(true)} className="add">
+                Add
+              </div>
+            )}
+          </div>
         </div>
         <hr />
-        <div className="input-container">
+        <div
+          className="input-container"
+          style={{
+            flexDirection:
+              !visitorprofile?.alternate_email && isMobile && "unset",
+          }}
+        >
           <div>
             <h6>Alternate Email</h6>
             <h5>{visitorprofile?.alternate_email || "-"}</h5>

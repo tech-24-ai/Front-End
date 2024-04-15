@@ -1790,3 +1790,38 @@
     }
   }
 }
+
+//  profile screen for small devices
+
+@media (max-width: 575px) {
+  .profile-container {
+    flex-direction: column-reverse;
+    .ant-card-body {
+      padding: 10px;
+    }
+  }
+  // sign-out modal
+  .ant-modal-footer {
+    .sign-out-modal-button {
+      padding: 12px 30px;
+    }
+  }
+  // tab1
+  .profile-tab-container {
+    .input-container {
+      flex-direction: column;
+      > :first-child {
+        width: 100%;
+      }
+      > :nth-child(2) {
+        width: 100%;
+      }
+    }
+  }
+  // tab2
+  .community-tab-container {
+    .cards-container {
+      gap: 20px;
+    }
+  }
+}

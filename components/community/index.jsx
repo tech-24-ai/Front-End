@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useRef } from "react";
 import Router, { useRouter, withRouter } from "next/router";
 import { connect } from "react-redux";
 import { Button, Container } from "reactstrap";
@@ -11,7 +11,12 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
-import { ArrowRightOutlined } from "@ant-design/icons";
+import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper-bundle.min.css";
+import SwiperCore, { Navigation } from "swiper/core";
+
+SwiperCore.use([Navigation]);
 
 let counter = 7;
 
@@ -24,6 +29,7 @@ class CommunityCategory extends React.PureComponent {
       changeIcon: false,
       hoverId: false,
     };
+    this.swiperRef = React.createRef();
   }
 
   componentDidMount() {
@@ -119,68 +125,108 @@ class CommunityCategory extends React.PureComponent {
 
     return (
       <div className="community-category-below">
+        <div
+          onClick={() => this.swiperRef.current.swiper.slidePrev()}
+          className="view-more-icon"
+          style={{
+            left: "110px",
+            marginTop: "9%",
+            zIndex: "99",
+            position: "absolute",
+            width: "36px",
+            height: "36px",
+          }}
+        >
+          <ArrowLeftOutlined
+            style={{
+              color: "#fff",
+              fontSize: "16px",
+            }}
+          />
+        </div>
         <div className="category-box">
           <div className="category-banner-wrapper" id="categoryWrapper">
-            {data?.map((data, i) => (
-              <div
-                className="category-banner-block"
-                data-index={i}
-                key={i}
-                // onClick={() => this.handleGoToPage(data.urlTarget)}
+            <Fragment>
+              <Swiper
+                spaceBetween={50}
+                slidesPerView={3}
+                navigation={{
+                  nextEl: ".swiper-button-next",
+                  prevEl: ".swiper-button-prev",
+                }}
+                ref={this.swiperRef}
               >
-                <div className="category-banner">
-                  <div className="category-content">
-                    <div className="content-head">
-                      <div className="custom-icon white medium">
-                        <Image
-                          src={data.image_url}
-                          alt={data.name}
-                          width={100}
-                          height={100}
-                        />
-                      </div>
-                      <div
-                        className="category-content"
-                        style={{ minWidth: "70%" }}
-                      >
-                        <h6>{data.name}</h6>
-                      </div>
-                    </div>
-                    <div className="card-body">
-                      <p class="card-text">{data.description}</p>
-                      <div className="content-x">
-                        <div className="user-icon">
-                          <p>
-                            <UsergroupAddOutlined
-                              style={{ fontSize: "16px" }}
-                            />{" "}
-                            Members : {data.__meta__.total_members}
-                          </p>
+                {data.map((slide, index) => (
+                  <SwiperSlide key={index}>
+                    <div
+                      className="category-banner-block"
+                      data-index={index}
+                      key={index}
+                    >
+                      <div className="category-banner">
+                        <div className="category-content">
+                          <div className="content-head">
+                            <div className="medium">
+                              <Image
+                                style={{ borderRadius: "4.8px" }}
+                                src={slide.image_url}
+                                alt={slide.name}
+                                width={48}
+                                height={48}
+                              />
+                            </div>
+                            <div
+                              className="category-content"
+                              style={{ minWidth: "70%" }}
+                            >
+                              <h6>{slide.name}</h6>
+                            </div>
+                          </div>
+                          <div className="card-body">
+                            <p class="card-text">{slide.description}</p>
+                            <div className="content-x">
+                              <div className="user-icon">
+                                <p>
+                                  <UsergroupAddOutlined
+                                    style={{ fontSize: "16px" }}
+                                  />{" "}
+                                  Members : {slide.__meta__.total_members}
+                                </p>
+                              </div>
+                              <div className="query-icon">
+                                <p>
+                                  <MessageOutlined
+                                    style={{ fontSize: "16px" }}
+                                  />{" "}
+                                  Queries : {slide.__meta__.total_posts}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          <hr class="dotted-hr"></hr>
+                          <div className="learn-more-btn">
+                            <Button className="btn-text">Join Community</Button>
+                          </div>
                         </div>
-                        <div className="query-icon">
-                          <p>
-                            <MessageOutlined style={{ fontSize: "16px" }} />{" "}
-                            Queries : {data.__meta__.total_posts}
-                          </p>
-                        </div>
                       </div>
                     </div>
-                    <div className="learn-more-btn">
-                      <Button className="btn-text">Join Community</Button>
-                    </div>
-                  </div>
-                </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              <div
+                onClick={() => this.swiperRef.current.swiper.slideNext()}
+                className="view-more-icon"
+                style={{
+                  right: "40px",
+                  marginTop: "11%",
+                  width: "36px",
+                  height: "36px",
+                }}
+              >
+                <ArrowRightOutlined />
               </div>
-            ))}
+            </Fragment>
           </div>
-          <Link href="community/query_detail">
-            <div
-              className="view-more-icon"
-              style={{ right: "15px", marginTop: "11%" }}
-            >
-              <ArrowRightOutlined />
-            </div>
-          </Link>
         </div>
       </div>
     );

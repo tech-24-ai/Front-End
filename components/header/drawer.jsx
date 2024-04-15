@@ -4,7 +4,7 @@ import { Navbar, NavItem, Form } from "reactstrap";
 import Link from "next/link";
 import SearchModule from "../searchModule";
 // import CategoryList from "../../components/categories/list";
-import MobileLogo from "../../public/images/header/Group 3194.png";
+import MobileLogo from "../../public/images/header/tech24-footer.png";
 import MobileLogoNew from "../../public/new_images/logo-white.png";
 import Close from "../../public/images/header/close.svg";
 import { useRouter } from "next/router";

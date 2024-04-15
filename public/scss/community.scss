@@ -1,3 +1,15 @@
+.community-listing-page {
+  .container {
+    padding-right: 0 !important;
+    .banner-container {
+      padding-bottom: 0 !important;
+      .banner-image-container span {
+        width: 558px !important;
+        height: 350px !important;
+      }
+    }
+  }
+}
 .community-section {
   background-color: $bodyBackgroundColor;
   .community-container {
@@ -191,7 +203,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background-color: $backgroundColor;
+  background-color: #0074d9;
   z-index: 1;
   cursor: pointer;
   .anticon-arrow-right {

@@ -26,6 +26,7 @@ import CommunityCategory from "../../components/community/index";
 import TrendingCategory from "../../components/community/trending";
 import Link from "next/link";
 import { ArrowRightOutlined } from "@ant-design/icons";
+import { isMobile } from "react-device-detect";
 
 const Community = ({ community, getAllCrud }) => {
   const [posts, setPosts] = useState([]);
@@ -160,17 +161,21 @@ const Community = ({ community, getAllCrud }) => {
   };
 
   return (
-    <section className="community-section mt-4">
+    <section className="community-section community-listing-page mt-4">
       <PageBanner
         titleNode={
           <div>
-            <h2 style={styles.title}>Welcome to the Tech 24 </h2>
-            <h2 style={styles.title}>Community</h2>
+            <h2 style={styles.title}>
+              Welcome to the Tech 24 <br />
+              Community
+            </h2>
+
             <p style={styles.subtitle}>
-              Get answers from our community of experts.
+              Get answer form our community of Experts
             </p>
             <div className="mt-4" style={styles.inputGroup}>
               <TreeSelect
+                allowClear
                 treeDataSimpleMode
                 defaultValue={value}
                 showSearch={true}
@@ -178,27 +183,51 @@ const Community = ({ community, getAllCrud }) => {
                   maxHeight: 400,
                   overflow: "auto",
                 }}
-                placeholder="Search the community"
+                placeholder="Search anything..."
                 onChange={onChange}
                 loadData={onLoadData}
                 treeData={arrData}
-                style={{ width: "100%", height: "" }}
+                style={{ width: "100%", height: "", color: "#fff" }}
+                suffixIcon={<SearchOutlined />}
               />
             </div>
           </div>
         }
-        image={CommunityImage}
+        image={isMobile ? "" : CommunityImage}
       />
 
       <Container>
         <div className="top-rated">
           <div>
-            <h4
-              className="mt-5 mb-5"
-              style={{ borderLeft: "5px solid #007aff " }}
-            >
-              <span className="ml-2">Top</span>{" "}
-              <span style={{ color: "#007aff" }}>Rated</span>
+            <h4 className="mt-5 mb-4 d-flex">
+              <div
+                style={{
+                  width: "4px",
+                  height: "32px",
+                  borderRadius: "0px 4px 4px 0px",
+                  backgroundColor: "#0074D9",
+                }}
+              ></div>
+              <span
+                style={{
+                  marginLeft: "1rem",
+                  fontWeight: 400,
+                  fontSize: "24px",
+                  color: "#54616C",
+                }}
+              >
+                Top
+              </span>{" "}
+              <span
+                style={{
+                  fontWeight: 500,
+                  fontSize: "24px",
+                  color: "#0074D9",
+                  marginLeft: "10px",
+                }}
+              >
+                Rated
+              </span>
             </h4>
           </div>
           <div
@@ -211,12 +240,35 @@ const Community = ({ community, getAllCrud }) => {
 
         <div className="trending-question">
           <div>
-            <h4
-              className="mt-5 mb-5"
-              style={{ borderLeft: "5px solid #007aff " }}
-            >
-              <span className="ml-2">Trending</span>{" "}
-              <span style={{ color: "#007aff" }}>Question</span>
+            <h4 className="mt-5 mb-4 d-flex">
+              <div
+                style={{
+                  width: "4px",
+                  height: "32px",
+                  borderRadius: "0px 4px 4px 0px",
+                  backgroundColor: "#0074D9",
+                }}
+              ></div>
+              <span
+                style={{
+                  marginLeft: "1rem",
+                  fontWeight: 400,
+                  fontSize: "24px",
+                  color: "#54616C",
+                }}
+              >
+                Trending
+              </span>{" "}
+              <span
+                style={{
+                  fontWeight: 500,
+                  fontSize: "24px",
+                  color: "#0074D9",
+                  marginLeft: "10px",
+                }}
+              >
+                Question
+              </span>
             </h4>
           </div>
           <div className="community-category-container">
@@ -225,20 +277,45 @@ const Community = ({ community, getAllCrud }) => {
         </div>
 
         <div className="all-community">
-          <div className="d-flex flex-row justify-content-between">
-            <h4
-              className="mt-5 mb-5"
-              style={{ borderLeft: "5px solid #007aff " }}
-            >
-              <span className="ml-2">All</span>{" "}
-              <span style={{ color: "#007aff" }}>Community</span>
+          <div className="d-flex justify-content-between mt-5 mb-3">
+            <h4 className="d-flex">
+              <div
+                style={{
+                  width: "4px",
+                  height: "32px",
+                  borderRadius: "0px 4px 4px 0px",
+                  backgroundColor: "#0074D9",
+                }}
+              ></div>
+              <span
+                style={{
+                  marginLeft: "1rem",
+                  fontWeight: 400,
+                  fontSize: "24px",
+                  color: "#54616C",
+                }}
+              >
+                All
+              </span>
+              <span
+                style={{
+                  fontWeight: 500,
+                  fontSize: "24px",
+                  color: "#0074D9",
+                  marginLeft: "10px",
+                }}
+              >
+                Community
+              </span>
             </h4>
             <h4
-              className="d-flex align-items-center justify-content-center"
               style={{
-                color: "rgb(0, 122, 255)",
+                fontWeight: 400,
+                fontSize: "16px",
+                color: "#0074D9",
                 textDecoration: "underline",
                 cursor: "pointer",
+                marginRight: "2rem",
               }}
               onClick={handleViewAll}
             >
@@ -268,12 +345,14 @@ const styles = {
     flexWrap: "nowrap",
   },
   title: {
-    color: "white",
-    // textAlign: "center",
+    color: "#FFFFFF",
+    fontSize: "32px",
+    fontWeight: 500,
   },
   subtitle: {
-    color: "white",
-    // textAlign: "center",
+    color: "#E0E0E0",
+    fontWeight: 400,
+    fontSize: "16px",
   },
   inputGroup: {
     width: "100%",

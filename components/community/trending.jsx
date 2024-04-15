@@ -8,7 +8,10 @@ import { UsergroupAddOutlined, MessageOutlined } from "@ant-design/icons";
 import { RoboAdvisor, ServiceProvider, Consultant } from "../icons";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRightOutlined } from "@ant-design/icons";
+import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper-bundle.min.css";
+import SwiperCore, { Navigation } from "swiper/core";
 let counter = 7;
 
 class TrendingQuestion extends React.PureComponent {
@@ -20,6 +23,7 @@ class TrendingQuestion extends React.PureComponent {
       changeIcon: false,
       hoverId: false,
     };
+    this.swiperRef = React.createRef();
   }
 
   componentDidMount() {
@@ -110,68 +114,113 @@ class TrendingQuestion extends React.PureComponent {
 
     return (
       <div className="trending-category-below">
+        <div
+          onClick={() => this.swiperRef.current.swiper.slidePrev()}
+          className="view-more-icon"
+          style={{
+            left: "110px",
+            marginTop: "9%",
+            zIndex: "99",
+            position: "absolute",
+            width: "36px",
+            height: "36px",
+          }}
+        >
+          <ArrowLeftOutlined
+            style={{
+              color: "#fff",
+              fontSize: "16px",
+            }}
+          />
+        </div>
         <div className="category-box">
           <div className="category-banner-wrapper" id="categoryWrapper">
-            {trendingQuestions?.map((data, i) => (
-              <div
-                className="category-banner-block"
-                data-index={i}
-                key={i}
-                // onClick={() => this.handleGoToPage(data.urlTarge)}
+            <Fragment>
+              <Swiper
+                spaceBetween={50}
+                slidesPerView={3}
+                navigation={{
+                  nextEl: ".swiper-button-next",
+                  prevEl: ".swiper-button-prev",
+                }}
+                ref={this.swiperRef}
               >
-                <div className="category-banner">
-                  <div className="category-content">
-                    <div className="content-head">
-                      <div className="custom-icon white medium">
-                        {data.visitor && data.visitor.profile_pic_url ? (
-                          <Image
-                            src={data.visitor.profile_pic_url}
-                            alt={data.visitor.name}
-                            width={100}
-                            height={100}
-                          />
-                        ) : (
+                {trendingQuestions?.map((data, index) => (
+                  <SwiperSlide key={index}>
+                    <div
+                      className="category-banner-block"
+                      data-index={index}
+                      key={index}
+                    >
+                      <div className="category-banner">
+                        <div className="category-content">
+                          <div className="content-head">
+                            <div className="medium">
+                              {/* {data.visitor && data.visitor.profile_pic_url ? ( */}
+                              <Image
+                                style={{
+                                  borderRadius: "8px",
+                                }}
+                                src={
+                                  data.visitor.profile_pic_url ||
+                                  "https://tech24-uat.s3.amazonaws.com/D10dkiDJHM"
+                                }
+                                alt={data.visitor.name}
+                                width={48}
+                                height={48}
+                              />
+                              {/* ) : (
                           <div style={{ textAlign: "center" }}>No image</div>
-                        )}
-                      </div>
-                      <div
-                        className="category-content"
-                        style={{ minWidth: "70%" }}
-                      >
-                        <h6>{data.title}</h6>
-                        <p>{data.posted}</p>
-                      </div>
-                    </div>
+                        )} */}
+                            </div>
+                            <div
+                              className="category-content"
+                              style={{ minWidth: "70%" }}
+                            >
+                              <h6>{data?.visitor?.name}</h6>
+                              <p>{data.created_at}</p>
+                            </div>
+                          </div>
 
-                    <div className="card-trend-body">
-                      <p class="card-text">{data.description}</p>
-                      <div className="content-x">
-                        <div
-                          className="design-content"
-                          style={{ display: "flex", flexDirection: "row" }}
-                        >
-                          {data.postTags.map((tag, index) => (
-                            <p key={index}>{tag.name}</p>
-                          ))}
+                          <div className="card-trend-body">
+                            <p class="card-text">{data.description}</p>
+                            <div className="content-x">
+                              <div
+                                className="design-content"
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "row",
+                                }}
+                              >
+                                {data.postTags.map((tag, index) => (
+                                  <p key={index}>{tag.name}</p>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="learn-more-btn">
+                            <h6 className="btn-text">Answer</h6>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div className="learn-more-btn">
-                      <h6 className="btn-text">Answer</h6>
-                    </div>
-                  </div>
-                </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              <div
+                onClick={() => this.swiperRef.current.swiper.slideNext()}
+                className="view-more-icon"
+                style={{
+                  right: "40px",
+                  marginTop: "11%",
+                  width: "36px",
+                  height: "36px",
+                }}
+              >
+                <ArrowRightOutlined />
               </div>
-            ))}
+            </Fragment>
           </div>
-          <Link href="community/query_detail">
-            <div
-              className="view-more-icon"
-              style={{ right: "15px", marginTop: "11%" }}
-            >
-              <ArrowRightOutlined />
-            </div>
-          </Link>
         </div>
       </div>
     );
