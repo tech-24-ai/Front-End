@@ -3,8 +3,10 @@
     padding-right: 0 !important;
     .banner-container {
       padding-bottom: 0 !important;
-      .banner-image-container span {
+      .banner-image-container span,
+      .banner-image-container img {
         width: 558px !important;
+        padding-bottom: 0 !important;
         height: 330px !important;
       }
     }
