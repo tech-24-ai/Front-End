@@ -119,7 +119,7 @@ class TrendingQuestion extends React.PureComponent {
           className="view-more-icon"
           style={{
             left: "110px",
-            marginTop: "9%",
+            marginTop: "10%",
             zIndex: "99",
             position: "absolute",
             width: "36px",
