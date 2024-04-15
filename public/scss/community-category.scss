@@ -256,7 +256,7 @@
               font-size: 18px;
               padding: 6px;
             }
-            .btn-text:hover {
+            .btn-text:hover, .btn-text:focus  {
               background-color: #0065d8;
               color: #fff;
               width: 100%;
