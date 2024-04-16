@@ -161,7 +161,7 @@ const Community = ({ community, getAllCrud }) => {
   };
 
   return (
-    <section className="community-section community-listing-page mt-4">
+    <section className="community-section community-listing-page mt-4" style={{background: "#fff"}}>
       <PageBanner
         titleNode={
           <div>
