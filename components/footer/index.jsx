@@ -29,7 +29,7 @@ const Footer = (props) => {
     <Fragment>
       <footer className="footer-block">
         <Container>
-          <Row>
+          <Row style={{paddingTop:40}}>
             <Col
               md={12}
               style={{ display: "flex", justifyContent: "space-between" }}

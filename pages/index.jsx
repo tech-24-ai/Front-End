@@ -146,10 +146,8 @@ class Home extends React.PureComponent {
         </section>
         <section>
           <TopConsultant />
-          <br />
-          <LatestBlog />
-          <br />
           <TopQuestion />
+          <LatestBlog />
         </section>
       </Fragment>
     );
