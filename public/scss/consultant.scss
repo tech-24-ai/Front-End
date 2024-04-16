@@ -1158,21 +1158,23 @@
 }
 
 .top-consultant {
+
   p {
     padding: 0;
     margin: 0;
   }
   margin: 1rem 0;
   .title-section {
+    margin-top: 40px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 1rem;
 
-    .title {
+    .title {  
       color: #54616c;
       font-weight: 400;
       font-size: 1.5rem;
-      line-height: 2rem;
+      line-height: 1rem;
       &.bg {
         color: $backgroundColor;
         font-weight: 500;

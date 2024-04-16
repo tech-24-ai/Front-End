@@ -10,6 +10,9 @@ import { Button, ButtonGroup } from "reactstrap";
 import { isBrowser, isMobile } from "react-device-detect";
 import LogoNew from "../../public/images/header/Group 3194_Purple.png";
 import RightArrow from "../../public/images/input/rightarrow.svg";
+import { alignCenter } from "react-icons-kit/fa";
+import Link from "next/link";
+
 let timeoutTime = 1000 * 60 * 2;
 // let timeoutTime = 60 * 2;
 function Timer({ isloggedIn, showLoginPopup, popupMsg, toggleLoginPopup }) {
@@ -106,10 +109,10 @@ function Timer({ isloggedIn, showLoginPopup, popupMsg, toggleLoginPopup }) {
               maskTransitionName="none"
               maskClosable={false}
               footer={null}
-              width="500px"
-              className="timer-modal"
+              width="576px"
+              className="timer-modal linkedin-login-modal"
               onCancel={() => toggleLoginPopup(false)}
-              closable={false}
+              closable={true}
               keyboard={false}
               // footer={[
               //   <Button
@@ -124,11 +127,13 @@ function Timer({ isloggedIn, showLoginPopup, popupMsg, toggleLoginPopup }) {
               {/* Please register to download Report
           Register with LinkedIn  
       */}
-              <div>
-                {message ? message : "Join Today For Free!"}
+              <div className="linkedin-modal-content">
+                <div className="modal-head" >
+                  {message ? message : "Welcome to Tech24"}
+                </div>
+                <p className="modal-description">Sign up or sign in to join the conversation, address your questions, share your ideas, and engage with other members who share similar interests!</p>
                 <div
                   className="loginWrapper"
-                  style={{ marginTop: "5%", marginBottom: "5%" }}
                 >
                   <ButtonGroup>
                     <Button color="default" hidden></Button>
@@ -142,26 +147,36 @@ function Timer({ isloggedIn, showLoginPopup, popupMsg, toggleLoginPopup }) {
                     </Button> */}
                     <Button
                       onClick={linkedinOpenUrl}
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        border: "none",
-                      }}
+                      className="modal-linkedin-btn"
                     >
                       <img
                         style={{ width: "25px", marginRight: "10px" }}
                         src={LinkedinIcon.src}
                       />
-                      <div>{BtnText ? BtnText : "Login with LinkedIn"}</div>
-                      <img
+                      <div style={{
+                        fontSize: 18,
+                        lineHeight: "28px"
+                      }}>
+                        {BtnText ? BtnText : "Continue with LinkedIn"}
+                      </div>
+                      {/* <img
                         style={{ width: "10px", marginLeft: "10px" }}
                         src={RightLinArrow.src}
-                      />
+                      /> */}
                     </Button>
                   </ButtonGroup>
                 </div>
-                <div
+                <div className="footer-section">
+                  <div>
+                    By creating an account, you agree to our
+                  </div>
+                  <div>
+                    <Link href="/terms_and_conditions">Terms & Conditions</Link> 
+                    <span style={{padding: "0 5px"}}>and</span> 
+                    <Link href="/privacy_policy">Privacy Policy</Link> 
+                  </div>
+                </div>  
+                {/* <div
                   key="submit"
                   className="custom-btn outline"
                   style={{
@@ -173,7 +188,7 @@ function Timer({ isloggedIn, showLoginPopup, popupMsg, toggleLoginPopup }) {
                   onClick={redirectLogin}
                 >
                   OK
-                </div>
+                </div> */}
               </div>
             </Modal>
           )}
