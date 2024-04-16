@@ -19,8 +19,8 @@ import {
   isBrowser,
   isMobile,
 } from "react-device-detect";
-import LogoBlack from "../../public/images/header/tech24.ai.png";
-import LogoWhite from "../../public/images/header/tech24.ai.png";
+import LogoBlack from "../../public/new_images/tech24_header_logo_white.svg";
+import LogoWhite from "../../public/new_images/tech24_header_logo_white.svg";
 import Drawer from "./drawer";
 import myImageLoader from "../imageLoader";
 import Image from "next/image";

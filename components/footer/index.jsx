@@ -13,12 +13,16 @@ import { useLayoutEffect, useEffect } from "react";
 import LinkedinIcon from "../../public/images/header/Linkedin-icon.svg";
 import myImageLoader from "../imageLoader";
 import Image from "next/image";
-import LogoNew from "../../public/images/header/tech24-footer.png";
+import LogoNew from "../../public/new_images/tech24_header_logo_black.svg";
 import InstaIcon from "../../public/new_images/instagram.svg";
 import GlobIcon from "../../public/new_images/glob.svg";
 import TwitterIcon from "../../public/new_images/twitter.svg";
 import YoutubeIcon from "../../public/new_images/youtube.svg";
 import themeConfig from "../../config/themeConfig";
+import x_logo from "../../public/new_images/x_logo.svg";
+import instagram_logo from "../../public/new_images/instagram_logo.svg";
+import youtube_logo from "../../public/new_images/youtube_logo.svg";
+import sports_logo from "../../public/new_images/sports_logo.svg";
 
 const Footer = (props) => {
   return (
@@ -31,8 +35,8 @@ const Footer = (props) => {
               style={{ display: "flex", justifyContent: "space-between" }}
             >
               <div className="logo-content-block">
-                <div className="logo-wrapper">
-                  <Link href="/" style={{ marginTop: "-10px", width: "125px" }}>
+                <div className="logo-wrapper" style={{ marginTop: "15px" }}>
+                  <Link href="/" style={{ width: "125px" }}>
                     <a aria-label="redirect to home page">
                       <Image
                         loader={myImageLoader}
@@ -47,42 +51,39 @@ const Footer = (props) => {
                   </Link>
                 </div>
               </div>
-              {/* <Row>
-              <Col md={12}> */}
+
               <div className="link-wrapper">
-                <Link href="/about-us">
-                  <a>About Us</a>
-                </Link>
-                <Link href="/faqs">FAQs</Link>
-                <Link href="/legal">Legal</Link>
+                <a>Quick Links</a>
+                <Link href="/market-research">Market Research</Link>
                 <Link href="/blogs">Blogs</Link>
-                <Link href="/connect">Connect</Link>
+                <Link href="/community">
+                  <a className="community" href="">
+                    Community
+                  </a>
+                </Link>
               </div>
-              {/* </Col>
-            </Row> */}
+              <div className="link-wrapper">
+                <a>Services</a>
+                <Link href="/it-robo">AI-Based Robo Advisor</Link>
+                <Link href="/consultant">Talk to a Consultant</Link>
+                <Link href="/access">Access Communities</Link>
+              </div>
+              <div className="link-wrapper">
+                <a>Help</a>
+                <Link href="/terms_and_conditions">Terms and Conditions</Link>
+                <Link href="/privacy_policy">Privacy Policy</Link>
+                <Link href="/contact-us">Contact Us</Link>
+              </div>
             </Col>
           </Row>
-          {/* <Row className="link-wrapper">
-            <Col sm={4} md={4} xs={4}>
-              <Link href="/about-us">
-                <a>About Us</a>
-              </Link>
-            </Col>
-            <Col sm={4} md={4} xs={4}>
-              <Link href="/faqs">FAQs</Link>
-            </Col>
-            <Col sm={4} md={4} xs={4}>
-              <Link href="/legal">Legal</Link>
-            </Col>
-            <Col sm={4} md={4} xs={4}>
-              <Link href="/blogs">Blogs</Link>
-            </Col>
-            <Col sm={4} md={4} xs={4}>
-              <Link href="/connect">Connect</Link>
-            </Col>
-          </Row> */}
-          <div className="divider"></div>
-          <Row>
+
+          {/* <div className="divider"></div> */}
+          <hr className="line-break" />
+          <Row
+            style={{
+              marginBottom: "10px",
+            }}
+          >
             <Col md={12}>
               <div className="social-wrapper">
                 <div className="copy-right">
@@ -90,51 +91,69 @@ const Footer = (props) => {
                   reserved
                 </div>
                 <div className="social-link">
-                  {/* <a
-                    href=""
-                    target="_blank"
-                    style={{ marginTop: "10px" }}
-                    aria-label="redirect to twitter page"
-                  >
-                    <Image
-                      loader={myImageLoader}
-                      src={InstaIcon}
-                      alt=""
-                      placeholder="InstagramIcon"
-                      layout="raw"
-                      height={30}
-                      width={25}
-                    />
-                  </a> */}
-                  {/* <a
-                    href=""
-                    target="_blank"
-                    style={{ marginTop: "10px" }}
-                    aria-label="redirect to website"
-                  >
-                    <Image
-                      loader={myImageLoader}
-                      src={GlobIcon}
-                      alt=""
-                      placeholder="Website"
-                      layout="raw"
-                      height={30}
-                      width={25}
-                    />
-                  </a> */}
                   <a
                     href="https://www.linkedin.com/company/tech24.ai/"
                     target="_blank"
                     aria-label="redirect to LinkedIn page"
                   >
-                    <Icon icon={linkedin} size={16} />
+                    {/* <Icon icon={linkedin} size={16} /> */}
+                    <Image
+                      loader={myImageLoader}
+                      style={{ borderRadius: "5px" }}
+                      width={24}
+                      height={24}
+                      preview="false"
+                      src={x_logo}
+                      alt="profile"
+                    />
                   </a>
                   <a
                     href="https://twitter.com/tech24.ai"
                     target="_blank"
                     aria-label="redirect to twitter page"
                   >
-                    <Icon icon={twitter} size={16} />
+                    {/* <Icon icon={twitter} size={16} /> */}
+                    <Image
+                      loader={myImageLoader}
+                      style={{ borderRadius: "5px" }}
+                      width={24}
+                      height={24}
+                      preview="false"
+                      src={instagram_logo}
+                      alt="profile"
+                    />
+                  </a>
+                  <a
+                    href="https://twitter.com/tech24.ai"
+                    target="_blank"
+                    aria-label="redirect to twitter page"
+                  >
+                    {/* <Icon icon={twitter} size={16} /> */}
+                    <Image
+                      loader={myImageLoader}
+                      style={{ borderRadius: "5px" }}
+                      width={24}
+                      height={24}
+                      preview="false"
+                      src={youtube_logo}
+                      alt="profile"
+                    />
+                  </a>
+                  <a
+                    href="https://twitter.com/tech24.ai"
+                    target="_blank"
+                    aria-label="redirect to twitter page"
+                  >
+                    {/* <Icon icon={twitter} size={16} /> */}
+                    <Image
+                      loader={myImageLoader}
+                      style={{ borderRadius: "5px" }}
+                      width={24}
+                      height={24}
+                      preview="false"
+                      src={sports_logo}
+                      alt="profile"
+                    />
                   </a>
                 </div>
               </div>

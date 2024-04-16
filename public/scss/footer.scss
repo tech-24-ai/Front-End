@@ -5,6 +5,9 @@
   padding: 5px 0px;
   // background-color: $footerBackground;
   background-color: #f2f4f7;
+  .row {
+    // padding: 2rem 0 0.5rem 0;
+  }
 
   .logo-wrapper {
     text-align: center;
@@ -15,23 +18,39 @@
       // height: 45px;
     }
   }
+  .line-break {
+    margin: 1rem 0;
+  }
 
   // links
   .link-wrapper {
     // border: 1px solid red;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    align-items: baseline;
     margin-top: 10px;
     a {
       // color: $footerTextColor;
-      color: $blackTwo;
+      color: #54616c;
       font-size: 16px;
       font-weight: 400;
-      line-height: 24px;
+      line-height: 40px;
       &:not(:first-child) {
         margin-left: 15px;
       }
+    }
+    .community {
+      font-weight: 400;
+      font-size: 14px;
+      color: #0074d9;
+    }
+    :first-child {
+      font-weight: 500;
+      font-size: 20px;
+      color: #001622;
     }
   }
 
@@ -48,10 +67,10 @@
     justify-content: space-between;
     align-items: center;
     .copy-right {
-      color: #d1d5db;
-      font-size: 12px;
       font-weight: 400;
-      line-height: 20px;
+      font-size: 14px;
+      color: #54616c;
+      margin-bottom: 5px;
     }
     .social-link {
       display: flex;
@@ -59,8 +78,8 @@
       gap: 1rem;
 
       a {
-        width: 30px;
-        height: 30px;
+        width: 24px;
+        height: 24px;
         background-color: rgb($white, 0.1);
         display: flex;
         justify-content: center;
@@ -73,6 +92,20 @@
       }
     }
   }
+
+  // new tech24 footer
+  .footer-wrapper {
+    padding: 4rem;
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+  }
+}
+
+footer {
+  position: unset !important;
 }
 
 @media (max-width: 575px) {
