@@ -29,7 +29,8 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
         <div className="blog-section">
           {blogs?.slice(0, 3).map((data) => (
             <div className="blog-list">
-              <div className="blog-card">
+              <div className="blog-card" style={{display:'flex',flexDirection:'column',height:'100%',justifyContent:'space-between'}}>
+                <div>
                 <Image
                   // width={350}
                   // height={210}
@@ -41,6 +42,7 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
                 <p className="category bg">{data.blog_topic_name}</p>
                 <p className="blog-heading">{data.name}</p>
                 <p className="blog-detail">{data.details}</p>
+                </div>
                 <div className="date-section">
                   <div className="date">
                     {moment(data.created_at).format("LL")}
