@@ -119,7 +119,7 @@ class TrendingQuestion extends React.PureComponent {
           className="view-more-icon"
           style={{
             left: "110px",
-            marginTop: "10%",
+            marginTop: "7%",
             zIndex: "99",
             position: "absolute",
             width: "36px",
@@ -156,7 +156,7 @@ class TrendingQuestion extends React.PureComponent {
                         <div className="category-content">
                           <div className="content-head">
                             <div className="medium">
-                              {/* {data.visitor && data.visitor.profile_pic_url ? ( */}
+                            
                               <Image
                                 style={{
                                   borderRadius: "8px",
@@ -169,12 +169,10 @@ class TrendingQuestion extends React.PureComponent {
                                 width={48}
                                 height={48}
                               />
-                              {/* ) : (
-                          <div style={{ textAlign: "center" }}>No image</div>
-                        )} */}
+                            
                             </div>
                             <div
-                              className="category-content"
+                              className="category-text"
                               style={{ minWidth: "70%" }}
                             >
                               <h6>{data?.visitor?.name}</h6>
@@ -212,7 +210,7 @@ class TrendingQuestion extends React.PureComponent {
                 className="view-more-icon"
                 style={{
                   right: "40px",
-                  marginTop: "11%",
+                  marginTop: "8%",
                   width: "36px",
                   height: "36px",
                 }}
