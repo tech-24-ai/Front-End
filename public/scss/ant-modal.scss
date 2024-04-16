@@ -60,6 +60,60 @@
   }
 }
 
+.linkedin-login-modal {
+
+    .linkedin-modal-content {
+        width: "100%";
+    }
+
+    .modal-head {
+        text-align: left;
+        font-size: 24px;
+        line-height: 32px;
+        font-weight: 500;
+        color: #001622
+    }
+
+    .modal-description {
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: 400;
+        color: #54616C;
+    }
+
+    .loginWrapper {
+        margin-top: 5% !important;
+        margin-bottom: 2% !important;
+    }
+
+    .modal-linkedin-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        height: 52px !important;
+        background-color: #0074D9 !important;
+        border-radius: 2px !important;
+    }
+
+    .footer-section {
+        text-align: center;
+        font-size: 12px;
+        line-height: 18px;
+        color: #54616C;
+
+        a {
+            color: #1E96FF;
+            border-bottom: 1px solid #1E96FF;
+        }
+    }
+
+    .ant-modal-close {
+        top: 10px;
+        right: 10px;
+    }
+}
+
 @media (min-width: 576px){
     .important-info-modal{
         .ant-modal-content{
@@ -69,3 +123,15 @@
 
    
 }
+
+@media (max-width: 575px) {
+    .linkedin-login-modal {
+        .ant-modal-content {
+            background-color: #ffffff !important;
+        }
+        
+        .ant-modal-close-x {
+            display: block !important;
+        }
+    }
+}    
