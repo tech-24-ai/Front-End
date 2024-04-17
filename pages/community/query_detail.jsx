@@ -353,7 +353,7 @@ const Community = ({ router }) => {
                                                                             <MessageOutlined
                                                                                 style={{ fontSize: "16px", verticalAlign: "0.04em" }}
                                                                             />{" "}
-                                                                            Queries : {item?.__meta__?.total_post_reply}
+                                                                            Queries : {item?.__meta__?.total_posts}
                                                                         </p>
                                                                     </div>
                                                                 </div>
