@@ -137,7 +137,15 @@ function Header(props) {
                         </NavItem> */}
                         <NavItem>
                           <Link href="/market-research">
-                            <a>Market Research</a>
+                            <a
+                              className={`${
+                                router.pathname.includes("/market-research")
+                                  ? "active-nav-link"
+                                  : ""
+                              }`}
+                            >
+                              Market Research
+                            </a>
                           </Link>
                         </NavItem>
 
@@ -177,18 +185,42 @@ function Header(props) {
 
                         <NavItem>
                           <Link href="/connect">
-                            <a>Contact Us</a>
+                            <a
+                              className={`${
+                                router.pathname.includes("/connect")
+                                  ? "active-nav-link"
+                                  : ""
+                              }`}
+                            >
+                              Contact Us
+                            </a>
                           </Link>
                         </NavItem>
 
                         <NavItem>
                           <Link href="/blogs">
-                            <a>Blogs</a>
+                            <a
+                              className={`${
+                                router.pathname.includes("/blogs")
+                                  ? "active-nav-link"
+                                  : ""
+                              }`}
+                            >
+                              Blogs
+                            </a>
                           </Link>
                         </NavItem>
                         <NavItem>
                           <Link href="/community">
-                            <a>Community</a>
+                            <a
+                              className={`${
+                                router.pathname.includes("/community")
+                                  ? "active-nav-link"
+                                  : ""
+                              }`}
+                            >
+                              Community
+                            </a>
                           </Link>
                         </NavItem>
 
@@ -206,14 +238,20 @@ function Header(props) {
                         {isloggedIn && (
                           <NavItem style={{ margin: 0 }}>
                             <Link href="/Profile">
-                              <img src="/new_images/Avatar.svg" alt="avatar" style={{cursor: "pointer"}} />
+                              <img
+                                src="/new_images/Avatar.svg"
+                                alt="avatar"
+                                style={{ cursor: "pointer" }}
+                              />
                             </Link>
                           </NavItem>
                         )}
                         {!isloggedIn && (
                           <NavItem>
                             <Link href="/login">
-                              <Button color="light" className="px-4">Sign up</Button>
+                              <Button color="light" className="px-4">
+                                Sign up
+                              </Button>
                             </Link>
                           </NavItem>
                         )}

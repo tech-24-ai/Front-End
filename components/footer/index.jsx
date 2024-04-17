@@ -57,9 +57,7 @@ const Footer = (props) => {
                 <Link href="/market-research">Market Research</Link>
                 <Link href="/blogs">Blogs</Link>
                 <Link href="/community">
-                  <a className="community" href="">
-                    Community
-                  </a>
+                Community
                 </Link>
               </div>
               <div className="link-wrapper">

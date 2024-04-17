@@ -9,7 +9,7 @@ import Router, { withRouter } from "next/router";
 import moment from "moment";
 import { Image } from "antd";
 const LatestBlog = ({ getAllCrud, blogs }) => {
-  const [showHoverClass, setShowHoverClass] = useState(false);
+  const [showHoverClass, setShowHoverClass] = useState(null);
 
   useEffect(() => {
     getAllCrud("blogs", "blogs", {
@@ -29,11 +29,11 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
           </Link>
         </div>
         <div className="blog-section">
-          {blogs?.slice(0, 3).map((data) => (
+          {blogs?.slice(0, 3).map((data,index) => (
             <div
-              onMouseOver={() => setShowHoverClass(true)}
-              onMouseOut={() => setShowHoverClass(false)}
-              className={`blog-list ${showHoverClass ? "showHoverClass" : ""}`}
+              onMouseOver={() => setShowHoverClass(index)}
+              onMouseOut={() => setShowHoverClass(null)}
+              className={`blog-list ${showHoverClass === index ? "showHoverClass" : ""}`}
             >
               <div
                 className="blog-card"

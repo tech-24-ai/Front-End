@@ -1335,11 +1335,23 @@
 // new design code
 .profile-container {
   display: flex;
-  margin-top: 2rem;
+  margin-top: 4.5rem;
   margin-bottom: 2rem;
   .header-tabs {
     width: 100%;
     margin-right: 20px;
+  }
+  .ant-tabs-tab {
+    font-size: 16px;
+    line-height: 28px;
+    padding: 5px 0;
+  }
+  .ant-tabs {
+    color: #B0B8BF;
+  }
+  .ant-card-bordered {
+    border: 1px solid #E5E7EB;
+    border-radius: 16px;
   }
   .card-header-data {
     display: flex;
@@ -1359,6 +1371,23 @@
         color: #0074d9;
       }
     }
+    .profile-badge {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      right: 126px;
+      top: 77px;
+      border: 1.5px solid #ffffff;
+      background-color: #0074D9;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+    }
   }
   .following-section {
     display: flex;
@@ -1369,15 +1398,17 @@
       color: #54616c;
       font-size: 12px;
       font-weight: 400;
+      margin-bottom: 5px;
     }
     .count {
       color: #001622;
       font-weight: 500;
       font-size: 18px;
+      margin-bottom: 0px;
     }
     .custom-border {
       border-left: 1.5px solid #d9dfe9;
-      margin: 20px;
+      margin: 15px 20px 15px 20px;
     }
   }
   .online-section {
@@ -1513,14 +1544,18 @@
 
 // tab1
 .profile-tab-container {
-  margin: 2rem 0px;
+  margin: 1.5rem 0px;
+  hr {
+    border-color: #EBEBF0;
+  }
   .input-container {
     display: flex;
     > :first-child {
-      width: 50%;
+      width: 48%;
+      margin-right: 2%;
     }
     > :nth-child(2) {
-      width: 45%;
+      width: 50%;
     }
     .add {
       width: fit-content !important;
@@ -1528,9 +1563,9 @@
       font-size: 14px;
       font-weight: 500;
       cursor: pointer;
-      border-bottom: 1px solid #0074d9;
-      height: 40px;
-      line-height: 60px;
+      text-decoration: underline;
+      line-height: 20px;
+      float: right;
     }
     h6 {
       color: #4c4c4c;
@@ -1540,6 +1575,7 @@
     h5 {
       font-weight: 400;
       font-size: 18px;
+      margin-bottom: 0px;
     }
   }
   .delete-container {
@@ -1557,14 +1593,14 @@
 
 // tab2
 .community-tab-container {
-  margin-top: 2rem;
+  margin-top: 0.3rem;
   .search-container {
     display: flex;
     justify-content: space-between;
   }
   .cards-container {
-    gap: 10px;
-    margin-top: 2rem;
+    gap: 20px;
+    margin-top: 1.3rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -1594,6 +1630,9 @@
       color: #54616c;
       font-weight: 400;
       font-size: 14px;
+    }
+    .community-img {
+      border: 0.5px solid #D9DFE9 !important;
     }
   }
   .following-section {
@@ -1807,6 +1846,9 @@
 @media (max-width: 575px) {
   .profile-container {
     flex-direction: column-reverse;
+    .ant-tabs {
+      margin-top: 30px;
+    }
     .ant-card-body {
       padding: 10px;
     }
@@ -1823,6 +1865,7 @@
       flex-direction: column;
       > :first-child {
         width: 100%;
+        margin-right: 0;
       }
       > :nth-child(2) {
         width: 100%;
@@ -1832,7 +1875,7 @@
   // tab2
   .community-tab-container {
     .cards-container {
-      gap: 20px;
+      gap: 24px;
     }
   }
 }

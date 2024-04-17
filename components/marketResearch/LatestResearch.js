@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container } from "reactstrap";
 import { Image } from "antd";
 import Link from "next/link";
@@ -6,6 +6,7 @@ import moment from "moment";
 import { ArrowRightOutlined } from "@ant-design/icons";
 
 const LatestResearch = () => {
+  const [showHoverClass, setShowHoverClass] = useState(null);
   const data = [
     {
       id: 1,
@@ -46,13 +47,19 @@ const LatestResearch = () => {
           <p className="title">
             Latest <span className="title bg">Research</span>
           </p>
-          <Link href="#">
+          <Link href="researchs">
             <p className="view-more">View more</p>
           </Link>
         </div>
         <div className="research-section">
-          {data.map((data) => (
-            <div className="research-list">
+          {data.map((data, index) => (
+            <div
+              onMouseOver={() => setShowHoverClass(index)}
+              onMouseOut={() => setShowHoverClass(null)}
+              className={`research-list ${
+                showHoverClass === index ? "showHoverClass" : ""
+              }`}
+            >
               <div
                 className="research-card"
                 style={{
@@ -60,28 +67,25 @@ const LatestResearch = () => {
                   flexDirection: "column",
                   height: "100%",
                   justifyContent: "space-between",
-                  border: "1px solid #D9DFE9",
-                  borderRadius: "8px",
+                  border: "2px solid #D9DFE9",
+                  borderRadius: "8px"
                 }}
               >
                 <div>
-                  <img
+                  <Image
                     // width={350}
                     // height={210}
                     src={data.image}
                     preview={false}
                     alt=""
                     placeholder="research banner"
-                    style={{width: "100%", height: "100%"}}
                   />
                 </div>
-                <div style={{padding: "16px"}}>
+                <div style={{padding: "20px"}}>
                   <p className="research-heading">{data.tilte}</p>
                   <p className="research-detail">{data.description}</p>
                   <div className="date-section">
-                    <div className="date">
-                      {data.date} | {data.read}
-                    </div>
+                    <div className="date">{data.date}</div>
                     <div className="custom-divider"></div>
                     {/* {<div className="time">10 min read</div>} */}
                   </div>
@@ -89,7 +93,7 @@ const LatestResearch = () => {
               </div>
             </div>
           ))}
-          <Link href="#">
+          <Link href="researchs">
             <div className="view-more-icon">
               <ArrowRightOutlined />
             </div>

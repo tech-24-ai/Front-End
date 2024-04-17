@@ -443,6 +443,7 @@ import Router from "next/router";
 import moment from "moment";
 import { crudService } from "../_services";
 import { isMobile } from "react-device-detect";
+import { SearchOutlined } from "@ant-design/icons";
 
 const Profile = ({
   getAllCrud,
@@ -459,15 +460,22 @@ const Profile = ({
   const [updateCom, setUpdateCom] = useState(false);
   const [updateProfileData, setUpdateProfileData] = useState({
     alternate_email: "",
-    country_code: 0,
-    mobile: 0,
+    country_code: "",
+    mobile: "",
     profile_pic_url: "",
   });
 
   const onChange = (key) => {
     console.log(key);
   };
-  const showEditModal = () => {
+  const showEditModal = () => {    
+    setUpdateProfileData(() => ({
+      alternate_email: visitorprofile?.alternate_email,
+      country_code: visitorprofile?.country_code,
+      mobile: visitorprofile?.mobile,
+      profile_pic_url: visitorprofile?.profile_pic_url,
+    }));
+    setUpdateCom(false)
     setIsModalOpen(true);
   };
   const handleOk = () => {
@@ -520,41 +528,52 @@ const Profile = ({
     const handleSignOutCancel = () => {
       setIsSignOutModalOpen(false);
     };
+
+    let visitorname = visitorprofile?.name;
+    let firstname = ""; let lastname = "";
+
+    if(visitorname) {
+      visitorname = visitorname.split(" ");
+      firstname = visitorname[0]; 
+      visitorname.splice(0, 1);
+      lastname = visitorname.join(" ");
+    }
+
     return (
       <div className="profile-tab-container">
         <div className="input-container">
           <div>
             <h6>First Name</h6>
-            <h5>Meraj</h5>
+            <h5 style={{ textTransform: "capitalize"}}>{firstname || ""}</h5>
           </div>
           {isMobile && <hr />}
           <div>
             <h6>Last Name</h6>
-            <h5>Shekh</h5>
+            <h5 style={{ textTransform: "capitalize"}}>{lastname || "-"}</h5>
           </div>
         </div>
         <hr />
         <div className="input-container">
           <div>
             <h6>Country/Region</h6>
-            <h5>India</h5>
+            <h5>{visitorprofile?.country?.name || "-"}</h5>
           </div>
           {isMobile && <hr />}
           <div>
             <h6>City/District</h6>
-            <h5>{visitorprofile?.visitor_ip_city}</h5>
+            <h5>{visitorprofile?.visitor_ip_city || "-"}</h5>
           </div>
         </div>
         <hr />
         <div className="input-container">
           <div>
             <h6>Job Title</h6>
-            <h5>Software Developer</h5>
+            <h5>{visitorprofile?.designation || "-"}</h5>
           </div>
           {isMobile && <hr />}
           <div>
             <h6>Company Name</h6>
-            <h5>Intelloger</h5>
+            <h5>{visitorprofile?.company || "-"}</h5>
           </div>
         </div>
         <hr />
@@ -565,21 +584,25 @@ const Profile = ({
           </div>
           {isMobile && <hr />}
           <div
-            style={{
-              display: !visitorprofile?.mobile && isMobile && "flex",
-              justifyContent:
-                !visitorprofile?.mobile && isMobile && "space-between",
-            }}
+            // style={{
+            //   display: !visitorprofile?.mobile && isMobile && "flex",
+            //   justifyContent:
+            //     !visitorprofile?.mobile && isMobile && "space-between",
+            // }}
           >
             <div>
               <h6>Contact Number</h6>
-              <h5>{visitorprofile?.mobile || "-"}</h5>
+              <h5>
+                { (visitorprofile?.mobile && visitorprofile?.country_code) ? `+${visitorprofile?.country_code} ` : ""}
+                {visitorprofile?.mobile || "-"}
+                {!visitorprofile?.mobile && (
+                  <div onClick={() => setIsModalOpen(true)} className="add">
+                    Add
+                  </div>
+                )}
+              </h5>
             </div>
-            {!visitorprofile?.mobile && (
-              <div onClick={() => setIsModalOpen(true)} className="add">
-                Add
-              </div>
-            )}
+            
           </div>
         </div>
         <hr />
@@ -592,13 +615,15 @@ const Profile = ({
         >
           <div>
             <h6>Alternate Email</h6>
-            <h5>{visitorprofile?.alternate_email || "-"}</h5>
+            <h5>
+              {visitorprofile?.alternate_email || "-"}
+              {!visitorprofile?.alternate_email && (
+                <div onClick={() => setIsModalOpen(true)} className="add">
+                  Add
+                </div>
+              )}
+            </h5>
           </div>
-          {!visitorprofile?.alternate_email && (
-            <div onClick={() => setIsModalOpen(true)} className="add">
-              Add
-            </div>
-          )}
         </div>
         <hr />
         <div className="delete-container">
@@ -648,12 +673,27 @@ const Profile = ({
     return (
       <div className="community-tab-container">
         <div className="search-container">
-          <Search
+          {/* <Search
             style={{ width: "65%" }}
             placeholder="Search a question..."
             onSearch={onSearch}
             enterButton
+          /> */}
+          <Input
+              placeholder="Search anything.."
+              prefix={<SearchOutlined style={{ color: "#0074D9", padding: "0 6px" }} />}
+              value=""
+              onChange={onSearch}
+              style={{
+                  width: "67%",
+                  padding: "10px",
+                  border: "1px solid #ccc",
+                  borderRadius: "5px",
+                  background: "#ffffff",
+                  boxSizing: "border-box",
+              }}
           />
+          
           <Select
             style={{
               width: "30%",
@@ -685,13 +725,15 @@ const Profile = ({
             <Card
               bordered={true}
               style={{
-                width: 380,
+                width: 317,
                 height: "fit-content",
+                boxShadow: "0px 0px 16px 0px #0000001A",
               }}
             >
               <div className="cards-header">
                 <Image
                   loader={myImageLoader}
+                  className="community-img"
                   style={{ borderRadius: "2px" }}
                   width={56}
                   height={56}
@@ -1037,7 +1079,7 @@ const Profile = ({
             <div className="card-header-data">
               <Image
                 loader={myImageLoader}
-                style={{ borderRadius: "2px" }}
+                style={{ borderRadius: "13px" }}
                 width={80}
                 height={80}
                 preview="false"
@@ -1047,8 +1089,9 @@ const Profile = ({
                 }
                 alt="profile"
               />
+              <p className="profile-badge">{visitorcommunityprofile?.data[0]?.current_level}</p>
 
-              <div className="level">Level 2: Starter</div>
+              <div className="level">Level {visitorcommunityprofile?.data[0]?.current_level} {(visitorcommunityprofile?.data[0]?.current_badge) ? `: ${visitorcommunityprofile?.data[0]?.current_badge}` : ""}</div>
               <div>
                 <span>{visitorcommunityprofile?.data[0]?.level_up_points}</span>{" "}
                 {visitorcommunityprofile?.data[0]?.level_up_text}
@@ -1099,7 +1142,7 @@ const Profile = ({
                   alt="date-icon"
                 />
                 <span className="join-date">
-                  {visitorcommunityprofile?.data[0]?.joined_at}
+                  Joined {visitorcommunityprofile?.data[0]?.joined_at}
                 </span>
               </div>
               <hr />
@@ -1149,6 +1192,7 @@ const Profile = ({
                   <p>Alternate Email</p>
                   <Input
                     name="alternate_email"
+                    value={updateProfileData.alternate_email}
                     onChange={(e) => {
                       const { name, value } = e.target;
                       setUpdateProfileData((prev) => ({
@@ -1170,6 +1214,7 @@ const Profile = ({
                       filterOption={filterOption}
                       options={countyList}
                       onClick={fetchCountry}
+                      value={updateProfileData.country_code}
                       onChange={(e) => {
                         setUpdateProfileData((prev) => ({
                           ...prev,
@@ -1179,6 +1224,7 @@ const Profile = ({
                     />
                     <Input
                       name="mobile"
+                      value={updateProfileData.mobile}
                       onChange={(e) => {
                         const { name, value } = e.target;
                         setUpdateProfileData((prev) => ({
