@@ -9,6 +9,8 @@ import Router, { withRouter } from "next/router";
 import moment from "moment";
 import { Image } from "antd";
 const LatestBlog = ({ getAllCrud, blogs }) => {
+  const [showHoverClass, setShowHoverClass] = useState(false);
+
   useEffect(() => {
     getAllCrud("blogs", "blogs", {
       pageSize: 3,
@@ -28,20 +30,32 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
         </div>
         <div className="blog-section">
           {blogs?.slice(0, 3).map((data) => (
-            <div className="blog-list">
-              <div className="blog-card" style={{display:'flex',flexDirection:'column',height:'100%',justifyContent:'space-between'}}>
+            <div
+              onMouseOver={() => setShowHoverClass(true)}
+              onMouseOut={() => setShowHoverClass(false)}
+              className={`blog-list ${showHoverClass ? "showHoverClass" : ""}`}
+            >
+              <div
+                className="blog-card"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  height: "100%",
+                  justifyContent: "space-between",
+                }}
+              >
                 <div>
-                <Image
-                  // width={350}
-                  // height={210}
-                  src={data.image}
-                  preview={false}
-                  alt=""
-                  placeholder="blog banner"
-                />
-                <p className="category bg">{data.blog_topic_name}</p>
-                <p className="blog-heading">{data.name}</p>
-                <p className="blog-detail">{data.details}</p>
+                  <Image
+                    // width={350}
+                    // height={210}
+                    src={data.image}
+                    preview={false}
+                    alt=""
+                    placeholder="blog banner"
+                  />
+                  <p className="category bg">{data.blog_topic_name}</p>
+                  <p className="blog-heading">{data.name}</p>
+                  <p className="blog-detail">{data.details}</p>
                 </div>
                 <div className="date-section">
                   <div className="date">

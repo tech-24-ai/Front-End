@@ -11,13 +11,19 @@ import { crudActions } from "../../_actions";
 import { connect } from "react-redux";
 import moment from "moment";
 import { crudService } from "../../_services";
-import { Button, Modal } from 'antd';
-import { Form, Space , Upload} from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
-import { Editor } from '@tinymce/tinymce-react';
+import { Button, Modal } from "antd";
+import { Form, Space, Upload } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+// import "draft-js/dist/Draft.css";
+// import ReactQuill from 'react-quill';
+// import 'react-quill/dist/quill.snow.css'; // Import Quill styles
+import community from ".";
 const SubmitButton = ({ form, children }) => {
   const [submittable, setSubmittable] = React.useState(false);
 
+  useEffect(() => {
+    getAllCrud("communitypost", "communitypost");
+  }, [updateCom]);
   // Watch all values
   const values = Form.useWatch([], form);
   React.useEffect(() => {
@@ -35,40 +41,42 @@ const SubmitButton = ({ form, children }) => {
   );
 };
 const Profile = ({ getAllCrud, visitor_queries_history }) => {
-  const [updateCom, setUpdateCom] = useState(false);
-  const [updateProfileData, setUpdateProfileData] = useState({
-    community_id: "",
-    title: 0,
-    tags: [],
-    description: "",
-    url: "",
+  const [editorHtml, setDescription] = useState("");
+  const [title, setTitle] = useState();
+  const [tags, setTag] = useState([]);
+  const [url, setUrl] = useState([]);
+  // const [description, setDescription] = useState();
 
-  });
+  const handleTagsChange = (e) => {
+    const value = e.target.value;
+    const tagsArray = value.split(",").map((tags) => tags.trim()); // Split tags by comma and trim whitespace
+    setTag(tagsArray);
+  };
+
+  const handleEditorChange = (html) => {
+    setDescription(html); // Assuming setDescription is a function to update the description state variable
+  };
+
+  console.log("tags", tags);
+  const [updateCom, setUpdateCom] = useState(false);
+  const [communitypost, setCommunityPost] = useState(null);
   const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const onChange = (key) => {
     console.log(key);
   };
 
+  const editor = React.useRef(null);
+  function focusEditor() {
+    editor.current.focus();
+  }
+
   useEffect(() => {
     getAllCrud("visitorprofile", "visitorprofile");
   }, [updateCom]);
 
-  const updateProfile = () => {
-    crudService
-      ._update("communitypost", communitypost, {
-        community_id: updateProfileData.community_id,
-        title: updateProfileData.title,
-        tags: updateProfileData.tags,
-        description: updateProfileData.description,
-        url: updateProfileData.url,
-      })
-      .then((data) => {
-        data.status == 200 && setUpdateCom(true);
-      });
-    setIsModalOpen(false);
-  };
   const [communityData, setCommunityData] = useState();
+  const [communityDetails, setCommunityDetails] = useState();
   useEffect(() => {
     getAllCrud("visitor_queries_history", "visitor_queries_history");
   }, []);
@@ -76,24 +84,55 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
   const showModal = () => {
     setIsModalOpen(true);
   };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
+
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  
+
   useEffect(() => {
     const id = sessionStorage.getItem("community_id");
     if (id) {
       crudService._getAll(`community/details/${id}`).then((data) => {
-        setCommunityData(data);
+        setCommunityData(data?.data);
+      });
+      crudService._getAll(`communitypost/${id}`).then((data) => {
+        setCommunityDetails(data?.data);
       });
     }
-    return () => {
-      sessionStorage.removeItem("community_id");
-    };
   }, []);
+
+  const handleOk = () => {
+    const postData = {
+      community_id: 2,
+      title: "hiii title",
+      tags: [1],
+      description: "editorHtml",
+      url: [
+        "https://tech24-uat.s3.amazonaws.com/sFx4ojGLbY",
+        "https://tech24-uat.s3.amazonaws.com/gSOthJ2Dfr",
+        "https://tech24-uat.s3.amazonaws.com/MBhs17gY4T",
+      ],
+    };
+    console.log("post data", postData);
+
+    crudService
+      ._create("communitypost", postData)
+      .then((response) => {
+        if (response.status === 200) {
+          const responseData = response.data;
+          console.log("Response data:", responseData);
+          // Data added successfully
+          setUpdateCom(true);
+          setIsModalOpen(false);
+        } else {
+          console.error("Failed to add data:", response);
+        }
+      })
+      .catch((error) => {
+        console.error("Error adding data:", error);
+      });
+  };
+
   const Tab1 = () => {
     const onSearch = (value, _e, info) => console.log(info?.source, value);
     const { Search } = Input;
@@ -107,7 +146,6 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
     };
 
     const calculateTimeAgo = (createdAt) => {
-      
       const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
       const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
       const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
@@ -115,11 +153,6 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
       const humanReadableDiff = duration.humanize(true);
       return humanReadableDiff;
     };
-
-
-  
-
-   
 
     return (
       <div className="community-tab-container questions-tab-container">
@@ -157,7 +190,7 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
           />
         </div>
         <div className="cards-container">
-          {visitor_queries_history?.map((data) => (
+          {communityDetails?.map((data) => (
             <Card
               bordered={true}
               style={{
@@ -398,10 +431,28 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
     }
     return e?.fileList;
   };
- 
-  const handleEditorChange = (content, editor) => {
-      // Your code to handle editor content changes
+
+  const handleChange = (value) => {
+    console.log(`selected ${value}`);
   };
+  const options = [
+    {
+      label: "Tag 1",
+      value: "1",
+    },
+    {
+      label: "Tag 2",
+      value: "2",
+    },
+    {
+      label: "Tag 3",
+      value: "3",
+    },
+    {
+      label: "Tag 4",
+      value: "4",
+    },
+  ];
 
   return (
     <Container>
@@ -415,7 +466,8 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
         </Tabs>
         <div className="community-tab-container">
           <div className="cards-container">
-            <div  onClick={showModal}
+            <div
+              onClick={showModal}
               style={{
                 width: "100%",
                 padding: "12px 16px",
@@ -431,104 +483,141 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
               Ask a Question
             </div>
             <div>
-            {/* <Button type="primary" onClick={showModal}>
-              Open Modal
-            </Button> */}
-            <Modal title="Ask a Question" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-              
-           <span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Egit liboro erat curcus</span>
-             
-               <Form form={form} name="validateOnly" layout="vertical" autoComplete="off">
-                <Form.Item
-                 rules={[
-                  {
-                    required: true,
-                  },
-                ]}
-                  name="Question"
-                  label="Question"
-                 
-                >
-                    <Editor
-                      initialValue="<p>Please enter content</p>"
-                      init={{
-                          height: 300,
-                          menubar: true,
-                          plugins: [
-                              'advlist autolink lists link image',
-                              'charmap print preview anchor help',
-                              'searchreplace visualblocks code',
-                              'insertdatetime media table paste wordcount'
-                          ],
-                          toolbar:
-                              'undo redo | formatselect | bold italic | \
-                              alignleft aligncenter alignright | \
-                              bullist numlist outdent indent | help'
-                      }}
-                    onEditorChange={handleEditorChange}
-                  />
-                </Form.Item>
-               
-                <Form.Item
-                 rules={[
-                  {
-                    required: true,
-                  },
-                ]}
-                  name="Title"
-                  label="Title"
-                 
-                >
-                  <Input />
-                </Form.Item>
+              <Modal open={isModalOpen} onCancel={handleCancel} footer={null}>
+                <span style={{ marginBottom: "-20px", fontWeight: "700" }}>
+                  Ask a Question
+                </span>
+                <div className="mt-2 mb-3">
+                  <span>
+                    {" "}
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Egit liboro erat curcus.
+                  </span>
+                </div>
 
-                <Form.Item label="Attachment" valuePropName="fileList" getValueFromEvent={normFile}>
-                <Upload action="/upload.do" listType="picture-card" style={{height:"30px"}}>
-                  <button
-                    style={{
-                      border: 0,
-                      background: 'none',
-                    
-                    }}
-                    type="button"
+                <Form
+                  form={form}
+                  name="validateOnly"
+                  layout="vertical"
+                  autoComplete="off"
+                >
+                  <Form.Item
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                    name="title"
+                    onChange={(e) => setTitle(e.target.value)}
+                    label="Title"
                   >
-                    <PlusOutlined />Add
-                  </button>
-                </Upload>
-              </Form.Item>
-                <Form.Item label="Tags"  rules={[
-                  {
-                    required: true,
-                  },
-                ]}>
-                  <Space.Compact>
-                    <Form.Item
-                      name={['Tag1', 'Tag2']}
-                      noStyle
-                      rules={[{ required: true, message: 'Tags is required' }]}
-                    >
-                      <Select placeholder="Select Tags" style={{width:"460px"}}>
-                        <Option value="1">Tag 1</Option>
-                        <Option value="2">Tag 2</Option>
-                        <Option value="3">ag 3</Option>
-                        <Option value="4">Tag 4</Option>
+                    <Input />
+                  </Form.Item>
+                  <Form.Item
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                    name="description"
+                    label="Question"
+                    onChange={(e) => setDescription(e.target.value)}
+                  >
+                    {/* <div>
+                      <ReactQuill
+                        theme="snow"
+                        value={editorHtml}
 
-                      </Select>
-                    </Form.Item>
-                  
-                  </Space.Compact>
-                </Form.Item>
-             
-                <Form.Item>
-                  <Space>
-                    <SubmitButton onClick={updateProfile}  form={form}>Submit</SubmitButton>
-                    <Button htmlType="reset">Reset</Button>
-                  </Space>
-                </Form.Item>
-              </Form>
-            </Modal>
+                        onChange={handleEditorChange}
+                        style={{ height: "100px", }}
+                      />
+                    </div> */}
+                  </Form.Item>
+
+                  <Form.Item
+                    onChange={(e) => setUrl(e.target.value)}
+                    style={{ marginTop: "55px" }}
+                    label="Attachment"
+                    valuePropName="fileList"
+                    getValueFromEvent={normFile}
+                  >
+                    <Upload
+                      name="url"
+                      action="/upload.do"
+                      listType="picture-card"
+                      style={{ height: "30px!important" }}
+                    >
+                      <button
+                        style={{
+                          border: 0,
+                          background: "none",
+                        }}
+                        type="button"
+                      >
+                        <PlusOutlined />
+                        Add
+                      </button>
+                    </Upload>
+                  </Form.Item>
+                  <Form.Item
+                    label="Tags"
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
+                    <Space.Compact>
+                      <Form.Item
+                        name={["Tag1", "Tag2", "Tag3", "Tag4"]}
+                        noStyle
+                        // rules={[{ required: true, message: 'Tags is required' }]}
+                        onChange={(e) =>
+                          console.log("testing tag", e.target.value)
+                        }
+                        // onChange={handleTagsChange}
+                      >
+                        <Select
+                          mode="multiple"
+                          name="tag[]"
+                          style={{
+                            width: "470px",
+                          }}
+                          placeholder="select one Tag"
+                          defaultValue={[]}
+                          options={options}
+                          optionRender={(option) => (
+                            <Space>
+                              <span role="img" aria-label={option.data.label}>
+                                {option.data.emoji}
+                              </span>
+                              {option.data.desc}
+                            </Space>
+                          )}
+                        />
+                      </Form.Item>
+                    </Space.Compact>
+                  </Form.Item>
+
+                  <Form.Item>
+                    <Space>
+                      <div
+                        onClick={handleOk}
+                        className="btn"
+                        style={{
+                          width: "470px",
+                          background: "#afaaaa",
+                          color: "white",
+                        }}
+                      >
+                        Post Question
+                      </div>
+                    </Space>
+                  </Form.Item>
+                </Form>
+              </Modal>
             </div>
-          
+
             <Card
               bordered={true}
               style={{
@@ -544,12 +633,13 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
                   height={56}
                   preview="false"
                   src={
-                    communityData?.data?.image_url ||
+                    communityData?.image_url ||
                     "https://tech24-uat.s3.amazonaws.com/D10dkiDJHM"
                   }
                   alt="profile"
+                  name="url"
                 />
-                <h6>{communityData?.data?.name}</h6>
+                <h6>{communityData?.name}</h6>
                 <Image
                   loader={myImageLoader}
                   style={{ borderRadius: "2px", cursor: "pointer" }}
@@ -562,21 +652,21 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
               </div>
               <hr />
               <div className="cards-body">
-                {communityData?.data?.description}
+                {communityData?.description}
               </div>
               <hr />
               <div className="following-section">
                 <div>
                   <div className="head">Members</div>
                   <div className="count">
-                    {communityData?.data?.__meta__.total_members}
+                    {communityData?.__meta__.total_members}
                   </div>
                 </div>
                 <div className="custom-border"></div>
                 <div>
                   <div className="head">Questions</div>
                   <div className="count">
-                    {communityData?.data?.__meta__.total_posts}
+                    {communityData?.__meta__.total_posts}
                   </div>
                 </div>
               </div>
@@ -614,6 +704,7 @@ const mapStateToProps = (state) => {
 
 const actionCreators = {
   getAllCrud: crudActions._getAll,
+  createCrud: crudActions._create,
 };
 
 export default connect(mapStateToProps, actionCreators)(Profile);

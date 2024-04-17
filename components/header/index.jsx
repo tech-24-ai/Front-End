@@ -8,6 +8,11 @@ import {
   Collapse,
   Nav,
   NavItem,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  Button,
   NavLink,
 } from "reactstrap";
 import { useRouter } from "next/router";
@@ -27,6 +32,7 @@ import Image from "next/image";
 
 function Header(props) {
   const [collapsed, setCollapsed] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const toggleNavbar = () => setCollapsed(!collapsed);
   const { isloggedIn, openSideMenu, sideMenu, isMainHeader = true } = props;
@@ -135,17 +141,45 @@ function Header(props) {
                           </Link>
                         </NavItem>
 
-                        <NavItem>
+                        <UncontrolledDropdown nav inNavbar isOpen={isOpen}>
+                          <DropdownToggle
+                            nav
+                            caret
+                            onMouseOver={() => setIsOpen(true)}
+                            onMouseOut={() => setIsOpen(false)}
+                          >
+                            Service
+                          </DropdownToggle>
+                          <DropdownMenu
+                            className="dropdown-service-custom"
+                            onMouseOver={() => setIsOpen(true)}
+                            onMouseOut={() => setIsOpen(false)}
+                          >
+                            <DropdownItem className="service-link">
+                              <Link href="/it-robo">AI-Based Robo Advisor</Link>
+                            </DropdownItem>
+                            <DropdownItem className="service-link">
+                              <Link href="/consultant">
+                                Talk to a Consultant
+                              </Link>
+                            </DropdownItem>
+                            <DropdownItem className="service-link">
+                              <Link href="/access">Access Communities</Link>
+                            </DropdownItem>
+                          </DropdownMenu>
+                        </UncontrolledDropdown>
+
+                        {/* <NavItem>
                           <Link href="/pricing">
                             <a>Services</a>
                           </Link>
-                        </NavItem>
-                       
+                        </NavItem> */}
+
                         <NavItem>
-                            <Link href="/connect">
-                              <a>Contact Us</a>
-                            </Link>
-                          </NavItem>
+                          <Link href="/connect">
+                            <a>Contact Us</a>
+                          </Link>
+                        </NavItem>
 
                         <NavItem>
                           <Link href="/blogs">
@@ -157,18 +191,29 @@ function Header(props) {
                             <a>Community</a>
                           </Link>
                         </NavItem>
-                        
+
+                        <NavItem
+                          className="mx-2"
+                          style={{ color: "#54616C", fontSize: "30px" }}
+                        >
+                          |
+                        </NavItem>
+
+                        <NavItem>
+                          <img src="/new_images/search.svg" alt="search" />
+                        </NavItem>
+
                         {isloggedIn && (
-                          <NavItem>
+                          <NavItem style={{ margin: 0 }}>
                             <Link href="/Profile">
-                              <a>Profile</a>
+                              <img src="/new_images/Avatar.svg" alt="avatar" style={{cursor: "pointer"}} />
                             </Link>
                           </NavItem>
                         )}
                         {!isloggedIn && (
                           <NavItem>
                             <Link href="/login">
-                              <a className="with-bg">Sign up</a>
+                              <Button color="light" className="px-4">Sign up</Button>
                             </Link>
                           </NavItem>
                         )}

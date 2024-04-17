@@ -691,7 +691,7 @@
             color: #54616c;
           }
         .content-structure > div {
-          margin-bottom: 16px;
+          margin-bottom: 14px;
         }
 
         .user-icon,
@@ -710,7 +710,7 @@
           border-top: 1px dashed #ccc;
           width: 100%;
           position: relative;
-          bottom: 25px;
+          bottom: 20px;
         }
 
         .learn-more-box {
@@ -736,6 +736,7 @@
             border-radius: 2px;
             font-weight: 500;
             font-size: 16px;
+            margin-top: 8px;
           }
         }
         .btn-box:hover,
@@ -820,6 +821,7 @@
             justify-content: start;
             align-items: center;
             width: 100%;
+            margin-top: 4px;
           }
           .user-icon {
             // display: flex;

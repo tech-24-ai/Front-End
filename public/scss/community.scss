@@ -170,6 +170,9 @@
   }
 }
 
+.ant-upload.ant-upload-select-picture-card{
+  height: 30px!important;
+}
 .accordion {
   border: 1px solid #ccc;
 }
@@ -221,7 +224,7 @@
     padding: 0;
     margin: 0;
   }
-  margin: 4rem 0;
+  margin: 4rem 0 1rem 0;
   .title-section {
     display: flex;
     justify-content: space-between;
