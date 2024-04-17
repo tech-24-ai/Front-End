@@ -13,7 +13,7 @@
 //       pageSize: 3,
 //     });
 //   }, []);
-  
+
 //   return (
 //     <Container>
 //       <div className="top-question">
@@ -86,8 +86,6 @@
 // export default withRouter(
 //   connect(mapStateToProps, actionCreators)(TopQuestion)
 // );
-
-
 
 //
 
@@ -206,126 +204,131 @@ class TrendingQuestion extends React.PureComponent {
     const { trendingQuestions } = this.props;
 
     return (
-    <Container >
+      <Container>
         <div className="top-question">
           <div className="title-section">
             <p className="title">
-              Top <span className="title bg">Question</span>
+              Top <span className="title bg">Questions</span>
             </p>
             <Link href="community">
               <p className="view-more">View more</p>
             </Link>
           </div>
-          </div>
-      <div className="trending-category-below">
-        <div
-          onClick={() => this.swiperRef.current.swiper.slidePrev()}
-          className="view-more-icon"
-          style={{
-            left: "110px",
-            marginTop: "7%",
-            zIndex: "99",
-            position: "absolute",
-            width: "36px",
-            height: "36px",
-          }}
-        >
-          <ArrowLeftOutlined
-            style={{
-              color: "#fff",
-              fontSize: "16px",
-            }}
-          />
         </div>
-        <div className="category-box">
-          <div className="category-banner-wrapper" id="categoryWrapper">
-            <Fragment>
-              <Swiper
-                spaceBetween={50}
-                slidesPerView={3}
-                navigation={{
-                  nextEl: ".swiper-button-next",
-                  prevEl: ".swiper-button-prev",
-                }}
-                ref={this.swiperRef}
-              >
-                {trendingQuestions?.map((data, index) => (
-                  <SwiperSlide key={index}>
-                    <div
-                      className="category-banner-block"
-                      data-index={index}
-                      key={index}
-                    >
-                      <div className="category-banner">
-                        <div className="category-content">
-                          <div className="content-head">
-                            <div className="medium">
-
-                              <Image
-                                style={{
-                                  borderRadius: "8px",
-                                }}
-                                src={
-                                  data.visitor.profile_pic_url ||
-                                  "https://tech24-uat.s3.amazonaws.com/D10dkiDJHM"
-                                }
-                                alt={data.visitor.name}
-                                width={48}
-                                height={48}
-                              />
-
-                            </div>
-                            <div
-                              className="category-text"
-                              style={{ minWidth: "70%" }}
-                            >
-                              <h6>{data?.visitor?.name}</h6>
-                              <p>{data.created_at}</p>
-                            </div>
-                          </div>
-
-                          <div className="card-trend-body">
-                            <p class="card-text">{data.description}</p>
-                            <div className="content-x">
+        <div className="trending-category-below">
+          <div
+            onClick={() => this.swiperRef.current.swiper.slidePrev()}
+            className="view-more-icon"
+            style={{
+              left: "110px",
+              marginTop: "7%",
+              zIndex: "99",
+              position: "absolute",
+              width: "36px",
+              height: "36px",
+            }}
+          >
+            <ArrowLeftOutlined
+              style={{
+                color: "#fff",
+                fontSize: "16px",
+              }}
+            />
+          </div>
+          <div
+            onClick={() => this.swiperRef.current.swiper.slideNext()}
+            className="view-more-icon"
+            style={{
+              right: "110px",
+              marginTop: "7%",
+              zIndex: "99",
+              position: "absolute",
+              width: "36px",
+              height: "36px",
+            }}
+          >
+            <ArrowRightOutlined
+              style={{
+                color: "#fff",
+                fontSize: "16px",
+              }}
+            />
+          </div>
+          <div className="category-box">
+            <div className="category-banner-wrapper" id="categoryWrapper">
+              <Fragment>
+                <Swiper
+                  spaceBetween={50}
+                  slidesPerView={3}
+                  navigation={{
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                  }}
+                  ref={this.swiperRef}
+                >
+                  {trendingQuestions?.map((data, index) => (
+                    <SwiperSlide key={index}>
+                      <div
+                        className="category-banner-block"
+                        data-index={index}
+                        key={index}
+                      >
+                        <div className="category-banner">
+                          <div className="category-content">
+                            <div className="content-head">
+                              <div className="medium">
+                                <Image
+                                  style={{
+                                    borderRadius: "8px",
+                                  }}
+                                  src={
+                                    data.visitor.profile_pic_url ||
+                                    "https://tech24-uat.s3.amazonaws.com/D10dkiDJHM"
+                                  }
+                                  alt={data.visitor.name}
+                                  width={48}
+                                  height={48}
+                                />
+                              </div>
                               <div
-                                className="design-content"
-                                style={{
-                                  display: "flex",
-                                  flexDirection: "row",
-                                }}
+                                className="category-text"
+                                style={{ minWidth: "70%" }}
                               >
-                                {data.postTags.map((tag, index) => (
-                                  <p key={index}>{tag.name}</p>
-                                ))}
+                                <h6>{data?.visitor?.name}</h6>
+                                <p>{data.created_at}</p>
                               </div>
                             </div>
-                          </div>
-                          <div className="learn-more-btn">
-                            <h6 className="btn-text">Answer</h6>
+
+                            <div className="card-trend-body">
+                              <p class="card-text">{data.description}</p>
+                              <div className="content-x">
+                                <div
+                                  className="design-content"
+                                  style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                  }}
+                                >
+                                  {data.postTags.map((tag, index) => (
+                                    <p key={index}>{tag.name}</p>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+                            <div className="learn-more-btn">
+                              <h6 className="btn-text">Answer</h6>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-              <div
-                onClick={() => this.swiperRef.current.swiper.slideNext()}
-                className="view-more-icon"
-                style={{
-                  right: "40px",
-                  marginTop: "8%",
-                  width: "36px",
-                  height: "36px",
-                }}
-              >
-                <ArrowRightOutlined />
-              </div>
-            </Fragment>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </Fragment>
+            </div>
           </div>
         </div>
-      </div>
-    </Container>
+      </Container>
     );
   }
 }
