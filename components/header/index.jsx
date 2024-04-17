@@ -19,8 +19,8 @@ import {
   isBrowser,
   isMobile,
 } from "react-device-detect";
-import LogoBlack from "../../public/images/header/tech24.ai.png";
-import LogoWhite from "../../public/images/header/tech24.ai.png";
+import LogoBlack from "../../public/new_images/tech24_header_logo_white.svg";
+import LogoWhite from "../../public/new_images/tech24_header_logo_white.svg";
 import Drawer from "./drawer";
 import myImageLoader from "../imageLoader";
 import Image from "next/image";
@@ -130,20 +130,26 @@ function Header(props) {
                           </Link>
                         </NavItem> */}
                         <NavItem>
-                          <Link href="/">
-                            <a>Home</a>
+                          <Link href="/market-research">
+                            <a>Market Research</a>
                           </Link>
                         </NavItem>
 
                         <NavItem>
                           <Link href="/pricing">
-                            <a>Pricing</a>
+                            <a>Services</a>
                           </Link>
                         </NavItem>
+                       
+                        <NavItem>
+                            <Link href="/connect">
+                              <a>Contact Us</a>
+                            </Link>
+                          </NavItem>
 
                         <NavItem>
-                          <Link href="/about-us">
-                            <a>About us</a>
+                          <Link href="/blogs">
+                            <a>Blogs</a>
                           </Link>
                         </NavItem>
                         <NavItem>
@@ -151,13 +157,7 @@ function Header(props) {
                             <a>Community</a>
                           </Link>
                         </NavItem>
-                        {!isloggedIn && (
-                          <NavItem>
-                            <Link href="/connect">
-                              <a>Connect</a>
-                            </Link>
-                          </NavItem>
-                        )}
+                        
                         {isloggedIn && (
                           <NavItem>
                             <Link href="/Profile">
@@ -168,23 +168,24 @@ function Header(props) {
                         {!isloggedIn && (
                           <NavItem>
                             <Link href="/login">
-                              <a className="with-bg">Login / Sign up</a>
+                              <a className="with-bg">Sign up</a>
                             </Link>
                           </NavItem>
                         )}
+
                         {/* <NavItem>
                           <Link href="/blogs">
                             <a>Blogs</a>
                           </Link>
                         </NavItem>
  */}
-                        {isloggedIn && (
-                          <NavItem>
+                        {/* {isloggedIn && (
+                         <NavItem>
                             <Link href="/logout">
                               <a>Logout</a>
                             </Link>
                           </NavItem>
-                        )}
+                        )} */}
                       </Nav>
                     </BrowserView>
                     {/* <MobileView viewClassName='navbar-link-wrapper'>

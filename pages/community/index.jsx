@@ -139,11 +139,7 @@ const Community = ({ community, getAllCrud }) => {
       }, 300);
     });
 
-  // const onChange = (newValue) => {
-  //     const selectedCommunity = allCommunityFeature.find(feature => feature.name === newValue);
-  //     setAllCommunityFeature(selectedCommunity ? [selectedCommunity] : []);
-  //     setValue(newValue);
-  // };
+  
   const onChange = (newValue) => {
     const selectedAllCommunity = allCommunityFeature.find(
       (feature) => feature.name === newValue
@@ -160,8 +156,9 @@ const Community = ({ community, getAllCrud }) => {
     setValue(newValue);
   };
 
+
   return (
-    <section className="community-section community-listing-page mt-4">
+    <section className="community-section community-listing-page mt-4" style={{background: "#fff"}}>
       <PageBanner
         titleNode={
           <div>

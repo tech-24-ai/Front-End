@@ -38,6 +38,8 @@ import LatestResearch from "../components/marketResearch/LatestResearch";
 import LatestBlog from "../components/blog/LatestBlog";
 import TopConsultant from "../components/consultant/TopConsultant";
 import TopQuestion from "../components/community/TopQuestion";
+import TrendingQuestion from "../components/community/trending";
+
 
 let counter = 6;
 let arrLength = 6;
@@ -46,6 +48,7 @@ class Home extends React.PureComponent {
     super(props);
     this.state = {
       categories: [],
+      trendingQuestions: [],
       changeIcon: false,
     };
   }
@@ -58,6 +61,7 @@ class Home extends React.PureComponent {
       this.props.guest();
     }
   };
+
 
   componentDidMount = () => {
     this.checkAuth();
@@ -79,6 +83,16 @@ class Home extends React.PureComponent {
     localStorage.removeItem("meetingDetail");
     localStorage.removeItem("messageDetail");
     localStorage.removeItem("vulnerability");
+    this.fetchTrendingQuestions();
+  };
+  fetchTrendingQuestions = () => {
+    crudService._getAll("tranding_question")
+      .then((result) => {
+        this.setState({ trendingQuestions: result.data });
+      })
+      .catch((error) => {
+        console.error("Error fetching trending questions:", error);
+      });
   };
 
   onScroll = () => {
@@ -107,6 +121,7 @@ class Home extends React.PureComponent {
   render() {
     const { isloggedIn } = this.props;
     const { changeIcon } = this.state;
+    const { trendingQuestions } = this.state;
     return (
       <Fragment>
         <Head>
@@ -146,10 +161,9 @@ class Home extends React.PureComponent {
         </section>
         <section>
           <TopConsultant />
-          <br />
+          {/* <TrendingQuestion trendingQuestions={trendingQuestions} /> */}
+          <TopQuestion trendingQuestions={trendingQuestions} />
           <LatestBlog />
-          <br />
-          <TopQuestion />
         </section>
       </Fragment>
     );

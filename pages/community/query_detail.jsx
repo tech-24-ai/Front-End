@@ -26,6 +26,7 @@ import { Collapse, Select } from "antd";
 import moment from 'moment';
 import { Input } from 'antd';
 import ReactPaginate from "react-paginate-next";
+import CommunityCategory from "../../components/community/index";
 
 
 const text = `
@@ -84,10 +85,10 @@ const Community = ({ router }) => {
     }, [searchQuery, communityFeature]);
 
 
-   //Filter
+    //Filter
     const handleSearch = (e) => {
         setSearchQuery(e.target.value);
-        setCurrentPage(0); 
+        setCurrentPage(0);
     };
     // Pagination
     const slicedData = filteredData.slice(
@@ -98,7 +99,7 @@ const Community = ({ router }) => {
     //     currentPage * itemsPerPage,
     //     (currentPage + 1) * itemsPerPage
     // );
- 
+
     let arrData = [];
     communityFeature?.map((item) => {
         const random = Math.random().toString(36).substring(2, 6);
@@ -162,29 +163,29 @@ const Community = ({ router }) => {
         },
         {
             title: "Research Type",
-            content: "o Applied Research",
+            content: "O  Applied Research",
         },
         {
             title: "Research Category",
-            content: "o Applied Research",
+            content: "O  Applied Research",
         },
         {
             title: "Research Topics",
-            content: "o Applied Research",
+            content: "O  Applied Research",
         },
         {
             title: "Research Vendors",
-            content: "o Applied Research",
+            content: "O  Applied Research",
         },
         {
             title: "Research Tags",
-            content: "o Applied Research",
+            content: "O  Applied Research",
         },
     ];
 
     const accordionItemStyle = {
         borderBottom: "1px solid #ccc",
-        marginBottom: "10px",
+        // marginBottom: "10px",
     };
 
     const accordionTitleStyle = {
@@ -207,8 +208,6 @@ const Community = ({ router }) => {
     const handleSort = (e) => {
         setSortBy(e.target.value);
     };
-
-    //
 
     return (
         <>
@@ -251,13 +250,17 @@ const Community = ({ router }) => {
                                     <div
                                         className="accordion-item"
                                         key={index}
-                                        style={accordionItemStyle}
+                                        style={{
+                                            accordionItemStyle,
+                                            ...(item.title === "FILTERS" ? { background: "#f2f4f7" } : { borderBottom: "1px solid #ccc" }),
+                                            ...(item.title === "Research Tags" ? { borderBottom: "none" } : { borderBottom: "1px solid #ccc" }),
+                                           }}
                                     >
                                         <button
                                             className="accordion-title"
                                             style={{
                                                 ...accordionTitleStyle,
-                                                ...(item.title === "FILTERS" ? { background: "#f2f4f7", color: "#001622", fontFamily: "Inter", fontSize: "16px", fontWeight: "600" } : {}),
+                                                ...(item.title === "FILTERS" ? { background: "#f2f4f7", color: "#001622", fontFamily: "Inter", fontSize: "16px", fontWeight: "600" } : { background: "#fafafc"}),
                                                 ...(activeIndex === index
                                                     ? activeAccordionTitleStyle
                                                     : {}),
@@ -301,7 +304,7 @@ const Community = ({ router }) => {
                                 {slicedData.map((item, index) => (
                                     <div
                                         className="col-6 community-category-below community-category-mobile"
-                                        style={{ marginTop: "-1rem" }}
+                                        style={{ marginTop: "-1rem", height: "324px" }}
                                     >
                                         <div
                                             className="category-box"
@@ -317,24 +320,30 @@ const Community = ({ router }) => {
                                                         style={{ maxWidth: "100%" }}
                                                     >
                                                         <div className="category-content">
-                                                            <div className="content-head" onClick={() => communityDetails(item)}>
-                                                                <div className="custom-icon white medium">
-                                                                    <img src={item.image_url} />
+                                                            <div className="content-header" onClick={() => communityDetails(item)}>
+                                                                <div className="icon-bg" >
+                                                                    <img src={item.image_url}
+                                                                        style={{ borderRadius: "4.8px" }}
+                                                                        alt={item.name}
+                                                                        width={48}
+                                                                        height={48}
+                                                                        className="icon-image"
+                                                                    />
                                                                 </div>
                                                                 <div
-                                                                    className="category-content"
+                                                                    className="category-text"
                                                                     style={{ minWidth: "70%" }}
                                                                 >
                                                                     <h6>{item.name}</h6>
                                                                 </div>
                                                             </div>
-                                                            <div className="card-body" onClick={() => communityDetails(item)}>
+                                                            <div className="card-body" style={{ paddingTop: "12px"}} onClick={() => communityDetails(item)}>
                                                                 <p class="card-description">{item.description}</p>
                                                                 <div className="content-x">
                                                                     <div className="user-icon">
                                                                         <p>
                                                                             <UsergroupAddOutlined
-                                                                                style={{ fontSize: "16px" }}
+                                                                                style={{ fontSize: "16px", verticalAlign: "0.04em" }}
                                                                             />{" "}
                                                                             Members : {item?.__meta__?.total_members}
                                                                         </p>
@@ -342,16 +351,19 @@ const Community = ({ router }) => {
                                                                     <div className="query-icon">
                                                                         <p>
                                                                             <MessageOutlined
-                                                                                style={{ fontSize: "16px" }}
+                                                                                style={{ fontSize: "16px", verticalAlign: "0.04em" }}
                                                                             />{" "}
                                                                             Queries : {item?.__meta__?.total_post_reply}
                                                                         </p>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div className="learn-more-btn">
+                                                            {/* <hr class="dotted-hr"></hr> */}
+                                                            <hr className="dashed" />
+
+                                                            <div className="learn-more-box-ac">
                                                                 {item.communityMember.length === 0 ? (
-                                                                    <Button className="btn-text"
+                                                                    <Button className="btn-box"
                                                                         onClick={() => joinCommunity(item.id)}
                                                                     >
                                                                         Join Community
@@ -368,16 +380,19 @@ const Community = ({ router }) => {
                                             </div>
                                         </div>
                                     </div>
+
                                 ))}
                             </div>
                         </div>
                     </div>
-                   
+
                     <ReactPaginate
                         pageCount={Math.ceil(communityFeature.length / itemsPerPage)}
                         onPageChange={({ selected }) => setCurrentPage(selected)}
-                        previousLabel={"<"}
-                        nextLabel={">"}
+                        // previousLabel={"<"}
+                        // nextLabel={">"}
+                        previousLabel={<span style={{ color: '#000', fontSize: '20px', fontWeight: 500 }}>{'<'}</span>}
+                        nextLabel={<span style={{ color: '#000', fontSize: '20px', fontWeight: 500 }}>{'>'}</span>}
                         activeClassName={"selected-page"}
                         pageClassName={"other-page"}
                     />

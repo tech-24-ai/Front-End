@@ -146,7 +146,7 @@
     padding: 0;
     margin: 0;
   }
-  margin: 1rem 0;
+  margin: 4rem 0;
   .title-section {
     display: flex;
     justify-content: space-between;
@@ -209,7 +209,6 @@
           font-weight: 400;
           font-size: 14px;
           line-height: 20px;
-          margin-bottom: 40px;
         }
 
         .date-section {
@@ -315,13 +314,13 @@
       .blog-card {
         img {
           width: 412px !important;
-          height: 320px !important;
+          height: 250px !important;
         }
       }
     }
 
     .view-more-icon {
-      margin-top: 19.5% !important;
+      margin-top: 14% !important;
       right: 110px !important;
     }
   }

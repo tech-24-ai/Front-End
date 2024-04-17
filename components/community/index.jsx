@@ -116,6 +116,7 @@ class CommunityCategory extends React.PureComponent {
 
   render() {
     const { changeIcon, slides, hoverId } = this.state;
+    
     const { data } = this.props;
     if (!Array.isArray(data)) {
       return (
@@ -130,7 +131,7 @@ class CommunityCategory extends React.PureComponent {
           className="view-more-icon"
           style={{
             left: "110px",
-            marginTop: "9%",
+            marginTop: "8%",
             zIndex: "99",
             position: "absolute",
             width: "36px",
@@ -163,11 +164,14 @@ class CommunityCategory extends React.PureComponent {
                       data-index={index}
                       key={index}
                     >
-                      <div className="category-banner">
+                      <div className="category-banner" data-index={index}
+                        key={index}>
                         <div className="category-content">
                           <div className="content-head">
-                            <div className="medium">
+                            <div  
+                             className="icon-bg">
                               <Image
+                                className="icon-image"
                                 style={{ borderRadius: "4.8px" }}
                                 src={slide.image_url}
                                 alt={slide.name}
@@ -176,37 +180,31 @@ class CommunityCategory extends React.PureComponent {
                               />
                             </div>
                             <div
-                              className="category-content"
-                              style={{ minWidth: "70%" }}
+                              className="category-text"
                             >
-                              <h6>{slide.name}</h6>
+                              <h6 style={{ margin: "0", fontFamily: "Poppins"}}>{slide.name}</h6>
                             </div>
                           </div>
-                          <div className="card-body">
-                            <p class="card-text">{slide.description}</p>
+                          <div className="content-structure">
+                              <p className="card-description">{slide.description}</p>
                             <div className="content-x">
                               <div className="user-icon">
                                 <p>
-                                  <UsergroupAddOutlined
-                                    style={{ fontSize: "16px" }}
-                                  />{" "}
-                                  Members : {slide.__meta__.total_members}
+                                  <UsergroupAddOutlined style={{ fontSize: "16px", verticalAlign: "0.04em" }} /> Members : {slide.__meta__.total_members}
                                 </p>
                               </div>
                               <div className="query-icon">
                                 <p>
-                                  <MessageOutlined
-                                    style={{ fontSize: "16px" }}
-                                  />{" "}
-                                  Queries : {slide.__meta__.total_posts}
+                                  <MessageOutlined style={{ fontSize: "16px", verticalAlign: "0.04em" }} /> Queries : {slide.__meta__.total_posts}
                                 </p>
                               </div>
                             </div>
+                            <hr className="dotted" />
+                            <div className="learn-more-box">
+                              <Button className="btn-box">Join Community</Button>
+                            </div>
                           </div>
-                          <hr class="dotted-hr"></hr>
-                          <div className="learn-more-btn">
-                            <Button className="btn-text">Join Community</Button>
-                          </div>
+
                         </div>
                       </div>
                     </div>
@@ -218,7 +216,7 @@ class CommunityCategory extends React.PureComponent {
                 className="view-more-icon"
                 style={{
                   right: "40px",
-                  marginTop: "11%",
+                  marginTop: "9%",
                   width: "36px",
                   height: "36px",
                 }}
