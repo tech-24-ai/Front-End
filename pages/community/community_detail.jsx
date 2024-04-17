@@ -11,12 +11,12 @@ import { crudActions } from "../../_actions";
 import { connect } from "react-redux";
 import moment from "moment";
 import { crudService } from "../../_services";
-import { Button, Modal } from 'antd';
-import { Form, Space, Upload } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
-import "draft-js/dist/Draft.css";
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css'; // Import Quill styles
+import { Button, Modal } from "antd";
+import { Form, Space, Upload } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+// import "draft-js/dist/Draft.css";
+// import ReactQuill from 'react-quill';
+// import 'react-quill/dist/quill.snow.css'; // Import Quill styles
 import community from ".";
 const SubmitButton = ({ form, children }) => {
   const [submittable, setSubmittable] = React.useState(false);
@@ -41,8 +41,7 @@ const SubmitButton = ({ form, children }) => {
   );
 };
 const Profile = ({ getAllCrud, visitor_queries_history }) => {
-
-  const [editorHtml, setDescription] = useState('');
+  const [editorHtml, setDescription] = useState("");
   const [title, setTitle] = useState();
   const [tags, setTag] = useState([]);
   const [url, setUrl] = useState([]);
@@ -50,7 +49,7 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
 
   const handleTagsChange = (e) => {
     const value = e.target.value;
-    const tagsArray = value.split(',').map(tags => tags.trim()); // Split tags by comma and trim whitespace
+    const tagsArray = value.split(",").map((tags) => tags.trim()); // Split tags by comma and trim whitespace
     setTag(tagsArray);
   };
 
@@ -73,11 +72,11 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
   }
 
   useEffect(() => {
-
     getAllCrud("visitorprofile", "visitorprofile");
   }, [updateCom]);
 
   const [communityData, setCommunityData] = useState();
+  const [communityDetails, setCommunityDetails] = useState();
   useEffect(() => {
     getAllCrud("visitor_queries_history", "visitor_queries_history");
   }, []);
@@ -94,7 +93,10 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
     const id = sessionStorage.getItem("community_id");
     if (id) {
       crudService._getAll(`community/details/${id}`).then((data) => {
-        setCommunityData(data);
+        setCommunityData(data?.data);
+      });
+      crudService._getAll(`communitypost/${id}`).then((data) => {
+        setCommunityDetails(data?.data);
       });
     }
   }, []);
@@ -105,11 +107,16 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
       title: "hiii title",
       tags: [1],
       description: "editorHtml",
-      url: ["https://tech24-uat.s3.amazonaws.com/sFx4ojGLbY", "https://tech24-uat.s3.amazonaws.com/gSOthJ2Dfr", "https://tech24-uat.s3.amazonaws.com/MBhs17gY4T"]
+      url: [
+        "https://tech24-uat.s3.amazonaws.com/sFx4ojGLbY",
+        "https://tech24-uat.s3.amazonaws.com/gSOthJ2Dfr",
+        "https://tech24-uat.s3.amazonaws.com/MBhs17gY4T",
+      ],
     };
     console.log("post data", postData);
 
-    crudService._create("communitypost", postData)
+    crudService
+      ._create("communitypost", postData)
       .then((response) => {
         if (response.status === 200) {
           const responseData = response.data;
@@ -118,11 +125,11 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
           setUpdateCom(true);
           setIsModalOpen(false);
         } else {
-          console.error('Failed to add data:', response);
+          console.error("Failed to add data:", response);
         }
       })
       .catch((error) => {
-        console.error('Error adding data:', error);
+        console.error("Error adding data:", error);
       });
   };
 
@@ -146,8 +153,6 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
       const humanReadableDiff = duration.humanize(true);
       return humanReadableDiff;
     };
-
-
 
     return (
       <div className="community-tab-container questions-tab-container">
@@ -185,7 +190,7 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
           />
         </div>
         <div className="cards-container">
-          {visitor_queries_history?.map((data) => (
+          {communityDetails?.map((data) => (
             <Card
               bordered={true}
               style={{
@@ -427,26 +432,25 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
     return e?.fileList;
   };
 
-
   const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
   const options = [
     {
-      label: 'Tag 1',
-      value: '1',
+      label: "Tag 1",
+      value: "1",
     },
     {
-      label: 'Tag 2',
-      value: '2',
+      label: "Tag 2",
+      value: "2",
     },
     {
-      label: 'Tag 3',
-      value: '3',
+      label: "Tag 3",
+      value: "3",
     },
     {
-      label: 'Tag 4',
-      value: '4',
+      label: "Tag 4",
+      value: "4",
     },
   ];
 
@@ -462,7 +466,8 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
         </Tabs>
         <div className="community-tab-container">
           <div className="cards-container">
-            <div onClick={showModal}
+            <div
+              onClick={showModal}
               style={{
                 width: "100%",
                 padding: "12px 16px",
@@ -473,20 +478,29 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
                 textAlign: "center",
                 cursor: "pointer",
                 backgroundColor: "#0074D9",
-
               }}
             >
               Ask a Question
             </div>
             <div>
               <Modal open={isModalOpen} onCancel={handleCancel} footer={null}>
-                <span style={{ marginBottom: "-20px", fontWeight: "700" }}>Ask a Question</span>
+                <span style={{ marginBottom: "-20px", fontWeight: "700" }}>
+                  Ask a Question
+                </span>
                 <div className="mt-2 mb-3">
-                  <span > Lorem ipsum dolor sit amet, consectetur adipiscing elit. Egit liboro erat curcus.</span>
-
+                  <span>
+                    {" "}
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Egit liboro erat curcus.
+                  </span>
                 </div>
 
-                <Form form={form} name="validateOnly" layout="vertical" autoComplete="off">
+                <Form
+                  form={form}
+                  name="validateOnly"
+                  layout="vertical"
+                  autoComplete="off"
+                >
                   <Form.Item
                     rules={[
                       {
@@ -496,7 +510,6 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
                     name="title"
                     onChange={(e) => setTitle(e.target.value)}
                     label="Title"
-
                   >
                     <Input />
                   </Form.Item>
@@ -509,53 +522,62 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
                     name="description"
                     label="Question"
                     onChange={(e) => setDescription(e.target.value)}
-
                   >
-                    <div >
-                      <ReactQuill
+                    <div>
+                      {/* <ReactQuill
                         theme="snow"
                         value={editorHtml}
 
                         onChange={handleEditorChange}
                         style={{ height: "100px", }}
-                      />
+                      /> */}
                     </div>
-
                   </Form.Item>
 
-                  <Form.Item onChange={(e) => setUrl(e.target.value)} style={{ marginTop: "55px" }} label="Attachment" valuePropName="fileList" getValueFromEvent={normFile}>
+                  <Form.Item
+                    onChange={(e) => setUrl(e.target.value)}
+                    style={{ marginTop: "55px" }}
+                    label="Attachment"
+                    valuePropName="fileList"
+                    getValueFromEvent={normFile}
+                  >
                     <Upload
-
-                      name="url" action="/upload.do" listType="picture-card" style={{ height: "30px!important", }}>
+                      name="url"
+                      action="/upload.do"
+                      listType="picture-card"
+                      style={{ height: "30px!important" }}
+                    >
                       <button
                         style={{
                           border: 0,
-                          background: 'none',
-
+                          background: "none",
                         }}
                         type="button"
                       >
-                        <PlusOutlined />Add
+                        <PlusOutlined />
+                        Add
                       </button>
                     </Upload>
                   </Form.Item>
-                  <Form.Item label="Tags" rules={[
-                    {
-                      required: true,
-                    },
-
-                  ]}
+                  <Form.Item
+                    label="Tags"
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
                   >
                     <Space.Compact>
                       <Form.Item
-                        name={['Tag1', 'Tag2', 'Tag3', 'Tag4']}
+                        name={["Tag1", "Tag2", "Tag3", "Tag4"]}
                         noStyle
                         // rules={[{ required: true, message: 'Tags is required' }]}
-                        onChange={(e) => console.log("testing tag", e.target.value)}
-                      // onChange={handleTagsChange}
+                        onChange={(e) =>
+                          console.log("testing tag", e.target.value)
+                        }
+                        // onChange={handleTagsChange}
                       >
                         <Select
-
                           mode="multiple"
                           name="tag[]"
                           style={{
@@ -563,7 +585,6 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
                           }}
                           placeholder="select one Tag"
                           defaultValue={[]}
-
                           options={options}
                           optionRender={(option) => (
                             <Space>
@@ -575,13 +596,22 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
                           )}
                         />
                       </Form.Item>
-
                     </Space.Compact>
                   </Form.Item>
 
                   <Form.Item>
                     <Space>
-                      <div onClick={handleOk} className="btn" style={{ width: "470px", background: "#afaaaa", color: "white" }}>Post Question</div>
+                      <div
+                        onClick={handleOk}
+                        className="btn"
+                        style={{
+                          width: "470px",
+                          background: "#afaaaa",
+                          color: "white",
+                        }}
+                      >
+                        Post Question
+                      </div>
                     </Space>
                   </Form.Item>
                 </Form>
@@ -603,13 +633,13 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
                   height={56}
                   preview="false"
                   src={
-                    communityData?.data?.image_url ||
+                    communityData?.image_url ||
                     "https://tech24-uat.s3.amazonaws.com/D10dkiDJHM"
                   }
                   alt="profile"
                   name="url"
                 />
-                <h6>{communityData?.data?.name}</h6>
+                <h6>{communityData?.name}</h6>
                 <Image
                   loader={myImageLoader}
                   style={{ borderRadius: "2px", cursor: "pointer" }}
@@ -622,21 +652,21 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
               </div>
               <hr />
               <div className="cards-body">
-                {communityData?.data?.description}
+                {communityData?.description}
               </div>
               <hr />
               <div className="following-section">
                 <div>
                   <div className="head">Members</div>
                   <div className="count">
-                    {communityData?.data?.__meta__.total_members}
+                    {communityData?.__meta__.total_members}
                   </div>
                 </div>
                 <div className="custom-border"></div>
                 <div>
                   <div className="head">Questions</div>
                   <div className="count">
-                    {communityData?.data?.__meta__.total_posts}
+                    {communityData?.__meta__.total_posts}
                   </div>
                 </div>
               </div>
@@ -664,7 +694,6 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
     </Container>
   );
 };
-
 
 const mapStateToProps = (state) => {
   const { communitypost } = state;

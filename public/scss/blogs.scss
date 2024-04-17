@@ -179,13 +179,19 @@
     color: #00192f;
     display: flex;
     gap: 1rem;
-    .blog-list {
+    .blog-list,
+    .showHoverClass {
       width: 33.33%;
       .blog-card {
         img {
           border-radius: 6px;
           width: 350px;
           height: 210px;
+          transition: transform 0.5s ease;
+        }
+        .ant-image {
+          overflow: hidden;
+          border-radius: 6px;
         }
         .category {
           border-radius: 4px;
@@ -251,6 +257,11 @@
         font-weight: bolder;
         color: #ffffff;
       }
+    }
+  }
+  :hover {
+    .blog-card img {
+      transform: scale(1.15);
     }
   }
 }
