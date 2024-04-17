@@ -102,6 +102,7 @@ import Link from "next/link";
 import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.min.css";
+import moment from "moment";
 import SwiperCore, { Navigation } from "swiper/core";
 import { formatDistanceToNow } from 'date-fns';
 
@@ -206,6 +207,15 @@ class TrendingQuestion extends React.PureComponent {
     const { changeIcon, slides, hoverId } = this.state;
     const { trendingQuestions } = this.props;
 
+    const calculateTimeAgo = (createdAt) => {
+      const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
+      const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
+      const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
+      const duration = moment.duration(diffMilliseconds);
+      const humanReadableDiff = duration.humanize(true);
+      return humanReadableDiff;
+    };
+
     return (
       <Container>
         <div className="top-question">
@@ -298,7 +308,8 @@ class TrendingQuestion extends React.PureComponent {
                                 style={{ minWidth: "70%" }}
                               >
                                 <h6>{data?.visitor?.name}</h6>
-                                <p>{data.created_at}</p>
+                                <p>{data.created_at}{" "}{calculateTimeAgo(data?.created_at)}</p>
+                                
                               </div>
                             </div>
 

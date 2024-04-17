@@ -44,7 +44,7 @@ const LatestResearchCard = ({ title, date, description }) => {
                       "images/img_not_available.jpg"
                     }
                     alt=""
-                    layout="raw"
+                    // layout="raw"
                     width={380}
                     height={283}
                     style={{

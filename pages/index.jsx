@@ -157,9 +157,9 @@ class Home extends React.PureComponent {
             </Container>
           </section>
           <Categories />
-          {/* <LatestResearch /> */}
         </section>
         <section>
+          <LatestResearch />
           <TopConsultant />
           {/* <TrendingQuestion trendingQuestions={trendingQuestions} /> */}
           <TopQuestion trendingQuestions={trendingQuestions} />
