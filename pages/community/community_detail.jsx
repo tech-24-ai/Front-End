@@ -14,9 +14,9 @@ import { crudService } from "../../_services";
 import { Button, Modal } from "antd";
 import { Form, Space, Upload } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import "draft-js/dist/Draft.css";
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css'; // Import Quill styles
+// import "draft-js/dist/Draft.css";
+// import ReactQuill from 'react-quill';
+// import 'react-quill/dist/quill.snow.css'; // Import Quill styles
 import community from ".";
 const SubmitButton = ({ form, children }) => {
   const [submittable, setSubmittable] = React.useState(false);
@@ -523,7 +523,7 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
                     label="Question"
                     onChange={(e) => setDescription(e.target.value)}
                   >
-                    <div>
+                    {/* <div>
                       <ReactQuill
                         theme="snow"
                         value={editorHtml}
@@ -531,7 +531,7 @@ const Profile = ({ getAllCrud, visitor_queries_history }) => {
                         onChange={handleEditorChange}
                         style={{ height: "100px", }}
                       />
-                    </div>
+                    </div> */}
                   </Form.Item>
 
                   <Form.Item

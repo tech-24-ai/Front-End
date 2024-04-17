@@ -40,7 +40,8 @@
         width: 33.33%;
         .research-card {
           img {
-            border-radius: 6px;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
             width: 350px;
             height: 210px;
           }
