@@ -103,6 +103,9 @@ import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.min.css";
 import SwiperCore, { Navigation } from "swiper/core";
+import { formatDistanceToNow } from 'date-fns';
+
+
 let counter = 7;
 
 class TrendingQuestion extends React.PureComponent {
