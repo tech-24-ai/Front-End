@@ -1572,6 +1572,17 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      .label-counter {
+        z-index: 9;
+        position: absolute;
+        left: 55px;
+        top: 55px;
+        color: #fff;
+        font-size: 12px;
+        padding: 0px 4px;
+        background: #0074d9;
+        border-radius: 50%;
+      }
       h6 {
         margin: 0px 8px;
         font-weight: 500;
