@@ -1,114 +1,340 @@
-.latest-research {
-    p {
-      padding: 0;
-      margin: 0;
+.researchs-section {
+  // background-color: $bodyBackgroundColor;
+  background-color: #ffffff;
+  .research-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 100px 0px;
+    flex-direction: column;
+    .tags {
+      width: 100%;
+      white-space: pre-line;
     }
-    margin: 4rem 0;
-    .title-section {
+    .admin-text {
+      // color: $backgroundColor;
+      color: #54616c;
+      font: "12px";
+      font-weight: 300;
+      font-size: 12px;
+    }
+    .profile-icons {
+      object-fit: contain;
+      margin: 0px 10px 0px 20px;
+    }
+    .profile-icons:first-child {
+      object-fit: contain;
+      margin: 0px 10px 0px 0px;
+    }
+    .research-card {
+      border-radius: 10px;
+      width: 100%;
+      height: 480px;
+      border: 0;
+      // height: 547px;
+    }
+    .ant-card-hoverable:hover {
+      border-color: transparent;
+      box-shadow: none !important;
+    }
+    .card-heading {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 20px;
+      // color: $textBlack;
+      text-transform: uppercase;
+      width: max-content;
+      color: #0074d9;
+      padding: 8px 10px;
+      border: 1px solid #005dd4;
+      border-radius: 5px;
+      background-color: #e8f3fd;
+    }
+    .ant-card-body {
+      padding: 24px;
+      padding-left: 0;
+    }
+    .researchs-card-body {
+      font-weight: 500;
+      font-size: 20px;
+      font-family: "Inter";
+      line-height: 26px;
+      min-height: 50px;
+      opacity: 0.8;
+      padding: 0px;
+      color: #00192f;
+    }
+    .read-more {
+      position: absolute;
+      bottom: 20px;
+      font-weight: 600;
+      font-size: 16px;
+      color: $textBlack;
+    }
+    .recent-header-text {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .recent-body-text {
+      font-size: 14px;
+      font-weight: 400;
+    }
+    .div-one {
+      padding: 15px;
+      width: 30%;
+      background-color: #ffffff;
+      border-radius: 10px;
+    }
+    .recent-container {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+    }
+    .second-div {
+      display: flex;
+      flex-wrap: wrap;
+      row-gap: 15px;
+      column-gap: 10px;
+      margin-left: 12px;
+      width: 100%;
+      align-content: baseline;
+
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .search-container {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 1rem;
-  
-      .title {
-        color: #54616c;
+      align-items: center;
+      height: 50px;
+      line-height: 50px;
+      border: 1px solid $textBlack;
+      border-radius: 20px;
+      padding: 3px 5px;
+      margin: 20px 0px;
+      p {
+        font-size: 20px;
         font-weight: 400;
-        font-size: 1.5rem;
-        line-height: 2rem;
-        &.bg {
-          color: $backgroundColor;
-          font-weight: 500;
-          font-size: 1.5rem;
-          line-height: 2rem;
-        }
-      }
-  
-      .view-more {
-        color: $backgroundColor;
-        font-size: 1rem;
-        font-weight: 400;
-        line-height: 1.5rem;
-        text-decoration: underline;
-        cursor: pointer;
+        letter-spacing: -1px;
+        color: $textBlack;
+        margin: 0px;
+        padding: 0px;
       }
     }
-  
-    .research-section {
-      color: #00192f;
-      display: flex;
-      gap: 1rem;
-      .research-list {
-        width: 33.33%;
-        .research-card {
-          img {
-            border-top-left-radius: 6px;
-            border-top-right-radius: 6px;
-            width: 350px;
-            height: 210px;
+    .tags {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0em;
+      text-align: center;
+      border: 1px solid #000;
+      border-radius: 100px;
+      padding: 7px 16px 7px 16px;
+      margin: 0px 10px;
+    }
+    .ant-tag-checkable-checked {
+      background-color: $backgroundColor;
+      color: $textColor;
+    }
+    .ant-tag-checkable:not(.ant-tag-checkable-checked):hover {
+      color: unset;
+    }
+  }
+}
+
+.latest-research {
+  p {
+    padding: 0;
+    margin: 0;
+  }
+  margin: 4rem 0 1rem 0;
+  .title-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+
+    .title {
+      color: #54616c;
+      font-weight: 400;
+      font-size: 1.5rem;
+      line-height: 2rem;
+      &.bg {
+        color: $backgroundColor;
+        font-weight: 500;
+        font-size: 1.5rem;
+        line-height: 2rem;
+      }
+    }
+
+    .view-more {
+      color: $backgroundColor;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5rem;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+
+  .research-section {
+    color: #00192f;
+    display: flex;
+    gap: 1rem;
+    .research-list,
+    .showHoverClass {
+      width: 33.33%;
+      .research-card {
+        img {
+          border-top-left-radius: 6px;
+          border-top-right-radius: 6px;
+          width: 350px;
+          height: 210px;
+          transition: transform 0.5s ease;
+        }
+        .ant-image {
+          overflow: hidden;
+          border-top-left-radius: 6px;
+          border-top-right-radius: 6px;
+        }
+        .category {
+          border-radius: 4px;
+          border: 1px solid $backgroundColor;
+          color: $backgroundColor;
+          padding: 4px 6px;
+          width: fit-content;
+          margin: 1rem 0;
+          &.bg {
+            background-color: rgba($backgroundColor, 0.2);
           }
-          .category {
-            border-radius: 4px;
-            border: 1px solid $backgroundColor;
-            color: $backgroundColor;
-            padding: 4px 6px;
-            width: fit-content;
-            margin: 1rem 0;
-            &.bg {
-              background-color: rgba($backgroundColor, 0.2);
-            }
-          }
-  
-          .research-heading {
-            font-weight: 500;
-            font-size: 20px;
-            line-height: 30px;
-          }
-  
-          .research-detail {
+        }
+
+        .research-heading {
+          font-weight: 500;
+          font-size: 1.25rem;
+          line-height: 2rem;
+        }
+
+        .research-detail {
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 20px;
+        }
+
+        .date-section {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          color: #54616c;
+          margin-top: 2rem;
+          font-size: 12px;
+          position: relative;
+          .date {
+            line-height: 18px;
             font-weight: 400;
-            font-size: 14px;
-            line-height: 20px;
+            padding: 0 5px;
           }
-  
-          .date-section {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            color: #54616c;
-            margin-top: 1rem;
-            font-size: 12px;
-            position: relative;
-            .date {
-              line-height: 18px;
-              font-weight: 400;
-              padding: 0 5px;
-            }
-  
-            .time {
-              padding: 0 5px;
-              // border-left: 1.5px solid #54616c;
-            }
+
+          .time {
+            padding: 0 5px;
+            // border-left: 1.5px solid #54616c;
           }
         }
       }
-  
-      .view-more-icon {
-        position: absolute;
-        border: 2px solid #ffffff;
-        right: 105px;
-        margin-top: 14%;
-        height: 40px;
-        width: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        background-color: $backgroundColor;
-        cursor: pointer;
-        .anticon-arrow-right {
-          font-size: 1rem;
-          font-weight: bolder;
-          color: #ffffff;
+    }
+
+    .view-more-icon {
+      position: absolute;
+      border: 2px solid #ffffff;
+      right: 105px;
+      margin-top: 14%;
+      height: 40px;
+      width: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-color: $backgroundColor;
+      cursor: pointer;
+      .anticon-arrow-right {
+        font-size: 1rem;
+        font-weight: bolder;
+        color: #ffffff;
+      }
+    }
+  }
+  :hover {
+    .showHoverClass img {
+      transform: scale(1.15);
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .main-content.researchs {
+    min-height: 100vh;
+    padding-bottom: 190px !important;
+  }
+  .researchs-section {
+    .page-banner .banner-bg .banner-container {
+      padding: 2rem 0;
+      .banner-image-container {
+        display: none;
+      }
+    }
+
+    .research-container {
+      margin: 2rem 0;
+      display: flex;
+      flex-direction: column;
+      .div-one {
+        width: 100%;
+      }
+      .second-div {
+        width: 100%;
+        margin-left: 0;
+        grid-template-columns: repeat(1, 1fr);
+        .research-card {
+          width: 100%;
+          height: auto;
+          .ant-card-cover {
+            img {
+              height: 150px;
+            }
+          }
+          .ant-card-body {
+            p.card-heading {
+              font-size: 16px;
+              line-height: 20px;
+              margin-bottom: 4rem;
+            }
+            p.researchs-card-body {
+              display: none;
+            }
+
+            .read-more {
+              padding: 0;
+            }
+          }
         }
       }
     }
   }
+}
+
+// For Scale 125% (Zoom Level)
+@media (min-width: 1536px) and (max-width: 1920px) {
+  .research-section {
+    .research-list {
+      .research-card {
+        img {
+          width: 412px !important;
+          height: 250px !important;
+        }
+      }
+    }
+
+    .view-more-icon {
+      margin-top: 14% !important;
+      right: 110px !important;
+    }
+  }
+}
