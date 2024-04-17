@@ -369,7 +369,14 @@ const Community = ({ router }) => {
                                                                         Join Community
                                                                     </Button>
                                                                 ) : (
-                                                                    <p style={{ textAlign: "left", width: "100%", paddingLeft: "5px", marginTop: "14px" }}>
+                                                                    <p style={{
+                                                                            textAlign: "left",
+                                                                            width: "100%",
+                                                                            paddingLeft: "5px",
+                                                                            marginTop: "14px",
+                                                                            fontWeight: "600",
+                                                                            fontFamily: "Inter"
+                                                                             }}>
                                                                         Member since {item.communityMember[0]?.created_at ? parseDate(item.communityMember[0].created_at) : 'N/A'}
                                                                     </p>
                                                                 )}

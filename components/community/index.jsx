@@ -15,6 +15,7 @@ import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.min.css";
 import SwiperCore, { Navigation } from "swiper/core";
+import moment from 'moment';
 
 SwiperCore.use([Navigation]);
 
@@ -114,9 +115,14 @@ class CommunityCategory extends React.PureComponent {
     Router.push(url);
   };
 
+  joinCommunity = (community_id) => {
+    crudService._create("community/join", { community_id })
+      .then(() => window.location.reload());
+  };
+
   render() {
     const { changeIcon, slides, hoverId } = this.state;
-    
+    const { slide } = this.props;
     const { data } = this.props;
     if (!Array.isArray(data)) {
       return (
@@ -168,8 +174,8 @@ class CommunityCategory extends React.PureComponent {
                         key={index}>
                         <div className="category-content">
                           <div className="content-head">
-                            <div  
-                             className="icon-bg">
+                            <div
+                              className="icon-bg">
                               <Image
                                 className="icon-image"
                                 style={{ borderRadius: "4.8px" }}
@@ -182,11 +188,11 @@ class CommunityCategory extends React.PureComponent {
                             <div
                               className="category-text"
                             >
-                              <h6 style={{ margin: "0", fontFamily: "Poppins"}}>{slide.name}</h6>
+                              <h6 style={{ margin: "0", fontFamily: "Poppins" }}>{slide.name}</h6>
                             </div>
                           </div>
                           <div className="content-structure">
-                              <p className="card-description">{slide.description}</p>
+                            <p className="card-description">{slide.description}</p>
                             <div className="content-x">
                               <div className="user-icon">
                                 <p>
@@ -201,7 +207,24 @@ class CommunityCategory extends React.PureComponent {
                             </div>
                             <hr className="dotted" />
                             <div className="learn-more-box">
-                              <Button className="btn-box">Join Community</Button>
+                              {slide.communityMember.length === 0 ? (
+                                <Button className="btn-box"
+                                  onClick={() => this.joinCommunity(slide.id)}
+                                >
+                                  Join Community
+                                </Button>
+                              ) : (
+                                <p style={{
+                                  textAlign: "left",
+                                  width: "100%",
+                                  paddingLeft: "5px",
+                                  marginTop: "14px",
+                                  fontWeight: "600",
+                                  fontFamily: "Inter"
+                                }}>
+                                  Member since {moment(slide.communityMember[0]?.created_at).format("MMMM DD, YYYY")}
+                                </p>
+                              )}
                             </div>
                           </div>
 
