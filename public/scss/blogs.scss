@@ -10,6 +10,31 @@
       width: 100%;
       white-space: pre-line;
     }
+
+    .category {
+      border-radius: 4px;
+      border: 1px solid $backgroundColor;
+      color: $backgroundColor;
+      padding: 4px 6px;
+      width: fit-content;
+      margin: 1rem 0;
+      &.bg {
+        background-color: rgba($backgroundColor, 0.2);
+      }
+    }
+
+    .blog-heading {
+      font-weight: 500;
+      font-size: 1.25rem;
+      line-height: 2rem;
+    }
+
+    .blog-detail {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+    padding: 0;
+    }
     .admin-text {
       // color: $backgroundColor;
       color: #54616c;
@@ -25,6 +50,7 @@
       object-fit: contain;
       margin: 0px 10px 0px 0px;
     }
+   
     .blog-card {
       border-radius: 10px;
       width: 100%;
@@ -32,36 +58,56 @@
       border: 0;
       // height: 547px;
     }
+
+    .blog-card img{
+      border-radius: 6px;
+    width: 350px;
+    height: 210px;
+    }
+
+    // .second-div p {
+    //   margin: 0;
+    //   padding: 0;
+    // }
     .ant-card-hoverable:hover {
       border-color: transparent;
       box-shadow: none !important;
     }
     .card-heading {
-      font-weight: 500;
-      font-size: 16px;
+       font-weight: 500;
+      //  font-size: 16px;
       line-height: 20px;
       // color: $textBlack;
       text-transform: uppercase;
-      width: max-content;
-      color: #0074d9;
-      padding: 8px 10px;
-      border: 1px solid #005dd4;
-      border-radius: 5px;
+      // width: max-content;
+      // color: #0074d9;
+      // padding: 8px 10px;
+      // border: 1px solid #005dd4;
+      // border-radius: 5px;
       background-color: #e8f3fd;
+      border-radius: 4px;
+      border: 1px solid #075aee;
+      color: #075aee;
+      padding: 4px 6px;
+      width: -moz-fit-content;
+      width: fit-content;
+      margin: 1rem 0;
     }
     .ant-card-body {
       padding: 24px;
       padding-left: 0;
     }
     .blogs-card-body {
-      font-weight: 500;
-      font-size: 20px;
       font-family: "Inter";
-      line-height: 26px;
+      // line-height: 26px;
       min-height: 50px;
-      opacity: 0.8;
+      // opacity: 0.8;
       padding: 0px;
       color: #00192f;
+
+      font-weight: 500;
+    font-size: 1.25rem;
+    line-height: 2rem;
     }
     .read-more {
       position: absolute;
@@ -216,6 +262,8 @@
           font-size: 14px;
           line-height: 20px;
         }
+
+        
 
         .date-section {
           display: flex;

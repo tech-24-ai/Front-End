@@ -5,7 +5,7 @@ import rightArrow from "../../public/new_images/right-arrow.svg";
 import myImageLoader from "../../components/imageLoader";
 import { SearchOutlined } from "@ant-design/icons";
 import { Card, Space } from "antd";
-
+import moment from "moment";
 const options = {
   day: "numeric",
   month: "long",
@@ -89,7 +89,44 @@ class Blogs extends Component {
           />
           <Container className="blog-container">
             <h4 style={{ color: "#005dd4", paddingLeft: "14px", paddingBottom: "20px" }}>Blogs</h4>
+            <div className="row">
             <div className="second-div">
+              {this.state.posts.length > 0
+                ? this.state.posts.map((post, key) => (
+                  <div className="blog-list">
+                    <div className="blog-card" style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between' }}>
+                      <div>
+                        <Image
+                          width={350}
+                          height={210}
+                          src={post.image}
+                          preview={false}
+                          alt=""
+                          placeholder="blog banner"
+                        />
+                        <p className="category bg">{post.blog_topic_name}</p>
+                        <p className="blog-heading">{post.name}</p>
+                        <p className="blog-detail" >{post.details}</p>
+                      </div>
+                      <div className="date-section">
+                        <div className="date">
+                          {moment(post.created_at).format("LL")}
+                        </div>
+                        <div className="custom-divider"></div>
+                        {/* {<div className="time">10 min read</div>} */}
+                      </div>
+                    </div>
+                  </div>
+                )) : this.state.posts && this.state.posts.length == 0
+                  ? <p style={{ padding: "20px" }}>
+                    No Blogs
+                  </p>
+                  : ""}
+
+
+            </div>
+            </div>
+            {/* <div className="second-div">
               {this.state.posts.length > 0
                 ? this.state.posts.map((post, key) => (
                   <Link href={`blogs/${post.slug}`}>
@@ -107,7 +144,7 @@ class Blogs extends Component {
                               : "images/img_not_available.jpg"
                           }
                           alt=""
-                          layout="raw"
+                          
                           width={380}
                           height={283}
                           style={{
@@ -121,7 +158,6 @@ class Blogs extends Component {
                     >
                       <p className="card-heading">{post.blog_topic_name}</p>
                       <p className="blogs-card-body">{post.name}</p>
-                      {/* <p className="blogs-card-text">{post.name}</p> */}
                       <div style={{ display: "flex" }}>
                         <ProfileIcon />
                         <p className="admin-text">Admin</p>
@@ -142,7 +178,8 @@ class Blogs extends Component {
                     No Blogs
                   </p>
                   : ""}
-            </div>
+            </div> */}
+            
           </Container>
         </section>
       </>

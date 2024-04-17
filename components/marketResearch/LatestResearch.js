@@ -45,7 +45,7 @@ const LatestResearch = () => {
       <div className="latest-research">
         <div className="title-section">
           <p className="title">
-            Latest <span className="title bg">Researchs</span>
+            Latest <span className="title bg">Research</span>
           </p>
           <Link href="researchs">
             <p className="view-more">View more</p>
