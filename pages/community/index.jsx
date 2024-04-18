@@ -15,7 +15,6 @@ import PageBanner from "../../components/card/pageBanner";
 import { SearchOutlined } from "@ant-design/icons";
 import { UsergroupAddOutlined } from "@ant-design/icons";
 import { MessageOutlined } from "@ant-design/icons";
-
 import blogsBannerImage from "../../public/new_images/blogs-bg.svg";
 import React from "react";
 import { TreeSelect } from "antd";
@@ -139,7 +138,11 @@ const Community = ({ community, getAllCrud }) => {
       }, 300);
     });
 
-  
+  // const onChange = (newValue) => {
+  //     const selectedCommunity = allCommunityFeature.find(feature => feature.name === newValue);
+  //     setAllCommunityFeature(selectedCommunity ? [selectedCommunity] : []);
+  //     setValue(newValue);
+  // };
   const onChange = (newValue) => {
     const selectedAllCommunity = allCommunityFeature.find(
       (feature) => feature.name === newValue
@@ -152,10 +155,12 @@ const Community = ({ community, getAllCrud }) => {
     setTopRatedCommunityFeature(
       selectedTopRatedCommunity ? [selectedTopRatedCommunity] : []
     );
-
+    Router.push({
+      pathname: "/community/query_detail",
+      query: { value: newValue },
+    });
     setValue(newValue);
   };
-
 
   return (
     <section className="community-section community-listing-page mt-4" style={{background: "#fff"}}>
@@ -177,12 +182,12 @@ const Community = ({ community, getAllCrud }) => {
                 defaultValue={value}
                 showSearch={true}
                 dropdownStyle={{
-                  maxHeight: 400,
+                  maxHeight: 90,
                   overflow: "auto",
                 }}
                 placeholder="Search anything..."
                 onChange={onChange}
-                loadData={onLoadData}
+                // loadData={onLoadData}
                 treeData={arrData}
                 style={{ width: "100%", height: "", color: "#fff" }}
                 suffixIcon={<SearchOutlined />}
