@@ -46,6 +46,11 @@
       object-fit: contain;
       margin: 0px 10px 0px 20px;
     }
+    .blog-section {
+      color: #00192f;
+      // display: flex;
+      gap: 1rem;
+  }
     .profile-icons:first-child {
       object-fit: contain;
       margin: 0px 10px 0px 0px;
@@ -57,6 +62,9 @@
       height: 480px;
       border: 0;
       // height: 547px;
+    }
+    .blog-list{
+      display: flex;
     }
 
     .blog-card img{
