@@ -593,7 +593,7 @@ const Profile = ({
             <div>
               <h6>Contact Number</h6>
               <h5>
-                { (visitorprofile?.mobile && visitorprofile?.country_code) ? `+${visitorprofile?.country_code} ` : "-"}
+                { (visitorprofile?.mobile && visitorprofile?.country_code) ? `+${visitorprofile?.country_code} ` : ""}
                 {visitorprofile?.mobile || "-"}
                 {!visitorprofile?.mobile && (
                   <div onClick={() => setIsModalOpen(true)} className="add">
@@ -1091,7 +1091,7 @@ const Profile = ({
               />
               <p className="profile-badge">{visitorcommunityprofile?.data[0]?.current_level}</p>
 
-              <div className="level">Level {visitorcommunityprofile?.data[0]?.current_level}: {visitorcommunityprofile?.data[0]?.current_badge}</div>
+              <div className="level">Level {visitorcommunityprofile?.data[0]?.current_level} {(visitorcommunityprofile?.data[0]?.current_badge) ? `: ${visitorcommunityprofile?.data[0]?.current_badge}` : ""}</div>
               <div>
                 <span>{visitorcommunityprofile?.data[0]?.level_up_points}</span>{" "}
                 {visitorcommunityprofile?.data[0]?.level_up_text}
