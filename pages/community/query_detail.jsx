@@ -66,50 +66,47 @@ const Community = ({ router }) => {
     const [isSearchActive, setIsSearchActive] = useState(false);
 
     const { value } = Router.query;
-
+  
     useEffect(() => {
         const getAllPosts = async () => {
             try {
-                const data = await crudService._getAll("community");
-                console.log("data", data);
+                const data = await crudService._getAll("community", { search: searchQuery });
                 setCommunityFeature(data.data);
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
         };
         getAllPosts();
-    }, []);
-  
-   
+    }, [searchQuery]);
+
     useEffect(() => {
         if (value) {
             setSearchQuery(value);
         }
     }, [value]);
-    console.log("value", value);
+    
+
     useEffect(() => {
         const filtered = communityFeature.filter(item =>
             item.name.toLowerCase().includes(searchQuery.toLowerCase())
         );
         setFilteredData(filtered);
     }, [searchQuery, communityFeature]);
-  
+   
+
     //Filter
-    const filteredDataLength = filteredData.length;
     const handleSearch = (e) => {
         setSearchQuery(e.target.value);
         setCurrentPage(0);
         setIsSearchActive(e.target.value.trim() !== "");
     };
+   
     // Pagination
     const slicedData = filteredData.slice(
         currentPage * itemsPerPage,
         (currentPage + 1) * itemsPerPage
     );
-    // const slicedData = communityFeature.slice(
-    //     currentPage * itemsPerPage,
-    //     (currentPage + 1) * itemsPerPage
-    // );
+  
 
     let arrData = [];
     communityFeature?.map((item) => {
@@ -122,11 +119,9 @@ const Community = ({ router }) => {
         arrData.push(data);
     });
 
-    const [formData, setFormData, communitypost] = useState({
-        // Initialize form data fields
+    const [formData, setFormData] = useState({
         query: "",
         tag: "",
-        // Add more fields as needed
     });
     const parseDate = (dateString) => {
         const [datePart, timePart] = dateString.split(' ');
@@ -140,18 +135,6 @@ const Community = ({ router }) => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            // const response =   await crudService._getAll("communitypost",formData);
-            const response = await axios.post("communitypost", formData);
-            console.log("Data added successfully:", formData);
-            // Optionally, update UI or show success message
-        } catch (error) {
-            console.error("Error adding data:", error);
-            // Optionally, show error message
-        }
-    };
 
     const [activeIndex, setActiveIndex] = useState(null);
 
@@ -306,7 +289,7 @@ const Community = ({ router }) => {
                         >
                             <div className="result-sort">
                                 <div className="results"> 
-                                    Results: {isSearchActive ? filteredDataLength : communityFeature.length}
+                                Results: {communityFeature.length}
                                 </div>
                                 <div className="sorting mobile-display-n">
                                     <label className="sortby" htmlFor="sortDropdown">Sort By: </label>
@@ -321,7 +304,7 @@ const Community = ({ router }) => {
                                 {slicedData.map((item, index) => (
                                     <div
                                         className="col-6 community-category-below community-category-mobile"
-                                        style={{ marginTop: "-1rem", height: "324px", paddingRight: "0px" }}
+                                        style={{ marginTop: "-1rem", height: "324px", paddingRight:  "0px"}}
                                     >
                                         <div
                                             className="category-box"

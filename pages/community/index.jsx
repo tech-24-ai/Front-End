@@ -3,7 +3,7 @@ import { withRouter } from "next/router";
 import { Container, Input } from "reactstrap";
 import { crudService } from "../../_services";
 import SearchInput from "../../components/form/searchInput";
-import Image from "next/image";
+import Image from "next/future/image";
 import CommunityImage from "../../public/images/communityList.png";
 import CheckableTag from "antd/lib/tag/CheckableTag";
 import { DateIcon, ProfileIcon } from "../../components/icons";
@@ -73,7 +73,7 @@ const Community = ({ community, getAllCrud }) => {
     const searchPosts = async () => {
       try {
         const data = await crudService._getAll("community", { search: value });
-        console.log("data", data);
+        // console.log("data", data);
         setCommunityFeature(data.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -83,28 +83,13 @@ const Community = ({ community, getAllCrud }) => {
       searchPosts();
     }, 300);
   }, [value]);
-  console.log("search", search);
-
-  // useEffect(() => {
-  //     const getAllPosts = async () => {
-  //         try {
-  //             const data = await crudService._getAll("community");
-  //             console.log("data", data);
-  //             setCommunityFeature(data.data);
-  //         } catch (error) {
-  //             console.error("Error fetching data:", error);
-  //         }
-  //     };
-  //     getAllPosts();
-  // }, []);
+  
 
   const handleViewAll = () => {
     Router.push("/community/query_detail");
   };
 
   let arrData = [];
-
-  console.log("communityFeature", communityFeature);
 
   communityFeature?.map((item) => {
     const random = Math.random().toString(36).substring(2, 6);
@@ -116,27 +101,27 @@ const Community = ({ community, getAllCrud }) => {
     arrData.push(data);
   });
 
-  console.log("tree data", arrData);
+  // console.log("tree data", arrData);
 
-  const genTreeNode = (parentId, isLeaf = false) => {
-    const random = Math.random().toString(36).substring(2, 6);
-    return {
-      id: random,
-      pId: parentId,
-      value: random,
-      title: isLeaf ? "Tree Node" : "Expand to load",
-      isLeaf,
-    };
-  };
-  const onLoadData = ({ id }) =>
-    new Promise((resolve) => {
-      setTimeout(() => {
-        // setTreeData(
-        //     treeData.concat([genTreeNode(id, false), genTreeNode(id, true), genTreeNode(id, true)]),
-        // );
-        resolve(undefined);
-      }, 300);
-    });
+  // const genTreeNode = (parentId, isLeaf = false) => {
+  //   const random = Math.random().toString(36).substring(2, 6);
+  //   return {
+  //     id: random,
+  //     pId: parentId,
+  //     value: random,
+  //     title: isLeaf ? "Tree Node" : "Expand to load",
+  //     isLeaf,
+  //   };
+  // };
+  // const onLoadData = ({ id }) =>
+  //   new Promise((resolve) => {
+  //     setTimeout(() => {
+  //       // setTreeData(
+  //       //     treeData.concat([genTreeNode(id, false), genTreeNode(id, true), genTreeNode(id, true)]),
+  //       // );
+  //       resolve(undefined);
+  //     }, 300);
+  //   });
 
   // const onChange = (newValue) => {
   //     const selectedCommunity = allCommunityFeature.find(feature => feature.name === newValue);

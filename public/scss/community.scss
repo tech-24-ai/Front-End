@@ -170,8 +170,8 @@
   }
 }
 
-.ant-upload.ant-upload-select-picture-card{
-  height: 30px!important;
+.ant-upload.ant-upload-select-picture-card {
+  height: 30px !important;
 }
 .accordion {
   border: 1px solid #ccc;
@@ -614,6 +614,35 @@
       }
     }
   }
+  .community-listing-page {
+    .container {
+      // padding-right: 0 !important;
+      padding-left: 1.5rem !important;
+      padding-right: 1.5rem !important;
+      .banner-container {
+        padding-bottom: 0 !important;
+        .banner-image-container span,
+        .banner-image-container img {
+          width: 558px !important;
+          padding-bottom: 0 !important;
+          height: 330px !important;
+        }
+      }
+    }
+  }
+  .view-more-icon{
+    display: none;
+  }
+  .dotted-background {
+  position: absolute;
+  bottom: 10px; /* Adjust the distance from the bottom as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px; /* Adjust the width of the dotted background */
+  height: 4px; /* Adjust the height of the dotted background */
+  background-image: radial-gradient(circle, #000 10%, transparent 10%);
+  background-size: 3px 3px; /* Adjust the size of the dots */
+}
 }
 
 // For Scale 125% (Zoom Level)
