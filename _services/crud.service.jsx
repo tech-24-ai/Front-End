@@ -11,6 +11,7 @@ export const crudService = {
   _delete,
   _download,
   _downloadWithPost,
+  _upload
 };
 const { dispatch } = store;
 
@@ -29,6 +30,16 @@ function _update(type, id, data) {
 }
 function _delete(type, id) {
   return apiConfig.delete(`/${type}/${id}`);
+}
+function _upload(type, file) {
+  const formData = new FormData();
+  formData.append("file", file);
+  const config = {
+    headers: {
+      "content-type": "multipart/form-data",
+    },
+  };
+  return apiConfig.post(type, formData, config);
 }
 
 function _download(type) {

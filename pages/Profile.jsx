@@ -427,7 +427,7 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { Tabs, Card, Input, Select, Slider, Modal, Button } from "antd";
+import { Tabs, Card, Input, Select, Slider, Modal, Button, Upload } from "antd";
 import { Container } from "reactstrap";
 import myImageLoader from "../components/imageLoader";
 import Online_image from "../public/new_images/online_icon.svg";
@@ -443,7 +443,8 @@ import Router from "next/router";
 import moment from "moment";
 import { crudService } from "../_services";
 import { isMobile } from "react-device-detect";
-import { SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined, PlusOutlined, LoadingOutlined } from "@ant-design/icons";
+import profile_img from "../public/new_images/profile.svg";
 
 const Profile = ({
   getAllCrud,
@@ -464,6 +465,9 @@ const Profile = ({
     mobile: "",
     profile_pic_url: "",
   });
+  const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [sortBy, setSortBy] = useState("recent");
 
   const onChange = (key) => {
     console.log(key);
@@ -485,6 +489,45 @@ const Profile = ({
     setIsModalOpen(false);
   };
 
+  const beforeUpload = (file) => {
+    setFile(file);
+    return false;
+  };
+
+  const removeProfilePic = () => {
+    setUpdateProfileData((prev) => ({
+      ...prev,
+      profile_pic_url: '',
+    }));
+  }
+
+  const handleFileChange = () => {
+    setLoading(true);
+    if (file) {
+      if (file.size / (1024 * 1024) > 100) {
+        warning("Maximum file size is 1MB!");
+        setLoading(false);
+        setFile(null);
+      } else {
+        crudService
+          ._upload("uploadimage", file)
+          .then((data) => {
+            // File uploaded successfully, update state and handle any further actions
+            setUpdateProfileData((prev) => ({
+              ...prev,
+              profile_pic_url: data.data?.result,
+            }));
+            setLoading(false);
+          })
+          .catch((error) => {
+            console.log("asdasd")
+            console.log("error", error);
+            setLoading(false);
+          });
+      }
+    }
+  };
+
   useEffect(() => {
     getAllCrud("visitorcommunityprofile", "visitorcommunityprofile");
     getAllCrud("visitorprofile", "visitorprofile");
@@ -499,7 +542,7 @@ const Profile = ({
   };
 
   const countyList = countries?.map((item) => {
-    return { value: item.phonecode, label: item.phonecode };
+    return { value: item.phonecode, label: `+${item.phonecode}` };
   });
 
   const updateProfile = () => {
@@ -546,7 +589,7 @@ const Profile = ({
             <h6>First Name</h6>
             <h5 style={{ textTransform: "capitalize"}}>{firstname || ""}</h5>
           </div>
-          {isMobile && <hr />}
+          
           <div>
             <h6>Last Name</h6>
             <h5 style={{ textTransform: "capitalize"}}>{lastname || "-"}</h5>
@@ -558,7 +601,7 @@ const Profile = ({
             <h6>Country/Region</h6>
             <h5>{visitorprofile?.country?.name || "-"}</h5>
           </div>
-          {isMobile && <hr />}
+          
           <div>
             <h6>City/District</h6>
             <h5>{visitorprofile?.visitor_ip_city || "-"}</h5>
@@ -570,7 +613,7 @@ const Profile = ({
             <h6>Job Title</h6>
             <h5>{visitorprofile?.designation || "-"}</h5>
           </div>
-          {isMobile && <hr />}
+          
           <div>
             <h6>Company Name</h6>
             <h5>{visitorprofile?.company || "-"}</h5>
@@ -582,7 +625,7 @@ const Profile = ({
             <h6>Email</h6>
             <h5>{visitorprofile?.email}</h5>
           </div>
-          {isMobile && <hr />}
+          
           <div
             // style={{
             //   display: !visitorprofile?.mobile && isMobile && "flex",
@@ -686,6 +729,7 @@ const Profile = ({
               onChange={onSearch}
               style={{
                   width: "67%",
+                  height: "50px",
                   padding: "10px",
                   border: "1px solid #ccc",
                   borderRadius: "5px",
@@ -724,11 +768,7 @@ const Profile = ({
           {visitor_community?.map((data) => (
             <Card
               bordered={true}
-              style={{
-                width: 317,
-                height: "fit-content",
-                boxShadow: "0px 0px 16px 0px #0000001A",
-              }}
+              className="community-card"
             >
               <div className="cards-header">
                 <Image
@@ -797,13 +837,35 @@ const Profile = ({
     return (
       <div className="community-tab-container questions-tab-container">
         <div className="search-container">
-          <Search
+          {/* <Search
             style={{ width: "65%" }}
             placeholder="Search a question..."
             onSearch={onSearch}
             enterButton
+          /> */}
+          <Input
+              placeholder="Search a question..."
+              prefix={<SearchOutlined style={{ color: "#0074D9", padding: "0 6px" }} />}
+              value=""
+              style={{
+                  width: "67%",
+                  height: "50px",
+                  padding: "10px",
+                  border: "1px solid #D9DFE9",
+                  borderRadius: "5px",
+                  background: "#ffffff",
+                  boxSizing: "border-box",
+              }}
           />
-          <Select
+
+          <div className="sorting">
+              <label className="sortby" htmlFor="sortDropdown">Sort By: </label>
+              <select id="sortDropdown" className="sortingDropdown" style={{ border: "none", background: "transparent" }} value={sortBy}>
+                  <option className="sortby" style={{ color: "#001622" }} value="recent">Most Recent</option>
+              </select>
+          </div>
+
+          {/* <Select
             style={{
               width: "30%",
             }}
@@ -827,32 +889,35 @@ const Profile = ({
                 label: "Most Recent",
               },
             ]}
-          />
+          /> */}
         </div>
         <div className="cards-container">
           {visitor_queries_history?.map((data) => (
             <Card
               bordered={true}
               style={{
-                width: "fit-content",
+                width: "100%",
                 height: "fit-content",
               }}
             >
               <div className="cards-header">
                 <div>
-                  <div className="img">
-                    <Image
-                      style={{ borderRadius: "5px" }}
-                      width={50}
-                      height={50}
-                      preview="false"
-                      src={
-                        data?.visitor?.profile_pic_url ||
-                        "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
-                      }
-                      alt="profile"
-                    />
-                  </div>
+                  <div>
+                    <div className="img">
+                      <Image
+                        style={{ borderRadius: "5px" }}
+                        width={48}
+                        height={48}
+                        preview="false"
+                        src={
+                          data?.visitor?.profile_pic_url ||
+                          "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                        }
+                        alt="profile"
+                      />
+                    </div>
+                    <p class="profile-badge">0</p>
+                  </div>  
                   <div className="profile">
                     <h5>{data?.visitor?.name}</h5>
                     <p>
@@ -868,8 +933,8 @@ const Profile = ({
                     <Image
                       loader={myImageLoader}
                       style={{ borderRadius: "2px", cursor: "pointer" }}
-                      width={32}
-                      height={32}
+                      width={36}
+                      height={36}
                       preview="false"
                       src={three_dot_icon}
                       alt="profile"
@@ -892,14 +957,14 @@ const Profile = ({
                 <div className="ans">
                   <Image
                     loader={myImageLoader}
-                    style={{ borderRadius: "5px" }}
+                    style={{ borderRadius: "5px", marginRight: "5px" }}
                     width={16}
                     height={16}
                     preview="false"
                     src={message_icon}
                     alt="profile"
                   />
-                  Answer
+                  <span className="ans-text">Answer</span>
                 </div>
                 <div className="rating">
                   <div>
@@ -1085,7 +1150,7 @@ const Profile = ({
                 preview="false"
                 src={
                   visitorcommunityprofile?.data[0]?.profile_pic_url ||
-                  "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                  profile_img
                 }
                 alt="profile"
               />
@@ -1153,7 +1218,8 @@ const Profile = ({
           </Card>
           <Modal
             title="Edit Profile"
-            open={isModalOpen}
+            className="edit-profile-modal"
+            visible={isModalOpen}
             onOk={handleOk}
             onCancel={handleCancel}
             footer={[
@@ -1166,12 +1232,12 @@ const Profile = ({
               <div className="profile-header">
                 <div>
                   <Image
-                    style={{ borderRadius: "4px" }}
-                    // loader={myImageLoader}
+                    style={{ borderRadius: "6px" }}
+                    loader={myImageLoader}
                     className="mdg"
                     src={
-                      visitorcommunityprofile?.data[0]?.profile_pic_url ||
-                      "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                      updateProfileData?.profile_pic_url ||
+                      profile_img
                     }
                     alt=""
                     placeholder="Logo"
@@ -1182,8 +1248,21 @@ const Profile = ({
                 <div className="profile-button">
                   <h6>Profile Picture</h6>
                   <div>
-                    <div className="remove">Remove</div>
-                    <div className="upload">Upload</div>
+                    <div className="remove" onClick={() => removeProfilePic()}>Remove</div>
+                    {/* <div className="upload">Upload</div> */}
+
+                    <Upload
+                      beforeUpload={beforeUpload}
+                      maxCount={1}
+                      onChange={(e) => handleFileChange(e)}
+                      name="avatar"
+                      listType="picture-card"
+                      className=""
+                      showUploadList={false}
+                    >
+                      {loading ? <LoadingOutlined /> : ""}
+                      Upload
+                    </Upload>
                   </div>
                 </div>
               </div>
@@ -1210,6 +1289,7 @@ const Profile = ({
                       showSearch
                       placeholder="+91"
                       optionFilterProp="children"
+                      className="country-code-field"
                       onSearch={onSearch}
                       filterOption={filterOption}
                       options={countyList}
