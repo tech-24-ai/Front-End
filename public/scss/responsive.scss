@@ -560,7 +560,8 @@
   }
 
   .ant-tree-select {
-    max-width: 73%;
+    max-width: 100%;
+    // max-width: 73%;
     min-width: 73%;
     .ant-select-selector {
       height: 60px !important;

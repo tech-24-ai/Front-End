@@ -14,13 +14,15 @@ import Link from "next/link";
 import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.min.css";
-import SwiperCore, { Navigation } from "swiper/core";
+import SwiperCore, { Navigation, Pagination } from "swiper/core";
 import moment from 'moment';
+import { isMobile } from "react-device-detect";
 
-SwiperCore.use([Navigation]);
+SwiperCore.use([Navigation, Pagination]);
 
 let counter = 7;
-
+const paginationBulletClass = "custom-pagination-bullet";
+const paginationBulletActiveClass = "custom-pagination-bullet-active";
 class CommunityCategory extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -132,6 +134,8 @@ class CommunityCategory extends React.PureComponent {
 
     return (
       <div className="community-category-below">
+        {
+          !isMobile &&
         <div
           onClick={() => this.swiperRef.current.swiper.slidePrev()}
           className="view-more-icon"
@@ -151,12 +155,29 @@ class CommunityCategory extends React.PureComponent {
             }}
           />
         </div>
+        }
         <div className="category-box">
           <div className="category-banner-wrapper" id="categoryWrapper">
             <Fragment>
               <Swiper
                 spaceBetween={50}
-                slidesPerView={3}
+                slidesPerView={isMobile ? 1 : 3}
+                // pagination={isMobile ? { clickable: true } : false} 
+                pagination={
+                  isMobile
+                    ? {
+                      clickable: true,
+                      renderBullet: function (index, className) {
+                        if (index < 4) {
+                          return `<span class="${className}" style="margin-top: -10px;"></span>`;
+                        } else {
+                          return '';
+                        }
+                      },
+                    }
+                    : false
+                }
+                
                 navigation={{
                   nextEl: ".swiper-button-next",
                   prevEl: ".swiper-button-prev",
@@ -234,7 +255,8 @@ class CommunityCategory extends React.PureComponent {
                   </SwiperSlide>
                 ))}
               </Swiper>
-              <div
+             
+              {!isMobile && <div
                 onClick={() => this.swiperRef.current.swiper.slideNext()}
                 className="view-more-icon"
                 style={{
@@ -246,6 +268,7 @@ class CommunityCategory extends React.PureComponent {
               >
                 <ArrowRightOutlined />
               </div>
+  }
             </Fragment>
           </div>
         </div>

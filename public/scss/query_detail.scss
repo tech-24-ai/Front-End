@@ -391,15 +391,15 @@
     padding-bottom: 80px !important;
   }
 }
-// @media (min-width: 1586px) and (max-width: 1920px) {
-//   .query-section{
-//     margin-top: 20px;
-//   }
-//     .accordion-title{
-//     font-size: 12px;
-//     }
+@media (min-width: 1586px) and (max-width: 1920px) {
+  .query-section{
+    margin-top: 20px;
+  }
+    .accordion-title{
+    font-size: 12px;
+    }
   
-// }
+}
 
 @media (max-width: 575px) {
     .query-section{
