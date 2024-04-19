@@ -25,9 +25,17 @@ import {
 import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import shorting_icon from "../../public/new_images/sorting_icon.svg";
 import "draft-js/dist/Draft.css";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import community from ".";
+import dynamic from "next/dynamic";
+
+const ReactQuill = dynamic(
+  () => {
+      return import("react-quill");
+  },
+  {ssr: false}
+);
+
 import { isMobile } from "react-device-detect";
 const SubmitButton = ({ form, children }) => {
   const [submittable, setSubmittable] = React.useState(false);
