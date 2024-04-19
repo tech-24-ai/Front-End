@@ -1194,10 +1194,83 @@
   }
 
   .consultant-section {
+    .slick-slider .slick-list .slick-track {
+      gap: 2rem;
+      display: flex;
+    }
+    .slick-slider {
+      .slick-next{
+        right: 10px !important;
+      }
+      .slick-prev{
+        left: -5px !important;
+        z-index: 1;
+      }
+      .slick-next::before{
+        color: #0074D9;
+        font-size: 35px;
+        opacity: 1 !important;
+      }.slick-prev::before{
+        color: #0074D9;
+        opacity: 1 !important;
+        font-size: 35px;
+      }
+      .slick-dots {
+        margin-top: 1rem;
+        bottom: -3rem;
+      }
+
+      .slick-dots li button:before {
+        color: #0074D9;
+        font-size: 12px;
+        margin-top: -3px;
+        opacity: 1;
+        &.slick-active {
+          content: "";
+        }
+      }
+
+      .slick-dots li.slick-active {
+        width: 2rem;
+        height: 0.75rem;
+        border-radius: 1000px;
+        background-color: #0074D9;
+      }
+    }
     color: #00192f;
-    display: flex;
-    gap: 1rem;
     .consultant-list {
+      .h1-hidden {
+        display: none;
+      }
+      .hover-content {
+        // background-color: red;
+        margin-top: -28.3%;
+        padding: 8px;
+        border-radius: 8px;
+        box-shadow: 0 30px 30px -10px #000, 0 -50px 50px -10px #000;
+        backdrop-filter: blur(50px);
+
+        h4 {
+          color: #ffffff;
+          margin: 0;
+        }
+        .lines {
+          border-left: 1px solid #d9dfe9 !important;
+          margin: 0 8px;
+          height: 10px;
+        }
+        div {
+          display: flex;
+          align-items: baseline;
+        }
+        p {
+          margin-top: 5px;
+          color: #ffffff;
+          font-size: 18px;
+          font-weight: 500;
+        }
+      }
+
       width: 33.33%;
       .consultant-card {
         // border: 1px solid #54616c;
@@ -1252,6 +1325,17 @@
     }
   }
 }
+
+@media only screen and (max-width: 600px) {
+  .consultant-section .slick-slider .slick-list .slick-track {
+    gap: 0rem !important;
+    display: flex !important;
+  }
+  .view-more-icon {
+    display: none !important;
+  }
+}
+
 @media (max-width: 575px) {
   .time-zone-selection,
   .skill-selection {

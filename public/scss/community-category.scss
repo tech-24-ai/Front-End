@@ -551,18 +551,12 @@
       .category-banner {
         width: 100%;
         height: 280px;
-        // max-width: 350px;
         background-color: #fff;
-        // height: 100%;
         padding: 0px;
         border-radius: 12px;
         position: relative;
         display: table;
-        // box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.16);
-        // box-shadow: 0 5px 10px 0 #f0f3f6;
-        // box-shadow: 0 5px 10px 0 #c2c2c2;
         border: 0.5px solid #d9dfe9;
-        //   background-color: #ebebeb !important;
         transition: all 0.4s ease-out;
 
         .custom-icon {
@@ -667,7 +661,7 @@
           color: #00192f;
           padding-right: 12px;
           align-items: flex-start;
-          width: 260px;
+          width: 100%;
         }
       
         .content-structure {
@@ -780,7 +774,7 @@
           // padding: 1rem;
           border-radius: inherit;
           background-color: #fff;
-          min-width: auto;
+          width: 100%;
 
           .icon-container {
             display: flex;
@@ -975,12 +969,13 @@
         }
 
         .category-banner-block {
-          // width: 100%;
-          width: auto;
+          width: 100%;
+          // width: auto;
           height: 215px;
 
           .category-banner {
             height: 100%;
+            width: 100%;
             > .category-content {
               min-height: auto;
               padding: 10px;

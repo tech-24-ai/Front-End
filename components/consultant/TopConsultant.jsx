@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "reactstrap";
-import { ArrowRightOutlined } from "@ant-design/icons";
+import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { crudActions } from "../../_actions";
 import { connect } from "react-redux";
 import { Image } from "antd";
 import Router, { withRouter } from "next/router";
+import Slider from "react-slick";
 const TopConsultant = ({ getAllCrud, consultants }) => {
   useEffect(() => {
     getAllCrud("consultants", "consultants", {
@@ -30,26 +31,55 @@ const TopConsultant = ({ getAllCrud, consultants }) => {
           </Link>
         </div>
         <div className="consultant-section">
-          {consultants?.slice(0, 3).map((data) => (
-            <div className="consultant-list">
-              <div className="consultant-card">
-                <Image
-                  preview={false}
-                  src={
-                    data.image ??
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSegdLPBUw9F-YVGoqjyYcgSA8VQOfyF4aFTg&usqp=CAU"
-                  }
-                  alt="consultant profile"
-                  placeholder="consultant profile"
-                />
+          <Slider
+            speed={500}
+            slidesToScroll={1}
+            slidesToShow={3}
+            responsive={[
+              {
+                breakpoint: 1024,
+                settings: {
+                  slidesToShow: 2,
+                  dots: true,
+                  arrows: false
+                },
+              },
+              {
+                breakpoint: 600,
+                settings: {
+                  slidesToShow: 1,
+                  dots: true,
+                  arrows: false
+                },
+              },
+            ]}
+            appendDots={(dots) => (
+              <div>
+                <ul> {dots} </ul>
               </div>
-            </div>
-          ))}
-          <Link href="consultant">
+            )}
+          >
+            {consultants?.slice(0, 3).map((data) => (
+              <div className="consultant-list">
+                <div className="consultant-card">
+                  <Image
+                    preview={false}
+                    src={
+                      data.image ??
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSegdLPBUw9F-YVGoqjyYcgSA8VQOfyF4aFTg&usqp=CAU"
+                    }
+                    alt="consultant profile"
+                    placeholder="consultant profile"
+                  />
+                </div>
+              </div>
+            ))}
+          </Slider>
+          {/* <Link href="consultant">
             <div className="view-more-icon">
               <ArrowRightOutlined />
             </div>
-          </Link>
+          </Link> */}
         </div>
       </div>
     </Container>

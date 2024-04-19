@@ -63,19 +63,28 @@ const Community = ({ router }) => {
 
     const [searchQuery, setSearchQuery] = useState("");
     const [filteredData, setFilteredData] = useState([]);
+    const [isSearchActive, setIsSearchActive] = useState(false);
 
+    const { value } = Router.query;
+  
     useEffect(() => {
         const getAllPosts = async () => {
             try {
-                const data = await crudService._getAll("community");
-                console.log("data", data);
+                const data = await crudService._getAll("community", { search: searchQuery });
                 setCommunityFeature(data.data);
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
         };
         getAllPosts();
-    }, []);
+    }, [searchQuery]);
+
+    useEffect(() => {
+        if (value) {
+            setSearchQuery(value);
+        }
+    }, [value]);
+    
 
     useEffect(() => {
         const filtered = communityFeature.filter(item =>
@@ -83,22 +92,21 @@ const Community = ({ router }) => {
         );
         setFilteredData(filtered);
     }, [searchQuery, communityFeature]);
-
+   
 
     //Filter
     const handleSearch = (e) => {
         setSearchQuery(e.target.value);
         setCurrentPage(0);
+        setIsSearchActive(e.target.value.trim() !== "");
     };
+   
     // Pagination
     const slicedData = filteredData.slice(
         currentPage * itemsPerPage,
         (currentPage + 1) * itemsPerPage
     );
-    // const slicedData = communityFeature.slice(
-    //     currentPage * itemsPerPage,
-    //     (currentPage + 1) * itemsPerPage
-    // );
+  
 
     let arrData = [];
     communityFeature?.map((item) => {
@@ -111,11 +119,9 @@ const Community = ({ router }) => {
         arrData.push(data);
     });
 
-    const [formData, setFormData, communitypost] = useState({
-        // Initialize form data fields
+    const [formData, setFormData] = useState({
         query: "",
         tag: "",
-        // Add more fields as needed
     });
     const parseDate = (dateString) => {
         const [datePart, timePart] = dateString.split(' ');
@@ -129,18 +135,6 @@ const Community = ({ router }) => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            // const response =   await crudService._getAll("communitypost",formData);
-            const response = await axios.post("communitypost", formData);
-            console.log("Data added successfully:", formData);
-            // Optionally, update UI or show success message
-        } catch (error) {
-            console.error("Error adding data:", error);
-            // Optionally, show error message
-        }
-    };
 
     const [activeIndex, setActiveIndex] = useState(null);
 
@@ -208,10 +202,14 @@ const Community = ({ router }) => {
     const handleSort = (e) => {
         setSortBy(e.target.value);
     };
+    const handleAllCommunity = () => {
+        Router.push("/community");
+
+    }
 
     return (
         <>
-            <section className="query-section mt-4">
+            <section className="query-section mt-6">
                 <Container>
                     <div className="row">
                         <div className="col-md-12">
@@ -219,7 +217,7 @@ const Community = ({ router }) => {
                                 <span className="ml-2" style={{ color: "#B0B8BF", fontFamily: "Inter", fontSize: "14px" }}>
                                     Community <RightOutlined style={{ verticalAlign: "0" }} />
                                 </span>{" "}
-                                <span style={{ color: "#0074D9", fontFamily: "Inter", fontSize: "14px" }}>All Community</span>
+                                <span onClick={() =>handleAllCommunity()} style={{ color: "#0074D9", fontFamily: "Inter", fontSize: "14px", cursor: "pointer" }}>All Community</span>
                             </h4>
                         </div>
                     </div>
@@ -244,7 +242,7 @@ const Community = ({ router }) => {
                         style={{ display: "flex", justifyContent: "space-between" }}
                         className="mt-5"
                     >
-                        <div className="mobile-display-n" style={{ width: "272px" }}>
+                        <div className="mobile-display-n" style={{ width: "24%" }}>
                             <div className="accordion-container">
                                 {accordionData.map((item, index) => (
                                     <div
@@ -290,7 +288,9 @@ const Community = ({ router }) => {
                         <div className="content-wrap"
                         >
                             <div className="result-sort">
-                                <div className="results">Results: {communityFeature.length}</div>
+                                <div className="results"> 
+                                Results: {communityFeature.length}
+                                </div>
                                 <div className="sorting mobile-display-n">
                                     <label className="sortby" htmlFor="sortDropdown">Sort By: </label>
                                     <select id="sortDropdown" style={{ border: "none", background: "transparent" }} value={sortBy} onChange={handleSort}>
@@ -304,11 +304,10 @@ const Community = ({ router }) => {
                                 {slicedData.map((item, index) => (
                                     <div
                                         className="col-6 community-category-below community-category-mobile"
-                                        style={{ marginTop: "-1rem", height: "324px" }}
+                                        style={{ marginTop: "-1rem", height: "324px", paddingRight:  "0px"}}
                                     >
                                         <div
                                             className="category-box"
-                                            style={{ minWidth: "100%" }}
                                         >
                                             <div
                                                 className="category-banner-wrapper"
@@ -317,7 +316,7 @@ const Community = ({ router }) => {
                                                 <div className="category-banner-block">
                                                     <div
                                                         className="category-banner"
-                                                        style={{ maxWidth: "100%" }}
+                                                        // style={{ maxWidth: "100%" }}
                                                     >
                                                         <div className="category-content">
                                                             <div className="content-header" onClick={() => communityDetails(item)}>
@@ -332,7 +331,7 @@ const Community = ({ router }) => {
                                                                 </div>
                                                                 <div
                                                                     className="category-text"
-                                                                    style={{ minWidth: "70%" }}
+                                                                    style={{ maxWidth: "70%" }}
                                                                 >
                                                                     <h6>{item.name}</h6>
                                                                 </div>
@@ -392,7 +391,7 @@ const Community = ({ router }) => {
                             </div>
                         </div>
                     </div>
-
+                    {!isSearchActive && !searchQuery && (
                     <ReactPaginate
                         pageCount={Math.ceil(communityFeature.length / itemsPerPage)}
                         onPageChange={({ selected }) => setCurrentPage(selected)}
@@ -403,6 +402,7 @@ const Community = ({ router }) => {
                         activeClassName={"selected-page"}
                         pageClassName={"other-page"}
                     />
+                    )}
                 </Container>
             </section>
         </>

@@ -33,7 +33,7 @@
       font-weight: 400;
       font-size: 14px;
       line-height: 20px;
-    padding: 0;
+      padding: 0;
     }
     .admin-text {
       // color: $backgroundColor;
@@ -46,11 +46,16 @@
       object-fit: contain;
       margin: 0px 10px 0px 20px;
     }
+    .blog-section {
+      color: #00192f;
+      // display: flex;
+      gap: 1rem;
+  }
     .profile-icons:first-child {
       object-fit: contain;
       margin: 0px 10px 0px 0px;
     }
-   
+
     .blog-card {
       border-radius: 10px;
       width: 100%;
@@ -58,11 +63,14 @@
       border: 0;
       // height: 547px;
     }
+    .blog-list{
+      display: flex;
+    }
 
-    .blog-card img{
+    .blog-card img {
       border-radius: 6px;
-    width: 350px;
-    height: 210px;
+      width: 350px;
+      height: 210px;
     }
 
     // .second-div p {
@@ -74,7 +82,7 @@
       box-shadow: none !important;
     }
     .card-heading {
-       font-weight: 500;
+      font-weight: 500;
       //  font-size: 16px;
       line-height: 20px;
       // color: $textBlack;
@@ -106,8 +114,8 @@
       color: #00192f;
 
       font-weight: 500;
-    font-size: 1.25rem;
-    line-height: 2rem;
+      font-size: 1.25rem;
+      line-height: 2rem;
     }
     .read-more {
       position: absolute;
@@ -222,22 +230,65 @@
   }
 
   .blog-section {
+    .slick-slider .slick-list .slick-track {
+      gap: 2rem;
+      display: flex;
+    }
+    .slick-slider {
+      .slick-next {
+        right: 10px !important;
+      }
+      .slick-prev {
+        left: -5px !important;
+        z-index: 1;
+      }
+      .slick-next::before {
+        color: #0074d9;
+        font-size: 35px;
+        opacity: 1 !important;
+      }
+      .slick-prev::before {
+        color: #0074d9;
+        opacity: 1 !important;
+        font-size: 35px;
+      }
+      .slick-dots {
+        margin-top: 1rem;
+        bottom: -3rem;
+      }
+
+      .slick-dots li button:before {
+        color: #0074d9;
+        font-size: 12px;
+        margin-top: -3px;
+        opacity: 1;
+        &.slick-active {
+          content: "";
+        }
+      }
+
+      .slick-dots li.slick-active {
+        width: 2rem;
+        height: 0.75rem;
+        border-radius: 1000px;
+        background-color: #0074d9;
+      }
+    }
     color: #00192f;
-    display: flex;
-    gap: 1rem;
     .blog-list,
     .showHoverClass {
       width: 33.33%;
       .blog-card {
         img {
           border-radius: 6px;
-          width: 350px;
+          width: 100%;
           height: 210px;
           transition: transform 0.5s ease;
         }
         .ant-image {
           overflow: hidden;
           border-radius: 6px;
+          width: 100%;
         }
         .category {
           border-radius: 4px;
@@ -262,8 +313,6 @@
           font-size: 14px;
           line-height: 20px;
         }
-
-        
 
         .date-section {
           display: flex;
@@ -311,6 +360,16 @@
     .showHoverClass img {
       transform: scale(1.15);
     }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .blog-section .slick-slider .slick-list .slick-track {
+    gap: 0rem !important;
+    display: flex !important;
+  }
+  .view-more-icon {
+    display: none !important;
   }
 }
 

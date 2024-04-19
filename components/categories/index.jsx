@@ -439,6 +439,14 @@ class Categories extends React.PureComponent {
       className: "center slider-container",
       centerMode: true,
       centerPadding: "250px",
+      responsive: [
+        {
+          breakpoint: 600,
+          settings: {
+            centerPadding: "10px",
+          },
+        },
+      ],
       appendDots: (dots) => (
         <div>
           <ul> {dots} </ul>

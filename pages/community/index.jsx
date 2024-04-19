@@ -3,7 +3,7 @@ import { withRouter } from "next/router";
 import { Container, Input } from "reactstrap";
 import { crudService } from "../../_services";
 import SearchInput from "../../components/form/searchInput";
-import Image from "next/image";
+import Image from "next/future/image";
 import CommunityImage from "../../public/images/communityList.png";
 import CheckableTag from "antd/lib/tag/CheckableTag";
 import { DateIcon, ProfileIcon } from "../../components/icons";
@@ -15,7 +15,6 @@ import PageBanner from "../../components/card/pageBanner";
 import { SearchOutlined } from "@ant-design/icons";
 import { UsergroupAddOutlined } from "@ant-design/icons";
 import { MessageOutlined } from "@ant-design/icons";
-
 import blogsBannerImage from "../../public/new_images/blogs-bg.svg";
 import React from "react";
 import { TreeSelect } from "antd";
@@ -74,7 +73,7 @@ const Community = ({ community, getAllCrud }) => {
     const searchPosts = async () => {
       try {
         const data = await crudService._getAll("community", { search: value });
-        console.log("data", data);
+        // console.log("data", data);
         setCommunityFeature(data.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -84,28 +83,13 @@ const Community = ({ community, getAllCrud }) => {
       searchPosts();
     }, 300);
   }, [value]);
-  console.log("search", search);
-
-  // useEffect(() => {
-  //     const getAllPosts = async () => {
-  //         try {
-  //             const data = await crudService._getAll("community");
-  //             console.log("data", data);
-  //             setCommunityFeature(data.data);
-  //         } catch (error) {
-  //             console.error("Error fetching data:", error);
-  //         }
-  //     };
-  //     getAllPosts();
-  // }, []);
+  
 
   const handleViewAll = () => {
     Router.push("/community/query_detail");
   };
 
   let arrData = [];
-
-  console.log("communityFeature", communityFeature);
 
   communityFeature?.map((item) => {
     const random = Math.random().toString(36).substring(2, 6);
@@ -117,29 +101,33 @@ const Community = ({ community, getAllCrud }) => {
     arrData.push(data);
   });
 
-  console.log("tree data", arrData);
+  // console.log("tree data", arrData);
 
-  const genTreeNode = (parentId, isLeaf = false) => {
-    const random = Math.random().toString(36).substring(2, 6);
-    return {
-      id: random,
-      pId: parentId,
-      value: random,
-      title: isLeaf ? "Tree Node" : "Expand to load",
-      isLeaf,
-    };
-  };
-  const onLoadData = ({ id }) =>
-    new Promise((resolve) => {
-      setTimeout(() => {
-        // setTreeData(
-        //     treeData.concat([genTreeNode(id, false), genTreeNode(id, true), genTreeNode(id, true)]),
-        // );
-        resolve(undefined);
-      }, 300);
-    });
+  // const genTreeNode = (parentId, isLeaf = false) => {
+  //   const random = Math.random().toString(36).substring(2, 6);
+  //   return {
+  //     id: random,
+  //     pId: parentId,
+  //     value: random,
+  //     title: isLeaf ? "Tree Node" : "Expand to load",
+  //     isLeaf,
+  //   };
+  // };
+  // const onLoadData = ({ id }) =>
+  //   new Promise((resolve) => {
+  //     setTimeout(() => {
+  //       // setTreeData(
+  //       //     treeData.concat([genTreeNode(id, false), genTreeNode(id, true), genTreeNode(id, true)]),
+  //       // );
+  //       resolve(undefined);
+  //     }, 300);
+  //   });
 
-  
+  // const onChange = (newValue) => {
+  //     const selectedCommunity = allCommunityFeature.find(feature => feature.name === newValue);
+  //     setAllCommunityFeature(selectedCommunity ? [selectedCommunity] : []);
+  //     setValue(newValue);
+  // };
   const onChange = (newValue) => {
     const selectedAllCommunity = allCommunityFeature.find(
       (feature) => feature.name === newValue
@@ -152,10 +140,12 @@ const Community = ({ community, getAllCrud }) => {
     setTopRatedCommunityFeature(
       selectedTopRatedCommunity ? [selectedTopRatedCommunity] : []
     );
-
+    Router.push({
+      pathname: "/community/query_detail",
+      query: { value: newValue },
+    });
     setValue(newValue);
   };
-
 
   return (
     <section className="community-section community-listing-page mt-4" style={{background: "#fff"}}>
@@ -177,12 +167,12 @@ const Community = ({ community, getAllCrud }) => {
                 defaultValue={value}
                 showSearch={true}
                 dropdownStyle={{
-                  maxHeight: 400,
+                  maxHeight: 90,
                   overflow: "auto",
                 }}
                 placeholder="Search anything..."
                 onChange={onChange}
-                loadData={onLoadData}
+                // loadData={onLoadData}
                 treeData={arrData}
                 style={{ width: "100%", height: "", color: "#fff" }}
                 suffixIcon={<SearchOutlined />}

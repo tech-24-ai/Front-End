@@ -93,19 +93,21 @@ class Blogs extends Component {
             <div className="second-div">
               {this.state.posts.length > 0
                 ? this.state.posts.map((post, key) => (
-                  <div className="blog-list">
-                    <div className="blog-card" style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between' }}>
+                  <div className="col-md-12 blog-list">
+                    <div className=" blog-card" style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between' }}>
                       <div>
                         <Image
-                          width={350}
-                          height={210}
+                          // width={350}
+                          // height={210}
+                          width={380}
+                          height={283}
                           src={post.image}
                           preview={false}
                           alt=""
                           placeholder="blog banner"
                         />
-                        <p className="category bg">{post.blog_topic_name}</p>
-                        <p className="blog-heading">{post.name}</p>
+                        <p className="card-heading">{post.blog_topic_name}</p>
+                        <p className="blogs-card-body">{post.name}</p>
                         <p className="blog-detail" >{post.details}</p>
                       </div>
                       <div className="date-section">
@@ -123,63 +125,9 @@ class Blogs extends Component {
                   </p>
                   : ""}
 
-
             </div>
             </div>
-            {/* <div className="second-div">
-              {this.state.posts.length > 0
-                ? this.state.posts.map((post, key) => (
-                  <Link href={`blogs/${post.slug}`}>
-                    <Card
-                      key={key}
-                      hoverable
-                      className="blog-card"
-                      onClick={() => <Link href={`blogs/${post.slug}`} />}
-                      cover={
-                        <Image
-                          loader={myImageLoader}
-                          src={
-                            post.image
-                              ? post.image
-                              : "images/img_not_available.jpg"
-                          }
-                          alt=""
-                          
-                          width={380}
-                          height={283}
-                          style={{
-                            borderTopRightRadius: "10px",
-                            borderTopLeftRadius: "10px",
-                            borderBottomLeftRadius: "10px",
-                            borderBottomRightRadius: "10px",
-                          }}
-                        />
-                      }
-                    >
-                      <p className="card-heading">{post.blog_topic_name}</p>
-                      <p className="blogs-card-body">{post.name}</p>
-                      <div style={{ display: "flex" }}>
-                        <ProfileIcon />
-                        <p className="admin-text">Admin</p>
-                        <DateIcon />
-
-                        <p className="admin-text">
-                          {post &&
-                            new Date(
-                              Date.parse(post.created_at.replace(/-/g, "/"))
-                            ).toLocaleDateString("en-US", options)}
-                        </p>
-                      </div>
-                    </Card>
-                  </Link>
-                ))
-                : this.state.posts && this.state.posts.length == 0
-                  ? <p style={{ padding: "20px" }}>
-                    No Blogs
-                  </p>
-                  : ""}
-            </div> */}
-            
+      
           </Container>
         </section>
       </>
