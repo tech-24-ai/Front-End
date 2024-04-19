@@ -1336,7 +1336,7 @@
 .profile-container {
   display: flex;
   margin-top: 4.5rem;
-  margin-bottom: 2rem;
+  // margin-bottom: 2rem;
   .header-tabs {
     width: 100%;
     margin-right: 20px;
@@ -1445,11 +1445,12 @@
     display: flex;
     .profile-button {
       flex-direction: column;
-      margin-left: 10px;
+      margin-left: 8px;
       h6 {
         color: #4c4c4c;
         font-weight: 500;
         font-size: 14px;
+        line-height: 20px;
       }
       div {
         display: flex;
@@ -1467,16 +1468,34 @@
           background-color: #000;
           color: #ffffff;
         }
+        .ant-upload-select {
+          border: 1px solid #000000;
+          margin: 0px 10px;
+          background-color: #000;
+          color: #ffffff;
+          padding: 4px 24px;
+          border-radius: 2px;
+          span.ant-upload {
+            color: #ffffff;
+          }
+        }
+        .anticon-loading {
+          margin-right: 5px;
+        }
       }
     }
   }
   .profile-details {
     // margin-top: 2rem;
     p {
-      margin-top: 2rem;
+      margin-top: 1rem;
       font-weight: 500;
       font-size: 14px;
       color: #4c4c4c;
+      margin-bottom: 2px;
+    }
+    div:nth-child(2) p {
+      margin-top: 1.4rem;
     }
     input {
       height: 48px;
@@ -1485,6 +1504,9 @@
     }
     .phone-number {
       display: flex;
+      .country-code-field {
+        width: 23%;
+      }
       .ant-select-selector {
         height: 48px;
         .ant-select-selection-placeholder,
@@ -1496,6 +1518,17 @@
         margin-left: 10px;
       }
     }
+  }
+}
+.edit-profile-modal {
+  .ant-modal-header {
+    padding: 24px 24px 0px
+  }
+  .ant-modal-close-x {
+    margin: 8px;
+  }
+  .ant-modal-footer{
+    padding: 0px 24px 24px 24px;
   }
 }
 .ant-modal-footer .profile-modal-button {
@@ -1544,7 +1577,7 @@
 
 // tab1
 .profile-tab-container {
-  margin: 1.5rem 0px;
+  margin: 1.5rem 0px 0px;
   hr {
     border-color: #EBEBF0;
   }
@@ -1563,7 +1596,7 @@
       font-size: 14px;
       font-weight: 500;
       cursor: pointer;
-      text-decoration: underline;
+      border-bottom: 1px solid #0074D9;
       line-height: 20px;
       float: right;
     }
@@ -1576,6 +1609,7 @@
       font-weight: 400;
       font-size: 18px;
       margin-bottom: 0px;
+      word-wrap: break-word;
     }
   }
   .delete-container {
@@ -1597,13 +1631,25 @@
   .search-container {
     display: flex;
     justify-content: space-between;
+
+    .sorting {
+      background: #ffffff;
+      border: 1px solid #D9DFE9;
+      padding: 12px 10px 2px;
+      border-radius: 5px;
+    }
   }
   .cards-container {
-    gap: 20px;
+    gap: 1rem;
     margin-top: 1.3rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    .community-card{
+      width: 48.5%;
+      height: "fit-content";
+      box-shadow: "0px 0px 16px 0px #0000001A";
+    }
     .cards-header {
       display: flex;
       align-items: center;
@@ -1648,6 +1694,37 @@
 
 // tab3
 .questions-tab-container {
+  font-family: "Inter";
+  .ant-card-body {
+    padding: 20px;
+  }
+  .search-container {
+    display: flex;
+    justify-content: space-between;
+
+    .sorting {
+      background: #ffffff;
+      border: 1px solid #D9DFE9;
+      padding: 12px 10px 2px;
+      border-radius: 5px;
+      font-family: "Inter";
+
+      .sortby{
+        color: #54616C;
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: 400;
+      }
+      .sortingDropdown {
+        border: "none";
+        background: "transparent";
+        color: #001622;
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: 500;
+      }
+    }
+  }
   .cards-header {
     div {
       display: flex;
@@ -1670,6 +1747,8 @@
         color: #001622;
         font-weight: 500;
         font-size: 18px;
+        line-height: 28px;
+        margin-bottom: 0;
       }
       p {
         font-weight: 400;
@@ -1692,16 +1771,36 @@
       font-size: 14px;
       color: #0074d9;
       margin-right: 10px;
+      line-height: 20px;
     }
+    .profile-badge {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      color: #ffffff !important;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      left: 53px;
+      top: 54px;
+      border: 1.5px solid #ffffff;
+      background-color: #0074D9;
+      font-weight: 500 !important;
+      font-size: 12px !important;
+      line-height: 20px;
+  }
   }
   .para {
     color: #001622;
     font-weight: 500;
     font-size: 16px;
-    margin-top: 1rem;
+    margin-top: 0.7rem;
+    line-height: 24px;
+    margin-bottom: 0.5rem;
   }
   .chips {
-    margin: 1rem 0;
+    margin: 0.5rem 0;
     display: flex;
     align-items: baseline;
     flex-wrap: wrap;
@@ -1712,7 +1811,10 @@
       font-weight: 500;
       font-size: 12px;
       border-radius: 4px;
-      margin-left: 10px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      line-height: 16px;
+      color: #000000;
     }
     p {
       margin-left: 10px;
@@ -1727,7 +1829,7 @@
       border: 1px solid #d9dfe9;
     }
     :first-child {
-      margin: unset;
+      margin-left: unset;
     }
   }
   .like-footer {
@@ -1742,6 +1844,9 @@
       display: flex;
       img {
         margin: 5px;
+      }
+      .ans-text {
+        margin-left: 5px;
       }
     }
     .rating {
@@ -1844,13 +1949,16 @@
 //  profile screen for small devices
 
 @media (max-width: 575px) {
+  .main-content {
+    padding-bottom: 25px;
+  }
   .profile-container {
     flex-direction: column-reverse;
     .ant-tabs {
       margin-top: 30px;
     }
     .ant-card-body {
-      padding: 10px;
+      padding: 15px;
     }
   }
   // sign-out modal
@@ -1861,15 +1969,26 @@
   }
   // tab1
   .profile-tab-container {
+    margin: 0;
+    hr {
+      display: none;
+    }
     .input-container {
       flex-direction: column;
       > :first-child {
         width: 100%;
         margin-right: 0;
+        border-bottom: 1px solid #cccccc;
+        padding: 1rem 0;
       }
       > :nth-child(2) {
         width: 100%;
+        padding: 1rem 0;
+        border-bottom: 1px solid #cccccc;
       }
+    }
+    .delete-container {
+      margin-top: 1.5rem;
     }
   }
   // tab2
