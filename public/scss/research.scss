@@ -176,9 +176,50 @@
   }
 
   .research-section {
+    .slick-slider .slick-list .slick-track {
+      gap: 2rem;
+      display: flex;
+    }
+    .slick-slider {
+      .slick-next{
+        right: 10px !important;
+      }
+      .slick-prev{
+        left: -5px !important;
+        z-index: 1;
+      }
+      .slick-next::before{
+        color: #0074D9;
+        opacity: 1 !important;
+        font-size: 35px;
+      }.slick-prev::before{
+        color: #0074D9;
+        opacity: 1 !important;
+        font-size: 35px;
+      }
+      .slick-dots {
+        margin-top: 1rem;
+        bottom: -3rem;
+      }
+
+      .slick-dots li button:before {
+        color: #0074D9;
+        font-size: 12px;
+        margin-top: -3px;
+        opacity: 1;
+        &.slick-active {
+          content: "";
+        }
+      }
+
+      .slick-dots li.slick-active {
+        width: 2rem;
+        height: 0.75rem;
+        border-radius: 1000px;
+        background-color: #0074D9;
+      }
+    }
     color: #00192f;
-    display: flex;
-    gap: 1rem;
     .research-list,
     .showHoverClass {
       width: 33.33%;
@@ -186,11 +227,11 @@
         img {
           border-top-left-radius: 6px;
           border-top-right-radius: 6px;
-          width: 350px;
-          height: 210px;
+          width: 100%;
           transition: transform 0.5s ease;
         }
         .ant-image {
+          width: 100%;
           overflow: hidden;
           border-top-left-radius: 6px;
           border-top-right-radius: 6px;
@@ -242,10 +283,7 @@
     }
 
     .view-more-icon {
-      position: absolute;
       border: 2px solid #ffffff;
-      right: 105px;
-      margin-top: 14%;
       height: 40px;
       width: 40px;
       display: flex;
@@ -265,6 +303,16 @@
     .showHoverClass img {
       transform: scale(1.15);
     }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .research-section .slick-slider .slick-list .slick-track {
+    gap: 0rem !important;
+    display: flex !important;
+  }
+  .view-more-icon {
+    display: none !important;
   }
 }
 
@@ -316,25 +364,6 @@
           }
         }
       }
-    }
-  }
-}
-
-// For Scale 125% (Zoom Level)
-@media (min-width: 1536px) and (max-width: 1920px) {
-  .research-section {
-    .research-list {
-      .research-card {
-        img {
-          width: 412px !important;
-          height: 250px !important;
-        }
-      }
-    }
-
-    .view-more-icon {
-      margin-top: 14% !important;
-      right: 110px !important;
     }
   }
 }

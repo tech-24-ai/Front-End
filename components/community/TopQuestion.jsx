@@ -272,7 +272,23 @@ class TrendingQuestion extends React.PureComponent {
               <Fragment>
                 <Swiper
                   spaceBetween={50}
-                  slidesPerView={3}
+                  slidesPerView={1}
+                  breakpoints={
+                    {
+                      1920: {
+                        slidesPerView: 3,
+                      },
+                      1024: {
+                        slidesPerView: 3,
+                      },
+                      900: {
+                        slidesPerView: 2
+                      },
+                      600: {
+                        slidesPerView: 1
+                      }
+                    }
+                  }
                   navigation={{
                     nextEl: ".swiper-button-next",
                     prevEl: ".swiper-button-prev",

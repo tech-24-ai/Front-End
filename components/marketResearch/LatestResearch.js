@@ -4,6 +4,9 @@ import { Image } from "antd";
 import Link from "next/link";
 import moment from "moment";
 import { ArrowRightOutlined } from "@ant-design/icons";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const LatestResearch = () => {
   const [showHoverClass, setShowHoverClass] = useState(null);
@@ -52,49 +55,78 @@ const LatestResearch = () => {
           </Link>
         </div>
         <div className="research-section">
-          {data.map((data, index) => (
-            <div
-              onMouseOver={() => setShowHoverClass(index)}
-              onMouseOut={() => setShowHoverClass(null)}
-              className={`research-list ${
-                showHoverClass === index ? "showHoverClass" : ""
-              }`}
-            >
+          <Slider
+            speed={500}
+            slidesToScroll={1}
+            slidesToShow={3}
+            responsive={[
+              {
+                breakpoint: 1024,
+                settings: {
+                  slidesToShow: 2,
+                  dots: true,
+                  arrows: false
+                },
+              },
+              {
+                breakpoint: 600,
+                settings: {
+                  slidesToShow: 1,
+                  dots: true,
+                  arrows: false
+                },
+              },
+            ]}
+            appendDots={(dots) => (
+              <div>
+                <ul> {dots} </ul>
+              </div>
+            )}
+          >
+            {data.map((data, index) => (
               <div
-                className="research-card"
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  height: "100%",
-                  justifyContent: "space-between",
-                  border: "2px solid #D9DFE9",
-                  borderRadius: "8px"
-                }}
+                onMouseOver={() => setShowHoverClass(index)}
+                onMouseOut={() => setShowHoverClass(null)}
+                className={`research-list ${
+                  showHoverClass === index ? "showHoverClass" : ""
+                }`}
               >
-                <div>
-                  <Image
-                    // width={350}
-                    // height={210}
-                    src={data.image}
-                    preview={false}
-                    alt=""
-                    placeholder="research banner"
-                  />
-                </div>
-                <div style={{padding: "20px"}}>
-                  <p className="research-heading">{data.tilte}</p>
-                  <p className="research-detail">{data.description}</p>
-                  <div className="date-section">
-                    <div className="date">{data.date}</div>
-                    <div className="custom-divider"></div>
-                    {/* {<div className="time">10 min read</div>} */}
+                <div
+                  className="research-card"
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "100%",
+                    justifyContent: "space-between",
+                    border: "2px solid #D9DFE9",
+                    borderRadius: "8px",
+                  }}
+                >
+                  <div>
+                    <Image
+                      // width={350}
+                      // height={210}
+                      src={data.image}
+                      preview={false}
+                      alt=""
+                      placeholder="research banner"
+                    />
+                  </div>
+                  <div style={{ padding: "20px" }}>
+                    <p className="research-heading">{data.tilte}</p>
+                    <p className="research-detail">{data.description}</p>
+                    <div className="date-section">
+                      <div className="date">{data.date}</div>
+                      <div className="custom-divider"></div>
+                      {/* {<div className="time">10 min read</div>} */}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </Slider>
           <Link href="researchs">
-            <div className="view-more-icon">
+            <div className="view-more-icon d-none">
               <ArrowRightOutlined />
             </div>
           </Link>
