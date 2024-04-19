@@ -1592,6 +1592,10 @@
 }
 
 // tab2
+.ask-question-tag .ant-select-selector,
+.ask-question-tag .ant-select-selector .ant-select-selection-overflow {
+  border: none !important;
+}
 .community-tab-container {
   margin-top: 0.3rem;
   .search-container {
@@ -1876,6 +1880,34 @@
   .community-tab-container {
     .cards-container {
       gap: 24px;
+    }
+  }
+  .community-detail-wrapper {
+    .cards-container {
+      flex-direction: column-reverse;
+      .cards-header {
+        img {
+          width: 40px;
+          height: 40px;
+        }
+        .profile h5 {
+          font-size: 16px;
+        }
+        .profile p {
+          font-size: 10px;
+        }
+        .button{
+          font-size: 12px;
+        }
+      }
+    }
+    .search-container {
+      // span,
+      // input,
+      button {
+        height: 44px;
+        line-height: 44px;
+      }
     }
   }
 }

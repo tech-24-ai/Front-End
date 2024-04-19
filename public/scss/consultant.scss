@@ -1198,6 +1198,38 @@
     display: flex;
     gap: 1rem;
     .consultant-list {
+      .h1-hidden {
+        display: none;
+      }
+      .hover-content {
+        // background-color: red;
+        margin-top: -28.3%;
+        padding: 8px;
+        border-radius: 8px;
+        box-shadow: 0 30px 30px -10px #000, 0 -50px 50px -10px #000;
+        backdrop-filter: blur(50px);
+
+        h4 {
+          color: #ffffff;
+          margin: 0;
+        }
+        .lines {
+          border-left: 1px solid #d9dfe9 !important;
+          margin: 0 8px;
+          height: 10px;
+        }
+        div {
+          display: flex;
+          align-items: baseline;
+        }
+        p {
+          margin-top: 5px;
+          color: #ffffff;
+          font-size: 18px;
+          font-weight: 500;
+        }
+      }
+
       width: 33.33%;
       .consultant-card {
         // border: 1px solid #54616c;
