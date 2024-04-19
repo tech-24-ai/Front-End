@@ -26,12 +26,6 @@ import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import shorting_icon from "../../public/new_images/sorting_icon.svg";
 import "draft-js/dist/Draft.css";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // Import Quill styles
-import { Button, Modal } from "antd";
-import { Form, Space, Upload } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
-import "draft-js/dist/Draft.css";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import community from ".";
 import { isMobile } from "react-device-detect";
