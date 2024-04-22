@@ -142,12 +142,35 @@
     .inner-text-container {
       padding: 40px;
     }
+    .blogs-card-body {
+      font-family: "Inter";
+      // line-height: 26px;
+      min-height: 50px;
+      // opacity: 0.8;
+      padding: 0px;
+      color: #00192f;
+    
+      font-weight: 500;
+    font-size: 1.25rem;
+    line-height: 2rem;
+    }
     .card-heading {
-      font-weight: 600;
-      font-size: 20px;
-      //   line-height: 26px;
-      color: $textBlack;
-      margin-top: 20px;
+      font-weight: 500;
+     line-height: 30px;
+     text-transform: uppercase;
+    text-align: center;
+     background-color: #e8f3fd;
+    //  border-radius: 4px;
+     border: 1px solid #e8f3fd;
+     color: #075aee;
+     padding: 4px 6px;
+    //  width: -moz-fit-content;
+    //  width: fit-content;
+     margin: 1rem 0;
+     width: 203px;
+     margin-top: -5px;
+     margin-right: 40px;
+
     }
     .card-detail-body {
       font-weight: 400;
