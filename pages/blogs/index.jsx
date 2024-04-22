@@ -149,7 +149,6 @@ class Blogs extends Component {
             <h4 className="blogTitle" style={{ color: "#005dd4", paddingLeft: "14px", paddingBottom: "20px" }}>Blogs</h4>
             <div className="row">
             <div className="second-div">
-            {/* {currentPosts.length > 0 ? ( */}
               {this.state.posts.length > 0 
                 ? this.state.posts
                 .slice((currentPage - 1) * pageSize, currentPage * pageSize) // Extract posts for the current page
@@ -184,7 +183,6 @@ class Blogs extends Component {
                     {moment(post.created_at).format("LL")}
                   </div>
                   <div className="custom-divider"></div>
-                  {/* {<div className="time">10 min read</div>} */}
                 </div>
               </div>
             </div>
@@ -199,9 +197,14 @@ class Blogs extends Component {
             </div>
             
           </Container>
-         
-          <Pagination defaultCurrent={currentPage}  onChange={this.handlePageChange}
-        pageSize={9} total={totalItems} />
+            {posts.length > 0 && (
+            <Pagination
+              defaultCurrent={currentPage}
+              onChange={this.handlePageChange}
+              pageSize={pageSize}
+              total={totalItems}
+            />
+          )}
         </section>
       </>
     );
