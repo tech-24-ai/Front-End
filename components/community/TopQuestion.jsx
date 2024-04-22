@@ -95,14 +95,17 @@ import { connect } from "react-redux";
 import { Container } from "reactstrap";
 import { crudService } from "../../_services";
 import { userActions } from "../../_actions";
+import { UsergroupAddOutlined, MessageOutlined } from "@ant-design/icons";
+import { RoboAdvisor, ServiceProvider, Consultant } from "../icons";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper-bundle.min.css";
 import moment from "moment";
-import { Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
+import SwiperCore, { Navigation } from "swiper/core";
+import { formatDistanceToNow } from 'date-fns';
+
 
 let counter = 7;
 
@@ -212,12 +215,6 @@ class TrendingQuestion extends React.PureComponent {
       const humanReadableDiff = duration.humanize(true);
       return humanReadableDiff;
     };
-    const pagination = {
-      clickable: true,
-      renderBullet: function (index, className) {
-        return '<span class="' + className + '"></span>';
-      },
-    };
 
     return (
       <Container>
@@ -276,26 +273,22 @@ class TrendingQuestion extends React.PureComponent {
                 <Swiper
                   spaceBetween={50}
                   slidesPerView={1}
-                  modules={[Pagination]}
-                  pagination={pagination}
-                  breakpoints={{
-                    1920: {
-                      slidesPerView: 3,
-                      // pagination: false,
-                    },
-                    1024: {
-                      slidesPerView: 3,
-                      // pagination: false,
-                    },
-                    900: {
-                      slidesPerView: 2,
-                      // pagination: true,
-                    },
-                    600: {
-                      slidesPerView: 1,
-                      // pagination: true,
-                    },
-                  }}
+                  breakpoints={
+                    {
+                      1920: {
+                        slidesPerView: 3,
+                      },
+                      1024: {
+                        slidesPerView: 3,
+                      },
+                      900: {
+                        slidesPerView: 2
+                      },
+                      600: {
+                        slidesPerView: 1
+                      }
+                    }
+                  }
                   navigation={{
                     nextEl: ".swiper-button-next",
                     prevEl: ".swiper-button-prev",
@@ -331,10 +324,8 @@ class TrendingQuestion extends React.PureComponent {
                                 style={{ minWidth: "70%" }}
                               >
                                 <h6>{data?.visitor?.name}</h6>
-                                <p>
-                                  {data.created_at}{" "}
-                                  {calculateTimeAgo(data?.created_at)}
-                                </p>
+                                <p>{data.created_at}{" "}{calculateTimeAgo(data?.created_at)}</p>
+                                
                               </div>
                             </div>
 
