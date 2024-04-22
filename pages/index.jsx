@@ -2,44 +2,19 @@ import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { Container, Col, Row } from "reactstrap";
 import { isMobile, isBrowser } from "react-device-detect";
-import Link from "next/link";
-import Router from "next/router";
-import Image from "next/image";
 import Categories from "../components/categories/index";
 // import ResearchToolCategory from "../components/categories/researchToolCategory";
 // import SearchModule from "../components/searchModule";
-import Footer from "../components/footer";
-import ArrowDown from "../public/images/category/arrowdown.svg";
-import ArrowUp from "../public/images/category/arrowup.svg";
 import { crudService, userService } from "../_services";
-import { userActions } from "../_actions";
-import roboAdvisorImage from "../public/new_images/robo-advisor-img.svg";
-import consultantBanner from "../public/new_images/consultant_banner.svg";
-import serviceProviderBanner from "../public/new_images/service-provider-banner.svg";
-import chatIcon from "../public/new_images/chat-icon.svg";
-import engageIcon from "../public/new_images/engage-icon.svg";
-import userIcon from "../public/new_images/user-icon.svg";
-import lessIcon from "../public/new_images/less-icon.svg";
-import dollarIcon from "../public/new_images/dollar-icon.svg";
-import oneIcon from "../public/new_images/one-icon.svg";
-import twoIcon from "../public/new_images/two-icon.svg";
-import threeIcon from "../public/new_images/three-icon.svg";
-import searchIcon from "../public/new_images/search-icon.svg";
-import businessIcon from "../public/new_images/business-application-icon.svg";
-import itInfraIcon from "../public/new_images/it-infra-icon.svg";
+import { crudActions, userActions } from "../_actions";
 import Head from "next/head";
-import homeBackground from "../public/images/home/Hero.png";
-import myImageLoader from "../components/imageLoader";
-import TreeSelect from "../components/form/treeSelect";
-import CategoryList from "../components/categories/categoryList";
-import { OneIcon, TwoIcon, ThreeIcon } from "../components/icons";
+
 import themeConfig from "../config/themeConfig";
 import LatestResearch from "../components/marketResearch/LatestResearch";
 import LatestBlog from "../components/blog/LatestBlog";
 import TopConsultant from "../components/consultant/TopConsultant";
 import TopQuestion from "../components/community/TopQuestion";
 import TrendingQuestion from "../components/community/trending";
-
 
 let counter = 6;
 let arrLength = 6;
@@ -62,7 +37,6 @@ class Home extends React.PureComponent {
     }
   };
 
-
   componentDidMount = () => {
     this.checkAuth();
 
@@ -84,15 +58,25 @@ class Home extends React.PureComponent {
     localStorage.removeItem("messageDetail");
     localStorage.removeItem("vulnerability");
     this.fetchTrendingQuestions();
+    this.fetchTopResearch();
   };
   fetchTrendingQuestions = () => {
-    crudService._getAll("tranding_question")
+    crudService
+      ._getAll("tranding_question")
       .then((result) => {
         this.setState({ trendingQuestions: result.data });
       })
       .catch((error) => {
         console.error("Error fetching trending questions:", error);
       });
+  };
+
+  fetchTopResearch = () => {
+    this.props.getAllCrud("market_research", "market_research", {
+      orderBy: "id",
+      orderDirection: "desc",
+      pageSize: 4,
+    });
   };
 
   onScroll = () => {
@@ -159,7 +143,9 @@ class Home extends React.PureComponent {
           <Categories />
         </section>
         <section>
-          <LatestResearch />
+          {this.props.market_research && (
+            <LatestResearch data={this.props.market_research} />
+          )}
           <TopConsultant />
           {/* <TrendingQuestion trendingQuestions={trendingQuestions} /> */}
           <TopQuestion trendingQuestions={trendingQuestions} />
@@ -171,14 +157,16 @@ class Home extends React.PureComponent {
 }
 
 const mapStateToProps = (state) => {
-  const { authentication } = state;
+  const { authentication, market_research } = state;
   return {
     isloggedIn: authentication.loggedIn,
+    market_research,
   };
 };
 
 const actionCreators = {
   guest: userActions.guest,
+  getAllCrud: crudActions._getAll,
 };
 
 export default connect(mapStateToProps, actionCreators)(Home);

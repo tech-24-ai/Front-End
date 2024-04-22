@@ -181,19 +181,20 @@
       display: flex;
     }
     .slick-slider {
-      .slick-next{
+      .slick-next {
         right: 10px !important;
       }
-      .slick-prev{
+      .slick-prev {
         left: -5px !important;
         z-index: 1;
       }
-      .slick-next::before{
-        color: #0074D9;
+      .slick-next::before {
+        color: #0074d9;
         opacity: 1 !important;
         font-size: 35px;
-      }.slick-prev::before{
-        color: #0074D9;
+      }
+      .slick-prev::before {
+        color: #0074d9;
         opacity: 1 !important;
         font-size: 35px;
       }
@@ -203,7 +204,7 @@
       }
 
       .slick-dots li button:before {
-        color: #0074D9;
+        color: #0074d9;
         font-size: 12px;
         margin-top: -3px;
         opacity: 1;
@@ -216,18 +217,28 @@
         width: 2rem;
         height: 0.75rem;
         border-radius: 1000px;
-        background-color: #0074D9;
+        background-color: #0074d9;
       }
     }
     color: #00192f;
     .research-list,
     .showHoverClass {
-      width: 33.33%;
+      // width: 33.33%;
       .research-card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: space-between;
+        border: 2px solid #d9dfe9;
+        border-radius: 8px;
+        position: relative;
+
         img {
           border-top-left-radius: 6px;
           border-top-right-radius: 6px;
           width: 100%;
+          height: 250px;
+          object-fit: cover;
           transition: transform 0.5s ease;
         }
         .ant-image {
@@ -236,6 +247,21 @@
           border-top-left-radius: 6px;
           border-top-right-radius: 6px;
         }
+
+        .research-category {
+          position: absolute;
+          top: 0;
+          padding: 4px 6px;
+          border-radius: 4px;
+          font-weight: 500;
+          font-size: 0.75rem;
+          line-height: 1.125rem;
+          color: #ffffff;
+          background: rgba(#000000, 0.5);
+          margin-left: 0.75em;
+          margin-top: 0.75em;
+        }
+
         .category {
           border-radius: 4px;
           border: 1px solid $backgroundColor;
@@ -252,12 +278,23 @@
           font-weight: 500;
           font-size: 1.25rem;
           line-height: 2rem;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          min-height: 6rem;
         }
 
         .research-detail {
           font-weight: 400;
           font-size: 14px;
           line-height: 20px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
         }
 
         .date-section {
@@ -313,6 +350,37 @@
   }
   .view-more-icon {
     display: none !important;
+  }
+}
+.market-research-category-card {
+  border-radius: 8px;
+}
+
+.market-research-category-card-body {
+  border-radius: inherit;
+  padding: 1em;
+  background-color: rgba(#000000, 0.7);
+  min-width: 220px;
+  min-height: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .heading {
+    font-weight: 500;
+    font-size: 1.125rem;
+    line-height: 30px;
+    text-align: center;
+    color: #ffffff;
+  }
+
+  .description {
+    font-weight: 400;
+    font-size: 0.875em;
+    line-height: 20px;
+    text-align: center;
+    color: #e0e0e0;
   }
 }
 

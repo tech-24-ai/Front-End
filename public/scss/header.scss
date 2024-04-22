@@ -129,6 +129,9 @@
 
 .menu-search-block {
   text-align: right;
+  float: left;
+  margin-right: 10px;
+
 }
 
 .menu-wrapper {
@@ -234,29 +237,33 @@
       }
     }
     .ant-drawer-content-wrapper {
-      width: 290px !important;
+      width: 100% !important;
       transition: all 0.5s ease-in-out;
       box-shadow: none !important;
-      top: 30px;
-      height: 64% !important;
+      top: 72px;
+      height: 50% !important;
       right: -5px;
     }
 
     .ant-drawer-content {
       box-shadow: 0 1.5px 3px 0 rgba(0, 0, 0, 0.16);
-      height: 425px !important;
+      height: 375px !important;
       border-radius: 7px 0 0 7px;
     }
 
+    .ant-drawer-mask{
+      background-color : transparent !important
+    }
+
     .ant-drawer-body {
-      background-color: $white;
+      background-color: #141414;
       padding: 0rem 0rem 0 0rem;
     }
 
     .navbar-link-block {
       li {
         a {
-          color: $backgroundColor;
+          color: $white;
           font-weight: 600;
         }
       }
@@ -319,7 +326,7 @@
       display: block;
     }
 
-    padding: 2.5rem 0 !important;
+    padding: 1.5rem 0 !important;
 
     .row {
       margin: 0 -5px;

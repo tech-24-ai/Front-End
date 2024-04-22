@@ -97,7 +97,7 @@ import { crudService } from "../../_services";
 import { userActions } from "../../_actions";
 import { UsergroupAddOutlined, MessageOutlined } from "@ant-design/icons";
 import { RoboAdvisor, ServiceProvider, Consultant } from "../icons";
-import Image from "next/image";
+import Image from "next/future/image";
 import Link from "next/link";
 import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import { Swiper, SwiperSlide } from "swiper/react";
