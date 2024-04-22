@@ -93,7 +93,7 @@ const Community = ({ router }) => {
               flexdirection: "column",
               flexwrap: "nowrap",
              } } >
-               <h2 className="detailtitle text-white mt-5">Community  > Community1</h2>
+               <h2 className="detailtitle text-white mt-5">{`Community >  Community1`}</h2>
               
               
              </div>

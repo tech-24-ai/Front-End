@@ -1,16 +1,15 @@
 @media (min-width: 576px) {
   .container {
-    padding-left: 130px;
-    padding-right: 130px;
+    padding-left: 120px;
+    padding-right: 120px;
   }
   .main-content {
     min-height: 100vh;
     padding-bottom: 40px;
 
     &.sticky {
-      // padding-top: 65px !important;
-      padding-top: 40px !important;
-
+      padding-top: 75px !important;
+      // padding-top: 40px !important;
     }
   }
 
@@ -560,7 +559,8 @@
   }
 
   .ant-tree-select {
-    max-width: 73%;
+    max-width: 100%;
+    // max-width: 73%;
     min-width: 73%;
     .ant-select-selector {
       height: 60px !important;

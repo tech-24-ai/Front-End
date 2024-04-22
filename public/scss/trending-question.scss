@@ -9,7 +9,7 @@
   }
   .category-box {
     position: relative;
-    height: 350px;
+    height: 300px;
     display: flex;
 
     h5 {
@@ -418,6 +418,20 @@
 }
 
 @media (max-width: 575px) {
+  .custom-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background-color: transparent;
+  border: 2px solid #000;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.custom-pagination-bullet-active {
+  width: 30px;
+  background-color: blue;
+  opacity: 1;
+}
   .category-below {
     // margin-bottom: 1rem;
     .category-box {
@@ -496,5 +510,8 @@
         font-weight: 700;
       }
     }
+  }
+  .swiper-pagination{
+    bottom: -4px !important;
   }
 }

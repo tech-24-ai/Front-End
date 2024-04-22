@@ -57,6 +57,7 @@
   .banner-bg {
     // background-color: $backgroundColor;
     background-color: #000000;
+    height: 100%;
 
     .banner-container {
       display: flex;
@@ -183,7 +184,7 @@
       h6 {
         color: $textColor;
         font-family: "Poppins";
-        font-size: 32px;
+        font-size: 24px;
         font-weight: 600;
         line-height: 40px;
         letter-spacing: 0em;
@@ -277,14 +278,22 @@
         // flex-direction: column-reverse;
         // justify-content: space-between;
         // align-items: flex-start;
-        // padding: 3rem 0;
         // gap: 2rem 0;
-        height: 128px;
-
+        padding: 0 !important;
+        height: 220px;
+         .banner-image-container {
+        display: none !important;
+      }
         .banner-title-container {
           h4,
           h6 {
             font-size: 28px;
+          }
+          h2{
+            font-size: 24px !important;
+          }
+          p{
+            font-size: 14px !important;
           }
           // h6 {
           //   margin-top: 1.5rem;
@@ -318,11 +327,10 @@
           //   line-height: 20px;
           // }
         }
-        .banner-image-container img {
-          width: 121px;
-          height: 124px;
-        }
       }
+      // .banner-image-container img {
+      //   display: none !important;
+      // }
     }
   }
 }

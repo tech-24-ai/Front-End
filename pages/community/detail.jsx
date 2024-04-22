@@ -63,7 +63,7 @@ class Community extends Component {
                 flexdirection: "column",
                 flexwrap: "nowrap",
                } } >
-                 <h2 className="detailtitle text-white ">Community > Community1</h2>
+                 <h2 className="detailtitle text-white ">{`Community > Community1`}</h2>
                 
                  <div className="" >
                     <form>
