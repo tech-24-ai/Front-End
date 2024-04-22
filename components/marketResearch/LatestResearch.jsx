@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import { Container } from "reactstrap";
 import { Image } from "antd";
 import Link from "next/link";
@@ -7,10 +7,14 @@ import { ArrowRightOutlined } from "@ant-design/icons";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import ResearchCard from "./ResearchCard";
 
-const LatestResearch = () => {
-  const [showHoverClass, setShowHoverClass] = useState(null);
-  const data = [
+const LatestResearch = ({
+  titleBorder = false,
+  title = 'Latest <span class="title bg">Research</span>',
+  data,
+}) => {
+  const dataDummay = [
     {
       id: 1,
       tilte:
@@ -20,6 +24,7 @@ const LatestResearch = () => {
       date: "Mar 07, 2024",
       read: "10 min read",
       image: "/images/home/research/research-1.png",
+      category: "Clound Computing",
     },
     {
       id: 2,
@@ -30,6 +35,7 @@ const LatestResearch = () => {
       date: "Mar 07, 2024",
       read: "18 min read",
       image: "/images/home/research/research-2.png",
+      category: "Data Storage",
     },
     {
       id: 3,
@@ -40,20 +46,36 @@ const LatestResearch = () => {
       date: "Mar 07, 2024",
       read: "22 min read",
       image: "/images/home/research/research-3.png",
+      category: "Chatbot",
     },
   ];
+
+  const parsedTitle = () => {
+    return { __html: title };
+  };
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    // nextArrow: <SampleNextArrow />,
+    // prevArrow: <SamplePrevArrow />,
+  };
 
   return (
     <Container>
       <div className="latest-research">
         <div className="title-section">
           <p className="title">
-            Latest <span className="title bg">Research</span>
+            {titleBorder && <span className="side-border-title"></span>}
+            <span className="title" dangerouslySetInnerHTML={parsedTitle()} />
           </p>
           <Link href="researchs">
             <p className="view-more">View more</p>
           </Link>
         </div>
+
         <div className="research-section">
           <Slider
             speed={500}
@@ -65,7 +87,7 @@ const LatestResearch = () => {
                 settings: {
                   slidesToShow: 2,
                   dots: true,
-                  arrows: false
+                  arrows: false,
                 },
               },
               {
@@ -73,7 +95,7 @@ const LatestResearch = () => {
                 settings: {
                   slidesToShow: 1,
                   dots: true,
-                  arrows: false
+                  arrows: false,
                 },
               },
             ]}
@@ -83,53 +105,15 @@ const LatestResearch = () => {
               </div>
             )}
           >
-            {data.map((data, index) => (
-              <div
-                onMouseOver={() => setShowHoverClass(index)}
-                onMouseOut={() => setShowHoverClass(null)}
-                className={`research-list ${
-                  showHoverClass === index ? "showHoverClass" : ""
-                }`}
-              >
-                <div
-                  className="research-card"
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    height: "100%",
-                    justifyContent: "space-between",
-                    border: "2px solid #D9DFE9",
-                    borderRadius: "8px",
-                  }}
-                >
-                  <div>
-                    <Image
-                      // width={350}
-                      // height={210}
-                      src={data.image}
-                      preview={false}
-                      alt=""
-                      placeholder="research banner"
-                    />
-                  </div>
-                  <div style={{ padding: "20px" }}>
-                    <p className="research-heading">{data.tilte}</p>
-                    <p className="research-detail">{data.description}</p>
-                    <div className="date-section">
-                      <div className="date">{data.date}</div>
-                      <div className="custom-divider"></div>
-                      {/* {<div className="time">10 min read</div>} */}
-                    </div>
-                  </div>
-                </div>
-              </div>
+            {data?.map((data, index) => (
+              <ResearchCard data={data} key={index} />
             ))}
           </Slider>
-          <Link href="researchs">
+          {/* <Link href="researchs">
             <div className="view-more-icon d-none">
               <ArrowRightOutlined />
             </div>
-          </Link>
+          </Link> */}
         </div>
       </div>
     </Container>

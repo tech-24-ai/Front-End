@@ -75,6 +75,8 @@ const rootReducer = combineReducers({
   visitor_queries_history: crud("visitor_queries_history"),
   visitor_points_history: crud("visitor_points_history"),
   visitor_profile_levels: crud("visitor_profile_levels"),
+  market_research: crud("market_research"),
+  all_research: crud("market_research"),
 });
 
 export default rootReducer;
