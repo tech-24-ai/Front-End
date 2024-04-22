@@ -115,17 +115,18 @@ class Blogs extends Component {
     return (
       <>
         <section className="blogs-section">
-          <PageBanner 
+      
+        <PageBanner 
             titleNode={
               <div>
                  <h2 style={{color:"white"}}>
-              Welcome to the Tech 24 <br />
-              Blog
-            </h2>
+                Welcome to the Tech 24 <br />
+                Blog
+              </h2>
 
-            <p style={{color:"white"}}>
-              Get our blogs
-            </p>
+              <p style={{color:"white"}}>
+                Get our blogs
+              </p>
                 {/* <h4>Blogs</h4> */}
                 <hr></hr>
                 <SearchInput
@@ -143,6 +144,7 @@ class Blogs extends Component {
             }
             image={blogsBannerImage}
           />
+      
           <Container className="blog-container">
             <h4 className="blogTitle" style={{ color: "#005dd4", paddingLeft: "14px", paddingBottom: "20px" }}>Blogs</h4>
             <div className="row">
