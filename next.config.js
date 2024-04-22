@@ -8,6 +8,9 @@ module.exports = {
     images: {
         loader: 'imgix',
         path:'',
+        domains:[
+            'tech24-uat.s3.amazonaws.com'
+        ]
     },
     
   }
