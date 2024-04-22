@@ -1,6 +1,13 @@
 import React, { useEffect, Fragment } from "react";
 import { Drawer } from "antd";
-import { Navbar, NavItem, Form } from "reactstrap";
+import {
+  Navbar,
+  NavItem,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap";
 import Link from "next/link";
 import SearchModule from "../searchModule";
 // import CategoryList from "../../components/categories/list";
@@ -23,11 +30,17 @@ function Menu(props) {
     <Fragment>
       <div className="menu-search-block">
         <div className="menu-block">
-          <div className="menu-icon" onClick={openSideMenu}>
-            <span></span>
-            <span></span>
-            {/* <span style={{ backgroundColor: "#2b7c9f" }}></span> */}
-          </div>
+          {sideMenu ? (
+            <div className="close-icon" onClick={openSideMenu}>
+              <img src={Close.src} className="close-btn" />
+            </div>
+          ) : (
+            <div className="menu-icon" onClick={openSideMenu}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          )}
         </div>
       </div>
 
@@ -74,36 +87,55 @@ function Menu(props) {
                   </Link>
                 </NavItem>
               )} */}
-                  <NavItem>
+              <NavItem>
                 <Link href="/market-research" passHref>
                   <a onClick={openSideMenu}>Market Research</a>
                 </Link>
               </NavItem>
-              <hr color="white"/>
+              <hr color="white" />
               <NavItem>
-                <Link href="#">
-                  <a onClick={openSideMenu}>Services</a>
-                </Link>
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav caret>
+                    Service
+                  </DropdownToggle>
+                  <DropdownMenu className="dropdown-service-custom">
+                    <DropdownItem className="service-link">
+                      <Link onClick={openSideMenu} href="/it-robo" style={{color: "black"}}>
+                        AI-Based Robo Advisor
+                      </Link>
+                    </DropdownItem>
+                    <DropdownItem className="service-link">
+                      <Link onClick={openSideMenu} href="/consultant" style={{color: "black"}}>
+                        Talk to a Consultant
+                      </Link>
+                    </DropdownItem>
+                    <DropdownItem className="service-link">
+                      <Link onClick={openSideMenu} href="/access" style={{color: "black"}}>
+                        Access Communities
+                      </Link>
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
               </NavItem>
-              <hr color="white"/>
+              <hr color="white" />
               <NavItem>
                 <Link href="/connect">
                   <a onClick={openSideMenu}>Contact us</a>
                 </Link>
               </NavItem>
-              <hr color="white"/>
+              <hr color="white" />
               <NavItem>
                 <Link href="/blogs">
                   <a onClick={openSideMenu}>Blogs</a>
                 </Link>
               </NavItem>
-              <hr color="white"/>
+              <hr color="white" />
               <NavItem>
                 <Link href="/community">
                   <a onClick={openSideMenu}>Community</a>
                 </Link>
               </NavItem>
-{/*              
+              {/*              
               {isloggedIn && (
                 <NavItem>
                   <Link href="/Profile">

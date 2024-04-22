@@ -101,7 +101,9 @@ import Image from "next/future/image";
 import Link from "next/link";
 import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from 'swiper';
 import "swiper/swiper-bundle.min.css";
+import "swiper/css/pagination";
 import moment from "moment";
 import SwiperCore, { Navigation } from "swiper/core";
 import { formatDistanceToNow } from 'date-fns';
@@ -273,19 +275,29 @@ class TrendingQuestion extends React.PureComponent {
                 <Swiper
                   spaceBetween={50}
                   slidesPerView={1}
+                  pagination={{
+                    type: "bullets",
+                    clickable: true,
+                    dynamicBullets: true,
+                  }}
+                  modules={[Pagination]}
                   breakpoints={
                     {
                       1920: {
                         slidesPerView: 3,
+                        pagination: false
                       },
                       1024: {
                         slidesPerView: 3,
+                        pagination: false
                       },
                       900: {
-                        slidesPerView: 2
+                        slidesPerView: 2,
+                        pagination: true
                       },
                       600: {
-                        slidesPerView: 1
+                        slidesPerView: 1,
+                        pagination: true
                       }
                     }
                   }

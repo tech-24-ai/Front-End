@@ -1,9 +1,10 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useRef } from "react";
 import { Container } from "reactstrap";
 import { Image } from "antd";
 import Link from "next/link";
 import moment from "moment";
-import { ArrowRightOutlined } from "@ant-design/icons";
+import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -54,14 +55,7 @@ const LatestResearch = ({
     return { __html: title };
   };
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    // nextArrow: <SampleNextArrow />,
-    // prevArrow: <SamplePrevArrow />,
-  };
+  const slider = useRef(null);
 
   return (
     <Container>
@@ -77,17 +71,56 @@ const LatestResearch = ({
         </div>
 
         <div className="research-section">
+          <div
+            onClick={() => slider.current?.slickPrev()}
+            className="view-more-icon"
+            style={{
+              left: "120px",
+              zIndex: "99",
+              marginTop: "16%",
+              position: "absolute",
+              width: "36px",
+              height: "36px",
+            }}
+          >
+            <ArrowLeftOutlined
+              style={{
+                color: "#fff",
+                fontSize: "16px",
+              }}
+            />
+          </div>
+          <div
+            onClick={() => slider.current?.slickNext()}
+            className="view-more-icon"
+            style={{
+              right: "120px",
+              zIndex: "99",
+              marginTop: "16%",
+              position: "absolute",
+              width: "36px",
+              height: "36px",
+            }}
+          >
+            <ArrowRightOutlined
+              style={{
+                color: "#fff",
+                fontSize: "16px",
+              }}
+            />
+          </div>
           <Slider
+            ref={slider}
             speed={500}
             slidesToScroll={1}
             slidesToShow={3}
+            arrows={false}
             responsive={[
               {
                 breakpoint: 1024,
                 settings: {
                   slidesToShow: 2,
                   dots: true,
-                  arrows: false,
                 },
               },
               {
@@ -95,7 +128,6 @@ const LatestResearch = ({
                 settings: {
                   slidesToShow: 1,
                   dots: true,
-                  arrows: false,
                 },
               },
             ]}
