@@ -284,7 +284,32 @@ function Header(props) {
               </div>
             )}
             <MobileView>
-              
+              <div style={{float:"right", display:"flex"}}>
+                      <NavItem>
+                          <img src="/new_images/search.svg" alt="search" />
+                        </NavItem>
+
+                        {isloggedIn && (
+                          <NavItem style={{ margin: 0 }}>
+                            <Link href="/Profile">
+                              <img
+                                src="/new_images/Avatar.svg"
+                                alt="avatar"
+                                style={{ cursor: "pointer" }}
+                              />
+                            </Link>
+                          </NavItem>
+                        )}
+                        {!isloggedIn && (
+                          <NavItem>
+                            <Link href="/login">
+                              <Button color="light" className="px-4">
+                                Sign up
+                              </Button>
+                            </Link>
+                          </NavItem>
+                        )}
+              </div>
             </MobileView>
           </Col>
         </Row>

@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Container } from "reactstrap";
 
-import { ArrowRightOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { crudActions } from "../../_actions";
 import { connect } from "react-redux";
 import Router, { withRouter } from "next/router";
 import moment from "moment";
+import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import { Image } from "antd";
 import Slider from "react-slick";
 const LatestBlog = ({ getAllCrud, blogs }) => {
   const [showHoverClass, setShowHoverClass] = useState(null);
+
+  const slider = useRef();
 
   useEffect(() => {
     getAllCrud("blogs", "blogs", {
@@ -30,17 +32,54 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
           </Link>
         </div>
         <div className="blog-section">
+          <div
+            onClick={() => slider.current?.slickPrev()}
+            className="view-more-icon"
+            style={{
+              left: "125px",
+              zIndex: "99",
+              position: "absolute",
+              width: "36px",
+              height: "36px",
+            }}
+          >
+            <ArrowLeftOutlined
+              style={{
+                color: "#fff",
+                fontSize: "16px",
+              }}
+            />
+          </div>
+          <div
+            onClick={() => slider.current?.slickNext()}
+            className="view-more-icon"
+            style={{
+              right: "110px",
+              zIndex: "99",
+              position: "absolute",
+              width: "36px",
+              height: "36px",
+            }}
+          >
+            <ArrowRightOutlined
+              style={{
+                color: "#fff",
+                fontSize: "16px",
+              }}
+            />
+          </div>
           <Slider
+            ref={slider}
             speed={500}
             slidesToScroll={1}
             slidesToShow={3}
+            arrows={false}
             responsive={[
               {
                 breakpoint: 1024,
                 settings: {
                   slidesToShow: 2,
                   dots: true,
-                  arrows: false
                 },
               },
               {
@@ -48,7 +87,6 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
                 settings: {
                   slidesToShow: 1,
                   dots: true,
-                  arrows: false
                 },
               },
             ]}
@@ -56,7 +94,8 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
               <div>
                 <ul> {dots} </ul>
               </div>
-            )}>
+            )}
+          >
             {blogs?.slice(0, 3).map((data, index) => (
               <div
                 onMouseOver={() => setShowHoverClass(index)}
@@ -98,11 +137,11 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
               </div>
             ))}
           </Slider>
-          <Link href="blogs">
+          {/* <Link href="blogs">
             <div className="view-more-icon">
               <ArrowRightOutlined />
             </div>
-          </Link>
+          </Link> */}
         </div>
       </div>
     </Container>
