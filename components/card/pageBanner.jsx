@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "reactstrap";
 import myImageLoader from "../../components/imageLoader";
-import Image from "next/image";
+import Image from "next/future/image";
 
 function pageBanner({ image, titleNode }) {
   return (
@@ -16,7 +16,7 @@ function pageBanner({ image, titleNode }) {
                 loader={myImageLoader}
                 src={image}
                 alt=""
-                layout="raw"
+                layout=""
                 width={508}
                 height={454}
                 style={{ objectFit: "contain" }}

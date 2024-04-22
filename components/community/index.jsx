@@ -6,7 +6,7 @@ import { crudService } from "../../_services";
 import { userActions } from "../../_actions";
 import { UsergroupAddOutlined, MessageOutlined } from "@ant-design/icons";
 import { RoboAdvisor, ServiceProvider, Consultant } from "../icons";
-import Image from "next/image";
+import Image from "next/future/image";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -168,7 +168,7 @@ class CommunityCategory extends React.PureComponent {
                     ? {
                       clickable: true,
                       renderBullet: function (index, className) {
-                        if (index < 4) {
+                        if (index < 6) {
                           return `<span class="${className}" style="margin-top: -10px;"></span>`;
                         } else {
                           return '';
