@@ -6,7 +6,7 @@ import { crudService } from "../../_services";
 import { userActions } from "../../_actions";
 import { UsergroupAddOutlined, MessageOutlined } from "@ant-design/icons";
 import { RoboAdvisor, ServiceProvider, Consultant } from "../icons";
-import Image from "next/image";
+import Image from "next/future/image";
 import Link from "next/link";
 import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -151,15 +151,13 @@ class TrendingQuestion extends React.PureComponent {
                 pagination={isMobile ? {
                   clickable: true,
                   renderBullet: function (index, className) {
-                    if (index < 4) {
+                    if (index < 6) {
                       return `<span class="${className}"></span>`;
                     } else {
                       return '';
                     }
                   }
                 }: false}
-                // pagination={isMobile ? { clickable: true } : false} 
-                
                 navigation={{
                   nextEl: ".swiper-button-next",
                   prevEl: ".swiper-button-prev",

@@ -354,7 +354,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 0px 0px 0px 14px;
+    padding: 0px 0px 0px 15px;
   }
 }
 .result-sort {
@@ -407,7 +407,7 @@
     }
     .community-category-below .category-box {
     position: relative;
-    height: 300px;
+    height: 315px;
     display: flex;
 }
   .main-content.about-us {
@@ -632,6 +632,9 @@
       display: flex !important;
       flex-direction: column !important;
     }
+    .result-sort {
+    padding: 0px;
+  }
   }
   .content-card-display {
     width: 100%;

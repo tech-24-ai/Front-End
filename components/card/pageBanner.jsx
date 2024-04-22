@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "reactstrap";
 import myImageLoader from "../../components/imageLoader";
-import Image from "next/image";
+import Image from "next/future/image";
 
 function pageBanner({
   image,
