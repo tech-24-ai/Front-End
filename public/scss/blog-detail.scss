@@ -1,5 +1,35 @@
+.card-review {
+  img {
+     width: 2.5rem;
+     height: 2.5rem;
+  }
+}
+.like-review{
+  color: #075aee;
+}
 .blog-detail-section {
   background-color: $bodyBackgroundColor;
+
+  .blog-breadcrumb{
+    margin-top: 50px;
+    margin-bottom: -58px;
+  }
+  .blog-detail {
+    margin-top: -16px;
+  }
+  .comment-message-text {
+    font-size: 13px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.38;
+    letter-spacing: normal;
+    text-align: left;
+    word-wrap: break-word;
+    white-space: -moz-pre-wrap;
+    white-space: pre-wrap;
+    color: #262626;
+  }
   .blog-detail-heading-container {
     padding: 100px 0px;
     h4 {
@@ -35,6 +65,7 @@
           color: $backgroundColor;
           padding: 4px 6px;
           width: fit-content;
+          
           margin: 1rem 0;
           &.bg {
             background-color: rgba($backgroundColor, 0.2);
@@ -51,6 +82,7 @@
           font-weight: 400;
           font-size: 14px;
           line-height: 20px;
+          margin-top: -16px;
         }
 
         .date-section {
@@ -119,7 +151,7 @@
 
   .blog-container {
     display: flex;
-    // justify-content: space-between;
+    justify-content: space-between;
     margin: 100px 0px;
     .admin-text {
       //   color: $backgroundColor;
@@ -152,24 +184,25 @@
     
       font-weight: 500;
     font-size: 1.25rem;
-    line-height: 2rem;
+    line-height: 1.5rem;
     }
     .card-heading {
       font-weight: 500;
      line-height: 30px;
      text-transform: uppercase;
     text-align: center;
-     background-color: #e8f3fd;
+     background-color: #caced1;
     //  border-radius: 4px;
-     border: 1px solid #e8f3fd;
+    // border: 1px solid #075aee;
      color: #075aee;
      padding: 4px 6px;
     //  width: -moz-fit-content;
     //  width: fit-content;
      margin: 1rem 0;
      width: 203px;
-     margin-top: -5px;
-     margin-right: 40px;
+     margin-top: 2px;
+    //  margin-right: 40px;
+     border-radius: 4px;
 
     }
     .card-detail-body {
@@ -294,6 +327,16 @@
 }
 
 @media (max-width: 575px) {
+  .col {
+    width: 100%;
+  }
+  .rounded-circle{
+    width: 10%!important;
+  }
+  .related-blog{
+    margin-top: 10%!important;
+    margin-bottom: 0px;
+  }
   .blog-detail-section {
     width: 100%;
     .page-banner {
@@ -331,6 +374,7 @@
 
       .second-div {
         margin-left: 0;
+        margin-top: 10%;
 
         .blog-card {
           img {
