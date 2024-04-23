@@ -2134,6 +2134,70 @@ div.message-box-card {
   gap: 1rem 1.5rem;
 }
 
-.swiper-pagination-bullets-dynamic{
+.swiper-pagination-bullets-dynamic {
   height: 20px !important;
+}
+
+.custom-filter {
+  &.ant-card-type-inner {
+    border-radius: 6px;
+    .ant-card-head {
+      padding: 0 10px;
+      background-color: #f2f4f7;
+      border-radius: 6px 6px 0 0;
+
+      .ant-card-head-title {
+        font-size: 1rem;
+        font-weight: 500;
+        line-height: 1.5rem;
+        color: #001622;
+      }
+    }
+    .ant-card-body {
+      padding: 0;
+
+      .ant-collapse {
+        background: transparent;
+        border: none;
+        .ant-collapse-item {
+          .ant-collapse-header {
+            padding: 10px;
+
+            span.anticon {
+              color: #0074d9;
+            }
+
+            .panel-header {
+              margin-bottom: 0;
+              width: 85%;
+              font-weight: 500;
+              font-size: 14px;
+              line-height: 20px;
+            }
+          }
+
+          .ant-collapse-content {
+            .ant-collapse-content-box {
+              padding: 16px 10px;
+
+              .ant-checkbox-group {
+                .ant-checkbox-wrapper {
+                  margin: 0;
+                  padding: 5px 0;
+                }
+              }
+
+              .ant-radio-group {
+                .ant-radio-wrapper {
+                  padding: 5px 0;
+                  font-weight: 500;
+                  font-size: 0.8rem;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

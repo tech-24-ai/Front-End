@@ -14,6 +14,7 @@ import { MessageOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 import ReactPaginate from "react-paginate-next";
 import ResearchCard from "../../components/marketResearch/ResearchCard";
+import CustomFilter from "../../components/filter";
 
 const text = `
   A dog is a type of domesticated animal.
@@ -41,6 +42,10 @@ const options = {
 
 const ResearchList = ({ router }) => {
   const [researchData, setResearchData] = useState([]);
+  const [categoryOptions, setCategoryOptions] = useState([]);
+  const [topicOptions, setTopicOptions] = useState([]);
+  const [tagOptions, setTagOptions] = useState([]);
+  const [typeOptions, setTypeOptions] = useState([]);
 
   const [sortBy, setSortBy] = useState("recent");
   const itemsPerPage = 6;
@@ -49,8 +54,7 @@ const ResearchList = ({ router }) => {
   const [pageCount, setPageCount] = useState(0);
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredData, setFilteredData] = useState([]);
-  const [isSearchActive, setIsSearchActive] = useState(false);
+  const [filteredData, setFilteredData] = useState({});
 
   const { value } = Router.query;
 
@@ -62,6 +66,7 @@ const ResearchList = ({ router }) => {
         page: page + 1,
         pageSize: itemsPerPage,
         search: searchQuery,
+        ...filteredData,
       })
       .then((result) => {
         console.log("result", result);
@@ -69,7 +74,52 @@ const ResearchList = ({ router }) => {
         const totalPage = Math.ceil(result?.data.total / result?.data.perPage);
         setPageCount(isNaN(totalPage) ? 0 : totalPage);
       });
-  }, [page, searchQuery]);
+  }, [page, searchQuery, filteredData]);
+
+  // filter options
+  useEffect(() => {
+    // category filter
+    crudService._getAll("research_categories", {}).then(({ data }) => {
+      if (data) {
+        const options = data.map((option) => ({
+          value: option.id,
+          label: option.name,
+        }));
+        setCategoryOptions(options);
+      }
+    });
+
+    // topic filter
+    crudService._getAll("research_topics", {}).then(({ data }) => {
+      if (data) {
+        const options = data.map((option) => ({
+          value: option.id,
+          label: option.title,
+        }));
+        setTopicOptions(options);
+      }
+    });
+    // tags filter
+    crudService._getAll("research_tags", {}).then(({ data }) => {
+      if (data) {
+        const options = data.map((option) => ({
+          value: option.id,
+          label: option.name,
+        }));
+        setTagOptions(options);
+      }
+    });
+    // type filter
+    crudService._getAll("research_document_types", {}).then(({ data }) => {
+      if (data) {
+        const options = data.map((option) => ({
+          value: option.id,
+          label: option.name,
+        }));
+        setTypeOptions(options);
+      }
+    });
+  }, []);
 
   //Filter
   const handleSearch = (searchValue) => {
@@ -85,31 +135,36 @@ const ResearchList = ({ router }) => {
     };
   };
 
-  const [formData, setFormData] = useState({
-    query: "",
-    tag: "",
-  });
-  const parseDate = (dateString) => {
-    const [datePart, timePart] = dateString.split(" ");
-    const [month, day, year] = datePart.split("-");
-    const [hours, minutes] = timePart.split(":");
-    const parsedDate = new Date(year, month - 1, day, hours, minutes);
-    return parsedDate.toLocaleDateString("en-US", {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    });
-  };
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  const handleOptionChange = ({ name, value }) => {
+    setFilteredData((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const [activeIndex, setActiveIndex] = useState(null);
-
-  const toggleAccordion = (index) => {
-    setActiveIndex(activeIndex === index ? null : index);
-  };
+  const filterData = [
+    {
+      heading: "Research Type",
+      name: "document_type",
+      multiple: false,
+      options: typeOptions,
+    },
+    {
+      heading: "Research Category",
+      multiple: false,
+      name: "category",
+      options: categoryOptions,
+    },
+    {
+      heading: "Research Topics",
+      multiple: false,
+      name: "topic",
+      options: topicOptions,
+    },
+    {
+      heading: "Research Tags",
+      multiple: false,
+      name: "tags",
+      options: tagOptions,
+    },
+  ];
 
   const accordionData = [
     {
@@ -167,175 +222,123 @@ const ResearchList = ({ router }) => {
   };
 
   return (
-    <>
-      <section className="query-section research-list-section mt-6">
-        <Container>
-          <div className="row">
-            <div className="col-md-12">
-              <h4 className="mt-5 mb-3">
-                <span
-                  className="ml-2"
-                  style={{
-                    color: "#B0B8BF",
-                    fontFamily: "Inter",
-                    fontSize: "14px",
-                  }}
-                >
-                  Market Research{" "}
-                  <RightOutlined style={{ verticalAlign: "0" }} />
-                </span>{" "}
-                <span
-                  onClick={() => goToHomePage()}
-                  style={{
-                    color: "#0074D9",
-                    fontFamily: "Inter",
-                    fontSize: "14px",
-                    cursor: "pointer",
-                  }}
-                >
-                  Recently Added
-                </span>
-              </h4>
-            </div>
+    <section className="query-section research-list-section mt-6">
+      <Container>
+        <div className="row">
+          <div className="col-md-12">
+            <h4 className="mt-5 mb-3">
+              <span
+                className="ml-2"
+                style={{
+                  color: "#B0B8BF",
+                  fontFamily: "Inter",
+                  fontSize: "14px",
+                }}
+              >
+                Market Research <RightOutlined style={{ verticalAlign: "0" }} />
+              </span>{" "}
+              <span
+                onClick={() => goToHomePage()}
+                style={{
+                  color: "#0074D9",
+                  fontFamily: "Inter",
+                  fontSize: "14px",
+                  cursor: "pointer",
+                }}
+              >
+                Recently Added
+              </span>
+            </h4>
           </div>
-          <div className="search-box">
-            <SearchInput
-              placeholder="Search anything..."
-              className="SearchInput"
-              onChange={(value) => handleSearch(value)}
-              prefix={<SearchOutlined />}
-              allowClear={true}
+        </div>
+        <div className="search-box">
+          <SearchInput
+            placeholder="Search anything..."
+            className="SearchInput"
+            onChange={(value) => handleSearch(value)}
+            prefix={<SearchOutlined />}
+            allowClear={true}
+          />
+        </div>
+
+        <div
+          style={{ display: "flex", justifyContent: "space-between" }}
+          className="mt-5"
+        >
+          <div className="mobile-display-n" style={{ width: "25%" }}>
+            <CustomFilter
+              data={filterData}
+              handleOptionChange={handleOptionChange}
             />
           </div>
-
-          <div
-            style={{ display: "flex", justifyContent: "space-between" }}
-            className="mt-5"
-          >
-            <div className="mobile-display-n" style={{ width: "24%" }}>
-              <div className="accordion-container">
-                {accordionData.map((item, index) => (
-                  <div
-                    className="accordion-item"
-                    key={index}
-                    style={{
-                      accordionItemStyle,
-                      ...(item.title === "FILTERS"
-                        ? { background: "#f2f4f7" }
-                        : { borderBottom: "1px solid #ccc" }),
-                      ...(item.title === "Research Tags"
-                        ? { borderBottom: "none" }
-                        : { borderBottom: "1px solid #ccc" }),
-                    }}
+          <div className="content-wrap">
+            <div className="result-sort">
+              <div className="results">Results: {researchData?.length}</div>
+              <div className="sorting mobile-display-n">
+                <label className="sortby" htmlFor="sortDropdown">
+                  Sort By:{" "}
+                </label>
+                <select
+                  id="sortDropdown"
+                  style={{ border: "none", background: "transparent" }}
+                  value={sortBy}
+                  onChange={handleSort}
+                >
+                  <option
+                    className="sortby"
+                    style={{ color: "#001622" }}
+                    value="recent"
                   >
-                    <button
-                      className="accordion-title"
-                      style={{
-                        ...accordionTitleStyle,
-                        ...(item.title === "FILTERS"
-                          ? {
-                              background: "#f2f4f7",
-                              color: "#001622",
-                              fontFamily: "Inter",
-                              fontSize: "16px",
-                              fontWeight: "600",
-                            }
-                          : { background: "#fafafc" }),
-                        ...(activeIndex === index
-                          ? activeAccordionTitleStyle
-                          : {}),
-                      }}
-                      onClick={() => toggleAccordion(index)}
-                      aria-expanded={activeIndex === index ? "true" : "false"}
-                    >
-                      {item.title}
-                      {item.title !== "FILTERS" && (
-                        <span style={{ float: "right", color: "#0074D9" }}>
-                          {activeIndex === index ? "-" : "+"}
-                        </span>
-                      )}
-                    </button>
-                    {activeIndex === index && (
-                      <div
-                        className="accordion-content"
-                        style={accordionContentStyle}
-                      >
-                        {item.content}
-                      </div>
-                    )}
-                  </div>
-                ))}
+                    Most Recent
+                  </option>
+                </select>
               </div>
             </div>
-            <div className="content-wrap">
-              <div className="result-sort">
-                <div className="results">Results: {researchData?.length}</div>
-                <div className="sorting mobile-display-n">
-                  <label className="sortby" htmlFor="sortDropdown">
-                    Sort By:{" "}
-                  </label>
-                  <select
-                    id="sortDropdown"
-                    style={{ border: "none", background: "transparent" }}
-                    value={sortBy}
-                    onChange={handleSort}
-                  >
-                    <option
-                      className="sortby"
-                      style={{ color: "#001622" }}
-                      value="recent"
-                    >
-                      Most Recent
-                    </option>
-                  </select>
-                </div>
+            <div className="mt-3 content-card-display content-card-mobile latest-research ">
+              <div className="research-section">
+                {researchData?.map((item, index) => (
+                  <ResearchCard data={item} key={index} />
+                ))}
               </div>
-              <div className="mt-3 content-card-display content-card-mobile latest-research ">
-                <div className="research-section">
-                  {researchData?.map((item, index) => (
-                    <ResearchCard data={item} key={index} />
-                  ))}
-                </div>
-                <div className="mt-5" style={{ width: "100%" }}>
-                  {researchData?.length > 0 && (
-                    <ReactPaginate
-                      pageCount={pageCount}
-                      initialPage={page}
-                      forcePage={page}
-                      onPageChange={({ selected }) => setPage(selected)}
-                      previousLabel={
-                        <span
-                          style={{
-                            color: "#000",
-                            fontSize: "20px",
-                            fontWeight: 500,
-                          }}
-                        >
-                          {"<"}
-                        </span>
-                      }
-                      nextLabel={
-                        <span
-                          style={{
-                            color: "#000",
-                            fontSize: "20px",
-                            fontWeight: 500,
-                          }}
-                        >
-                          {">"}
-                        </span>
-                      }
-                      activeClassName={"selected-page"}
-                      pageClassName={"other-page"}
-                    />
-                  )}
-                </div>
+              <div className="mt-5" style={{ width: "100%" }}>
+                {researchData?.length > 0 && (
+                  <ReactPaginate
+                    pageCount={pageCount}
+                    initialPage={page}
+                    forcePage={page}
+                    onPageChange={({ selected }) => setPage(selected)}
+                    previousLabel={
+                      <span
+                        style={{
+                          color: "#000",
+                          fontSize: "20px",
+                          fontWeight: 500,
+                        }}
+                      >
+                        {"<"}
+                      </span>
+                    }
+                    nextLabel={
+                      <span
+                        style={{
+                          color: "#000",
+                          fontSize: "20px",
+                          fontWeight: 500,
+                        }}
+                      >
+                        {">"}
+                      </span>
+                    }
+                    activeClassName={"selected-page"}
+                    pageClassName={"other-page"}
+                  />
+                )}
               </div>
             </div>
           </div>
-        </Container>
-      </section>
-    </>
+        </div>
+      </Container>
+    </section>
   );
 };
 
