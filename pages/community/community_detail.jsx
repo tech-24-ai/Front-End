@@ -157,7 +157,7 @@ const CommunityDetail = ({ getAllCrud }) => {
     useEffect(() => {
       const id = sessionStorage.getItem("community_id");
       setTimeout(() => {
-        if (id) {
+        if (id && headerSearch) {
           crudService
             ._getAll(`communitypost/${id}`, { search: headerSearch })
             .then((data) => {
@@ -165,6 +165,7 @@ const CommunityDetail = ({ getAllCrud }) => {
             });
         }
       }, 300);
+     
     }, [headerSearch]);
 
     return (
