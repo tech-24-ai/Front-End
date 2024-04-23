@@ -11,9 +11,9 @@ import { connect } from "react-redux";
 import { RightOutlined } from "@ant-design/icons";
 import { UsergroupAddOutlined } from "@ant-design/icons";
 import { MessageOutlined } from "@ant-design/icons";
-
 import { Input } from "antd";
 import ReactPaginate from "react-paginate-next";
+import ResearchCard from "../../components/marketResearch/ResearchCard";
 
 const text = `
   A dog is a type of domesticated animal.
@@ -33,7 +33,6 @@ const items = [
     showArrow: false,
   },
 ];
-import axios from "axios";
 const options = {
   day: "numeric",
   month: "long",
@@ -41,10 +40,13 @@ const options = {
 };
 
 const ResearchList = ({ router }) => {
-  const [communityFeature, setCommunityFeature] = useState([]);
+  const [researchData, setResearchData] = useState([]);
+
   const [sortBy, setSortBy] = useState("recent");
-  const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 6;
+
+  const [page, setPage] = useState(0);
+  const [pageCount, setPageCount] = useState(0);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState([]);
@@ -53,55 +55,35 @@ const ResearchList = ({ router }) => {
   const { value } = Router.query;
 
   useEffect(() => {
-    const getAllPosts = async () => {
-      try {
-        const data = await crudService._getAll("community", {
-          search: searchQuery,
-        });
-        setCommunityFeature(data.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    getAllPosts();
-  }, [searchQuery]);
-
-  useEffect(() => {
-    if (value) {
-      setSearchQuery(value);
-    }
-  }, [value]);
-
-  useEffect(() => {
-    const filtered = communityFeature.filter((item) =>
-      item.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    setFilteredData(filtered);
-  }, [searchQuery, communityFeature]);
+    crudService
+      ._getAll("market_research", {
+        orderBy: "id",
+        orderDirection: "desc",
+        page: page + 1,
+        pageSize: itemsPerPage,
+        search: searchQuery,
+      })
+      .then((result) => {
+        console.log("result", result);
+        setResearchData(result?.data?.data);
+        const totalPage = Math.ceil(result?.data.total / result?.data.perPage);
+        setPageCount(isNaN(totalPage) ? 0 : totalPage);
+      });
+  }, [page, searchQuery]);
 
   //Filter
-  const handleSearch = (e) => {
-    setSearchQuery(e.target.value);
-    setCurrentPage(0);
-    setIsSearchActive(e.target.value.trim() !== "");
-  };
+  const handleSearch = (searchValue) => {
+    if (searchValue == null) {
+      return false;
+    }
+    const timerId = setTimeout(() => {
+      setSearchQuery(searchValue);
+    }, 1000);
 
-  // Pagination
-  const slicedData = filteredData.slice(
-    currentPage * itemsPerPage,
-    (currentPage + 1) * itemsPerPage
-  );
-
-  let arrData = [];
-  communityFeature?.map((item) => {
-    const random = Math.random().toString(36).substring(2, 6);
-    const data = {
-      id: random,
-      value: item.name,
-      title: item.name,
+    return () => {
+      clearTimeout(timerId);
     };
-    arrData.push(data);
-  });
+  };
 
   const [formData, setFormData] = useState({
     query: "",
@@ -129,16 +111,6 @@ const ResearchList = ({ router }) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
-  const communityDetails = (data) => {
-    sessionStorage.setItem("community_id", data?.url_slug);
-    Router.push("community_detail");
-  };
-
-  const joinCommunity = (community_id) => {
-    crudService
-      ._create("community/join", { community_id })
-      .then(() => window.location.reload());
-  };
   const accordionData = [
     {
       title: "FILTERS",
@@ -190,13 +162,13 @@ const ResearchList = ({ router }) => {
   const handleSort = (e) => {
     setSortBy(e.target.value);
   };
-  const handleAllCommunity = () => {
-    Router.push("/community");
+  const goToHomePage = () => {
+    Router.push("/market-research");
   };
 
   return (
     <>
-      <section className="query-section mt-6">
+      <section className="query-section research-list-section mt-6">
         <Container>
           <div className="row">
             <div className="col-md-12">
@@ -209,10 +181,11 @@ const ResearchList = ({ router }) => {
                     fontSize: "14px",
                   }}
                 >
-                  Community <RightOutlined style={{ verticalAlign: "0" }} />
+                  Market Research{" "}
+                  <RightOutlined style={{ verticalAlign: "0" }} />
                 </span>{" "}
                 <span
-                  onClick={() => handleAllCommunity()}
+                  onClick={() => goToHomePage()}
                   style={{
                     color: "#0074D9",
                     fontFamily: "Inter",
@@ -220,29 +193,18 @@ const ResearchList = ({ router }) => {
                     cursor: "pointer",
                   }}
                 >
-                  All Community
+                  Recently Added
                 </span>
               </h4>
             </div>
           </div>
           <div className="search-box">
-            <Input
-              placeholder="Search anything.."
-              prefix={
-                <SearchOutlined
-                  style={{ color: "#0074D9", padding: "0 6px" }}
-                />
-              }
-              value={searchQuery}
-              onChange={handleSearch}
-              style={{
-                width: "100%",
-                padding: "10px",
-                border: "1px solid #ccc",
-                borderRadius: "5px",
-                background: "#ffffff",
-                boxSizing: "border-box",
-              }}
+            <SearchInput
+              placeholder="Search anything..."
+              className="SearchInput"
+              onChange={(value) => handleSearch(value)}
+              prefix={<SearchOutlined />}
+              allowClear={true}
             />
           </div>
 
@@ -307,9 +269,7 @@ const ResearchList = ({ router }) => {
             </div>
             <div className="content-wrap">
               <div className="result-sort">
-                <div className="results">
-                  Results: {communityFeature.length}
-                </div>
+                <div className="results">Results: {researchData?.length}</div>
                 <div className="sorting mobile-display-n">
                   <label className="sortby" htmlFor="sortDropdown">
                     Sort By:{" "}
@@ -330,146 +290,49 @@ const ResearchList = ({ router }) => {
                   </select>
                 </div>
               </div>
-              <div className="mt-5 content-card-display content-card-mobile">
-                {slicedData.map((item, index) => (
-                  <div
-                    className="col-6 community-category-below community-category-mobile"
-                    style={{
-                      marginTop: "-1rem",
-                      height: "324px",
-                      paddingRight: "0px",
-                    }}
-                  >
-                    <div className="category-box">
-                      <div
-                        className="category-banner-wrapper"
-                        id="categoryWrapper"
-                      >
-                        <div className="category-banner-block">
-                          <div
-                            className="category-banner"
-                            // style={{ maxWidth: "100%" }}
-                          >
-                            <div className="category-content">
-                              <div
-                                className="content-header"
-                                onClick={() => communityDetails(item)}
-                              >
-                                <div className="icon-bg">
-                                  <img
-                                    src={item.image_url}
-                                    style={{ borderRadius: "4.8px" }}
-                                    alt={item.name}
-                                    width={48}
-                                    height={48}
-                                    className="icon-image"
-                                  />
-                                </div>
-                                <div
-                                  className="category-text"
-                                  style={{ maxWidth: "70%" }}
-                                >
-                                  <h6>{item.name}</h6>
-                                </div>
-                              </div>
-                              <div
-                                className="card-body"
-                                style={{ paddingTop: "12px" }}
-                                onClick={() => communityDetails(item)}
-                              >
-                                <p class="card-description">
-                                  {item.description}
-                                </p>
-                                <div className="content-x">
-                                  <div className="user-icon">
-                                    <p>
-                                      <UsergroupAddOutlined
-                                        style={{
-                                          fontSize: "16px",
-                                          verticalAlign: "0.04em",
-                                        }}
-                                      />{" "}
-                                      Members : {item?.__meta__?.total_members}
-                                    </p>
-                                  </div>
-                                  <div className="query-icon">
-                                    <p>
-                                      <MessageOutlined
-                                        style={{
-                                          fontSize: "16px",
-                                          verticalAlign: "0.04em",
-                                        }}
-                                      />{" "}
-                                      Queries : {item?.__meta__?.total_posts}
-                                    </p>
-                                  </div>
-                                </div>
-                              </div>
-                              {/* <hr class="dotted-hr"></hr> */}
-                              <hr className="dashed" />
-
-                              <div className="learn-more-box-ac">
-                                {item.communityMember.length === 0 ? (
-                                  <Button
-                                    className="btn-box"
-                                    onClick={() => joinCommunity(item.id)}
-                                  >
-                                    Join Community
-                                  </Button>
-                                ) : (
-                                  <p
-                                    style={{
-                                      textAlign: "left",
-                                      width: "100%",
-                                      paddingLeft: "5px",
-                                      marginTop: "14px",
-                                      fontWeight: "600",
-                                      fontFamily: "Inter",
-                                    }}
-                                  >
-                                    Member since{" "}
-                                    {item.communityMember[0]?.created_at
-                                      ? parseDate(
-                                          item.communityMember[0].created_at
-                                        )
-                                      : "N/A"}
-                                  </p>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+              <div className="mt-3 content-card-display content-card-mobile latest-research ">
+                <div className="research-section">
+                  {researchData?.map((item, index) => (
+                    <ResearchCard data={item} key={index} />
+                  ))}
+                </div>
+                <div className="mt-5" style={{ width: "100%" }}>
+                  {researchData?.length > 0 && (
+                    <ReactPaginate
+                      pageCount={pageCount}
+                      initialPage={page}
+                      forcePage={page}
+                      onPageChange={({ selected }) => setPage(selected)}
+                      previousLabel={
+                        <span
+                          style={{
+                            color: "#000",
+                            fontSize: "20px",
+                            fontWeight: 500,
+                          }}
+                        >
+                          {"<"}
+                        </span>
+                      }
+                      nextLabel={
+                        <span
+                          style={{
+                            color: "#000",
+                            fontSize: "20px",
+                            fontWeight: 500,
+                          }}
+                        >
+                          {">"}
+                        </span>
+                      }
+                      activeClassName={"selected-page"}
+                      pageClassName={"other-page"}
+                    />
+                  )}
+                </div>
               </div>
             </div>
           </div>
-          {!isSearchActive && !searchQuery && (
-            <ReactPaginate
-              pageCount={Math.ceil(communityFeature.length / itemsPerPage)}
-              onPageChange={({ selected }) => setCurrentPage(selected)}
-              // previousLabel={"<"}
-              // nextLabel={">"}
-              previousLabel={
-                <span
-                  style={{ color: "#000", fontSize: "20px", fontWeight: 500 }}
-                >
-                  {"<"}
-                </span>
-              }
-              nextLabel={
-                <span
-                  style={{ color: "#000", fontSize: "20px", fontWeight: 500 }}
-                >
-                  {">"}
-                </span>
-              }
-              activeClassName={"selected-page"}
-              pageClassName={"other-page"}
-            />
-          )}
         </Container>
       </section>
     </>
@@ -477,14 +340,14 @@ const ResearchList = ({ router }) => {
 };
 
 const mapStateToProps = (state) => {
-  const { community } = state;
+  const { market_research } = state;
   return {
-    community,
+    market_research,
   };
 };
 
 const actionCreators = {
-  getCrud: crudActions._getAll,
+  getAllCrud: crudActions._getAll,
 };
 
 export default withRouter(

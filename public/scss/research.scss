@@ -228,10 +228,14 @@
         display: flex;
         flex-direction: column;
         height: 100%;
-        justify-content: space-between;
+        // justify-content: space-between;
         border: 2px solid #d9dfe9;
         border-radius: 8px;
         position: relative;
+
+        .content-section {
+          height: 100%;
+        }
 
         img {
           border-top-left-radius: 6px;
@@ -339,6 +343,23 @@
   :hover {
     .showHoverClass img {
       transform: scale(1.15);
+    }
+  }
+}
+
+.research-list-section {
+  .research-section {
+    display: grid;
+    grid-template-columns: 48.5% 48.5%;
+    gap: 1.5rem;
+    width: 100%;
+
+    .research-list .research-card {
+      .content-sections {
+        .research-detail {
+          -webkit-line-clamp: 2;
+        }
+      }
     }
   }
 }

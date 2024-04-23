@@ -14,7 +14,7 @@ const ResearchCard = ({ key, data }) => {
       }`}
     >
       <div className="research-card">
-        <div>
+        <div className="image-section">
           <Image
             // width={350}
             // height={210}
@@ -25,7 +25,7 @@ const ResearchCard = ({ key, data }) => {
           />
           <div className="research-category">{data.category.name}</div>
         </div>
-        <div style={{ padding: "20px" }}>
+        <div style={{ padding: "20px" }} className="content-sections">
           <p className="research-heading">{data.name}</p>
           <p className="research-detail">{data.details}</p>
           <div className="date-section">

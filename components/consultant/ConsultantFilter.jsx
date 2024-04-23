@@ -213,7 +213,7 @@ function ConsultantFilter({ data, setState, setSearchText, isCompany }) {
               isCompany ? "Find a Service Provider" : "Find Consultant"
             }
             className="testSearchInput"
-            onChange={(e) => setSearchInput(e.target.value)}
+            onChange={(value) => setSearchInput(value)}
             suffix={<SearchOutlined />}
           />
           <DropdownButton
@@ -246,7 +246,7 @@ function ConsultantFilter({ data, setState, setSearchText, isCompany }) {
               isCompany ? "Find Service Provider" : "Find Consultant"
             }
             className="search-input"
-            onChange={(e) => setSearchInput(e.target.value)}
+            onChange={(value) => setSearchInput(value)}
             suffix={<SearchOutlined />}
           />
           <Swiper

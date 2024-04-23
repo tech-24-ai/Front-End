@@ -6,14 +6,13 @@ import myImageLoader from "../../components/imageLoader";
 import { SearchOutlined } from "@ant-design/icons";
 import { Card, Space } from "antd";
 import moment from "moment";
-import { Pagination } from 'antd';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Pagination } from "antd";
+import "bootstrap/dist/css/bootstrap.min.css";
 const options = {
   day: "numeric",
   month: "long",
   year: "numeric",
 };
-
 
 import React, { Component, useEffect, useState } from "react";
 import { withRouter } from "next/router";
@@ -25,9 +24,7 @@ import Image from "next/image";
 import CheckableTag from "antd/lib/tag/CheckableTag";
 import { DateIcon, ProfileIcon } from "../../components/icons";
 
-
 class Blogs extends Component {
-  
   constructor(props) {
     super(props);
     this.state = {
@@ -38,14 +35,12 @@ class Blogs extends Component {
       currentPage: 1,
       totalItems: 50, // Total number of items in your list
       pageSize: 10, // Number of items per page
-      value: '',
+      value: "",
       posts: [],
     };
     this.searchPosts = this.searchPosts.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
-    
   }
-  
 
   blogsList = (id) => {
     crudService._getAll("blogs", { blog_topic_id: id }).then((result) => {
@@ -68,16 +63,13 @@ class Blogs extends Component {
     }
   }
 
-  handleSearchChange(event) {
-    this.setState({ value: event.target.value }, () => {
+  handleSearchChange(value) {
+    this.setState({ value: value }, () => {
       // Search after state update (with a delay)
       clearTimeout(this.searchTimeout);
       this.searchTimeout = setTimeout(this.searchPosts, 300);
     });
   }
-
-  
-  
 
   componentDidMount() {
     this.blogsList(0);
@@ -107,7 +99,6 @@ class Blogs extends Component {
     this.setState({ currentPage: page });
   };
 
-  
   render() {
     const { value, posts } = this.state;
     const { isActive, isHover } = this.state;
@@ -115,18 +106,15 @@ class Blogs extends Component {
     return (
       <>
         <section className="blogs-section">
-      
-        <PageBanner 
+          <PageBanner
             titleNode={
               <div>
-                 <h2 style={{color:"white"}}>
-                Welcome to the Tech 24 <br />
-                Blog
-              </h2>
+                <h2 style={{ color: "white" }}>
+                  Welcome to the Tech 24 <br />
+                  Blog
+                </h2>
 
-              <p style={{color:"white"}}>
-                Get our blogs
-              </p>
+                <p style={{ color: "white" }}>Get our blogs</p>
                 {/* <h4>Blogs</h4> */}
                 <hr></hr>
                 <SearchInput
@@ -144,67 +132,87 @@ class Blogs extends Component {
             }
             image={blogsBannerImage}
           />
-      
+
           <Container className="blog-container">
-            <h4 className="blogTitle" style={{ color: "#005dd4", paddingLeft: "14px", paddingBottom: "20px" }}>Blogs</h4>
+            <h4
+              className="blogTitle"
+              style={{
+                color: "#005dd4",
+                paddingLeft: "14px",
+                paddingBottom: "20px",
+              }}
+            >
+              Blogs
+            </h4>
             <div className="row">
-            <div className="second-div">
-              {this.state.posts.length > 0 
-                ? this.state.posts
-                .slice((currentPage - 1) * pageSize, currentPage * pageSize) // Extract posts for the current page
-                .map((post, key) => (
-                  <Link href={`blogs/${post.slug}`}>
-                    
-              <div className="blog-list">
-              <div className="blog-card" style={{display:'flex',flexDirection:'column',height:'100%',justifyContent:'space-between'}}>
-                <div style={{letterSpacing: 'normal' }}>
-                <Image className="blogImage" style={{
-                transition: 'transform 0.5s ease',
-                }}
-                  width={350}
-                  height={210}
-                  src={post.image}
-                  preview={false}
-                  alt=""
-                  placeholder="blog banner"
-                  onMouseOver={(e) => {
-                    e.target.style.transform = 'scale(1.1)'; // Zoom in on hover
-                  }}
-                  onMouseOut={(e) => {
-                    e.target.style.transform = 'scale(1)'; // Zoom out on mouse out
-                  }}
-                />
-                <p className="category bg">{post.blog_topic_name}</p>
-                <p className="blog-heading">{post.name}</p>
-                <p className="blog-detail">{post.details}</p>
-                </div>
-                <div className="date-section">
-                  <div className="date">
-                    {moment(post.created_at).format("LL")}
-                  </div>
-                  <div className="custom-divider"></div>
-                </div>
+              <div className="second-div">
+                {/* {currentPosts.length > 0 ? ( */}
+                {this.state.posts.length > 0 ? (
+                  this.state.posts
+                    .slice((currentPage - 1) * pageSize, currentPage * pageSize) // Extract posts for the current page
+                    .map((post, key) => (
+                      <Link href={`blogs/${post.slug}`}>
+                        <div className="blog-list">
+                          <div
+                            className="blog-card"
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              height: "100%",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <div style={{ letterSpacing: "normal" }}>
+                              <Image
+                                className="blogImage"
+                                style={{
+                                  transition: "transform 0.5s ease",
+                                }}
+                                width={350}
+                                height={210}
+                                src={post.image}
+                                preview={false}
+                                alt=""
+                                placeholder="blog banner"
+                                onMouseOver={(e) => {
+                                  e.target.style.transform = "scale(1.1)"; // Zoom in on hover
+                                }}
+                                onMouseOut={(e) => {
+                                  e.target.style.transform = "scale(1)"; // Zoom out on mouse out
+                                }}
+                              />
+                              <p className="category bg">
+                                {post.blog_topic_name}
+                              </p>
+                              <p className="blog-heading">{post.name}</p>
+                              <p className="blog-detail">{post.details}</p>
+                            </div>
+                            <div className="date-section">
+                              <div className="date">
+                                {moment(post.created_at).format("LL")}
+                              </div>
+                              <div className="custom-divider"></div>
+                              {/* {<div className="time">10 min read</div>} */}
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                    ))
+                ) : this.state.posts && this.state.posts.length == 0 ? (
+                  <p style={{ padding: "20px" }}>No Blogs</p>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
-                  </Link>
-                )) : this.state.posts && this.state.posts.length == 0
-                  ? <p style={{ padding: "20px" }}>
-                    No Blogs
-                  </p>
-                  : ""}
-
-            </div>
-            </div>
-            
           </Container>
-            {posts.length > 0 && (
-            <Pagination
-              defaultCurrent={currentPage}
-              onChange={this.handlePageChange}
-              pageSize={pageSize}
-              total={totalItems}
-            />
-          )}
+
+          <Pagination
+            defaultCurrent={currentPage}
+            onChange={this.handlePageChange}
+            pageSize={9}
+            total={totalItems}
+          />
         </section>
       </>
     );

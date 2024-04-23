@@ -38,10 +38,8 @@ function pageBanner({
                 {image && (
                   <Image
                     className="banner-image"
-                    loader={myImageLoader}
                     src={image}
                     alt=""
-                    layout="raw"
                     width={508}
                     height={454}
                     style={{ objectFit: "contain" }}
