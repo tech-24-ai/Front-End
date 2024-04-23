@@ -66,7 +66,13 @@
 .blogs-section {
   // background-color: $bodyBackgroundColor;
   background-color: #ffffff;
+  margin-top: -4px;
   display: flex;
+  .page-banner{
+    .banner-bg{
+      height: 386px;
+    }
+  }
   .blog-container {
     display: flex;
     justify-content: space-between;
@@ -459,6 +465,9 @@
   .blogs-section {
     .testSearchInput{
       width: auto;
+    }
+    .banner-bg{
+      height: 220px !important;
     }
     .page-banner .banner-bg .banner-container {
       padding: 2rem 0;

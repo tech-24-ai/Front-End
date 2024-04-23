@@ -1,79 +1,44 @@
-import PageBanner from "../../components/card/pageBanner";
-import blogsBannerImage from "../../public/new_images/blogs-bg.svg";
-import blogsProfile from "../../public/new_images/blog-profile.svg";
-import rightArrow from "../../public/new_images/right-arrow.svg";
-import myImageLoader from "../../components/imageLoader";
-import { SearchOutlined } from "@ant-design/icons";
-import { Card, Space } from "antd";
-import moment from "moment";
-import { Pagination } from "antd";
-import "bootstrap/dist/css/bootstrap.min.css";
-const options = {
-  day: "numeric",
-  month: "long",
-  year: "numeric",
-};
-
-import React, { Component, useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { withRouter } from "next/router";
 import Link from "next/link";
 import { Container } from "reactstrap";
 import { crudService } from "../../_services";
-import SearchInput from "../../components/form/searchInput";
+import moment from "moment";
+import { Pagination, TreeSelect } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 import Image from "next/image";
-import CheckableTag from "antd/lib/tag/CheckableTag";
-import { DateIcon, ProfileIcon } from "../../components/icons";
+import PageBanner from "../../components/card/pageBanner";
+import { isMobile, isBrowser } from "react-device-detect";
+import ReactPaginate from "react-paginate-next";
 
-class Blogs extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      posts: [],
-      fnColor: "",
-      isActive: "All",
-      isHover: "All",
-      currentPage: 1,
-      totalItems: 50, // Total number of items in your list
-      pageSize: 10, // Number of items per page
-      value: "",
-      posts: [],
-    };
-    this.searchPosts = this.searchPosts.bind(this);
-    this.handleSearchChange = this.handleSearchChange.bind(this);
-  }
+function Blogs({ router }) {
+  const [posts, setPosts] = useState([]);
+  const [value, setValue] = useState("");
+  const [isActive, setIsActive] = useState("All");
+  const [isHover, setIsHover] = useState("All");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize] = useState(7);
+  const [totalItems, setTotalItems] = useState(0);
 
-  blogsList = (id) => {
-    crudService._getAll("blogs", { blog_topic_id: id }).then((result) => {
-      this.setState({ posts: result.data });
-    });
-  };
-
-  componentDidMount() {
-    // Initial search on component mount
-    this.searchPosts();
-  }
-
-  async searchPosts() {
-    const { value } = this.state;
+  const fetchData = async () => {
     try {
-      const data = await crudService._getAll("blogs", { search: value });
-      this.setState({ posts: data.data });
+      const data = await crudService._getAll("blogs", { search: value, page: currentPage, pageSize: pageSize });
+      setPosts(data.data);
+      setTotalItems(data.totalItems);
+      console.log("data", data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  }
-
-  handleSearchChange(value) {
-    this.setState({ value: value }, () => {
-      // Search after state update (with a delay)
-      clearTimeout(this.searchTimeout);
-      this.searchTimeout = setTimeout(this.searchPosts, 300);
-    });
-  }
-
-  componentDidMount() {
-    this.blogsList(0);
-    let query = this.props.router.query;
+  };
+  useEffect(() => {
+    fetchData(); 
+  }, [value, currentPage, pageSize]); 
+  
+  
+  
+  useEffect(() => {
+    blogsList(0);
+    let query = router.query;
     crudService._getAll("categories", {}).then((result) => {
       let categories = result.data;
       categories.unshift({
@@ -82,141 +47,249 @@ class Blogs extends Component {
         color: "#C0C0C0",
       });
       if (query) {
-        const cuurentCategory = categories.filter(
+        const currentCategory = categories.filter(
           (c) => c.name == query.cat
         )[0];
-        if (cuurentCategory) {
-          this.blogsList(cuurentCategory.id);
-          this.setState({ isActive: query.cat, isHover: query.cat });
+        if (currentCategory) {
+          blogsList(currentCategory.id);
+          setIsActive(query.cat);
+          setIsHover(query.cat);
         }
       }
-
-      this.setState({ posting: categories });
     });
-  }
+  }, []);
 
-  handlePageChange = (page) => {
-    this.setState({ currentPage: page });
+  let arrData = [];
+
+  posts?.map((item) => {
+    const random = Math.random().toString(36).substring(2, 6);
+    const data = {
+      id: random,
+      value: item.name,
+      title: item.name,
+    };
+    arrData.push(data);
+  });
+
+  const blogsList = (id) => {
+    crudService._getAll("blogs", { blog_topic_id: id }).then((result) => {
+      setPosts(result.data);
+    });
   };
 
-  render() {
-    const { value, posts } = this.state;
-    const { isActive, isHover } = this.state;
-    const { currentPage, totalItems, pageSize } = this.state;
-    return (
-      <>
-        <section className="blogs-section">
-          <PageBanner
-            titleNode={
-              <div>
-                <h2 style={{ color: "white" }}>
-                  Welcome to the Tech 24 <br />
-                  Blog
-                </h2>
+  const searchPosts = async () => {
+    try {
+      const data = await crudService._getAll("blogs", { search: value });
+      setPosts(data.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
-                <p style={{ color: "white" }}>Get our blogs</p>
-                {/* <h4>Blogs</h4> */}
-                <hr></hr>
-                <SearchInput
-                  style={{
-                    minWidth: "unset",
-                    height: "unset",
-                    margin: "5px 0px 15px 0px",
+  // const handleSearchChange = (value) => {
+  //   setValue(value);
+  //   // Search after state update (with a delay)
+  //   clearTimeout(searchTimeout);
+  //   const searchTimeout = setTimeout(searchPosts, 300);
+  // };
+
+  const handleSearchChange = (value) => {
+    setValue(value);
+    setCurrentPage(1);
+  };
+
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+  const onLoadData = async (treeNode) => {
+    const { value } = treeNode.props;
+    if (value) {
+      const data = await crudService._getAll("blogs", { search: value });
+      return data.data.map((item) => ({
+        value: item.name,
+        title: item.name,
+      }));
+    }
+    return [];
+  };
+
+
+  const treeSelectWidth = isBrowser ? 568 : 343;
+
+  return (
+    <>
+      <section className="blogs-section">
+        <PageBanner
+          titleNode={
+            <div>
+              <h2 style={{ color: "white" }}>
+                Welcome to the Tech 24 <br />
+                Blog
+              </h2>
+
+              <p style={{ color: "white" }}>Get our blogs</p>
+              <hr></hr>
+              <div className="mt-4" style={styles.inputGroup}>
+                <TreeSelect
+                  allowClear
+                  treeDataSimpleMode
+                  defaultValue={value}
+                  showSearch={true}
+                  dropdownStyle={{
+                    maxHeight: 150,
+                    overflow: "auto",
                   }}
-                  value={value}
-                  onChange={this.handleSearchChange}
-                  className="testSearchInput"
-                  suffix={<SearchOutlined />}
+                  placeholder="Search Anything..."
+                  onChange={handleSearchChange}
+                  loadData={onLoadData} 
+                  treeData={arrData}
+                  style={{ width: treeSelectWidth, height: "", color: "#fff" }}
+                  suffixIcon={<SearchOutlined />}
                 />
               </div>
-            }
-            image={blogsBannerImage}
-          />
-
-          <Container className="blog-container">
-            <h4
-              className="blogTitle"
-              style={{
-                color: "#005dd4",
-                paddingLeft: "14px",
-                paddingBottom: "20px",
-              }}
-            >
-              Blogs
-            </h4>
-            <div className="row">
-              <div className="second-div">
-                {/* {currentPosts.length > 0 ? ( */}
-                {this.state.posts.length > 0 ? (
-                  this.state.posts
-                    .slice((currentPage - 1) * pageSize, currentPage * pageSize) // Extract posts for the current page
-                    .map((post, key) => (
-                      <Link href={`blogs/${post.slug}`}>
-                        <div className="blog-list">
-                          <div
-                            className="blog-card"
-                            style={{
-                              display: "flex",
-                              flexDirection: "column",
-                              height: "100%",
-                              justifyContent: "space-between",
-                            }}
-                          >
-                            <div style={{ letterSpacing: "normal" }}>
-                              <Image
-                                className="blogImage"
-                                style={{
-                                  transition: "transform 0.5s ease",
-                                }}
-                                width={350}
-                                height={210}
-                                src={post.image}
-                                preview={false}
-                                alt=""
-                                placeholder="blog banner"
-                                onMouseOver={(e) => {
-                                  e.target.style.transform = "scale(1.1)"; // Zoom in on hover
-                                }}
-                                onMouseOut={(e) => {
-                                  e.target.style.transform = "scale(1)"; // Zoom out on mouse out
-                                }}
-                              />
-                              <p className="category bg">
-                                {post.blog_topic_name}
-                              </p>
-                              <p className="blog-heading">{post.name}</p>
-                              <p className="blog-detail">{post.details}</p>
+            </div>
+          }
+          image={""}
+          height={isBrowser ? 386 : 220}
+        />
+        <Container className="blog-container">
+          <h4
+            className="blogTitle"
+            style={{
+              color: "#005dd4",
+              paddingLeft: "14px",
+              paddingBottom: "20px",
+            }}
+          >
+            Blogs
+          </h4>
+          <div className="row">
+            <div className="second-div">
+              {posts.length > 0 ? (
+                posts
+                  .slice((currentPage - 1) * pageSize, currentPage * pageSize)
+                  .map((post, key) => (
+                    <Link href={`blogs/${post.slug}`} key={key}>
+                      <div className="blog-list">
+                        <div
+                          className="blog-card"
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            height: "100%",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <div style={{ letterSpacing: "normal" }}>
+                            <Image
+                              className="blogImage"
+                              style={{ transition: "transform 0.5s ease" }}
+                              width={350}
+                              height={210}
+                              src={post.image}
+                              preview={false}
+                              alt=""
+                              placeholder="blog banner"
+                              onMouseOver={(e) => {
+                                e.target.style.transform = "scale(1.1)";
+                              }}
+                              onMouseOut={(e) => {
+                                e.target.style.transform = "scale(1)";
+                              }}
+                            />
+                            <p className="category bg">{post.blog_topic_name}</p>
+                            <p className="blog-heading">{post.name}</p>
+                            <p className="blog-detail">{post.details}</p>
+                          </div>
+                          <div className="date-section">
+                            <div className="date">
+                              {moment(post.created_at).format("LL")}
                             </div>
-                            <div className="date-section">
-                              <div className="date">
-                                {moment(post.created_at).format("LL")}
-                              </div>
-                              <div className="custom-divider"></div>
-                              {/* {<div className="time">10 min read</div>} */}
-                            </div>
+                            <div className="custom-divider"></div>
                           </div>
                         </div>
-                      </Link>
-                    ))
-                ) : this.state.posts && this.state.posts.length == 0 ? (
-                  <p style={{ padding: "20px" }}>No Blogs</p>
-                ) : (
-                  ""
-                )}
-              </div>
+                      </div>
+                    </Link>
+                  ))
+              ) : posts && posts.length === 0 ? (
+                <p style={{ padding: "20px" }}>No Blogs</p>
+              ) : (
+                ""
+              )}
             </div>
-          </Container>
-
-          <Pagination
-            defaultCurrent={currentPage}
-            onChange={this.handlePageChange}
-            pageSize={9}
-            total={totalItems}
-          />
-        </section>
-      </>
-    );
-  }
+          </div>
+        </Container>
+        {/* <ReactPaginate
+          pageCount={Math.ceil(totalItems / pageSize)}
+          onPageChange={({ selected }) => setCurrentPage(selected + 1)}
+          previousLabel={<span style={{ color: '#000', fontSize: '20px', fontWeight: 500 }}>{'<'}</span>}
+          nextLabel={<span style={{ color: '#000', fontSize: '20px', fontWeight: 500 }}>{'>'}</span>}
+          // activeClassName={"selected-page"}
+          // pageClassName={"other-page"}
+        /> */}
+        <Pagination
+          defaultCurrent={currentPage}
+          pageSize={pageSize}
+          total={totalItems}
+          onChange={handlePageChange}
+        />
+      </section>
+    </>
+  );
 }
+
+const styles = {
+  searchContainer: {
+    backgroundImage:
+      "url(https://answersstaticfilecdnv2.azureedge.net/static/images/banner.png)",
+    height: "350px",
+    alignItems: "center",
+    flexDirection: "column",
+    flexWrap: "nowrap",
+  },
+  title: {
+    color: "#FFFFFF",
+    fontSize: "32px",
+    fontWeight: 500,
+  },
+  subtitle: {
+    color: "#E0E0E0",
+    fontWeight: 400,
+    fontSize: "16px",
+  },
+  inputGroup: {
+    width: "100%",
+  },
+  searchContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center", // Center align content horizontally
+    backgroundImage:
+      "url(https://answersstaticfilecdnv2.azureedge.net/static/images/banner.png)",
+    height: "300px",
+  },
+
+  input: {
+    width: "60%",
+    height: "38px",
+    textAlign: "center",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  productCol: {
+    marginBottom: "20px",
+  },
+  productLink: {
+    textDecoration: "none",
+  },
+  image: {
+    maxWidth: "100%",
+    height: "auto",
+  },
+};
 
 export default withRouter(Blogs);
