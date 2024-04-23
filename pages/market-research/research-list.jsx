@@ -8,10 +8,6 @@ import Router from "next/router";
 import { SearchOutlined } from "@ant-design/icons";
 import { crudActions } from "../../_actions";
 import { connect } from "react-redux";
-import { RightOutlined } from "@ant-design/icons";
-import { UsergroupAddOutlined } from "@ant-design/icons";
-import { MessageOutlined } from "@ant-design/icons";
-import { Input } from "antd";
 import ReactPaginate from "react-paginate-next";
 import ResearchCard from "../../components/marketResearch/ResearchCard";
 import CustomFilter from "../../components/filter";
@@ -24,7 +20,7 @@ const ResearchList = ({ router }) => {
   const [tagOptions, setTagOptions] = useState([]);
   const [typeOptions, setTypeOptions] = useState([]);
 
-  const [sortBy, setSortBy] = useState("recent");
+  const [sortBy, setSortBy] = useState("id");
   const itemsPerPage = 6;
 
   const [page, setPage] = useState(0);
@@ -38,7 +34,7 @@ const ResearchList = ({ router }) => {
   useEffect(() => {
     crudService
       ._getAll("market_research", {
-        orderBy: "id",
+        orderBy: sortBy,
         orderDirection: "desc",
         page: page + 1,
         pageSize: itemsPerPage,
@@ -51,7 +47,7 @@ const ResearchList = ({ router }) => {
         const totalPage = Math.ceil(result?.data.total / result?.data.perPage);
         setPageCount(isNaN(totalPage) ? 0 : totalPage);
       });
-  }, [page, searchQuery, filteredData]);
+  }, [page, searchQuery, filteredData, sortBy]);
 
   // filter options
   useEffect(() => {
@@ -143,11 +139,19 @@ const ResearchList = ({ router }) => {
     },
   ];
 
+  const sortOptions = [
+    {
+      value: "id",
+      label: "Most Recent",
+    },
+    {
+      value: "view_counts",
+      label: "Most Viewed",
+    },
+  ];
+
   const handleSort = (e) => {
     setSortBy(e.target.value);
-  };
-  const goToHomePage = () => {
-    Router.push("/market-research");
   };
 
   return (
@@ -196,13 +200,15 @@ const ResearchList = ({ router }) => {
                   value={sortBy}
                   onChange={handleSort}
                 >
-                  <option
-                    className="sortby"
-                    style={{ color: "#001622" }}
-                    value="recent"
-                  >
-                    Most Recent
-                  </option>
+                  {sortOptions.map(({ value, label }) => (
+                    <option
+                      className="sortby"
+                      style={{ color: "#001622" }}
+                      value={value}
+                    >
+                      {label}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>

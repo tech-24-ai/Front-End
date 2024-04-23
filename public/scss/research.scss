@@ -560,4 +560,38 @@
       }
     }
   }
+
+  .market-research-portal-section {
+    .page-banner {
+      .container,
+      .banner-container {
+        height: 100%;
+      }
+
+      .banner-container {
+        display: flex;
+        align-items: flex-end;
+        padding-bottom: 2rem !important;
+        justify-content: center;
+      }
+
+      .banner-title-container {
+        width: 100%;
+      }
+    }
+
+    .latest-research {
+      .view-more {
+        display: none;
+      }
+    }
+
+    .market-research-category-card-body {
+      min-width: unset;
+
+      .heading {
+        font-size: 1em;
+      }
+    }
+  }
 }

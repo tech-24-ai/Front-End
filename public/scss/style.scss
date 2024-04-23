@@ -1020,57 +1020,6 @@ input.ant-input.custom-input {
     }
   }
 }
-@media (max-width: 575px) {
-  .site-title {
-    margin-bottom: 0px;
-    display: block;
-
-    a {
-      color: #000000;
-    }
-
-    h5 {
-      font-size: 15px;
-      font-weight: 500;
-      letter-spacing: 0.6px;
-      color: $black;
-      line-height: 40px;
-      margin: 0;
-      span {
-        font-size: 15px;
-        font-weight: normal;
-        letter-spacing: 0.24px;
-        color: $black;
-        padding-left: 10px;
-      }
-      .mr-span {
-        font-size: 15px;
-        font-weight: 500;
-        letter-spacing: 0.6px;
-        color: $grey;
-        line-height: 40px;
-        margin: 0;
-        &:hover {
-          font-size: 15px;
-          font-weight: 500;
-          letter-spacing: 0.6px;
-          color: $black;
-          line-height: 40px;
-          margin: 0;
-        }
-      }
-
-      .mr-respan {
-        font-size: 15px;
-        font-weight: 500;
-        letter-spacing: 0.6px;
-        color: $backgroundColor;
-        line-height: 40px;
-        margin: 0;
-      }
-    }
-  }
-}
 
 // site btn
 
@@ -2226,5 +2175,63 @@ div.message-box-card {
         color: #b0b8bf;
       }
     }
+  }
+}
+
+@media (max-width: 575px) {
+  .site-title {
+    margin-bottom: 0px;
+    display: block;
+
+    a {
+      color: #000000;
+    }
+
+    h5 {
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.6px;
+      color: $black;
+      line-height: 40px;
+      margin: 0;
+      span {
+        font-size: 15px;
+        font-weight: normal;
+        letter-spacing: 0.24px;
+        color: $black;
+        padding-left: 10px;
+      }
+      .mr-span {
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: 0.6px;
+        color: $grey;
+        line-height: 40px;
+        margin: 0;
+        &:hover {
+          font-size: 15px;
+          font-weight: 500;
+          letter-spacing: 0.6px;
+          color: $black;
+          line-height: 40px;
+          margin: 0;
+        }
+      }
+
+      .mr-respan {
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: 0.6px;
+        color: $backgroundColor;
+        line-height: 40px;
+        margin: 0;
+      }
+    }
+  }
+
+  .custom-grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 1rem;
   }
 }
