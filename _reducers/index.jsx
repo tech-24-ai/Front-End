@@ -68,7 +68,6 @@ const rootReducer = combineReducers({
   community: crud("community"),
   details: crud("communitypost"),
   communitypost: crud("communitypost"),
-  details: crud("communitypost"),
   visitorcommunityprofile: crud("visitorcommunityprofile"),
   visitorprofile: crud("visitorprofile"),
   visitor_community: crud("visitor_community"),
@@ -77,6 +76,7 @@ const rootReducer = combineReducers({
   visitor_profile_levels: crud("visitor_profile_levels"),
   market_research: crud("market_research"),
   all_research: crud("market_research"),
+  research_detail: crud("research_detail"),
 });
 
 export default rootReducer;

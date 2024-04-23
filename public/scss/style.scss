@@ -2120,6 +2120,7 @@ div.message-box-card {
 .custom-divider {
   border-left: 1.5px solid #d9dfe9;
   height: 12px;
+  margin: 0 5px;
 }
 
 .side-border-title {
@@ -2136,6 +2137,10 @@ div.message-box-card {
 
 .swiper-pagination-bullets-dynamic {
   height: 20px !important;
+}
+
+.hover {
+  cursor: pointer;
 }
 
 .custom-filter {
@@ -2197,6 +2202,28 @@ div.message-box-card {
             }
           }
         }
+      }
+    }
+  }
+}
+
+.custom-breadcrumb {
+  font-family: Inter;
+  .ant-breadcrumb-link {
+    color: #0074d9;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+
+    a,
+    .ant-breadcrumb-separator {
+      color: #b0b8bf;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+
+      &:hover {
+        color: #b0b8bf;
       }
     }
   }

@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import { Image } from "antd";
 import moment from "moment";
+import Router from "next/router";
 
-const ResearchCard = ({ key, data }) => {
+const ResearchCard = ({ key, data, redirectUrl = null }) => {
   const [showHoverClass, setShowHoverClass] = useState(null);
+
+  const handleRedirect = () => {
+    if (redirectUrl) {
+      Router.push(redirectUrl);
+    }
+  };
 
   return (
     <div
@@ -11,7 +18,8 @@ const ResearchCard = ({ key, data }) => {
       onMouseOut={() => setShowHoverClass(null)}
       className={`research-list ${
         showHoverClass === key ? "showHoverClass" : ""
-      }`}
+      } ${redirectUrl ? "hover" : ""}`}
+      onClick={() => handleRedirect()}
     >
       <div className="research-card">
         <div className="image-section">

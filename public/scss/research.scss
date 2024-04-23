@@ -312,7 +312,6 @@
           .date {
             line-height: 18px;
             font-weight: 400;
-            padding: 0 5px;
           }
 
           .time {
@@ -358,6 +357,112 @@
       .content-sections {
         .research-detail {
           -webkit-line-clamp: 2;
+        }
+      }
+    }
+  }
+}
+
+.research-detail-section {
+  .research-detail-heading {
+    border: 1px solid #ebebf0;
+    padding: 32px 64px 32px 32px;
+    background-color: #f2f4f7;
+    border-radius: 11px;
+    margin-bottom: 1.5rem;
+
+    .title {
+      font-weight: 500;
+      font-size: 2.5em;
+      line-height: 48px;
+      color: #0074d9;
+    }
+
+    .date-section {
+      margin-top: 2em;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      color: #54616c;
+      font-size: 12px;
+
+      .share-btn {
+        display: flex;
+        align-items: center;
+        column-gap: 5px;
+        cursor: pointer;
+      }
+    }
+  }
+  .research-content-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .research-content-section {
+      width: 67%;
+    }
+
+    .related-research-section {
+      width: 30%;
+      .heading {
+        font-weight: 500;
+        font-size: 1.5em;
+        line-height: 32px;
+        color: #001622;
+      }
+
+      .download-report-card {
+        padding: 1.5em;
+        border-radius: 16px;
+        border: 1px solid #e5e7eb;
+        margin-bottom: 1.5rem;
+        .heading {
+          font-weight: 500;
+          font-size: 1.5rem;
+          line-height: 32px;
+          color: #00192f;
+        }
+
+        .content {
+          margin: 0;
+          font-weight: 400;
+          font-size: 0.875rem;
+          line-height: 20px;
+          color: #54616c;
+        }
+
+        .custom-btn {
+          width: 100%;
+        }
+      }
+
+      .related-research-wrapper {
+        display: grid;
+        row-gap: 1em;
+      }
+
+      .research-card {
+        .content-sections {
+          .research-heading {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            min-height: auto;
+          }
+
+          .research-detail {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+          }
+          .date-section {
+            margin-top: 1rem;
+          }
         }
       }
     }

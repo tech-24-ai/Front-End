@@ -15,30 +15,7 @@ import { Input } from "antd";
 import ReactPaginate from "react-paginate-next";
 import ResearchCard from "../../components/marketResearch/ResearchCard";
 import CustomFilter from "../../components/filter";
-
-const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
-const items = [
-  {
-    key: "1",
-    label: "This is panel header with arrow icon",
-    children: <p>{text}</p>,
-  },
-  {
-    key: "2",
-    label: "This is panel header with no arrow icon",
-    children: <p>{text}</p>,
-    showArrow: false,
-  },
-];
-const options = {
-  day: "numeric",
-  month: "long",
-  year: "numeric",
-};
+import CustomBreadcrumb from "../../components/breadcrumbs/Breadcrumb";
 
 const ResearchList = ({ router }) => {
   const [researchData, setResearchData] = useState([]);
@@ -166,54 +143,6 @@ const ResearchList = ({ router }) => {
     },
   ];
 
-  const accordionData = [
-    {
-      title: "FILTERS",
-    },
-    {
-      title: "Research Type",
-      content: "O  Applied Research",
-    },
-    {
-      title: "Research Category",
-      content: "O  Applied Research",
-    },
-    {
-      title: "Research Topics",
-      content: "O  Applied Research",
-    },
-    {
-      title: "Research Vendors",
-      content: "O  Applied Research",
-    },
-    {
-      title: "Research Tags",
-      content: "O  Applied Research",
-    },
-  ];
-
-  const accordionItemStyle = {
-    borderBottom: "1px solid #ccc",
-    // marginBottom: "10px",
-  };
-
-  const accordionTitleStyle = {
-    backgroundColor: "#f2f4f7",
-    border: "none",
-    cursor: "pointer",
-    padding: "10px",
-    width: "100%",
-    textAlign: "left",
-    outline: "none",
-  };
-
-  const activeAccordionTitleStyle = {
-    backgroundColor: "#f2f4f7",
-  };
-
-  const accordionContentStyle = {
-    padding: "10px",
-  };
   const handleSort = (e) => {
     setSortBy(e.target.value);
   };
@@ -224,33 +153,16 @@ const ResearchList = ({ router }) => {
   return (
     <section className="query-section research-list-section mt-6">
       <Container>
-        <div className="row">
-          <div className="col-md-12">
-            <h4 className="mt-5 mb-3">
-              <span
-                className="ml-2"
-                style={{
-                  color: "#B0B8BF",
-                  fontFamily: "Inter",
-                  fontSize: "14px",
-                }}
-              >
-                Market Research <RightOutlined style={{ verticalAlign: "0" }} />
-              </span>{" "}
-              <span
-                onClick={() => goToHomePage()}
-                style={{
-                  color: "#0074D9",
-                  fontFamily: "Inter",
-                  fontSize: "14px",
-                  cursor: "pointer",
-                }}
-              >
-                Recently Added
-              </span>
-            </h4>
-          </div>
-        </div>
+        <CustomBreadcrumb
+          data={[
+            { label: "Market Research", url: "/market-research" },
+            {
+              label: "Recently Added",
+              url: "",
+            },
+          ]}
+        />
+        <br />
         <div className="search-box">
           <SearchInput
             placeholder="Search anything..."
@@ -297,7 +209,11 @@ const ResearchList = ({ router }) => {
             <div className="mt-3 content-card-display content-card-mobile latest-research ">
               <div className="research-section">
                 {researchData?.map((item, index) => (
-                  <ResearchCard data={item} key={index} />
+                  <ResearchCard
+                    data={item}
+                    key={index}
+                    redirectUrl={`/market-research/${item.seo_url_slug}`}
+                  />
                 ))}
               </div>
               <div className="mt-5" style={{ width: "100%" }}>
