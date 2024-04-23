@@ -198,16 +198,16 @@ class Blog extends Component {
                     </div>
                     <div className="row">
                       <div className="col-md-4">
-                        <p className="card-heading"><LikeOutlined /><span className="ml-3">1.1k</span></p>
+                        {/* <p className="card-heading"><LikeOutlined /><span className="ml-3">1.1k</span></p> */}
                       </div>
                       <div className="col-md-4">
                         <p className="card-heading"><ShareAltOutlined /><span className="ml-3">Share</span></p>
                       </div>
                       <div className="col-md-4">
-                        <p className="card-heading"><SaveOutlined /><span className="ml-3">Save</span></p>
+                        {/* <p className="card-heading"><SaveOutlined /><span className="ml-3">Save</span></p> */}
                       </div>
                     </div>
-                    <div className="row">
+                    {/* <div className="row">
                       <div className="col-md-12" style={{border:"1px solid #caced1", background:"#caced1"}}>
                     <Comment
                     
@@ -220,7 +220,7 @@ class Blog extends Component {
                         onSubmit={this.handleSubmit}
                         submitting={submitting}
                         value={value}
-                        placeholder="Write a comment...."
+                        placeholder="Write a comment..."
                         style={{height:"200px",border:"white",pointerEvents:"none",background:"#caced1",color:"white"}}
                       />
                     
@@ -229,8 +229,8 @@ class Blog extends Component {
                   />
                   <button className="btn btn-primary btn-sm mb-2 mr-2" style={{float:"right",width:"80px"}}>Post</button>
                    </div>
-                    </div>
-                    <div class="py-4">
+                    </div> */}
+                    {/* <div class="py-4">
                         <div class="row row-cols-1 g-4 mb-4">
 
                           <div class="col">
@@ -241,10 +241,10 @@ class Blog extends Component {
                                             src="https://via.placeholder.com/256/fe669e/fff.png" />
                                       <div class="d-flex flex-column justify-content-center align-items-start fs-5 lh-sm">
                                           <b className="ml-3">Studio KonKon 9h</b>
-                                          {/* <small class="text-muted">14th Sept 2021</small> */}
+                                          <small class="text-muted">14th Sept 2021</small>
                                       </div>
                                     </div>
-                                    {/* <span class="fs-1 my-0 fw-bolder text-success">10</span> */}
+                                    <span class="fs-1 my-0 fw-bolder text-success">10</span>
                                 </div>
                                 <div class="card-body py-2">
                                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -269,10 +269,10 @@ class Blog extends Component {
                                             src="https://via.placeholder.com/256/fe669e/fff.png" />
                                       <div class="d-flex flex-column justify-content-center align-items-start fs-5 lh-sm">
                                           <b className="ml-3">Studio KonKon 9h</b>
-                                          {/* <small class="text-muted">14th Sept 2021</small> */}
+                                          <small class="text-muted">14th Sept 2021</small>
                                       </div>
                                     </div>
-                                    {/* <span class="fs-1 my-0 fw-bolder text-success">10</span> */}
+                                    <span class="fs-1 my-0 fw-bolder text-success">10</span>
                                 </div>
                                 <div class="card-body py-2">
                                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -297,10 +297,10 @@ class Blog extends Component {
                                             src="https://via.placeholder.com/256/fe669e/fff.png" />
                                       <div class="d-flex flex-column justify-content-center align-items-start fs-5 lh-sm">
                                           <b className="ml-3">Studio KonKon 9h</b>
-                                          {/* <small class="text-muted">14th Sept 2021</small> */}
+                                          <small class="text-muted">14th Sept 2021</small>
                                       </div>
                                     </div>
-                                    {/* <span class="fs-1 my-0 fw-bolder text-success">10</span> */}
+                                    <span class="fs-1 my-0 fw-bolder text-success">10</span>
                                 </div>
                                 <div class="card-body py-2">
                                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -319,7 +319,7 @@ class Blog extends Component {
 
 
                         </div>
-                    </div>
+                    </div> */}
                     {/* <div className="social-link">
                       <LinkedinShareButton url={shareUrl} title={shareTitle}>
                         <Image
@@ -397,6 +397,7 @@ class Blog extends Component {
                 </div> */}
               </div>
               </div>
+
               <div className="col-md-4">
               <h4 className="related-blog ml-3 mt-4" style={{paddingLeft: "18px", paddingBottom: "20px" }}>Related Blogs</h4>
 
