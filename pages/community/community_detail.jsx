@@ -28,12 +28,13 @@ import "draft-js/dist/Draft.css";
 import "react-quill/dist/quill.snow.css";
 import community from ".";
 import dynamic from "next/dynamic";
+import Router from "next/router";
 
 const ReactQuill = dynamic(
   () => {
-      return import("react-quill");
+    return import("react-quill");
   },
-  {ssr: false}
+  { ssr: false }
 );
 
 import { isMobile } from "react-device-detect";
@@ -59,7 +60,7 @@ const SubmitButton = ({ form, children }) => {
     </Button>
   );
 };
-const Profile = ({ getAllCrud }) => {
+const CommunityDetail = ({ getAllCrud }) => {
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState();
   const [tags, setTag] = useState([]);
@@ -246,7 +247,9 @@ const Profile = ({ getAllCrud }) => {
                 width: "100%",
                 height: "fit-content",
                 marginTop: "1rem",
+                cursor: "pointer",
               }}
+              onClick={() => gotoQuestionDetail(data?.url_slug)}
             >
               <div className="cards-header">
                 <div>
@@ -278,7 +281,7 @@ const Profile = ({ getAllCrud }) => {
                 </div>
 
                 <div className="follow">
-                  <p className="button">Follow</p>
+                  {/* <p className="button">Follow</p> */}
                   <div className="img">
                     {/* <Image
                       loader={myImageLoader}
@@ -499,6 +502,11 @@ const Profile = ({ getAllCrud }) => {
       value: item.id,
     };
   });
+
+  const gotoQuestionDetail = (url_slug) => {
+    sessionStorage.setItem("community_question_id", url_slug);
+    Router.push("question");
+  };
 
   return (
     <Container>
@@ -833,4 +841,4 @@ const actionCreators = {
   createCrud: crudActions._create,
 };
 
-export default connect(mapStateToProps, actionCreators)(Profile);
+export default connect(mapStateToProps, actionCreators)(CommunityDetail);

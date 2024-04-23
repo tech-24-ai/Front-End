@@ -676,7 +676,7 @@ const Profile = ({
         <Modal
           className="sign-out-container"
           title="Sign Out"
-          open={isSignOutModalOpen}
+          visible={isSignOutModalOpen}
           onOk={handleSignOutOk}
           onCancel={handleSignOutCancel}
           footer={[
