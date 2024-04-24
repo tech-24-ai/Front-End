@@ -9,7 +9,10 @@ import { SearchOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import PageBanner from "../../components/card/pageBanner";
 import { isMobile, isBrowser } from "react-device-detect";
-import ReactPaginate from "react-paginate-next";
+import CustomPagination from "../../components/pagination";
+// import ReactPaginate from "react-paginate-next";
+
+
 
 function Blogs({ router }) {
   const [posts, setPosts] = useState([]);
@@ -237,7 +240,16 @@ function Blogs({ router }) {
             </div>
           </div>
           <br></br>
+          <div className="mt-5" style={{ width: "100%" }}>
           {posts?.data?.length > 0 && (
+            <CustomPagination
+              pageCount={pageCount}
+              page={page}
+              onPageChange={({ selected }) => setPage(selected)}
+            />
+          )}
+          </div>
+          {/* {posts?.data?.length > 0 && (
             <ReactPaginate
               pageCount={pageCount}
               initialPage={page}
@@ -268,7 +280,7 @@ function Blogs({ router }) {
               activeClassName={"selected-page"}
               pageClassName={"other-page"}
             />
-          )}
+          )} */}
         </Container>
       
       </section>
