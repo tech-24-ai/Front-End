@@ -403,6 +403,31 @@
       width: 67%;
     }
 
+    .download-report-card {
+      padding: 1.5em;
+      border-radius: 16px;
+      border: 1px solid #e5e7eb;
+      margin-bottom: 1.5rem;
+      .heading {
+        font-weight: 500;
+        font-size: 1.5rem;
+        line-height: 32px;
+        color: #00192f;
+      }
+
+      .content {
+        margin: 0;
+        font-weight: 400;
+        font-size: 0.875rem;
+        line-height: 20px;
+        color: #54616c;
+      }
+
+      .custom-btn {
+        width: 100%;
+      }
+    }
+
     .related-research-section {
       width: 30%;
       .heading {
@@ -410,31 +435,6 @@
         font-size: 1.5em;
         line-height: 32px;
         color: #001622;
-      }
-
-      .download-report-card {
-        padding: 1.5em;
-        border-radius: 16px;
-        border: 1px solid #e5e7eb;
-        margin-bottom: 1.5rem;
-        .heading {
-          font-weight: 500;
-          font-size: 1.5rem;
-          line-height: 32px;
-          color: #00192f;
-        }
-
-        .content {
-          margin: 0;
-          font-weight: 400;
-          font-size: 0.875rem;
-          line-height: 20px;
-          color: #54616c;
-        }
-
-        .custom-btn {
-          width: 100%;
-        }
       }
 
       .related-research-wrapper {
@@ -592,6 +592,46 @@
       .heading {
         font-size: 1em;
       }
+    }
+  }
+
+  .latest-research {
+    margin: 2rem 0 1rem 0;
+  }
+
+  .research-detail-section {
+    .research-detail-heading {
+      padding: 16px;
+      .title {
+        line-height: 34px;
+        font-size: 1.75rem;
+        font-family: "Poppins", sans-serif;
+      }
+    }
+
+    .research-content-wrapper {
+      flex-direction: column;
+
+      .research-content-section,
+      .related-research-section {
+        width: 100%;
+
+        .heading {
+          line-height: 30px;
+          font-size: 1.25rem;
+        }
+      }
+
+      .download-report-card {
+        .heading {
+          line-height: 30px;
+          font-size: 1.25rem;
+        }
+      }
+    }
+
+    .related-research-section {
+      margin-top: 4rem;
     }
   }
 }
