@@ -833,42 +833,48 @@ const Profile = ({
       return humanReadableDiff;
     };
     return (
-      <div className="questions-tab-container">
+      <div className="row">
+        <div className="col-md-12">
+        <div className="questions-tab-container">
        
-      <ul>
-      {visitorActivity?.map(data => (
-        <li
-          style={{
-            fontWeight: "500",
-            fontSize: "20px",
-            color: "#001622",
-          }}
-        >
-         {data?.communityPost.title}
-          <p
-            style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-          >
-            Lorem ipsum dolor sit amet consectetur. Urna cursus lectus risus
-            sit in et. Nec pellentesque curabitur ultrices ultricies habitant
-            eget aenean aliquet id. Et arcu id quam interdum vivamus facilisi
-            elementum ultricies.
-          </p>
-          <p
-            style={{
-              fontWeight: "400",
-              fontSize: "12px",
-              color: "#B0B8BF",
-            }}
-          >
-           {calculateTimeAgo(data?.created_at)}
-          </p>
-        </li>
+       
+       {visitorActivity?.map(data => (
+        <ul style={{width:"100%"}}>
+         <li
+           style={{
+             fontWeight: "500",
+             fontSize: "20px",
+             color: "#001622",
+           }}
+         >
+          {data?.communityPost.title}
+           <p
+             style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+           >
+             Lorem ipsum dolor sit amet consectetur. Urna cursus lectus risus
+             sit in et. Nec pellentesque curabitur ultrices ultricies habitant
+             eget aenean aliquet id. Et arcu id quam interdum vivamus facilisi
+             elementum ultricies.
+           </p>
+           <p
+             style={{
+               fontWeight: "400",
+               fontSize: "12px",
+               color: "#B0B8BF",
+             }}
+           >
+            {calculateTimeAgo(data?.created_at)}
+           </p>
+         </li>
+         <hr />
         
-       ))} 
-        <hr />
-       
-      </ul>
-    </div>
+        </ul>
+        ))} 
+        
+     </div>
+        </div>
+      </div>
+    
     );
   };
 
