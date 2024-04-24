@@ -77,7 +77,7 @@ const LatestResearch = ({
             onClick={() => slider.current?.slickPrev()}
             className="view-more-icon"
             style={{
-              left: "120px",
+              left: "90px",
               zIndex: "99",
               marginTop: "16%",
               position: "absolute",
@@ -96,7 +96,7 @@ const LatestResearch = ({
             onClick={() => slider.current?.slickNext()}
             className="view-more-icon"
             style={{
-              right: "120px",
+              right: "90px",
               zIndex: "99",
               marginTop: "16%",
               position: "absolute",

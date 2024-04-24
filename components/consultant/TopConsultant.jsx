@@ -36,7 +36,7 @@ const TopConsultant = ({ getAllCrud, consultants }) => {
             onClick={() => slider.current?.slickPrev()}
             className="view-more-icon"
             style={{
-              left: "110px",
+              left: "90px",
               zIndex: "99",
               position: "absolute",
               width: "36px",
@@ -54,7 +54,7 @@ const TopConsultant = ({ getAllCrud, consultants }) => {
             onClick={() => slider.current?.slickNext()}
             className="view-more-icon"
             style={{
-              right: "110px",
+              right: "90px",
               zIndex: "99",
               position: "absolute",
               width: "36px",

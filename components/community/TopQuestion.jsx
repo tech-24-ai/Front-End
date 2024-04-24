@@ -235,7 +235,7 @@ class TrendingQuestion extends React.PureComponent {
             onClick={() => this.swiperRef.current.swiper.slidePrev()}
             className="view-more-icon"
             style={{
-              left: "110px",
+              left: "75px",
               marginTop: "7%",
               zIndex: "99",
               position: "absolute",
@@ -254,7 +254,7 @@ class TrendingQuestion extends React.PureComponent {
             onClick={() => this.swiperRef.current.swiper.slideNext()}
             className="view-more-icon"
             style={{
-              right: "110px",
+              right: "75px",
               marginTop: "7%",
               zIndex: "99",
               position: "absolute",
