@@ -80,7 +80,8 @@ function Blogs({ router }) {
   }, []);
   const handleSearchChange = async (value) => {
     setValue(value);
-    setPage(0);
+    setPage(0); 
+  };
   let arrData = [];
   console.log("Posts:", posts);
 
