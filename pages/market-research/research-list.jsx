@@ -8,13 +8,13 @@ import Router from "next/router";
 import { SearchOutlined } from "@ant-design/icons";
 import { crudActions } from "../../_actions";
 import { connect } from "react-redux";
-import ReactPaginate from "react-paginate-next";
 import ResearchCard from "../../components/marketResearch/ResearchCard";
 import CustomFilter from "../../components/filter";
 import CustomBreadcrumb from "../../components/breadcrumbs/Breadcrumb";
 import CustomPagination from "../../components/pagination";
 
 const ResearchList = ({ router }) => {
+  const { q } = Router.query;
   const [researchData, setResearchData] = useState([]);
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [topicOptions, setTopicOptions] = useState([]);
@@ -27,10 +27,13 @@ const ResearchList = ({ router }) => {
   const [page, setPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
 
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(q);
   const [filteredData, setFilteredData] = useState({});
 
-  const { value } = Router.query;
+  console.log("Router.query", router);
+  // useEffect(() => {
+  //   setSearchQuery(q);
+  // }, [q]);
 
   useEffect(() => {
     crudService
@@ -181,6 +184,7 @@ const ResearchList = ({ router }) => {
             onChange={(value) => handleSearch(value)}
             prefix={<SearchOutlined />}
             allowClear={true}
+            value={searchQuery}
           />
         </div>
 

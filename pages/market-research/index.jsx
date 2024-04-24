@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
 import PageBanner from "../../components/card/pageBanner";
 import { Container, Col, Row } from "reactstrap";
-import { TreeSelect } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import CategoryCard from "../../components/marketResearch/CategoryCard";
 import { crudActions } from "../../_actions";
 import Router, { withRouter } from "next/router";
 import { connect } from "react-redux";
 import LatestResearch from "../../components/marketResearch/LatestResearch";
+import SearchInput from "../../components/form/searchInput";
 function MarketResearch({
   market_research,
   getAllCrud,
   categories,
   all_research,
+  router,
 }) {
   const marketBannerImage = "../../images/market-research.jpg";
   const [value, setValue] = useState();
@@ -29,6 +30,21 @@ function MarketResearch({
     });
   }, []);
 
+  // search
+  const handleSearch = (searchValue) => {
+    if (searchValue == null) {
+      return false;
+    }
+    const timerId = setTimeout(() => {
+      console.log("searchValue", searchValue);
+      router.push(`${router.asPath}/research-list?q=${searchValue}`);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  };
+
   return (
     <section className="market-research-portal-section">
       <PageBanner
@@ -41,22 +57,14 @@ function MarketResearch({
               Try it now. It's free!
             </p>
             <div className="mt-4" style={styles.inputGroup}>
-              <TreeSelect
-                allowClear
-                treeDataSimpleMode
-                defaultValue={value}
-                showSearch={true}
-                dropdownStyle={{
-                  maxHeight: 400,
-                  overflow: "auto",
-                }}
-                placeholder="Search anything..."
-                onChange={() => {}}
-                loadData={() => {}}
-                treeData={[]}
-                style={{ width: "100%", height: "", color: "#fff" }}
-                suffixIcon={<SearchOutlined />}
-              />
+              <div className="search-box">
+                <SearchInput
+                  placeholder="Search anything"
+                  className="SearchInput bg"
+                  onChange={(value) => handleSearch(value)}
+                  suffix={<SearchOutlined style={{ color: "#1E96FF" }} />}
+                />
+              </div>
             </div>
           </div>
         }

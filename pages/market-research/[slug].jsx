@@ -15,6 +15,10 @@ function Detail({ getAllCrud, research_detail, router }) {
     getAllCrud("research_detail", `market_research/show/${slug}`, {});
   }, []);
 
+  if (!research_detail) {
+    return false;
+  }
+
   return (
     <section className="latest-research research-detail-section">
       <Container className="research-section">
