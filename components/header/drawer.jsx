@@ -109,11 +109,6 @@ function Menu(props) {
                         Talk to a Consultant
                       </Link>
                     </DropdownItem>
-                    <DropdownItem className="service-link">
-                      <Link onClick={openSideMenu} href="/access" style={{color: "black"}}>
-                        Access Communities
-                      </Link>
-                    </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
               </NavItem>

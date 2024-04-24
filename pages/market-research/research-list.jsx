@@ -8,13 +8,13 @@ import Router from "next/router";
 import { SearchOutlined } from "@ant-design/icons";
 import { crudActions } from "../../_actions";
 import { connect } from "react-redux";
-import ReactPaginate from "react-paginate-next";
 import ResearchCard from "../../components/marketResearch/ResearchCard";
 import CustomFilter from "../../components/filter";
 import CustomBreadcrumb from "../../components/breadcrumbs/Breadcrumb";
 import CustomPagination from "../../components/pagination";
 
 const ResearchList = ({ router }) => {
+  const { q } = Router.query;
   const [researchData, setResearchData] = useState([]);
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [topicOptions, setTopicOptions] = useState([]);
@@ -27,10 +27,13 @@ const ResearchList = ({ router }) => {
   const [page, setPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
 
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(q);
   const [filteredData, setFilteredData] = useState({});
 
-  const { value } = Router.query;
+  console.log("Router.query", router);
+  // useEffect(() => {
+  //   setSearchQuery(q);
+  // }, [q]);
 
   useEffect(() => {
     crudService
@@ -43,7 +46,6 @@ const ResearchList = ({ router }) => {
         ...filteredData,
       })
       .then((result) => {
-        console.log("result", result);
         setResearchData(result?.data?.data);
         const totalPage = Math.ceil(result?.data.total / result?.data.perPage);
         setPageCount(isNaN(totalPage) ? 0 : totalPage);
@@ -112,6 +114,9 @@ const ResearchList = ({ router }) => {
   const handleOptionChange = ({ name, value }) => {
     setFilteredData((prevState) => ({ ...prevState, [name]: value }));
   };
+  const handleReset = () => {
+    setFilteredData({});
+  };
 
   const filterData = [
     {
@@ -119,24 +124,28 @@ const ResearchList = ({ router }) => {
       name: "document_type",
       multiple: false,
       options: typeOptions,
+      value: filteredData["document_type"],
     },
     {
       heading: "Research Category",
       multiple: false,
       name: "category",
       options: categoryOptions,
+      value: filteredData["category"],
     },
     {
       heading: "Research Topics",
       multiple: false,
       name: "topic",
       options: topicOptions,
+      value: filteredData["topic"],
     },
     {
       heading: "Research Tags",
       multiple: false,
       name: "tags",
       options: tagOptions,
+      value: filteredData["tags"],
     },
   ];
 
@@ -156,7 +165,7 @@ const ResearchList = ({ router }) => {
   };
 
   return (
-    <section className="research-list-section mt-6">
+    <section className="research-list-section mt-4">
       <Container>
         <CustomBreadcrumb
           data={[
@@ -170,11 +179,12 @@ const ResearchList = ({ router }) => {
         <br />
         <div className="search-box">
           <SearchInput
-            placeholder="Search anything..."
+            placeholder="Search anything"
             className="SearchInput"
             onChange={(value) => handleSearch(value)}
             prefix={<SearchOutlined />}
             allowClear={true}
+            value={searchQuery}
           />
         </div>
 
@@ -186,6 +196,7 @@ const ResearchList = ({ router }) => {
             <CustomFilter
               data={filterData}
               handleOptionChange={handleOptionChange}
+              handleReset={handleReset}
             />
           </div>
           <div className="content-wrap">
