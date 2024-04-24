@@ -336,6 +336,10 @@ div.new-custom-search-input {
     // min-width: 403px;
     color: #b0b8bf;
 
+    &:hover .anticon-close {
+      display: block;
+    }
+
     border: 1.5px solid #d9dfe9;
     &.bg {
       border: none;
@@ -347,6 +351,10 @@ div.new-custom-search-input {
       font-size: 1rem;
       background-color: transparent;
       color: inherit;
+    }
+
+    .anticon-close {
+      display: none;
     }
     .ant-input-suffix,
     .ant-input-prefix {

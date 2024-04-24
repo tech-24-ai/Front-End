@@ -43,7 +43,6 @@ const ResearchList = ({ router }) => {
         ...filteredData,
       })
       .then((result) => {
-        console.log("result", result);
         setResearchData(result?.data?.data);
         const totalPage = Math.ceil(result?.data.total / result?.data.perPage);
         setPageCount(isNaN(totalPage) ? 0 : totalPage);
@@ -112,6 +111,9 @@ const ResearchList = ({ router }) => {
   const handleOptionChange = ({ name, value }) => {
     setFilteredData((prevState) => ({ ...prevState, [name]: value }));
   };
+  const handleReset = () => {
+    setFilteredData({});
+  };
 
   const filterData = [
     {
@@ -119,24 +121,28 @@ const ResearchList = ({ router }) => {
       name: "document_type",
       multiple: false,
       options: typeOptions,
+      value: filteredData["document_type"],
     },
     {
       heading: "Research Category",
       multiple: false,
       name: "category",
       options: categoryOptions,
+      value: filteredData["category"],
     },
     {
       heading: "Research Topics",
       multiple: false,
       name: "topic",
       options: topicOptions,
+      value: filteredData["topic"],
     },
     {
       heading: "Research Tags",
       multiple: false,
       name: "tags",
       options: tagOptions,
+      value: filteredData["tags"],
     },
   ];
 
@@ -156,7 +162,7 @@ const ResearchList = ({ router }) => {
   };
 
   return (
-    <section className="research-list-section mt-6">
+    <section className="research-list-section mt-4">
       <Container>
         <CustomBreadcrumb
           data={[
@@ -170,7 +176,7 @@ const ResearchList = ({ router }) => {
         <br />
         <div className="search-box">
           <SearchInput
-            placeholder="Search anything..."
+            placeholder="Search anything"
             className="SearchInput"
             onChange={(value) => handleSearch(value)}
             prefix={<SearchOutlined />}
@@ -186,6 +192,7 @@ const ResearchList = ({ router }) => {
             <CustomFilter
               data={filterData}
               handleOptionChange={handleOptionChange}
+              handleReset={handleReset}
             />
           </div>
           <div className="content-wrap">
