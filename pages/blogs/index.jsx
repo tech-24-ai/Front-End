@@ -16,26 +16,46 @@ function Blogs({ router }) {
   const [value, setValue] = useState("");
   const [isActive, setIsActive] = useState("All");
   const [isHover, setIsHover] = useState("All");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize] = useState(7);
+  const [currentPage, setCurrentPage] = useState(4);
+  // const [pageSize] = useState(21);
   const [totalItems, setTotalItems] = useState(0);
 
-  const fetchData = async () => {
-    try {
-      const data = await crudService._getAll("blogs", { search: value, page: currentPage, pageSize: pageSize });
-      setPosts(data.data);
-      setTotalItems(data.totalItems);
-      console.log("data", data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  const itemsPerPage = 7;
+  const [page, setPage] = useState(0);
+  const [pageCount, setPageCount] = useState(0);
+
+  // const fetchData = async () => {
+  //   try {
+  //     const data = await crudService._getAll("blogs", { search: value, page: currentPage, pageSize: pageSize });
+  //     setPosts(data.data);
+  //     setTotalItems(data.totalItems);
+  //     console.log("data", data);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   fetchData(); 
+  // }, [value, currentPage, pageSize]); 
+  
   useEffect(() => {
-    fetchData(); 
-  }, [value, currentPage, pageSize]); 
-  
-  
-  
+    crudService
+      ._getAll("blogs", {
+        page: page + 1,
+        pageSize: itemsPerPage,
+        search: value
+       
+      })
+      .then((result) => {
+        console.log("result", result);
+        setPosts(result?.data);
+        setTotalItems(result?.totalItems);
+        const totalPage = Math.ceil(result?.data.total / result?.data.perPage);
+        console.log("totalPage", totalPage);
+        setPageCount(isNaN(totalPage) ? 0 : totalPage);
+      });
+  }, [page, value]);
+
   useEffect(() => {
     blogsList(0);
     let query = router.query;
@@ -58,10 +78,14 @@ function Blogs({ router }) {
       }
     });
   }, []);
-
+  const handleSearchChange = async (value) => {
+    setValue(value);
+    setPage(0); 
+  };
   let arrData = [];
+  console.log("Posts:", posts);
 
-  posts?.map((item) => {
+  posts?.data?.map((item) => {
     const random = Math.random().toString(36).substring(2, 6);
     const data = {
       id: random,
@@ -70,7 +94,7 @@ function Blogs({ router }) {
     };
     arrData.push(data);
   });
-
+  
   const blogsList = (id) => {
     crudService._getAll("blogs", { blog_topic_id: id }).then((result) => {
       setPosts(result.data);
@@ -93,10 +117,10 @@ function Blogs({ router }) {
   //   const searchTimeout = setTimeout(searchPosts, 300);
   // };
 
-  const handleSearchChange = (value) => {
-    setValue(value);
-    setCurrentPage(1);
-  };
+  // const handleSearchChange = (value) => {
+  //   setValue(value);
+  //   setCurrentPage(1);
+  // };
 
 
   const handlePageChange = (page) => {
@@ -166,74 +190,87 @@ function Blogs({ router }) {
           </h4>
           <div className="row">
             <div className="second-div">
-              {posts.length > 0 ? (
-                posts
-                  .slice((currentPage - 1) * pageSize, currentPage * pageSize)
-                  .map((post, key) => (
-                    <Link href={`blogs/${post.slug}`} key={key}>
-                      <div className="blog-list">
-                        <div
-                          className="blog-card"
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            height: "100%",
-                            justifyContent: "space-between",
+              {posts?.data?.map((post, key) => 
+              (
+                <Link href={`blogs/${post.slug}`} key={key}>
+                  <div className="blog-list">
+                    <div
+                      className="blog-card"
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        height: "100%",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <div style={{ letterSpacing: "normal" }}>
+                        <Image
+                          className="blogImage"
+                          style={{ transition: "transform 0.5s ease" }}
+                          width={350}
+                          height={210}
+                          src={post.image}
+                          preview={false}
+                          alt=""
+                          placeholder="blog banner"
+                          onMouseOver={(e) => {
+                            e.target.style.transform = "scale(1.1)";
                           }}
-                        >
-                          <div style={{ letterSpacing: "normal" }}>
-                            <Image
-                              className="blogImage"
-                              style={{ transition: "transform 0.5s ease" }}
-                              width={350}
-                              height={210}
-                              src={post.image}
-                              preview={false}
-                              alt=""
-                              placeholder="blog banner"
-                              onMouseOver={(e) => {
-                                e.target.style.transform = "scale(1.1)";
-                              }}
-                              onMouseOut={(e) => {
-                                e.target.style.transform = "scale(1)";
-                              }}
-                            />
-                            <p className="category bg">{post.blog_topic_name}</p>
-                            <p className="blog-heading">{post.name}</p>
-                            <p className="blog-detail">{post.details}</p>
-                          </div>
-                          <div className="date-section">
-                            <div className="date">
-                              {moment(post.created_at).format("LL")}
-                            </div>
-                            <div className="custom-divider"></div>
-                          </div>
-                        </div>
+                          onMouseOut={(e) => {
+                            e.target.style.transform = "scale(1)";
+                          }}
+                        />
+                        <p className="category bg">{post.blog_topic_name}</p>
+                        <p className="blog-heading">{post.name}</p>
+                        <p className="blog-detail">{post.details}</p>
                       </div>
-                    </Link>
-                  ))
-              ) : posts && posts.length === 0 ? (
-                <p style={{ padding: "20px" }}>No Blogs</p>
-              ) : (
-                ""
-              )}
+                      <div className="date-section">
+                        <div className="date">
+                          {moment(post.created_at).format("LL")}
+                        </div>
+                        <div className="custom-divider"></div>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
             </div>
           </div>
+          <br></br>
+          {posts?.data?.length > 0 && (
+            <ReactPaginate
+              pageCount={pageCount}
+              initialPage={page}
+              forcePage={page}
+              onPageChange={({ selected }) => setPage(selected)}
+              previousLabel={
+                <span
+                  style={{
+                    color: "#000",
+                    fontSize: "20px",
+                    fontWeight: 500,
+                  }}
+                >
+                  {"<"}
+                </span>
+              }
+              nextLabel={
+                <span
+                  style={{
+                    color: "#000",
+                    fontSize: "20px",
+                    fontWeight: 500,
+                  }}
+                >
+                  {">"}
+                </span>
+              }
+              activeClassName={"selected-page"}
+              pageClassName={"other-page"}
+            />
+          )}
         </Container>
-        {/* <ReactPaginate
-          pageCount={Math.ceil(totalItems / pageSize)}
-          onPageChange={({ selected }) => setCurrentPage(selected + 1)}
-          previousLabel={<span style={{ color: '#000', fontSize: '20px', fontWeight: 500 }}>{'<'}</span>}
-          nextLabel={<span style={{ color: '#000', fontSize: '20px', fontWeight: 500 }}>{'>'}</span>}
-          // activeClassName={"selected-page"}
-          // pageClassName={"other-page"}
-        /> */}
-        <Pagination
-          defaultCurrent={currentPage}
-          pageSize={pageSize}
-          total={totalItems}
-          onChange={handlePageChange}
-        />
+      
       </section>
     </>
   );

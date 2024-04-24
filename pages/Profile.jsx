@@ -445,6 +445,7 @@ import { crudService } from "../_services";
 import { isMobile } from "react-device-detect";
 import { SearchOutlined, PlusOutlined, LoadingOutlined } from "@ant-design/icons";
 import profile_img from "../public/new_images/profile.svg";
+import { Pagination } from 'antd';
 
 const Profile = ({
   getAllCrud,
@@ -452,13 +453,25 @@ const Profile = ({
   visitorprofile,
   visitorcommunityprofile,
   visitor_community,
-  visitor_queries_history,
+  // visitor_queries_history,
   visitor_points_history,
   countries,
   visitor_profile_levels,
+  visitor_activities,
 }) => {
+
+ 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [updateCom, setUpdateCom] = useState(false);
+  const [visitor_queries_history, setvisitor_queries_history] = useState([]);
+  const [search, setSearch] = useState("");
+  const [value, setValue] = useState();
+  const [visitorActivity, setvisitorActivity] = useState([]);
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredData, setFilteredData] = useState([])
+  const [inputValue, setInputValue] = useState('');
+
   const [updateProfileData, setUpdateProfileData] = useState({
     alternate_email: "",
     country_code: "",
@@ -468,6 +481,28 @@ const Profile = ({
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [sortBy, setSortBy] = useState("recent");
+
+
+  const onPageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  // const itemsPerPage = 5; // Number of items to display per page
+  // const [currentPage, setCurrentPage] = useState(1);
+
+  // // Calculate the index range for the current page
+  // const startIndex = (currentPage - 1) * itemsPerPage;
+  // const endIndex = startIndex + itemsPerPage;
+  // const currentData = data.slice(startIndex, endIndex);
+
+  // Function to handle page change
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  // Calculate total number of pages
+  // const totalPages = Math.ceil(data.length / itemsPerPage);
+  
 
   const onChange = (key) => {
     console.log(key);
@@ -493,6 +528,29 @@ const Profile = ({
     setFile(file);
     return false;
   };
+
+  ;
+
+  useEffect(() => {
+    const filterData = () => {
+      if (visitor_queries_history) {
+        const filtered = visitor_queries_history.filter(data =>
+          data.title.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        setFilteredData(filtered);
+      }
+    };
+
+    filterData();
+  }, [searchQuery, visitor_queries_history]);
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  // const handleSearch = (e) => {
+  //   setSearchQuery(e.target.value);
+  // };
 
   const removeProfilePic = () => {
     setUpdateProfileData((prev) => ({
@@ -535,11 +593,74 @@ const Profile = ({
     getAllCrud("visitor_queries_history", "visitor_queries_history");
     // getAllCrud("visitor_points_history", "visitor_points_history");
     getAllCrud("visitor_profile_levels", "visitor_profile_levels");
+    getAllCrud("visitor_activities", "visitor_activities");
+
+    
   }, [updateCom]);
+
+  useEffect(() => {
+    const getAllPosts = async () => {
+      try {
+        const data = await crudService._getAll("visitor_activities");
+        console.log("data", data);
+        setvisitorActivity(data.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    getAllPosts();
+  }, []);
+
+  useEffect(() => {
+    const getAllPosts = async () => {
+      try {
+        const data = await crudService._getAll("visitor_queries_history");
+        console.log("data", data);
+        setvisitor_queries_history(data.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    getAllPosts();
+  }, []);
+
+  useEffect(() => {
+    const searchPosts = async () => {
+      try {
+        const data = await crudService._getAll("visitor_queries_history", { search: value });
+        console.log("data", data);
+        setvisitor_queries_history(data.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    setTimeout(() => {
+      searchPosts();
+    }, 300);
+  }, [value]);
+  console.log("search", search);
 
   const fetchCountry = () => {
     getAllCrud("countries", "countries");
   };
+
+  
+
+  // useEffect(() => {
+  //   const searchPosts = async () => {
+  //     try {
+  //       const data = await crudService._getAll("visitor_queries_history", { search: value });
+  //       console.log("data", data);
+  //       setvisitor_queries_history(data.data);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
+  //   setTimeout(() => {
+  //     searchPosts();
+  //   }, 300);
+  // }, [value]);
+  // console.log("search", search);
 
   const countyList = countries?.map((item) => {
     return { value: item.phonecode, label: `+${item.phonecode}` };
@@ -703,113 +824,51 @@ const Profile = ({
   };
 
   const Tab2 = () => {
-    const onSearch = (value, _e, info) => console.log(info?.source, value);
-    const { Search } = Input;
-    const filterOption = (input, option) =>
-      (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
-    const onChange = (value) => {
-      console.log(`selected ${value}`);
-    };
-    const onSearchSelect = (value) => {
-      console.log("search:", value);
+    const calculateTimeAgo = (createdAt) => {
+      const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
+      const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
+      const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
+      const duration = moment.duration(diffMilliseconds);
+      const humanReadableDiff = duration.humanize(true);
+      return humanReadableDiff;
     };
     return (
-      <div className="community-tab-container">
-        <div className="search-container">
-          {/* <Search
-            style={{ width: "65%" }}
-            placeholder="Search a question..."
-            onSearch={onSearch}
-            enterButton
-          /> */}
-          <Input
-              placeholder="Search anything.."
-              prefix={<SearchOutlined style={{ color: "#0074D9", padding: "0 6px" }} />}
-              value=""
-              onChange={onSearch}
-              style={{
-                  width: "67%",
-                  height: "50px",
-                  padding: "10px",
-                  border: "1px solid #ccc",
-                  borderRadius: "5px",
-                  background: "#ffffff",
-                  boxSizing: "border-box",
-              }}
-          />
-          
-          <Select
+      <div className="questions-tab-container">
+       
+      <ul>
+      {visitorActivity?.map(data => (
+        <li
+          style={{
+            fontWeight: "500",
+            fontSize: "20px",
+            color: "#001622",
+          }}
+        >
+         {data?.communityPost.title}
+          <p
+            style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+          >
+            Lorem ipsum dolor sit amet consectetur. Urna cursus lectus risus
+            sit in et. Nec pellentesque curabitur ultrices ultricies habitant
+            eget aenean aliquet id. Et arcu id quam interdum vivamus facilisi
+            elementum ultricies.
+          </p>
+          <p
             style={{
-              width: "30%",
+              fontWeight: "400",
+              fontSize: "12px",
+              color: "#B0B8BF",
             }}
-            showSearch
-            placeholder="Sort By"
-            optionFilterProp="children"
-            onChange={onChange}
-            onSearch={onSearchSelect}
-            filterOption={filterOption}
-            options={[
-              {
-                value: "name",
-                label: "Name",
-              },
-              {
-                value: "date",
-                label: "Date",
-              },
-              {
-                value: "most recent",
-                label: "Most Recent",
-              },
-            ]}
-          />
-        </div>
-        <div className="cards-container">
-          {visitor_community?.map((data) => (
-            <Card
-              bordered={true}
-              className="community-card"
-            >
-              <div className="cards-header">
-                <Image
-                  loader={myImageLoader}
-                  className="community-img"
-                  style={{ borderRadius: "2px" }}
-                  width={56}
-                  height={56}
-                  preview="false"
-                  src={data?.image_url}
-                  alt="profile"
-                />
-                <h6>{data?.name}</h6>
-                <Image
-                  loader={myImageLoader}
-                  style={{ borderRadius: "2px", cursor: "pointer" }}
-                  width={24}
-                  height={24}
-                  preview="false"
-                  src={three_dot_icon}
-                  alt="profile"
-                />
-              </div>
-              <hr />
-              <div className="cards-body">{data?.description}</div>
-              <hr />
-              <div className="following-section">
-                <div>
-                  <div className="head">Members</div>
-                  <div className="count">{data?.__meta__?.total_members}</div>
-                </div>
-                <div className="custom-border"></div>
-                <div>
-                  <div className="head">Questions</div>
-                  <div className="count">{data?.__meta__?.total_posts}</div>
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </div>
+          >
+           {calculateTimeAgo(data?.created_at)}
+          </p>
+        </li>
+        
+       ))} 
+        <hr />
+       
+      </ul>
+    </div>
     );
   };
 
@@ -837,16 +896,9 @@ const Profile = ({
     return (
       <div className="community-tab-container questions-tab-container">
         <div className="search-container">
-          {/* <Search
-            style={{ width: "65%" }}
-            placeholder="Search a question..."
-            onSearch={onSearch}
-            enterButton
-          /> */}
           <Input
               placeholder="Search a question..."
               prefix={<SearchOutlined style={{ color: "#0074D9", padding: "0 6px" }} />}
-              value=""
               style={{
                   width: "67%",
                   height: "50px",
@@ -856,43 +908,22 @@ const Profile = ({
                   background: "#ffffff",
                   boxSizing: "border-box",
               }}
-          />
+              // onChange={handleSearch}
+              value={inputValue} 
+            onChange={handleInputChange} 
+                />
 
-          <div className="sorting">
-              <label className="sortby" htmlFor="sortDropdown">Sort By: </label>
-              <select id="sortDropdown" className="sortingDropdown" style={{ border: "none", background: "transparent" }} value={sortBy}>
-                  <option className="sortby" style={{ color: "#001622" }} value="recent">Most Recent</option>
-              </select>
-          </div>
-
-          {/* <Select
-            style={{
-              width: "30%",
-            }}
-            showSearch
-            placeholder="Sort By"
-            optionFilterProp="children"
-            onChange={onChange}
-            onSearch={onSearchSelect}
-            filterOption={filterOption}
-            options={[
-              {
-                value: "name",
-                label: "Name",
-              },
-              {
-                value: "date",
-                label: "Date",
-              },
-              {
-                value: "most recent",
-                label: "Most Recent",
-              },
-            ]}
-          /> */}
-        </div>
+                <div className="sorting">
+                    <label className="sortby" htmlFor="sortDropdown">Sort By: </label>
+                    <select id="sortDropdown" className="sortingDropdown" style={{ border: "none", background: "transparent" }} value={sortBy}>
+                        <option className="sortby" style={{ color: "#001622" }} value="recent">Most Recent</option>
+                    </select>
+                </div>
+              </div>
         <div className="cards-container">
-          {visitor_queries_history?.map((data) => (
+          {/* {visitor_queries_history?.map((data) => ( */}
+          {filteredData.length > 0 ? (
+          filteredData.map(data => (
             <Card
               bordered={true}
               style={{
@@ -916,7 +947,7 @@ const Profile = ({
                         alt="profile"
                       />
                     </div>
-                    <p class="profile-badge">0</p>
+                    <p className="profile-badge">{data?.visitor?.visitor_level}</p>
                   </div>  
                   <div className="profile">
                     <h5>{data?.visitor?.name}</h5>
@@ -928,8 +959,8 @@ const Profile = ({
                 </div>
 
                 <div className="follow">
-                  <p className="button">Follow</p>
-                  <div className="img">
+                  {/* <p className="button">Follow</p> */}
+                  {/* <div className="img">
                     <Image
                       loader={myImageLoader}
                       style={{ borderRadius: "2px", cursor: "pointer" }}
@@ -939,7 +970,7 @@ const Profile = ({
                       src={three_dot_icon}
                       alt="profile"
                     />
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <p className="para">{data?.description}</p>
@@ -995,7 +1026,116 @@ const Profile = ({
                 </div>
               </div>
             </Card>
-          ))}
+            
+          ))
+        ) : (
+          visitor_queries_history?.map(data => (
+            <Card
+            bordered={true}
+            style={{
+              width: "100%",
+              height: "fit-content",
+            }}
+          >
+            <div className="cards-header">
+              <div>
+                <div>
+                  <div className="img">
+                    <Image
+                      style={{ borderRadius: "5px" }}
+                      width={48}
+                      height={48}
+                      preview="false"
+                      src={
+                        data?.visitor?.profile_pic_url ||
+                        "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                      }
+                      alt="profile"
+                    />
+                  </div>
+                  <p className="profile-badge">{data?.visitor?.visitor_level}</p>
+                </div>  
+                <div className="profile">
+                  <h5>{data?.visitor?.name}</h5>
+                  <p>
+                    {data?.title} <div className="custom-border"></div>
+                    {calculateTimeAgo(data?.created_at)}
+                  </p>
+                </div>
+              </div>
+
+              <div className="follow">
+                {/* <p className="button">Follow</p> */}
+                <div className="img">
+                  <Image
+                    loader={myImageLoader}
+                    style={{ borderRadius: "2px", cursor: "pointer" }}
+                    width={36}
+                    height={36}
+                    preview="false"
+                    src={three_dot_icon}
+                    alt="profile"
+                  />
+                </div>
+              </div>
+            </div>
+            <p className="para">{data?.description}</p>
+            <div className="chips">
+              {data?.postTags?.map((tag) => (
+                <div>{tag?.name}</div>
+              ))}
+            </div>
+            <div className="chips">
+              <p>{data?.__meta__?.total_post_replies} answers</p>
+              <h6 className="custom-border"></h6>
+              <p>{data?.views_counter} views</p>
+            </div>
+            <div className="like-footer">
+              <div className="ans">
+                <Image
+                  loader={myImageLoader}
+                  style={{ borderRadius: "5px", marginRight: "5px" }}
+                  width={16}
+                  height={16}
+                  preview="false"
+                  src={message_icon}
+                  alt="profile"
+                />
+                <span className="ans-text">Answer</span>
+              </div>
+              <div className="rating">
+                <div>
+                  <Image
+                    loader={myImageLoader}
+                    style={{ borderRadius: "5px" }}
+                    width={16}
+                    height={16}
+                    preview="false"
+                    src={like_button}
+                    alt="profile"
+                  />
+                </div>
+                <h6>
+                  Upvote <p></p> {data?.__meta__?.total_helpful}
+                </h6>
+                <div className="left-border">
+                  <Image
+                    loader={myImageLoader}
+                    style={{ borderRadius: "5px" }}
+                    width={16}
+                    height={16}
+                    preview="false"
+                    src={dislike_button}
+                    alt="profile"
+                  />
+                </div>
+              </div>
+            </div>
+          </Card>
+           ))
+          )}
+          {/* Render pagination controls */}
+          <Pagination defaultCurrent={1} total={100}  onChange={onChange}/>
         </div>
       </div>
     );
@@ -1095,11 +1235,11 @@ const Profile = ({
       label: "Profile",
       children: <Tab1 />,
     },
-    {
-      key: "2",
-      label: "Community",
-      children: <Tab2 />,
-    },
+    // {
+    //   key: "2",
+    //   label: "Community",
+    //   children: <Tab2 />,
+    // },
     {
       key: "3",
       label: "Questions",
@@ -1110,11 +1250,11 @@ const Profile = ({
       label: "Levels",
       children: <Tab4 />,
     },
-    // {
-    //   key: "5",
-    //   label: "Following",
-    //   children: <Tab3 />,
-    // },
+    {
+      key: "5",
+      label: "Activities",
+      children: <Tab2 />,
+    },
   ];
 
   const onSearch = (value) => {
@@ -1334,6 +1474,7 @@ const mapStateToProps = (state) => {
     visitor_points_history,
     countries,
     visitor_profile_levels,
+    visitor_activities,
   } = state;
   return {
     visitorprofile,
@@ -1343,6 +1484,8 @@ const mapStateToProps = (state) => {
     visitor_points_history,
     countries,
     visitor_profile_levels,
+    visitor_activities,
+
   };
 };
 
