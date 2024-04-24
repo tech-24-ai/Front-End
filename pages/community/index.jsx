@@ -303,7 +303,8 @@ const Community = ({ community, getAllCrud }) => {
                 color: "#0074D9",
                 textDecoration: "underline",
                 cursor: "pointer",
-                marginRight: "2rem",
+                marginRight: isMobile ? 0 : "3.5rem",
+                alignContent: "center"
               }}
               onClick={handleViewAll}
             >

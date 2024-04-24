@@ -217,7 +217,9 @@ const Footer = (props) => {
                   </h4>
                   <Link href="/terms_and_conditions">Terms and Conditions</Link>
                   <Link href="/privacy_policy">Privacy Policy</Link>
+                  <Link href="/cookies">Cookie Settings</Link>
                   <Link href="/contact-us">Contact Us</Link>
+                  <Link href="/about-us">About Us</Link>
                 </div>
                 <div class="text-image-container">
                   <p>© {new Date().getFullYear()} {themeConfig.appName} All rights reserved</p>

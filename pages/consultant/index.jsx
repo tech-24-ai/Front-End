@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import Image from "next/image";
+import Image from "next/future/image";
 import PageBanner from "../../components/card/pageBanner";
 import consultantBannerImage from "../../public/new_images/consultant_banner.svg";
 import chatIcon from "../../public/new_images/chat-icon.svg";
@@ -94,7 +94,6 @@ const consultantList = ({ consultants, getAllCrud, authentication }) => {
                 loader={myImageLoader}
                 src={chatIcon}
                 alt=""
-                layout="raw"
                 width={24}
                 height={22}
                 style={{ objectFit: "contain" }}

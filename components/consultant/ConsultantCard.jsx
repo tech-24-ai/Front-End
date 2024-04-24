@@ -1,6 +1,7 @@
 import React from "react";
 import { Select, Space, Avatar, List, Card, Row, Col } from "antd";
-import Image from "next/image";
+import Image from "next/future/image";
+
 import { EnvironmentOutlined } from "@ant-design/icons";
 import Swiper from "../swiper/index";
 import { crudActions } from "../../_actions";

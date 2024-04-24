@@ -51,6 +51,8 @@ const LatestResearch = ({
     },
   ];
 
+  console.log("data", data);
+
   const parsedTitle = () => {
     return { __html: title };
   };
@@ -65,7 +67,7 @@ const LatestResearch = ({
             {titleBorder && <span className="side-border-title"></span>}
             <span className="title" dangerouslySetInnerHTML={parsedTitle()} />
           </p>
-          <Link href="researchs">
+          <Link href="/market-research/research-list">
             <p className="view-more">View more</p>
           </Link>
         </div>
@@ -137,15 +139,10 @@ const LatestResearch = ({
               </div>
             )}
           >
-            {data?.map((data, index) => (
-              <ResearchCard data={data} key={index} />
+            {data?.map((item, index) => (
+              <ResearchCard data={item} key={index} />
             ))}
           </Slider>
-          {/* <Link href="researchs">
-            <div className="view-more-icon d-none">
-              <ArrowRightOutlined />
-            </div>
-          </Link> */}
         </div>
       </div>
     </Container>

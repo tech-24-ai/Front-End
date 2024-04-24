@@ -28,12 +28,14 @@ import "draft-js/dist/Draft.css";
 import "react-quill/dist/quill.snow.css";
 import community from ".";
 import dynamic from "next/dynamic";
+import Router from "next/router";
+import ReactPaginate from "react-paginate-next";
 
 const ReactQuill = dynamic(
   () => {
-      return import("react-quill");
+    return import("react-quill");
   },
-  {ssr: false}
+  { ssr: false }
 );
 
 import { isMobile } from "react-device-detect";
@@ -59,7 +61,7 @@ const SubmitButton = ({ form, children }) => {
     </Button>
   );
 };
-const Profile = ({ getAllCrud }) => {
+const CommunityDetail = ({ getAllCrud }) => {
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState();
   const [tags, setTag] = useState([]);
@@ -142,7 +144,15 @@ const Profile = ({ getAllCrud }) => {
 
   const Tab1 = () => {
     const [headerSearch, setHeaderSearch] = useState();
-    const [communityDetails, setCommunityDetails] = useState();
+    const [communityDetails, setCommunityDetails] = useState([]);
+    const [sortBy, setSortBy] = useState("id"); 
+
+    const itemsPerPage = 2;
+    const [page, setPage] = useState(0);
+    const [pageCount, setPageCount] = useState(0);
+
+    const [searchQuery, setSearchQuery] = useState("");
+    const [filteredData, setFilteredData] = useState({});
 
     const calculateTimeAgo = (createdAt) => {
       const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
@@ -153,18 +163,58 @@ const Profile = ({ getAllCrud }) => {
       return humanReadableDiff;
     };
 
+    //Sorting
+   
+ 
     useEffect(() => {
       const id = sessionStorage.getItem("community_id");
-      setTimeout(() => {
-        if (id) {
-          crudService
-            ._getAll(`communitypost/${id}`, { search: headerSearch })
-            .then((data) => {
-              setCommunityDetails(data?.data);
-            });
-        }
-      }, 300);
-    }, [headerSearch]);
+      crudService
+        ._getAll(`communitypost/${id}`, {
+          orderBy: sortBy,
+          orderDirection: "DESC",
+          page: page + 1,
+          pageSize: itemsPerPage,
+          search: headerSearch
+          // search: searchQuery,
+          // ...filteredData,
+        })
+        .then((result) => {
+          console.log("result", result);
+          setCommunityDetails(result?.data);
+          const totalPage = Math.ceil(result?.data.total / result?.data.perPage);
+          console.log("totalPage", totalPage);
+          setPageCount(isNaN(totalPage) ? 0 : totalPage);
+        });
+    }, [page, searchQuery, filteredData, sortBy, headerSearch]);
+    console.log("communityDetails:", communityDetails);
+
+    // useEffect(() => {
+    //   getCommunityData()
+     
+    // }, []);
+    const handleSort = (e) => {
+      setSortBy(e.target.value);
+    };
+    const options = [
+      {
+        value: "id",
+        label: "Most Recent",
+      },
+      {
+        value: "views_counter",
+        label: "Most Viewed",
+      },
+      {
+        value: "total_post_replies",
+        label: "Most Answers",
+      },
+      {
+        value: "total_helpful",
+        label: "Most Voted",
+      },
+    ];
+    
+  
 
     return (
       <div className="community-tab-container questions-tab-container community-detail-wrapper">
@@ -189,7 +239,7 @@ const Profile = ({ getAllCrud }) => {
             }}
             value={headerSearch}
             style={{
-              width: isMobile ? "84%" : "100%",
+              width: isMobile ? "84%" : "65%",
               padding: "10px",
               border: "1px solid #ccc",
               borderRadius: "5px",
@@ -210,6 +260,20 @@ const Profile = ({ getAllCrud }) => {
             />
           ) : (
             <>
+                <div className="sorting mobile-display-n">
+                  <label className="sortby" htmlFor="sortDropdown">Sort By: </label>
+                  <select
+                    id="sortDropdown"
+                    style={{ border: "none", background: "transparent" }}
+                    value={sortBy}
+                    onChange={handleSort}
+                  >
+                    {options.map(option => (
+                      <option key={option.value} value={option.value}>{option.label}</option>
+                    ))}
+                  </select>
+                </div>
+              
               {/* <Select
                 style={{
                   width: "30%",
@@ -218,8 +282,6 @@ const Profile = ({ getAllCrud }) => {
                 placeholder="Sort By"
                 optionFilterProp="children"
                 // onChange={onChange}
-                // onSearch={onSearchSelect}
-                // filterOption={filterOption}
                 options={[
                   {
                     value: "most recent",
@@ -239,14 +301,16 @@ const Profile = ({ getAllCrud }) => {
           )}
         </div>
         <div className="cards-container">
-          {communityDetails?.map((data) => (
+          {communityDetails?.data?.map((data) => (
             <Card
               bordered={true}
               style={{
                 width: "100%",
                 height: "fit-content",
                 marginTop: "1rem",
+                cursor: "pointer",
               }}
+              onClick={() => gotoQuestionDetail(data?.url_slug)}
             >
               <div className="cards-header">
                 <div>
@@ -278,7 +342,7 @@ const Profile = ({ getAllCrud }) => {
                 </div>
 
                 <div className="follow">
-                  <p className="button">Follow</p>
+                  {/* <p className="button">Follow</p> */}
                   <div className="img">
                     {/* <Image
                       loader={myImageLoader}
@@ -353,6 +417,39 @@ const Profile = ({ getAllCrud }) => {
             </Card>
           ))}
         </div>
+        <br></br>
+        {communityDetails?.data?.length > 0 && (
+          <ReactPaginate
+            pageCount={pageCount}
+            initialPage={page}
+            forcePage={page}
+            onPageChange={({ selected }) => setPage(selected)}
+            previousLabel={
+              <span
+                style={{
+                  color: "#000",
+                  fontSize: "20px",
+                  fontWeight: 500,
+                }}
+              >
+                {"<"}
+              </span>
+            }
+            nextLabel={
+              <span
+                style={{
+                  color: "#000",
+                  fontSize: "20px",
+                  fontWeight: 500,
+                }}
+              >
+                {">"}
+              </span>
+            }
+            activeClassName={"selected-page"}
+            pageClassName={"other-page"}
+          />
+        )}
       </div>
     );
   };
@@ -500,6 +597,11 @@ const Profile = ({ getAllCrud }) => {
     };
   });
 
+  const gotoQuestionDetail = (url_slug) => {
+    sessionStorage.setItem("community_question_id", url_slug);
+    Router.push("question");
+  };
+
   return (
     <Container>
       <div className="profile-container">
@@ -635,7 +737,7 @@ const Profile = ({ getAllCrud }) => {
                     >
                       <Upload
                         name="url"
-                        action="/upload.do"
+                        action="/uploadmedia"
                         listType="picture-card"
                         style={{ height: "30px!important" }}
                       >
@@ -833,4 +935,4 @@ const actionCreators = {
   createCrud: crudActions._create,
 };
 
-export default connect(mapStateToProps, actionCreators)(Profile);
+export default connect(mapStateToProps, actionCreators)(CommunityDetail);

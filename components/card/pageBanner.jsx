@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "reactstrap";
-import myImageLoader from "../../components/imageLoader";
 import Image from "next/future/image";
+import { isMobile } from "react-device-detect";
 
 function pageBanner({
   image,
@@ -25,7 +25,9 @@ function pageBanner({
         style={
           backgroundImage
             ? {
-                background: "linear-gradient(90deg, #141414 20%, transparent)",
+                background: isMobile
+                  ? "linear-gradient(0deg, #141414 35%, transparent)"
+                  : "linear-gradient(90deg, #141414 20%, transparent)",
               }
             : {}
         }
@@ -38,10 +40,8 @@ function pageBanner({
                 {image && (
                   <Image
                     className="banner-image"
-                    loader={myImageLoader}
                     src={image}
                     alt=""
-                    layout="raw"
                     width={508}
                     height={454}
                     style={{ objectFit: "contain" }}
