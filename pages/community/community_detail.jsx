@@ -155,18 +155,31 @@ const CommunityDetail = ({ getAllCrud }) => {
     };
 
     useEffect(() => {
-      const id = sessionStorage.getItem("community_id");
       setTimeout(() => {
-        if (id && headerSearch) {
-          crudService
-            ._getAll(`communitypost/${id}`, { search: headerSearch })
-            .then((data) => {
-              setCommunityDetails(data?.data);
-            });
+       
+        if (headerSearch && headerSearch != undefined && headerSearch != null) {
+          console.log('headerSearch', headerSearch);
+          getCommunityData(headerSearch);
         }
       }, 300);
      
     }, [headerSearch]);
+
+    const getCommunityData = (searchText) => {
+      const id = sessionStorage.getItem("community_id");
+      if (id) {
+        crudService
+          ._getAll(`communitypost/${id}`, { search: searchText })
+          .then((data) => {
+            setCommunityDetails(data?.data);
+          });
+      }
+    };
+
+    useEffect(() => {
+      getCommunityData()
+     
+    }, []);
 
     return (
       <div className="community-tab-container questions-tab-container community-detail-wrapper">
@@ -644,7 +657,7 @@ const CommunityDetail = ({ getAllCrud }) => {
                     >
                       <Upload
                         name="url"
-                        action="/upload.do"
+                        action="/uploadmedia"
                         listType="picture-card"
                         style={{ height: "30px!important" }}
                       >
