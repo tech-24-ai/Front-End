@@ -151,8 +151,8 @@ const CommunityDetail = ({ getAllCrud }) => {
     const [page, setPage] = useState(0);
     const [pageCount, setPageCount] = useState(0);
 
-    // const [searchQuery, setSearchQuery] = useState("");
-    // const [filteredData, setFilteredData] = useState({});
+    const [searchQuery, setSearchQuery] = useState("");
+    const [filteredData, setFilteredData] = useState({});
 
     const calculateTimeAgo = (createdAt) => {
       const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
