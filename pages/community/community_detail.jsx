@@ -6,7 +6,7 @@ import three_dot_icon from "../../public/new_images/3dots.svg";
 import message_icon from "../../public/new_images/message_icon.svg";
 import like_button from "../../public/new_images/like_button.svg";
 import dislike_button from "../../public/new_images/dislike_button.svg";
-import { crudActions } from "../../_actions";
+import { crudActions, alertActions } from "../../_actions";
 import { connect } from "react-redux";
 import moment from "moment";
 import { crudService } from "../../_services";
@@ -39,6 +39,7 @@ const ReactQuill = dynamic(
 );
 
 import { isMobile } from "react-device-detect";
+
 const SubmitButton = ({ form, children }) => {
   const [submittable, setSubmittable] = React.useState(false);
 
@@ -61,7 +62,8 @@ const SubmitButton = ({ form, children }) => {
     </Button>
   );
 };
-const CommunityDetail = ({ getAllCrud }) => {
+
+const CommunityDetail = ({ getAllCrud, showAlert }) => {
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState();
   const [tags, setTag] = useState([]);
@@ -75,6 +77,7 @@ const CommunityDetail = ({ getAllCrud }) => {
   const [updateCom, setUpdateCom] = useState(false);
   const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const onChange = (key) => {
     console.log(key);
   };
@@ -114,21 +117,73 @@ const CommunityDetail = ({ getAllCrud }) => {
       .then(() => window.location.reload());
   };
 
-  const handleOk = () => {
-    const postData = {
-      community_id: communityData?.id,
-      title: title,
-      description: description,
-      tags: tags,
-      url: [],
-    };
+  const resetForm = () => {
+    setTitle("");
+    setDescription("");
+    setTag([]);
+    setUrl([]);
+  }
 
-    crudService._create("communitypost", postData).then((response) => {
-      if (response.status === 200) {
-        setUpdateCom(true);
-        setIsModalOpen(false);
-      }
-    });
+  const handleOk = () => {
+
+    if(!title){
+      showAlert("Please add title");
+      return
+    }
+
+    if(!description){
+      showAlert("Please add descriptions");
+      return
+    }
+
+    const finalUrl = []
+    if(url && url.length > 0){
+      //Upload API
+      crudService
+          ._upload("uploadmedia", url[0])
+          .then((data) => {
+            // File uploaded successfully, update state and handle any further actions
+            console.log("data", data?.data?.result);
+
+            const postData = {
+              community_id: communityData?.id,
+              title: title,
+              description: description,
+              tags: tags,
+              url: [data?.data?.result],
+            };
+
+            crudService._create("communitypost", postData).then((response) => {
+              if (response.status === 200) {
+                setUpdateCom(true);
+                setIsModalOpen(false);
+                resetForm()
+              }
+            });
+          })
+          .catch((error) => {
+            console.log("asdasd")
+            console.log("error", error);
+            
+          });
+    } else {
+       const postData = {
+         community_id: communityData?.id,
+         title: title,
+         description: description,
+         tags: tags,
+         url: [],
+       };
+
+       crudService._create("communitypost", postData).then((response) => {
+         if (response.status === 200) {
+           setUpdateCom(true);
+           setIsModalOpen(false);
+           resetForm()
+         }
+       });
+    }
+   
   };
 
   const voteCommunity = (data, type) => {
@@ -143,6 +198,7 @@ const CommunityDetail = ({ getAllCrud }) => {
   };
 
   const Tab1 = () => {
+    console.log("tab 1")
     const [headerSearch, setHeaderSearch] = useState();
     const [communityDetails, setCommunityDetails] = useState([]);
     const [sortBy, setSortBy] = useState("id"); 
@@ -186,15 +242,11 @@ const CommunityDetail = ({ getAllCrud }) => {
           setPageCount(isNaN(totalPage) ? 0 : totalPage);
         });
     }, [page, searchQuery, filteredData, sortBy, headerSearch]);
-    console.log("communityDetails:", communityDetails);
 
-    // useEffect(() => {
-    //   getCommunityData()
-     
-    // }, []);
     const handleSort = (e) => {
       setSortBy(e.target.value);
     };
+
     const options = [
       {
         value: "id",
@@ -215,6 +267,9 @@ const CommunityDetail = ({ getAllCrud }) => {
     ];
     
   
+    useEffect(() => {
+      //getCommunityData();
+    }, []);
 
     return (
       <div className="community-tab-container questions-tab-container community-detail-wrapper">
@@ -570,19 +625,6 @@ const CommunityDetail = ({ getAllCrud }) => {
     );
   };
 
-  const items = [
-    {
-      key: "1",
-      label: "Questions",
-      children: <Tab1 />,
-    },
-    {
-      key: "2",
-      label: "News & Announcements",
-      children: <Tab2 />,
-    },
-  ];
-
   const normFile = (e) => {
     if (Array.isArray(e)) {
       return e;
@@ -601,6 +643,25 @@ const CommunityDetail = ({ getAllCrud }) => {
     sessionStorage.setItem("community_question_id", url_slug);
     Router.push("question");
   };
+
+
+  const beforeUpload = (file) => {
+    setUrl([...url,file]);
+    return false;
+  }
+
+  const items = [
+    {
+      key: "1",
+      label: "Questions",
+      children: <Tab1 />,
+    },
+    {
+      key: "2",
+      label: "News & Announcements",
+      children: <Tab2 />,
+    },
+  ];
 
   return (
     <Container>
@@ -652,7 +713,7 @@ const CommunityDetail = ({ getAllCrud }) => {
                   >
                     Ask a Question
                   </span>
-                  <div className="mt-2 mb-3">
+                  {/* <div className="mt-2 mb-3">
                     <span
                       style={{
                         fontWeight: 400,
@@ -665,7 +726,7 @@ const CommunityDetail = ({ getAllCrud }) => {
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                       Egit liboro erat curcus.
                     </span>
-                  </div>
+                  </div> */}
                   <Form
                     form={form}
                     name="validateOnly"
@@ -685,7 +746,7 @@ const CommunityDetail = ({ getAllCrud }) => {
                         },
                       ]}
                       name="title"
-                      onChange={(e) => setTitle(e.target.value)}
+                      onChange={(e) => {setTitle(e.target.value)}}
                       label="Title"
                     >
                       <Input
@@ -694,6 +755,7 @@ const CommunityDetail = ({ getAllCrud }) => {
                           border: "1px solid #D9DFE9",
                           padding: "12px",
                         }}
+                        value={title}
                       />
                     </Form.Item>
                     <Form.Item
@@ -708,6 +770,7 @@ const CommunityDetail = ({ getAllCrud }) => {
                           required: true,
                         },
                       ]}
+                      value={description}
                       name="description"
                       label="Question"
                       onChange={(e) => setDescription(e.target.value)}
@@ -715,7 +778,6 @@ const CommunityDetail = ({ getAllCrud }) => {
                       <div>
                         <ReactQuill
                           theme="snow"
-                          value={description}
                           onChange={handleEditorChange}
                           style={{ height: "100px", borderRadius: "2px" }}
                         />
@@ -730,16 +792,19 @@ const CommunityDetail = ({ getAllCrud }) => {
                         color: "#4C4C4C",
                         marginTop: isMobile ? "90px" : "55px",
                       }}
-                      onChange={(e) => setUrl(e.target.value)}
                       label="Attachment"
                       valuePropName="fileList"
                       getValueFromEvent={normFile}
                     >
+                      
                       <Upload
                         name="url"
-                        action="/uploadmedia"
+                        action={`${process.env.NEXT_PUBLIC_API_BASE_URL}uploadmedia`}
                         listType="picture-card"
+                        fileList={url}
                         style={{ height: "30px!important" }}
+                        beforeUpload={beforeUpload}
+                        maxCount={1}
                       >
                         <button
                           style={{
@@ -794,6 +859,7 @@ const CommunityDetail = ({ getAllCrud }) => {
                           }}
                           defaultValue={[]}
                           options={tagsOptions}
+                          value={tags}
                           onChange={(e) => setTag(e)}
                         />
                       </Form.Item>
@@ -806,7 +872,7 @@ const CommunityDetail = ({ getAllCrud }) => {
                       className="btn"
                       style={{
                         width: isMobile ? "100%" : "470px",
-                        background: "#D9DFE9",
+                        background: "#0074D9",
                         borderRadius: "2px",
                         padding: "12px 16px",
                         color: "#fff",
@@ -933,6 +999,7 @@ const mapStateToProps = (state) => {
 const actionCreators = {
   getAllCrud: crudActions._getAll,
   createCrud: crudActions._create,
+  showAlert: alertActions.warning,
 };
 
 export default connect(mapStateToProps, actionCreators)(CommunityDetail);

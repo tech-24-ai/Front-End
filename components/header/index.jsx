@@ -176,9 +176,7 @@ function Header(props) {
                                 Talk to a Consultant
                               </Link>
                             </DropdownItem>
-                            <DropdownItem className="service-link">
-                              <Link href="/access">Access Communities</Link>
-                            </DropdownItem>
+                       
                           </DropdownMenu>
                         </UncontrolledDropdown>
 

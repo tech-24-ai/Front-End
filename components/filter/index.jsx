@@ -1,17 +1,21 @@
 import React from "react";
 import { Card, Collapse, Checkbox, Col, Row } from "antd";
 const { Panel } = Collapse;
-import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
+import { MinusOutlined, PlusOutlined, UndoOutlined } from "@ant-design/icons";
 import { Radio } from "antd";
 
-const CustomFilter = ({ title = "FILTERS", data, handleOptionChange }) => {
+const CustomFilter = ({
+  title = "FILTERS",
+  data,
+  handleOptionChange,
+  handleReset,
+}) => {
   const onChange = (key) => {
-    console.log(key);
+    // console.log(key);
   };
 
   const renderOptions = (data) => {
-    console.log("optDATa", data);
-    const { options = [], name, multiple = false } = data;
+    const { options = [], name, multiple = false, value = "" } = data;
     if (multiple) {
       return (
         <Checkbox.Group
@@ -28,6 +32,7 @@ const CustomFilter = ({ title = "FILTERS", data, handleOptionChange }) => {
       <Radio.Group
         name={name}
         options={options}
+        value={value}
         onChange={(e) =>
           handleOptionChange({ value: e.target.value, name: e.target.name })
         }
@@ -36,7 +41,12 @@ const CustomFilter = ({ title = "FILTERS", data, handleOptionChange }) => {
   };
 
   return (
-    <Card type="inner" title={title} className="custom-filter">
+    <Card
+      type="inner"
+      title={title}
+      extra={<UndoOutlined onClick={() => handleReset()} />}
+      className="custom-filter"
+    >
       <Collapse
         defaultActiveKey={"1"}
         onChange={onChange}

@@ -36,7 +36,7 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
             onClick={() => slider.current?.slickPrev()}
             className="view-more-icon"
             style={{
-              left: "125px",
+              left: "105px",
               zIndex: "99",
               position: "absolute",
               width: "36px",
@@ -54,7 +54,7 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
             onClick={() => slider.current?.slickNext()}
             className="view-more-icon"
             style={{
-              right: "110px",
+              right: "95px",
               zIndex: "99",
               position: "absolute",
               width: "36px",
@@ -137,11 +137,7 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
               </div>
             ))}
           </Slider>
-          {/* <Link href="blogs">
-            <div className="view-more-icon">
-              <ArrowRightOutlined />
-            </div>
-          </Link> */}
+        
         </div>
       </div>
     </Container>
