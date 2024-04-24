@@ -333,7 +333,7 @@ div.new-custom-search-input {
     border-radius: 8px;
     padding: 10px;
     height: 50px;
-    min-width: 403px;
+    // min-width: 403px;
     color: #b0b8bf;
 
     border: 1.5px solid #d9dfe9;
@@ -2174,6 +2174,59 @@ div.message-box-card {
       &:hover {
         color: #b0b8bf;
       }
+    }
+  }
+}
+
+.custom-pagination {
+  ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+
+    > li > a {
+      font-size: 0.875rem;
+      line-height: 20px;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    > li.previous {
+      margin-right: 0.5rem;
+      display: flex;
+      a {
+        font-size: 1.25rem;
+        color: #54616c;
+      }
+    }
+    > li.next {
+      margin-left: 0.5rem;
+      display: flex;
+      a {
+        font-size: 1.25rem;
+        color: #54616c;
+      }
+    }
+
+    > li:not(.next):not(.previous) {
+      background-color: #f2f4f7;
+      padding: 6px 4px;
+      border-radius: 2px;
+      min-width: 2rem;
+      min-height: 2rem;
+      width: 2rem;
+      height: 2rem;
+      text-align: center;
+      margin: 0 5px;
+      color: #54616c;
+    }
+
+    > li.selected {
+      background-color: #000000 !important;
+      color: #ffffff !important;
     }
   }
 }

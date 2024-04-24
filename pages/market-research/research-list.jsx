@@ -12,6 +12,7 @@ import ReactPaginate from "react-paginate-next";
 import ResearchCard from "../../components/marketResearch/ResearchCard";
 import CustomFilter from "../../components/filter";
 import CustomBreadcrumb from "../../components/breadcrumbs/Breadcrumb";
+import CustomPagination from "../../components/pagination";
 
 const ResearchList = ({ router }) => {
   const [researchData, setResearchData] = useState([]);
@@ -155,7 +156,7 @@ const ResearchList = ({ router }) => {
   };
 
   return (
-    <section className="query-section research-list-section mt-6">
+    <section className="research-list-section mt-6">
       <Container>
         <CustomBreadcrumb
           data={[
@@ -224,35 +225,10 @@ const ResearchList = ({ router }) => {
               </div>
               <div className="mt-5" style={{ width: "100%" }}>
                 {researchData?.length > 0 && (
-                  <ReactPaginate
+                  <CustomPagination
                     pageCount={pageCount}
-                    initialPage={page}
-                    forcePage={page}
+                    page={page}
                     onPageChange={({ selected }) => setPage(selected)}
-                    previousLabel={
-                      <span
-                        style={{
-                          color: "#000",
-                          fontSize: "20px",
-                          fontWeight: 500,
-                        }}
-                      >
-                        {"<"}
-                      </span>
-                    }
-                    nextLabel={
-                      <span
-                        style={{
-                          color: "#000",
-                          fontSize: "20px",
-                          fontWeight: 500,
-                        }}
-                      >
-                        {">"}
-                      </span>
-                    }
-                    activeClassName={"selected-page"}
-                    pageClassName={"other-page"}
                   />
                 )}
               </div>
