@@ -151,8 +151,8 @@ const CommunityDetail = ({ getAllCrud }) => {
     const [page, setPage] = useState(0);
     const [pageCount, setPageCount] = useState(0);
 
-    const [searchQuery, setSearchQuery] = useState("");
-    const [filteredData, setFilteredData] = useState({});
+    // const [searchQuery, setSearchQuery] = useState("");
+    // const [filteredData, setFilteredData] = useState({});
 
     const calculateTimeAgo = (createdAt) => {
       const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
@@ -163,31 +163,8 @@ const CommunityDetail = ({ getAllCrud }) => {
       return humanReadableDiff;
     };
 
-    // useEffect(() => {
-    //   const id = sessionStorage.getItem("community_id");
-    //   setTimeout(() => {
-    //     if (id) {
-    //       crudService
-    //         ._getAll(`communitypost/${id}`, { search: headerSearch })
-    //         .then((data) => {
-    //           setCommunityDetails(data?.data);
-    //         });
-    //     }
-    //   }, 300);
-    // }, [headerSearch]);
-   
     //Sorting
-    // useEffect(() => {
-    //   setTimeout(() => {
-       
-    //     if (headerSearch && headerSearch != undefined && headerSearch != null) {
-    //       console.log('headerSearch', headerSearch);
-    //       getCommunityData(headerSearch);
-    //     }
-    //   }, 300);
-     
-    // }, [headerSearch]);
-
+   
  
     useEffect(() => {
       const id = sessionStorage.getItem("community_id");
@@ -197,6 +174,7 @@ const CommunityDetail = ({ getAllCrud }) => {
           orderDirection: "DESC",
           page: page + 1,
           pageSize: itemsPerPage,
+          search: headerSearch
           // search: searchQuery,
           // ...filteredData,
         })
@@ -207,7 +185,7 @@ const CommunityDetail = ({ getAllCrud }) => {
           console.log("totalPage", totalPage);
           setPageCount(isNaN(totalPage) ? 0 : totalPage);
         });
-    }, [page, searchQuery, filteredData, sortBy]);
+    }, [page, searchQuery, filteredData, sortBy, headerSearch]);
     console.log("communityDetails:", communityDetails);
 
     // useEffect(() => {
