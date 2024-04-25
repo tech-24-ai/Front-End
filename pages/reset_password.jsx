@@ -219,7 +219,7 @@ class ResetPassword extends React.Component {
                                 >
                                     <ButtonGroup vertical style={{ width: "100%" }}>
                                         <Button style={{
-                                            background: "#075aee", borderRadius: "8px", height: "50px", color: "#fff"
+                                            background: "black", borderRadius: "8px", height: "50px", color: "#fff"
                                         }}
                                         >
                                             Start recovery{" "}
@@ -260,7 +260,7 @@ class ResetPassword extends React.Component {
                                 display: "flex",
                                 justifyContent: "center",
                                 alignItems: "center",
-                                background: "#075aee"
+                                background: "black"
                             }}
                         >
                             <img

@@ -210,7 +210,7 @@
     justify-content: flex-start;
     align-items: center;
     position: relative;
-    background-color: $backgroundColor;
+    background-color: black;
     border-radius: 20px;
 
     .bgIcon {
@@ -283,7 +283,7 @@
       width: 213px;
       height: 60px;
       top: 15px;
-      background: $backgroundColor;
+      background: black;
       border-radius: 16px;
       font-family: "Poppins";
       font-size: 16px;
@@ -647,7 +647,7 @@
         width: 213px;
         height: 60px;
         top: 15px;
-        background: $backgroundColor;
+        background: black;
         border-radius: 16px;
         font-family: "Poppins";
         font-size: 16px;

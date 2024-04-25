@@ -268,6 +268,8 @@ class Login extends React.Component {
                       borderRadius: "8px",
                       top: "10px",
                       fontWeight: "600",
+                      background:"black",
+                      color:"white",
                     }}
                   >
                     <span>Sign in with LinkedIn</span>

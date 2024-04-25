@@ -297,7 +297,7 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
             }}
             value={headerSearch}
             style={{
-              width: isMobile ? "84%" : "78%",
+              width: isMobile ? "84%" : "65%",
               padding: "10px",
               border: "1px solid #ccc",
               borderRadius: "5px",
@@ -414,13 +414,7 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
                   </div>
                 </div>
               </div>
-              <p className="para">
-              
-              <span
-                dangerouslySetInnerHTML={{ __html: data?.description }}
-              ></span>
-              
-              </p>
+              <p className="para">{data?.description}</p>
               <div className="chips">
                 {data?.postTags?.map((tag) => (
                   <div>{tag?.name}</div>
@@ -633,8 +627,8 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
 
   return (
     <Container>
-      <div className="profile-container row">
-        <Tabs className="header-tabs col-md-9" defaultActiveKey="1" onChange={onChange}>
+      <div className="profile-container">
+        <Tabs className="header-tabs" defaultActiveKey="1" onChange={onChange}>
           {items.map((tab) => (
             <Tabs.TabPane tab={tab.label} key={tab.key}>
               {tab.children}
@@ -642,14 +636,14 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
           ))}
         </Tabs>
         {communityData && (
-          <div className="community-tab-container community-detail-card col-md-3">
+          <div className="community-tab-container community-detail-card">
             <div
               className="cards-container"
               style={{
                 display: isMobile && "unset",
               }}
             >
-              <div
+              {/* <div
                 onClick={showModal}
                 style={{
                   width: isMobile ? "100%" : 380,
@@ -664,7 +658,7 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
                 }}
               >
                 Ask a Question
-              </div>
+              </div> */}
               <div>
                 <Modal
                   visible={isModalOpen}
@@ -861,7 +855,8 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
                 bordered={true}
                 style={{
                   width: isMobile ? "100%" : 380,
-                  height: "fit-content"
+                  height: "fit-content",
+                  marginTop: "1rem",
                 }}
               >
                 <div className="cards-header">
@@ -912,8 +907,8 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
                     </div>
                   </div>
                 </div>
-                <hr />
-                {communityData?.communityMember?.length === 0 ? (
+                {/* <hr /> */}
+                {/* {communityData?.communityMember?.length === 0 ? (
                   <div
                     onClick={() => joinCommunity()}
                     style={{
@@ -945,7 +940,13 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
                     Member since{" "}
                     {moment(communityData.communityMember[0]?.created_at).format("MMMM DD, YYYY")}
                   </p>
-                )}
+                )} */}
+                {/* show question and answer */}
+                {/* <div className="chips">
+                    <p>{communityData?.__meta__?.total_post_replies} answers</p>
+                    <h6 className="custom-border"></h6>
+                    <p> {communityData?.__meta__?.total_posts} Question</p>
+                  </div> */}
               </Card>
               {/* ))} */}
             </div>

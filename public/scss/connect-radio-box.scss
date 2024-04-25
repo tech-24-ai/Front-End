@@ -32,14 +32,14 @@
   }
 
   label:hover {
-    background-color: $backgroundColor;
+    background-color: black;
+
     color: $white;
     border: none;
   }
 
   .labelChecked {
-    background-color: $backgroundColor;
-    color: $white;
+    background-color: black;
     border: none;
   }
 }
@@ -86,13 +86,13 @@
     }
 
     label:hover {
-      background-color: $backgroundColor;
+      background-color: black;
       color: $white;
       border: none;
     }
 
     .labelChecked {
-      background-color: $backgroundColor;
+      background-color: black;
       color: $white;
       border: none;
     }
