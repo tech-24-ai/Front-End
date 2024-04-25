@@ -1248,10 +1248,9 @@ const Profile = ({
           ))}
         </Tabs>
         </div>
-        <div>
+        <div className="col-md-3">
           <Card
             bordered={true}
-            className="col-md-3"
             style={{
               minWidth: "368",
               height: "fit-content",
@@ -1280,13 +1279,13 @@ const Profile = ({
             </div>
             <hr />
             <div className="following-section">
-              <div>
+              <div style={{width:'100%'}}>
                 <p className="head">Contributions</p>
                 <p className="count">
                   {visitorcommunityprofile?.data[0]?.contributions}
                 </p>
               </div>
-              <div style={{ display: "flex" }}>
+              {/* <div style={{ display: "flex" }}>
                 <span className="custom-border"></span>
                 <div style={{ flexDirection: "column" }}>
                   <p className="head">Followers</p>
@@ -1297,7 +1296,7 @@ const Profile = ({
               <div>
                 <p className="head">Following</p>
                 <p className="count">100</p>
-              </div>
+              </div> */}
             </div>
             <hr />
             <div className="online-section">
