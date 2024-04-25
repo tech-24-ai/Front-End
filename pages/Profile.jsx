@@ -446,31 +446,34 @@ import { isMobile } from "react-device-detect";
 import { SearchOutlined, PlusOutlined, LoadingOutlined } from "@ant-design/icons";
 import profile_img from "../public/new_images/profile.svg";
 import { Pagination } from 'antd';
-
+import CustomPagination from "../components/pagination";
+import SearchInput from "../components/form/searchInput";
 const Profile = ({
   getAllCrud,
   updateCrud,
   visitorprofile,
   visitorcommunityprofile,
   visitor_community,
-  // visitor_queries_history,
+  visitor_queries_history,
   visitor_points_history,
   countries,
   visitor_profile_levels,
   visitor_activities,
+  router,
 }) => {
 
- 
+  const { q } = Router.query;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [updateCom, setUpdateCom] = useState(false);
-  const [visitor_queries_history, setvisitor_queries_history] = useState([]);
+   const [visitorquerieshistory, setvisitor_queries_history] = useState([]);
   const [search, setSearch] = useState("");
   const [value, setValue] = useState();
   const [visitorActivity, setvisitorActivity] = useState([]);
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filteredData, setFilteredData] = useState([])
+
   const [inputValue, setInputValue] = useState('');
+
+ 
 
   const [updateProfileData, setUpdateProfileData] = useState({
     alternate_email: "",
@@ -480,29 +483,86 @@ const Profile = ({
   });
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [sortBy, setSortBy] = useState("recent");
+  const [sortBy, setSortBy] = useState("id");
+  const itemsPerPage = 4;
+  const [page, setPage] = useState(0);
+  const [pageCount, setPageCount] = useState(0);
 
-
+  const [searchQuery, setSearchQuery] = useState(q);
+  const [filteredData, setFilteredData] = useState({});
+  // const [researchData, setResearchData] = useState([]);
   const onPageChange = (page) => {
     setCurrentPage(page);
   };
 
-  // const itemsPerPage = 5; // Number of items to display per page
-  // const [currentPage, setCurrentPage] = useState(1);
+    //tab 2 data
+    useEffect(() => {
+      crudService
+        ._getAll("visitor_activities", {
+           orderBy: sortBy,
+          orderDirection: "desc",
+          page: page + 1,
+          pageSize: itemsPerPage,
+          search: searchQuery,
+          ...filteredData,
+        })
+        .then((result) => {
+          setvisitorActivity(result?.data?.data);
+          console.log("result",result.data);
+          const totalPage = Math.ceil(result?.data?.total / result?.data?.perPage);
+          setPageCount(isNaN(totalPage) ? 0 : totalPage);
+        });
+    }, [page, searchQuery, filteredData, sortBy]);
 
-  // // Calculate the index range for the current page
-  // const startIndex = (currentPage - 1) * itemsPerPage;
-  // const endIndex = startIndex + itemsPerPage;
-  // const currentData = data.slice(startIndex, endIndex);
+    // tab3 data
 
-  // Function to handle page change
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
+    useEffect(() => {
+      crudService
+        ._getAll("visitor_queries_history", {
+           orderBy: sortBy,
+          orderDirection: "desc",
+          page: page + 1,
+          pageSize: itemsPerPage,
+          search: searchQuery,
+          ...filteredData,
+        })
+        .then((result) => {
+          setvisitor_queries_history(result?.data?.data);
+          console.log("result",result.data);
+          const totalPage = Math.ceil(result?.data?.total / result?.data?.perPage);
+          setPageCount(isNaN(totalPage) ? 0 : totalPage);
+        });
+    }, [page, searchQuery, filteredData, sortBy]);
+
+    const handleSort = (e) => {
+      setSortBy(e.target.value);
+    };
+
+    const sortOptions = [
+      {
+        value: "id",
+        label: "Most Recent",
+      },
+      {
+        value: "view_counts",
+        label: "Most Viewed",
+      },
+    ];
+
+      //Filter
+  const handleSearch = (searchValue) => {
+    if (searchValue == null) {
+      return false;
+    }
+    const timerId = setTimeout(() => {
+      setSearchQuery(searchValue);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timerId);
+    };
   };
 
-  // Calculate total number of pages
-  // const totalPages = Math.ceil(data.length / itemsPerPage);
-  
 
   const onChange = (key) => {
     console.log(key);
@@ -531,26 +591,6 @@ const Profile = ({
 
   ;
 
-  useEffect(() => {
-    const filterData = () => {
-      if (visitor_queries_history) {
-        const filtered = visitor_queries_history.filter(data =>
-          data.title.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-        setFilteredData(filtered);
-      }
-    };
-
-    filterData();
-  }, [searchQuery, visitor_queries_history]);
-
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-  };
-
-  // const handleSearch = (e) => {
-  //   setSearchQuery(e.target.value);
-  // };
 
   const removeProfilePic = () => {
     setUpdateProfileData((prev) => ({
@@ -598,74 +638,17 @@ const Profile = ({
     
   }, [updateCom]);
 
-  useEffect(() => {
-    const getAllPosts = async () => {
-      try {
-        const data = await crudService._getAll("visitor_activities");
-        console.log("data", data);
-        setvisitorActivity(data.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    getAllPosts();
-  }, []);
-
-  useEffect(() => {
-    const getAllPosts = async () => {
-      try {
-        const data = await crudService._getAll("visitor_queries_history");
-        console.log("data", data);
-        setvisitor_queries_history(data.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    getAllPosts();
-  }, []);
-
-  useEffect(() => {
-    const searchPosts = async () => {
-      try {
-        const data = await crudService._getAll("visitor_queries_history", { search: value });
-        console.log("data", data);
-        setvisitor_queries_history(data.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    setTimeout(() => {
-      searchPosts();
-    }, 300);
-  }, [value]);
-  console.log("search", search);
+ 
 
   const fetchCountry = () => {
     getAllCrud("countries", "countries");
   };
 
-  
-
-  // useEffect(() => {
-  //   const searchPosts = async () => {
-  //     try {
-  //       const data = await crudService._getAll("visitor_queries_history", { search: value });
-  //       console.log("data", data);
-  //       setvisitor_queries_history(data.data);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
-  //   setTimeout(() => {
-  //     searchPosts();
-  //   }, 300);
-  // }, [value]);
-  // console.log("search", search);
 
   const countyList = countries?.map((item) => {
     return { value: item.phonecode, label: `+${item.phonecode}` };
   });
-
+ 
   const updateProfile = () => {
     crudService
       ._update("visitorprofile", visitorprofile?.id, {
@@ -835,7 +818,7 @@ const Profile = ({
     return (
       <div className="row">
         <div className="col-md-12">
-        <div className="questions-tab-container">
+        <div className="tab-container">
        
        
        {visitorActivity?.map(data => (
@@ -848,14 +831,54 @@ const Profile = ({
            }}
          >
           {data?.communityPost.title}
-           <p
-             style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-           >
-             Lorem ipsum dolor sit amet consectetur. Urna cursus lectus risus
-             sit in et. Nec pellentesque curabitur ultrices ultricies habitant
-             eget aenean aliquet id. Et arcu id quam interdum vivamus facilisi
-             elementum ultricies.
-           </p>
+          {data?.activity_type === 1 && (
+            <p
+            style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+          >
+            You created a question {data?.communityPost.title}
+          </p>
+          )}
+
+          {data?.activity_type === 2 && (
+            <p
+            style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+          >
+            You answered the question {data?.communityPost.title}
+          </p>
+          )}
+
+          {data?.activity_type === 3 && (
+            <p
+            style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+          >
+            You posted a comment on the answer to the question {data?.communityPost.title}
+          </p>
+          )}
+
+          {data?.activity_type === 4 && (
+            <p
+            style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+          >
+            You upvoted or downvoted the answer to the question {data?.communityPost.title}
+          </p>
+          )}
+
+        {data?.activity_type === 5 && (
+            <p
+            style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+          >
+            You upvoted or downvoted the answer to the question {data?.communityPost.title}
+          </p>
+          )}
+
+        {data?.activity_type === 6 && (
+            <p
+            style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+          >
+            You viewed the question {data?.communityPost.title}
+          </p>
+          )}
+           
            <p
              style={{
                fontWeight: "400",
@@ -870,9 +893,19 @@ const Profile = ({
         
         </ul>
         ))} 
-        
+       
      </div>
+     <div className="mt-5" style={{ width: "100%" }}>
+          {visitorActivity?.length > 0 && (
+            <CustomPagination
+              pageCount={pageCount}
+              page={page}
+              onPageChange={({ selected }) => setPage(selected)}
+            />
+          )}
         </div>
+        </div>
+      
       </div>
     
     );
@@ -902,7 +935,7 @@ const Profile = ({
     return (
       <div className="community-tab-container questions-tab-container">
         <div className="search-container">
-          <Input
+          {/* <Input
               placeholder="Search a question..."
               prefix={<SearchOutlined style={{ color: "#0074D9", padding: "0 6px" }} />}
               style={{
@@ -914,128 +947,51 @@ const Profile = ({
                   background: "#ffffff",
                   boxSizing: "border-box",
               }}
-              // onChange={handleSearch}
-              value={inputValue} 
-            onChange={handleInputChange} 
-                />
+            className="SearchInput"
+            onChange={(value) => handleSearch(value)}
+            allowClear={true}
+                /> */}
+                  <SearchInput
+                  style={{
+                    width: "95%",
+                    height: "50px",
+                    padding: "10px",
+                    border: "1px solid #D9DFE9",
+                    borderRadius: "5px",
+                    background: "#ffffff",
+                    boxSizing: "border-box",
+                }}
+            placeholder="Search a question...."
+            className="SearchInput"
+            onChange={(value) => handleSearch(value)}
+            prefix={<SearchOutlined style={{ color: "#0074D9", padding: "0 6px" }} />}
+            allowClear={true}
+            value={searchQuery}
+          />
 
                 <div className="sorting">
                     <label className="sortby" htmlFor="sortDropdown">Sort By: </label>
-                    <select id="sortDropdown" className="sortingDropdown" style={{ border: "none", background: "transparent" }} value={sortBy}>
-                        <option className="sortby" style={{ color: "#001622" }} value="recent">Most Recent</option>
-                    </select>
+                     <select
+                  id="sortDropdown"
+                  style={{ border: "none", background: "transparent" }}
+                  value={sortBy}
+                  onChange={handleSort}
+                >
+                  {sortOptions.map(({ value, label }) => (
+                    <option
+                      className="sortby"
+                      style={{ color: "#001622" }}
+                      value={value}
+                    >
+                      {label}
+                    </option>
+                  ))}
+                </select>
                 </div>
               </div>
         <div className="cards-container">
-          {/* {visitor_queries_history?.map((data) => ( */}
-          {filteredData.length > 0 ? (
-          filteredData.map(data => (
-            <Card
-              bordered={true}
-              style={{
-                width: "100%",
-                height: "fit-content",
-              }}
-            >
-              <div className="cards-header">
-                <div>
-                  <div>
-                    <div className="img">
-                      <Image
-                        style={{ borderRadius: "5px" }}
-                        width={48}
-                        height={48}
-                        preview="false"
-                        src={
-                          data?.visitor?.profile_pic_url ||
-                          "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
-                        }
-                        alt="profile"
-                      />
-                    </div>
-                    <p className="profile-badge">{data?.visitor?.visitor_level}</p>
-                  </div>  
-                  <div className="profile">
-                    <h5>{data?.visitor?.name}</h5>
-                    <p>
-                      {data?.title} <div className="custom-border"></div>
-                      {calculateTimeAgo(data?.created_at)}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="follow">
-                  {/* <p className="button">Follow</p> */}
-                  {/* <div className="img">
-                    <Image
-                      loader={myImageLoader}
-                      style={{ borderRadius: "2px", cursor: "pointer" }}
-                      width={36}
-                      height={36}
-                      preview="false"
-                      src={three_dot_icon}
-                      alt="profile"
-                    />
-                  </div> */}
-                </div>
-              </div>
-              <p className="para">{data?.description}</p>
-              <div className="chips">
-                {data?.postTags?.map((tag) => (
-                  <div>{tag?.name}</div>
-                ))}
-              </div>
-              <div className="chips">
-                <p>{data?.__meta__?.total_post_replies} answers</p>
-                <h6 className="custom-border"></h6>
-                <p>{data?.views_counter} views</p>
-              </div>
-              <div className="like-footer">
-                <div className="ans">
-                  <Image
-                    loader={myImageLoader}
-                    style={{ borderRadius: "5px", marginRight: "5px" }}
-                    width={16}
-                    height={16}
-                    preview="false"
-                    src={message_icon}
-                    alt="profile"
-                  />
-                  <span className="ans-text">Answer</span>
-                </div>
-                <div className="rating">
-                  <div>
-                    <Image
-                      loader={myImageLoader}
-                      style={{ borderRadius: "5px" }}
-                      width={16}
-                      height={16}
-                      preview="false"
-                      src={like_button}
-                      alt="profile"
-                    />
-                  </div>
-                  <h6>
-                    Upvote <p></p> {data?.__meta__?.total_helpful}
-                  </h6>
-                  <div className="left-border">
-                    <Image
-                      loader={myImageLoader}
-                      style={{ borderRadius: "5px" }}
-                      width={16}
-                      height={16}
-                      preview="false"
-                      src={dislike_button}
-                      alt="profile"
-                    />
-                  </div>
-                </div>
-              </div>
-            </Card>
-            
-          ))
-        ) : (
-          visitor_queries_history?.map(data => (
+          {visitorquerieshistory?.map((data) => (
+        
             <Card
             bordered={true}
             style={{
@@ -1072,7 +1028,7 @@ const Profile = ({
 
               <div className="follow">
                 {/* <p className="button">Follow</p> */}
-                <div className="img">
+                {/* <div className="img">
                   <Image
                     loader={myImageLoader}
                     style={{ borderRadius: "2px", cursor: "pointer" }}
@@ -1082,7 +1038,7 @@ const Profile = ({
                     src={three_dot_icon}
                     alt="profile"
                   />
-                </div>
+                </div> */}
               </div>
             </div>
             <p className="para">{data?.description}</p>
@@ -1097,7 +1053,7 @@ const Profile = ({
               <p>{data?.views_counter} views</p>
             </div>
             <div className="like-footer">
-              <div className="ans">
+              {/* <div className="ans">
                 <Image
                   loader={myImageLoader}
                   style={{ borderRadius: "5px", marginRight: "5px" }}
@@ -1108,8 +1064,8 @@ const Profile = ({
                   alt="profile"
                 />
                 <span className="ans-text">Answer</span>
-              </div>
-              <div className="rating">
+              </div> */}
+              {/* <div className="rating">
                 <div>
                   <Image
                     loader={myImageLoader}
@@ -1134,14 +1090,23 @@ const Profile = ({
                     src={dislike_button}
                     alt="profile"
                   />
-                </div>
-              </div>
+                </div> */}
+              {/* </div> */}
             </div>
           </Card>
            ))
-          )}
+          }
           {/* Render pagination controls */}
-          <Pagination defaultCurrent={1} total={100}  onChange={onChange}/>
+          {/* <Pagination defaultCurrent={1} total={100}  onChange={onChange}/> */}
+             <div className="mt-5" style={{ width: "100%" }}>
+                {visitorquerieshistory?.length > 0 && (
+                  <CustomPagination
+                    pageCount={pageCount}
+                    page={page}
+                    onPageChange={({ selected }) => setPage(selected)}
+                  />
+                )}
+              </div>
         </div>
       </div>
     );
