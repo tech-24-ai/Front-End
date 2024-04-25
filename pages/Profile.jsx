@@ -1043,7 +1043,11 @@ const Profile = ({
                 </div> */}
               </div>
             </div>
-            <p className="para">{data?.description}</p>
+            <p className="para">
+            <span
+                dangerouslySetInnerHTML={{ __html: data?.description }}
+              ></span>
+            </p>
             <div className="chips">
               {data?.postTags?.map((tag) => (
                 <div>{tag?.name}</div>
