@@ -431,7 +431,7 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
                 <h6 className="custom-border"></h6>
                 <p>{data?.views_counter} views</p>
               </div>
-              <div className="like-footer">
+              {/* <div className="like-footer">
                 <div className="ans">
                   <Image
                     loader={myImageLoader}
@@ -477,7 +477,7 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
                     />
                   </div>
                 </div>
-              </div>
+              </div> */}
             </Card>
           ))}
         </div>
