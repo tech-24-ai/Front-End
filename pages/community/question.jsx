@@ -193,11 +193,10 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
 
   return (
     <Container>
-      <div className="profile-container">
-        <div className="community-tab-container questions-tab-container community-detail-wrapper">
+      <div className="profile-container row">
+        <div className="community-tab-container questions-tab-container community-detail-wrapper col-md-9">
           <div
             className="cards-container"
-            style={{ width: isMobile ? "100%" : "95%" }}
           >
             <Card
               bordered={true}
@@ -252,7 +251,13 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                   </div>
                 </div>
               </div>
-              <p className="para">{communityQuestionDetail?.description}</p>
+              <p className="para">
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: communityQuestionDetail?.description,
+                  }}
+                ></span>
+              </p>
               <div className="chips">
                 {communityQuestionDetail?.postTags?.map((tag) => (
                   <div>{tag?.name}</div>
@@ -326,7 +331,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
               </div>
             </Card>
           </div>
-          <div style={{ marginTop: "3rem", width: isMobile ? "100%" : "95%" }}>
+          <div style={{ marginTop: "3rem"}}>
             <div
               style={{
                 display: "flex",
@@ -430,7 +435,13 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       </div>
                     </div>
                   </div>
-                  <p className="para">{answer?.description}</p>
+                  <p className="para">
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: answer?.description,
+                      }}
+                    ></span>
+                  </p>
                   {/* <div
                     style={{
                       fontWeight: 500,
@@ -457,7 +468,12 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                   <div className="like-footer" style={{ marginTop: "1.5rem" }}>
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <div
-                        onClick={() => setIsReplayModalOpen({isReplayModelOpen : true, details : answer})}
+                        onClick={() =>
+                          setIsReplayModalOpen({
+                            isReplayModelOpen: true,
+                            details: answer,
+                          })
+                        }
                         style={{
                           border: "1px solid #D9DFE9",
                           padding: "8px 12px",
@@ -491,8 +507,8 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                           </div>
                         )}
                       </div>
-                      {
-                        answer?.comments && answer?.comments.length > 0 ? (<div
+                      {answer?.comments && answer?.comments.length > 0 ? (
+                        <div
                           style={{
                             border: "1px solid #D9DFE9",
                             padding: "8px 12px",
@@ -509,9 +525,10 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                           onClick={() => setIsShowReplies(!isShowReplies)}
                         >
                           {isShowReplies ? "Hide Replies" : "View Replies"}
-                        </div>) : (<></>)
-                      }
-                      
+                        </div>
+                      ) : (
+                        <></>
+                      )}
                     </div>
                     <div className="rating">
                       <div>
@@ -602,7 +619,14 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                             </div>
                           </div>
                         </div>
-                        <p className="para">{comment?.description}</p>
+                        <p className="para">
+                          
+                          <span
+                            dangerouslySetInnerHTML={{
+                              __html: comment?.description,
+                            }}
+                          ></span>
+                        </p>
                       </>
                     ))}
                 </Card>
@@ -612,7 +636,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
         </div>
 
         {communityData && (
-          <div className="community-tab-container community-detail-card">
+          <div className="community-tab-container community-detail-card col-md-3">
             <div
               className="cards-container"
               style={{
@@ -713,7 +737,14 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     </Form.Item>
 
                     <div
-                      onClick={(e) => handleOk(null,communityQuestionDetail?.id,description, false)}
+                      onClick={(e) =>
+                        handleOk(
+                          null,
+                          communityQuestionDetail?.id,
+                          description,
+                          false
+                        )
+                      }
                       className="btn"
                       style={{
                         width: isMobile ? "100%" : "470px",
@@ -759,7 +790,11 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       }}
                     >
                       {" "}
-                      {isReplayModalOpen?.details?.description}
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html: isReplayModalOpen?.details?.description,
+                        }}
+                      ></span>
                     </span>
                   </div>
                   <Form
@@ -796,7 +831,16 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     </Form.Item>
 
                     <div
-                      onClick={() => handleOk(isReplayModalOpen?.details?.parent_id == null ? isReplayModalOpen?.details?.id :  isReplayModalOpen?.details?.parent_id,isReplayModalOpen?.details?.id,replyResponse,true)}
+                      onClick={() =>
+                        handleOk(
+                          isReplayModalOpen?.details?.parent_id == null
+                            ? isReplayModalOpen?.details?.id
+                            : isReplayModalOpen?.details?.parent_id,
+                          isReplayModalOpen?.details?.id,
+                          replyResponse,
+                          true
+                        )
+                      }
                       className="btn"
                       style={{
                         width: isMobile ? "100%" : "470px",
@@ -850,7 +894,13 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                   /> */}
                 </div>
                 <hr />
-                <div className="cards-body">{communityData?.description}</div>
+                <div className="cards-body">
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: communityData?.description,
+                    }}
+                  ></span>
+                </div>
                 <hr />
                 <div
                   className="following-section"
@@ -903,7 +953,9 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     }}
                   >
                     Member since{" "}
-                    {moment(communityData?.communityMember[0]?.created_at).format("MMMM DD, YYYY")}
+                    {moment(
+                      communityData?.communityMember[0]?.created_at
+                    ).format("MMMM DD, YYYY")}
                   </p>
                 )}
               </Card>

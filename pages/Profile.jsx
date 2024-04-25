@@ -989,7 +989,9 @@ const Profile = ({
                 </select>
                 </div>
               </div>
-        <div className="cards-container">
+        <div className="cards-container" style={{
+          marginTop :'1rem'
+        }}>
           {visitorquerieshistory?.map((data) => (
         
             <Card
@@ -1236,7 +1238,8 @@ const Profile = ({
     (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
   return (
     <Container>
-      <div className="profile-container">
+      <div className="profile-container row">
+        <div className=" col-md-9">
         <Tabs className="header-tabs" defaultActiveKey="1" onChange={onChange}>
           {items.map((tab) => (
             <Tabs.TabPane tab={tab.label} key={tab.key}>
@@ -1244,9 +1247,11 @@ const Profile = ({
             </Tabs.TabPane>
           ))}
         </Tabs>
+        </div>
         <div>
           <Card
             bordered={true}
+            className="col-md-3"
             style={{
               minWidth: "368",
               height: "fit-content",
