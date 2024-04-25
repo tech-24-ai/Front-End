@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Container } from "reactstrap";
-import myImageLoader from "../../components/imageLoader";
-import three_dot_icon from "../../public/new_images/3dots.svg";
-import message_icon from "../../public/new_images/message_icon.svg";
-import like_button from "../../public/new_images/like_button.svg";
-import dislike_button from "../../public/new_images/dislike_button.svg";
-import { alertActions, crudActions } from "../../_actions";
+import myImageLoader from "../../../components/imageLoader";
+import three_dot_icon from "../../../public/new_images/3dots.svg";
+import message_icon from "../../../public/new_images/message_icon.svg";
+import like_button from "../../../public/new_images/like_button.svg";
+import dislike_button from "../../../public/new_images/dislike_button.svg";
+import { alertActions, crudActions } from "../../../_actions";
 import { connect } from "react-redux";
 import moment from "moment";
-import { crudService } from "../../_services";
+import { crudService } from "../../../_services";
 import {
   Form,
   Space,
@@ -23,13 +23,14 @@ import {
   Label,
 } from "antd";
 import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
-import shorting_icon from "../../public/new_images/sorting_icon.svg";
-import view_icon from "../../public/new_images/view_icon.svg";
-import reply_icon from "../../public/new_images/reply_icon.svg";
+import shorting_icon from "../../../public/new_images/sorting_icon.svg";
+import view_icon from "../../../public/new_images/view_icon.svg";
+import reply_icon from "../../../public/new_images/reply_icon.svg";
 import "draft-js/dist/Draft.css";
 import "react-quill/dist/quill.snow.css";
-import community from ".";
+import community from "..";
 import dynamic from "next/dynamic";
+import Router from "next/router";
 
 const ReactQuill = dynamic(
   () => {
@@ -627,8 +628,38 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                             }}
                           ></span>
                         </p>
+                        
                       </>
                     ))}
+                    <div>
+                    {
+                      answer?.comments?.length > 5 && isShowReplies &&
+                      <div
+                          style={{
+                            border: "1px solid #D9DFE9",
+                            padding: "8px 12px",
+                            borderRadius: "4px",
+                            backgroundColor: "#F2F4F7",
+                            fontSize: isMobile ? "12px" : "14px",
+                            fontWeight: 500,
+                            width:'105px',
+                            fontFamily: "Inter",
+                            color: "#54616C",
+                            marginLeft: isMobile ? "6px" : "10px",
+                            color: "#0074D9",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => {
+                            sessionStorage.setItem("community_question_id", communityQuestionDetail?.url_slug);
+                            sessionStorage.setItem("community_parent_id", answer?.id);
+                            sessionStorage.setItem("community_post_details", JSON.stringify(answer));
+                            Router.push("question/comments");
+                          }}
+                        >
+                          View More
+                        </div>
+                    }
+                    </div>
                 </Card>
               ))}
             </div>
@@ -836,7 +867,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                           isReplayModalOpen?.details?.parent_id == null
                             ? isReplayModalOpen?.details?.id
                             : isReplayModalOpen?.details?.parent_id,
-                          isReplayModalOpen?.details?.id,
+                          isReplayModalOpen?.details?.community_post_id,
                           replyResponse,
                           true
                         )

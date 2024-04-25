@@ -1,12 +1,12 @@
 import React, { Fragment } from "react";
 import Router, { useRouter, withRouter } from "next/router";
 import { connect } from "react-redux";
-import { Container } from "reactstrap";
+import { Button, Container } from "reactstrap";
 import { crudService } from "../../_services";
 import { userActions } from "../../_actions";
 import { UsergroupAddOutlined, MessageOutlined } from "@ant-design/icons";
 import { RoboAdvisor, ServiceProvider, Consultant } from "../icons";
-import Image from "next/future/image";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -103,6 +103,8 @@ class TrendingQuestion extends React.PureComponent {
       hoverId: id,
     });
   };
+ 
+
 
   handleGoToPage = (url) => {
     const restrictedUrls = ["/consultant", "/consultant/service_provider"];
@@ -122,25 +124,25 @@ class TrendingQuestion extends React.PureComponent {
       <div className="trending-category-below">
         {
           !isMobile &&
-        <div
-          onClick={() => this.swiperRef.current.swiper.slidePrev()}
-          className="view-more-icon"
-          style={{
-            left: "110px",
-            marginTop: "7%",
-            zIndex: "99",
-            position: "absolute",
-            width: "36px",
-            height: "36px",
-          }}
-        >
-          <ArrowLeftOutlined
+          <div
+            onClick={() => this.swiperRef.current.swiper.slidePrev()}
+            className="view-more-icon"
             style={{
-              color: "#fff",
-              fontSize: "16px",
+              left: "77px",
+              marginTop: "7%",
+              zIndex: "99",
+              position: "absolute",
+              width: "36px",
+              height: "36px",
             }}
-          />
-        </div>
+          >
+            <ArrowLeftOutlined
+              style={{
+                color: "#fff",
+                fontSize: "16px",
+              }}
+            />
+          </div>
         }
         <div className="category-box">
           <div className="category-banner-wrapper" id="categoryWrapper">
@@ -157,7 +159,7 @@ class TrendingQuestion extends React.PureComponent {
                       return '';
                     }
                   }
-                }: false}
+                } : false}
                 navigation={{
                   nextEl: ".swiper-button-next",
                   prevEl: ".swiper-button-prev",
@@ -175,7 +177,7 @@ class TrendingQuestion extends React.PureComponent {
                         <div className="category-content">
                           <div className="content-head">
                             <div className="medium">
-                            
+
                               <Image
                                 style={{
                                   borderRadius: "8px",
@@ -188,7 +190,14 @@ class TrendingQuestion extends React.PureComponent {
                                 width={48}
                                 height={48}
                               />
-                            
+                              {/* <img src={data.visitor.profile_pic_url}
+                                style={{
+                                  borderRadius: "8px",
+                                  width: "48px",
+                                  height: "48px"
+                                }}
+                                alt={data.visitor.name}
+                                /> */}
                             </div>
                             <div
                               className="category-text"
@@ -217,7 +226,11 @@ class TrendingQuestion extends React.PureComponent {
                             </div>
                           </div>
                           <div className="learn-more-btn">
-                            <h6 className="btn-text">Answer</h6>
+                            <Button className="btn-text" 
+                              >
+                                Answer
+                             
+                            </Button>
                           </div>
                         </div>
                       </div>
@@ -227,18 +240,18 @@ class TrendingQuestion extends React.PureComponent {
               </Swiper>
               {
                 !isMobile &&
-              <div
-                onClick={() => this.swiperRef.current.swiper.slideNext()}
-                className="view-more-icon"
-                style={{
-                  right: "40px",
-                  marginTop: "8%",
-                  width: "36px",
-                  height: "36px",
-                }}
-              >
-                <ArrowRightOutlined />
-              </div>
+                <div
+                  onClick={() => this.swiperRef.current.swiper.slideNext()}
+                  className="view-more-icon"
+                  style={{
+                    right: "40px",
+                    marginTop: "8%",
+                    width: "36px",
+                    height: "36px",
+                  }}
+                >
+                  <ArrowRightOutlined />
+                </div>
               }
             </Fragment>
           </div>
