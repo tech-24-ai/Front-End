@@ -65,7 +65,7 @@ const SubmitButton = ({ form, children }) => {
   );
 };
 
-const CommunityDetail = ({ getAllCrud, showAlert }) => {
+const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState();
   const [tags, setTag] = useState([]);
@@ -159,7 +159,8 @@ const CommunityDetail = ({ getAllCrud, showAlert }) => {
             if (response.status === 200) {
               setUpdateCom(true);
               setIsModalOpen(false);
-              resetForm()
+              resetForm();
+              success("Your post is being reviewed and will be shown after approval.")
             }
           });
         })
@@ -205,7 +206,7 @@ const CommunityDetail = ({ getAllCrud, showAlert }) => {
     const [communityDetails, setCommunityDetails] = useState([]);
     const [sortBy, setSortBy] = useState("id");
 
-    const itemsPerPage = 2;
+    const itemsPerPage = 10;
     const [page, setPage] = useState(0);
     const [pageCount, setPageCount] = useState(0);
 
@@ -937,7 +938,7 @@ const CommunityDetail = ({ getAllCrud, showAlert }) => {
                     }}
                   >
                     Member since{" "}
-                    {communityData?.communityMember?.[0]?.created_at}
+                    {moment(communityData.communityMember[0]?.created_at).format("MMMM DD, YYYY")}
                   </p>
                 )}
               </Card>
@@ -961,6 +962,7 @@ const actionCreators = {
   getAllCrud: crudActions._getAll,
   createCrud: crudActions._create,
   showAlert: alertActions.warning,
+  success: alertActions.success,
 };
 
 export default connect(mapStateToProps, actionCreators)(CommunityDetail);

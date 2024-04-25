@@ -59,7 +59,7 @@ const Community = ({ router }) => {
     const [communityFeature, setCommunityFeature] = useState([]);
     const [sortBy, setSortBy] = useState("recent");
     const [currentPage, setCurrentPage] = useState(0);
-    const itemsPerPage = 6;
+    const itemsPerPage = 10;
 
     const [searchQuery, setSearchQuery] = useState("");
     const [filteredData, setFilteredData] = useState([]);
@@ -376,7 +376,7 @@ const Community = ({ router }) => {
                                                                             fontWeight: "600",
                                                                             fontFamily: "Inter"
                                                                              }}>
-                                                                        Member since {item.communityMember[0]?.created_at ? parseDate(item.communityMember[0].created_at) : 'N/A'}
+                                                                        Member since {moment(item.communityMember[0]?.created_at).format("MMMM DD, YYYY")}
                                                                     </p>
                                                                 )}
                                                             </div>
