@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Button, Container } from "reactstrap";
 import { crudService } from "../../_services";
 import { userActions } from "../../_actions";
-import { UsergroupAddOutlined, MessageOutlined } from "@ant-design/icons";
+import { UsergroupAddOutlined, MessageOutlined, EyeOutlined } from "@ant-design/icons";
 import { RoboAdvisor, ServiceProvider, Consultant } from "../icons";
 import Image from "next/future/image";
 import Slider from "react-slick";
@@ -17,6 +17,9 @@ import "swiper/swiper-bundle.min.css";
 import SwiperCore, { Navigation, Pagination } from "swiper/core";
 import moment from 'moment';
 import { isMobile } from "react-device-detect";
+import view_icon from "../../public/new_images/view_icon.svg";
+import myImageLoader from "../../components/imageLoader";
+
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -121,7 +124,7 @@ class CommunityCategory extends React.PureComponent {
     crudService._create("community/join", { community_id })
       .then(() => window.location.reload());
   };
-
+  
   render() {
     const { changeIcon, slides, hoverId } = this.state;
     const { slide } = this.props;
@@ -140,7 +143,7 @@ class CommunityCategory extends React.PureComponent {
           onClick={() => this.swiperRef.current.swiper.slidePrev()}
           className="view-more-icon"
           style={{
-            left: "110px",
+            left: "77px",
             marginTop: "8%",
             zIndex: "99",
             position: "absolute",
@@ -192,18 +195,24 @@ class CommunityCategory extends React.PureComponent {
                       key={index}
                     >
                       <div className="category-banner" data-index={index}
-                        key={index}>
-                        <div className="category-content">
+                        key={index} style={{ height: "220px" }}>
+                        <div className="category-content" style={{ height: "unset" }}>
                           <div className="content-head">
                             <div
-                              className="icon-bg">
-                              <Image
+                              className="icon-bg" style={{height: "unset"}}>
+                              {/* <Image
                                 className="icon-image"
                                 style={{ borderRadius: "4.8px" }}
                                 src={slide.image_url}
                                 alt={slide.name}
                                 width={48}
                                 height={48}
+                              /> */}
+                              <img className="icon-image" src={slide.image_url}
+                                style={{ borderRadius: "4.8px" }}
+                                alt={slide.name}
+                                width={48}
+                                // height={48}
                               />
                             </div>
                             <div
@@ -212,22 +221,24 @@ class CommunityCategory extends React.PureComponent {
                               <h6 style={{ margin: "0", fontFamily: "Poppins" }}>{slide.name}</h6>
                             </div>
                           </div>
-                          <div className="content-structure">
+                          <div className="content-structure" style={{ height: "unset" }}>
                             <p className="card-description">{slide.description}</p>
                             <div className="content-x">
                               <div className="user-icon">
                                 <p>
-                                  <UsergroupAddOutlined style={{ fontSize: "16px", verticalAlign: "0.04em" }} /> Members : {slide.__meta__.total_members}
+                                  <EyeOutlined style={{ fontSize: "16px", verticalAlign: "0.04em" }} />  Views : {slide.__meta__.total_members}
+                                  {/* <UsergroupAddOutlined style={{ fontSize: "16px", verticalAlign: "0.04em" }} />  */}
+                                  {/* Views : {slide.__meta__.total_members} */}
                                 </p>
                               </div>
                               <div className="query-icon">
                                 <p>
-                                  <MessageOutlined style={{ fontSize: "16px", verticalAlign: "0.04em" }} /> Queries : {slide.__meta__.total_posts}
+                                  <MessageOutlined style={{ fontSize: "16px", verticalAlign: "0.04em" }} /> Questions : {slide.__meta__.total_posts}
                                 </p>
                               </div>
                             </div>
-                            <hr className="dotted" />
-                            <div className="learn-more-box">
+                            {/* <hr className="dotted" /> */}
+                            {/* <div className="learn-more-box">
                               {slide.communityMember.length === 0 ? (
                                 <Button className="btn-box"
                                   onClick={() => this.joinCommunity(slide.id)}
@@ -246,7 +257,7 @@ class CommunityCategory extends React.PureComponent {
                                   Member since {moment(slide.communityMember[0]?.created_at).format("MMMM DD, YYYY")}
                                 </p>
                               )}
-                            </div>
+                            </div> */}
                           </div>
 
                         </div>
