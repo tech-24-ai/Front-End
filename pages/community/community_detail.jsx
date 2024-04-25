@@ -29,7 +29,9 @@ import "react-quill/dist/quill.snow.css";
 import community from ".";
 import dynamic from "next/dynamic";
 import Router from "next/router";
-import ReactPaginate from "react-paginate-next";
+// import ReactPaginate from "react-paginate-next";
+import CustomPagination from "../../components/pagination";
+
 
 const ReactQuill = dynamic(
   () => {
@@ -63,7 +65,7 @@ const SubmitButton = ({ form, children }) => {
   );
 };
 
-const CommunityDetail = ({ getAllCrud, showAlert }) => {
+const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState();
   const [tags, setTag] = useState([]);
@@ -126,64 +128,65 @@ const CommunityDetail = ({ getAllCrud, showAlert }) => {
 
   const handleOk = () => {
 
-    if(!title){
+    if (!title) {
       showAlert("Please add title");
       return
     }
 
-    if(!description){
+    if (!description) {
       showAlert("Please add descriptions");
       return
     }
 
     const finalUrl = []
-    if(url && url.length > 0){
+    if (url && url.length > 0) {
       //Upload API
       crudService
-          ._upload("uploadmedia", url[0])
-          .then((data) => {
-            // File uploaded successfully, update state and handle any further actions
-            console.log("data", data?.data?.result);
+        ._upload("uploadmedia", url[0])
+        .then((data) => {
+          // File uploaded successfully, update state and handle any further actions
+          console.log("data", data?.data?.result);
 
-            const postData = {
-              community_id: communityData?.id,
-              title: title,
-              description: description,
-              tags: tags,
-              url: [data?.data?.result],
-            };
+          const postData = {
+            community_id: communityData?.id,
+            title: title,
+            description: description,
+            tags: tags,
+            url: [data?.data?.result],
+          };
 
-            crudService._create("communitypost", postData).then((response) => {
-              if (response.status === 200) {
-                setUpdateCom(true);
-                setIsModalOpen(false);
-                resetForm()
-              }
-            });
-          })
-          .catch((error) => {
-            console.log("asdasd")
-            console.log("error", error);
-            
+          crudService._create("communitypost", postData).then((response) => {
+            if (response.status === 200) {
+              setUpdateCom(true);
+              setIsModalOpen(false);
+              resetForm();
+              success("Your post is being reviewed and will be shown after approval.")
+            }
           });
-    } else {
-       const postData = {
-         community_id: communityData?.id,
-         title: title,
-         description: description,
-         tags: tags,
-         url: [],
-       };
+        })
+        .catch((error) => {
+          console.log("asdasd")
+          console.log("error", error);
 
-       crudService._create("communitypost", postData).then((response) => {
-         if (response.status === 200) {
-           setUpdateCom(true);
-           setIsModalOpen(false);
-           resetForm()
-         }
-       });
+        });
+    } else {
+      const postData = {
+        community_id: communityData?.id,
+        title: title,
+        description: description,
+        tags: tags,
+        url: [],
+      };
+
+      crudService._create("communitypost", postData).then((response) => {
+        if (response.status === 200) {
+          setUpdateCom(true);
+          setIsModalOpen(false);
+          resetForm()
+        }
+      });
     }
-   
+
   };
 
   const voteCommunity = (data, type) => {
@@ -201,9 +204,9 @@ const CommunityDetail = ({ getAllCrud, showAlert }) => {
     console.log("tab 1")
     const [headerSearch, setHeaderSearch] = useState();
     const [communityDetails, setCommunityDetails] = useState([]);
-    const [sortBy, setSortBy] = useState("id"); 
+    const [sortBy, setSortBy] = useState("id");
 
-    const itemsPerPage = 2;
+    const itemsPerPage = 10;
     const [page, setPage] = useState(0);
     const [pageCount, setPageCount] = useState(0);
 
@@ -220,8 +223,8 @@ const CommunityDetail = ({ getAllCrud, showAlert }) => {
     };
 
     //Sorting
-   
- 
+
+
     useEffect(() => {
       const id = sessionStorage.getItem("community_id");
       crudService
@@ -235,10 +238,10 @@ const CommunityDetail = ({ getAllCrud, showAlert }) => {
           // ...filteredData,
         })
         .then((result) => {
-          console.log("result", result);
+
           setCommunityDetails(result?.data);
           const totalPage = Math.ceil(result?.data.total / result?.data.perPage);
-          console.log("totalPage", totalPage);
+
           setPageCount(isNaN(totalPage) ? 0 : totalPage);
         });
     }, [page, searchQuery, filteredData, sortBy, headerSearch]);
@@ -265,8 +268,8 @@ const CommunityDetail = ({ getAllCrud, showAlert }) => {
         label: "Most Voted",
       },
     ];
-    
-  
+
+
     useEffect(() => {
       //getCommunityData();
     }, []);
@@ -315,20 +318,20 @@ const CommunityDetail = ({ getAllCrud, showAlert }) => {
             />
           ) : (
             <>
-                <div className="sorting mobile-display-n">
-                  <label className="sortby" htmlFor="sortDropdown">Sort By: </label>
-                  <select
-                    id="sortDropdown"
-                    style={{ border: "none", background: "transparent" }}
-                    value={sortBy}
-                    onChange={handleSort}
-                  >
-                    {options.map(option => (
-                      <option key={option.value} value={option.value}>{option.label}</option>
-                    ))}
-                  </select>
-                </div>
-              
+              <div className="sorting mobile-display-n">
+                <label className="sortby" htmlFor="sortDropdown">Sort By: </label>
+                <select
+                  id="sortDropdown"
+                  style={{ border: "none", background: "transparent" }}
+                  value={sortBy}
+                  onChange={handleSort}
+                >
+                  {options.map(option => (
+                    <option key={option.value} value={option.value}>{option.label}</option>
+                  ))}
+                </select>
+              </div>
+
               {/* <Select
                 style={{
                   width: "30%",
@@ -473,153 +476,112 @@ const CommunityDetail = ({ getAllCrud, showAlert }) => {
           ))}
         </div>
         <br></br>
-        {communityDetails?.data?.length > 0 && (
-          <ReactPaginate
-            pageCount={pageCount}
-            initialPage={page}
-            forcePage={page}
-            onPageChange={({ selected }) => setPage(selected)}
-            previousLabel={
-              <span
-                style={{
-                  color: "#000",
-                  fontSize: "20px",
-                  fontWeight: 500,
-                }}
-              >
-                {"<"}
-              </span>
-            }
-            nextLabel={
-              <span
-                style={{
-                  color: "#000",
-                  fontSize: "20px",
-                  fontWeight: 500,
-                }}
-              >
-                {">"}
-              </span>
-            }
-            activeClassName={"selected-page"}
-            pageClassName={"other-page"}
-          />
-        )}
+        <div className="mt-5" style={{ width: "100%" }}>
+          {communityDetails?.data?.length > 0 && (
+            <CustomPagination
+              pageCount={pageCount}
+              page={page}
+              onPageChange={({ selected }) => setPage(selected)}
+            />
+          )}
+        </div>
+
       </div>
     );
   };
 
   const Tab2 = () => {
+    const [newsData, setNewsData] = useState([]);
+    const [communityId, setCommunityId] = useState(null);
+    const [communityData, setCommunityData] = useState(null);
+
+    useEffect(() => {
+      fetchCommunityData(); 
+    }, []);
+
+    const fetchCommunityData = () => {
+      const id = sessionStorage.getItem("community_id"); 
+      if (id) {
+        crudService._getAll(`community/details/${id}`)
+          .then((data) => {
+            const communityData = data?.data;
+            setCommunityData(communityData); 
+            setCommunityId(communityData.id);
+            fetchNewsData(communityData.id);
+          })
+          .catch((error) => {
+            console.error("Error fetching community data:", error);
+          });
+      }
+    };
+    useEffect(() => {
+      fetchCommunityData(); 
+    }, []);
+
+    const fetchNewsData = (communityId) => {
+      if (communityId) {
+        crudService._getAll(`get_news_announcements?community_id=${communityId}`)
+          .then((data) => {
+            setNewsData(data?.data);
+          })
+          .catch((error) => {
+            console.error("Error fetching news data:", error);
+          });
+      }
+    };
+
+    console.log("news data", newsData);
+    // const [newsData, setNewsData] = useState([]);
+    // const fetchNewsData = () => {
+    //   const id = sessionStorage.getItem("community_id");
+    //   if (id) {
+    //     crudService._getAll(`get_news_announcements?community_id=${22}`)
+    //       .then((data) => {
+    //         setNewsData(data?.data);
+    //         console.log("data", data);
+    //         console.log("news log", data?.data);
+    //       })
+    //       .catch((error) => {
+    //         showAlert("Error occurred while fetching news data.");
+    //         console.error("Error fetching news data:", error);
+    //       });
+    //   }
+    // };
+    // console.log("news data", newsData);
+    // useEffect(() => {
+    //   fetchNewsData();
+    // }, []);
+
     return (
       <div className="questions-tab-container">
         <ul>
-          <li
-            style={{
-              fontWeight: "500",
-              fontSize: "20px",
-              color: "#001622",
-            }}
-          >
-            Lorem ipsum dolor sit amet consectetur
-            <p
-              style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-            >
-              Lorem ipsum dolor sit amet consectetur. Urna cursus lectus risus
-              sit in et. Nec pellentesque curabitur ultrices ultricies habitant
-              eget aenean aliquet id. Et arcu id quam interdum vivamus facilisi
-              elementum ultricies.
-            </p>
-            <p
+          {newsData && newsData.map(data => (
+            <li
+              key={data.id}
               style={{
-                fontWeight: "400",
-                fontSize: "12px",
-                color: "#B0B8BF",
+                fontWeight: "500",
+                fontSize: "20px",
+                color: "#001622",
               }}
             >
-              2 days ago
-            </p>
-          </li>
-          <hr />
-          <li
-            style={{
-              fontWeight: "500",
-              fontSize: "20px",
-              color: "#001622",
-            }}
-          >
-            Lorem ipsum dolor sit amet consectetur
-            <p
-              style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-            >
-              Lorem ipsum dolor sit amet consectetur. Urna cursus lectus risus
-              sit in et. Nec pellentesque curabitur ultrices ultricies habitant
-              eget aenean aliquet id. Et arcu id quam interdum vivamus facilisi
-              elementum ultricies.
-            </p>
-            <p
-              style={{
-                fontWeight: "400",
-                fontSize: "12px",
-                color: "#B0B8BF",
-              }}
-            >
-              2 days ago
-            </p>
-          </li>
-          <hr />
-          <li
-            style={{
-              fontWeight: "500",
-              fontSize: "20px",
-              color: "#001622",
-            }}
-          >
-            Lorem ipsum dolor sit amet consectetur
-            <p
-              style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-            >
-              Lorem ipsum dolor sit amet consectetur. Urna cursus lectus risus
-              sit in et. Nec pellentesque curabitur ultrices ultricies habitant
-              eget aenean aliquet id. Et arcu id quam interdum vivamus facilisi
-              elementum ultricies.
-            </p>
-            <p
-              style={{
-                fontWeight: "400",
-                fontSize: "12px",
-                color: "#B0B8BF",
-              }}
-            >
-              2 days ago
-            </p>
-          </li>
-          <hr />
-          <li
-            style={{
-              fontWeight: "500",
-              fontSize: "20px",
-              color: "#001622",
-            }}
-          >
-            Lorem ipsum dolor sit amet consectetur
-            <p
-              style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-            >
-              Lorem ipsum dolor sit amet consectetur. Urna cursus lectus risus
-              sit in et. Nec pellentesque curabitur ultrices ultricies habitant
-              eget aenean aliquet id. Et arcu id quam interdum vivamus facilisi
-              elementum ultricies.
-            </p>
-            <p
-              style={{
-                fontWeight: "400",
-                fontSize: "12px",
-                color: "#B0B8BF",
-              }}
-            >
-              2 days ago
-            </p>
-          </li>
+              {data.title}
+              <p
+                style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+              >
+                {data.description}
+              </p>
+              <p
+                style={{
+                  fontWeight: "400",
+                  fontSize: "12px",
+                  color: "#B0B8BF",
+                }}
+              >
+                {data.created_at}
+              </p>
+              <hr />
+            </li>
+          ))}
         </ul>
       </div>
     );
@@ -646,7 +608,7 @@ const CommunityDetail = ({ getAllCrud, showAlert }) => {
 
 
   const beforeUpload = (file) => {
-    setUrl([...url,file]);
+    setUrl([...url, file]);
     return false;
   }
 
@@ -746,7 +708,7 @@ const CommunityDetail = ({ getAllCrud, showAlert }) => {
                         },
                       ]}
                       name="title"
-                      onChange={(e) => {setTitle(e.target.value)}}
+                      onChange={(e) => { setTitle(e.target.value) }}
                       label="Title"
                     >
                       <Input
@@ -796,7 +758,7 @@ const CommunityDetail = ({ getAllCrud, showAlert }) => {
                       valuePropName="fileList"
                       getValueFromEvent={normFile}
                     >
-                      
+
                       <Upload
                         name="url"
                         action={`${process.env.NEXT_PUBLIC_API_BASE_URL}uploadmedia`}
@@ -976,7 +938,7 @@ const CommunityDetail = ({ getAllCrud, showAlert }) => {
                     }}
                   >
                     Member since{" "}
-                    {communityData?.communityMember?.[0]?.created_at}
+                    {moment(communityData.communityMember[0]?.created_at).format("MMMM DD, YYYY")}
                   </p>
                 )}
               </Card>
@@ -1000,6 +962,7 @@ const actionCreators = {
   getAllCrud: crudActions._getAll,
   createCrud: crudActions._create,
   showAlert: alertActions.warning,
+  success: alertActions.success,
 };
 
 export default connect(mapStateToProps, actionCreators)(CommunityDetail);

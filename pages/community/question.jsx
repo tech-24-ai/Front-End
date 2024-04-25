@@ -61,13 +61,13 @@ const SubmitButton = ({ form, children }) => {
     </Button>
   );
 };
-const CommunityQuestionDetail = ({ getAllCrud, success }) => {
+const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
   const [description, setDescription] = useState("");
   const [communityQuestionDetail, setCommunityQuestionDetail] = useState();
-  const [isShowReplies, setIsShowReplies] = useState(true);
+  const [isShowReplies, setIsShowReplies] = useState(false);
   const [replyResponse, setReplyResponse] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isReplayModalOpen, setIsReplayModalOpen] = useState(false);
+  const [isReplayModalOpen, setIsReplayModalOpen] = useState({isReplayModelOpen : false, details:{}});
   const [communityAnswers, setCommunityAnswers] = useState();
   const handleEditorChange = (html) => {
     setReplyResponse(html);
@@ -88,7 +88,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success }) => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
-    setIsReplayModalOpen(false);
+    setIsReplayModalOpen({isReplayModelOpen : false, details:{}});
   };
 
   const fetchCommunityData = () => {
@@ -110,18 +110,25 @@ const CommunityQuestionDetail = ({ getAllCrud, success }) => {
       .then(() => window.location.reload());
   };
 
-  const handleOk = (data) => {
+  const handleOk = (parent_id,community_post_id, replyText, isReply) => {
+    if(replyText == undefined || replyText == null || replyText.trim() == ""){
+      showAlert("Please add description.")
+      return;
+    }
     const postData = {
-      parent_id: data?.parent_id || null,
-      community_post_id: data?.id,
-      description: replyResponse,
+      parent_id: parent_id || null,
+      community_post_id: community_post_id,
+      description: replyText,
     };
 
     crudService._create("communitypostreply", postData).then((response) => {
       if (response.status === 200) {
+        
+        isReply ? setIsReplayModalOpen({isReplayModelOpen : false, details:{}}) : setIsModalOpen(false);
+        !isReply ? setDescription("") : setReplyResponse("");
         setUpdateCom(true);
-        setIsReplayModalOpen(false);
-        success("Replied successfully");
+        isReply ? success("Your reply is being reviewed and will be shown after approval.") : success("Your answer is being reviewed and will be shown after approval.");
+       
       }
     });
   };
@@ -139,7 +146,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success }) => {
 
   const voteCommunityPostReplies = (data, type) => {
     crudService
-      ._create("communitypost/vote", {
+      ._create("communitypostreply/vote", {
         community_post_reply_id: data?.id,
         vote_type: type,
       })
@@ -168,8 +175,9 @@ const CommunityQuestionDetail = ({ getAllCrud, success }) => {
   };
 
   const getPostReplies = () => {
-    const id = communityQuestionDetail?.community_id;
-    if (isShowReplies && id) {
+    const id = communityQuestionDetail?.id;
+    
+    if (id) {
       crudService
         ._getAll(`communitypostreply?&community_post_id=${id}`)
         .then((data) => {
@@ -423,7 +431,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success }) => {
                     </div>
                   </div>
                   <p className="para">{answer?.description}</p>
-                  <div
+                  {/* <div
                     style={{
                       fontWeight: 500,
                       fontSize: "14px",
@@ -433,7 +441,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success }) => {
                     }}
                   >
                     Read More
-                  </div>
+                  </div> */}
                   {/* <div className="chips">
                 {communityQuestionDetail?.postTags?.map((tag) => (
                   <div>{tag?.name}</div>
@@ -449,7 +457,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success }) => {
                   <div className="like-footer" style={{ marginTop: "1.5rem" }}>
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <div
-                        onClick={() => setIsReplayModalOpen(true)}
+                        onClick={() => setIsReplayModalOpen({isReplayModelOpen : true, details : answer})}
                         style={{
                           border: "1px solid #D9DFE9",
                           padding: "8px 12px",
@@ -483,24 +491,27 @@ const CommunityQuestionDetail = ({ getAllCrud, success }) => {
                           </div>
                         )}
                       </div>
-                      <div
-                        style={{
-                          border: "1px solid #D9DFE9",
-                          padding: "8px 12px",
-                          borderRadius: "4px",
-                          backgroundColor: "#F2F4F7",
-                          fontSize: isMobile ? "12px" : "14px",
-                          fontWeight: 500,
-                          fontFamily: "Inter",
-                          color: "#54616C",
-                          marginLeft: isMobile ? "6px" : "10px",
-                          color: "#0074D9",
-                          cursor: "pointer",
-                        }}
-                        onClick={() => setIsShowReplies(!isShowReplies)}
-                      >
-                        {isShowReplies ? "Hide Replies" : "View Replies"}
-                      </div>
+                      {
+                        answer?.comments && answer?.comments.length > 0 ? (<div
+                          style={{
+                            border: "1px solid #D9DFE9",
+                            padding: "8px 12px",
+                            borderRadius: "4px",
+                            backgroundColor: "#F2F4F7",
+                            fontSize: isMobile ? "12px" : "14px",
+                            fontWeight: 500,
+                            fontFamily: "Inter",
+                            color: "#54616C",
+                            marginLeft: isMobile ? "6px" : "10px",
+                            color: "#0074D9",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => setIsShowReplies(!isShowReplies)}
+                        >
+                          {isShowReplies ? "Hide Replies" : "View Replies"}
+                        </div>) : (<></>)
+                      }
+                      
                     </div>
                     <div className="rating">
                       <div>
@@ -626,7 +637,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success }) => {
                   >
                     Answer this Question
                   </span>
-                  <div className="mt-2 mb-3">
+                  {/* <div className="mt-2 mb-3">
                     <span
                       style={{
                         fontWeight: 400,
@@ -639,7 +650,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success }) => {
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                       Egit liboro erat curcus.
                     </span>
-                  </div>
+                  </div> */}
                   <Form
                     form={form}
                     name="validateOnly"
@@ -671,9 +682,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success }) => {
                           fontFamily: "Inter",
                         }}
                       >
-                        Please describe how you test your product designs, what
-                        methodologies you use, and how you evaluate product
-                        usability?
+                        {communityQuestionDetail?.title}
                       </div>
                     </Form.Item>
                     <Form.Item
@@ -696,7 +705,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success }) => {
                         <ReactQuill
                           theme="snow"
                           value={description}
-                          onChange={(e) => setReplyResponse(e)}
+                          onChange={(e) => setDescription(e)}
                           style={{ height: "100px", borderRadius: "2px" }}
                           placeholder="Write your answer here"
                         />
@@ -704,11 +713,11 @@ const CommunityQuestionDetail = ({ getAllCrud, success }) => {
                     </Form.Item>
 
                     <div
-                      //   onClick={(e) => handleOk(e)}
+                      onClick={(e) => handleOk(null,communityQuestionDetail?.id,description, false)}
                       className="btn"
                       style={{
                         width: isMobile ? "100%" : "470px",
-                        background: "#D9DFE9",
+                        background: "#0074D9",
                         borderRadius: "2px",
                         padding: "12px 16px",
                         color: "#fff",
@@ -725,7 +734,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success }) => {
 
                 {/* replay modal */}
                 <Modal
-                  visible={isReplayModalOpen}
+                  visible={isReplayModalOpen?.isReplayModelOpen}
                   onCancel={handleCancel}
                   footer={null}
                 >
@@ -750,7 +759,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success }) => {
                       }}
                     >
                       {" "}
-                      {communityData?.description}
+                      {isReplayModalOpen?.details?.description}
                     </span>
                   </div>
                   <Form
@@ -787,11 +796,11 @@ const CommunityQuestionDetail = ({ getAllCrud, success }) => {
                     </Form.Item>
 
                     <div
-                      onClick={() => handleOk(communityData)}
+                      onClick={() => handleOk(isReplayModalOpen?.details?.parent_id == null ? isReplayModalOpen?.details?.id :  isReplayModalOpen?.details?.parent_id,isReplayModalOpen?.details?.id,replyResponse,true)}
                       className="btn"
                       style={{
                         width: isMobile ? "100%" : "470px",
-                        background: "#D9DFE9",
+                        background: "#0074D9",
                         borderRadius: "2px",
                         padding: "12px 16px",
                         color: "#fff",
@@ -894,7 +903,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success }) => {
                     }}
                   >
                     Member since{" "}
-                    {communityData?.communityMember?.[0]?.created_at}
+                    {moment(communityData?.communityMember[0]?.created_at).format("MMMM DD, YYYY")}
                   </p>
                 )}
               </Card>
@@ -918,6 +927,7 @@ const actionCreators = {
   getAllCrud: crudActions._getAll,
   createCrud: crudActions._create,
   success: alertActions.success,
+  showAlert: alertActions.warning,
 };
 
 export default connect(
