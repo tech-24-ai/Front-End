@@ -36,10 +36,11 @@ const ResearchList = ({ router }) => {
   // }, [q]);
 
   useEffect(() => {
+    const sortData = sortBy.split("_");
     crudService
       ._getAll("market_research", {
-        orderBy: sortBy,
-        orderDirection: "desc",
+        orderBy: sortData[0],
+        orderDirection: sortData[1] ?? "desc",
         page: page + 1,
         pageSize: itemsPerPage,
         search: searchQuery,
@@ -151,12 +152,12 @@ const ResearchList = ({ router }) => {
 
   const sortOptions = [
     {
-      value: "id",
+      value: "id_desc",
       label: "Most Recent",
     },
     {
-      value: "view_counts",
-      label: "Most Viewed",
+      value: "id_asc",
+      label: "Most Older",
     },
   ];
 

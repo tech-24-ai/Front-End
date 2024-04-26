@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { crudActions } from "../../_actions";
 import { connect } from "react-redux";
 import { withRouter, useRouter } from "next/router";
@@ -50,6 +50,17 @@ function Detail({ getAllCrud, research_detail, router }) {
                   __html: research_detail?.description,
                 }}
               ></div>
+              {!research_detail?.extension && (
+                <iframe
+                  src={research_detail?.url}
+                  height="500"
+                  width="100%"
+                  frameborder="0"
+                  allowfullscreen=""
+                  title="market research"
+                  className="mt-4"
+                />
+              )}
             </div>
             <div className="related-research-section">
               <div className="download-report-card">
@@ -57,12 +68,16 @@ function Detail({ getAllCrud, research_detail, router }) {
                 <p className="content">{research_detail?.details}</p>
                 <button className="custom-btn with-bg">Download Report</button>
               </div>
-              <h6 className="heading">Related Research-browser</h6>
-              <div className="related-research-wrapper">
-                {research_detail?.related_research.map((data, index) => (
-                  <ResearchCard data={data} key={index} />
-                ))}
-              </div>
+              {research_detail?.related_research.length > 0 && (
+                <Fragment>
+                  <h6 className="heading">Related Research</h6>
+                  <div className="related-research-wrapper">
+                    {research_detail?.related_research.map((data, index) => (
+                      <ResearchCard data={data} key={index} />
+                    ))}
+                  </div>
+                </Fragment>
+              )}
             </div>
           </div>
         </BrowserView>
@@ -79,14 +94,29 @@ function Detail({ getAllCrud, research_detail, router }) {
                   __html: research_detail?.description,
                 }}
               ></div>
+              {!research_detail?.extension && (
+                <iframe
+                  src={research_detail?.url}
+                  height="300"
+                  width="100%"
+                  frameborder="0"
+                  allowfullscreen=""
+                  title="market research"
+                  className="mt-4"
+                />
+              )}
             </div>
             <div className="related-research-section">
-              <h6 className="heading">Related Research</h6>
-              <div className="related-research-wrapper">
-                {research_detail?.related_research.map((data, index) => (
-                  <ResearchCard data={data} key={index} />
-                ))}
-              </div>
+              {research_detail?.related_research.length > 0 && (
+                <Fragment>
+                  <h6 className="heading">Related Research</h6>
+                  <div className="related-research-wrapper">
+                    {research_detail?.related_research.map((data, index) => (
+                      <ResearchCard data={data} key={index} />
+                    ))}
+                  </div>
+                </Fragment>
+              )}
             </div>
           </div>
         </MobileView>
