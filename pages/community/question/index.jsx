@@ -31,6 +31,12 @@ import "react-quill/dist/quill.snow.css";
 import community from "..";
 import dynamic from "next/dynamic";
 import Router from "next/router";
+import share_icon from "../../../public/images/share-android.svg";
+import flag_icon from "../../../public/images/triangle-flag.svg";
+import linkedin_icon from "../../../public/images/linkedin/Linkedin.svg";
+import facebook_icon from "../../../public/images/linkedin/Facebook.svg";
+import email_icon from "../../../public/images/linkedin/Email.svg";
+import twitter_icon from "../../../public/images/linkedin/X - jpeg.svg";
 
 const ReactQuill = dynamic(
   () => {
@@ -68,8 +74,91 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
   const [isShowReplies, setIsShowReplies] = useState(false);
   const [replyResponse, setReplyResponse] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isReplayModalOpen, setIsReplayModalOpen] = useState({isReplayModelOpen : false, details:{}});
+  const [isReplayModalOpen, setIsReplayModalOpen] = useState({ isReplayModelOpen: false, details: {} });
   const [communityAnswers, setCommunityAnswers] = useState();
+
+
+  const [shareModalVisible, setShareModalVisible] = useState(false);
+  const [socialModalVisible, setSocialModalVisible] = useState(false);
+  const [reportModalVisible, setReportModalVisible] = useState(false);
+
+
+  const [reportTypes, setReportTypes] = useState([]);
+  const [selectedOption, setSelectedOption] = useState('');
+  const [reportDescription, setReportDescription] = useState('');
+
+
+
+  useEffect(() => {
+    fetchReportTypes();
+  }, []);
+ 
+  const fetchReportTypes = () => {
+    crudService._getAll('repost_abuse/types')
+      .then((response) => {
+        setReportTypes(response?.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching report types:', error);
+      });
+  };
+
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+    console.log("handleOptionChange",event.target.value);
+  };
+
+  const handleDescriptionChange = (event) => {
+    setReportDescription(event.target.value);
+    console.log("handleDescriptionChange",event.target.value);
+  };
+ 
+
+  const handleSubmit = (data, community_post_id, event) => {
+    console.log("func");
+    if (!selectedOption || !reportDescription) {
+      console.log("error");
+      return;
+    }
+    getPostReplies();
+    
+    const postData = {
+      report_abuse_type_id: selectedOption,
+      community_id: communityData?.id,
+      community_post_id: communityQuestionDetail?.id,
+      community_post_reply_id: 3,
+      reason: reportDescription,
+    };
+    console.log("postData", postData);
+    crudService._create('repost_abuse', postData)
+      .then((response) => {
+        console.log('Report submitted successfully:', response);
+        setSelectedOption('');
+        setReportDescription('');
+      })
+      .catch((error) => {
+        console.error('Error submitting report:', error);
+      });
+  };
+  const handleModalClose = () => {
+    setShareModalVisible(false);
+    setSocialModalVisible(false);
+    setReportModalVisible(false);
+  };
+
+  const openShareModal = () => {
+    setShareModalVisible(true);
+  };
+
+  const openSocialModal = () => {
+    setSocialModalVisible(true);
+  };
+
+  const openReportModal = () => {
+    setReportModalVisible(true);
+  };
+
   const handleEditorChange = (html) => {
     setReplyResponse(html);
   };
@@ -89,7 +178,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
-    setIsReplayModalOpen({isReplayModelOpen : false, details:{}});
+    setIsReplayModalOpen({ isReplayModelOpen: false, details: {} });
   };
 
   const fetchCommunityData = () => {
@@ -110,9 +199,11 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
       ._create("community/join", { community_id: communityData?.id })
       .then(() => window.location.reload());
   };
+console.log("com d", updateCom);
+  console.log("com ", communityData);
 
-  const handleOk = (parent_id,community_post_id, replyText, isReply) => {
-    if(replyText == undefined || replyText == null || replyText.trim() == ""){
+  const handleOk = (parent_id, community_post_id, replyText, isReply) => {
+    if (replyText == undefined || replyText == null || replyText.trim() == "") {
       showAlert("Please add description.")
       return;
     }
@@ -124,12 +215,12 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
 
     crudService._create("communitypostreply", postData).then((response) => {
       if (response.status === 200) {
-        
-        isReply ? setIsReplayModalOpen({isReplayModelOpen : false, details:{}}) : setIsModalOpen(false);
+
+        isReply ? setIsReplayModalOpen({ isReplayModelOpen: false, details: {} }) : setIsModalOpen(false);
         !isReply ? setDescription("") : setReplyResponse("");
         setUpdateCom(true);
         isReply ? success("Your reply is being reviewed and will be shown after approval.") : success("Your answer is being reviewed and will be shown after approval.");
-       
+
       }
     });
   };
@@ -177,7 +268,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
 
   const getPostReplies = () => {
     const id = communityQuestionDetail?.id;
-    
+
     if (id) {
       crudService
         ._getAll(`communitypostreply?&community_post_id=${id}`)
@@ -239,8 +330,10 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
 
                 <div className="follow">
                   {/* <p className="button">Follow</p> */}
-                  <div className="img">
-                    {/* <Image
+                  <div className="img"
+                    onClick={openShareModal}
+                  >
+                    <Image
                       loader={myImageLoader}
                       style={{ borderRadius: "2px", cursor: "pointer" }}
                       width={32}
@@ -248,8 +341,287 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       preview="false"
                       src={three_dot_icon}
                       alt="profile"
-                    /> */}
+                    />
                   </div>
+
+
+                  {/* Modal for share/report */}
+                  <Modal
+                    visible={shareModalVisible || socialModalVisible || reportModalVisible}
+                    onCancel={handleModalClose}
+                    footer={null}
+                    onClick={false}
+                    width={190}
+                    bodyStyle={{
+                      height: 100,
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center"
+                    }}
+                    style={isMobile ? { position: "relative", left: "6.5rem" } : { position: "relative", left: "8rem" }}
+                  >
+                    <div style={{
+                      width: "100%", background: "#F9FAFB",
+                      background: "", padding: "6px",
+                      display: "flex",
+                      flexDirection: "row",
+                      fontSize: "20px",
+                      justifyContent: "space-between"
+                    }}>
+                      <a onClick={openSocialModal}>
+                        <Image
+                          loader={myImageLoader}
+                          style={{ borderRadius: "2px", marginTop: "1px" }}
+                          width={16}
+                          height={16}
+                          preview="false"
+                          src={share_icon}
+                          alt="profile"
+                          name="url"
+
+                        />
+                        {" "}
+                        Share it
+                      </a>
+                    </div>
+
+                    <div style={{
+                      width: "100%", background: "#F9FAFB",
+                      background: "", padding: "6px",
+                      display: "flex",
+                      flexDirection: "row",
+                      fontSize: "20px",
+                      color: "#FF3B3B",
+                      justifyContent: "space-between",
+                      borderTop: "1px solid #EBEBF0"
+                    }}>
+                      <a onClick={openReportModal}>
+                        <Image
+                          loader={myImageLoader}
+                          style={{ borderRadius: "2px", marginTop: "1px" }}
+                          width={18}
+                          height={18}
+                          preview="false"
+                          src={flag_icon}
+                          alt="profile"
+                          name="url"
+                        />
+                        {" "}
+                        Report
+                      </a>
+                    </div>
+                  </Modal>
+                  {/* Social Sharing */}
+                  <Modal
+                    visible={socialModalVisible}
+                    onCancel={handleModalClose}
+                    footer={null}
+                  >
+                    <span
+                      style={{
+                        marginBottom: "-20px",
+                        fontWeight: "500",
+                        fontSize: "20px",
+                        fontFamily: "Poppins",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Share
+                    </span>
+                    <hr />
+
+                    <div style={{ width: "100%" }}>
+                      <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", margin: "30px 0 10px 0" }}>
+                        <div style={{ textAlign: "center" }}>
+                          <a
+                            href="https://www.linkedin.com/company/tech24.ai/"
+                            target="_blank"
+                            aria-label="redirect to LinkedIn page"
+                          >
+                            <Image
+                              loader={myImageLoader}
+                              style={{ borderRadius: "2px" }}
+                              width={56}
+                              height={56}
+                              preview="false"
+                              src={linkedin_icon}
+                              alt="profile"
+                              name="url"
+                            />
+                            <div style={{ color: "#001622", textAlign: "center" }}>Linkedin</div>
+                          </a>
+                        </div>
+
+                        <div style={{ textAlign: "center" }}>
+                          <a
+                            href="https://www.linkedin.com/company/tech24.ai/"
+                            target="_blank"
+                            aria-label="redirect to LinkedIn page"
+                          >
+                            <Image
+                              loader={myImageLoader}
+                              style={{ borderRadius: "2px" }}
+                              width={56}
+                              height={56}
+                              preview="false"
+                              src={facebook_icon}
+                              alt="profile"
+                              name="url"
+                            />
+                            <div style={{ color: "#001622", textAlign: "center" }}>Facebook</div>
+                          </a>
+                        </div>
+                        <div style={{ textAlign: "center" }}>
+                          <a
+                            href="https://www.linkedin.com/company/tech24.ai/"
+                            target="_blank"
+                            aria-label="redirect to LinkedIn page"
+                          >
+                            <Image
+                              loader={myImageLoader}
+                              style={{ borderRadius: "2px" }}
+                              width={56}
+                              height={56}
+                              preview="false"
+                              src={email_icon}
+                              alt="profile"
+                              name="url"
+                            />
+                            <div style={{ color: "#001622", textAlign: "center" }}>Email</div>
+                          </a>
+                        </div>
+                        <div style={{ textAlign: "center" }}>
+                          <a
+                            href="https://www.linkedin.com/company/tech24.ai/"
+                            target="_blank"
+                            aria-label="redirect to LinkedIn page"
+                          >
+                            <Image
+                              loader={myImageLoader}
+                              style={{ borderRadius: "2px" }}
+                              width={56}
+                              height={56}
+                              preview="false"
+                              src={twitter_icon}
+                              alt="profile"
+                              name="url"
+                            />
+                            <div style={{ color: "#001622", textAlign: "center" }}>X (twitter)</div>
+                          </a>
+                        </div>
+
+                      </div>
+                    </div>
+
+                  </Modal>
+                  {/* Report */}
+
+                  <Modal
+                    visible={reportModalVisible}
+                    footer={null}
+                    onCancel={handleModalClose}
+                  >
+                    <span
+                      style={{
+                        marginBottom: "-20px",
+                        fontWeight: "500",
+                        fontSize: "20px",
+                        fontFamily: "Poppins",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Report this Question
+                    </span>
+                    <hr />
+                    <Form
+                      name="validateOnly"
+                      layout="vertical"
+                      autoComplete="off"
+                      onSubmit={handleSubmit}
+                    >
+                      <Form.Item
+                        style={{
+                          fontWeight: 500,
+                          fontFamily: "Inter",
+                          fontSize: "14px",
+                          color: "#4C4C4C",
+                        }}
+                        rules={[
+                          {
+                            required: true,
+                          },
+                        ]}
+                        label="Report a question"
+                        name="report a question"
+                      >
+                        <select
+                          value={selectedOption}
+                          onChange={handleOptionChange}
+                          style={{
+                            backgroundColor: "#fff",
+                            borderRadius: "2px",
+                            padding: "12px",
+                            fontWeight: 400,
+                            fontSize: "16px",
+                            color: "#001622",
+                            fontFamily: "Inter",
+                            width: "100%"
+                          }}
+                        >
+                          {reportTypes.map(type => (
+                            <option key={type.id} value={type.id}>{type.name}</option>
+                          ))}
+                        </select>
+                      </Form.Item>
+                      <Form.Item
+                        style={{
+                          fontWeight: 500,
+                          fontFamily: "Inter",
+                          fontSize: "14px",
+                          color: "#4C4C4C",
+                        }}
+                        rules={[
+                          {
+                            required: true,
+                          },
+                        ]}
+                        name="description"
+                        label="Description"
+                      >
+                        <div style={{ width: "100%" }}>
+                          <textarea style={{ width: "100%", height: "70px", padding:"10px" }}
+                            placeholder="Write a brief why you are reporting this question"
+                            onChange={handleDescriptionChange}
+                            value={reportDescription}
+                          >
+                          </textarea>
+                        </div>
+                      </Form.Item>
+
+                      <div
+                        onClick={(e) =>
+                          handleSubmit()
+                        }
+                        className="btn"
+                        type="submit"
+                        style={{
+                          width: isMobile ? "100%" : "470px",
+                          background: "#0074D9",
+                          borderRadius: "2px",
+                          padding: "12px 16px",
+                          color: "#fff",
+                          fontWeight: 500,
+                          fontFamily: "Inter",
+                          fontSize: "18px",
+                          marginTop: "1.2rem",
+                        }}
+                      >
+                        Submit
+                      </div>
+                    </Form>
+                  </Modal>
+                  {/* Modal for share/report above*/}
                 </div>
               </div>
               <p className="para">
@@ -332,7 +704,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
               </div>
             </Card>
           </div>
-          <div style={{ marginTop: "3rem"}}>
+          <div style={{ marginTop: "3rem" }}>
             <div
               style={{
                 display: "flex",
@@ -621,50 +993,50 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                           </div>
                         </div>
                         <p className="para">
-                          
+
                           <span
                             dangerouslySetInnerHTML={{
                               __html: comment?.description,
                             }}
                           ></span>
                         </p>
-                        
+
                       </>
                     ))}
-                    <div>
+                  <div>
                     {
                       answer?.comments?.length > 5 && isShowReplies &&
                       <div
-                          style={{
-                            border: "1px solid #D9DFE9",
-                            padding: "8px 12px",
-                            borderRadius: "4px",
-                            backgroundColor: "#F2F4F7",
-                            fontSize: isMobile ? "12px" : "14px",
-                            fontWeight: 500,
-                            width:'105px',
-                            fontFamily: "Inter",
-                            color: "#54616C",
-                            marginLeft: isMobile ? "6px" : "10px",
-                            color: "#0074D9",
-                            cursor: "pointer",
-                          }}
-                          onClick={() => {
-                            sessionStorage.setItem("community_question_id", communityQuestionDetail?.url_slug);
-                            sessionStorage.setItem("community_parent_id", answer?.id);
-                            sessionStorage.setItem("community_post_details", JSON.stringify(answer));
-                            Router.push("question/comments");
-                          }}
-                        >
-                          View More
-                        </div>
+                        style={{
+                          border: "1px solid #D9DFE9",
+                          padding: "8px 12px",
+                          borderRadius: "4px",
+                          backgroundColor: "#F2F4F7",
+                          fontSize: isMobile ? "12px" : "14px",
+                          fontWeight: 500,
+                          width: '105px',
+                          fontFamily: "Inter",
+                          color: "#54616C",
+                          marginLeft: isMobile ? "6px" : "10px",
+                          color: "#0074D9",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => {
+                          sessionStorage.setItem("community_question_id", communityQuestionDetail?.url_slug);
+                          sessionStorage.setItem("community_parent_id", answer?.id);
+                          sessionStorage.setItem("community_post_details", JSON.stringify(answer));
+                          Router.push("question/comments");
+                        }}
+                      >
+                        View More
+                      </div>
                     }
-                    </div>
+                  </div>
                 </Card>
               ))}
             </div>
           </div>
-        </div>
+        </div >
 
         {communityData && (
           <div className="community-tab-container community-detail-card col-md-3">
@@ -994,8 +1366,8 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
             </div>
           </div>
         )}
-      </div>
-    </Container>
+      </div >
+    </Container >
   );
 };
 
