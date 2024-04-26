@@ -328,7 +328,7 @@ span.anticon {
 
 // new custom search input
 div.new-custom-search-input {
-  width: 78%;
+  // width: 78%;
   .ant-input-affix-wrapper {
     border-radius: 8px;
     padding: 10px;
@@ -2088,7 +2088,7 @@ div.message-box-card {
 
 .custom-grid-container {
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: repeat(4, 1fr);
   gap: 1rem 1.5rem;
 }
 
