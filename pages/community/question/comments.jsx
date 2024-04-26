@@ -9,6 +9,7 @@ import dislike_button from "../../../public/new_images/dislike_button.svg";
 import { alertActions, crudActions } from "../../../_actions";
 import { connect } from "react-redux";
 import moment from "moment";
+import { EyeOutlined } from "@ant-design/icons";
 import { crudService } from "../../../_services";
 import {
   Form,
@@ -64,10 +65,15 @@ const SubmitButton = ({ form, children }) => {
 };
 const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
   const [communityQuestionDetail, setCommunityQuestionDetail] = useState();
-  const communityAnswer = JSON.parse(sessionStorage.getItem("community_post_details"));
+  const communityAnswer = JSON.parse(
+    sessionStorage.getItem("community_post_details")
+  );
   const [isShowReplies, setIsShowReplies] = useState(false);
   const [replyResponse, setReplyResponse] = useState();
-  const [isReplayModalOpen, setIsReplayModalOpen] = useState({isReplayModelOpen : false, details:{}});
+  const [isReplayModalOpen, setIsReplayModalOpen] = useState({
+    isReplayModelOpen: false,
+    details: {},
+  });
   const [communityAnswers, setCommunityAnswers] = useState();
   const handleEditorChange = (html) => {
     setReplyResponse(html);
@@ -87,7 +93,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
   const [communityData, setCommunityData] = useState();
 
   const handleCancel = () => {
-    setIsReplayModalOpen({isReplayModelOpen : false, details:{}});
+    setIsReplayModalOpen({ isReplayModelOpen: false, details: {} });
   };
 
   const fetchCommunityData = () => {
@@ -103,9 +109,9 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
     fetchCommunityData();
   }, [updateCom]);
 
-  const handleOk = (parent_id,community_post_id, replyText, isReply) => {
-    if(replyText == undefined || replyText == null || replyText.trim() == ""){
-      showAlert("Please add description.")
+  const handleOk = (parent_id, community_post_id, replyText, isReply) => {
+    if (replyText == undefined || replyText == null || replyText.trim() == "") {
+      showAlert("Please add description.");
       return;
     }
     const postData = {
@@ -116,12 +122,16 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
 
     crudService._create("communitypostreply", postData).then((response) => {
       if (response.status === 200) {
-        
-        setIsReplayModalOpen({isReplayModelOpen : false, details:{}}) ;
+        setIsReplayModalOpen({ isReplayModelOpen: false, details: {} });
         setReplyResponse("");
         setUpdateCom(true);
-        isReply ? success("Your reply is being reviewed and will be shown after approval.") : success("Your answer is being reviewed and will be shown after approval.");
-       
+        isReply
+          ? success(
+              "Your reply is being reviewed and will be shown after approval."
+            )
+          : success(
+              "Your answer is being reviewed and will be shown after approval."
+            );
       }
     });
   };
@@ -168,7 +178,6 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
   };
 
   const getPostReplies = () => {
-   
     const id = sessionStorage.getItem("community_parent_id");
     if (id) {
       crudService
@@ -184,13 +193,34 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
     }, 100);
   }, [communityQuestionDetail, updateCom]);
 
+  const viewMoreComments = (answer) => {
+    sessionStorage.setItem(
+      "community_question_id",
+      communityQuestionDetail?.url_slug
+    );
+    sessionStorage.setItem("community_post_id", communityQuestionDetail?.id);
+    sessionStorage.setItem("community_parent_id", answer?.id);
+    sessionStorage.setItem("community_post_details", JSON.stringify(answer));
+    setIsShowReplies("");
+    setTimeout(() => {
+      getPostReplies();
+    }, 100);
+  };
+
+  const viewComments = (comment) => {
+    sessionStorage.setItem("community_parent_id", comment?.id);
+    sessionStorage.setItem("community_post_details", JSON.stringify(comment));
+    setIsShowReplies("");
+    setTimeout(() => {
+      getPostReplies();
+    }, 100);
+  };
+
   return (
     <Container>
       <div className="profile-container row">
         <div className="community-tab-container questions-tab-container community-detail-wrapper col-md-9">
-          <div
-            className="cards-container"
-          >
+          <div className="cards-container">
             <Card
               bordered={true}
               style={{
@@ -213,17 +243,14 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       }
                       alt="profile"
                     />
-                 
                   </div>
                   <div className="profile" style={{ flexDirection: "column" }}>
                     <h5>{communityQuestionDetail?.visitor?.name}</h5>
                     <p>
-                     
                       {calculateTimeAgo(communityQuestionDetail?.created_at)}
                     </p>
                   </div>
                 </div>
-
               </div>
               <p className="para">
                 <span
@@ -239,52 +266,48 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
               </div>
 
               <Card
-              bordered={true}
-              style={{
-                width: "100%",
-                height: "fit-content",
-                marginTop: "1rem",
-              }}
-            >
-              <div className="cards-header">
-                <div>
-                  <div className="img">
-                    <Image
-                      style={{ borderRadius: "5px", zIndex: "1" }}
-                      width={50}
-                      height={50}
-                      preview="false"
-                      src={
-                        communityAnswer?.visitor?.profile_pic_url ||
-                        "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
-                      }
-                      alt="profile"
-                    />
-                 
-                  </div>
-                  <div className="profile" style={{ flexDirection: "column" }}>
-                    <h5>{communityAnswer?.visitor?.name}</h5>
-                    <p>
-                     
-                      {calculateTimeAgo(communityAnswer?.created_at)}
-                    </p>
+                bordered={true}
+                style={{
+                  width: "100%",
+                  height: "fit-content",
+                  marginTop: "1rem",
+                }}
+              >
+                <div className="cards-header">
+                  <div>
+                    <div className="img">
+                      <Image
+                        style={{ borderRadius: "5px", zIndex: "1" }}
+                        width={50}
+                        height={50}
+                        preview="false"
+                        src={
+                          communityAnswer?.visitor?.profile_pic_url ||
+                          "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                        }
+                        alt="profile"
+                      />
+                    </div>
+                    <div
+                      className="profile"
+                      style={{ flexDirection: "column" }}
+                    >
+                      <h5>{communityAnswer?.visitor?.name}</h5>
+                      <p>{calculateTimeAgo(communityAnswer?.created_at)}</p>
+                    </div>
                   </div>
                 </div>
-
-              </div>
-              <p className="para">
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: communityAnswer?.description,
-                  }}
-                ></span>
-              </p>
-             
-            </Card>
-             
+                <p className="para">
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: communityAnswer?.description,
+                    }}
+                  ></span>
+                </p>
+              </Card>
             </Card>
           </div>
-          <div style={{ marginTop: "3rem"}}>
+          <div style={{ marginTop: "3rem" }}>
             <div
               style={{
                 display: "flex",
@@ -315,7 +338,6 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                   Comments ({communityAnswers?.length})
                 </div>
               </div>
-
             </div>
 
             <div
@@ -460,9 +482,15 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                             color: "#0074D9",
                             cursor: "pointer",
                           }}
-                          onClick={() => setIsShowReplies(!isShowReplies)}
+                          onClick={() =>
+                            setIsShowReplies(
+                              isShowReplies == answer.id ? "" : answer.id
+                            )
+                          }
                         >
-                          {isShowReplies ? "Hide Replies" : "View Replies"}
+                          {isShowReplies == answer.id
+                            ? "Hide Replies"
+                            : "View Replies"}
                         </div>
                       ) : (
                         <></>
@@ -503,7 +531,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     </div>
                   </div>
                   {answer?.comments.length > 0 &&
-                    isShowReplies &&
+                    isShowReplies == answer.id &&
                     answer?.comments.map((comment) => (
                       <>
                         <hr className="dotted" />
@@ -544,8 +572,12 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
 
                           <div className="follow">
                             {/* <p className="button">Follow</p> */}
-                            <div className="img">
-                              {/* <Image
+                            <EyeOutlined
+                              title="view comments"
+                              onClick={() => viewComments(comment)}
+                            />
+                            {/* <div className="img">
+                              <Image
                       loader={myImageLoader}
                       style={{ borderRadius: "2px", cursor: "pointer" }}
                       width={32}
@@ -553,25 +585,23 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       preview="false"
                       src={three_dot_icon}
                       alt="profile"
-                    /> */}
-                            </div>
+                    />
+                            </div> */}
                           </div>
                         </div>
                         <p className="para">
-                          
                           <span
                             dangerouslySetInnerHTML={{
                               __html: comment?.description,
                             }}
                           ></span>
                         </p>
-                        
                       </>
                     ))}
-                    <div>
-                    {
-                      answer?.comments?.length > 5 && isShowReplies &&
-                      <div
+                  <div>
+                    {answer?.comments?.length > 5 &&
+                      isShowReplies == answer.id && (
+                        <div
                           style={{
                             border: "1px solid #D9DFE9",
                             padding: "8px 12px",
@@ -579,23 +609,19 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                             backgroundColor: "#F2F4F7",
                             fontSize: isMobile ? "12px" : "14px",
                             fontWeight: 500,
-                            width:'105px',
+                            width: "105px",
                             fontFamily: "Inter",
                             color: "#54616C",
                             marginLeft: isMobile ? "6px" : "10px",
                             color: "#0074D9",
                             cursor: "pointer",
                           }}
-                          onClick={() => {
-                            sessionStorage.setItem("community_question_id", communityQuestionDetail?.url_slug);
-                            sessionStorage.setItem("community_post_id", communityQuestionDetail?.id);
-                            Router.push("question");
-                          }}
+                          onClick={() => viewMoreComments(answer)}
                         >
                           View More
                         </div>
-                    }
-                    </div>
+                      )}
+                  </div>
                 </Card>
               ))}
             </div>
@@ -612,7 +638,6 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
               }}
             >
               <div>
-              
                 {/* replay modal */}
                 <Modal
                   visible={isReplayModalOpen?.isReplayModelOpen}
@@ -686,7 +711,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                           isReplayModalOpen?.details?.parent_id == null
                             ? isReplayModalOpen?.details?.id
                             : isReplayModalOpen?.details?.parent_id,
-                            communityQuestionDetail?.id,
+                          communityQuestionDetail?.id,
                           replyResponse,
                           true
                         )
@@ -772,7 +797,6 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     </div>
                   </div>
                 </div>
-              
               </Card>
               {/* ))} */}
             </div>

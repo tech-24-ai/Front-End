@@ -9,6 +9,7 @@ import dislike_button from "../../../public/new_images/dislike_button.svg";
 import { alertActions, crudActions } from "../../../_actions";
 import { connect } from "react-redux";
 import moment from "moment";
+import { EyeOutlined } from "@ant-design/icons";
 import { crudService } from "../../../_services";
 import {
   Form,
@@ -74,46 +75,44 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
   const [isShowReplies, setIsShowReplies] = useState(false);
   const [replyResponse, setReplyResponse] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isReplayModalOpen, setIsReplayModalOpen] = useState({ isReplayModelOpen: false, details: {} });
+  const [isReplayModalOpen, setIsReplayModalOpen] = useState({
+    isReplayModelOpen: false,
+    details: {},
+  });
   const [communityAnswers, setCommunityAnswers] = useState();
-
 
   const [shareModalVisible, setShareModalVisible] = useState(false);
   const [socialModalVisible, setSocialModalVisible] = useState(false);
   const [reportModalVisible, setReportModalVisible] = useState(false);
 
-
   const [reportTypes, setReportTypes] = useState([]);
-  const [selectedOption, setSelectedOption] = useState('');
-  const [reportDescription, setReportDescription] = useState('');
-
-
+  const [selectedOption, setSelectedOption] = useState("");
+  const [reportDescription, setReportDescription] = useState("");
 
   useEffect(() => {
     fetchReportTypes();
   }, []);
- 
+
   const fetchReportTypes = () => {
-    crudService._getAll('repost_abuse/types')
+    crudService
+      ._getAll("repost_abuse/types")
       .then((response) => {
         setReportTypes(response?.data);
       })
       .catch((error) => {
-        console.error('Error fetching report types:', error);
+        console.error("Error fetching report types:", error);
       });
   };
 
-
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
-    console.log("handleOptionChange",event.target.value);
+    console.log("handleOptionChange", event.target.value);
   };
 
   const handleDescriptionChange = (event) => {
     setReportDescription(event.target.value);
-    console.log("handleDescriptionChange",event.target.value);
+    console.log("handleDescriptionChange", event.target.value);
   };
- 
 
   const handleSubmit = (data, community_post_id, event) => {
     console.log("func");
@@ -122,7 +121,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
       return;
     }
     getPostReplies();
-    
+
     const postData = {
       report_abuse_type_id: selectedOption,
       community_id: communityData?.id,
@@ -131,14 +130,15 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
       reason: reportDescription,
     };
     console.log("postData", postData);
-    crudService._create('repost_abuse', postData)
+    crudService
+      ._create("repost_abuse", postData)
       .then((response) => {
-        console.log('Report submitted successfully:', response);
-        setSelectedOption('');
-        setReportDescription('');
+        console.log("Report submitted successfully:", response);
+        setSelectedOption("");
+        setReportDescription("");
       })
       .catch((error) => {
-        console.error('Error submitting report:', error);
+        console.error("Error submitting report:", error);
       });
   };
   const handleModalClose = () => {
@@ -199,12 +199,12 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
       ._create("community/join", { community_id: communityData?.id })
       .then(() => window.location.reload());
   };
-console.log("com d", updateCom);
+  console.log("com d", updateCom);
   console.log("com ", communityData);
 
   const handleOk = (parent_id, community_post_id, replyText, isReply) => {
     if (replyText == undefined || replyText == null || replyText.trim() == "") {
-      showAlert("Please add description.")
+      showAlert("Please add description.");
       return;
     }
     const postData = {
@@ -215,12 +215,18 @@ console.log("com d", updateCom);
 
     crudService._create("communitypostreply", postData).then((response) => {
       if (response.status === 200) {
-
-        isReply ? setIsReplayModalOpen({ isReplayModelOpen: false, details: {} }) : setIsModalOpen(false);
+        isReply
+          ? setIsReplayModalOpen({ isReplayModelOpen: false, details: {} })
+          : setIsModalOpen(false);
         !isReply ? setDescription("") : setReplyResponse("");
         setUpdateCom(true);
-        isReply ? success("Your reply is being reviewed and will be shown after approval.") : success("Your answer is being reviewed and will be shown after approval.");
-
+        isReply
+          ? success(
+              "Your reply is being reviewed and will be shown after approval."
+            )
+          : success(
+              "Your answer is being reviewed and will be shown after approval."
+            );
       }
     });
   };
@@ -283,13 +289,21 @@ console.log("com d", updateCom);
     }, 100);
   }, [communityQuestionDetail, updateCom]);
 
+  const viewComments = (comment) => {
+    sessionStorage.setItem(
+      "community_question_id",
+      communityQuestionDetail?.url_slug
+    );
+    sessionStorage.setItem("community_parent_id", comment?.id);
+    sessionStorage.setItem("community_post_details", JSON.stringify(comment));
+    Router.push("question/comments");
+  };
+
   return (
     <Container>
       <div className="profile-container row">
         <div className="community-tab-container questions-tab-container community-detail-wrapper col-md-9">
-          <div
-            className="cards-container"
-          >
+          <div className="cards-container">
             <Card
               bordered={true}
               style={{
@@ -330,9 +344,7 @@ console.log("com d", updateCom);
 
                 <div className="follow">
                   {/* <p className="button">Follow</p> */}
-                  <div className="img"
-                    onClick={openShareModal}
-                  >
+                  <div className="img" onClick={openShareModal}>
                     <Image
                       loader={myImageLoader}
                       style={{ borderRadius: "2px", cursor: "pointer" }}
@@ -344,10 +356,13 @@ console.log("com d", updateCom);
                     />
                   </div>
 
-
                   {/* Modal for share/report */}
                   <Modal
-                    visible={shareModalVisible || socialModalVisible || reportModalVisible}
+                    visible={
+                      shareModalVisible ||
+                      socialModalVisible ||
+                      reportModalVisible
+                    }
                     onCancel={handleModalClose}
                     footer={null}
                     onClick={false}
@@ -357,18 +372,26 @@ console.log("com d", updateCom);
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "center",
-                      justifyContent: "center"
+                      justifyContent: "center",
                     }}
-                    style={isMobile ? { position: "relative", left: "6.5rem" } : { position: "relative", left: "8rem" }}
+                    style={
+                      isMobile
+                        ? { position: "relative", left: "6.5rem" }
+                        : { position: "relative", left: "8rem" }
+                    }
                   >
-                    <div style={{
-                      width: "100%", background: "#F9FAFB",
-                      background: "", padding: "6px",
-                      display: "flex",
-                      flexDirection: "row",
-                      fontSize: "20px",
-                      justifyContent: "space-between"
-                    }}>
+                    <div
+                      style={{
+                        width: "100%",
+                        background: "#F9FAFB",
+                        background: "",
+                        padding: "6px",
+                        display: "flex",
+                        flexDirection: "row",
+                        fontSize: "20px",
+                        justifyContent: "space-between",
+                      }}
+                    >
                       <a onClick={openSocialModal}>
                         <Image
                           loader={myImageLoader}
@@ -379,23 +402,25 @@ console.log("com d", updateCom);
                           src={share_icon}
                           alt="profile"
                           name="url"
-
-                        />
-                        {" "}
+                        />{" "}
                         Share it
                       </a>
                     </div>
 
-                    <div style={{
-                      width: "100%", background: "#F9FAFB",
-                      background: "", padding: "6px",
-                      display: "flex",
-                      flexDirection: "row",
-                      fontSize: "20px",
-                      color: "#FF3B3B",
-                      justifyContent: "space-between",
-                      borderTop: "1px solid #EBEBF0"
-                    }}>
+                    <div
+                      style={{
+                        width: "100%",
+                        background: "#F9FAFB",
+                        background: "",
+                        padding: "6px",
+                        display: "flex",
+                        flexDirection: "row",
+                        fontSize: "20px",
+                        color: "#FF3B3B",
+                        justifyContent: "space-between",
+                        borderTop: "1px solid #EBEBF0",
+                      }}
+                    >
                       <a onClick={openReportModal}>
                         <Image
                           loader={myImageLoader}
@@ -406,8 +431,7 @@ console.log("com d", updateCom);
                           src={flag_icon}
                           alt="profile"
                           name="url"
-                        />
-                        {" "}
+                        />{" "}
                         Report
                       </a>
                     </div>
@@ -432,7 +456,14 @@ console.log("com d", updateCom);
                     <hr />
 
                     <div style={{ width: "100%" }}>
-                      <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", margin: "30px 0 10px 0" }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          justifyContent: "space-around",
+                          margin: "30px 0 10px 0",
+                        }}
+                      >
                         <div style={{ textAlign: "center" }}>
                           <a
                             href="https://www.linkedin.com/company/tech24.ai/"
@@ -449,7 +480,11 @@ console.log("com d", updateCom);
                               alt="profile"
                               name="url"
                             />
-                            <div style={{ color: "#001622", textAlign: "center" }}>Linkedin</div>
+                            <div
+                              style={{ color: "#001622", textAlign: "center" }}
+                            >
+                              Linkedin
+                            </div>
                           </a>
                         </div>
 
@@ -469,7 +504,11 @@ console.log("com d", updateCom);
                               alt="profile"
                               name="url"
                             />
-                            <div style={{ color: "#001622", textAlign: "center" }}>Facebook</div>
+                            <div
+                              style={{ color: "#001622", textAlign: "center" }}
+                            >
+                              Facebook
+                            </div>
                           </a>
                         </div>
                         <div style={{ textAlign: "center" }}>
@@ -488,7 +527,11 @@ console.log("com d", updateCom);
                               alt="profile"
                               name="url"
                             />
-                            <div style={{ color: "#001622", textAlign: "center" }}>Email</div>
+                            <div
+                              style={{ color: "#001622", textAlign: "center" }}
+                            >
+                              Email
+                            </div>
                           </a>
                         </div>
                         <div style={{ textAlign: "center" }}>
@@ -507,13 +550,15 @@ console.log("com d", updateCom);
                               alt="profile"
                               name="url"
                             />
-                            <div style={{ color: "#001622", textAlign: "center" }}>X (twitter)</div>
+                            <div
+                              style={{ color: "#001622", textAlign: "center" }}
+                            >
+                              X (twitter)
+                            </div>
                           </a>
                         </div>
-
                       </div>
                     </div>
-
                   </Modal>
                   {/* Report */}
 
@@ -566,11 +611,13 @@ console.log("com d", updateCom);
                             fontSize: "16px",
                             color: "#001622",
                             fontFamily: "Inter",
-                            width: "100%"
+                            width: "100%",
                           }}
                         >
-                          {reportTypes.map(type => (
-                            <option key={type.id} value={type.id}>{type.name}</option>
+                          {reportTypes.map((type) => (
+                            <option key={type.id} value={type.id}>
+                              {type.name}
+                            </option>
                           ))}
                         </select>
                       </Form.Item>
@@ -590,19 +637,21 @@ console.log("com d", updateCom);
                         label="Description"
                       >
                         <div style={{ width: "100%" }}>
-                          <textarea style={{ width: "100%", height: "70px", padding:"10px" }}
+                          <textarea
+                            style={{
+                              width: "100%",
+                              height: "70px",
+                              padding: "10px",
+                            }}
                             placeholder="Write a brief why you are reporting this question"
                             onChange={handleDescriptionChange}
                             value={reportDescription}
-                          >
-                          </textarea>
+                          ></textarea>
                         </div>
                       </Form.Item>
 
                       <div
-                        onClick={(e) =>
-                          handleSubmit()
-                        }
+                        onClick={(e) => handleSubmit()}
                         className="btn"
                         type="submit"
                         style={{
@@ -979,33 +1028,37 @@ console.log("com d", updateCom);
 
                           <div className="follow">
                             {/* <p className="button">Follow</p> */}
-                            <div className="img">
-                              {/* <Image
-                      loader={myImageLoader}
-                      style={{ borderRadius: "2px", cursor: "pointer" }}
-                      width={32}
-                      height={32}
-                      preview="false"
-                      src={three_dot_icon}
-                      alt="profile"
-                    /> */}
-                            </div>
+                            <EyeOutlined
+                              title="view comments"
+                              onClick={() => viewComments(comment)}
+                            />
+                            {/* <div className="img">
+                              <Image
+                                loader={myImageLoader}
+                                style={{
+                                  borderRadius: "2px",
+                                  cursor: "pointer",
+                                }}
+                                width={32}
+                                height={32}
+                                preview="false"
+                                src={three_dot_icon}
+                                alt="profile"
+                              />
+                            </div> */}
                           </div>
                         </div>
                         <p className="para">
-
                           <span
                             dangerouslySetInnerHTML={{
                               __html: comment?.description,
                             }}
                           ></span>
                         </p>
-
                       </>
                     ))}
                   <div>
-                    {
-                      answer?.comments?.length > 5 && isShowReplies &&
+                    {answer?.comments?.length > 5 && isShowReplies && (
                       <div
                         style={{
                           border: "1px solid #D9DFE9",
@@ -1014,7 +1067,7 @@ console.log("com d", updateCom);
                           backgroundColor: "#F2F4F7",
                           fontSize: isMobile ? "12px" : "14px",
                           fontWeight: 500,
-                          width: '105px',
+                          width: "105px",
                           fontFamily: "Inter",
                           color: "#54616C",
                           marginLeft: isMobile ? "6px" : "10px",
@@ -1022,21 +1075,30 @@ console.log("com d", updateCom);
                           cursor: "pointer",
                         }}
                         onClick={() => {
-                          sessionStorage.setItem("community_question_id", communityQuestionDetail?.url_slug);
-                          sessionStorage.setItem("community_parent_id", answer?.id);
-                          sessionStorage.setItem("community_post_details", JSON.stringify(answer));
+                          sessionStorage.setItem(
+                            "community_question_id",
+                            communityQuestionDetail?.url_slug
+                          );
+                          sessionStorage.setItem(
+                            "community_parent_id",
+                            answer?.id
+                          );
+                          sessionStorage.setItem(
+                            "community_post_details",
+                            JSON.stringify(answer)
+                          );
                           Router.push("question/comments");
                         }}
                       >
                         View More
                       </div>
-                    }
+                    )}
                   </div>
                 </Card>
               ))}
             </div>
           </div>
-        </div >
+        </div>
 
         {communityData && (
           <div className="community-tab-container community-detail-card col-md-3">
@@ -1366,8 +1428,8 @@ console.log("com d", updateCom);
             </div>
           </div>
         )}
-      </div >
-    </Container >
+      </div>
+    </Container>
   );
 };
 
