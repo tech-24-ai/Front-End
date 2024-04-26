@@ -333,7 +333,7 @@
 
   .blog-section {
     .slick-slider .slick-list .slick-track {
-      gap: 2rem;
+      gap: 1rem;
       display: flex;
     }
     .slick-slider {
@@ -466,8 +466,6 @@
   }
 }
 
-
-
 @media only screen and (max-width: 600px) {
   .blog-section .slick-slider .slick-list .slick-track {
     gap: 0rem !important;
@@ -554,11 +552,14 @@
           height: 250px !important;
           
         }
+        .latest-blog-list-img{
+          width: 100%  !important;
+        }
       }
     }
 
     .view-more-icon {
-      margin-top: 14% !important;
+      margin-top: 13% !important;
       right: 90px !important;
     }
   }

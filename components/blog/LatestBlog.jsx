@@ -37,7 +37,7 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
             onClick={() => slider.current?.slickPrev()}
             className="view-more-icon"
             style={{
-              left: "105px",
+              left: "100px",
               zIndex: "99",
               position: "absolute",
               width: "36px",
@@ -124,6 +124,7 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
                       preview={false}
                       alt=""
                       placeholder="blog banner"
+                      className="latest-blog-list-img"
                     />
                     <p className="category bg">{data.blog_topic_name}</p>
                     <p className="blog-heading">{data.name}</p>
