@@ -287,7 +287,7 @@
     width: calc(2rem + 8px);
   }
   .selected-page {
-    background: #000000;
+    background: $backgroundColor;
     color: #fff;
     width: 2rem;
     text-align: center;
@@ -373,7 +373,7 @@
         width: 2rem;
         height: 0.75rem;
         border-radius: 1000px;
-        background-color: #0074d9;
+        background-color: $backgroundColor;
       }
     }
     color: #00192f;

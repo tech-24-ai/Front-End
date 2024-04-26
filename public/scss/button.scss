@@ -133,8 +133,7 @@
       border-top-left-radius: 5px;
       border-bottom-left-radius: 5px;
       height: 40px;
-      // background-color: $backgroundColor;
-      background-color: black;
+       background-color: $backgroundColor;
 
       color: $white;
       text-align: center;
@@ -208,11 +207,10 @@
   &.with-bg {
     outline: none;
     border: none;
-    // background-color: $backgroundColor;
-    background-color:black;
+    background-color: $backgroundColor;
     color: #fff;
     &:hover {
-      background-color: rgba(black, 0.4);
+      background-color: rgba($backgroundColor, 0.4);
       // color: $backgroundColor;
     }
   }

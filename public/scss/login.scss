@@ -72,8 +72,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  // background: $backgroundColor;
-  background-color: black;
+  background: $backgroundColor;
 }
 
 .signinWrapper {
@@ -191,8 +190,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    // background: $backgroundColor;
-    background: black;
+    background: $backgroundColor;
     border-radius: 0px;
   }
   .checkbox-password {
