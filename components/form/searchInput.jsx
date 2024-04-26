@@ -26,7 +26,9 @@ function SearchInput({
   };
 
   return (
-    <div className="new-custom-search-input">
+    <div className="new-custom-search-input" style={{
+      width :'76%'
+    }}>
       <Input
         placeholder={placeholder}
         suffix={suffix}

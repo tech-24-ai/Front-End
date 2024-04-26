@@ -20,6 +20,7 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
     });
   }, []);
 
+  
   return (
     <Container>
       <div className="latest-blog">
@@ -96,8 +97,10 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
               </div>
             )}
           >
-            {blogs?.slice(0, 3).map((data, index) => (
+            {blogs?.slice(0, 3).map((data, index) => (              
+                // <Link href={`/blogs/${data.slug}`} key={index}>
               <div
+                onClick={() => Router.push(`/blogs/${data.slug}`)}
                 onMouseOver={() => setShowHoverClass(index)}
                 onMouseOut={() => setShowHoverClass(null)}
                 className={`blog-list ${
@@ -135,6 +138,7 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
                   </div>
                 </div>
               </div>
+              // </Link>
             ))}
           </Slider>
         

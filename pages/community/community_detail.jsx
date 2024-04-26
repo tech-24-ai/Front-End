@@ -298,7 +298,7 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
             }}
             value={headerSearch}
             style={{
-              width: isMobile ? "84%" : "78%",
+              width: isMobile ? "84%" : "74%",
               padding: "10px",
               border: "1px solid #ccc",
               borderRadius: "5px",
