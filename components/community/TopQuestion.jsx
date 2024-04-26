@@ -101,13 +101,12 @@ import Image from "next/future/image";
 import Link from "next/link";
 import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from 'swiper';
+import { Pagination } from "swiper";
 import "swiper/swiper-bundle.min.css";
 import "swiper/css/pagination";
 import moment from "moment";
 import SwiperCore, { Navigation } from "swiper/core";
-import { formatDistanceToNow } from 'date-fns';
-
+import { formatDistanceToNow } from "date-fns";
 
 let counter = 7;
 
@@ -281,90 +280,92 @@ class TrendingQuestion extends React.PureComponent {
                     dynamicBullets: true,
                   }}
                   modules={[Pagination]}
-                  breakpoints={
-                    {
-                      1920: {
-                        slidesPerView: 3,
-                        pagination: false
-                      },
-                      1024: {
-                        slidesPerView: 3,
-                        pagination: false
-                      },
-                      900: {
-                        slidesPerView: 2,
-                        pagination: true
-                      },
-                      600: {
-                        slidesPerView: 1,
-                        pagination: true
-                      }
-                    }
-                  }
+                  breakpoints={{
+                    1920: {
+                      slidesPerView: 3,
+                      pagination: false,
+                    },
+                    1024: {
+                      slidesPerView: 3,
+                      pagination: false,
+                    },
+                    900: {
+                      slidesPerView: 2,
+                      pagination: true,
+                    },
+                    600: {
+                      slidesPerView: 1,
+                      pagination: true,
+                    },
+                  }}
                   navigation={{
                     nextEl: ".swiper-button-next",
                     prevEl: ".swiper-button-prev",
                   }}
                   ref={this.swiperRef}
                 >
-                  {trendingQuestions?.map((data, index) => (
-                    <SwiperSlide key={index}>
-                      <div
-                        className="category-banner-block"
-                        data-index={index}
-                        key={index}
-                      >
-                        <div className="category-banner">
-                          <div className="category-content">
-                            <div className="content-head">
-                              <div className="medium">
-                                <Image
-                                  style={{
-                                    borderRadius: "8px",
-                                  }}
-                                  src={
-                                    data.visitor.profile_pic_url ||
-                                    "https://tech24-uat.s3.amazonaws.com/D10dkiDJHM"
-                                  }
-                                  alt={data.visitor.name}
-                                  width={48}
-                                  height={48}
-                                />
-                              </div>
-                              <div
-                                className="category-text"
-                                style={{ minWidth: "70%" }}
-                              >
-                                <h6>{data?.visitor?.name}</h6>
-                                <p>{data.created_at}{" "}{calculateTimeAgo(data?.created_at)}</p>
-                                
-                              </div>
-                            </div>
-
-                            <div className="card-trend-body">
-                              <p class="card-text">{data.description}</p>
-                              <div className="content-x">
+                  {trendingQuestions?.map((data, index) => {
+                    console.log(data)
+                    return (
+                      <SwiperSlide key={index}>
+                        <div
+                          className="category-banner-block"
+                          data-index={index}
+                          key={index}
+                        >
+                          <div className="category-banner">
+                            <div className="category-content">
+                              <div className="content-head">
+                                <div className="medium">
+                                  <img
+                                    style={{
+                                      borderRadius: "8px",
+                                    }}
+                                    src={
+                                      data.visitor.profile_pic_url ||
+                                      "https://tech24-uat.s3.amazonaws.com/D10dkiDJHM"
+                                    }
+                                    alt={data.visitor.name}
+                                    className="p-3"
+                                  />
+                                </div>
                                 <div
-                                  className="design-content"
-                                  style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                  }}
+                                  className="category-text"
+                                  style={{ minWidth: "70%" }}
                                 >
-                                  {data.postTags.map((tag, index) => (
-                                    <p key={index}>{tag.name}</p>
-                                  ))}
+                                  <h6>{data?.visitor?.name}</h6>
+                                  <p>
+                                    {data.created_at}{" "}
+                                    {calculateTimeAgo(data?.created_at)}
+                                  </p>
                                 </div>
                               </div>
-                            </div>
-                            <div className="learn-more-btn">
-                              <h6 className="btn-text">Answer</h6>
+
+                              <div className="card-trend-body">
+                                <p class="card-text">{data.description}</p>
+                                <div className="content-x">
+                                  <div
+                                    className="design-content"
+                                    style={{
+                                      display: "flex",
+                                      flexDirection: "row",
+                                    }}
+                                  >
+                                    {data.postTags.map((tag, index) => (
+                                      <p key={index}>{tag.name}</p>
+                                    ))}
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="learn-more-btn">
+                                <h6 className="btn-text">Answer</h6>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </SwiperSlide>
-                  ))}
+                      </SwiperSlide>
+                    );
+                  })}
                 </Swiper>
               </Fragment>
             </div>
