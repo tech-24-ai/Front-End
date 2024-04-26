@@ -208,7 +208,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background-color: #0074d9;
+  background-color: $viewMoreIcon;
   z-index: 1;
   cursor: pointer;
   .anticon-arrow-right {
@@ -362,7 +362,7 @@
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      background-color: $backgroundColor;
+      background-color: $viewMoreIcon;
       cursor: pointer;
       .anticon-arrow-right {
         font-size: 1rem;

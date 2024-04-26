@@ -1195,7 +1195,7 @@
 
   .consultant-section {
     .slick-slider .slick-list .slick-track {
-      gap: 2rem;
+      gap: 1rem;
       display: flex;
     }
     .slick-slider {
@@ -1237,7 +1237,6 @@
         background-color: #0074D9;
       }
     }
-    max-height: 400px;
     color: #00192f;
     .consultant-list {
       .h1-hidden {
@@ -1276,11 +1275,12 @@
       .consultant-card {
         // border: 1px solid #54616c;
         border-radius: 8px;
-        text-align: center;
-
+        .ant-image{
+          width: 100%;
+        }
         img.ant-image-img {
           border-radius: 8px;
-          width: 100%;
+          width: 100% !important;
           height: auto;
         }
       }
@@ -1951,14 +1951,14 @@
   }
 }
 
-// For Scale 125% (Zoom Level)
-@media (min-width: 1536px) and (max-width: 1920px) {
-  .top-consultant {
-    .consultant-section .consultant-card {
-      img.ant-image-img {
-        width: 412px !important;
-        height: 412px !important;
-      }
-    }
-  }
-}
+// // For Scale 125% (Zoom Level)
+// @media (min-width: 1536px) and (max-width: 1920px) {
+//   .top-consultant {
+//     .consultant-section .consultant-card {
+//       img.ant-image-img {
+//         width: 412px !important;
+//         height: 412px !important;
+//       }
+//     }
+//   }
+// }
