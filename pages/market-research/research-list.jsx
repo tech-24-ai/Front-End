@@ -30,11 +30,6 @@ const ResearchList = ({ router }) => {
   const [searchQuery, setSearchQuery] = useState(q);
   const [filteredData, setFilteredData] = useState({});
 
-  console.log("Router.query", router);
-  // useEffect(() => {
-  //   setSearchQuery(q);
-  // }, [q]);
-
   useEffect(() => {
     const sortData = sortBy.split("_");
     crudService

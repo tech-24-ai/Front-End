@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { crudActions } from "../../_actions";
 import { connect } from "react-redux";
 import { withRouter, useRouter } from "next/router";
@@ -8,16 +8,40 @@ import moment from "moment";
 import { ShareAltOutlined } from "@ant-design/icons";
 import CustomBreadcrumb from "../../components/breadcrumbs/Breadcrumb";
 import { MobileView, BrowserView } from "react-device-detect";
+import BodyBackgroundColor from "../../components/style/bodyBackgroundColor";
 
-function Detail({ getAllCrud, research_detail, router }) {
+function Detail({ getAllCrud, research_detail, router, downloadDocument }) {
   const slug = router.query.slug;
+
+  const [html, setHtml] = useState("");
+  const [css, setCss] = useState("");
+
   useEffect(() => {
     getAllCrud("research_detail", `market_research/show/${slug}`, {});
   }, []);
 
+  useEffect(() => {
+    if (research_detail?.document_content_type == 4) {
+      const editorData = JSON.parse(research_detail?.description);
+
+      if (editorData?.css) {
+        setCss(editorData.css);
+      }
+      if (editorData?.html) {
+        setHtml(editorData.html);
+      }
+    } else {
+      setHtml(research_detail?.description);
+    }
+  }, [research_detail]);
+
   if (!research_detail) {
     return false;
   }
+
+  const handleDocumentDownload = ({ id, extension, name }) => {
+    downloadDocument(id, `${name}.${extension}`);
+  };
 
   return (
     <section className="latest-research research-detail-section">
@@ -47,16 +71,17 @@ function Detail({ getAllCrud, research_detail, router }) {
             <div className="research-content-section">
               <div
                 dangerouslySetInnerHTML={{
-                  __html: research_detail?.description,
+                  __html: html,
                 }}
               ></div>
-              {!research_detail?.extension && (
+              {(research_detail?.document_content_type == 1 ||
+                research_detail?.document_content_type == 2) && (
                 <iframe
                   src={research_detail?.url}
                   height="500"
                   width="100%"
-                  frameborder="0"
-                  allowfullscreen=""
+                  frameBorder="0"
+                  allowFullScreen=""
                   title="market research"
                   className="mt-4"
                 />
@@ -66,7 +91,18 @@ function Detail({ getAllCrud, research_detail, router }) {
               <div className="download-report-card">
                 <h6 className="heading">{research_detail?.name}</h6>
                 <p className="content">{research_detail?.details}</p>
-                <button className="custom-btn with-bg">Download Report</button>
+                <button
+                  className="custom-btn with-bg"
+                  onClick={() => handleDocumentDownload(research_detail)}
+                  style={{
+                    display:
+                      research_detail?.document_content_type == 3
+                        ? "block"
+                        : "none",
+                  }}
+                >
+                  Download Report
+                </button>
               </div>
               {research_detail?.related_research.length > 0 && (
                 <Fragment>
@@ -86,15 +122,26 @@ function Detail({ getAllCrud, research_detail, router }) {
             <div className="download-report-card">
               <h6 className="heading">{research_detail?.name}</h6>
               <p className="content">{research_detail?.details}</p>
-              <button className="custom-btn with-bg">Download Report</button>
+              <button
+                className="custom-btn with-bg"
+                style={{
+                  display:
+                    research_detail?.document_content_type == 3
+                      ? "block"
+                      : "none",
+                }}
+              >
+                Download Report
+              </button>
             </div>
             <div className="research-content-section">
               <div
                 dangerouslySetInnerHTML={{
-                  __html: research_detail?.description,
+                  __html: html,
                 }}
               ></div>
-              {!research_detail?.extension && (
+              {(research_detail?.document_content_type == 1 ||
+                research_detail?.document_content_type == 2) && (
                 <iframe
                   src={research_detail?.url}
                   height="300"
@@ -121,6 +168,7 @@ function Detail({ getAllCrud, research_detail, router }) {
           </div>
         </MobileView>
       </Container>
+      {css && <BodyBackgroundColor style={css} />}
     </section>
   );
 }
@@ -134,6 +182,8 @@ const mapStateToProps = (state) => {
 
 const actionCreators = {
   getAllCrud: crudActions._getAll,
+  downloadInvoice: crudActions._downloadWithPost,
+  downloadDocument: crudActions._download,
 };
 
 export default withRouter(connect(mapStateToProps, actionCreators)(Detail));
