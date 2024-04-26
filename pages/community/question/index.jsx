@@ -141,6 +141,11 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
         console.error('Error submitting report:', error);
       });
   };
+  const handleModalClose = () => {
+    setShareModalVisible(false);
+    setSocialModalVisible(false);
+    setReportModalVisible(false);
+  };
 
   const openShareModal = () => {
     setShareModalVisible(true);
@@ -342,8 +347,8 @@ console.log("com d", updateCom);
 
                   {/* Modal for share/report */}
                   <Modal
-                    visible={shareModalVisible}
-                    onCancel={() => setShareModalVisible(false)}
+                    visible={shareModalVisible || socialModalVisible || reportModalVisible}
+                    onCancel={handleModalClose}
                     footer={null}
                     onClick={false}
                     width={190}
@@ -410,7 +415,7 @@ console.log("com d", updateCom);
                   {/* Social Sharing */}
                   <Modal
                     visible={socialModalVisible}
-                    onCancel={() => setSocialModalVisible(false)}
+                    onCancel={handleModalClose}
                     footer={null}
                   >
                     <span
@@ -515,7 +520,7 @@ console.log("com d", updateCom);
                   <Modal
                     visible={reportModalVisible}
                     footer={null}
-                    onCancel={() => setReportModalVisible(false)}
+                    onCancel={handleModalClose}
                   >
                     <span
                       style={{
