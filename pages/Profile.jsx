@@ -465,7 +465,7 @@ const Profile = ({
   const { q } = Router.query;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [updateCom, setUpdateCom] = useState(false);
-   const [visitorquerieshistory, setvisitor_queries_history] = useState([]);
+  const [visitorquerieshistory, setvisitor_queries_history] = useState([]);
   const [search, setSearch] = useState("");
   const [value, setValue] = useState();
   const [visitorActivity, setvisitorActivity] = useState([]);
@@ -473,7 +473,7 @@ const Profile = ({
 
   const [inputValue, setInputValue] = useState('');
 
- 
+
 
   const [updateProfileData, setUpdateProfileData] = useState({
     alternate_email: "",
@@ -495,61 +495,61 @@ const Profile = ({
     setCurrentPage(page);
   };
 
-    //tab 2 data
-    useEffect(() => {
-      crudService
-        ._getAll("visitor_activities", {
-           orderBy: sortBy,
-          orderDirection: "desc",
-          page: page + 1,
-          pageSize: itemsPerPage,
-          search: searchQuery,
-          ...filteredData,
-        })
-        .then((result) => {
-          setvisitorActivity(result?.data?.data);
-          console.log("result",result.data);
-          const totalPage = Math.ceil(result?.data?.total / result?.data?.perPage);
-          setPageCount(isNaN(totalPage) ? 0 : totalPage);
-        });
-    }, [page, searchQuery, filteredData, sortBy]);
+  //tab 2 data
+  useEffect(() => {
+    crudService
+      ._getAll("visitor_activities", {
+        orderBy: sortBy,
+        orderDirection: "desc",
+        page: page + 1,
+        pageSize: itemsPerPage,
+        search: searchQuery,
+        ...filteredData,
+      })
+      .then((result) => {
+        setvisitorActivity(result?.data?.data);
+        console.log("result", result.data);
+        const totalPage = Math.ceil(result?.data?.total / result?.data?.perPage);
+        setPageCount(isNaN(totalPage) ? 0 : totalPage);
+      });
+  }, [page, searchQuery, filteredData, sortBy]);
 
-    // tab3 data
+  // tab3 data
 
-    useEffect(() => {
-      crudService
-        ._getAll("visitor_queries_history", {
-           orderBy: sortBy,
-          orderDirection: "desc",
-          page: page + 1,
-          pageSize: itemsPerPage,
-          search: searchQuery,
-          ...filteredData,
-        })
-        .then((result) => {
-          setvisitor_queries_history(result?.data?.data);
-          console.log("result",result.data);
-          const totalPage = Math.ceil(result?.data?.total / result?.data?.perPage);
-          setPageCount(isNaN(totalPage) ? 0 : totalPage);
-        });
-    }, [page, searchQuery, filteredData, sortBy]);
+  useEffect(() => {
+    crudService
+      ._getAll("visitor_queries_history", {
+        orderBy: sortBy,
+        orderDirection: "desc",
+        page: page + 1,
+        pageSize: itemsPerPage,
+        search: searchQuery,
+        ...filteredData,
+      })
+      .then((result) => {
+        setvisitor_queries_history(result?.data?.data);
+        console.log("result", result.data);
+        const totalPage = Math.ceil(result?.data?.total / result?.data?.perPage);
+        setPageCount(isNaN(totalPage) ? 0 : totalPage);
+      });
+  }, [page, searchQuery, filteredData, sortBy]);
 
-    const handleSort = (e) => {
-      setSortBy(e.target.value);
-    };
+  const handleSort = (e) => {
+    setSortBy(e.target.value);
+  };
 
-    const sortOptions = [
-      {
-        value: "id",
-        label: "Most Recent",
-      },
-      {
-        value: "view_counts",
-        label: "Most Viewed",
-      },
-    ];
+  const sortOptions = [
+    {
+      value: "id",
+      label: "Most Recent",
+    },
+    {
+      value: "view_counts",
+      label: "Most Viewed",
+    },
+  ];
 
-      //Filter
+  //Filter
   const handleSearch = (searchValue) => {
     if (searchValue == null) {
       return false;
@@ -567,7 +567,7 @@ const Profile = ({
   const onChange = (key) => {
     console.log(key);
   };
-  const showEditModal = () => {    
+  const showEditModal = () => {
     setUpdateProfileData(() => ({
       alternate_email: visitorprofile?.alternate_email,
       country_code: visitorprofile?.country_code,
@@ -635,10 +635,10 @@ const Profile = ({
     getAllCrud("visitor_profile_levels", "visitor_profile_levels");
     getAllCrud("visitor_activities", "visitor_activities");
 
-    
+
   }, [updateCom]);
 
- 
+
 
   const fetchCountry = () => {
     getAllCrud("countries", "countries");
@@ -648,7 +648,7 @@ const Profile = ({
   const countyList = countries?.map((item) => {
     return { value: item.phonecode, label: `+${item.phonecode}` };
   });
- 
+
   const updateProfile = () => {
     crudService
       ._update("visitorprofile", visitorprofile?.id, {
@@ -679,9 +679,9 @@ const Profile = ({
     let visitorname = visitorprofile?.name;
     let firstname = ""; let lastname = "";
 
-    if(visitorname) {
+    if (visitorname) {
       visitorname = visitorname.split(" ");
-      firstname = visitorname[0]; 
+      firstname = visitorname[0];
       visitorname.splice(0, 1);
       lastname = visitorname.join(" ");
     }
@@ -691,12 +691,12 @@ const Profile = ({
         <div className="input-container">
           <div>
             <h6>First Name</h6>
-            <h5 style={{ textTransform: "capitalize"}}>{firstname || ""}</h5>
+            <h5 style={{ textTransform: "capitalize" }}>{firstname || ""}</h5>
           </div>
-          
+
           <div>
             <h6>Last Name</h6>
-            <h5 style={{ textTransform: "capitalize"}}>{lastname || "-"}</h5>
+            <h5 style={{ textTransform: "capitalize" }}>{lastname || "-"}</h5>
           </div>
         </div>
         <hr />
@@ -705,7 +705,7 @@ const Profile = ({
             <h6>Country/Region</h6>
             <h5>{visitorprofile?.country?.name || "-"}</h5>
           </div>
-          
+
           <div>
             <h6>City/District</h6>
             <h5>{visitorprofile?.visitor_ip_city || "-"}</h5>
@@ -717,7 +717,7 @@ const Profile = ({
             <h6>Job Title</h6>
             <h5>{visitorprofile?.designation || "-"}</h5>
           </div>
-          
+
           <div>
             <h6>Company Name</h6>
             <h5>{visitorprofile?.company || "-"}</h5>
@@ -729,18 +729,18 @@ const Profile = ({
             <h6>Email</h6>
             <h5>{visitorprofile?.email}</h5>
           </div>
-          
+
           <div
-            // style={{
-            //   display: !visitorprofile?.mobile && isMobile && "flex",
-            //   justifyContent:
-            //     !visitorprofile?.mobile && isMobile && "space-between",
-            // }}
+          // style={{
+          //   display: !visitorprofile?.mobile && isMobile && "flex",
+          //   justifyContent:
+          //     !visitorprofile?.mobile && isMobile && "space-between",
+          // }}
           >
             <div>
               <h6>Contact Number</h6>
               <h5>
-                { (visitorprofile?.mobile && visitorprofile?.country_code) ? `+${visitorprofile?.country_code} ` : ""}
+                {(visitorprofile?.mobile && visitorprofile?.country_code) ? `+${visitorprofile?.country_code} ` : ""}
                 {visitorprofile?.mobile || "-"}
                 {!visitorprofile?.mobile && (
                   <div onClick={() => setIsModalOpen(true)} className="add">
@@ -749,7 +749,7 @@ const Profile = ({
                 )}
               </h5>
             </div>
-            
+
           </div>
         </div>
         <hr />
@@ -816,98 +816,197 @@ const Profile = ({
       return humanReadableDiff;
     };
     return (
-      <div className="row">
-        <div className="col-md-12">
-        <div className="tab-container">
-       
-       
-       {visitorActivity?.map(data => (
-        <ul style={{width:"100%"}}>
-         <li
-           style={{
-             fontWeight: "500",
-             fontSize: "20px",
-             color: "#001622",
-           }}
-         >
-          {data?.communityPost.title}
-          {data?.activity_type === 1 && (
-            <p
-            style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-          >
-            You created a question {data?.communityPost.title}
-          </p>
-          )}
+      <div className="community-tab-container questions-tab-container">
+        <div className="search-container">
+          {/* <Input
+            placeholder="Search a question..."
+            prefix={<SearchOutlined style={{ color: "#0074D9", padding: "0 6px" }} />}
+            style={{
+                width: "67%",
+                height: "50px",
+                padding: "10px",
+                border: "1px solid #D9DFE9",
+                borderRadius: "5px",
+                background: "#ffffff",
+                boxSizing: "border-box",
+            }}
+          className="SearchInput"
+          onChange={(value) => handleSearch(value)}
+          allowClear={true}
+              /> */}
+          <SearchInput
+            style={{
+              width: "195%",
+              height: "50px",
+              padding: "10px",
+              border: "1px solid #D9DFE9",
+              borderRadius: "5px",
+              background: "#ffffff",
+              boxSizing: "border-box",
+            }}
+            placeholder="Search a Activity...."
+            className="SearchInput"
+            onChange={(value) => handleSearch(value)}
+            prefix={<SearchOutlined style={{ color: "#0074D9", padding: "0 6px" }} />}
+            allowClear={true}
+            value={searchQuery}
+          />
 
-          {data?.activity_type === 2 && (
-            <p
-            style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-          >
-            You answered the question {data?.communityPost.title}
-          </p>
-          )}
-
-          {data?.activity_type === 3 && (
-            <p
-            style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-          >
-            You posted a comment on the answer to the question {data?.communityPost.title}
-          </p>
-          )}
-
-          {data?.activity_type === 4 && (
-            <p
-            style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-          >
-            You upvoted or downvoted the answer to the question {data?.communityPost.title}
-          </p>
-          )}
-
-        {data?.activity_type === 5 && (
-            <p
-            style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-          >
-            You upvoted or downvoted the answer to the question {data?.communityPost.title}
-          </p>
-          )}
-
-        {data?.activity_type === 6 && (
-            <p
-            style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-          >
-            You viewed the question {data?.communityPost.title}
-          </p>
-          )}
-           
-           <p
-             style={{
-               fontWeight: "400",
-               fontSize: "12px",
-               color: "#B0B8BF",
-             }}
-           >
-            {calculateTimeAgo(data?.created_at)}
-           </p>
-         </li>
-         <hr />
-        
-        </ul>
-        ))} 
-       
-     </div>
-     <div className="mt-5" style={{ width: "100%" }}>
-          {visitorActivity?.length > 0 && (
-            <CustomPagination
-              pageCount={pageCount}
-              page={page}
-              onPageChange={({ selected }) => setPage(selected)}
-            />
-          )}
+          <div className="sorting">
+            <label className="sortby" htmlFor="sortDropdown">Sort By: </label>
+            <select
+              id="sortDropdown"
+              style={{ border: "none", background: "transparent" }}
+              value={sortBy}
+              onChange={handleSort}
+            >
+              {sortOptions.map(({ value, label }) => (
+                <option
+                  className="sortby"
+                  style={{ color: "#001622" }}
+                  value={value}
+                >
+                  {label}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
+        <div className="cards-container" style={{
+          marginTop: '1rem'
+        }}>
+
+          {/* today */}
+          <div className="mt-2" >
+            <h5 >Today</h5>
+          </div>
+          <div style={{borderBottom: "1px solid #0000005e",marginBottom:"20px",paddingLeft: "955px"}}></div>
+          {visitorActivity?.map(data => (
+
+            <Card
+              bordered={true}
+              style={{
+                width: "100%",
+                height: "fit-content",
+                background:"rgb(176 184 191 / 8%)"
+              }}
+            >
+              <div className="cards-header">
+                <div>
+                  <div>
+                    <div className="img">
+                      <Image
+                        style={{ borderRadius: "5px" }}
+                        width={48}
+                        height={48}
+                        preview="false"
+                        src={
+                          data?.visitor?.profile_pic_url ||
+                          "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                        }
+                        alt="profile"
+                      />
+                    </div>
+                    {/* <p className="profile-badge">{data?.visitor?.visitor_level}</p> */}
+                  </div>
+                  <div className="profile">
+                    <h5> {data?.communityPost.title}</h5>
+                    {/* <p>
+                  {data?.title} <div className="custom-border"></div>
+                  {calculateTimeAgo(data?.created_at)}
+                </p> */}
+                  </div>
+                </div>
+
+                <div className="follow">
+                  {/* <p className="button">Follow</p> */}
+                  <div className="img">
+                    <Image
+                      loader={myImageLoader}
+                      style={{ borderRadius: "2px", cursor: "pointer" }}
+                      width={36}
+                      height={36}
+                      preview="false"
+                      src={three_dot_icon}
+                      alt="profile"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="mt-2">
+              {data?.activity_type === 1 && (
+                <p
+                  style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+                >
+                  You created a question {data?.communityPost.title}
+                </p>
+              )}
+              {data?.activity_type === 2 && (
+                <p
+                  style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+                >
+                  You answered the question {data?.communityPost.title}
+                </p>
+              )}
+
+              {data?.activity_type === 3 && (
+                <p
+                  style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+                >
+                  You posted a comment on the answer to the question {data?.communityPost.title}
+                </p>
+              )}
+
+              {data?.activity_type === 4 && (
+                <p
+                  style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+                >
+                  You upvoted or downvoted the answer to the question {data?.communityPost.title}
+                </p>
+              )}
+
+              {data?.activity_type === 5 && (
+                <p
+                  style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+                >
+                  You upvoted or downvoted the answer to the question {data?.communityPost.title}
+                </p>
+              )}
+
+              {data?.activity_type === 6 && (
+                <p
+                  style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+                >
+                  You viewed the question {data?.communityPost.title}
+                </p>
+              )}
+            </div>
+            <div>
+              <p
+                style={{
+                  fontWeight: "400",
+                  fontSize: "12px",
+                  color: "#B0B8BF",
+                }}
+              >
+                {calculateTimeAgo(data?.created_at)}
+              </p>
+              </div>
+            </Card>
+          ))
+          }
+          <div className="mt-5" style={{ width: "100%" }}>
+            {visitorActivity?.length > 0 && (
+              <CustomPagination
+                pageCount={pageCount}
+                page={page}
+                onPageChange={({ selected }) => setPage(selected)}
+              />
+            )}
+          </div>
         </div>
-      
       </div>
-    
+
     );
   };
 
@@ -951,16 +1050,16 @@ const Profile = ({
             onChange={(value) => handleSearch(value)}
             allowClear={true}
                 /> */}
-                  <SearchInput
-                  style={{
-                    width: "95%",
-                    height: "50px",
-                    padding: "10px",
-                    border: "1px solid #D9DFE9",
-                    borderRadius: "5px",
-                    background: "#ffffff",
-                    boxSizing: "border-box",
-                }}
+          <SearchInput
+            style={{
+              width: "95%",
+              height: "50px",
+              padding: "10px",
+              border: "1px solid #D9DFE9",
+              borderRadius: "5px",
+              background: "#ffffff",
+              boxSizing: "border-box",
+            }}
             placeholder="Search a question...."
             className="SearchInput"
             onChange={(value) => handleSearch(value)}
@@ -969,68 +1068,68 @@ const Profile = ({
             value={searchQuery}
           />
 
-                <div className="sorting">
-                    <label className="sortby" htmlFor="sortDropdown">Sort By: </label>
-                     <select
-                  id="sortDropdown"
-                  style={{ border: "none", background: "transparent" }}
-                  value={sortBy}
-                  onChange={handleSort}
+          <div className="sorting">
+            <label className="sortby" htmlFor="sortDropdown">Sort By: </label>
+            <select
+              id="sortDropdown"
+              style={{ border: "none", background: "transparent" }}
+              value={sortBy}
+              onChange={handleSort}
+            >
+              {sortOptions.map(({ value, label }) => (
+                <option
+                  className="sortby"
+                  style={{ color: "#001622" }}
+                  value={value}
                 >
-                  {sortOptions.map(({ value, label }) => (
-                    <option
-                      className="sortby"
-                      style={{ color: "#001622" }}
-                      value={value}
-                    >
-                      {label}
-                    </option>
-                  ))}
-                </select>
-                </div>
-              </div>
+                  {label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
         <div className="cards-container" style={{
-          marginTop :'1rem'
+          marginTop: '1rem'
         }}>
           {visitorquerieshistory?.map((data) => (
-        
-            <Card
-            bordered={true}
-            style={{
-              width: "100%",
-              height: "fit-content",
-            }}
-          >
-            <div className="cards-header">
-              <div>
-                <div>
-                  <div className="img">
-                    <Image
-                      style={{ borderRadius: "5px" }}
-                      width={48}
-                      height={48}
-                      preview="false"
-                      src={
-                        data?.visitor?.profile_pic_url ||
-                        "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
-                      }
-                      alt="profile"
-                    />
-                  </div>
-                  <p className="profile-badge">{data?.visitor?.visitor_level}</p>
-                </div>  
-                <div className="profile">
-                  <h5>{data?.visitor?.name}</h5>
-                  <p>
-                    {data?.title} <div className="custom-border"></div>
-                    {calculateTimeAgo(data?.created_at)}
-                  </p>
-                </div>
-              </div>
 
-              <div className="follow">
-                {/* <p className="button">Follow</p> */}
-                {/* <div className="img">
+            <Card
+              bordered={true}
+              style={{
+                width: "100%",
+                height: "fit-content",
+              }}
+            >
+              <div className="cards-header">
+                <div>
+                  <div>
+                    <div className="img">
+                      <Image
+                        style={{ borderRadius: "5px" }}
+                        width={48}
+                        height={48}
+                        preview="false"
+                        src={
+                          data?.visitor?.profile_pic_url ||
+                          "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                        }
+                        alt="profile"
+                      />
+                    </div>
+                    <p className="profile-badge">{data?.visitor?.visitor_level}</p>
+                  </div>
+                  <div className="profile">
+                    <h5>{data?.visitor?.name}</h5>
+                    <p>
+                      {data?.title} <div className="custom-border"></div>
+                      {calculateTimeAgo(data?.created_at)}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="follow">
+                  {/* <p className="button">Follow</p> */}
+                  {/* <div className="img">
                   <Image
                     loader={myImageLoader}
                     style={{ borderRadius: "2px", cursor: "pointer" }}
@@ -1041,25 +1140,25 @@ const Profile = ({
                     alt="profile"
                   />
                 </div> */}
+                </div>
               </div>
-            </div>
-            <p className="para">
-            <span
-                dangerouslySetInnerHTML={{ __html: data?.description }}
-              ></span>
-            </p>
-            <div className="chips">
-              {data?.postTags?.map((tag) => (
-                <div>{tag?.name}</div>
-              ))}
-            </div>
-            <div className="chips">
-              <p>{data?.__meta__?.total_post_replies} answers</p>
-              <h6 className="custom-border"></h6>
-              <p>{data?.views_counter} views</p>
-            </div>
-            <div className="like-footer">
-              {/* <div className="ans">
+              <p className="para">
+                <span
+                  dangerouslySetInnerHTML={{ __html: data?.description }}
+                ></span>
+              </p>
+              <div className="chips">
+                {data?.postTags?.map((tag) => (
+                  <div>{tag?.name}</div>
+                ))}
+              </div>
+              <div className="chips">
+                <p>{data?.__meta__?.total_post_replies} answers</p>
+                <h6 className="custom-border"></h6>
+                <p>{data?.views_counter} views</p>
+              </div>
+              <div className="like-footer">
+                {/* <div className="ans">
                 <Image
                   loader={myImageLoader}
                   style={{ borderRadius: "5px", marginRight: "5px" }}
@@ -1071,7 +1170,7 @@ const Profile = ({
                 />
                 <span className="ans-text">Answer</span>
               </div> */}
-              {/* <div className="rating">
+                {/* <div className="rating">
                 <div>
                   <Image
                     loader={myImageLoader}
@@ -1097,22 +1196,22 @@ const Profile = ({
                     alt="profile"
                   />
                 </div> */}
-              {/* </div> */}
-            </div>
-          </Card>
-           ))
+                {/* </div> */}
+              </div>
+            </Card>
+          ))
           }
           {/* Render pagination controls */}
           {/* <Pagination defaultCurrent={1} total={100}  onChange={onChange}/> */}
-             <div className="mt-5" style={{ width: "100%" }}>
-                {visitorquerieshistory?.length > 0 && (
-                  <CustomPagination
-                    pageCount={pageCount}
-                    page={page}
-                    onPageChange={({ selected }) => setPage(selected)}
-                  />
-                )}
-              </div>
+          <div className="mt-5" style={{ width: "100%" }}>
+            {visitorquerieshistory?.length > 0 && (
+              <CustomPagination
+                pageCount={pageCount}
+                page={page}
+                onPageChange={({ selected }) => setPage(selected)}
+              />
+            )}
+          </div>
         </div>
       </div>
     );
@@ -1135,9 +1234,8 @@ const Profile = ({
       });
 
       topMarks[100] = {
-        label: `${
-          visitor_profile_levels?.[0]?.leavels[levelCount - 1].level
-        } \n ${visitor_profile_levels?.[0]?.leavels[levelCount - 1].title}`,
+        label: `${visitor_profile_levels?.[0]?.leavels[levelCount - 1].level
+          } \n ${visitor_profile_levels?.[0]?.leavels[levelCount - 1].title}`,
         style: { whiteSpace: "pre" },
       };
 
@@ -1244,13 +1342,13 @@ const Profile = ({
     <Container>
       <div className="profile-container row">
         <div className=" col-md-9">
-        <Tabs className="header-tabs" defaultActiveKey="1" onChange={onChange}>
-          {items.map((tab) => (
-            <Tabs.TabPane tab={tab.label} key={tab.key}>
-              {tab.children}
-            </Tabs.TabPane>
-          ))}
-        </Tabs>
+          <Tabs className="header-tabs" defaultActiveKey="1" onChange={onChange}>
+            {items.map((tab) => (
+              <Tabs.TabPane tab={tab.label} key={tab.key}>
+                {tab.children}
+              </Tabs.TabPane>
+            ))}
+          </Tabs>
         </div>
         <div className="col-md-3">
           <Card
@@ -1283,7 +1381,7 @@ const Profile = ({
             </div>
             <hr />
             <div className="following-section">
-              <div style={{width:'100%'}}>
+              <div style={{ width: '100%' }}>
                 <p className="head">Contributions</p>
                 <p className="count">
                   {visitorcommunityprofile?.data[0]?.contributions}

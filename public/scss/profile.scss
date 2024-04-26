@@ -1347,10 +1347,10 @@
     padding: 5px 0;
   }
   .ant-tabs {
-    color: #B0B8BF;
+    color: #b0b8bf;
   }
   .ant-card-bordered {
-    border: 1px solid #E5E7EB;
+    border: 1px solid #e5e7eb;
     border-radius: 16px;
   }
   .card-header-data {
@@ -1383,7 +1383,7 @@
       right: 102px;
       top: 77px;
       border: 1.5px solid #ffffff;
-      background-color: #0074D9;
+      background-color: #0074d9;
       font-weight: 500;
       font-size: 16px;
       line-height: 24px;
@@ -1523,12 +1523,12 @@
 }
 .edit-profile-modal {
   .ant-modal-header {
-    padding: 24px 24px 0px
+    padding: 24px 24px 0px;
   }
   .ant-modal-close-x {
     margin: 8px;
   }
-  .ant-modal-footer{
+  .ant-modal-footer {
     padding: 0px 24px 24px 24px;
   }
 }
@@ -1580,7 +1580,7 @@
 .profile-tab-container {
   margin: 1.5rem 0px 0px;
   hr {
-    border-color: #EBEBF0;
+    border-color: #ebebf0;
   }
   .input-container {
     display: flex;
@@ -1597,7 +1597,7 @@
       font-size: 14px;
       font-weight: 500;
       cursor: pointer;
-      border-bottom: 1px solid #0074D9;
+      border-bottom: 1px solid #0074d9;
       line-height: 20px;
       float: right;
     }
@@ -1639,7 +1639,7 @@
 
     .sorting {
       background: #ffffff;
-      border: 1px solid #D9DFE9;
+      border: 1px solid #d9dfe9;
       padding: 12px 10px 2px;
       border-radius: 5px;
     }
@@ -1650,7 +1650,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    .community-card{
+    .community-card {
       width: 48.5%;
       height: "fit-content";
       box-shadow: "0px 0px 16px 0px #0000001A";
@@ -1683,7 +1683,7 @@
       font-size: 14px;
     }
     .community-img {
-      border: 0.5px solid #D9DFE9 !important;
+      border: 0.5px solid #d9dfe9 !important;
     }
   }
   .following-section {
@@ -1709,13 +1709,13 @@
 
     .sorting {
       background: #ffffff;
-      border: 1px solid #D9DFE9;
+      border: 1px solid #d9dfe9;
       padding: 12px 10px 2px;
       border-radius: 5px;
       font-family: "Inter";
       width: 24%;
-      .sortby{
-        color: #54616C;
+      .sortby {
+        color: #54616c;
         font-size: 16px;
         line-height: 24px;
         font-weight: 400;
@@ -1762,7 +1762,7 @@
       }
     }
     .follow {
-      align-items: flex-start;
+      align-items: center;
       .img {
         width: 32px;
         height: 32px;
@@ -1777,6 +1777,16 @@
       color: #0074d9;
       margin-right: 10px;
       line-height: 20px;
+      margin-bottom: 0;
+    }
+
+    span.anticon-eye {
+      font-size: 1.125rem;
+      padding: 0 5px;
+      cursor: pointer;
+      svg {
+        color: #0074d9;
+      }
     }
     .profile-badge {
       position: absolute;
@@ -1790,11 +1800,11 @@
       left: 53px;
       top: 54px;
       border: 1.5px solid #ffffff;
-      background-color: #0074D9;
+      background-color: #0074d9;
       font-weight: 500 !important;
       font-size: 12px !important;
       line-height: 20px;
-  }
+    }
   }
   .para {
     color: #001622;
@@ -2016,7 +2026,7 @@
         .profile p {
           font-size: 10px;
         }
-        .button{
+        .button {
           font-size: 12px;
         }
       }
