@@ -78,10 +78,11 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
 
   const [updateCom, setUpdateCom] = useState(false);
   const [form] = Form.useForm();
+  const [selectedIndex, setSelectedIndex] = useState("1");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onChange = (key) => {
-    console.log(key);
+    setSelectedIndex(key);
   };
 
   const editor = React.useRef(null);
@@ -297,7 +298,7 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
             }}
             value={headerSearch}
             style={{
-              width: isMobile ? "84%" : "65%",
+              width: isMobile ? "84%" : "78%",
               padding: "10px",
               border: "1px solid #ccc",
               borderRadius: "5px",
@@ -414,7 +415,9 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
                   </div>
                 </div>
               </div>
-              <p className="para">{data?.description}</p>
+              <p className="para"><span
+                dangerouslySetInnerHTML={{ __html: data?.description }}
+              ></span></p>
               <div className="chips">
                 {data?.postTags?.map((tag) => (
                   <div>{tag?.name}</div>
@@ -627,8 +630,8 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
 
   return (
     <Container>
-      <div className="profile-container">
-        <Tabs className="header-tabs" defaultActiveKey="1" onChange={onChange}>
+      <div className="profile-container row">
+        <Tabs className="header-tabs col-md-9" defaultActiveKey="1" onChange={onChange}>
           {items.map((tab) => (
             <Tabs.TabPane tab={tab.label} key={tab.key}>
               {tab.children}
@@ -636,14 +639,14 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
           ))}
         </Tabs>
         {communityData && (
-          <div className="community-tab-container community-detail-card">
+          <div className="community-tab-container community-detail-card col-md-3">
             <div
               className="cards-container"
               style={{
                 display: isMobile && "unset",
               }}
             >
-              {/* <div
+              {selectedIndex == "1" ? <div
                 onClick={showModal}
                 style={{
                   width: isMobile ? "100%" : 380,
@@ -658,7 +661,7 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
                 }}
               >
                 Ask a Question
-              </div> */}
+              </div> : <></>}
               <div>
                 <Modal
                   visible={isModalOpen}
@@ -855,8 +858,7 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
                 bordered={true}
                 style={{
                   width: isMobile ? "100%" : 380,
-                  height: "fit-content",
-                  marginTop: "1rem",
+                  height: "fit-content"
                 }}
               >
                 <div className="cards-header">
