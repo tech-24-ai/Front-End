@@ -12,6 +12,8 @@ const TopConsultant = ({ getAllCrud, consultants }) => {
   useEffect(() => {
     getAllCrud("consultants", "consultants", {
       pageSize: 3,
+      orderBy: "top_consultants",
+      orderPos: "desc",
       is_company: false,
     });
   }, []);
