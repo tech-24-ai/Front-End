@@ -15,8 +15,7 @@ import "antd/dist/antd.css";
 import {
   BrowserView,
   MobileView,
-  isMobile,
-  isBrowser,
+  isMobile
 } from "react-device-detect";
 import CustomBreadcrumb from "../../components/breadcrumbs";
 import BodyBackgroundColor from "../../components/style/bodyBackgroundColor";

@@ -37,7 +37,7 @@ function index() {
             ) : (
               <h4>Find The Right Technology For Your Enterprise</h4>
             )}
-            <div className="input-content">
+            <div className="input-content find-technology-searchbtn">
               <TreeSelect
                 className="home-page-search-module"
                 placeholder="Enter software, hardware or service category, and we will find the right product for you"

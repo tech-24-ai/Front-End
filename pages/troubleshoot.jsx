@@ -169,7 +169,7 @@ function troubleshoot({ getAllCrud, showLoader, hideLoader, error }) {
 
   return (
     <section
-      className="pricing-advisor-section"
+      className="pricing-advisor-section trouble-subject-section"
       style={{ marginBottom: "30px" }}
     >
       <div className="page-heading">

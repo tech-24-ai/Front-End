@@ -144,7 +144,7 @@ class CommunityCategory extends React.PureComponent {
           className="view-more-icon"
           style={{
             left: "77px",
-            marginTop: "8%",
+            marginTop: "6%",
             zIndex: "99",
             position: "absolute",
             width: "36px",
@@ -197,7 +197,10 @@ class CommunityCategory extends React.PureComponent {
                       <div className="category-banner" data-index={index}
                         key={index} style={{ height: "220px" }}>
                         <div className="category-content" style={{ height: "unset" }}>
-                          <div className="content-head">
+                          <div className="content-head" onClick={() => {
+                             sessionStorage.setItem("community_id", slide?.url_slug);
+                             Router.push("community/community_detail");
+                          }}>
                             <div
                               className="icon-bg" style={{height: "unset"}}>
                               {/* <Image
@@ -226,7 +229,7 @@ class CommunityCategory extends React.PureComponent {
                             <div className="content-x">
                               <div className="user-icon">
                                 <p>
-                                  <EyeOutlined style={{ fontSize: "16px", verticalAlign: "0.04em" }} />  Views : {slide.__meta__.total_members}
+                                  <EyeOutlined style={{ fontSize: "16px", verticalAlign: "0.04em" }} />  Replies : {slide.__meta__.total_post_reply}
                                   {/* <UsergroupAddOutlined style={{ fontSize: "16px", verticalAlign: "0.04em" }} />  */}
                                   {/* Views : {slide.__meta__.total_members} */}
                                 </p>
@@ -272,7 +275,7 @@ class CommunityCategory extends React.PureComponent {
                 className="view-more-icon"
                 style={{
                   right: "40px",
-                  marginTop: "9%",
+                  marginTop: "7%",
                   width: "36px",
                   height: "36px",
                 }}

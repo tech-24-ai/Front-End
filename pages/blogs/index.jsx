@@ -6,13 +6,12 @@ import { crudService } from "../../_services";
 import moment from "moment";
 import { Pagination, TreeSelect } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
-import Image from "next/image";
+import { Image } from "antd";
 import PageBanner from "../../components/card/pageBanner";
 import { isMobile, isBrowser } from "react-device-detect";
 import CustomPagination from "../../components/pagination";
+import SearchInput from "../../components/form/searchInput";
 // import ReactPaginate from "react-paginate-next";
-
-
 
 function Blogs({ router }) {
   const [posts, setPosts] = useState([]);
@@ -38,16 +37,19 @@ function Blogs({ router }) {
   //   }
   // };
   // useEffect(() => {
-  //   fetchData(); 
-  // }, [value, currentPage, pageSize]); 
-  
+  //   fetchData();
+  // }, [value, currentPage, pageSize]);
+
   useEffect(() => {
+    fetchBlogData();
+  }, [page]);
+
+  const fetchBlogData = () => {
     crudService
       ._getAll("blogs", {
         page: page + 1,
         pageSize: itemsPerPage,
-        search: value
-       
+        search: value,
       })
       .then((result) => {
         console.log("result", result);
@@ -57,7 +59,7 @@ function Blogs({ router }) {
         console.log("totalPage", totalPage);
         setPageCount(isNaN(totalPage) ? 0 : totalPage);
       });
-  }, [page, value]);
+  };
 
   useEffect(() => {
     blogsList(0);
@@ -81,23 +83,7 @@ function Blogs({ router }) {
       }
     });
   }, []);
-  const handleSearchChange = async (value) => {
-    setValue(value);
-    setPage(0); 
-  };
-  let arrData = [];
-  console.log("Posts:", posts);
 
-  posts?.data?.map((item) => {
-    const random = Math.random().toString(36).substring(2, 6);
-    const data = {
-      id: random,
-      value: item.name,
-      title: item.name,
-    };
-    arrData.push(data);
-  });
-  
   const blogsList = (id) => {
     crudService._getAll("blogs", { blog_topic_id: id }).then((result) => {
       setPosts(result.data);
@@ -112,19 +98,6 @@ function Blogs({ router }) {
       console.error("Error fetching data:", error);
     }
   };
-
-  // const handleSearchChange = (value) => {
-  //   setValue(value);
-  //   // Search after state update (with a delay)
-  //   clearTimeout(searchTimeout);
-  //   const searchTimeout = setTimeout(searchPosts, 300);
-  // };
-
-  // const handleSearchChange = (value) => {
-  //   setValue(value);
-  //   setCurrentPage(1);
-  // };
-
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -141,9 +114,6 @@ function Blogs({ router }) {
     return [];
   };
 
-
-  const treeSelectWidth = isBrowser ? 568 : 343;
-
   return (
     <>
       <section className="blogs-section">
@@ -158,22 +128,23 @@ function Blogs({ router }) {
               <p style={{ color: "white" }}>Get our blogs</p>
               <hr></hr>
               <div className="mt-4" style={styles.inputGroup}>
-                <TreeSelect
-                  allowClear
-                  treeDataSimpleMode
-                  defaultValue={value}
-                  showSearch={true}
-                  dropdownStyle={{
-                    maxHeight: 150,
-                    overflow: "auto",
-                  }}
-                  placeholder="Search Anything..."
-                  onChange={handleSearchChange}
-                  loadData={onLoadData} 
-                  treeData={arrData}
-                  style={{ width: treeSelectWidth, height: "", color: "#fff" }}
-                  suffixIcon={<SearchOutlined />}
-                />
+                <div className="search-box">
+                  <SearchInput
+                    placeholder="Search anything"
+                    className="SearchInput bg"
+                    onChange={(value) => setValue(value)}
+                    suffix={
+                      <SearchOutlined
+                        style={{ color: "#1E96FF" }}
+                        onClick={() => {
+                          setPage(0);
+                          fetchBlogData();
+                        }}
+                      />
+                    }
+                    value={value}
+                  />
+                </div>
               </div>
             </div>
           }
@@ -191,98 +162,61 @@ function Blogs({ router }) {
           >
             Blogs
           </h4>
-          <div className="row">
-            <div className="second-div">
-              {posts?.data?.map((post, key) => 
-              (
-                <Link href={`blogs/${post.slug}`} key={key}>
-                  <div className="blog-list">
-                    <div
-                      className="blog-card"
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        height: "100%",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <div style={{ letterSpacing: "normal" }}>
-                        <Image
-                          className="blogImage"
-                          style={{ transition: "transform 0.5s ease" }}
-                          width={350}
-                          height={210}
-                          src={post.image}
-                          preview={false}
-                          alt=""
-                          placeholder="blog banner"
-                          onMouseOver={(e) => {
-                            e.target.style.transform = "scale(1.1)";
-                          }}
-                          onMouseOut={(e) => {
-                            e.target.style.transform = "scale(1)";
-                          }}
-                        />
-                        <p className="category bg">{post.blog_topic_name}</p>
-                        <p className="blog-heading">{post.name}</p>
-                        <p className="blog-detail">{post.details}</p>
+          <div className="second-div">
+            {posts?.data?.map((post, key) => (
+              <Link href={`blogs/${post.slug}`} key={key}>
+                <div className="blog-list">
+                  <div
+                    className="blog-card"
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      height: "100%",
+                      justifyContent: "space-between",
+                      cursor: "pointer",
+                    }}
+                  >
+                    <div style={{ letterSpacing: "normal" }}>
+                      <Image
+                        className="blogImage"
+                        style={{ transition: "transform 0.5s ease" }}
+                        src={post.image}
+                        preview={false}
+                        alt=""
+                        placeholder="blog banner"
+                        onMouseOver={(e) => {
+                          e.target.style.transform = "scale(1.1)";
+                        }}
+                        onMouseOut={(e) => {
+                          e.target.style.transform = "scale(1)";
+                        }}
+                      />
+                      <p className="category bg">{post.blog_topic_name}</p>
+                      <p className="blog-heading">{post.name}</p>
+                      <p className="blog-detail">{post.details}</p>
+                    </div>
+                    <div className="date-section">
+                      <div className="date">
+                        {moment(post.created_at).format("LL")}
                       </div>
-                      <div className="date-section">
-                        <div className="date">
-                          {moment(post.created_at).format("LL")}
-                        </div>
-                        <div className="custom-divider"></div>
-                      </div>
+                      <div className="custom-divider"></div>
                     </div>
                   </div>
-                </Link>
-              ))}
-            </div>
+                </div>
+              </Link>
+            ))}
           </div>
           <br></br>
           <div className="mt-5" style={{ width: "100%" }}>
-          {posts?.data?.length > 0 && (
-            <CustomPagination
-              pageCount={pageCount}
-              page={page}
-              onPageChange={({ selected }) => setPage(selected)}
-            />
-          )}
+            {posts?.data?.length > 0 && (
+              <CustomPagination
+                pageCount={pageCount}
+                page={page}
+                onPageChange={({ selected }) => setPage(selected)}
+              />
+            )}
           </div>
-          {/* {posts?.data?.length > 0 && (
-            <ReactPaginate
-              pageCount={pageCount}
-              initialPage={page}
-              forcePage={page}
-              onPageChange={({ selected }) => setPage(selected)}
-              previousLabel={
-                <span
-                  style={{
-                    color: "#000",
-                    fontSize: "20px",
-                    fontWeight: 500,
-                  }}
-                >
-                  {"<"}
-                </span>
-              }
-              nextLabel={
-                <span
-                  style={{
-                    color: "#000",
-                    fontSize: "20px",
-                    fontWeight: 500,
-                  }}
-                >
-                  {">"}
-                </span>
-              }
-              activeClassName={"selected-page"}
-              pageClassName={"other-page"}
-            />
-          )} */}
         </Container>
-      
       </section>
     </>
   );
