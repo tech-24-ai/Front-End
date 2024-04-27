@@ -87,7 +87,7 @@ class Blog extends Component {
   }
 
   saveToLibrary = (id) => {
-    this.props.createCrud("save_to_library", "market_research/save", { id });
+    this.props.createCrud("save_to_library", "blogs/save", { id });
   };
 
   render() {
