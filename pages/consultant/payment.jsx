@@ -9,7 +9,7 @@ import {
   Button,
 } from "reactstrap";
 import { SearchOutlined, EnvironmentOutlined } from "@ant-design/icons";
-import Image from "next/image";
+import Image from "next/future/image";
 import InputBox from "../../components/form/inputBox";
 import RadioBox from "../../components/form/radioBox";
 import ConnectRadioBox from "../../components/form/connectRadio";

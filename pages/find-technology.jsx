@@ -3,18 +3,8 @@ import { Container } from "reactstrap";
 import TreeSelect from "../components/form/treeSelect";
 import { OneIcon, TwoIcon, ThreeIcon } from "../components/icons";
 import CategoryList from "../components/categories/categoryList";
-
-import {
-  MarketTrends,
-  InDepthProduct,
-  Operational,
-  Technology,
-} from "../components/icons";
 import { Space } from "antd";
 import ResearchCard from "../components/card/researchCard";
-import researchIcon from "../public/new_images/research-icon.svg";
-import templateIcon from "../public/new_images/template-icon.svg";
-import toolIcon from "../public/new_images/tools-calculator-icon.svg";
 
 import {
   CalculatorIcon,
@@ -98,7 +88,7 @@ function index() {
           <h4 className="title">Explore our Research Repository</h4>
           <BrowserView>
             <Space size={20} className="research-content">
-              <ResearchCard
+              {/* <ResearchCard
                 arrowIcon={true}
                 icon={<ResearchIcon />}
                 imageWidth={78}
@@ -115,7 +105,7 @@ function index() {
                 title="Templates"
                 pathname="/d/template"
                 text="IT Policy Templates, RFP Templates, Project Templates and more"
-              />
+              /> */}
               <ResearchCard
                 icon={<CalculatorIcon />}
                 arrowIcon={true}
@@ -128,7 +118,7 @@ function index() {
             </Space>
           </BrowserView>
           <MobileView>
-            <Space
+            {/* <Space
               size={18}
               className="research-content mobile"
               direction="horizontal"
@@ -147,7 +137,7 @@ function index() {
                 title="Templates"
                 pathname="/d/template"
               />
-            </Space>
+            </Space> */}
             <Space className="research-content mobile">
               <ResearchCard
                 icon={<CalculatorIcon height={62} width={62} />}

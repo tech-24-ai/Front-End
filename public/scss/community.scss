@@ -235,7 +235,7 @@
       font-size: 1.5rem;
       line-height: 2rem;
       &.bg {
-        color: $backgroundColor;
+        color: $viewMoreIcon;
         font-weight: 500;
         font-size: 1.5rem;
         line-height: 2rem;
@@ -243,7 +243,7 @@
     }
 
     .view-more {
-      color: $backgroundColor;
+      color: $viewMoreIcon;
       font-size: 1rem;
       font-weight: 400;
       line-height: 1.5rem;

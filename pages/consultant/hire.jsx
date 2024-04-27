@@ -6,7 +6,7 @@ import {
   EnvironmentOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
-import Image from "next/image";
+import Image from "next/future/image";
 import InputBox from "../../components/form/inputBox";
 import myImageLoader from "../../components/imageLoader";
 

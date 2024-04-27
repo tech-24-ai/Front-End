@@ -20,6 +20,7 @@ const ResearchCard = ({ key, data, redirectUrl = null }) => {
         showHoverClass === key ? "showHoverClass" : ""
       } ${redirectUrl ? "hover" : ""}`}
       onClick={() => handleRedirect()}
+      style={{height: "462px"}}
     >
       <div className="research-card">
         <div className="image-section">

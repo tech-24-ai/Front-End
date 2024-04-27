@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
+import Image from "next/future/image";
 import { Container } from "reactstrap";
 import myImageLoader from "../../components/imageLoader";
 import { RightOutlined } from "@ant-design/icons";
@@ -937,6 +937,7 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
                     <div className="count">
                       {communityData?.__meta__?.total_post_reply}
                     </div>
+                    
                   </div>
                   <div className="custom-border"></div>
                   <div>
