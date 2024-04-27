@@ -208,7 +208,9 @@ const ConsultantCard = ({ consultants, authentication }) => {
                             </div>
                           ) : (
                             <div className="custom-icon small">
-                              <CompanyIcon />
+                              <CompanyIcon 
+                                  style={{width: "60px", height: "60px"}}
+                                  preview="false" />
                             </div>
                           )}
                           <div className="detail">
