@@ -825,7 +825,9 @@ const Profile = ({
           {/* today */}
           {/* <div className="mt-2" >
             <h5 >Today</h5>
-          </div> */}
+          </div>
+          <div style={{ borderBottom: "1px solid #0000005e", marginBottom: "20px", paddingLeft: "955px" }}></div>
+          </div>  */}
           {/* <div style={{borderBottom: "1px solid #0000005e",marginBottom:"20px",paddingLeft: "955px"}}></div> */}
           {visitorActivity?.map(data => (
 
@@ -834,7 +836,7 @@ const Profile = ({
               style={{
                 width: "100%",
                 height: "fit-content",
-                background:"rgb(176 184 191 / 8%)"
+                background: "rgb(176 184 191 / 8%)"
               }}
             >
               <div className="cards-header">
@@ -872,40 +874,40 @@ const Profile = ({
                 </p>
               )}
 
-              {data?.activity_type === 4 && (
-                <p
-                  style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-                >
-                  You upvoted or downvoted the answer to the question {data?.communityPost.title}
-                </p>
-              )}
+                {data?.activity_type === 4 && (
+                  <p
+                    style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+                  >
+                    You upvoted or downvoted the answer to the question {data?.communityPost.title}
+                  </p>
+                )}
 
-              {data?.activity_type === 5 && (
-                <p
-                  style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-                >
-                  You upvoted or downvoted the answer to the question {data?.communityPost.title}
-                </p>
-              )}
+                {data?.activity_type === 5 && (
+                  <p
+                    style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+                  >
+                    You upvoted or downvoted the answer to the question {data?.communityPost.title}
+                  </p>
+                )}
 
-              {data?.activity_type === 6 && (
+                {data?.activity_type === 6 && (
+                  <p
+                    style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+                  >
+                    You viewed the question {data?.communityPost.title}
+                  </p>
+                )}
+              </div>
+              <div>
                 <p
-                  style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+                  style={{
+                    fontWeight: "400",
+                    fontSize: "12px",
+                    color: "#B0B8BF",
+                  }}
                 >
-                  You viewed the question {data?.communityPost.title}
+                  {calculateTimeAgo(data?.created_at)}
                 </p>
-              )}
-            </div>
-            <div className="ml-2">
-              <p
-                style={{
-                  fontWeight: "400",
-                  fontSize: "12px",
-                  color: "#B0B8BF",
-                }}
-              >
-                {calculateTimeAgo(data?.created_at)}
-              </p>
               </div>
             </Card>
           ))
