@@ -103,7 +103,7 @@ class Connect extends React.PureComponent {
               <h4>Connect</h4>
             </div>
           }
-          // image={connectImage}
+           image={connectImage}
         />
         <Container className="connect-body-container">
           <div className="row top-connect-container">
