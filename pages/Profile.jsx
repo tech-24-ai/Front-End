@@ -448,6 +448,7 @@ import profile_img from "../public/new_images/profile.svg";
 import { Pagination } from 'antd';
 import CustomPagination from "../components/pagination";
 import SearchInput from "../components/form/searchInput";
+import { LikeOutlined, DeleteOutlined } from "@ant-design/icons";
 const Profile = ({
   getAllCrud,
   updateCrud,
@@ -459,6 +460,7 @@ const Profile = ({
   countries,
   visitor_profile_levels,
   visitor_activities,
+  visitor_library,
   router,
 }) => {
 
@@ -487,12 +489,41 @@ const Profile = ({
   const itemsPerPage = 4;
   const [page, setPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
+  //Tab5
+  const [libraryData, setLibraryData] = useState([]);
 
   const [searchQuery, setSearchQuery] = useState(q);
   const [filteredData, setFilteredData] = useState({});
   // const [researchData, setResearchData] = useState([]);
   const onPageChange = (page) => {
     setCurrentPage(page);
+  };
+  //tab 5
+  useEffect(() => {
+    crudService
+      ._getAll("visitor_library", {
+        orderBy: sortBy,
+        orderDirection: "asc",
+        page: page + 1,
+        pageSize: itemsPerPage,
+      })
+      .then((result) => {
+        setLibraryData(result?.data?.data);
+        console.log("setLibraryData", result?.data);
+        const totalPage = Math.ceil(result?.data?.total / result?.data?.perPage);
+        setPageCount(isNaN(totalPage) ? 0 : totalPage);
+      });
+  }, [page, sortBy, itemsPerPage]);
+
+  const handleDelete = (id) => {
+    crudService._delete('visitor_library', id)
+      .then((result) => {
+        console.log('Item deleted successfully:', result);
+
+      })
+      .catch((error) => {
+        console.error('Error deleting item:', error);
+      });
   };
 
   //tab 2 data
@@ -634,7 +665,7 @@ const Profile = ({
     // getAllCrud("visitor_points_history", "visitor_points_history");
     getAllCrud("visitor_profile_levels", "visitor_profile_levels");
     getAllCrud("visitor_activities", "visitor_activities");
-
+    getAllCrud("visitor_library", "visitor_library");
 
   }, [updateCom]);
 
@@ -880,7 +911,7 @@ const Profile = ({
           <div className="mt-2" >
             <h5 >Today</h5>
           </div>
-          <div style={{borderBottom: "1px solid #0000005e",marginBottom:"20px",paddingLeft: "955px"}}></div>
+          <div style={{ borderBottom: "1px solid #0000005e", marginBottom: "20px", paddingLeft: "955px" }}></div>
           {visitorActivity?.map(data => (
 
             <Card
@@ -888,7 +919,7 @@ const Profile = ({
               style={{
                 width: "100%",
                 height: "fit-content",
-                background:"rgb(176 184 191 / 8%)"
+                background: "rgb(176 184 191 / 8%)"
               }}
             >
               <div className="cards-header">
@@ -934,63 +965,63 @@ const Profile = ({
                 </div>
               </div>
               <div className="mt-2">
-              {data?.activity_type === 1 && (
-                <p
-                  style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-                >
-                  You created a question {data?.communityPost.title}
-                </p>
-              )}
-              {data?.activity_type === 2 && (
-                <p
-                  style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-                >
-                  You answered the question {data?.communityPost.title}
-                </p>
-              )}
+                {data?.activity_type === 1 && (
+                  <p
+                    style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+                  >
+                    You created a question {data?.communityPost.title}
+                  </p>
+                )}
+                {data?.activity_type === 2 && (
+                  <p
+                    style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+                  >
+                    You answered the question {data?.communityPost.title}
+                  </p>
+                )}
 
-              {data?.activity_type === 3 && (
-                <p
-                  style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-                >
-                  You posted a comment on the answer to the question {data?.communityPost.title}
-                </p>
-              )}
+                {data?.activity_type === 3 && (
+                  <p
+                    style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+                  >
+                    You posted a comment on the answer to the question {data?.communityPost.title}
+                  </p>
+                )}
 
-              {data?.activity_type === 4 && (
-                <p
-                  style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-                >
-                  You upvoted or downvoted the answer to the question {data?.communityPost.title}
-                </p>
-              )}
+                {data?.activity_type === 4 && (
+                  <p
+                    style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+                  >
+                    You upvoted or downvoted the answer to the question {data?.communityPost.title}
+                  </p>
+                )}
 
-              {data?.activity_type === 5 && (
-                <p
-                  style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-                >
-                  You upvoted or downvoted the answer to the question {data?.communityPost.title}
-                </p>
-              )}
+                {data?.activity_type === 5 && (
+                  <p
+                    style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+                  >
+                    You upvoted or downvoted the answer to the question {data?.communityPost.title}
+                  </p>
+                )}
 
-              {data?.activity_type === 6 && (
+                {data?.activity_type === 6 && (
+                  <p
+                    style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+                  >
+                    You viewed the question {data?.communityPost.title}
+                  </p>
+                )}
+              </div>
+              <div>
                 <p
-                  style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+                  style={{
+                    fontWeight: "400",
+                    fontSize: "12px",
+                    color: "#B0B8BF",
+                  }}
                 >
-                  You viewed the question {data?.communityPost.title}
+                  {calculateTimeAgo(data?.created_at)}
                 </p>
-              )}
-            </div>
-            <div>
-              <p
-                style={{
-                  fontWeight: "400",
-                  fontSize: "12px",
-                  color: "#B0B8BF",
-                }}
-              >
-                {calculateTimeAgo(data?.created_at)}
-              </p>
               </div>
             </Card>
           ))
@@ -1303,7 +1334,133 @@ const Profile = ({
       </div>
     );
   };
+  const Tab5 = () => {
 
+
+    const calculateTimeAgo = (createdAt) => {
+      const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
+      const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
+      const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
+      const duration = moment.duration(diffMilliseconds);
+      const humanReadableDiff = duration.humanize(true);
+      return humanReadableDiff;
+    };
+
+    return (
+      <div className="community-tab-container questions-tab-container">
+        <div className="search-container">
+        </div>
+        <div className="cards-container" style={{
+          marginTop: '1rem'
+        }}>
+          {libraryData?.map((data) => (
+            <Card
+              bordered={true}
+              style={{
+                width: "100%",
+                height: "fit-content",
+              }}
+              key={data.id}
+            >
+              {data?.blog !== null &&
+                (
+                  <div className="cards-header">
+                    <div>
+                      <div>
+                        <div className="img">
+                          <Image
+                            style={{ borderRadius: "5px" }}
+                            width={48}
+                            height={48}
+                            preview="false"
+                            src={
+                              data?.blog?.image ||
+                              "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                            }
+                            alt="profile"
+                          />
+                        </div>
+                        {/* <p className="profile-badge">
+                      <LikeOutlined />
+                    </p> */}
+
+                      </div>
+                      <div className="profile">
+                        <h5>
+                          {data?.blog?.name}
+                        </h5>
+                        <p>
+                          {calculateTimeAgo(data?.created_at)}
+                        </p>
+                      </div>
+                    </div>
+
+                  <div className="follow" style={isMobile ? { alignItems: "flex-start", position: "absolute", top: "10px", right: "0" } : ""}>
+                      <p className="button" onClick={() => handleDelete(data.id)} style={{ background: "transparent" }}>
+                        <DeleteOutlined />
+                      </p>
+                    </div>
+                  </div>
+                )
+              }
+              {data?.market_research !== null &&
+                (
+                  <div className="cards-header">
+                    <div>
+                      <div>
+                        <div className="img">
+                          <Image
+                            style={{ borderRadius: "5px" }}
+                            width={48}
+                            height={48}
+                            preview="false"
+                            src={
+                              data?.market_research?.image ||
+                              "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                            }
+                            alt="profile"
+                          />
+                        </div>
+                        {/* <p className="profile-badge">
+                      <LikeOutlined />
+                    </p> */}
+
+                      </div>
+                      <div className="profile">
+                        <h5>
+                          {data?.market_research?.name}
+                        </h5>
+                        <p>
+                          {calculateTimeAgo(data?.created_at)}
+                        </p>
+                      </div>
+                    </div>
+
+                  <div className="follow" style={isMobile ? { alignItems: "flex-start", position: "absolute", top: "10px", right: "0" } : ""}>
+                      <p className="button" onClick={() => handleDelete(data.id)} style={{ background: "transparent" }}>
+                        <DeleteOutlined />
+                      </p>
+                    </div>
+                  </div>
+                )
+              }
+            </Card>
+          ))
+          }
+          {/* Render pagination controls */}
+          <div className="mt-5" style={{ width: "100%" }}>
+            {libraryData?.length > 0 && (
+              <CustomPagination
+                pageCount={pageCount}
+                page={page}
+                onPageChange={({ selected }) => setPage(selected)}
+              />
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
   const items = [
     {
       key: "1",
@@ -1329,6 +1486,11 @@ const Profile = ({
       key: "5",
       label: "Activities",
       children: <Tab2 />,
+    },
+    {
+      key: "6",
+      label: "My Library",
+      children: <Tab5 />,
     },
   ];
 
@@ -1552,6 +1714,7 @@ const mapStateToProps = (state) => {
     countries,
     visitor_profile_levels,
     visitor_activities,
+    visitor_library
   } = state;
   return {
     visitorprofile,
@@ -1562,7 +1725,7 @@ const mapStateToProps = (state) => {
     countries,
     visitor_profile_levels,
     visitor_activities,
-
+    visitor_library
   };
 };
 
