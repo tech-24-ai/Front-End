@@ -3607,3 +3607,29 @@ export const DocumentIcon = (props) => {
     </span>
   );
 };
+export const BookmarkIcon = (props) => {
+  return (
+    <span
+      role="img"
+      aria-label="bookmark-icon"
+      className="anticon anticon-bookmark-icon"
+    >
+      <svg
+        width="14"
+        height="18"
+        viewBox="0 0 14 18"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}
+      >
+        <path
+          d="M1.49951 16.5V3.9C1.49951 2.57452 2.57403 1.5 3.89951 1.5H10.7662C12.0917 1.5 13.1662 2.57452 13.1662 3.9V16.5L8.63066 13.5843C7.84009 13.0761 6.82561 13.0761 6.03503 13.5843L1.49951 16.5Z"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </span>
+  );
+};

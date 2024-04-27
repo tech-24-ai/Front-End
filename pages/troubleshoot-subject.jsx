@@ -22,7 +22,7 @@ function troubleshootSubject({ getAllCrud, chat_gpt }) {
   };
 
   return (
-    <section className="pricing-advisor-section">
+    <section className="pricing-advisor-section trouble-subject-section">
       <div className="page-heading">
         <p className="title">Troubleshoot issues</p>
         <Image

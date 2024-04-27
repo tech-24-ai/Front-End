@@ -654,6 +654,12 @@ input.ant-input.custom-input {
         height: 80px;
         min-width: 80px;
         width: 80px;
+
+        img {
+          width: 48px !important;
+          height: 45px !important;
+          position: relative !important;
+        }
       }
     }
     .card {
@@ -2081,7 +2087,7 @@ div.message-box-card {
 }
 
 .side-border-title {
-  border-right: 5px solid $backgroundColor;
+  border-right: 5px solid $themeSecondary;
   border-radius: 0 4px 4px 0;
   margin-right: 1rem;
 }

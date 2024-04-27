@@ -443,9 +443,13 @@ import Router from "next/router";
 import moment from "moment";
 import { crudService } from "../_services";
 import { isMobile } from "react-device-detect";
-import { SearchOutlined, PlusOutlined, LoadingOutlined } from "@ant-design/icons";
+import {
+  SearchOutlined,
+  PlusOutlined,
+  LoadingOutlined,
+} from "@ant-design/icons";
 import profile_img from "../public/new_images/profile.svg";
-import { Pagination } from 'antd';
+import { Pagination } from "antd";
 import CustomPagination from "../components/pagination";
 import SearchInput from "../components/form/searchInput";
 const Profile = ({
@@ -461,7 +465,6 @@ const Profile = ({
   visitor_activities,
   router,
 }) => {
-
   const { q } = Router.query;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [updateCom, setUpdateCom] = useState(false);
@@ -470,10 +473,7 @@ const Profile = ({
   const [value, setValue] = useState();
   const [visitorActivity, setvisitorActivity] = useState([]);
 
-
-  const [inputValue, setInputValue] = useState('');
-
-
+  const [inputValue, setInputValue] = useState("");
 
   const [updateProfileData, setUpdateProfileData] = useState({
     alternate_email: "",
@@ -509,7 +509,9 @@ const Profile = ({
       .then((result) => {
         setvisitorActivity(result?.data?.data);
         console.log("result", result.data);
-        const totalPage = Math.ceil(result?.data?.total / result?.data?.perPage);
+        const totalPage = Math.ceil(
+          result?.data?.total / result?.data?.perPage
+        );
         setPageCount(isNaN(totalPage) ? 0 : totalPage);
       });
   }, [page, searchQuery, filteredData, sortBy]);
@@ -529,7 +531,9 @@ const Profile = ({
       .then((result) => {
         setvisitor_queries_history(result?.data?.data);
         console.log("result", result.data);
-        const totalPage = Math.ceil(result?.data?.total / result?.data?.perPage);
+        const totalPage = Math.ceil(
+          result?.data?.total / result?.data?.perPage
+        );
         setPageCount(isNaN(totalPage) ? 0 : totalPage);
       });
   }, [page, searchQuery, filteredData, sortBy]);
@@ -563,7 +567,6 @@ const Profile = ({
     };
   };
 
-
   const onChange = (key) => {
     console.log(key);
   };
@@ -574,7 +577,7 @@ const Profile = ({
       mobile: visitorprofile?.mobile,
       profile_pic_url: visitorprofile?.profile_pic_url,
     }));
-    setUpdateCom(false)
+    setUpdateCom(false);
     setIsModalOpen(true);
   };
   const handleOk = () => {
@@ -589,15 +592,12 @@ const Profile = ({
     return false;
   };
 
-  ;
-
-
   const removeProfilePic = () => {
     setUpdateProfileData((prev) => ({
       ...prev,
-      profile_pic_url: '',
+      profile_pic_url: "",
     }));
-  }
+  };
 
   const handleFileChange = () => {
     setLoading(true);
@@ -618,7 +618,7 @@ const Profile = ({
             setLoading(false);
           })
           .catch((error) => {
-            console.log("asdasd")
+            console.log("asdasd");
             console.log("error", error);
             setLoading(false);
           });
@@ -634,16 +634,11 @@ const Profile = ({
     // getAllCrud("visitor_points_history", "visitor_points_history");
     getAllCrud("visitor_profile_levels", "visitor_profile_levels");
     getAllCrud("visitor_activities", "visitor_activities");
-
-
   }, [updateCom]);
-
-
 
   const fetchCountry = () => {
     getAllCrud("countries", "countries");
   };
-
 
   const countyList = countries?.map((item) => {
     return { value: item.phonecode, label: `+${item.phonecode}` };
@@ -677,7 +672,8 @@ const Profile = ({
     };
 
     let visitorname = visitorprofile?.name;
-    let firstname = ""; let lastname = "";
+    let firstname = "";
+    let lastname = "";
 
     if (visitorname) {
       visitorname = visitorname.split(" ");
@@ -740,7 +736,9 @@ const Profile = ({
             <div>
               <h6>Contact Number</h6>
               <h5>
-                {(visitorprofile?.mobile && visitorprofile?.country_code) ? `+${visitorprofile?.country_code} ` : ""}
+                {visitorprofile?.mobile && visitorprofile?.country_code
+                  ? `+${visitorprofile?.country_code} `
+                  : ""}
                 {visitorprofile?.mobile || "-"}
                 {!visitorprofile?.mobile && (
                   <div onClick={() => setIsModalOpen(true)} className="add">
@@ -749,7 +747,6 @@ const Profile = ({
                 )}
               </h5>
             </div>
-
           </div>
         </div>
         <hr />
@@ -773,7 +770,7 @@ const Profile = ({
           </div>
         </div>
         <hr />
-        <div className="delete-container">
+        <div className="delete-container mb-2">
           <div>{/* Delete Account */}</div>
           <div onClick={showSignOutModal}>Sign Out</div>
         </div>
@@ -817,98 +814,30 @@ const Profile = ({
     };
     return (
       <div className="community-tab-container questions-tab-container">
-        <div className="search-container">
-          {/* <Input
-            placeholder="Search a question..."
-            prefix={<SearchOutlined style={{ color: "#0074D9", padding: "0 6px" }} />}
-            style={{
-                width: "67%",
-                height: "50px",
-                padding: "10px",
-                border: "1px solid #D9DFE9",
-                borderRadius: "5px",
-                background: "#ffffff",
-                boxSizing: "border-box",
-            }}
-          className="SearchInput"
-          onChange={(value) => handleSearch(value)}
-          allowClear={true}
-              /> */}
-          <SearchInput
-            style={{
-              width: "195%",
-              height: "50px",
-              padding: "10px",
-              border: "1px solid #D9DFE9",
-              borderRadius: "5px",
-              background: "#ffffff",
-              boxSizing: "border-box",
-            }}
-            placeholder="Search a Activity...."
-            className="SearchInput"
-            onChange={(value) => handleSearch(value)}
-            prefix={<SearchOutlined style={{ color: "#0074D9", padding: "0 6px" }} />}
-            allowClear={true}
-            value={searchQuery}
-          />
-
-          <div className="sorting">
-            <label className="sortby" htmlFor="sortDropdown">Sort By: </label>
-            <select
-              id="sortDropdown"
-              style={{ border: "none", background: "transparent" }}
-              value={sortBy}
-              onChange={handleSort}
-            >
-              {sortOptions.map(({ value, label }) => (
-                <option
-                  className="sortby"
-                  style={{ color: "#001622" }}
-                  value={value}
-                >
-                  {label}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <div className="cards-container" style={{
-          marginTop: '1rem'
-        }}>
-
+        <div
+          className="cards-container"
+          style={{
+            marginTop: "1rem",
+          }}
+        >
           {/* today */}
-          <div className="mt-2" >
+          {/* <div className="mt-2" >
             <h5 >Today</h5>
           </div>
-          <div style={{borderBottom: "1px solid #0000005e",marginBottom:"20px",paddingLeft: "955px"}}></div>
-          {visitorActivity?.map(data => (
-
+          <div style={{ borderBottom: "1px solid #0000005e", marginBottom: "20px", paddingLeft: "955px" }}></div>
+          </div>  */}
+          {/* <div style={{borderBottom: "1px solid #0000005e",marginBottom:"20px",paddingLeft: "955px"}}></div> */}
+          {visitorActivity?.map((data) => (
             <Card
               bordered={true}
               style={{
                 width: "100%",
                 height: "fit-content",
-                background:"rgb(176 184 191 / 8%)"
+                background: "rgb(176 184 191 / 8%)",
               }}
             >
               <div className="cards-header">
                 <div>
-                  <div>
-                    <div className="img">
-                      <Image
-                        style={{ borderRadius: "5px" }}
-                        width={48}
-                        height={48}
-                        preview="false"
-                        src={
-                          data?.visitor?.profile_pic_url ||
-                          "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
-                        }
-                        alt="profile"
-                      />
-                    </div>
-                    {/* <p className="profile-badge">{data?.visitor?.visitor_level}</p> */}
-                  </div>
                   <div className="profile">
                     <h5> {data?.communityPost.title}</h5>
                     {/* <p>
@@ -917,85 +846,96 @@ const Profile = ({
                 </p> */}
                   </div>
                 </div>
-
-                <div className="follow">
-                  {/* <p className="button">Follow</p> */}
-                  <div className="img">
-                    <Image
-                      loader={myImageLoader}
-                      style={{ borderRadius: "2px", cursor: "pointer" }}
-                      width={36}
-                      height={36}
-                      preview="false"
-                      src={three_dot_icon}
-                      alt="profile"
-                    />
-                  </div>
-                </div>
               </div>
-              <div className="mt-2">
-              {data?.activity_type === 1 && (
-                <p
-                  style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-                >
-                  You created a question {data?.communityPost.title}
-                </p>
-              )}
-              {data?.activity_type === 2 && (
-                <p
-                  style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-                >
-                  You answered the question {data?.communityPost.title}
-                </p>
-              )}
+              <div className="mt-2 ml-2">
+                {data?.activity_type === 1 && (
+                  <p
+                    style={{
+                      fontWeight: "400",
+                      fontSize: "14px",
+                      color: "#54616C",
+                    }}
+                  >
+                    You created a question {data?.communityPost.title}
+                  </p>
+                )}
+                {data?.activity_type === 2 && (
+                  <p
+                    style={{
+                      fontWeight: "400",
+                      fontSize: "14px",
+                      color: "#54616C",
+                    }}
+                  >
+                    You answered the question {data?.communityPost.title}
+                  </p>
+                )}
 
-              {data?.activity_type === 3 && (
-                <p
-                  style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-                >
-                  You posted a comment on the answer to the question {data?.communityPost.title}
-                </p>
-              )}
+                {data?.activity_type === 3 && (
+                  <p
+                    style={{
+                      fontWeight: "400",
+                      fontSize: "14px",
+                      color: "#54616C",
+                    }}
+                  >
+                    You posted a comment on the answer to the question{" "}
+                    {data?.communityPost.title}
+                  </p>
+                )}
 
-              {data?.activity_type === 4 && (
-                <p
-                  style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-                >
-                  You upvoted or downvoted the answer to the question {data?.communityPost.title}
-                </p>
-              )}
+                {data?.activity_type === 4 && (
+                  <p
+                    style={{
+                      fontWeight: "400",
+                      fontSize: "14px",
+                      color: "#54616C",
+                    }}
+                  >
+                    You upvoted or downvoted the answer to the question{" "}
+                    {data?.communityPost.title}
+                  </p>
+                )}
 
-              {data?.activity_type === 5 && (
-                <p
-                  style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-                >
-                  You upvoted or downvoted the answer to the question {data?.communityPost.title}
-                </p>
-              )}
+                {data?.activity_type === 5 && (
+                  <p
+                    style={{
+                      fontWeight: "400",
+                      fontSize: "14px",
+                      color: "#54616C",
+                    }}
+                  >
+                    You upvoted or downvoted the answer to the question{" "}
+                    {data?.communityPost.title}
+                  </p>
+                )}
 
-              {data?.activity_type === 6 && (
+                {data?.activity_type === 6 && (
+                  <p
+                    style={{
+                      fontWeight: "400",
+                      fontSize: "14px",
+                      color: "#54616C",
+                    }}
+                  >
+                    You viewed the question {data?.communityPost.title}
+                  </p>
+                )}
+              </div>
+              <div>
                 <p
-                  style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+                  style={{
+                    fontWeight: "400",
+                    fontSize: "12px",
+                    color: "#B0B8BF",
+                  }}
                 >
-                  You viewed the question {data?.communityPost.title}
+                  {calculateTimeAgo(data?.created_at)}
                 </p>
-              )}
-            </div>
-            <div>
-              <p
-                style={{
-                  fontWeight: "400",
-                  fontSize: "12px",
-                  color: "#B0B8BF",
-                }}
-              >
-                {calculateTimeAgo(data?.created_at)}
-              </p>
               </div>
             </Card>
-          ))
-          }
-          <div className="mt-5" style={{ width: "100%" }}>
+          ))}
+          <div className="mt-5 mb-5" style={{ width: "100%" }}>
             {visitorActivity?.length > 0 && (
               <CustomPagination
                 pageCount={pageCount}
@@ -1006,7 +946,6 @@ const Profile = ({
           </div>
         </div>
       </div>
-
     );
   };
 
@@ -1034,22 +973,6 @@ const Profile = ({
     return (
       <div className="community-tab-container questions-tab-container">
         <div className="search-container">
-          {/* <Input
-              placeholder="Search a question..."
-              prefix={<SearchOutlined style={{ color: "#0074D9", padding: "0 6px" }} />}
-              style={{
-                  width: "67%",
-                  height: "50px",
-                  padding: "10px",
-                  border: "1px solid #D9DFE9",
-                  borderRadius: "5px",
-                  background: "#ffffff",
-                  boxSizing: "border-box",
-              }}
-            className="SearchInput"
-            onChange={(value) => handleSearch(value)}
-            allowClear={true}
-                /> */}
           <SearchInput
             style={{
               width: "95%",
@@ -1062,14 +985,19 @@ const Profile = ({
             }}
             placeholder="Search a question...."
             className="SearchInput"
+            parentProps={{ style: { width: "76%" } }}
             onChange={(value) => handleSearch(value)}
-            prefix={<SearchOutlined style={{ color: "#0074D9", padding: "0 6px" }} />}
+            prefix={
+              <SearchOutlined style={{ color: "#0074D9", padding: "0 6px" }} />
+            }
             allowClear={true}
             value={searchQuery}
           />
 
           <div className="sorting">
-            <label className="sortby" htmlFor="sortDropdown">Sort By: </label>
+            <label className="sortby" htmlFor="sortDropdown">
+              Sort By:{" "}
+            </label>
             <select
               id="sortDropdown"
               style={{ border: "none", background: "transparent" }}
@@ -1088,11 +1016,13 @@ const Profile = ({
             </select>
           </div>
         </div>
-        <div className="cards-container" style={{
-          marginTop: '1rem'
-        }}>
+        <div
+          className="cards-container"
+          style={{
+            marginTop: "1rem",
+          }}
+        >
           {visitorquerieshistory?.map((data) => (
-
             <Card
               bordered={true}
               style={{
@@ -1116,7 +1046,9 @@ const Profile = ({
                         alt="profile"
                       />
                     </div>
-                    <p className="profile-badge">{data?.visitor?.visitor_level}</p>
+                    <p className="profile-badge">
+                      {data?.visitor?.visitor_level}
+                    </p>
                   </div>
                   <div className="profile">
                     <h5>{data?.visitor?.name}</h5>
@@ -1199,11 +1131,10 @@ const Profile = ({
                 {/* </div> */}
               </div>
             </Card>
-          ))
-          }
+          ))}
           {/* Render pagination controls */}
           {/* <Pagination defaultCurrent={1} total={100}  onChange={onChange}/> */}
-          <div className="mt-5" style={{ width: "100%" }}>
+          <div className="mt-5 mb-5" style={{ width: "100%" }}>
             {visitorquerieshistory?.length > 0 && (
               <CustomPagination
                 pageCount={pageCount}
@@ -1234,8 +1165,9 @@ const Profile = ({
       });
 
       topMarks[100] = {
-        label: `${visitor_profile_levels?.[0]?.leavels[levelCount - 1].level
-          } \n ${visitor_profile_levels?.[0]?.leavels[levelCount - 1].title}`,
+        label: `${
+          visitor_profile_levels?.[0]?.leavels[levelCount - 1].level
+        } \n ${visitor_profile_levels?.[0]?.leavels[levelCount - 1].title}`,
         style: { whiteSpace: "pre" },
       };
 
@@ -1342,7 +1274,11 @@ const Profile = ({
     <Container>
       <div className="profile-container row">
         <div className=" col-md-9">
-          <Tabs className="header-tabs" defaultActiveKey="1" onChange={onChange}>
+          <Tabs
+            className="header-tabs"
+            defaultActiveKey="1"
+            onChange={onChange}
+          >
             {items.map((tab) => (
               <Tabs.TabPane tab={tab.label} key={tab.key}>
                 {tab.children}
@@ -1371,9 +1307,16 @@ const Profile = ({
                 }
                 alt="profile"
               />
-              <p className="profile-badge">{visitorcommunityprofile?.data[0]?.current_level}</p>
+              <p className="profile-badge">
+                {visitorcommunityprofile?.data[0]?.current_level}
+              </p>
 
-              <div className="level">Level {visitorcommunityprofile?.data[0]?.current_level} {(visitorcommunityprofile?.data[0]?.current_badge) ? `: ${visitorcommunityprofile?.data[0]?.current_badge}` : ""}</div>
+              <div className="level">
+                Level {visitorcommunityprofile?.data[0]?.current_level}{" "}
+                {visitorcommunityprofile?.data[0]?.current_badge
+                  ? `: ${visitorcommunityprofile?.data[0]?.current_badge}`
+                  : ""}
+              </div>
               <div>
                 <span>{visitorcommunityprofile?.data[0]?.level_up_points}</span>{" "}
                 {visitorcommunityprofile?.data[0]?.level_up_text}
@@ -1381,7 +1324,7 @@ const Profile = ({
             </div>
             <hr />
             <div className="following-section">
-              <div style={{ width: '100%' }}>
+              <div style={{ width: "100%" }}>
                 <p className="head">Contributions</p>
                 <p className="count">
                   {visitorcommunityprofile?.data[0]?.contributions}
@@ -1452,10 +1395,7 @@ const Profile = ({
                     style={{ borderRadius: "6px" }}
                     loader={myImageLoader}
                     className="mdg"
-                    src={
-                      updateProfileData?.profile_pic_url ||
-                      profile_img
-                    }
+                    src={updateProfileData?.profile_pic_url || profile_img}
                     alt=""
                     placeholder="Logo"
                     width={64}
@@ -1465,7 +1405,9 @@ const Profile = ({
                 <div className="profile-button">
                   <h6>Profile Picture</h6>
                   <div>
-                    <div className="remove" onClick={() => removeProfilePic()}>Remove</div>
+                    <div className="remove" onClick={() => removeProfilePic()}>
+                      Remove
+                    </div>
                     {/* <div className="upload">Upload</div> */}
 
                     <Upload
@@ -1562,7 +1504,6 @@ const mapStateToProps = (state) => {
     countries,
     visitor_profile_levels,
     visitor_activities,
-
   };
 };
 

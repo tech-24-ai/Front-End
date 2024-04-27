@@ -92,7 +92,7 @@ function MarketResearch({
                 <CategoryCard
                   heading={data.name}
                   description={`${data?.__meta__?.total_research}+ research`}
-                  // image={data.image}
+                  image={data.bg_image}
                 />
               </div>
             ))}

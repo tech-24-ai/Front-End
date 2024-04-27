@@ -1,3 +1,7 @@
+.bottomMarks{
+  background-color: #0074d9;
+  color: #0074d9;
+}
 .profile-user {
   display: flex;
   flex-direction: row;
@@ -1380,8 +1384,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      right: 102px;
-      top: 77px;
+      // right: 102px;
+      top: 85px;
       border: 1.5px solid #ffffff;
       background-color: #0074d9;
       font-weight: 500;
@@ -1797,7 +1801,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      left: 53px;
+       left: 53px;
       top: 54px;
       border: 1.5px solid #ffffff;
       background-color: #0074d9;
