@@ -5,13 +5,22 @@ import { withRouter, useRouter } from "next/router";
 import { Container, Button, Pagination } from "reactstrap";
 import ResearchCard from "../../components/marketResearch/ResearchCard";
 import moment from "moment";
-import { ShareAltOutlined } from "@ant-design/icons";
+import { ShareAltOutlined, SaveOutlined } from "@ant-design/icons";
 import CustomBreadcrumb from "../../components/breadcrumbs/Breadcrumb";
 import { MobileView, BrowserView } from "react-device-detect";
 import BodyBackgroundColor from "../../components/style/bodyBackgroundColor";
+import { BookmarkIcon } from "../../components/icons";
 
-function Detail({ getAllCrud, research_detail, router, downloadDocument }) {
+function Detail({
+  getAllCrud,
+  research_detail,
+  router,
+  downloadDocument,
+  createCrud,
+  authentication,
+}) {
   const slug = router.query.slug;
+  const { loggedIn } = authentication;
 
   const [html, setHtml] = useState("");
   const [css, setCss] = useState("");
@@ -43,6 +52,10 @@ function Detail({ getAllCrud, research_detail, router, downloadDocument }) {
     downloadDocument(id, `${name}.${extension}`);
   };
 
+  const saveToLibrary = (id) => {
+    createCrud("save_to_library", "market_research/save", { id });
+  };
+
   return (
     <section className="latest-research research-detail-section">
       <Container className="research-section">
@@ -64,6 +77,17 @@ function Detail({ getAllCrud, research_detail, router, downloadDocument }) {
             <div className="date share-btn">
               <ShareAltOutlined /> Share
             </div>
+            {loggedIn && research_detail?.is_saved_document == null && (
+              <Fragment>
+                <div className="custom-divider"></div>
+                <div
+                  className="date save-btn"
+                  onClick={() => saveToLibrary(research_detail?.id)}
+                >
+                  <BookmarkIcon height={13} width={10} /> Save
+                </div>
+              </Fragment>
+            )}
           </div>
         </div>
         <BrowserView>
@@ -174,15 +198,16 @@ function Detail({ getAllCrud, research_detail, router, downloadDocument }) {
 }
 
 const mapStateToProps = (state) => {
-  const { research_detail } = state;
+  const { research_detail, authentication } = state;
   return {
     research_detail,
+    authentication,
   };
 };
 
 const actionCreators = {
   getAllCrud: crudActions._getAll,
-  downloadInvoice: crudActions._downloadWithPost,
+  createCrud: crudActions._create,
   downloadDocument: crudActions._download,
 };
 
