@@ -773,7 +773,7 @@ const Profile = ({
           </div>
         </div>
         <hr />
-        <div className="delete-container">
+        <div className="delete-container mb-2">
           <div>{/* Delete Account */}</div>
           <div onClick={showSignOutModal}>Sign Out</div>
         </div>
@@ -817,70 +817,16 @@ const Profile = ({
     };
     return (
       <div className="community-tab-container questions-tab-container">
-        <div className="search-container">
-          {/* <Input
-            placeholder="Search a question..."
-            prefix={<SearchOutlined style={{ color: "#0074D9", padding: "0 6px" }} />}
-            style={{
-                width: "67%",
-                height: "50px",
-                padding: "10px",
-                border: "1px solid #D9DFE9",
-                borderRadius: "5px",
-                background: "#ffffff",
-                boxSizing: "border-box",
-            }}
-          className="SearchInput"
-          onChange={(value) => handleSearch(value)}
-          allowClear={true}
-              /> */}
-          <SearchInput
-            style={{
-              width: "195%",
-              height: "50px",
-              padding: "10px",
-              border: "1px solid #D9DFE9",
-              borderRadius: "5px",
-              background: "#ffffff",
-              boxSizing: "border-box",
-            }}
-            placeholder="Search a Activity...."
-            className="SearchInput"
-            onChange={(value) => handleSearch(value)}
-            prefix={<SearchOutlined style={{ color: "#0074D9", padding: "0 6px" }} />}
-            allowClear={true}
-            value={searchQuery}
-          />
-
-          <div className="sorting">
-            <label className="sortby" htmlFor="sortDropdown">Sort By: </label>
-            <select
-              id="sortDropdown"
-              style={{ border: "none", background: "transparent" }}
-              value={sortBy}
-              onChange={handleSort}
-            >
-              {sortOptions.map(({ value, label }) => (
-                <option
-                  className="sortby"
-                  style={{ color: "#001622" }}
-                  value={value}
-                >
-                  {label}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
+       
         <div className="cards-container" style={{
           marginTop: '1rem'
         }}>
 
           {/* today */}
-          <div className="mt-2" >
+          {/* <div className="mt-2" >
             <h5 >Today</h5>
-          </div>
-          <div style={{borderBottom: "1px solid #0000005e",marginBottom:"20px",paddingLeft: "955px"}}></div>
+          </div> */}
+          {/* <div style={{borderBottom: "1px solid #0000005e",marginBottom:"20px",paddingLeft: "955px"}}></div> */}
           {visitorActivity?.map(data => (
 
             <Card
@@ -893,22 +839,6 @@ const Profile = ({
             >
               <div className="cards-header">
                 <div>
-                  <div>
-                    <div className="img">
-                      <Image
-                        style={{ borderRadius: "5px" }}
-                        width={48}
-                        height={48}
-                        preview="false"
-                        src={
-                          data?.visitor?.profile_pic_url ||
-                          "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
-                        }
-                        alt="profile"
-                      />
-                    </div>
-                    {/* <p className="profile-badge">{data?.visitor?.visitor_level}</p> */}
-                  </div>
                   <div className="profile">
                     <h5> {data?.communityPost.title}</h5>
                     {/* <p>
@@ -917,23 +847,8 @@ const Profile = ({
                 </p> */}
                   </div>
                 </div>
-
-                <div className="follow">
-                  {/* <p className="button">Follow</p> */}
-                  <div className="img">
-                    <Image
-                      loader={myImageLoader}
-                      style={{ borderRadius: "2px", cursor: "pointer" }}
-                      width={36}
-                      height={36}
-                      preview="false"
-                      src={three_dot_icon}
-                      alt="profile"
-                    />
-                  </div>
-                </div>
               </div>
-              <div className="mt-2">
+              <div className="mt-2 ml-2">
               {data?.activity_type === 1 && (
                 <p
                   style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
@@ -981,7 +896,7 @@ const Profile = ({
                 </p>
               )}
             </div>
-            <div>
+            <div className="ml-2">
               <p
                 style={{
                   fontWeight: "400",
@@ -995,7 +910,7 @@ const Profile = ({
             </Card>
           ))
           }
-          <div className="mt-5" style={{ width: "100%" }}>
+          <div className="mt-5 mb-5" style={{ width: "100%" }}>
             {visitorActivity?.length > 0 && (
               <CustomPagination
                 pageCount={pageCount}
@@ -1203,7 +1118,7 @@ const Profile = ({
           }
           {/* Render pagination controls */}
           {/* <Pagination defaultCurrent={1} total={100}  onChange={onChange}/> */}
-          <div className="mt-5" style={{ width: "100%" }}>
+          <div className="mt-5 mb-5" style={{ width: "100%" }}>
             {visitorquerieshistory?.length > 0 && (
               <CustomPagination
                 pageCount={pageCount}
@@ -1251,6 +1166,7 @@ const Profile = ({
           style={{
             width: "100%",
             height: "fit-content",
+           
           }}
         >
           <p className="sliderTitle">
@@ -1274,6 +1190,7 @@ const Profile = ({
                 backgroundColor: "#0074D9",
                 height: "16.48px",
                 width: "16.48px",
+                
               }}
               trackStyle={{ backgroundColor: "#0074D9", height: "8px" }}
               railStyle={{ backgroundColor: "#EBEBF0", height: "8px" }}

@@ -896,9 +896,9 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
                   }}
                 >
                   <div>
-                    <div className="head">Members</div>
+                    <div className="head">Answer</div>
                     <div className="count">
-                      {communityData?.__meta__?.total_members}
+                      {communityData?.__meta__?.total_post_reply}
                     </div>
                   </div>
                   <div className="custom-border"></div>
