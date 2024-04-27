@@ -1,23 +1,22 @@
-.ant-pagination-item-active{
-  background: #000!important;
+.ant-pagination-item-active {
+  background: #000 !important;
   color: white;
-  border: #000!important;
+  border: #000 !important;
 }
 .blog-card {
   img {
     border-radius: 6px;
-    width: 350px;
-    height: 210px;
     transition: transform 0.5s ease;
   }
   .ant-image {
     overflow: hidden;
+    width: 100%;
     border-radius: 6px;
     -webkit-transform: scale(1);
-	transform: scale(1);
-	-webkit-transition: .3s ease-in-out;
-	transition: .3s ease-in-out;
-  transition: transform 0.5s ease;
+    transform: scale(1);
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
+    transition: transform 0.5s ease;
   }
   .category {
     border-radius: 4px;
@@ -68,15 +67,16 @@
   background-color: #ffffff;
   margin-top: -4px;
   display: flex;
-  .page-banner{
-    .banner-bg{
+  .page-banner {
+    .banner-bg {
       height: 386px;
     }
   }
   .blog-container {
     display: flex;
     justify-content: space-between;
-    margin: 100px 0px;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
     flex-direction: column;
     .tags {
       width: 100%;
@@ -85,13 +85,13 @@
 
     .category {
       border-radius: 4px;
-      border: 1px solid $backgroundColor;
-      color: $backgroundColor;
+      border: 1px solid $themeSecondary;
+      color: $themeSecondary;
       padding: 4px 6px;
       width: fit-content;
       margin: 1rem 0;
       &.bg {
-        background-color: rgba($backgroundColor, 0.2);
+        background-color: rgba($themeSecondary, 0.2);
       }
     }
 
@@ -125,7 +125,7 @@
       color: #00192f;
       // display: flex;
       gap: 1rem;
-  }
+    }
     .profile-icons:first-child {
       object-fit: contain;
       margin: 0px 10px 0px 0px;
@@ -138,14 +138,12 @@
       border: 0;
       // height: 547px;
     }
-    .blog-list{
+    .blog-list {
       display: flex;
     }
 
     .blog-card img {
       border-radius: 6px;
-      width: 350px;
-      height: 210px;
     }
 
     // .second-div p {
@@ -223,7 +221,6 @@
       flex-wrap: wrap;
       row-gap: 15px;
       column-gap: 10px;
-      margin-left: 12px;
       width: 100%;
       align-content: baseline;
 
@@ -268,7 +265,7 @@
       color: unset;
     }
   }
-   ul {
+  ul {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -477,28 +474,25 @@
 }
 
 @media (max-width: 575px) {
-  PageBanner
-  .main-content.blogs {
+  PageBanner .main-content.blogs {
     margin-left: 20px;
     min-height: 100vh;
     padding-bottom: 190px !important;
     margin-top: 60px;
   }
-  .blogTitle{
-    margin-top: 60px;
-  }
+
   .blogs-section {
-    .testSearchInput{
+    .testSearchInput {
       width: auto;
     }
-    .banner-bg{
+    .banner-bg {
       height: 220px !important;
     }
     .page-banner .banner-bg .banner-container {
       padding: 2rem 0;
-    
+
       .banner-image-container {
-         display: none;
+        display: none;
       }
     }
 
@@ -506,13 +500,12 @@
       margin: 2rem 0;
       display: flex;
       flex-direction: column;
-     
+
       .div-one {
         width: 100%;
       }
       .second-div {
         width: 100%;
-         margin-left: 5%;
         grid-template-columns: repeat(1, 1fr);
         .blog-card {
           width: 100%;
@@ -550,10 +543,9 @@
         img {
           width: 412px !important;
           height: 250px !important;
-          
         }
-        .latest-blog-list-img{
-          width: 100%  !important;
+        .latest-blog-list-img {
+          width: 100% !important;
         }
       }
     }

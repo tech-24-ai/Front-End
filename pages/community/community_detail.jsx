@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Container } from "reactstrap";
 import myImageLoader from "../../components/imageLoader";
-import three_dot_icon from "../../public/new_images/3dots.svg";
-import message_icon from "../../public/new_images/message_icon.svg";
-import like_button from "../../public/new_images/like_button.svg";
-import dislike_button from "../../public/new_images/dislike_button.svg";
+import { RightOutlined } from "@ant-design/icons";
 import { crudActions, alertActions } from "../../_actions";
 import { connect } from "react-redux";
 import moment from "moment";
@@ -628,10 +625,45 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
     },
   ];
 
+  const handleCommunity = () => {
+    Router.push("/community");
+  }
+
+
   return (
     <Container>
-      <div className="profile-container row">
-        <Tabs className="header-tabs col-md-9" defaultActiveKey="1" onChange={onChange}>
+      <div className="row">
+        <div className="col-md-12">
+          <h4 className="mt-2 mb-1">
+            <span
+              onClick={() => handleCommunity()}
+              style={{
+                color: "#B0B8BF",
+                fontFamily: "Inter",
+                fontSize: "14px",
+                cursor: "pointer",
+              }}
+            >
+              Community <RightOutlined style={{ verticalAlign: "0" }} />
+            </span>{" "}
+            <span
+              style={{
+                color: "#0074D9",
+                fontFamily: "Inter",
+                fontSize: "14px",
+              }}
+            >
+              {communityData?.name}
+            </span>
+          </h4>
+        </div>
+      </div>
+      <div className="profile-container row" style={{marginTop:'1.5rem'}}>
+        <Tabs
+          className="header-tabs col-md-9"
+          defaultActiveKey="1"
+          onChange={onChange}
+        >
           {items.map((tab) => (
             <Tabs.TabPane tab={tab.label} key={tab.key}>
               {tab.children}
@@ -646,22 +678,26 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
                 display: isMobile && "unset",
               }}
             >
-              {selectedIndex == "1" ? <div
-                onClick={showModal}
-                style={{
-                  width: isMobile ? "100%" : 380,
-                  padding: "12px 16px",
-                  borderRadius: "2px",
-                  fontWeight: "500",
-                  fontSize: "18px",
-                  color: "#FFFFFF",
-                  textAlign: "center",
-                  cursor: "pointer",
-                  backgroundColor: "#0074D9",
-                }}
-              >
-                Ask a Question
-              </div> : <></>}
+              {selectedIndex == "1" ? (
+                <div
+                  onClick={showModal}
+                  style={{
+                    width: isMobile ? "100%" : 380,
+                    padding: "12px 16px",
+                    borderRadius: "2px",
+                    fontWeight: "500",
+                    fontSize: "18px",
+                    color: "#FFFFFF",
+                    textAlign: "center",
+                    cursor: "pointer",
+                    backgroundColor: "#0074D9",
+                  }}
+                >
+                  Ask a Question
+                </div>
+              ) : (
+                <></>
+              )}
               <div>
                 <Modal
                   visible={isModalOpen}
@@ -711,7 +747,9 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
                         },
                       ]}
                       name="title"
-                      onChange={(e) => { setTitle(e.target.value) }}
+                      onChange={(e) => {
+                        setTitle(e.target.value);
+                      }}
                       label="Title"
                     >
                       <Input
@@ -761,7 +799,6 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
                       valuePropName="fileList"
                       getValueFromEvent={normFile}
                     >
-
                       <Upload
                         name="url"
                         action={`${process.env.NEXT_PUBLIC_API_BASE_URL}uploadmedia`}
@@ -858,7 +895,7 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
                 bordered={true}
                 style={{
                   width: isMobile ? "100%" : 380,
-                  height: "fit-content"
+                  height: "fit-content",
                 }}
               >
                 <div className="cards-header">

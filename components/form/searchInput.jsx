@@ -7,6 +7,7 @@ function SearchInput({
   prefix,
   allowClear = false,
   onChange,
+  parentProps,
   ...more
 }) {
   if (allowClear) {
@@ -26,9 +27,7 @@ function SearchInput({
   };
 
   return (
-    <div className="new-custom-search-input" style={{
-      width :'76%'
-    }}>
+    <div className="new-custom-search-input" {...parentProps}>
       <Input
         placeholder={placeholder}
         suffix={suffix}

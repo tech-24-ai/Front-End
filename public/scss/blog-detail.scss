@@ -1,16 +1,14 @@
 .card-review {
   img {
-     width: 2.5rem;
-     height: 2.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
   }
 }
-.like-review{
+.like-review {
   color: #075aee;
 }
 .blog-detail-section {
-  background-color: $bodyBackgroundColor;
-
-  .blog-breadcrumb{
+  .blog-breadcrumb {
     margin-top: 50px;
     margin-bottom: -58px;
   }
@@ -65,7 +63,7 @@
           color: $backgroundColor;
           padding: 4px 6px;
           width: fit-content;
-          
+
           margin: 1rem 0;
           &.bg {
             background-color: rgba($backgroundColor, 0.2);
@@ -152,7 +150,7 @@
   .blog-container {
     display: flex;
     justify-content: space-between;
-    margin: 100px 0px;
+    margin-top: 1rem;
     .admin-text {
       //   color: $backgroundColor;
       color: $backgroundColor;
@@ -172,7 +170,7 @@
       width: 100%;
     }
     .inner-text-container {
-      padding: 40px;
+      padding: 40px 0;
     }
     .blogs-card-body {
       font-family: "Inter";
@@ -181,29 +179,24 @@
       // opacity: 0.8;
       padding: 0px;
       color: #00192f;
-    
+
       font-weight: 500;
-    font-size: 1.25rem;
-    line-height: 1.5rem;
+      font-size: 1.25rem;
+      line-height: 1.5rem;
     }
     .card-heading {
       font-weight: 500;
-     line-height: 30px;
-     text-transform: uppercase;
-    text-align: center;
-     background-color: #caced1;
-    //  border-radius: 4px;
-    // border: 1px solid #075aee;
-     color: #075aee;
-     padding: 4px 6px;
-    //  width: -moz-fit-content;
-    //  width: fit-content;
-     margin: 1rem 0;
-     width: 203px;
-     margin-top: 2px;
-    //  margin-right: 40px;
-     border-radius: 4px;
-
+      line-height: 30px;
+      text-transform: uppercase;
+      text-align: center;
+      border: 1px solid $themeSecondary;
+      background-color: rgba($themeSecondary, 0.2);
+      color: $themeSecondary;
+      padding: 4px 6px;
+      margin: 1rem 0;
+      width: 203px;
+      margin-top: 2px;
+      border-radius: 4px;
     }
     .card-detail-body {
       font-weight: 400;
@@ -242,7 +235,6 @@
       flex-wrap: wrap;
       row-gap: 15px;
       column-gap: 10px;
-      margin-left: 30px;
       width: 100%;
     }
     .card {
@@ -302,6 +294,30 @@
       }
     }
   }
+
+  .social-section {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1em 2em;
+    width: 100%;
+    border-radius: 8px;
+    background-color: #f2f4f7;
+    font-size: 1.125em;
+    line-height: 1.75rem;
+    font-weight: 500;
+    font-family: "Inter", serif;
+    color: $themeSecondary;
+
+    .share-btn,
+    .save-btn {
+      display: flex;
+      align-items: center;
+      column-gap: 5px;
+      cursor: pointer;
+    }
+  }
   .social-link button {
     margin: 0px 10px;
   }
@@ -330,11 +346,11 @@
   .col {
     width: 100%;
   }
-  .rounded-circle{
-    width: 10%!important;
+  .rounded-circle {
+    width: 10% !important;
   }
-  .related-blog{
-    margin-top: 10%!important;
+  .related-blog {
+    margin-top: 10% !important;
     margin-bottom: 0px;
   }
   .blog-detail-section {
@@ -367,7 +383,7 @@
     }
 
     .blog-container {
-      margin: 2rem 0;
+      margin: 0;
       .div-one {
         display: none;
       }

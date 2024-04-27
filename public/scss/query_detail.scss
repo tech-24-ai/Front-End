@@ -349,7 +349,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-left: 1.2rem;
+  margin-left: 0rem;
   .result-sort {
     display: flex;
     flex-direction: row;
@@ -382,7 +382,7 @@
   }
 
   .ant-select-arrow {
-    color: $backgroundColor;
+    color: $viewMoreIcon;
   }
 }
 

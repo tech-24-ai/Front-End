@@ -654,6 +654,12 @@ input.ant-input.custom-input {
         height: 80px;
         min-width: 80px;
         width: 80px;
+
+        img {
+          width: 48px !important;
+          height: 45px !important;
+          position: relative !important;
+        }
       }
     }
     .card {
@@ -780,6 +786,12 @@ input.ant-input.custom-input {
     .left-section {
       // min-width: 56%;
       min-width: 85%;
+
+      .find-technology-searchbtn img {
+        width: 24px !important;
+        height: 24px !important;
+        position: relative !important;
+      }
 
       .input-content {
         margin-top: 1.5rem;
