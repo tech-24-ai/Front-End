@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Space, Tag } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import blogsProfile from "../../public/new_images/blog-profile.svg";
@@ -25,15 +25,16 @@ import Image from "next/image";
 import myImageLoader from "../../components/imageLoader";
 import { BrowserView } from "react-device-detect";
 import SearchInput from "../../components/form/searchInput";
-import { DateIcon, ProfileIcon } from "../../components/icons";
+import { BookmarkIcon, DateIcon, ProfileIcon } from "../../components/icons";
 import BodyBackgroundColor from "../../components/style/bodyBackgroundColor";
 import moment from "moment";
-import { LikeOutlined } from "@ant-design/icons"
-import { ShareAltOutlined } from "@ant-design/icons"
-import { SaveOutlined } from "@ant-design/icons"
-import { MessageOutlined } from "@ant-design/icons"
+import { LikeOutlined } from "@ant-design/icons";
+import { ShareAltOutlined } from "@ant-design/icons";
+import { SaveOutlined } from "@ant-design/icons";
+import { MessageOutlined } from "@ant-design/icons";
 
-import { Avatar, Button, Comment, Form, List } from 'antd';
+import { Avatar, Button, Comment, Form, List } from "antd";
+import CustomBreadcrumb from "../../components/breadcrumbs/Breadcrumb";
 const { TextArea } = Input;
 
 class Blog extends Component {
@@ -46,7 +47,7 @@ class Blog extends Component {
       blogs: null,
       comments: [],
       submitting: false,
-      value: '',
+      value: "",
     };
   }
 
@@ -57,14 +58,14 @@ class Blog extends Component {
     setTimeout(() => {
       this.setState({
         submitting: false,
-        value: '',
+        value: "",
         comments: [
           ...comments,
           {
-            author: 'Han Solo',
-            avatar: 'https://joeschmoe.io/api/v1/random',
+            author: "Han Solo",
+            avatar: "https://joeschmoe.io/api/v1/random",
             content: <p>{value}</p>,
-            datetime: moment('2016-11-22').fromNow(),
+            datetime: moment("2016-11-22").fromNow(),
           },
         ],
       });
@@ -81,16 +82,17 @@ class Blog extends Component {
     this.props.getCrud("blog", `blogs/${slug}`);
     this.props.getCrud("blogs", "blogs");
 
-
-
-
     // fetch category
     this.props.getCrud("categories", "categories");
   }
 
+  saveToLibrary = (id) => {
+    this.props.createCrud("save_to_library", "market_research/save", { id });
+  };
+
   render() {
     const { comments, submitting, value } = this.state;
-    const { blog, categories , blogs} = this.props;
+    const { blog, categories, blogs, authentication } = this.props;
     // const limitedData = blogs.slice(0, 4);
     const limitedData = blogs ? blogs.slice(0, 4) : [];
     const shareTitle = blog && blog.name;
@@ -100,7 +102,6 @@ class Blog extends Component {
       ""
     );
 
-    
     const shareUrl = `${baseUrl}/blogs/${slug}`;
     const options = {
       day: "numeric",
@@ -117,61 +118,49 @@ class Blog extends Component {
       editorData = editorData.html;
     }
 
-    let processedEditorData = '';
+    let processedEditorData = "";
     if (editorData) {
-      processedEditorData = editorData.replace(/\\\\n/g, '');
+      processedEditorData = editorData.replace(/\\\\n/g, "");
     }
 
     return (
       <section className="blog-detail-section">
         {blog && (
           <>
-           <div className="page-banner">
-              
-              <Container >
-                {blog && (
-                  <div className="blog-breadcrumb  ml-2">
-                    <div style={{ display: "inline-block"}}>
-                      <h5>
-                        <Link href="/blogs">
-                          <a style={{color:"grey"}}>Blogs</a>
-                        </Link>
-                      </h5>
-                    </div>
-                    <div style={{ display: "inline-block" }}>
-                      <h5>
-                        <Link href={`blogs?cat=${blog.blog_topic.name}`}>
-                          <a>
-                            <span>{`> ${blog.blog_topic.name}`}</span>
-                          </a>
-                        </Link>
-                      </h5>
-                    </div>
-                  </div>
-                )}
-              </Container>
-            </div>
+            <Container style={{ marginTop: "3rem" }}>
+              {blog && (
+                <CustomBreadcrumb
+                  data={[
+                    { label: "Blogs", url: "/blogs" },
+                    {
+                      label: blog.blog_topic.name,
+                      url: "",
+                    },
+                  ]}
+                />
+              )}
+            </Container>
 
             <Container className="blog-container">
-             <div className="row">
-              <div className="col-md-8">
-              <div className="second-div">
-                <Card hoverable className="blog-card">
-                  <Image  s
-                    loader={myImageLoader}
-                    src={blog.image}
-                    alt=""
-                    
-                    width={900}
-                    height={548}
-                    style={{
-                      objectFit: "cover",
-                      borderTopRightRadius: "10px",
-                      borderTopLeftRadius: "10px",
-                    }}
-                  />
-                  <div className="inner-text-container">
-                    {/* <div style={{ display: "flex" }}>
+              <div className="row">
+                <div className="col-md-8">
+                  <div className="second-div">
+                    <div className="blog-card">
+                      <Image
+                        s
+                        loader={myImageLoader}
+                        src={blog.image}
+                        alt=""
+                        width={900}
+                        height={548}
+                        style={{
+                          objectFit: "cover",
+                          borderTopRightRadius: "10px",
+                          borderTopLeftRadius: "10px",
+                        }}
+                      />
+                      <div className="inner-text-container">
+                        {/* <div style={{ display: "flex" }}>
                       <ProfileIcon />
                       <p className="admin-text">Admin</p>
 
@@ -184,30 +173,42 @@ class Blog extends Component {
                           ).toLocaleDateString("en-US", options)}
                       </p>
                     </div> */}
-                    <div >
-                      <h3>{blog.meta_title}</h3>
-                    </div>
-                    <div>
-                      {/* <p>{editorData}</p> */}
-                      {/* <div
+                        <div>
+                          <h3>{blog.meta_title}</h3>
+                        </div>
+                        <div>
+                          {/* <p>{editorData}</p> */}
+                          {/* <div
                         dangerouslySetInnerHTML={{
                           __html: editorData ,
                         }}
                       /> */}
-                      <div dangerouslySetInnerHTML={{ __html: processedEditorData }} />
-                    </div>
-                    <div className="row">
-                      <div className="col-md-4">
-                        {/* <p className="card-heading"><LikeOutlined /><span className="ml-3">1.1k</span></p> */}
-                      </div>
-                      <div className="col-md-4">
-                        <p className="card-heading"><ShareAltOutlined /><span className="ml-3">Share</span></p>
-                      </div>
-                      <div className="col-md-4">
-                        {/* <p className="card-heading"><SaveOutlined /><span className="ml-3">Save</span></p> */}
-                      </div>
-                    </div>
-                    {/* <div className="row">
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: processedEditorData,
+                            }}
+                          />
+                        </div>
+                        <div className="social-section">
+                          {/* <div className="like">1.1K</div>
+                          <div className="custom-divider"></div> */}
+                          <div className="share-btn">
+                            <ShareAltOutlined /> Share
+                          </div>
+                          {authentication.loggedIn &&
+                            blog?.is_saved_blog == null && (
+                              <Fragment>
+                                <div className="custom-divider"></div>
+                                <div
+                                  className="save-btn"
+                                  onClick={() => this.saveToLibrary(blog?.id)}
+                                >
+                                  <BookmarkIcon height={15} width={12} /> Save
+                                </div>
+                              </Fragment>
+                            )}
+                        </div>
+                        {/* <div className="row">
                       <div className="col-md-12" style={{border:"1px solid #caced1", background:"#caced1"}}>
                     <Comment
                     
@@ -230,7 +231,7 @@ class Blog extends Component {
                   <button className="btn btn-primary btn-sm mb-2 mr-2" style={{float:"right",width:"80px"}}>Post</button>
                    </div>
                     </div> */}
-                    {/* <div class="py-4">
+                        {/* <div class="py-4">
                         <div class="row row-cols-1 g-4 mb-4">
 
                           <div class="col">
@@ -320,7 +321,7 @@ class Blog extends Component {
 
                         </div>
                     </div> */}
-                    {/* <div className="social-link">
+                        {/* <div className="social-link">
                       <LinkedinShareButton url={shareUrl} title={shareTitle}>
                         <Image
                           loader={myImageLoader}
@@ -357,9 +358,9 @@ class Blog extends Component {
                         />
                       </TwitterShareButton>
                     </div> */}
-                  </div>
-                </Card>
-                {/* <div className="prev-next-footer">
+                      </div>
+                    </div>
+                    {/* <div className="prev-next-footer">
                   <div style={{ textAlign: "left", width: "35%" }}>
                     <p className="admin-text">Previous:</p>
                     <div className="arrow-container">
@@ -395,64 +396,76 @@ class Blog extends Component {
                     </div>
                   </div>
                 </div> */}
-              </div>
-              </div>
+                  </div>
+                </div>
 
-              <div className="col-md-4">
-              <h4 className="related-blog ml-3 mt-4" style={{paddingLeft: "18px", paddingBottom: "20px" }}>Related Blogs</h4>
+                <div className="col-md-4">
+                  <h4
+                    className="related-blog mt-4"
+                    style={{ paddingBottom: "1rem" }}
+                  >
+                    Related Blogs
+                  </h4>
 
-              <div className="row">
-            <div className="second-div">
-            {/* {limitedData.map((item, index) => ( */}
-            {limitedData && limitedData.map(blogs => (
-                  // <Link href={`blogs/${item.slug}`}>
-                  <div className="col-md-12 blog-list">
-                    <div className="blog-card" style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between' }}>
-                      <div>
-                        <Image tyle={{
-                            transition: 'transform 0.5s ease',
-                            }}
-                          // width={350}
-                          // height={210}
-                          width={380}
-                          height={283}
-                          src={blogs.image}
-                          preview={false}
-                          alt=""
-                          placeholder="blog banner"
-                          onMouseOver={(e) => {
-                            e.target.style.transform = 'scale(1.1)'; // Zoom in on hover
-                          }}
-                          onMouseOut={(e) => {
-                            e.target.style.transform = 'scale(1)'; // Zoom out on mouse out
-                          }}
-                        />
-                       <p className="card-heading">{blogs.blog_topic.name}</p>
+                  <div className="row">
+                    <div className="second-div">
+                      {/* {limitedData.map((item, index) => ( */}
+                      {limitedData &&
+                        limitedData.map((blogs) => (
+                          // <Link href={`blogs/${item.slug}`}>
+                          <div className="col-md-12 blog-list">
+                            <div
+                              className="blog-card"
+                              style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                height: "100%",
+                                justifyContent: "space-between",
+                              }}
+                            >
+                              <div>
+                                <Image
+                                  tyle={{
+                                    transition: "transform 0.5s ease",
+                                  }}
+                                  // width={350}
+                                  // height={210}
+                                  width={380}
+                                  height={283}
+                                  src={blogs.image}
+                                  preview={false}
+                                  alt=""
+                                  placeholder="blog banner"
+                                  onMouseOver={(e) => {
+                                    e.target.style.transform = "scale(1.1)"; // Zoom in on hover
+                                  }}
+                                  onMouseOut={(e) => {
+                                    e.target.style.transform = "scale(1)"; // Zoom out on mouse out
+                                  }}
+                                />
+                                <p className="card-heading">
+                                  {blogs.blog_topic.name}
+                                </p>
 
-                        <p className="blogs-card-body">{blogs.name}</p>
-                        <p className="blog-detail" >{blogs.details} </p>
-                      </div>
-                      <div className="date-section">
-                        <div className="date">
-                        {moment(blogs.created_at).format("LL")}
+                                <p className="blogs-card-body">{blogs.name}</p>
+                                <p className="blog-detail">{blogs.details} </p>
+                              </div>
+                              <div className="date-section">
+                                <div className="date">
+                                  {moment(blogs.created_at).format("LL")}
+                                </div>
+                                <div className="custom-divider"></div>
+                                {/* {<div className="time">10 min read</div>} */}
+                              </div>
+                            </div>
+                          </div>
 
-                        </div>
-                        <div className="custom-divider"></div>
-                        {/* {<div className="time">10 min read</div>} */}
-                      </div>
+                          // </Link>
+                        ))}
                     </div>
                   </div>
-                 
-                  // </Link>
-                )) 
-                }
-
-            </div>
-            </div>
+                </div>
               </div>
-
-             </div>
-             
             </Container>
           </>
         )}
@@ -465,7 +478,7 @@ class Blog extends Component {
 const CommentList = ({ comments }) => (
   <List
     dataSource={comments}
-    header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
+    header={`${comments.length} ${comments.length > 1 ? "replies" : "reply"}`}
     itemLayout="horizontal"
     renderItem={(props) => <Comment {...props} />}
   />
@@ -477,7 +490,12 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
       <TextArea rows={4} onChange={onChange} value={value} />
     </Form.Item>
     <Form.Item>
-      <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
+      <Button
+        htmlType="submit"
+        loading={submitting}
+        onClick={onSubmit}
+        type="primary"
+      >
         Add Comment
       </Button>
     </Form.Item>
@@ -485,16 +503,18 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
 );
 
 const mapStateToProps = (state) => {
-  const { blog, categories, blogs} = state;
+  const { blog, categories, blogs, authentication } = state;
   return {
     blog: blog ? blog[0] : null,
     categories,
     blogs,
+    authentication,
   };
 };
 
 const actionCreators = {
   getCrud: crudActions._getAll,
+  createCrud: crudActions._create,
 };
 
 export default withRouter(connect(mapStateToProps, actionCreators)(Blog));
