@@ -62,7 +62,10 @@ class Home extends React.PureComponent {
   };
   fetchTrendingQuestions = () => {
     crudService
-      ._getAll("tranding_question")
+      ._getAll("tranding_question", {
+        orderBy: "views_counter",
+        orderDirection: "desc",
+      })
       .then((result) => {
         this.setState({ trendingQuestions: result.data });
       })
@@ -73,7 +76,7 @@ class Home extends React.PureComponent {
 
   fetchTopResearch = () => {
     this.props.getAllCrud("market_research", "market_research", {
-      orderBy: "id",
+      orderBy: "created_at",
       orderDirection: "desc",
       pageSize: 4,
     });

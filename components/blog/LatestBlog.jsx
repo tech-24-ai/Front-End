@@ -16,6 +16,8 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
 
   useEffect(() => {
     getAllCrud("blogs", "blogs", {
+      orderBy: "blogs.created_at",
+      orderPos: "desc",
       pageSize: 3,
     });
   }, []);
