@@ -654,6 +654,12 @@ input.ant-input.custom-input {
         height: 80px;
         min-width: 80px;
         width: 80px;
+
+        img {
+          width: 48px !important;
+          height: 45px !important;
+          position: relative !important;
+        }
       }
     }
     .card {
