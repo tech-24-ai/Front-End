@@ -33,6 +33,7 @@ function itRobo() {
                 layout="raw"
                 height={45}
                 width={48}
+                style={{ width: 48, height: 45 }}
               />
             </div>
             <h5>
@@ -54,6 +55,7 @@ function itRobo() {
                 layout="raw"
                 height={48}
                 width={41}
+                style={{ width: 48, height: 45 }}
               />
             </div>
             <h5>
