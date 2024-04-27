@@ -425,7 +425,9 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
               <h6 className="custom-border"></h6>
               <p>{communityQuestionDetail?.views_counter} views</p>
             </div> */}
-                  <div className="like-footer" style={{ marginTop: "1.5rem" }}>
+                  { communityQuestionDetail?.is_discussion_open == 1
+                    &&
+                    <div className="like-footer" style={{ marginTop: "1.5rem" }}>
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <div
                         onClick={() =>
@@ -530,6 +532,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       </div>
                     </div>
                   </div>
+                  }
                   {answer?.comments.length > 0 &&
                     isShowReplies == answer.id &&
                     answer?.comments.map((comment) => (

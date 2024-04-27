@@ -13,8 +13,6 @@ import {
 import { crudActions } from "../../_actions";
 import { connect } from "react-redux";
 import { withRouter } from "next/router";
-import { Image, Rate, Space, Spin, Tabs } from "antd";
-import { BrowserView, isBrowser } from "react-device-detect";
 import { crudService } from "../../_services";
 import Link from "next/link";
 import { PayPalButton } from "react-paypal-button-v2";

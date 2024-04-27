@@ -226,7 +226,10 @@ class TrendingQuestion extends React.PureComponent {
                             </div>
                           </div>
                           <div className="learn-more-btn">
-                            <Button className="btn-text" 
+                            <Button className="btn-text" onClick={() => {
+                              sessionStorage.setItem("community_question_id", data?.url_slug);
+                              Router.push("community/question");
+                          }}
                               >
                                 Answer
                              

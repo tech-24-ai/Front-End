@@ -23,7 +23,7 @@ import {
   Modal,
   Label,
 } from "antd";
-import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
+import { RightOutlined } from "@ant-design/icons";
 import shorting_icon from "../../../public/new_images/sorting_icon.svg";
 import view_icon from "../../../public/new_images/view_icon.svg";
 import reply_icon from "../../../public/new_images/reply_icon.svg";
@@ -299,8 +299,54 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
     Router.push("question/comments");
   };
 
+  const handleCommunity = () => {
+    Router.push("/community");
+  }
+
+  const handleCommunityDetails = () => {
+    Router.push(`/community/community_detail`);
+  }
+
   return (
     <Container>
+      <div className="row">
+        <div className="col-md-12">
+          <h4 className="mt-2 mb-1">
+            <span
+              onClick={() => handleCommunity()}
+              style={{
+                color: "#B0B8BF",
+                fontFamily: "Inter",
+                fontSize: "14px",
+                cursor: "pointer",
+              }}
+            >
+              Community <RightOutlined style={{ verticalAlign: "0" }} />
+            </span>{" "}
+            <span
+             onClick={() => handleCommunityDetails()}
+              style={{
+                color: "#B0B8BF",
+                fontFamily: "Inter",
+                fontSize: "14px",
+                cursor: "pointer",
+              }}
+            >
+              {communityData?.name} <RightOutlined style={{ verticalAlign: "0" }} />
+            </span>
+            <span
+                    style={{
+                      color: "#0074D9",
+                      fontFamily: "Inter",
+                      fontSize: "14px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {communityQuestionDetail?.title}
+                  </span>
+          </h4>
+        </div>
+      </div>
       <div className="profile-container row">
         <div className="community-tab-container questions-tab-container community-detail-wrapper col-md-9">
           <div className="cards-container">
@@ -785,7 +831,8 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                 </div>
               </div>
 
-              <div
+              {
+                communityQuestionDetail?.is_discussion_open == 1 ? <div
                 style={{
                   fontSize: isMobile ? "12px" : "14px",
                   fontWeight: 500,
@@ -799,7 +846,8 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                 onClick={() => setIsModalOpen(true)}
               >
                 Answer this Question
-              </div>
+              </div> : <></>
+              }
             </div>
 
             <div
@@ -887,105 +935,108 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
               <h6 className="custom-border"></h6>
               <p>{communityQuestionDetail?.views_counter} views</p>
             </div> */}
-                  <div className="like-footer" style={{ marginTop: "1.5rem" }}>
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      <div
-                        onClick={() =>
-                          setIsReplayModalOpen({
-                            isReplayModelOpen: true,
-                            details: answer,
-                          })
-                        }
-                        style={{
-                          border: "1px solid #D9DFE9",
-                          padding: "8px 12px",
-                          borderRadius: "4px",
-                          backgroundColor: "#D9DFE9",
-                          display: "flex",
-                          width: isMobile ? "auto" : "7rem",
-                          cursor: "pointer",
-                        }}
-                      >
-                        <Image
-                          loader={myImageLoader}
-                          style={{ borderRadius: "5px", cursor: "pointer" }}
-                          width={16}
-                          height={16}
-                          preview="false"
-                          src={reply_icon}
-                          alt="reply-icon"
-                        />
-                        {!isMobile && (
-                          <div
-                            style={{
-                              fontSize: "14px",
-                              fontWeight: 500,
-                              fontFamily: "Inter",
-                              color: "#54616C",
-                              marginLeft: "5px",
-                            }}
-                          >
-                            Reply
-                          </div>
-                        )}
-                      </div>
-                      {answer?.comments && answer?.comments.length > 0 ? (
-                        <div
-                          style={{
-                            border: "1px solid #D9DFE9",
-                            padding: "8px 12px",
-                            borderRadius: "4px",
-                            backgroundColor: "#F2F4F7",
-                            fontSize: isMobile ? "12px" : "14px",
-                            fontWeight: 500,
-                            fontFamily: "Inter",
-                            color: "#54616C",
-                            marginLeft: isMobile ? "6px" : "10px",
-                            color: "#0074D9",
-                            cursor: "pointer",
-                          }}
-                          onClick={() => setIsShowReplies(!isShowReplies)}
-                        >
-                          {isShowReplies ? "Hide Replies" : "View Replies"}
-                        </div>
-                      ) : (
-                        <></>
-                      )}
+            {
+              communityQuestionDetail?.is_discussion_open == 1 && <div className="like-footer" style={{ marginTop: "1.5rem" }}>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <div
+                  onClick={() =>
+                    setIsReplayModalOpen({
+                      isReplayModelOpen: true,
+                      details: answer,
+                    })
+                  }
+                  style={{
+                    border: "1px solid #D9DFE9",
+                    padding: "8px 12px",
+                    borderRadius: "4px",
+                    backgroundColor: "#D9DFE9",
+                    display: "flex",
+                    width: isMobile ? "auto" : "7rem",
+                    cursor: "pointer",
+                  }}
+                >
+                  <Image
+                    loader={myImageLoader}
+                    style={{ borderRadius: "5px", cursor: "pointer" }}
+                    width={16}
+                    height={16}
+                    preview="false"
+                    src={reply_icon}
+                    alt="reply-icon"
+                  />
+                  {!isMobile && (
+                    <div
+                      style={{
+                        fontSize: "14px",
+                        fontWeight: 500,
+                        fontFamily: "Inter",
+                        color: "#54616C",
+                        marginLeft: "5px",
+                      }}
+                    >
+                      Reply
                     </div>
-                    <div className="rating">
-                      <div>
-                        <Image
-                          loader={myImageLoader}
-                          style={{ borderRadius: "5px", cursor: "pointer" }}
-                          width={16}
-                          height={16}
-                          preview="false"
-                          src={like_button}
-                          alt="profile"
-                          onClick={() => {
-                            voteCommunityPostReplies(answer, 1);
-                          }}
-                        />
-                      </div>
-                      <h6>
-                        Upvote <p></p> {answer?.__meta__?.total_helpful}
-                      </h6>
-                      <div className="left-border">
-                        <Image
-                          loader={myImageLoader}
-                          style={{ borderRadius: "5px", cursor: "pointer" }}
-                          width={16}
-                          height={16}
-                          preview="false"
-                          src={dislike_button}
-                          alt="profile"
-                          onClick={() => {
-                            voteCommunityPostReplies(answer, 0);
-                          }}
-                        />
-                      </div>
-                    </div>
+                  )}
+                </div>
+                {answer?.comments && answer?.comments.length > 0 ? (
+                  <div
+                    style={{
+                      border: "1px solid #D9DFE9",
+                      padding: "8px 12px",
+                      borderRadius: "4px",
+                      backgroundColor: "#F2F4F7",
+                      fontSize: isMobile ? "12px" : "14px",
+                      fontWeight: 500,
+                      fontFamily: "Inter",
+                      color: "#54616C",
+                      marginLeft: isMobile ? "6px" : "10px",
+                      color: "#0074D9",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => setIsShowReplies(!isShowReplies)}
+                  >
+                    {isShowReplies ? "Hide Replies" : "View Replies"}
                   </div>
+                ) : (
+                  <></>
+                )}
+              </div>
+              <div className="rating">
+                <div>
+                  <Image
+                    loader={myImageLoader}
+                    style={{ borderRadius: "5px", cursor: "pointer" }}
+                    width={16}
+                    height={16}
+                    preview="false"
+                    src={like_button}
+                    alt="profile"
+                    onClick={() => {
+                      voteCommunityPostReplies(answer, 1);
+                    }}
+                  />
+                </div>
+                <h6>
+                  Upvote <p></p> {answer?.__meta__?.total_helpful}
+                </h6>
+                <div className="left-border">
+                  <Image
+                    loader={myImageLoader}
+                    style={{ borderRadius: "5px", cursor: "pointer" }}
+                    width={16}
+                    height={16}
+                    preview="false"
+                    src={dislike_button}
+                    alt="profile"
+                    onClick={() => {
+                      voteCommunityPostReplies(answer, 0);
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+            }
+                  
                   {answer?.comments.length > 0 &&
                     isShowReplies &&
                     answer?.comments.map((comment) => (
@@ -1387,7 +1438,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     </div>
                   </div>
                 </div>
-                <hr />
+                {/* <hr />
                 {communityData?.communityMember?.length === 0 ? (
                   <div
                     onClick={() => joinCommunity()}
@@ -1422,7 +1473,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       communityData?.communityMember[0]?.created_at
                     ).format("MMMM DD, YYYY")}
                   </p>
-                )}
+                )} */}
               </Card>
               {/* ))} */}
             </div>

@@ -335,7 +335,7 @@ class TrendingQuestion extends React.PureComponent {
                                 >
                                   <h6>{data?.visitor?.name}</h6>
                                   <p>
-                                    {data.created_at}{" "}
+                                  
                                     {calculateTimeAgo(data?.created_at)}
                                   </p>
                                 </div>
