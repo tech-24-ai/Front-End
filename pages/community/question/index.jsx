@@ -1109,7 +1109,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       </>
                     ))}
                   <div>
-                    {answer?.comments?.length > 5 && isShowReplies && (
+                    {answer?.comments?.length > 2 && isShowReplies && (
                       <div
                         style={{
                           border: "1px solid #D9DFE9",
