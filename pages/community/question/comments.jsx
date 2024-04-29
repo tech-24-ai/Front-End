@@ -746,7 +746,9 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                   marginTop: "1rem",
                 }}
               >
-                <div className="cards-header">
+                <div className="cards-header" style={{
+                  justifyContent : 'flex-start'
+                }}>
                   <Image
                     loader={myImageLoader}
                     style={{ borderRadius: "2px" }}
