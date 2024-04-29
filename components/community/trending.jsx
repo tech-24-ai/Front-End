@@ -122,13 +122,12 @@ class TrendingQuestion extends React.PureComponent {
 
     return (
       <div className="trending-category-below">
-        {
-          !isMobile &&
+        {!isMobile && (
           <div
             onClick={() => this.swiperRef.current.swiper.slidePrev()}
             className="view-more-icon"
             style={{
-              left: "77px",
+              left: "73px",
               marginTop: "7%",
               zIndex: "99",
               position: "absolute",
@@ -143,23 +142,27 @@ class TrendingQuestion extends React.PureComponent {
               }}
             />
           </div>
-        }
+        )}
         <div className="category-box">
           <div className="category-banner-wrapper" id="categoryWrapper">
             <Fragment>
               <Swiper
                 spaceBetween={50}
                 slidesPerView={isMobile ? 1 : 3}
-                pagination={isMobile ? {
-                  clickable: true,
-                  renderBullet: function (index, className) {
-                    if (index < 6) {
-                      return `<span class="${className}"></span>`;
-                    } else {
-                      return '';
-                    }
-                  }
-                } : false}
+                pagination={
+                  isMobile
+                    ? {
+                        clickable: true,
+                        renderBullet: function (index, className) {
+                          if (index < 6) {
+                            return `<span class="${className}"></span>`;
+                          } else {
+                            return "";
+                          }
+                        },
+                      }
+                    : false
+                }
                 navigation={{
                   nextEl: ".swiper-button-next",
                   prevEl: ".swiper-button-prev",
@@ -177,7 +180,6 @@ class TrendingQuestion extends React.PureComponent {
                         <div className="category-content">
                           <div className="content-head">
                             <div className="medium">
-
                               <Image
                                 style={{
                                   borderRadius: "8px",
@@ -204,13 +206,24 @@ class TrendingQuestion extends React.PureComponent {
                               style={{ minWidth: "70%" }}
                             >
                               <h6>{data?.visitor?.name}</h6>
-                              <p>{formatDistanceToNow(new Date(data.created_at), { addSuffix: true })}</p>
+                              <p>
+                                {formatDistanceToNow(
+                                  new Date(data.created_at),
+                                  { addSuffix: true }
+                                )}
+                              </p>
                               {/* <p>{data.created_at}</p> */}
                             </div>
                           </div>
 
                           <div className="card-trend-body">
-                            <p class="card-text">{data.description}</p>
+                            <p class="card-text">
+                              <span
+                                dangerouslySetInnerHTML={{
+                                  __html: data.description,
+                                }}
+                              ></span>
+                            </p>
                             <div className="content-x">
                               <div
                                 className="design-content"
@@ -226,13 +239,17 @@ class TrendingQuestion extends React.PureComponent {
                             </div>
                           </div>
                           <div className="learn-more-btn">
-                            <Button className="btn-text" onClick={() => {
-                              sessionStorage.setItem("community_question_id", data?.url_slug);
-                              Router.push("community/question");
-                          }}
-                              >
-                                Answer
-                             
+                            <Button
+                              className="btn-text"
+                              onClick={() => {
+                                sessionStorage.setItem(
+                                  "community_question_id",
+                                  data?.url_slug
+                                );
+                                Router.push("community/question");
+                              }}
+                            >
+                              Answer
                             </Button>
                           </div>
                         </div>
@@ -241,8 +258,7 @@ class TrendingQuestion extends React.PureComponent {
                   </SwiperSlide>
                 ))}
               </Swiper>
-              {
-                !isMobile &&
+              {!isMobile && (
                 <div
                   onClick={() => this.swiperRef.current.swiper.slideNext()}
                   className="view-more-icon"
@@ -255,7 +271,7 @@ class TrendingQuestion extends React.PureComponent {
                 >
                   <ArrowRightOutlined />
                 </div>
-              }
+              )}
             </Fragment>
           </div>
         </div>
