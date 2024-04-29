@@ -2251,6 +2251,22 @@ div.message-box-card {
   }
 }
 
+.share-social-media {
+  z-index: 0;
+  .ant-popover-inner-content {
+    padding: 10px 5px;
+  }
+
+  .share-social-media-wrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    button {
+      padding: 0 7px !important;
+    }
+  }
+}
 @media (max-width: 575px) {
   .site-title {
     margin-bottom: 0px;
