@@ -82,13 +82,13 @@ function index() {
         <h4 className="main-title">or Browse from a Category below</h4>
         <CategoryList />
       </Container>
-
+{/* 
       <div className="research-repository-section base-bg">
         <Container className="market-research-body-container">
           <h4 className="title">Explore our Research Repository</h4>
           <BrowserView>
             <Space size={20} className="research-content">
-              {/* <ResearchCard
+              <ResearchCard
                 arrowIcon={true}
                 icon={<ResearchIcon />}
                 imageWidth={78}
@@ -105,7 +105,7 @@ function index() {
                 title="Templates"
                 pathname="/d/template"
                 text="IT Policy Templates, RFP Templates, Project Templates and more"
-              /> */}
+              />
               <ResearchCard
                 icon={<CalculatorIcon />}
                 arrowIcon={true}
@@ -118,7 +118,7 @@ function index() {
             </Space>
           </BrowserView>
           <MobileView>
-            {/* <Space
+            <Space
               size={18}
               className="research-content mobile"
               direction="horizontal"
@@ -137,7 +137,7 @@ function index() {
                 title="Templates"
                 pathname="/d/template"
               />
-            </Space> */}
+            </Space>
             <Space className="research-content mobile">
               <ResearchCard
                 icon={<CalculatorIcon height={62} width={62} />}
@@ -149,7 +149,7 @@ function index() {
             </Space>
           </MobileView>
         </Container>
-      </div>
+      </div> */}
     </section>
   );
 }

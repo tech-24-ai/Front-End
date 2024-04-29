@@ -193,6 +193,11 @@ const useTabletAndBelowMediaQuery = () =>
                                 Talk to a Consultant
                               </Link>
                             </DropdownItem>
+                            <DropdownItem className="service-link">
+                              <Link href="/d/tools_calculators/calculators">
+                                Tools & Calculator
+                              </Link>
+                            </DropdownItem>
                           </DropdownMenu>
                         </UncontrolledDropdown>
 

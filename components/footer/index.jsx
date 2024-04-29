@@ -208,7 +208,8 @@ const Footer = (props) => {
                     </h4>
                     <Link href="/it-robo">AI-Based Robo Advisor</Link>
                     <Link href="/consultant">Talk to a Consultant</Link>
-                    <Link href="/access">Access Communities</Link>
+                    <Link href="/d/tools_calculators/calculators">Tools & Calculator</Link>
+                  
                   </div>
                 </div>
                 <div class="full-width-container">
