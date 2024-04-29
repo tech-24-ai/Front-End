@@ -13,6 +13,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.min.css";
 import SwiperCore, { Navigation, Pagination } from "swiper/core";
 import { formatDistanceToNow } from 'date-fns';
+import moment from "moment";
 import { isMobile } from "react-device-detect";
 
 
@@ -116,9 +117,20 @@ class TrendingQuestion extends React.PureComponent {
     Router.push(url);
   };
 
+
+
   render() {
     const { changeIcon, slides, hoverId } = this.state;
     const { trendingQuestions } = this.props;
+
+    const calculateTimeAgo = (createdAt) => {
+      const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
+      const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
+      const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
+      const duration = moment.duration(diffMilliseconds);
+      const humanReadableDiff = duration.humanize(true);
+      return humanReadableDiff;
+    };
 
     return (
       <div className="trending-category-below">
@@ -207,12 +219,8 @@ class TrendingQuestion extends React.PureComponent {
                             >
                               <h6>{data?.visitor?.name}</h6>
                               <p>
-                                {formatDistanceToNow(
-                                  new Date(data.created_at),
-                                  { addSuffix: true }
-                                )}
+                                {calculateTimeAgo(data?.created_at)}
                               </p>
-                              {/* <p>{data.created_at}</p> */}
                             </div>
                           </div>
 
