@@ -10,7 +10,7 @@ import { crudActions, loaderActions } from "../../_actions";
 import moment from "moment";
 import { crudService } from "../../_services";
 import { isBrowser, isMobile } from "react-device-detect";
-import Image from "next/image";
+import Image from "next/future/image";
 
 const profile = ({ consultant, getAllCrud, createCrud, authentication }) => {
   useEffect(() => {

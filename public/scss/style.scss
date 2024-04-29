@@ -979,6 +979,18 @@ input.ant-input.custom-input {
     }
   }
 
+  .custom-control-input:checked ~ .custom-control-label::before {
+    border-color: $black;
+    background-color: $black;
+  }
+  
+  .custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow: 0 0 0 0.2rem rgb(0, 0, 0, 0.25);
+  }
+  input:focus:not(:checked) ~ .custom-control-label::before {
+    border-color: #333;
+  }
+
   .forget-password {
     cursor: pointer;
     font-size: 15px;
@@ -2251,6 +2263,22 @@ div.message-box-card {
   }
 }
 
+.share-social-media {
+  z-index: 0;
+  .ant-popover-inner-content {
+    padding: 10px 5px;
+  }
+
+  .share-social-media-wrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    button {
+      padding: 0 7px !important;
+    }
+  }
+}
 @media (max-width: 575px) {
   .site-title {
     margin-bottom: 0px;

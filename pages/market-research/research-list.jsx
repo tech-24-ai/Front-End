@@ -188,7 +188,7 @@ const ResearchList = ({ router }) => {
           style={{ display: "flex", justifyContent: "space-between" }}
           className="mt-5"
         >
-          <div className="mobile-display-n" style={{ width: "25%" }}>
+          <div className="mobile-display-n" style={{ width: "25%", marginRight:20 }}>
             <CustomFilter
               data={filterData}
               handleOptionChange={handleOptionChange}

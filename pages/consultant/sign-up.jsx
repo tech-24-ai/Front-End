@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Card } from "antd";
 import { Container, Input, Label, Form, FormGroup, Button } from "reactstrap";
-import Image from "next/image";
+import Image from "next/future/image";
 import InputBox from "../../components/form/inputBox";
 import { connect } from "react-redux";
 import { withRouter } from "next/router";

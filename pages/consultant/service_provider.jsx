@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import Image from "next/image";
+import Image from "next/future/image";
 import PageBanner from "../../components/card/pageBanner";
 import fragmentIcon from "../../public/new_images/ServiceProvider/fragment-icon.svg";
 import currencyIcon from "../../public/new_images/ServiceProvider/currency-icon.svg";

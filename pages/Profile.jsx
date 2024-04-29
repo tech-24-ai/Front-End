@@ -430,13 +430,8 @@ import Image from "next/image";
 import { Tabs, Card, Input, Select, Slider, Modal, Button, Upload } from "antd";
 import { Container } from "reactstrap";
 import myImageLoader from "../components/imageLoader";
-import Online_image from "../public/new_images/online_icon.svg";
 import date_image from "../public/new_images/date_icon.svg";
-import database_icon from "../public/new_images/database_icon.svg";
-import three_dot_icon from "../public/new_images/3dots.svg";
-import message_icon from "../public/new_images/message_icon.svg";
-import like_button from "../public/new_images/like_button.svg";
-import dislike_button from "../public/new_images/dislike_button.svg";
+import { LikeOutlined, DeleteOutlined } from "@ant-design/icons";
 import { crudActions, alertActions } from "../_actions";
 import { connect } from "react-redux";
 import Router from "next/router";
@@ -464,6 +459,7 @@ const Profile = ({
   visitor_profile_levels,
   visitor_activities,
   router,
+  visitor_library
 }) => {
   const { q } = Router.query;
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -487,6 +483,7 @@ const Profile = ({
   const itemsPerPage = 4;
   const [page, setPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
+  const [libraryData, setLibraryData] = useState([]);
 
   const [searchQuery, setSearchQuery] = useState(q);
   const [filteredData, setFilteredData] = useState({});
@@ -538,8 +535,35 @@ const Profile = ({
       });
   }, [page, searchQuery, filteredData, sortBy]);
 
+  useEffect(() => {
+    crudService
+      ._getAll("visitor_library", {
+        orderBy: sortBy,
+        orderDirection: "asc",
+        page: page + 1,
+        pageSize: itemsPerPage,
+      })
+      .then((result) => {
+        setLibraryData(result?.data?.data);
+        console.log("setLibraryData", result?.data);
+        const totalPage = Math.ceil(result?.data?.total / result?.data?.perPage);
+        setPageCount(isNaN(totalPage) ? 0 : totalPage);
+      });
+  }, [page, sortBy, itemsPerPage]);
+
   const handleSort = (e) => {
     setSortBy(e.target.value);
+  };
+
+  const handleDelete = (id) => {
+    crudService._delete('visitor_library', id)
+      .then((result) => {
+        console.log('Item deleted successfully:', result);
+
+      })
+      .catch((error) => {
+        console.error('Error deleting item:', error);
+      });
   };
 
   const sortOptions = [
@@ -634,6 +658,8 @@ const Profile = ({
     // getAllCrud("visitor_points_history", "visitor_points_history");
     getAllCrud("visitor_profile_levels", "visitor_profile_levels");
     getAllCrud("visitor_activities", "visitor_activities");
+    getAllCrud("visitor_library", "visitor_library");
+
   }, [updateCom]);
 
   const fetchCountry = () => {
@@ -1236,6 +1262,134 @@ const Profile = ({
     );
   };
 
+  const Tab5 = () => {
+
+
+    const calculateTimeAgo = (createdAt) => {
+      const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
+      const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
+      const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
+      const duration = moment.duration(diffMilliseconds);
+      const humanReadableDiff = duration.humanize(true);
+      return humanReadableDiff;
+    };
+
+    return (
+      <div className="community-tab-container questions-tab-container">
+        <div className="search-container">
+        </div>
+        <div className="cards-container" style={{
+          marginTop: '1rem'
+        }}>
+          {libraryData?.map((data) => (
+            <Card
+              bordered={true}
+              style={{
+                width: "100%",
+                height: "fit-content",
+              }}
+              key={data.id}
+            >
+              {data?.blog !== null &&
+                (
+                  <div className="cards-header">
+                    <div>
+                      <div>
+                        <div className="img">
+                          <Image
+                            style={{ borderRadius: "5px" }}
+                            width={48}
+                            height={48}
+                            preview="false"
+                            src={
+                              data?.blog?.image ||
+                              "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                            }
+                            alt="profile"
+                          />
+                        </div>
+                        {/* <p className="profile-badge">
+                      <LikeOutlined />
+                    </p> */}
+
+                      </div>
+                      <div className="profile">
+                        <h5>
+                          {data?.blog?.name}
+                        </h5>
+                        <p>
+                          {calculateTimeAgo(data?.created_at)}
+                        </p>
+                      </div>
+                    </div>
+
+                  <div className="follow" style={isMobile ? { alignItems: "flex-start", position: "absolute", top: "10px", right: "0" } : ""}>
+                      <p className="button" onClick={() => handleDelete(data.id)} style={{ background: "transparent" }}>
+                        <DeleteOutlined />
+                      </p>
+                    </div>
+                  </div>
+                )
+              }
+              {data?.market_research !== null &&
+                (
+                  <div className="cards-header">
+                    <div>
+                      <div>
+                        <div className="img">
+                          <Image
+                            style={{ borderRadius: "5px" }}
+                            width={48}
+                            height={48}
+                            preview="false"
+                            src={
+                              data?.market_research?.image ||
+                              "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                            }
+                            alt="profile"
+                          />
+                        </div>
+                        {/* <p className="profile-badge">
+                      <LikeOutlined />
+                    </p> */}
+
+                      </div>
+                      <div className="profile">
+                        <h5>
+                          {data?.market_research?.name}
+                        </h5>
+                        <p>
+                          {calculateTimeAgo(data?.created_at)}
+                        </p>
+                      </div>
+                    </div>
+
+                  <div className="follow" style={isMobile ? { alignItems: "flex-start", position: "absolute", top: "10px", right: "0" } : ""}>
+                      <p className="button" onClick={() => handleDelete(data.id)} style={{ background: "transparent" }}>
+                        <DeleteOutlined />
+                      </p>
+                    </div>
+                  </div>
+                )
+              }
+            </Card>
+          ))
+          }
+          {/* Render pagination controls */}
+          <div className="mt-5" style={{ width: "100%" }}>
+            {libraryData?.length > 0 && (
+              <CustomPagination
+                pageCount={pageCount}
+                page={page}
+                onPageChange={({ selected }) => setPage(selected)}
+              />
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const items = [
     {
       key: "1",
@@ -1261,6 +1415,11 @@ const Profile = ({
       key: "5",
       label: "Activities",
       children: <Tab2 />,
+    },
+    {
+      key: "6",
+      label: "My Library",
+      children: <Tab5 />,
     },
   ];
 
@@ -1494,6 +1653,7 @@ const mapStateToProps = (state) => {
     countries,
     visitor_profile_levels,
     visitor_activities,
+    visitor_library
   } = state;
   return {
     visitorprofile,
@@ -1504,6 +1664,7 @@ const mapStateToProps = (state) => {
     countries,
     visitor_profile_levels,
     visitor_activities,
+    visitor_library
   };
 };
 

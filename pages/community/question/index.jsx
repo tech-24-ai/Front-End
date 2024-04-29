@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
+import Image from "next/future/image";
 import { Container } from "reactstrap";
 import myImageLoader from "../../../components/imageLoader";
 import three_dot_icon from "../../../public/new_images/3dots.svg";
@@ -368,7 +368,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       preview="false"
                       src={
                         communityQuestionDetail?.visitor?.profile_pic_url ||
-                        "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                        ""
                       }
                       alt="profile"
                     />
@@ -1109,7 +1109,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       </>
                     ))}
                   <div>
-                    {answer?.comments?.length > 5 && isShowReplies && (
+                    {answer?.comments?.length > 2 && isShowReplies && (
                       <div
                         style={{
                           border: "1px solid #D9DFE9",

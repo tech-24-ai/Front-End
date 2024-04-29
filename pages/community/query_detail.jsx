@@ -3,7 +3,7 @@ import { withRouter } from "next/router";
 import { Container, Button, Pagination } from "reactstrap";
 import { crudService } from "../../_services";
 import SearchInput from "../../components/form/searchInput";
-import Image from "next/image";
+import Image from "next/future/image";
 import CheckableTag from "antd/lib/tag/CheckableTag";
 import { DateIcon, ProfileIcon, SearchIcon } from "../../components/icons";
 import { Icon } from "react-icons-kit";

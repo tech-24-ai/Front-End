@@ -16,11 +16,6 @@ import { Container, Row, Col, FormGroup, Label, Input, Card } from "reactstrap";
 import { crudActions } from "../../_actions";
 import Link from "next/dist/client/link";
 
-import {
-  TwitterShareButton,
-  LinkedinShareButton,
-  FacebookShareButton,
-} from "next-share";
 import Image from "next/image";
 import myImageLoader from "../../components/imageLoader";
 import { BrowserView } from "react-device-detect";
@@ -35,6 +30,7 @@ import { MessageOutlined } from "@ant-design/icons";
 
 import { Avatar, Button, Comment, Form, List } from "antd";
 import CustomBreadcrumb from "../../components/breadcrumbs/Breadcrumb";
+import ShareSocialMedia from "../../components/shareSocial";
 const { TextArea } = Input;
 
 class Blog extends Component {
@@ -192,9 +188,14 @@ class Blog extends Component {
                         <div className="social-section">
                           {/* <div className="like">1.1K</div>
                           <div className="custom-divider"></div> */}
-                          <div className="share-btn">
-                            <ShareAltOutlined /> Share
-                          </div>
+                          <ShareSocialMedia
+                            link={window.location.href}
+                            title={blog?.name}
+                          >
+                            <div className="share-btn">
+                              <ShareAltOutlined /> Share
+                            </div>
+                          </ShareSocialMedia>
                           {authentication.loggedIn &&
                             blog?.is_saved_blog == null && (
                               <Fragment>

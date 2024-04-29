@@ -311,7 +311,7 @@
       font-size: 1.5rem;
       line-height: 2rem;
       &.bg {
-        color: $backgroundColor;
+        color: $viewMoreIcon;
         font-weight: 500;
         font-size: 1.5rem;
         line-height: 2rem;
@@ -319,7 +319,7 @@
     }
 
     .view-more {
-      color: $backgroundColor;
+      color: $viewMoreIcon;
       font-size: 1rem;
       font-weight: 400;
       line-height: 1.5rem;
@@ -370,7 +370,7 @@
         width: 2rem;
         height: 0.75rem;
         border-radius: 1000px;
-        background-color: $backgroundColor;
+        background-color: #0074d9;
       }
     }
     color: #00192f;
@@ -392,13 +392,13 @@
         }
         .category {
           border-radius: 4px;
-          border: 1px solid $backgroundColor;
-          color: $backgroundColor;
+          border: 1px solid $viewMoreIcon;
+          color: $viewMoreIcon;
           padding: 4px 6px;
           width: fit-content;
           margin: 1rem 0;
           &.bg {
-            background-color: rgba($backgroundColor, 0.2);
+            background-color: rgba($viewMoreIcon, 0.2);
           }
         }
 

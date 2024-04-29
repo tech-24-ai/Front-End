@@ -11,6 +11,7 @@ import { MobileView, BrowserView } from "react-device-detect";
 import BodyBackgroundColor from "../../components/style/bodyBackgroundColor";
 import { BookmarkIcon } from "../../components/icons";
 
+import ShareSocialMedia from "../../components/shareSocial";
 function Detail({
   getAllCrud,
   research_detail,
@@ -21,6 +22,8 @@ function Detail({
 }) {
   const slug = router.query.slug;
   const { loggedIn } = authentication;
+  console.log("router", router);
+  console.log("Local", window.location.href);
 
   const [html, setHtml] = useState("");
   const [css, setCss] = useState("");
@@ -74,9 +77,15 @@ function Detail({
               {moment(research_detail?.created_at).format("LL")}
             </div>
             <div className="custom-divider"></div>
-            <div className="date share-btn">
-              <ShareAltOutlined /> Share
-            </div>
+            <ShareSocialMedia
+              link={window.location.href}
+              title={research_detail?.name}
+            >
+              <div className="date share-btn">
+                <ShareAltOutlined /> Share
+              </div>
+            </ShareSocialMedia>
+
             {loggedIn && research_detail?.is_saved_document == null && (
               <Fragment>
                 <div className="custom-divider"></div>
