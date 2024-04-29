@@ -7,6 +7,7 @@ module.exports = {
     },
   },
   images: {
+    unoptimized: true,
     domains: [
       "tech24-uat.s3.amazonaws.com",
       "elasticbeanstalk-us-east-1-847794743507.s3.amazonaws.com",
