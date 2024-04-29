@@ -1307,7 +1307,7 @@ const Profile = ({
                             alt="profile"
                           />
                         </div>
-                      
+
                       </div>
                       <div className="profile">
                         <h5>
@@ -1319,10 +1319,12 @@ const Profile = ({
                       </div>
                     </div>
 
-                  {/* <div className="follow" style={isMobile ? { alignItems: "flex-start", position: "absolute", top: "10px", right: "0" } : ""}>
-                      <p className="button" onClick={() => handleDelete(data.id)} style={{ background: "transparent" }}>
+                  <div className="follow">
+                      <button className="button" onClick={() => handleDelete(data.id)} style={{ background: "transparent" }}>
                         <DeleteOutlined />
-                      </p>
+                      </button>
+                    </div>
+                    {/* <div className="follow" style={isMobile ? { alignItems: "flex-start", position: "absolute", top: "10px", right: "0" } : ""}>
                     </div> */}
                   </div>
                 )
@@ -1345,7 +1347,7 @@ const Profile = ({
                             alt="profile"
                           />
                         </div>
-                     
+
                       </div>
                       <div className="profile">
                         <h5>
@@ -1356,8 +1358,13 @@ const Profile = ({
                         </p>
                       </div>
                     </div>
-
-                  {/* <div className="follow" style={isMobile ? { alignItems: "flex-start", position: "absolute", top: "10px", right: "0" } : ""}>
+  
+                  <div className="follow">
+                    <button className="button" onClick={() => handleDelete(data.id)} style={{ background: "transparent" }}>
+                      <DeleteOutlined />
+                    </button>
+                  </div>
+                    {/* <div className="follow" style={isMobile ? { alignItems: "flex-start", position: "absolute", top: "10px", right: "0" } : ""}>
                       <p className="button" onClick={() => handleDelete(data.id)} style={{ background: "transparent" }}>
                         <DeleteOutlined />
                       </p>
@@ -1365,7 +1372,7 @@ const Profile = ({
                   </div>
                 )
               }
-             
+
             </Card>
           ))
           }
