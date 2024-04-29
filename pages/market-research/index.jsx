@@ -54,6 +54,7 @@ function MarketResearch({
             <p className="sub-title">
               Gain insights on technology, simplify IT planning and operations.
               <br />
+              <br />
               Try it now. It's free!
             </p>
             <div className="mt-4" style={styles.inputGroup}>
@@ -76,6 +77,7 @@ function MarketResearch({
         titleBorder={true}
         title='Recently <span class="title bg">Added</span>'
         data={market_research}
+        viewMore={false}
       />
 
       <Container>
@@ -83,7 +85,7 @@ function MarketResearch({
           <div className="title-section">
             <p className="title">
               <span className="side-border-title"></span>
-              Latest <span class="title bg">Research</span>
+              Popular <span class="title bg">Categories</span>
             </p>
           </div>
           <div className="custom-grid-container">
@@ -102,7 +104,7 @@ function MarketResearch({
 
       <LatestResearch
         titleBorder={true}
-        title='All <span class="title bg">Research</span>'
+        title='Other <span class="title bg">Research</span>'
         data={all_research}
       />
     </section>

@@ -14,6 +14,7 @@ const LatestResearch = ({
   titleBorder = false,
   title = 'Latest <span class="title bg">Research</span>',
   data,
+  viewMore = true
 }) => {
   console.log("data", data);
 
@@ -31,9 +32,10 @@ const LatestResearch = ({
             {titleBorder && <span className="side-border-title"></span>}
             <span className="title" dangerouslySetInnerHTML={parsedTitle()} />
           </p>
-          <Link href="/market-research/research-list">
+          {viewMore == true && <Link href="/market-research/research-list">
             <p className="view-more">View more</p>
           </Link>
+          }
         </div>
 
         <div className="research-section">
