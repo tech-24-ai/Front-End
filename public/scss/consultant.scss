@@ -1436,7 +1436,7 @@
 }
 
 // mobile view css
-@media (max-width: 775px) {
+@media (max-width: 575px) {
   .consultant-page-section {
     .page-banner .banner-bg .banner-container {
       padding: 1rem 0 2rem;
@@ -1630,7 +1630,7 @@
           .custom-btn {
             display: flex;
             justify-content: center;
-            font-size: 14px;
+            font-size: 12px;
             padding: 14px 10px;
           }
         }
@@ -1935,7 +1935,506 @@
     }
   }
 }
+//ipad
+@media (max-width: 775px) {
+  .consultant-page-section {
+    .page-banner .banner-bg .banner-container {
+      padding: 1rem 0 2rem;
+      .banner-title-container {
+        h4 {
+          font-size: 32px;
+        }
 
+        .title-content,
+        .custom-btn {
+          display: none;
+        }
+      }
+      .banner-image-container {
+        display: none;
+      }
+    }
+
+    .filter-section {
+      flex-direction: column;
+      align-items: unset;
+      gap: 1rem;
+      margin: 1rem 0 2rem;
+      > div:not(:first-child) {
+        margin-left: 0;
+      }
+
+      .custom-search-input {
+        .search-input {
+          min-width: 0;
+        }
+      }
+    }
+
+    .consultant-list-container {
+      .consultant-list-item {
+        .ant-card .ant-card-body {
+          padding: 12px;
+
+          .self-description-section {
+            // min-height: 3.5rem;
+            .description {
+              .logo {
+                height: 50px;
+                width: 50px;
+                min-width: 50px;
+                min-height: 50px;
+              }
+              .detail {
+                padding: 0;
+
+                .title {
+                  font-size: 14px;
+                }
+                .address {
+                  font-size: 12px;
+                  line-height: 14px;
+
+                  span {
+                    margin-right: 2px;
+                  }
+                }
+              }
+            }
+            .rate-detail {
+              padding: 4px 8px;
+              p {
+                font-size: 10px;
+                line-height: 18px;
+                span {
+                  font-size: 13px;
+                  line-height: normal;
+                }
+              }
+            }
+          }
+          h6.info {
+            font-size: 14px;
+            line-height: 18px;
+          }
+          .sub-title {
+            font-size: 16px;
+          }
+          div.skill-section {
+            margin-bottom: 1.5rem;
+            margin-top: 1.5rem;
+
+            .custom-btn {
+              font-size: 14px;
+              padding: 12px;
+            }
+          }
+
+          .experience-section {
+            .experience {
+              margin-top: 0;
+
+              .company-logo {
+                width: 40px;
+                height: 40px;
+              }
+
+              .detail {
+                .title {
+                  font-size: 14px;
+                  line-height: normal;
+                }
+                .designation {
+                  font-size: 12px;
+                  line-height: normal;
+                  padding: 2px 0;
+                }
+                .date {
+                  font-size: 12px;
+                }
+              }
+            }
+          }
+
+          .button-section .btn {
+            font-size: 12px;
+            height: 45px;
+
+            span svg {
+              width: 20px;
+              height: 18px;
+            }
+          }
+        }
+      }
+    }
+
+    &.profile {
+      .page-heading {
+        height: 0;
+      }
+
+      .card {
+        padding: 12px;
+
+        .title {
+          font-size: 16px;
+          margin-bottom: 10px;
+        }
+        .info {
+          margin-bottom: 12px;
+        }
+      }
+
+      .self-description-section {
+        .description {
+          .logo {
+            width: 60px;
+            height: 60px;
+            border-width: 3px;
+            padding: 5px;
+            > span {
+              border-radius: inherit;
+            }
+          }
+          .ant-space.detail {
+            margin-left: 0;
+            .title {
+              font-size: 16px;
+              line-height: 20px;
+              margin-bottom: 0;
+              letter-spacing: 0;
+            }
+            .address {
+              font-size: 12px;
+              line-height: 16px;
+              span {
+                margin-right: 2px;
+              }
+            }
+          }
+        }
+      }
+
+      .ant-space.rate-card-wrapper {
+        margin-bottom: 10px;
+        .ant-space-item {
+          width: 100%;
+        }
+      }
+
+      .ant-space.self-summary-section-mobile {
+        .ant-space-item {
+          width: 100%;
+
+          .custom-btn {
+            display: flex;
+            justify-content: center;
+            font-size: 12px;
+            padding: 14px 10px;
+          }
+        }
+      }
+
+      .self-summary-section {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 0;
+
+        .info {
+          font-size: 14px;
+          line-height: 22px;
+        }
+
+        .custom-btn {
+          font-size: 16px;
+          line-height: normal;
+          padding: 14px 16px;
+        }
+      }
+
+      .about-section {
+        .detail {
+          font-size: 14px;
+        }
+      }
+
+      .rate-section {
+        .rate-card-wrapper {
+          gap: 1rem;
+          .rate-card {
+            min-width: 100%;
+            max-width: 100%;
+            padding: 12px;
+
+            .rate-category {
+              font-size: 14px;
+            }
+
+            .rate {
+              padding: 0;
+              padding-top: 5px;
+              font-size: 28px;
+              line-height: normal;
+            }
+          }
+        }
+      }
+    }
+
+    &.create-meeting,
+    &.payment {
+      padding: 1rem 0;
+      .page-content {
+        flex-direction: column-reverse;
+        .right-section {
+          margin-top: 0;
+          padding: 0;
+
+          .card {
+            padding: 1rem;
+
+            .self-description-section {
+              .logo {
+                width: 80px;
+                height: 80px;
+                padding: 5px;
+                border-width: 3px;
+              }
+              .designation {
+                font-size: 14px;
+              }
+
+              .rate-detail {
+                width: 100%;
+                gap: 10px;
+                p {
+                  font-size: 14px;
+                  line-height: 20px;
+
+                  span {
+                    font-size: 24px;
+                  }
+                }
+              }
+            }
+          }
+        }
+        .left-section {
+          padding: 0;
+          margin-top: 2rem;
+
+          .custom-select-box,
+          .time-zone-label {
+            // margin-left: 2rem;
+          }
+          .meeting-minute-section:nth-of-type(1) {
+            // margin-left: 2rem;
+          }
+
+          .title-section {
+            img {
+              margin: 0;
+              display: none;
+            }
+          }
+
+          .heading-section {
+            img {
+              width: 60px;
+              height: 40px;
+            }
+            .heading-text {
+              font-size: 22px;
+              margin-left: 1rem;
+            }
+          }
+
+          .estimate-section {
+            .estimate {
+              .title {
+                font-size: 14px;
+              }
+              p.text {
+                font-size: 10px;
+                letter-spacing: 0;
+              }
+            }
+            .amount {
+              .rate {
+                font-size: 14px;
+              }
+              .text {
+                font-size: 10px;
+                letter-spacing: 0;
+              }
+            }
+          }
+
+          .custom-btn {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            font-size: 14px;
+          }
+
+          .meeting-minute-section {
+            .connect-radio-box-wrapper {
+              width: auto;
+              gap: 10px;
+              flex-direction: row;
+              justify-content: flex-start;
+              div.form-group {
+                min-width: 0;
+
+                label {
+                  padding: 12px;
+                }
+              }
+            }
+
+            &.slots .connect-radio-box-wrapper {
+              div.form-group {
+                label {
+                  padding: 12px 10px;
+                  min-width: 150px;
+                  text-align: center;
+                  font-size: 12px;
+                  font-weight: 600;
+                }
+              }
+            }
+            &.duration .connect-radio-box-wrapper {
+              div.form-group {
+                label {
+                  min-width: 95px;
+                  text-align: center;
+                }
+              }
+            }
+
+            .duration {
+              padding: 14px 12px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .consultant-details-page-section {
+    .flex-container {
+      flex-direction: column-reverse;
+      .left-section {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+
+        .card {
+          padding: 1rem;
+
+          .self-description-section {
+            .logo {
+              width: 80px;
+              height: 80px;
+              padding: 5px;
+              border-width: 3px;
+            }
+            .designation {
+              font-size: 14px;
+            }
+
+            .rate-detail {
+              width: 100%;
+              gap: 10px;
+              align-items: center;
+              p {
+                font-size: 14px;
+                line-height: 20px;
+
+                span {
+                  font-size: 24px;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .right-section {
+        width: 100%;
+        margin-top: 2rem;
+
+        .meeting-date-section {
+          .title-section {
+            img {
+              display: none;
+            }
+
+            .date,
+            .time {
+              padding: 14px 11px;
+              font-size: 14px;
+              font-weight: 600;
+            }
+          }
+        }
+        .heading-container {
+          flex-direction: column;
+
+          .button-container {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            gap: 10px;
+            .custom-btn {
+              width: 50%;
+              margin-left: 0;
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+    .payment-wrapper {
+      flex-direction: column;
+      margin-top: 1rem;
+
+      .button-section {
+        width: 100%;
+      }
+      .btn-container {
+        // flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+
+        .custom-btn {
+          width: 100%;
+          margin-left: 0;
+        }
+      }
+      .payment-details {
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        > div:nth-of-type(2) {
+          margin-left: 0;
+        }
+
+        p {
+          font-size: 14px;
+          line-height: 14px;
+        }
+      }
+      .payment-details-section {
+        width: 100%;
+        margin: 0;
+        height: auto;
+        margin-top: 2rem;
+      }
+    }
+  }
+}
 // feedback-page css
 @media (max-width: 575px) {
   .feedback-page {

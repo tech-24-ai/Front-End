@@ -1319,13 +1319,11 @@ const Profile = ({
                       </div>
                     </div>
 
-                  <div className="follow">
+                  <div className="follow mobile-delete-btn">
                       <button className="button" onClick={() => handleDelete(data.id)} style={{ background: "transparent" }}>
                         <DeleteOutlined />
                       </button>
                     </div>
-                    {/* <div className="follow" style={isMobile ? { alignItems: "flex-start", position: "absolute", top: "10px", right: "0" } : ""}>
-                    </div> */}
                   </div>
                 )
               }
@@ -1359,16 +1357,11 @@ const Profile = ({
                       </div>
                     </div>
   
-                  <div className="follow">
+                  <div className="follow mobile-delete-btn">
                     <button className="button" onClick={() => handleDelete(data.id)} style={{ background: "transparent" }}>
                       <DeleteOutlined />
                     </button>
                   </div>
-                    {/* <div className="follow" style={isMobile ? { alignItems: "flex-start", position: "absolute", top: "10px", right: "0" } : ""}>
-                      <p className="button" onClick={() => handleDelete(data.id)} style={{ background: "transparent" }}>
-                        <DeleteOutlined />
-                      </p>
-                    </div> */}
                   </div>
                 )
               }
