@@ -16,7 +16,7 @@ import "swiper/swiper-bundle.min.css";
 import "swiper/css/pagination";
 import moment from "moment";
 import SwiperCore, { Navigation } from "swiper/core";
-import { formatDistanceToNow } from "date-fns";
+
 
 let counter = 7;
 
