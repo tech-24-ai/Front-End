@@ -109,6 +109,11 @@ function Menu(props) {
                         Talk to a Consultant
                       </Link>
                     </DropdownItem>
+                    <DropdownItem className="service-link">
+                      <Link onClick={openSideMenu} href="/d/tools_calculators/calculators" style={{color: "black"}}>
+                      Tools & Calculator
+                      </Link>
+                    </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
               </NavItem>
