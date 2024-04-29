@@ -106,14 +106,14 @@ class Connect extends React.PureComponent {
            image={connectImage}
         />
         <Container className="connect-body-container">
-          <div className="row top-connect-container">
-            <div className="col-md-4 ">
+          <div className="top-connect-container">
+            <div className="left-connect-content">
               <Space size={20} className="iconCard-content">
                 <IconCard />
               </Space>
             </div>
-            <div className="col-md-7">
-              <h4 className="mt-3">How would you like us to help you?</h4>
+            <div className="right-connect-content">
+              <h4>How would you like us to help you?</h4>
               <ConnectRadioBox
                 options={contact_types}
                 value={contactTypeId}
@@ -131,8 +131,8 @@ class Connect extends React.PureComponent {
             </div>
           </div>
 
-          <div className="row mid-connect-container">
-            <div className="col-md-6 mid-left-connect-content">
+          <div className="mid-connect-container">
+            <div className="mid-left-connect-content">
               <h4>Get in Touch</h4>
               <p>
                 Your email address will not be published. Required fields are
@@ -170,7 +170,7 @@ class Connect extends React.PureComponent {
                 <Button className="send-btn">Send Message</Button>
               </Form>
             </div>
-            <div className="col-md-6 mid-right-connect-content">
+            <div className="mid-right-connect-content">
               <iframe
                 className="bgIcon map"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1662.1428480165212!2d55.14002641347944!3d25.068731192881344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f6cada4c46285%3A0xdc22defd3201061c!2sDubai%20Multi%20Commodities%20Centre!5e0!3m2!1sen!2sin!4v1687417891764!5m2!1sen!2sin"
@@ -181,7 +181,7 @@ class Connect extends React.PureComponent {
             </div>
           </div>
 
-          <div className="row btm-connect-container">
+          <div className="btm-connect-container">
             {/* <div className="btm-left-content">
               <div className="icon">
                 <FindIcon />
@@ -202,7 +202,7 @@ class Connect extends React.PureComponent {
               </div>
             </div> */}
 
-            <div className="col-md-12 btm-right-content">
+            <div className="btm-right-content">
               {/* <img src={EmailIcon.src} /> */}
               <div className="icon">
                 <EmailIcon />

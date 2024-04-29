@@ -1191,9 +1191,8 @@ const Profile = ({
       });
 
       topMarks[100] = {
-        label: `${
-          visitor_profile_levels?.[0]?.leavels[levelCount - 1].level
-        } \n ${visitor_profile_levels?.[0]?.leavels[levelCount - 1].title}`,
+        label: `${visitor_profile_levels?.[0]?.leavels[levelCount - 1].level
+          } \n ${visitor_profile_levels?.[0]?.leavels[levelCount - 1].title}`,
         style: { whiteSpace: "pre" },
       };
 
@@ -1308,9 +1307,6 @@ const Profile = ({
                             alt="profile"
                           />
                         </div>
-                        {/* <p className="profile-badge">
-                      <LikeOutlined />
-                    </p> */}
 
                       </div>
                       <div className="profile">
@@ -1323,15 +1319,17 @@ const Profile = ({
                       </div>
                     </div>
 
-                  <div className="follow" style={isMobile ? { alignItems: "flex-start", position: "absolute", top: "10px", right: "0" } : ""}>
-                      <p className="button" onClick={() => handleDelete(data.id)} style={{ background: "transparent" }}>
+                  <div className="follow">
+                      <button className="button" onClick={() => handleDelete(data.id)} style={{ background: "transparent" }}>
                         <DeleteOutlined />
-                      </p>
+                      </button>
                     </div>
+                    {/* <div className="follow" style={isMobile ? { alignItems: "flex-start", position: "absolute", top: "10px", right: "0" } : ""}>
+                    </div> */}
                   </div>
                 )
               }
-              {data?.market_research !== null &&
+              {data?.market_research &&
                 (
                   <div className="cards-header">
                     <div>
@@ -1349,9 +1347,6 @@ const Profile = ({
                             alt="profile"
                           />
                         </div>
-                        {/* <p className="profile-badge">
-                      <LikeOutlined />
-                    </p> */}
 
                       </div>
                       <div className="profile">
@@ -1363,15 +1358,21 @@ const Profile = ({
                         </p>
                       </div>
                     </div>
-
-                  <div className="follow" style={isMobile ? { alignItems: "flex-start", position: "absolute", top: "10px", right: "0" } : ""}>
+  
+                  <div className="follow">
+                    <button className="button" onClick={() => handleDelete(data.id)} style={{ background: "transparent" }}>
+                      <DeleteOutlined />
+                    </button>
+                  </div>
+                    {/* <div className="follow" style={isMobile ? { alignItems: "flex-start", position: "absolute", top: "10px", right: "0" } : ""}>
                       <p className="button" onClick={() => handleDelete(data.id)} style={{ background: "transparent" }}>
                         <DeleteOutlined />
                       </p>
-                    </div>
+                    </div> */}
                   </div>
                 )
               }
+
             </Card>
           ))
           }
