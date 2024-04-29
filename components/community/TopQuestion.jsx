@@ -3,7 +3,7 @@
 import React, { Fragment } from "react";
 import Router, { useRouter, withRouter } from "next/router";
 import { connect } from "react-redux";
-import { Container } from "reactstrap";
+import { Container, Button } from "reactstrap";
 import { crudService } from "../../_services";
 import { userActions } from "../../_actions";
 import { UsergroupAddOutlined, MessageOutlined } from "@ant-design/icons";
@@ -251,7 +251,12 @@ class TrendingQuestion extends React.PureComponent {
                               </div>
 
                               <div className="card-trend-body">
-                                <p class="card-text">{data.description}</p>
+                                <p class="card-text">
+                                <span
+                                dangerouslySetInnerHTML={{
+                                  __html: data?.description,
+                                }}
+                              ></span></p>
                                 <div className="content-x">
                                   <div
                                     className="design-content"
@@ -267,7 +272,19 @@ class TrendingQuestion extends React.PureComponent {
                                 </div>
                               </div>
                               <div className="learn-more-btn">
-                                <h6 className="btn-text">Answer</h6>
+                                
+                                <Button
+                              className="btn-text"
+                              onClick={() => {
+                                sessionStorage.setItem(
+                                  "community_question_id",
+                                  data?.url_slug
+                                );
+                                Router.push("community/question");
+                              }}
+                            >
+                              Answer
+                            </Button>
                               </div>
                             </div>
                           </div>

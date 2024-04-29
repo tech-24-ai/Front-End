@@ -330,29 +330,6 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
                 </select>
               </div>
 
-              {/* <Select
-                style={{
-                  width: "30%",
-                }}
-                showSearch
-                placeholder="Sort By"
-                optionFilterProp="children"
-                // onChange={onChange}
-                options={[
-                  {
-                    value: "most recent",
-                    label: "Most Recent",
-                  },
-                  {
-                    value: "asc",
-                    label: "asc",
-                  },
-                  {
-                    value: "dsc",
-                    label: "dsc",
-                  },
-                ]}
-              /> */}
             </>
           )}
         </div>

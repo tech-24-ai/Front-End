@@ -240,7 +240,7 @@
       width: 100% !important;
       transition: all 0.5s ease-in-out;
       box-shadow: none !important;
-      top: 90px;
+      top: 68px;
       height: 50% !important;
       right: -5px;
     }
@@ -331,7 +331,8 @@
       display: block;
     }
 
-    padding: 1.5rem 0 !important;
+    //Removed by vandan to Reduce Height
+    // padding: 1.5rem 0 !important;
 
     .row {
       margin: 0 -5px;

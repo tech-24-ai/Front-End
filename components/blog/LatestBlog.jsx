@@ -25,7 +25,7 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
   
   return (
     <Container>
-      <div className="latest-blog">
+      <div className="latest-blog hover">
         <div className="title-section">
           <p className="title">
             Latest <span className="title bg">Blogs</span>

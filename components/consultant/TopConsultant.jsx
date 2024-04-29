@@ -7,7 +7,9 @@ import { connect } from "react-redux";
 import { Image } from "antd";
 import Router, { withRouter } from "next/router";
 import Slider from "react-slick";
-const TopConsultant = ({ getAllCrud, consultants }) => {
+const TopConsultant = ({ getAllCrud, consultants,authentication  }) => {
+
+  const { loggedIn } = authentication;
   const slider = useRef();
   useEffect(() => {
     getAllCrud("consultants", "consultants", {
@@ -21,6 +23,13 @@ const TopConsultant = ({ getAllCrud, consultants }) => {
   if (!Array.isArray(consultants)) {
     return false;
   }
+
+  const goToProfilePage = (id) => {
+    if (loggedIn) {
+      sessionStorage.setItem("consultantID", id);
+      Router.push("/consultant/profile");
+    }
+  };
 
   return (
     <Container>
@@ -100,7 +109,9 @@ const TopConsultant = ({ getAllCrud, consultants }) => {
           >
             {consultants?.slice(0, 3).map((data) => (
               <div className="consultant-list">
-                <div className="consultant-card">
+                <div className="consultant-card hover" onClick={() => {
+                  goToProfilePage(data.id)
+                }}>
                   <Image
                     preview={false}
                     src={

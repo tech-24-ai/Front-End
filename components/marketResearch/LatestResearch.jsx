@@ -14,43 +14,8 @@ const LatestResearch = ({
   titleBorder = false,
   title = 'Latest <span class="title bg">Research</span>',
   data,
+  viewMore = true
 }) => {
-  const dataDummay = [
-    {
-      id: 1,
-      tilte:
-        "Long-Term Trends in the Public Perception of Artificial Intelligence",
-      description:
-        "Analyses of text corpora over time can reveal trends in beliefs, interest, and sentiment about a to...",
-      date: "Mar 07, 2024",
-      read: "10 min read",
-      image: "/images/home/research/research-1.png",
-      category: "Clound Computing",
-    },
-    {
-      id: 2,
-      tilte:
-        "Long-Term Trends in the Public Perception of Artificial Intelligence",
-      description:
-        "Analyses of text corpora over time can reveal trends in beliefs, interest, and sentiment about a to...",
-      date: "Mar 07, 2024",
-      read: "18 min read",
-      image: "/images/home/research/research-2.png",
-      category: "Data Storage",
-    },
-    {
-      id: 3,
-      tilte:
-        "Long-Term Trends in the Public Perception of Artificial Intelligence",
-      description:
-        "Analyses of text corpora over time can reveal trends in beliefs, interest, and sentiment about a to...",
-      date: "Mar 07, 2024",
-      read: "22 min read",
-      image: "/images/home/research/research-3.png",
-      category: "Chatbot",
-    },
-  ];
-
   console.log("data", data);
 
   const parsedTitle = () => {
@@ -67,9 +32,10 @@ const LatestResearch = ({
             {titleBorder && <span className="side-border-title"></span>}
             <span className="title" dangerouslySetInnerHTML={parsedTitle()} />
           </p>
-          <Link href="/market-research/research-list">
+          {viewMore == true && <Link href="/market-research/research-list">
             <p className="view-more">View more</p>
           </Link>
+          }
         </div>
 
         <div className="research-section">
@@ -140,7 +106,7 @@ const LatestResearch = ({
             )}
           >
             {data?.map((item, index) => (
-              <ResearchCard data={item} key={index} />
+              <ResearchCard data={item} key={index} redirectUrl={`/market-research/${item.seo_url_slug}`} />
             ))}
           </Slider>
         </div>
