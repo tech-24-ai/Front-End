@@ -1,20 +1,9 @@
 import React from "react";
 import Router from "next/router";
 import { connect } from "react-redux";
-import { Container } from "reactstrap";
 import { isMobile, isTablet, isBrowser } from "react-device-detect";
-import { Icon } from "react-icons-kit";
-import { iosArrowBack } from "react-icons-kit/ionicons/iosArrowBack";
-import { iosArrowForward } from "react-icons-kit/ionicons/iosArrowForward";
-import Arrow from "../../public/images/category/arrow.svg";
 import { crudService } from "../../_services";
-import ArrowDown from "../../public/images/category/arrowdown.svg";
-import ArrowUp from "../../public/images/category/arrowup.svg";
-import centerLogo from "../../public/images/header/Group 594.png";
-import moreIcon from "../../public/images/header/Group 550.png";
-import { Col, Row, FormGroup } from "reactstrap";
 import { TreeSelect, Space } from "antd";
-import Image from "next/image";
 import myImageLoader from "../imageLoader";
 import businessIcon from "../../public/new_images/business-application-icon.svg";
 

@@ -3,7 +3,6 @@ import { withRouter } from "next/router";
 import { Container, Input } from "reactstrap";
 import { crudService } from "../../_services";
 import SearchInput from "../../components/form/searchInput";
-import Image from "next/future/image";
 import CommunityImage from "../../public/images/communityList.png";
 import CheckableTag from "antd/lib/tag/CheckableTag";
 import { DateIcon, ProfileIcon } from "../../components/icons";
@@ -83,7 +82,6 @@ const Community = ({ community, getAllCrud }) => {
       searchPosts();
     }, 300);
   }, [value]);
-  
 
   const handleViewAll = () => {
     Router.push("/community/query_detail");
@@ -148,7 +146,10 @@ const Community = ({ community, getAllCrud }) => {
   };
 
   return (
-    <section className="community-section community-listing-page mt-4" style={{background: "#fff"}}>
+    <section
+      className="community-section community-listing-page"
+      style={{ background: "#fff" }}
+    >
       <PageBanner
         titleNode={
           <div>
@@ -302,7 +303,8 @@ const Community = ({ community, getAllCrud }) => {
                 color: "#0074D9",
                 textDecoration: "underline",
                 cursor: "pointer",
-                marginRight: "2rem",
+                marginRight: isMobile ? 0 : "3.5rem",
+                alignContent: "center"
               }}
               onClick={handleViewAll}
             >

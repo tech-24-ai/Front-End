@@ -6,7 +6,7 @@ import {
   RightOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
-import Image from "next/image";
+import Image from "next/future/image";
 import { connect } from "react-redux";
 import Router, { withRouter, useRouter } from "next/router";
 import { crudActions, loaderActions, alertActions } from "../../_actions";

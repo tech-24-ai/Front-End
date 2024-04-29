@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, Row, Col } from "reactstrap";
 import myImageLoader from "../../components/imageLoader";
-import Image from "next/image";
+import Image from "next/future/image";
 import pricingIcon from "../../public/new_images/pricing.svg";
 import { Input, Radio } from "antd";
 import { UserOutlined, SendOutlined } from "@ant-design/icons";

@@ -1,16 +1,15 @@
 @media (min-width: 576px) {
   .container {
-    padding-left: 120px;
-    padding-right: 120px;
+    padding-left: 95px;
+    padding-right: 95px;
   }
   .main-content {
     min-height: 100vh;
     padding-bottom: 40px;
 
     &.sticky {
-      // padding-top: 65px !important;
-      padding-top: 40px !important;
-
+      padding-top: 75px !important;
+      // padding-top: 40px !important;
     }
   }
 
@@ -87,7 +86,8 @@
     padding-bottom: 195px;
 
     &.sticky {
-      padding-top: 109px !important;
+      // padding-top: 109px !important;
+      padding-top: 88px !important;
     }
   }
 

@@ -1,6 +1,6 @@
 import React from "react";
 import myImageLoader from "../components/imageLoader";
-import Image from "next/image";
+import Image from "next/future/image";
 import roboAdvisorImage from "../public/new_images/robo-advisor-img.svg";
 import { Container } from "reactstrap";
 import PageBanner from "../components/card/pageBanner";

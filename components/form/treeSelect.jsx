@@ -12,7 +12,7 @@ import "antd/dist/antd.css";
 import { crudService } from "../../_services";
 import prevArrow from "../../public/images/header/icon-ionic-ios-arrow-back.png";
 import nextArrow from "../../public/images/header/icon-ionic-ios-arrow-forward.png";
-import Image from "next/image";
+import Image from "next/future/image";
 import myImageLoader from "../imageLoader";
 import searchIcon from "../../public/new_images/search-icon.svg";
 

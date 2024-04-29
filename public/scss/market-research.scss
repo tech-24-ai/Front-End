@@ -22,10 +22,12 @@
     margin-top: 2rem;
     margin-bottom: 1rem;
 
-    .research-card {
-      .custom-icon {
-        position: absolute;
-        bottom: 40px;
+    .research-list {
+      .research-card {
+        .custom-icon {
+          position: absolute;
+          bottom: 40px;
+        }
       }
     }
   }
@@ -247,9 +249,9 @@ section.latest-research-section {
 @media (max-width: 575px) {
   .market-research-portal-section {
     .banner-image-container,
-    .sub-title {
-      display: none;
-    }
+    // .sub-title {
+    //   display: none;
+    // }
     .title {
       font-size: 18px;
       font-weight: 600;

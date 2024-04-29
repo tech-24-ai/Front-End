@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Container, Row, Col } from "reactstrap";
 import myImageLoader from "../components/imageLoader";
-import Image from "next/image";
+import Image from "next/future/image";
 import troubleshootIcon from "../public/new_images/troubleshoot.svg";
 import { Input } from "antd";
 import ChatCard from "../components/card/chatCard";
@@ -169,7 +169,7 @@ function troubleshoot({ getAllCrud, showLoader, hideLoader, error }) {
 
   return (
     <section
-      className="pricing-advisor-section"
+      className="pricing-advisor-section trouble-subject-section"
       style={{ marginBottom: "30px" }}
     >
       <div className="page-heading">

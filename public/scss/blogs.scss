@@ -1,10 +1,82 @@
+.ant-pagination-item-active {
+  background: #000 !important;
+  color: white;
+  border: #000 !important;
+}
+.blog-card {
+  img {
+    border-radius: 6px;
+    transition: transform 0.5s ease;
+  }
+  .ant-image {
+    overflow: hidden;
+    width: 100%;
+    border-radius: 6px;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
+    transition: transform 0.5s ease;
+  }
+  .category {
+    border-radius: 4px;
+    border: 1px solid $backgroundColor;
+    color: $backgroundColor;
+    padding: 4px 6px;
+    width: fit-content;
+    margin: 1rem 0;
+    &.bg {
+      background-color: rgba($backgroundColor, 0.2);
+    }
+  }
+
+  .blog-heading {
+    font-weight: 500;
+    font-size: 1.25rem;
+    line-height: 2rem;
+  }
+
+  .blog-detail {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .date-section {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: #54616c;
+    margin-top: 1rem;
+    font-size: 12px;
+    position: relative;
+    .date {
+      line-height: 18px;
+      font-weight: 400;
+      padding: 0 5px;
+    }
+
+    .time {
+      padding: 0 5px;
+      // border-left: 1.5px solid #54616c;
+    }
+  }
+}
 .blogs-section {
   // background-color: $bodyBackgroundColor;
   background-color: #ffffff;
+  margin-top: -4px;
+  display: flex;
+  .page-banner {
+    .banner-bg {
+      height: 386px;
+    }
+  }
   .blog-container {
     display: flex;
     justify-content: space-between;
-    margin: 100px 0px;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
     flex-direction: column;
     .tags {
       width: 100%;
@@ -13,27 +85,30 @@
 
     .category {
       border-radius: 4px;
-      border: 1px solid $backgroundColor;
-      color: $backgroundColor;
+      border: 1px solid $themeSecondary;
+      color: $themeSecondary;
       padding: 4px 6px;
       width: fit-content;
       margin: 1rem 0;
       &.bg {
-        background-color: rgba($backgroundColor, 0.2);
+        background-color: rgba($themeSecondary, 0.2);
       }
     }
 
     .blog-heading {
       font-weight: 500;
       font-size: 1.25rem;
-      line-height: 2rem;
+      line-height: 1.5rem;
     }
 
     .blog-detail {
       font-weight: 400;
-      font-size: 14px;
+      font-size: 12px;
       line-height: 20px;
       padding: 0;
+      margin-top: -7px;
+
+      margin-bottom: 0.5rem;
     }
     .admin-text {
       // color: $backgroundColor;
@@ -50,7 +125,7 @@
       color: #00192f;
       // display: flex;
       gap: 1rem;
-  }
+    }
     .profile-icons:first-child {
       object-fit: contain;
       margin: 0px 10px 0px 0px;
@@ -63,14 +138,12 @@
       border: 0;
       // height: 547px;
     }
-    .blog-list{
+    .blog-list {
       display: flex;
     }
 
     .blog-card img {
       border-radius: 6px;
-      width: 350px;
-      height: 210px;
     }
 
     // .second-div p {
@@ -148,7 +221,6 @@
       flex-wrap: wrap;
       row-gap: 15px;
       column-gap: 10px;
-      margin-left: 12px;
       width: 100%;
       align-content: baseline;
 
@@ -193,6 +265,33 @@
       color: unset;
     }
   }
+  ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 12rem;
+    margin: 0 auto;
+  }
+  .other-page {
+    background: #f2f4f7;
+    color: #000;
+    width: 2rem;
+    text-align: center;
+    padding: 6px 8px;
+    border-radius: 4px;
+    margin: 0 5px;
+    width: calc(2rem + 8px);
+  }
+  .selected-page {
+    background: $backgroundColor;
+    color: #fff;
+    width: 2rem;
+    text-align: center;
+    padding: 6px 8px;
+    border-radius: 4px;
+    width: calc(2rem + 8px);
+  }
 }
 
 .latest-blog {
@@ -212,7 +311,7 @@
       font-size: 1.5rem;
       line-height: 2rem;
       &.bg {
-        color: $backgroundColor;
+        color: $viewMoreIcon;
         font-weight: 500;
         font-size: 1.5rem;
         line-height: 2rem;
@@ -220,7 +319,7 @@
     }
 
     .view-more {
-      color: $backgroundColor;
+      color: $viewMoreIcon;
       font-size: 1rem;
       font-weight: 400;
       line-height: 1.5rem;
@@ -231,7 +330,7 @@
 
   .blog-section {
     .slick-slider .slick-list .slick-track {
-      gap: 2rem;
+      gap: 1rem;
       display: flex;
     }
     .slick-slider {
@@ -279,6 +378,7 @@
     .showHoverClass {
       width: 33.33%;
       .blog-card {
+        height: 100%;
         img {
           border-radius: 6px;
           width: 100%;
@@ -292,13 +392,13 @@
         }
         .category {
           border-radius: 4px;
-          border: 1px solid $backgroundColor;
-          color: $backgroundColor;
+          border: 1px solid $viewMoreIcon;
+          color: $viewMoreIcon;
           padding: 4px 6px;
           width: fit-content;
           margin: 1rem 0;
           &.bg {
-            background-color: rgba($backgroundColor, 0.2);
+            background-color: rgba($viewMoreIcon, 0.2);
           }
         }
 
@@ -347,7 +447,7 @@
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      background-color: $backgroundColor;
+      background-color: $viewMoreIcon;
       cursor: pointer;
       .anticon-arrow-right {
         font-size: 1rem;
@@ -374,13 +474,23 @@
 }
 
 @media (max-width: 575px) {
-  .main-content.blogs {
+  PageBanner .main-content.blogs {
+    margin-left: 20px;
     min-height: 100vh;
     padding-bottom: 190px !important;
+    margin-top: 60px;
   }
+
   .blogs-section {
+    .testSearchInput {
+      width: auto;
+    }
+    .banner-bg {
+      height: 220px !important;
+    }
     .page-banner .banner-bg .banner-container {
       padding: 2rem 0;
+
       .banner-image-container {
         display: none;
       }
@@ -390,12 +500,12 @@
       margin: 2rem 0;
       display: flex;
       flex-direction: column;
+
       .div-one {
         width: 100%;
       }
       .second-div {
         width: 100%;
-        margin-left: 0;
         grid-template-columns: repeat(1, 1fr);
         .blog-card {
           width: 100%;
@@ -434,12 +544,15 @@
           width: 412px !important;
           height: 250px !important;
         }
+        .latest-blog-list-img {
+          width: 100% !important;
+        }
       }
     }
 
     .view-more-icon {
-      margin-top: 14% !important;
-      right: 110px !important;
+      margin-top: 13% !important;
+      right: 90px !important;
     }
   }
 }

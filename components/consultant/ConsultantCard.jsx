@@ -1,6 +1,7 @@
 import React from "react";
 import { Select, Space, Avatar, List, Card, Row, Col } from "antd";
 import Image from "next/image";
+
 import { EnvironmentOutlined } from "@ant-design/icons";
 import Swiper from "../swiper/index";
 import { crudActions } from "../../_actions";
@@ -207,7 +208,9 @@ const ConsultantCard = ({ consultants, authentication }) => {
                             </div>
                           ) : (
                             <div className="custom-icon small">
-                              <CompanyIcon />
+                              <CompanyIcon 
+                                  style={{width: "60px", height: "60px"}}
+                                  preview="false" />
                             </div>
                           )}
                           <div className="detail">

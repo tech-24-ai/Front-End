@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "reactstrap";
 import myImageLoader from "../components/imageLoader";
-import Image from "next/image";
+import Image from "next/future/image";
 import troubleshootIcon from "../public/new_images/troubleshoot.svg";
 import { Input, Radio } from "antd";
 import ChatCard from "../components/card/chatCard";
@@ -22,7 +22,7 @@ function troubleshootSubject({ getAllCrud, chat_gpt }) {
   };
 
   return (
-    <section className="pricing-advisor-section">
+    <section className="pricing-advisor-section trouble-subject-section">
       <div className="page-heading">
         <p className="title">Troubleshoot issues</p>
         <Image

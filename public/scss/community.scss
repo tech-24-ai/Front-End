@@ -208,7 +208,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background-color: #0074d9;
+  background-color: $viewMoreIcon;
   z-index: 1;
   cursor: pointer;
   .anticon-arrow-right {
@@ -217,7 +217,6 @@
     color: #ffffff;
   }
 }
-
 // top question style
 .top-question {
   p {
@@ -236,7 +235,7 @@
       font-size: 1.5rem;
       line-height: 2rem;
       &.bg {
-        color: $backgroundColor;
+        color: $viewMoreIcon;
         font-weight: 500;
         font-size: 1.5rem;
         line-height: 2rem;
@@ -244,7 +243,7 @@
     }
 
     .view-more {
-      color: $backgroundColor;
+      color: $viewMoreIcon;
       font-size: 1rem;
       font-weight: 400;
       line-height: 1.5rem;
@@ -363,7 +362,7 @@
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      background-color: $backgroundColor;
+      background-color: $viewMoreIcon;
       cursor: pointer;
       .anticon-arrow-right {
         font-size: 1rem;
@@ -630,19 +629,19 @@
       }
     }
   }
-  .view-more-icon{
+  .view-more-icon {
     display: none;
   }
   .dotted-background {
-  position: absolute;
-  bottom: 10px; /* Adjust the distance from the bottom as needed */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 24px; /* Adjust the width of the dotted background */
-  height: 4px; /* Adjust the height of the dotted background */
-  background-image: radial-gradient(circle, #000 10%, transparent 10%);
-  background-size: 3px 3px; /* Adjust the size of the dots */
-}
+    position: absolute;
+    bottom: 10px; /* Adjust the distance from the bottom as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px; /* Adjust the width of the dotted background */
+    height: 4px; /* Adjust the height of the dotted background */
+    background-image: radial-gradient(circle, #000 10%, transparent 10%);
+    background-size: 3px 3px; /* Adjust the size of the dots */
+  }
 }
 
 // For Scale 125% (Zoom Level)
@@ -651,6 +650,18 @@
     .view-more-icon {
       right: 110px !important;
       margin-top: 6% !important;
+    }
+  }
+}
+
+.category-box{
+  .swiper{
+    .swiper-pagination-bullets{
+      height: 30px !important;
+      .swiper-pagination-bullet{
+        height: 20px;
+        width: 20px;
+      }
     }
   }
 }

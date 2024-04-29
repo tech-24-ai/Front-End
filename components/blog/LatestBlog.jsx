@@ -1,23 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Container } from "reactstrap";
 
-import { ArrowRightOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { crudActions } from "../../_actions";
 import { connect } from "react-redux";
 import Router, { withRouter } from "next/router";
 import moment from "moment";
+import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import { Image } from "antd";
 import Slider from "react-slick";
 const LatestBlog = ({ getAllCrud, blogs }) => {
   const [showHoverClass, setShowHoverClass] = useState(null);
 
+  const slider = useRef();
+
   useEffect(() => {
     getAllCrud("blogs", "blogs", {
+      orderBy: "blogs.created_at",
+      orderPos: "desc",
       pageSize: 3,
     });
   }, []);
 
+  
   return (
     <Container>
       <div className="latest-blog">
@@ -30,17 +35,54 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
           </Link>
         </div>
         <div className="blog-section">
+          <div
+            onClick={() => slider.current?.slickPrev()}
+            className="view-more-icon"
+            style={{
+              left: "100px",
+              zIndex: "99",
+              position: "absolute",
+              width: "36px",
+              height: "36px",
+            }}
+          >
+            <ArrowLeftOutlined
+              style={{
+                color: "#fff",
+                fontSize: "16px",
+              }}
+            />
+          </div>
+          <div
+            onClick={() => slider.current?.slickNext()}
+            className="view-more-icon"
+            style={{
+              right: "95px",
+              zIndex: "99",
+              position: "absolute",
+              width: "36px",
+              height: "36px",
+            }}
+          >
+            <ArrowRightOutlined
+              style={{
+                color: "#fff",
+                fontSize: "16px",
+              }}
+            />
+          </div>
           <Slider
+            ref={slider}
             speed={500}
             slidesToScroll={1}
             slidesToShow={3}
+            arrows={false}
             responsive={[
               {
                 breakpoint: 1024,
                 settings: {
                   slidesToShow: 2,
                   dots: true,
-                  arrows: false
                 },
               },
               {
@@ -48,7 +90,6 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
                 settings: {
                   slidesToShow: 1,
                   dots: true,
-                  arrows: false
                 },
               },
             ]}
@@ -56,9 +97,12 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
               <div>
                 <ul> {dots} </ul>
               </div>
-            )}>
-            {blogs?.slice(0, 3).map((data, index) => (
+            )}
+          >
+            {blogs?.slice(0, 3).map((data, index) => (              
+                // <Link href={`/blogs/${data.slug}`} key={index}>
               <div
+                onClick={() => Router.push(`/blogs/${data.slug}`)}
                 onMouseOver={() => setShowHoverClass(index)}
                 onMouseOut={() => setShowHoverClass(null)}
                 className={`blog-list ${
@@ -82,6 +126,7 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
                       preview={false}
                       alt=""
                       placeholder="blog banner"
+                      className="latest-blog-list-img"
                     />
                     <p className="category bg">{data.blog_topic_name}</p>
                     <p className="blog-heading">{data.name}</p>
@@ -96,13 +141,10 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
                   </div>
                 </div>
               </div>
+              // </Link>
             ))}
           </Slider>
-          <Link href="blogs">
-            <div className="view-more-icon">
-              <ArrowRightOutlined />
-            </div>
-          </Link>
+        
         </div>
       </div>
     </Container>

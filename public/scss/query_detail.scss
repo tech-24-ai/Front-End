@@ -133,7 +133,7 @@
     padding: 6px 8px;
     border-radius: 4px;
   }
- 
+
   .accordion-item {
     border: none;
     cursor: pointer;
@@ -234,13 +234,13 @@
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     border-radius: 20px;
-    width: 120px; 
+    width: 120px;
     height: 38px;
     background-color: #007bff;
-    color: #ffffff; 
-    border: none; 
-    outline: none; 
-    cursor: pointer; 
+    color: #ffffff;
+    border: none;
+    outline: none;
+    cursor: pointer;
     margin-top: -45px;
     float: right;
   }
@@ -248,15 +248,15 @@
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     border-radius: 20px;
-    width: 100px; 
+    width: 100px;
     height: 30px;
-    color: white; 
-    border: none; 
-    outline: none; 
+    color: white;
+    border: none;
+    outline: none;
     cursor: pointer;
     float: right;
   }
- 
+
   .pagination li > a {
     opacity: 1.5;
   }
@@ -336,7 +336,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background-color: $backgroundColor;
+  background-color: $viewMoreIcon;
   z-index: 1;
   cursor: pointer;
   .anticon-arrow-right {
@@ -349,12 +349,12 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-left: 1.2rem;
+  margin-left: 0rem;
   .result-sort {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 0px 0px 0px 14px;
+    padding: 0px 0px 0px 15px;
   }
 }
 .result-sort {
@@ -382,7 +382,7 @@
   }
 
   .ant-select-arrow {
-    color: $backgroundColor;
+    color: $viewMoreIcon;
   }
 }
 
@@ -392,24 +392,23 @@
   }
 }
 @media (min-width: 1586px) and (max-width: 1920px) {
-  .query-section{
+  .query-section {
     margin-top: 20px;
   }
-    .accordion-title{
+  .accordion-title {
     font-size: 12px;
-    }
-  
+  }
 }
 
 @media (max-width: 575px) {
-    .query-section{
-        margin-top: 0px;
-    }
-    .community-category-below .category-box {
+  .query-section {
+    margin-top: 0px;
+  }
+  .community-category-below .category-box {
     position: relative;
-    height: 300px;
+    height: 315px;
     display: flex;
-}
+  }
   .main-content.about-us {
     padding-bottom: 193px !important;
   }
@@ -632,6 +631,9 @@
       display: flex !important;
       flex-direction: column !important;
     }
+    .result-sort {
+      padding: 0px;
+    }
   }
   .content-card-display {
     width: 100%;
@@ -648,7 +650,10 @@
     max-width: 100%;
     display: contents;
   }
-  .main-content.sticky {
-    padding-top: 80px !important;
+
+  .query-section {
+    .main-content.sticky {
+      padding-top: 80px !important;
+    }
   }
 }

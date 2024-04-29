@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { Container } from "reactstrap";
 import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import Link from "next/link";
@@ -8,9 +8,12 @@ import { Image } from "antd";
 import Router, { withRouter } from "next/router";
 import Slider from "react-slick";
 const TopConsultant = ({ getAllCrud, consultants }) => {
+  const slider = useRef();
   useEffect(() => {
     getAllCrud("consultants", "consultants", {
       pageSize: 3,
+      orderBy: "top_consultants",
+      orderPos: "desc",
       is_company: false,
     });
   }, []);
@@ -31,17 +34,54 @@ const TopConsultant = ({ getAllCrud, consultants }) => {
           </Link>
         </div>
         <div className="consultant-section">
+          <div
+            onClick={() => slider.current?.slickPrev()}
+            className="view-more-icon"
+            style={{
+              left: "90px",
+              zIndex: "99",
+              position: "absolute",
+              width: "36px",
+              height: "36px",
+            }}
+          >
+            <ArrowLeftOutlined
+              style={{
+                color: "#fff",
+                fontSize: "16px",
+              }}
+            />
+          </div>
+          <div
+            onClick={() => slider.current?.slickNext()}
+            className="view-more-icon"
+            style={{
+              right: "90px",
+              zIndex: "99",
+              position: "absolute",
+              width: "36px",
+              height: "36px",
+            }}
+          >
+            <ArrowRightOutlined
+              style={{
+                color: "#fff",
+                fontSize: "16px",
+              }}
+            />
+          </div>
           <Slider
+            ref={slider}
             speed={500}
             slidesToScroll={1}
             slidesToShow={3}
+            arrows={false}
             responsive={[
               {
                 breakpoint: 1024,
                 settings: {
                   slidesToShow: 2,
                   dots: true,
-                  arrows: false
                 },
               },
               {
@@ -49,7 +89,6 @@ const TopConsultant = ({ getAllCrud, consultants }) => {
                 settings: {
                   slidesToShow: 1,
                   dots: true,
-                  arrows: false
                 },
               },
             ]}

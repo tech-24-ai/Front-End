@@ -23,14 +23,26 @@ import {
   MobileView,
   isBrowser,
   isMobile,
+  isTablet
 } from "react-device-detect";
 import LogoBlack from "../../public/new_images/tech24_header_logo_white.svg";
 import LogoWhite from "../../public/new_images/tech24_header_logo_white.svg";
 import Drawer from "./drawer";
 import myImageLoader from "../imageLoader";
-import Image from "next/image";
+import Image from "next/future/image";
+import { useMediaQuery } from "react-responsive";
 
 function Header(props) {
+
+  const useDesktopMediaQuery = () =>
+  useMediaQuery({ query: '(min-width: 1440px)' })
+
+const useTabletAndBelowMediaQuery = () =>
+  useMediaQuery({ query: '(max-width: 1199px)' })
+
+  //const isBrowser = useDesktopMediaQuery();
+  //const isTablet = useTabletAndBelowMediaQuery();
+
   const [collapsed, setCollapsed] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
@@ -86,7 +98,7 @@ function Header(props) {
       <Container>
         <Row className="align-items-center">
           <Col md={3} className="left-block">
-            {isBrowser && (
+            {isMobile == false && (
               <div className="logo-content-block">
                 <div className="logo-wrapper">
                   <Link href="/" style={{ marginTop: "-10px", width: "125px" }}>
@@ -105,7 +117,14 @@ function Header(props) {
                 </div>
               </div>
             )}
-            <MobileView>
+           {
+            isMobile && (
+              <MobileView>
+              <Drawer
+                isloggedIn={isloggedIn}
+                openSideMenu={openSideMenu}
+                sideMenu={sideMenu}
+              />
               <Link href={"/"}>
                 <Image
                   loader={myImageLoader}
@@ -121,9 +140,12 @@ function Header(props) {
                 />
               </Link>
             </MobileView>
+            )
+           }
+           
           </Col>
           <Col md={9} className="right-block">
-            {isBrowser && (
+            {isMobile == false && (
               <div className="main-menu-wrapper">
                 <Navbar expand="md" className="p-0">
                   <NavbarToggler onClick={toggleNavbar} className="mr-2" />
@@ -172,7 +194,9 @@ function Header(props) {
                               </Link>
                             </DropdownItem>
                             <DropdownItem className="service-link">
-                              <Link href="/access">Access Communities</Link>
+                              <Link href="/d/tools_calculators/calculators">
+                                Tools & Calculator
+                              </Link>
                             </DropdownItem>
                           </DropdownMenu>
                         </UncontrolledDropdown>
@@ -278,13 +302,39 @@ function Header(props) {
                 </Navbar>
               </div>
             )}
-            <MobileView>
-              <Drawer
-                isloggedIn={isloggedIn}
-                openSideMenu={openSideMenu}
-                sideMenu={sideMenu}
-              />
+            {
+              isMobile && (
+                <MobileView>
+              <div style={{ float: "right", display: "flex" }}>
+                <NavItem>
+                  <img src="/new_images/search.svg" alt="search" />
+                </NavItem>
+
+                {isloggedIn && (
+                  <NavItem style={{ margin: 0 }}>
+                    <Link href="/Profile">
+                      <img
+                        src="/new_images/Avatar.svg"
+                        alt="avatar"
+                        style={{ cursor: "pointer" }}
+                      />
+                    </Link>
+                  </NavItem>
+                )}
+                {!isloggedIn && (
+                  <NavItem>
+                    <Link href="/login">
+                      <Button color="light" className="px-4">
+                        Sign up
+                      </Button>
+                    </Link>
+                  </NavItem>
+                )}
+              </div>
             </MobileView>
+              )
+            }
+            
           </Col>
         </Row>
       </Container>

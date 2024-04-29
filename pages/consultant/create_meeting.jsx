@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import { Space, Input, Radio, Divider, DatePicker } from "antd";
 import { Container } from "reactstrap";
 import { SearchOutlined, EnvironmentOutlined } from "@ant-design/icons";
-import Image from "next/image";
+import Image from "next/future/image";
 import InputBox from "../../components/form/inputBox";
 import RadioBox from "../../components/form/radioBox";
 import ConnectRadioBox from "../../components/form/connectRadio";

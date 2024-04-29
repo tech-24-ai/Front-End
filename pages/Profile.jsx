@@ -430,22 +430,23 @@ import Image from "next/image";
 import { Tabs, Card, Input, Select, Slider, Modal, Button, Upload } from "antd";
 import { Container } from "reactstrap";
 import myImageLoader from "../components/imageLoader";
-import Online_image from "../public/new_images/online_icon.svg";
 import date_image from "../public/new_images/date_icon.svg";
-import database_icon from "../public/new_images/database_icon.svg";
-import three_dot_icon from "../public/new_images/3dots.svg";
-import message_icon from "../public/new_images/message_icon.svg";
-import like_button from "../public/new_images/like_button.svg";
-import dislike_button from "../public/new_images/dislike_button.svg";
+import { LikeOutlined, DeleteOutlined } from "@ant-design/icons";
 import { crudActions, alertActions } from "../_actions";
 import { connect } from "react-redux";
 import Router from "next/router";
 import moment from "moment";
 import { crudService } from "../_services";
 import { isMobile } from "react-device-detect";
-import { SearchOutlined, PlusOutlined, LoadingOutlined } from "@ant-design/icons";
+import {
+  SearchOutlined,
+  PlusOutlined,
+  LoadingOutlined,
+} from "@ant-design/icons";
 import profile_img from "../public/new_images/profile.svg";
-
+import { Pagination } from "antd";
+import CustomPagination from "../components/pagination";
+import SearchInput from "../components/form/searchInput";
 const Profile = ({
   getAllCrud,
   updateCrud,
@@ -456,9 +457,20 @@ const Profile = ({
   visitor_points_history,
   countries,
   visitor_profile_levels,
+  visitor_activities,
+  router,
+  visitor_library
 }) => {
+  const { q } = Router.query;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [updateCom, setUpdateCom] = useState(false);
+  const [visitorquerieshistory, setvisitor_queries_history] = useState([]);
+  const [search, setSearch] = useState("");
+  const [value, setValue] = useState();
+  const [visitorActivity, setvisitorActivity] = useState([]);
+
+  const [inputValue, setInputValue] = useState("");
+
   const [updateProfileData, setUpdateProfileData] = useState({
     alternate_email: "",
     country_code: "",
@@ -467,19 +479,129 @@ const Profile = ({
   });
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [sortBy, setSortBy] = useState("recent");
+  const [sortBy, setSortBy] = useState("id");
+  const itemsPerPage = 4;
+  const [page, setPage] = useState(0);
+  const [pageCount, setPageCount] = useState(0);
+  const [libraryData, setLibraryData] = useState([]);
+
+  const [searchQuery, setSearchQuery] = useState(q);
+  const [filteredData, setFilteredData] = useState({});
+  // const [researchData, setResearchData] = useState([]);
+  const onPageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  //tab 2 data
+  useEffect(() => {
+    crudService
+      ._getAll("visitor_activities", {
+        orderBy: sortBy,
+        orderDirection: "desc",
+        page: page + 1,
+        pageSize: itemsPerPage,
+        search: searchQuery,
+        ...filteredData,
+      })
+      .then((result) => {
+        setvisitorActivity(result?.data?.data);
+        console.log("result", result.data);
+        const totalPage = Math.ceil(
+          result?.data?.total / result?.data?.perPage
+        );
+        setPageCount(isNaN(totalPage) ? 0 : totalPage);
+      });
+  }, [page, searchQuery, filteredData, sortBy]);
+
+  // tab3 data
+
+  useEffect(() => {
+    crudService
+      ._getAll("visitor_queries_history", {
+        orderBy: sortBy,
+        orderDirection: "desc",
+        page: page + 1,
+        pageSize: itemsPerPage,
+        search: searchQuery,
+        ...filteredData,
+      })
+      .then((result) => {
+        setvisitor_queries_history(result?.data?.data);
+        console.log("result", result.data);
+        const totalPage = Math.ceil(
+          result?.data?.total / result?.data?.perPage
+        );
+        setPageCount(isNaN(totalPage) ? 0 : totalPage);
+      });
+  }, [page, searchQuery, filteredData, sortBy]);
+
+  useEffect(() => {
+    crudService
+      ._getAll("visitor_library", {
+        orderBy: sortBy,
+        orderDirection: "asc",
+        page: page + 1,
+        pageSize: itemsPerPage,
+      })
+      .then((result) => {
+        setLibraryData(result?.data?.data);
+        console.log("setLibraryData", result?.data);
+        const totalPage = Math.ceil(result?.data?.total / result?.data?.perPage);
+        setPageCount(isNaN(totalPage) ? 0 : totalPage);
+      });
+  }, [page, sortBy, itemsPerPage]);
+
+  const handleSort = (e) => {
+    setSortBy(e.target.value);
+  };
+
+  const handleDelete = (id) => {
+    crudService._delete('visitor_library', id)
+      .then((result) => {
+        console.log('Item deleted successfully:', result);
+
+      })
+      .catch((error) => {
+        console.error('Error deleting item:', error);
+      });
+  };
+
+  const sortOptions = [
+    {
+      value: "id",
+      label: "Most Recent",
+    },
+    {
+      value: "view_counts",
+      label: "Most Viewed",
+    },
+  ];
+
+  //Filter
+  const handleSearch = (searchValue) => {
+    if (searchValue == null) {
+      return false;
+    }
+    const timerId = setTimeout(() => {
+      setSearchQuery(searchValue);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  };
 
   const onChange = (key) => {
     console.log(key);
   };
-  const showEditModal = () => {    
+  const showEditModal = () => {
     setUpdateProfileData(() => ({
       alternate_email: visitorprofile?.alternate_email,
       country_code: visitorprofile?.country_code,
       mobile: visitorprofile?.mobile,
       profile_pic_url: visitorprofile?.profile_pic_url,
     }));
-    setUpdateCom(false)
+    setUpdateCom(false);
     setIsModalOpen(true);
   };
   const handleOk = () => {
@@ -497,9 +619,9 @@ const Profile = ({
   const removeProfilePic = () => {
     setUpdateProfileData((prev) => ({
       ...prev,
-      profile_pic_url: '',
+      profile_pic_url: "",
     }));
-  }
+  };
 
   const handleFileChange = () => {
     setLoading(true);
@@ -520,7 +642,7 @@ const Profile = ({
             setLoading(false);
           })
           .catch((error) => {
-            console.log("asdasd")
+            console.log("asdasd");
             console.log("error", error);
             setLoading(false);
           });
@@ -535,6 +657,9 @@ const Profile = ({
     getAllCrud("visitor_queries_history", "visitor_queries_history");
     // getAllCrud("visitor_points_history", "visitor_points_history");
     getAllCrud("visitor_profile_levels", "visitor_profile_levels");
+    getAllCrud("visitor_activities", "visitor_activities");
+    getAllCrud("visitor_library", "visitor_library");
+
   }, [updateCom]);
 
   const fetchCountry = () => {
@@ -573,11 +698,12 @@ const Profile = ({
     };
 
     let visitorname = visitorprofile?.name;
-    let firstname = ""; let lastname = "";
+    let firstname = "";
+    let lastname = "";
 
-    if(visitorname) {
+    if (visitorname) {
       visitorname = visitorname.split(" ");
-      firstname = visitorname[0]; 
+      firstname = visitorname[0];
       visitorname.splice(0, 1);
       lastname = visitorname.join(" ");
     }
@@ -587,12 +713,12 @@ const Profile = ({
         <div className="input-container">
           <div>
             <h6>First Name</h6>
-            <h5 style={{ textTransform: "capitalize"}}>{firstname || ""}</h5>
+            <h5 style={{ textTransform: "capitalize" }}>{firstname || ""}</h5>
           </div>
-          
+
           <div>
             <h6>Last Name</h6>
-            <h5 style={{ textTransform: "capitalize"}}>{lastname || "-"}</h5>
+            <h5 style={{ textTransform: "capitalize" }}>{lastname || "-"}</h5>
           </div>
         </div>
         <hr />
@@ -601,7 +727,7 @@ const Profile = ({
             <h6>Country/Region</h6>
             <h5>{visitorprofile?.country?.name || "-"}</h5>
           </div>
-          
+
           <div>
             <h6>City/District</h6>
             <h5>{visitorprofile?.visitor_ip_city || "-"}</h5>
@@ -613,7 +739,7 @@ const Profile = ({
             <h6>Job Title</h6>
             <h5>{visitorprofile?.designation || "-"}</h5>
           </div>
-          
+
           <div>
             <h6>Company Name</h6>
             <h5>{visitorprofile?.company || "-"}</h5>
@@ -625,18 +751,20 @@ const Profile = ({
             <h6>Email</h6>
             <h5>{visitorprofile?.email}</h5>
           </div>
-          
+
           <div
-            // style={{
-            //   display: !visitorprofile?.mobile && isMobile && "flex",
-            //   justifyContent:
-            //     !visitorprofile?.mobile && isMobile && "space-between",
-            // }}
+          // style={{
+          //   display: !visitorprofile?.mobile && isMobile && "flex",
+          //   justifyContent:
+          //     !visitorprofile?.mobile && isMobile && "space-between",
+          // }}
           >
             <div>
               <h6>Contact Number</h6>
               <h5>
-                { (visitorprofile?.mobile && visitorprofile?.country_code) ? `+${visitorprofile?.country_code} ` : ""}
+                {visitorprofile?.mobile && visitorprofile?.country_code
+                  ? `+${visitorprofile?.country_code} `
+                  : ""}
                 {visitorprofile?.mobile || "-"}
                 {!visitorprofile?.mobile && (
                   <div onClick={() => setIsModalOpen(true)} className="add">
@@ -645,7 +773,6 @@ const Profile = ({
                 )}
               </h5>
             </div>
-            
           </div>
         </div>
         <hr />
@@ -669,14 +796,14 @@ const Profile = ({
           </div>
         </div>
         <hr />
-        <div className="delete-container">
+        <div className="delete-container mb-2">
           <div>{/* Delete Account */}</div>
           <div onClick={showSignOutModal}>Sign Out</div>
         </div>
         <Modal
           className="sign-out-container"
           title="Sign Out"
-          open={isSignOutModalOpen}
+          visible={isSignOutModalOpen}
           onOk={handleSignOutOk}
           onCancel={handleSignOutCancel}
           footer={[
@@ -703,111 +830,146 @@ const Profile = ({
   };
 
   const Tab2 = () => {
-    const onSearch = (value, _e, info) => console.log(info?.source, value);
-    const { Search } = Input;
-    const filterOption = (input, option) =>
-      (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
-    const onChange = (value) => {
-      console.log(`selected ${value}`);
-    };
-    const onSearchSelect = (value) => {
-      console.log("search:", value);
+    const calculateTimeAgo = (createdAt) => {
+      const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
+      const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
+      const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
+      const duration = moment.duration(diffMilliseconds);
+      const humanReadableDiff = duration.humanize(true);
+      return humanReadableDiff;
     };
     return (
-      <div className="community-tab-container">
-        <div className="search-container">
-          {/* <Search
-            style={{ width: "65%" }}
-            placeholder="Search a question..."
-            onSearch={onSearch}
-            enterButton
-          /> */}
-          <Input
-              placeholder="Search anything.."
-              prefix={<SearchOutlined style={{ color: "#0074D9", padding: "0 6px" }} />}
-              value=""
-              onChange={onSearch}
-              style={{
-                  width: "67%",
-                  height: "50px",
-                  padding: "10px",
-                  border: "1px solid #ccc",
-                  borderRadius: "5px",
-                  background: "#ffffff",
-                  boxSizing: "border-box",
-              }}
-          />
-          
-          <Select
-            style={{
-              width: "30%",
-            }}
-            showSearch
-            placeholder="Sort By"
-            optionFilterProp="children"
-            onChange={onChange}
-            onSearch={onSearchSelect}
-            filterOption={filterOption}
-            options={[
-              {
-                value: "name",
-                label: "Name",
-              },
-              {
-                value: "date",
-                label: "Date",
-              },
-              {
-                value: "most recent",
-                label: "Most Recent",
-              },
-            ]}
-          />
-        </div>
-        <div className="cards-container">
-          {visitor_community?.map((data) => (
+      <div className="community-tab-container questions-tab-container">
+        <div
+          className="cards-container"
+          style={{
+            marginTop: "1rem",
+          }}
+        >
+          {/* today */}
+          {/* <div className="mt-2" >
+            <h5 >Today</h5>
+          </div>
+          <div style={{ borderBottom: "1px solid #0000005e", marginBottom: "20px", paddingLeft: "955px" }}></div>
+          </div>  */}
+          {/* <div style={{borderBottom: "1px solid #0000005e",marginBottom:"20px",paddingLeft: "955px"}}></div> */}
+          {visitorActivity?.map((data) => (
             <Card
               bordered={true}
-              className="community-card"
+              style={{
+                width: "100%",
+                height: "fit-content",
+                background: "rgb(176 184 191 / 8%)",
+              }}
             >
               <div className="cards-header">
-                <Image
-                  loader={myImageLoader}
-                  className="community-img"
-                  style={{ borderRadius: "2px" }}
-                  width={56}
-                  height={56}
-                  preview="false"
-                  src={data?.image_url}
-                  alt="profile"
-                />
-                <h6>{data?.name}</h6>
-                <Image
-                  loader={myImageLoader}
-                  style={{ borderRadius: "2px", cursor: "pointer" }}
-                  width={24}
-                  height={24}
-                  preview="false"
-                  src={three_dot_icon}
-                  alt="profile"
-                />
+                <div>
+                  <div className="profile">
+                    <h5> {data?.communityPost.title}</h5>
+                    {/* <p>
+                  {data?.title} <div className="custom-border"></div>
+                  {calculateTimeAgo(data?.created_at)}
+                </p> */}
+                  </div>
+                </div>
               </div>
-              <hr />
-              <div className="cards-body">{data?.description}</div>
-              <hr />
-              <div className="following-section">
-                <div>
-                  <div className="head">Members</div>
-                  <div className="count">{data?.__meta__?.total_members}</div>
-                </div>
-                <div className="custom-border"></div>
-                <div>
-                  <div className="head">Questions</div>
-                  <div className="count">{data?.__meta__?.total_posts}</div>
-                </div>
+              <div className="mt-2 ml-2">
+                {data?.activity_type === 1 && (
+                  <p
+                    style={{
+                      fontWeight: "400",
+                      fontSize: "14px",
+                      color: "#54616C",
+                    }}
+                  >
+                    You created a question {data?.communityPost.title}
+                  </p>
+                )}
+                {data?.activity_type === 2 && (
+                  <p
+                    style={{
+                      fontWeight: "400",
+                      fontSize: "14px",
+                      color: "#54616C",
+                    }}
+                  >
+                    You answered the question {data?.communityPost.title}
+                  </p>
+                )}
+
+                {data?.activity_type === 3 && (
+                  <p
+                    style={{
+                      fontWeight: "400",
+                      fontSize: "14px",
+                      color: "#54616C",
+                    }}
+                  >
+                    You posted a comment on the answer to the question{" "}
+                    {data?.communityPost.title}
+                  </p>
+                )}
+
+                {data?.activity_type === 4 && (
+                  <p
+                    style={{
+                      fontWeight: "400",
+                      fontSize: "14px",
+                      color: "#54616C",
+                    }}
+                  >
+                    You upvoted or downvoted the answer to the question{" "}
+                    {data?.communityPost.title}
+                  </p>
+                )}
+
+                {data?.activity_type === 5 && (
+                  <p
+                    style={{
+                      fontWeight: "400",
+                      fontSize: "14px",
+                      color: "#54616C",
+                    }}
+                  >
+                    You upvoted or downvoted the answer to the question{" "}
+                    {data?.communityPost.title}
+                  </p>
+                )}
+
+                {data?.activity_type === 6 && (
+                  <p
+                    style={{
+                      fontWeight: "400",
+                      fontSize: "14px",
+                      color: "#54616C",
+                    }}
+                  >
+                    You viewed the question {data?.communityPost.title}
+                  </p>
+                )}
+              </div>
+              <div>
+                <p
+                  style={{
+                    fontWeight: "400",
+                    fontSize: "12px",
+                    color: "#B0B8BF",
+                  }}
+                >
+                  {calculateTimeAgo(data?.created_at)}
+                </p>
               </div>
             </Card>
           ))}
+          <div className="mt-5 mb-5" style={{ width: "100%" }}>
+            {visitorActivity?.length > 0 && (
+              <CustomPagination
+                pageCount={pageCount}
+                page={page}
+                onPageChange={({ selected }) => setPage(selected)}
+              />
+            )}
+          </div>
         </div>
       </div>
     );
@@ -837,62 +999,56 @@ const Profile = ({
     return (
       <div className="community-tab-container questions-tab-container">
         <div className="search-container">
-          {/* <Search
-            style={{ width: "65%" }}
-            placeholder="Search a question..."
-            onSearch={onSearch}
-            enterButton
-          /> */}
-          <Input
-              placeholder="Search a question..."
-              prefix={<SearchOutlined style={{ color: "#0074D9", padding: "0 6px" }} />}
-              value=""
-              style={{
-                  width: "67%",
-                  height: "50px",
-                  padding: "10px",
-                  border: "1px solid #D9DFE9",
-                  borderRadius: "5px",
-                  background: "#ffffff",
-                  boxSizing: "border-box",
-              }}
+          <SearchInput
+            style={{
+              width: "95%",
+              height: "50px",
+              padding: "10px",
+              border: "1px solid #D9DFE9",
+              borderRadius: "5px",
+              background: "#ffffff",
+              boxSizing: "border-box",
+            }}
+            placeholder="Search a question...."
+            className="SearchInput"
+            parentProps={{ style: { width: "76%" } }}
+            onChange={(value) => handleSearch(value)}
+            prefix={
+              <SearchOutlined style={{ color: "#0074D9", padding: "0 6px" }} />
+            }
+            allowClear={true}
+            value={searchQuery}
           />
 
           <div className="sorting">
-              <label className="sortby" htmlFor="sortDropdown">Sort By: </label>
-              <select id="sortDropdown" className="sortingDropdown" style={{ border: "none", background: "transparent" }} value={sortBy}>
-                  <option className="sortby" style={{ color: "#001622" }} value="recent">Most Recent</option>
-              </select>
+            <label className="sortby" htmlFor="sortDropdown">
+              Sort By:{" "}
+            </label>
+            <select
+              id="sortDropdown"
+              style={{ border: "none", background: "transparent" }}
+              value={sortBy}
+              onChange={handleSort}
+            >
+              {sortOptions.map(({ value, label }) => (
+                <option
+                  className="sortby"
+                  style={{ color: "#001622" }}
+                  value={value}
+                >
+                  {label}
+                </option>
+              ))}
+            </select>
           </div>
-
-          {/* <Select
-            style={{
-              width: "30%",
-            }}
-            showSearch
-            placeholder="Sort By"
-            optionFilterProp="children"
-            onChange={onChange}
-            onSearch={onSearchSelect}
-            filterOption={filterOption}
-            options={[
-              {
-                value: "name",
-                label: "Name",
-              },
-              {
-                value: "date",
-                label: "Date",
-              },
-              {
-                value: "most recent",
-                label: "Most Recent",
-              },
-            ]}
-          /> */}
         </div>
-        <div className="cards-container">
-          {visitor_queries_history?.map((data) => (
+        <div
+          className="cards-container"
+          style={{
+            marginTop: "1rem",
+          }}
+        >
+          {visitorquerieshistory?.map((data) => (
             <Card
               bordered={true}
               style={{
@@ -916,8 +1072,10 @@ const Profile = ({
                         alt="profile"
                       />
                     </div>
-                    <p class="profile-badge">0</p>
-                  </div>  
+                    <p className="profile-badge">
+                      {data?.visitor?.visitor_level}
+                    </p>
+                  </div>
                   <div className="profile">
                     <h5>{data?.visitor?.name}</h5>
                     <p>
@@ -928,21 +1086,25 @@ const Profile = ({
                 </div>
 
                 <div className="follow">
-                  <p className="button">Follow</p>
-                  <div className="img">
-                    <Image
-                      loader={myImageLoader}
-                      style={{ borderRadius: "2px", cursor: "pointer" }}
-                      width={36}
-                      height={36}
-                      preview="false"
-                      src={three_dot_icon}
-                      alt="profile"
-                    />
-                  </div>
+                  {/* <p className="button">Follow</p> */}
+                  {/* <div className="img">
+                  <Image
+                    loader={myImageLoader}
+                    style={{ borderRadius: "2px", cursor: "pointer" }}
+                    width={36}
+                    height={36}
+                    preview="false"
+                    src={three_dot_icon}
+                    alt="profile"
+                  />
+                </div> */}
                 </div>
               </div>
-              <p className="para">{data?.description}</p>
+              <p className="para">
+                <span
+                  dangerouslySetInnerHTML={{ __html: data?.description }}
+                ></span>
+              </p>
               <div className="chips">
                 {data?.postTags?.map((tag) => (
                   <div>{tag?.name}</div>
@@ -954,48 +1116,59 @@ const Profile = ({
                 <p>{data?.views_counter} views</p>
               </div>
               <div className="like-footer">
-                <div className="ans">
+                {/* <div className="ans">
+                <Image
+                  loader={myImageLoader}
+                  style={{ borderRadius: "5px", marginRight: "5px" }}
+                  width={16}
+                  height={16}
+                  preview="false"
+                  src={message_icon}
+                  alt="profile"
+                />
+                <span className="ans-text">Answer</span>
+              </div> */}
+                {/* <div className="rating">
+                <div>
                   <Image
                     loader={myImageLoader}
-                    style={{ borderRadius: "5px", marginRight: "5px" }}
+                    style={{ borderRadius: "5px" }}
                     width={16}
                     height={16}
                     preview="false"
-                    src={message_icon}
+                    src={like_button}
                     alt="profile"
                   />
-                  <span className="ans-text">Answer</span>
                 </div>
-                <div className="rating">
-                  <div>
-                    <Image
-                      loader={myImageLoader}
-                      style={{ borderRadius: "5px" }}
-                      width={16}
-                      height={16}
-                      preview="false"
-                      src={like_button}
-                      alt="profile"
-                    />
-                  </div>
-                  <h6>
-                    Upvote <p></p> {data?.__meta__?.total_helpful}
-                  </h6>
-                  <div className="left-border">
-                    <Image
-                      loader={myImageLoader}
-                      style={{ borderRadius: "5px" }}
-                      width={16}
-                      height={16}
-                      preview="false"
-                      src={dislike_button}
-                      alt="profile"
-                    />
-                  </div>
-                </div>
+                <h6>
+                  Upvote <p></p> {data?.__meta__?.total_helpful}
+                </h6>
+                <div className="left-border">
+                  <Image
+                    loader={myImageLoader}
+                    style={{ borderRadius: "5px" }}
+                    width={16}
+                    height={16}
+                    preview="false"
+                    src={dislike_button}
+                    alt="profile"
+                  />
+                </div> */}
+                {/* </div> */}
               </div>
             </Card>
           ))}
+          {/* Render pagination controls */}
+          {/* <Pagination defaultCurrent={1} total={100}  onChange={onChange}/> */}
+          <div className="mt-5 mb-5" style={{ width: "100%" }}>
+            {visitorquerieshistory?.length > 0 && (
+              <CustomPagination
+                pageCount={pageCount}
+                page={page}
+                onPageChange={({ selected }) => setPage(selected)}
+              />
+            )}
+          </div>
         </div>
       </div>
     );
@@ -1018,9 +1191,8 @@ const Profile = ({
       });
 
       topMarks[100] = {
-        label: `${
-          visitor_profile_levels?.[0]?.leavels[levelCount - 1].level
-        } \n ${visitor_profile_levels?.[0]?.leavels[levelCount - 1].title}`,
+        label: `${visitor_profile_levels?.[0]?.leavels[levelCount - 1].level
+          } \n ${visitor_profile_levels?.[0]?.leavels[levelCount - 1].title}`,
         style: { whiteSpace: "pre" },
       };
 
@@ -1089,17 +1261,147 @@ const Profile = ({
     );
   };
 
+  const Tab5 = () => {
+
+
+    const calculateTimeAgo = (createdAt) => {
+      const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
+      const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
+      const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
+      const duration = moment.duration(diffMilliseconds);
+      const humanReadableDiff = duration.humanize(true);
+      return humanReadableDiff;
+    };
+
+    return (
+      <div className="community-tab-container questions-tab-container">
+        <div className="search-container">
+        </div>
+        <div className="cards-container" style={{
+          marginTop: '1rem'
+        }}>
+          {libraryData?.map((data) => (
+            <Card
+              bordered={true}
+              style={{
+                width: "100%",
+                height: "fit-content",
+              }}
+              key={data.id}
+            >
+              {data?.blog !== null &&
+                (
+                  <div className="cards-header">
+                    <div>
+                      <div>
+                        <div className="img">
+                          <Image
+                            style={{ borderRadius: "5px" }}
+                            width={48}
+                            height={48}
+                            preview="false"
+                            src={
+                              data?.blog?.image ||
+                              "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                            }
+                            alt="profile"
+                          />
+                        </div>
+
+                      </div>
+                      <div className="profile">
+                        <h5>
+                          {data?.blog?.name}
+                        </h5>
+                        <p>
+                          {calculateTimeAgo(data?.created_at)}
+                        </p>
+                      </div>
+                    </div>
+
+                  <div className="follow">
+                      <button className="button" onClick={() => handleDelete(data.id)} style={{ background: "transparent" }}>
+                        <DeleteOutlined />
+                      </button>
+                    </div>
+                    {/* <div className="follow" style={isMobile ? { alignItems: "flex-start", position: "absolute", top: "10px", right: "0" } : ""}>
+                    </div> */}
+                  </div>
+                )
+              }
+              {data?.market_research &&
+                (
+                  <div className="cards-header">
+                    <div>
+                      <div>
+                        <div className="img">
+                          <Image
+                            style={{ borderRadius: "5px" }}
+                            width={48}
+                            height={48}
+                            preview="false"
+                            src={
+                              data?.market_research?.image ||
+                              "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                            }
+                            alt="profile"
+                          />
+                        </div>
+
+                      </div>
+                      <div className="profile">
+                        <h5>
+                          {data?.market_research?.name}
+                        </h5>
+                        <p>
+                          {calculateTimeAgo(data?.created_at)}
+                        </p>
+                      </div>
+                    </div>
+  
+                  <div className="follow">
+                    <button className="button" onClick={() => handleDelete(data.id)} style={{ background: "transparent" }}>
+                      <DeleteOutlined />
+                    </button>
+                  </div>
+                    {/* <div className="follow" style={isMobile ? { alignItems: "flex-start", position: "absolute", top: "10px", right: "0" } : ""}>
+                      <p className="button" onClick={() => handleDelete(data.id)} style={{ background: "transparent" }}>
+                        <DeleteOutlined />
+                      </p>
+                    </div> */}
+                  </div>
+                )
+              }
+
+            </Card>
+          ))
+          }
+          {/* Render pagination controls */}
+          <div className="mt-5" style={{ width: "100%" }}>
+            {libraryData?.length > 0 && (
+              <CustomPagination
+                pageCount={pageCount}
+                page={page}
+                onPageChange={({ selected }) => setPage(selected)}
+              />
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const items = [
     {
       key: "1",
       label: "Profile",
       children: <Tab1 />,
     },
-    {
-      key: "2",
-      label: "Community",
-      children: <Tab2 />,
-    },
+    // {
+    //   key: "2",
+    //   label: "Community",
+    //   children: <Tab2 />,
+    // },
     {
       key: "3",
       label: "Questions",
@@ -1110,11 +1412,16 @@ const Profile = ({
       label: "Levels",
       children: <Tab4 />,
     },
-    // {
-    //   key: "5",
-    //   label: "Following",
-    //   children: <Tab3 />,
-    // },
+    {
+      key: "5",
+      label: "Activities",
+      children: <Tab2 />,
+    },
+    {
+      key: "6",
+      label: "My Library",
+      children: <Tab5 />,
+    },
   ];
 
   const onSearch = (value) => {
@@ -1125,15 +1432,21 @@ const Profile = ({
     (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
   return (
     <Container>
-      <div className="profile-container">
-        <Tabs className="header-tabs" defaultActiveKey="1" onChange={onChange}>
-          {items.map((tab) => (
-            <Tabs.TabPane tab={tab.label} key={tab.key}>
-              {tab.children}
-            </Tabs.TabPane>
-          ))}
-        </Tabs>
-        <div>
+      <div className="profile-container row">
+        <div className=" col-md-9">
+          <Tabs
+            className="header-tabs"
+            defaultActiveKey="1"
+            onChange={onChange}
+          >
+            {items.map((tab) => (
+              <Tabs.TabPane tab={tab.label} key={tab.key}>
+                {tab.children}
+              </Tabs.TabPane>
+            ))}
+          </Tabs>
+        </div>
+        <div className="col-md-3">
           <Card
             bordered={true}
             style={{
@@ -1154,9 +1467,16 @@ const Profile = ({
                 }
                 alt="profile"
               />
-              <p className="profile-badge">{visitorcommunityprofile?.data[0]?.current_level}</p>
+              <p className="profile-badge">
+                {visitorcommunityprofile?.data[0]?.current_level}
+              </p>
 
-              <div className="level">Level {visitorcommunityprofile?.data[0]?.current_level} {(visitorcommunityprofile?.data[0]?.current_badge) ? `: ${visitorcommunityprofile?.data[0]?.current_badge}` : ""}</div>
+              <div className="level">
+                Level {visitorcommunityprofile?.data[0]?.current_level}{" "}
+                {visitorcommunityprofile?.data[0]?.current_badge
+                  ? `: ${visitorcommunityprofile?.data[0]?.current_badge}`
+                  : ""}
+              </div>
               <div>
                 <span>{visitorcommunityprofile?.data[0]?.level_up_points}</span>{" "}
                 {visitorcommunityprofile?.data[0]?.level_up_text}
@@ -1164,13 +1484,13 @@ const Profile = ({
             </div>
             <hr />
             <div className="following-section">
-              <div>
+              <div style={{ width: "100%" }}>
                 <p className="head">Contributions</p>
                 <p className="count">
                   {visitorcommunityprofile?.data[0]?.contributions}
                 </p>
               </div>
-              <div style={{ display: "flex" }}>
+              {/* <div style={{ display: "flex" }}>
                 <span className="custom-border"></span>
                 <div style={{ flexDirection: "column" }}>
                   <p className="head">Followers</p>
@@ -1181,7 +1501,7 @@ const Profile = ({
               <div>
                 <p className="head">Following</p>
                 <p className="count">100</p>
-              </div>
+              </div> */}
             </div>
             <hr />
             <div className="online-section">
@@ -1235,10 +1555,7 @@ const Profile = ({
                     style={{ borderRadius: "6px" }}
                     loader={myImageLoader}
                     className="mdg"
-                    src={
-                      updateProfileData?.profile_pic_url ||
-                      profile_img
-                    }
+                    src={updateProfileData?.profile_pic_url || profile_img}
                     alt=""
                     placeholder="Logo"
                     width={64}
@@ -1248,7 +1565,9 @@ const Profile = ({
                 <div className="profile-button">
                   <h6>Profile Picture</h6>
                   <div>
-                    <div className="remove" onClick={() => removeProfilePic()}>Remove</div>
+                    <div className="remove" onClick={() => removeProfilePic()}>
+                      Remove
+                    </div>
                     {/* <div className="upload">Upload</div> */}
 
                     <Upload
@@ -1334,6 +1653,8 @@ const mapStateToProps = (state) => {
     visitor_points_history,
     countries,
     visitor_profile_levels,
+    visitor_activities,
+    visitor_library
   } = state;
   return {
     visitorprofile,
@@ -1343,6 +1664,8 @@ const mapStateToProps = (state) => {
     visitor_points_history,
     countries,
     visitor_profile_levels,
+    visitor_activities,
+    visitor_library
   };
 };
 

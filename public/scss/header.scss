@@ -129,6 +129,9 @@
 
 .menu-search-block {
   text-align: right;
+  float: left;
+  margin-right: 10px;
+
 }
 
 .menu-wrapper {
@@ -138,7 +141,7 @@
   }
 
   .ant-drawer-body {
-    background-color: #fcfdf5;
+    background-color: #141414;
     padding: 3rem 3rem 0 3rem;
   }
 
@@ -234,30 +237,39 @@
       }
     }
     .ant-drawer-content-wrapper {
-      width: 290px !important;
+      width: 100% !important;
       transition: all 0.5s ease-in-out;
       box-shadow: none !important;
-      top: 30px;
-      height: 64% !important;
+      top: 90px;
+      height: 50% !important;
       right: -5px;
     }
 
     .ant-drawer-content {
       box-shadow: 0 1.5px 3px 0 rgba(0, 0, 0, 0.16);
-      height: 425px !important;
+      height: 375px !important;
       border-radius: 7px 0 0 7px;
     }
 
+    .ant-drawer-mask{
+      background-color : transparent !important
+    }
+
     .ant-drawer-body {
-      background-color: $white;
+      background-color: #141414;
       padding: 0rem 0rem 0 0rem;
     }
 
     .navbar-link-block {
       li {
         a {
-          color: $backgroundColor;
+          color: $white;
           font-weight: 600;
+        }
+        div {
+          a {
+            color: $black;
+          }
         }
       }
     }
@@ -286,7 +298,7 @@
 
       .navbar-link-block {
         li {
-          padding: 5px 0;
+          padding: 1px 0;
         }
 
         padding: 10px 18px;
@@ -319,7 +331,7 @@
       display: block;
     }
 
-    padding: 2.5rem 0 !important;
+    padding: 1.5rem 0 !important;
 
     .row {
       margin: 0 -5px;
@@ -395,7 +407,7 @@
         width: 25px;
         height: 4px;
         // background-color: $blue;
-        background-color: #777e90;
+        background-color: $white;
 
         &:nth-child(2) {
           // width: 21px;

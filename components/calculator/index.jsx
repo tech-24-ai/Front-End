@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { isMobile, isTablet, isBrowser } from "react-device-detect";
 import myImageLoader from "../imageLoader";
-import Image from "next/image";
+import Image from "next/future/image";
 import { Row, Col } from "reactstrap";
 
 function calculator() {

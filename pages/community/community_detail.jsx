@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
+import Image from "next/future/image";
 import { Container } from "reactstrap";
 import myImageLoader from "../../components/imageLoader";
-import three_dot_icon from "../../public/new_images/3dots.svg";
-import message_icon from "../../public/new_images/message_icon.svg";
-import like_button from "../../public/new_images/like_button.svg";
-import dislike_button from "../../public/new_images/dislike_button.svg";
-import { crudActions } from "../../_actions";
+import { RightOutlined } from "@ant-design/icons";
+import { crudActions, alertActions } from "../../_actions";
 import { connect } from "react-redux";
 import moment from "moment";
 import { crudService } from "../../_services";
@@ -28,15 +25,20 @@ import "draft-js/dist/Draft.css";
 import "react-quill/dist/quill.snow.css";
 import community from ".";
 import dynamic from "next/dynamic";
+import Router from "next/router";
+// import ReactPaginate from "react-paginate-next";
+import CustomPagination from "../../components/pagination";
+
 
 const ReactQuill = dynamic(
   () => {
-      return import("react-quill");
+    return import("react-quill");
   },
-  {ssr: false}
+  { ssr: false }
 );
 
 import { isMobile } from "react-device-detect";
+
 const SubmitButton = ({ form, children }) => {
   const [submittable, setSubmittable] = React.useState(false);
 
@@ -59,7 +61,8 @@ const SubmitButton = ({ form, children }) => {
     </Button>
   );
 };
-const Profile = ({ getAllCrud }) => {
+
+const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState();
   const [tags, setTag] = useState([]);
@@ -72,9 +75,11 @@ const Profile = ({ getAllCrud }) => {
 
   const [updateCom, setUpdateCom] = useState(false);
   const [form] = Form.useForm();
+  const [selectedIndex, setSelectedIndex] = useState("1");
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const onChange = (key) => {
-    console.log(key);
+    setSelectedIndex(key);
   };
 
   const editor = React.useRef(null);
@@ -112,21 +117,74 @@ const Profile = ({ getAllCrud }) => {
       .then(() => window.location.reload());
   };
 
-  const handleOk = () => {
-    const postData = {
-      community_id: communityData?.id,
-      title: title,
-      description: description,
-      tags: tags,
-      url: [],
-    };
+  const resetForm = () => {
+    setTitle("");
+    setDescription("");
+    setTag([]);
+    setUrl([]);
+  }
 
-    crudService._create("communitypost", postData).then((response) => {
-      if (response.status === 200) {
-        setUpdateCom(true);
-        setIsModalOpen(false);
-      }
-    });
+  const handleOk = () => {
+
+    if (!title) {
+      showAlert("Please add title");
+      return
+    }
+
+    if (!description) {
+      showAlert("Please add descriptions");
+      return
+    }
+
+    const finalUrl = []
+    if (url && url.length > 0) {
+      //Upload API
+      crudService
+        ._upload("uploadmedia", url[0])
+        .then((data) => {
+          // File uploaded successfully, update state and handle any further actions
+          console.log("data", data?.data?.result);
+
+          const postData = {
+            community_id: communityData?.id,
+            title: title,
+            description: description,
+            tags: tags,
+            url: [data?.data?.result],
+          };
+
+          crudService._create("communitypost", postData).then((response) => {
+            if (response.status === 200) {
+              setUpdateCom(true);
+              setIsModalOpen(false);
+              resetForm();
+              success("Your post is being reviewed and will be shown after approval.")
+            }
+          });
+        })
+        .catch((error) => {
+          console.log("asdasd")
+          console.log("error", error);
+
+        });
+    } else {
+      const postData = {
+        community_id: communityData?.id,
+        title: title,
+        description: description,
+        tags: tags,
+        url: [],
+      };
+
+      crudService._create("communitypost", postData).then((response) => {
+        if (response.status === 200) {
+          setUpdateCom(true);
+          setIsModalOpen(false);
+          resetForm()
+        }
+      });
+    }
+
   };
 
   const voteCommunity = (data, type) => {
@@ -141,8 +199,17 @@ const Profile = ({ getAllCrud }) => {
   };
 
   const Tab1 = () => {
+    console.log("tab 1")
     const [headerSearch, setHeaderSearch] = useState();
-    const [communityDetails, setCommunityDetails] = useState();
+    const [communityDetails, setCommunityDetails] = useState([]);
+    const [sortBy, setSortBy] = useState("id");
+
+    const itemsPerPage = 10;
+    const [page, setPage] = useState(0);
+    const [pageCount, setPageCount] = useState(0);
+
+    const [searchQuery, setSearchQuery] = useState("");
+    const [filteredData, setFilteredData] = useState({});
 
     const calculateTimeAgo = (createdAt) => {
       const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
@@ -153,18 +220,57 @@ const Profile = ({ getAllCrud }) => {
       return humanReadableDiff;
     };
 
+    //Sorting
+
+
     useEffect(() => {
       const id = sessionStorage.getItem("community_id");
-      setTimeout(() => {
-        if (id) {
-          crudService
-            ._getAll(`communitypost/${id}`, { search: headerSearch })
-            .then((data) => {
-              setCommunityDetails(data?.data);
-            });
-        }
-      }, 300);
-    }, [headerSearch]);
+      crudService
+        ._getAll(`communitypost/${id}`, {
+          orderBy: sortBy,
+          orderDirection: "DESC",
+          page: page + 1,
+          pageSize: itemsPerPage,
+          search: headerSearch
+          // search: searchQuery,
+          // ...filteredData,
+        })
+        .then((result) => {
+
+          setCommunityDetails(result?.data);
+          const totalPage = Math.ceil(result?.data.total / result?.data.perPage);
+
+          setPageCount(isNaN(totalPage) ? 0 : totalPage);
+        });
+    }, [page, searchQuery, filteredData, sortBy, headerSearch]);
+
+    const handleSort = (e) => {
+      setSortBy(e.target.value);
+    };
+
+    const options = [
+      {
+        value: "id",
+        label: "Most Recent",
+      },
+      {
+        value: "views_counter",
+        label: "Most Viewed",
+      },
+      {
+        value: "total_post_replies",
+        label: "Most Answers",
+      },
+      {
+        value: "total_helpful",
+        label: "Most Voted",
+      },
+    ];
+
+
+    useEffect(() => {
+      //getCommunityData();
+    }, []);
 
     return (
       <div className="community-tab-container questions-tab-container community-detail-wrapper">
@@ -189,7 +295,7 @@ const Profile = ({ getAllCrud }) => {
             }}
             value={headerSearch}
             style={{
-              width: isMobile ? "84%" : "100%",
+              width: isMobile ? "84%" : "74%",
               padding: "10px",
               border: "1px solid #ccc",
               borderRadius: "5px",
@@ -210,6 +316,20 @@ const Profile = ({ getAllCrud }) => {
             />
           ) : (
             <>
+              <div className="sorting mobile-display-n">
+                <label className="sortby" htmlFor="sortDropdown">Sort By: </label>
+                <select
+                  id="sortDropdown"
+                  style={{ border: "none", background: "transparent" }}
+                  value={sortBy}
+                  onChange={handleSort}
+                >
+                  {options.map(option => (
+                    <option key={option.value} value={option.value}>{option.label}</option>
+                  ))}
+                </select>
+              </div>
+
               {/* <Select
                 style={{
                   width: "30%",
@@ -218,8 +338,6 @@ const Profile = ({ getAllCrud }) => {
                 placeholder="Sort By"
                 optionFilterProp="children"
                 // onChange={onChange}
-                // onSearch={onSearchSelect}
-                // filterOption={filterOption}
                 options={[
                   {
                     value: "most recent",
@@ -239,14 +357,16 @@ const Profile = ({ getAllCrud }) => {
           )}
         </div>
         <div className="cards-container">
-          {communityDetails?.map((data) => (
+          {communityDetails?.data?.map((data) => (
             <Card
               bordered={true}
               style={{
                 width: "100%",
                 height: "fit-content",
                 marginTop: "1rem",
+                cursor: "pointer",
               }}
+              onClick={() => gotoQuestionDetail(data?.url_slug)}
             >
               <div className="cards-header">
                 <div>
@@ -278,7 +398,7 @@ const Profile = ({ getAllCrud }) => {
                 </div>
 
                 <div className="follow">
-                  <p className="button">Follow</p>
+                  {/* <p className="button">Follow</p> */}
                   <div className="img">
                     {/* <Image
                       loader={myImageLoader}
@@ -292,7 +412,9 @@ const Profile = ({ getAllCrud }) => {
                   </div>
                 </div>
               </div>
-              <p className="para">{data?.description}</p>
+              <p className="para"><span
+                dangerouslySetInnerHTML={{ __html: data?.description }}
+              ></span></p>
               <div className="chips">
                 {data?.postTags?.map((tag) => (
                   <div>{tag?.name}</div>
@@ -303,7 +425,7 @@ const Profile = ({ getAllCrud }) => {
                 <h6 className="custom-border"></h6>
                 <p>{data?.views_counter} views</p>
               </div>
-              <div className="like-footer">
+              {/* <div className="like-footer">
                 <div className="ans">
                   <Image
                     loader={myImageLoader}
@@ -349,142 +471,121 @@ const Profile = ({ getAllCrud }) => {
                     />
                   </div>
                 </div>
-              </div>
+              </div> */}
             </Card>
           ))}
         </div>
+        <br></br>
+        <div className="mt-5" style={{ width: "100%" }}>
+          {communityDetails?.data?.length > 0 && (
+            <CustomPagination
+              pageCount={pageCount}
+              page={page}
+              onPageChange={({ selected }) => setPage(selected)}
+            />
+          )}
+        </div>
+
       </div>
     );
   };
 
   const Tab2 = () => {
+    const [newsData, setNewsData] = useState([]);
+    const [communityId, setCommunityId] = useState(null);
+    const [communityData, setCommunityData] = useState(null);
+
+    useEffect(() => {
+      fetchCommunityData(); 
+    }, []);
+
+    const fetchCommunityData = () => {
+      const id = sessionStorage.getItem("community_id"); 
+      if (id) {
+        crudService._getAll(`community/details/${id}`)
+          .then((data) => {
+            const communityData = data?.data;
+            setCommunityData(communityData); 
+            setCommunityId(communityData.id);
+            fetchNewsData(communityData.id);
+          })
+          .catch((error) => {
+            console.error("Error fetching community data:", error);
+          });
+      }
+    };
+    useEffect(() => {
+      fetchCommunityData(); 
+    }, []);
+
+    const fetchNewsData = (communityId) => {
+      if (communityId) {
+        crudService._getAll(`get_news_announcements?community_id=${communityId}`)
+          .then((data) => {
+            setNewsData(data?.data);
+          })
+          .catch((error) => {
+            console.error("Error fetching news data:", error);
+          });
+      }
+    };
+
+    console.log("news data", newsData);
+    // const [newsData, setNewsData] = useState([]);
+    // const fetchNewsData = () => {
+    //   const id = sessionStorage.getItem("community_id");
+    //   if (id) {
+    //     crudService._getAll(`get_news_announcements?community_id=${22}`)
+    //       .then((data) => {
+    //         setNewsData(data?.data);
+    //         console.log("data", data);
+    //         console.log("news log", data?.data);
+    //       })
+    //       .catch((error) => {
+    //         showAlert("Error occurred while fetching news data.");
+    //         console.error("Error fetching news data:", error);
+    //       });
+    //   }
+    // };
+    // console.log("news data", newsData);
+    // useEffect(() => {
+    //   fetchNewsData();
+    // }, []);
+
     return (
       <div className="questions-tab-container">
         <ul>
-          <li
-            style={{
-              fontWeight: "500",
-              fontSize: "20px",
-              color: "#001622",
-            }}
-          >
-            Lorem ipsum dolor sit amet consectetur
-            <p
-              style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-            >
-              Lorem ipsum dolor sit amet consectetur. Urna cursus lectus risus
-              sit in et. Nec pellentesque curabitur ultrices ultricies habitant
-              eget aenean aliquet id. Et arcu id quam interdum vivamus facilisi
-              elementum ultricies.
-            </p>
-            <p
+          {newsData && newsData.map(data => (
+            <li
+              key={data.id}
               style={{
-                fontWeight: "400",
-                fontSize: "12px",
-                color: "#B0B8BF",
+                fontWeight: "500",
+                fontSize: "20px",
+                color: "#001622",
               }}
             >
-              2 days ago
-            </p>
-          </li>
-          <hr />
-          <li
-            style={{
-              fontWeight: "500",
-              fontSize: "20px",
-              color: "#001622",
-            }}
-          >
-            Lorem ipsum dolor sit amet consectetur
-            <p
-              style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-            >
-              Lorem ipsum dolor sit amet consectetur. Urna cursus lectus risus
-              sit in et. Nec pellentesque curabitur ultrices ultricies habitant
-              eget aenean aliquet id. Et arcu id quam interdum vivamus facilisi
-              elementum ultricies.
-            </p>
-            <p
-              style={{
-                fontWeight: "400",
-                fontSize: "12px",
-                color: "#B0B8BF",
-              }}
-            >
-              2 days ago
-            </p>
-          </li>
-          <hr />
-          <li
-            style={{
-              fontWeight: "500",
-              fontSize: "20px",
-              color: "#001622",
-            }}
-          >
-            Lorem ipsum dolor sit amet consectetur
-            <p
-              style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-            >
-              Lorem ipsum dolor sit amet consectetur. Urna cursus lectus risus
-              sit in et. Nec pellentesque curabitur ultrices ultricies habitant
-              eget aenean aliquet id. Et arcu id quam interdum vivamus facilisi
-              elementum ultricies.
-            </p>
-            <p
-              style={{
-                fontWeight: "400",
-                fontSize: "12px",
-                color: "#B0B8BF",
-              }}
-            >
-              2 days ago
-            </p>
-          </li>
-          <hr />
-          <li
-            style={{
-              fontWeight: "500",
-              fontSize: "20px",
-              color: "#001622",
-            }}
-          >
-            Lorem ipsum dolor sit amet consectetur
-            <p
-              style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-            >
-              Lorem ipsum dolor sit amet consectetur. Urna cursus lectus risus
-              sit in et. Nec pellentesque curabitur ultrices ultricies habitant
-              eget aenean aliquet id. Et arcu id quam interdum vivamus facilisi
-              elementum ultricies.
-            </p>
-            <p
-              style={{
-                fontWeight: "400",
-                fontSize: "12px",
-                color: "#B0B8BF",
-              }}
-            >
-              2 days ago
-            </p>
-          </li>
+              {data.title}
+              <p
+                style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
+              >
+                {data.description}
+              </p>
+              <p
+                style={{
+                  fontWeight: "400",
+                  fontSize: "12px",
+                  color: "#B0B8BF",
+                }}
+              >
+                {data.created_at}
+              </p>
+              <hr />
+            </li>
+          ))}
         </ul>
       </div>
     );
   };
-
-  const items = [
-    {
-      key: "1",
-      label: "Questions",
-      children: <Tab1 />,
-    },
-    {
-      key: "2",
-      label: "News & Announcements",
-      children: <Tab2 />,
-    },
-  ];
 
   const normFile = (e) => {
     if (Array.isArray(e)) {
@@ -500,10 +601,69 @@ const Profile = ({ getAllCrud }) => {
     };
   });
 
+  const gotoQuestionDetail = (url_slug) => {
+    sessionStorage.setItem("community_question_id", url_slug);
+    Router.push("question");
+  };
+
+
+  const beforeUpload = (file) => {
+    setUrl([...url, file]);
+    return false;
+  }
+
+  const items = [
+    {
+      key: "1",
+      label: "Questions",
+      children: <Tab1 />,
+    },
+    {
+      key: "2",
+      label: "News & Announcements",
+      children: <Tab2 />,
+    },
+  ];
+
+  const handleCommunity = () => {
+    Router.push("/community");
+  }
+
+
   return (
     <Container>
-      <div className="profile-container">
-        <Tabs className="header-tabs" defaultActiveKey="1" onChange={onChange}>
+      <div className="row">
+        <div className="col-md-12">
+          <h4 className="mt-2 mb-1">
+            <span
+              onClick={() => handleCommunity()}
+              style={{
+                color: "#B0B8BF",
+                fontFamily: "Inter",
+                fontSize: "14px",
+                cursor: "pointer",
+              }}
+            >
+              Community <RightOutlined style={{ verticalAlign: "0" }} />
+            </span>{" "}
+            <span
+              style={{
+                color: "#0074D9",
+                fontFamily: "Inter",
+                fontSize: "14px",
+              }}
+            >
+              {communityData?.name}
+            </span>
+          </h4>
+        </div>
+      </div>
+      <div className="profile-container row" style={{marginTop:'1.5rem'}}>
+        <Tabs
+          className="header-tabs col-md-9"
+          defaultActiveKey="1"
+          onChange={onChange}
+        >
           {items.map((tab) => (
             <Tabs.TabPane tab={tab.label} key={tab.key}>
               {tab.children}
@@ -511,29 +671,33 @@ const Profile = ({ getAllCrud }) => {
           ))}
         </Tabs>
         {communityData && (
-          <div className="community-tab-container community-detail-card">
+          <div className="community-tab-container community-detail-card col-md-3">
             <div
               className="cards-container"
               style={{
                 display: isMobile && "unset",
               }}
             >
-              <div
-                onClick={showModal}
-                style={{
-                  width: isMobile ? "100%" : 380,
-                  padding: "12px 16px",
-                  borderRadius: "2px",
-                  fontWeight: "500",
-                  fontSize: "18px",
-                  color: "#FFFFFF",
-                  textAlign: "center",
-                  cursor: "pointer",
-                  backgroundColor: "#0074D9",
-                }}
-              >
-                Ask a Question
-              </div>
+              {selectedIndex == "1" ? (
+                <div
+                  onClick={showModal}
+                  style={{
+                    width: isMobile ? "100%" : 380,
+                    padding: "12px 16px",
+                    borderRadius: "2px",
+                    fontWeight: "500",
+                    fontSize: "18px",
+                    color: "#FFFFFF",
+                    textAlign: "center",
+                    cursor: "pointer",
+                    backgroundColor: "#0074D9",
+                  }}
+                >
+                  Ask a Question
+                </div>
+              ) : (
+                <></>
+              )}
               <div>
                 <Modal
                   visible={isModalOpen}
@@ -550,7 +714,7 @@ const Profile = ({ getAllCrud }) => {
                   >
                     Ask a Question
                   </span>
-                  <div className="mt-2 mb-3">
+                  {/* <div className="mt-2 mb-3">
                     <span
                       style={{
                         fontWeight: 400,
@@ -563,7 +727,7 @@ const Profile = ({ getAllCrud }) => {
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                       Egit liboro erat curcus.
                     </span>
-                  </div>
+                  </div> */}
                   <Form
                     form={form}
                     name="validateOnly"
@@ -583,7 +747,9 @@ const Profile = ({ getAllCrud }) => {
                         },
                       ]}
                       name="title"
-                      onChange={(e) => setTitle(e.target.value)}
+                      onChange={(e) => {
+                        setTitle(e.target.value);
+                      }}
                       label="Title"
                     >
                       <Input
@@ -592,6 +758,7 @@ const Profile = ({ getAllCrud }) => {
                           border: "1px solid #D9DFE9",
                           padding: "12px",
                         }}
+                        value={title}
                       />
                     </Form.Item>
                     <Form.Item
@@ -606,6 +773,7 @@ const Profile = ({ getAllCrud }) => {
                           required: true,
                         },
                       ]}
+                      value={description}
                       name="description"
                       label="Question"
                       onChange={(e) => setDescription(e.target.value)}
@@ -613,7 +781,6 @@ const Profile = ({ getAllCrud }) => {
                       <div>
                         <ReactQuill
                           theme="snow"
-                          value={description}
                           onChange={handleEditorChange}
                           style={{ height: "100px", borderRadius: "2px" }}
                         />
@@ -628,16 +795,18 @@ const Profile = ({ getAllCrud }) => {
                         color: "#4C4C4C",
                         marginTop: isMobile ? "90px" : "55px",
                       }}
-                      onChange={(e) => setUrl(e.target.value)}
                       label="Attachment"
                       valuePropName="fileList"
                       getValueFromEvent={normFile}
                     >
                       <Upload
                         name="url"
-                        action="/upload.do"
+                        action={`${process.env.NEXT_PUBLIC_API_BASE_URL}uploadmedia`}
                         listType="picture-card"
+                        fileList={url}
                         style={{ height: "30px!important" }}
+                        beforeUpload={beforeUpload}
+                        maxCount={1}
                       >
                         <button
                           style={{
@@ -692,6 +861,7 @@ const Profile = ({ getAllCrud }) => {
                           }}
                           defaultValue={[]}
                           options={tagsOptions}
+                          value={tags}
                           onChange={(e) => setTag(e)}
                         />
                       </Form.Item>
@@ -704,7 +874,7 @@ const Profile = ({ getAllCrud }) => {
                       className="btn"
                       style={{
                         width: isMobile ? "100%" : "470px",
-                        background: "#D9DFE9",
+                        background: "#0074D9",
                         borderRadius: "2px",
                         padding: "12px 16px",
                         color: "#fff",
@@ -726,7 +896,6 @@ const Profile = ({ getAllCrud }) => {
                 style={{
                   width: isMobile ? "100%" : 380,
                   height: "fit-content",
-                  marginTop: "1rem",
                 }}
               >
                 <div className="cards-header">
@@ -764,10 +933,11 @@ const Profile = ({ getAllCrud }) => {
                   }}
                 >
                   <div>
-                    <div className="head">Members</div>
+                    <div className="head">Answer</div>
                     <div className="count">
-                      {communityData?.__meta__?.total_members}
+                      {communityData?.__meta__?.total_post_reply}
                     </div>
+                    
                   </div>
                   <div className="custom-border"></div>
                   <div>
@@ -777,8 +947,8 @@ const Profile = ({ getAllCrud }) => {
                     </div>
                   </div>
                 </div>
-                <hr />
-                {communityData?.communityMember?.length === 0 ? (
+                {/* <hr /> */}
+                {/* {communityData?.communityMember?.length === 0 ? (
                   <div
                     onClick={() => joinCommunity()}
                     style={{
@@ -808,9 +978,15 @@ const Profile = ({ getAllCrud }) => {
                     }}
                   >
                     Member since{" "}
-                    {communityData?.communityMember?.[0]?.created_at}
+                    {moment(communityData.communityMember[0]?.created_at).format("MMMM DD, YYYY")}
                   </p>
-                )}
+                )} */}
+                {/* show question and answer */}
+                {/* <div className="chips">
+                    <p>{communityData?.__meta__?.total_post_replies} answers</p>
+                    <h6 className="custom-border"></h6>
+                    <p> {communityData?.__meta__?.total_posts} Question</p>
+                  </div> */}
               </Card>
               {/* ))} */}
             </div>
@@ -831,6 +1007,8 @@ const mapStateToProps = (state) => {
 const actionCreators = {
   getAllCrud: crudActions._getAll,
   createCrud: crudActions._create,
+  showAlert: alertActions.warning,
+  success: alertActions.success,
 };
 
-export default connect(mapStateToProps, actionCreators)(Profile);
+export default connect(mapStateToProps, actionCreators)(CommunityDetail);

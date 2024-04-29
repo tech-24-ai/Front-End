@@ -3,18 +3,8 @@ import { Container } from "reactstrap";
 import TreeSelect from "../components/form/treeSelect";
 import { OneIcon, TwoIcon, ThreeIcon } from "../components/icons";
 import CategoryList from "../components/categories/categoryList";
-
-import {
-  MarketTrends,
-  InDepthProduct,
-  Operational,
-  Technology,
-} from "../components/icons";
 import { Space } from "antd";
 import ResearchCard from "../components/card/researchCard";
-import researchIcon from "../public/new_images/research-icon.svg";
-import templateIcon from "../public/new_images/template-icon.svg";
-import toolIcon from "../public/new_images/tools-calculator-icon.svg";
 
 import {
   CalculatorIcon,
@@ -37,7 +27,7 @@ function index() {
             ) : (
               <h4>Find The Right Technology For Your Enterprise</h4>
             )}
-            <div className="input-content">
+            <div className="input-content find-technology-searchbtn">
               <TreeSelect
                 className="home-page-search-module"
                 placeholder="Enter software, hardware or service category, and we will find the right product for you"
@@ -92,7 +82,7 @@ function index() {
         <h4 className="main-title">or Browse from a Category below</h4>
         <CategoryList />
       </Container>
-
+{/* 
       <div className="research-repository-section base-bg">
         <Container className="market-research-body-container">
           <h4 className="title">Explore our Research Repository</h4>
@@ -159,7 +149,7 @@ function index() {
             </Space>
           </MobileView>
         </Container>
-      </div>
+      </div> */}
     </section>
   );
 }

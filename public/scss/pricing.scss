@@ -153,6 +153,17 @@
   }
 }
 
+.trouble-subject-section {
+
+  .page-heading img {
+    width: 35px !important;
+    margin-left: 15px !important;
+    height: 35px !important;
+    position: relative !important;
+    min-width: 35px !important;
+  }
+}
+
 @media (max-width: 575px) {
   .troubleshoot {
     .chat-button-container {
