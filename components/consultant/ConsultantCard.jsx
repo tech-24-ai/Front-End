@@ -1,6 +1,6 @@
 import React from "react";
 import { Select, Space, Avatar, List, Card, Row, Col } from "antd";
-import Image from "next/image";
+import Image from "next/future/image";
 
 import { EnvironmentOutlined } from "@ant-design/icons";
 import Swiper from "../swiper/index";
@@ -122,8 +122,8 @@ const ConsultantCard = ({ consultants, authentication }) => {
                 >
                   <Image
                     style={{ borderRadius: "50%" }}
-                    width={100}
-                    height={100}
+                    width={70}
+                    height={70}
                     preview="false"
                     src={
                       data.image

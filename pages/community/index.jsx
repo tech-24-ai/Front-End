@@ -2,22 +2,18 @@ import { useState, useEffect } from "react";
 import { withRouter } from "next/router";
 import { Container, Input } from "reactstrap";
 import { crudService } from "../../_services";
-import SearchInput from "../../components/form/searchInput";
+
 import CommunityImage from "../../public/images/communityList.png";
-import CheckableTag from "antd/lib/tag/CheckableTag";
-import { DateIcon, ProfileIcon } from "../../components/icons";
-import { Icon } from "react-icons-kit";
+
 import Router from "next/router";
 import { crudActions } from "../../_actions";
 import { connect } from "react-redux";
 import PageBanner from "../../components/card/pageBanner";
 import { SearchOutlined } from "@ant-design/icons";
-import { UsergroupAddOutlined } from "@ant-design/icons";
-import { MessageOutlined } from "@ant-design/icons";
-import blogsBannerImage from "../../public/new_images/blogs-bg.svg";
+
 import React from "react";
 import { TreeSelect } from "antd";
-import { Card, Space } from "antd";
+
 const unProtectedRoutes = ["/community", "/community/[detail]"];
 
 import CommunityCategory from "../../components/community/index";

@@ -2,20 +2,8 @@ import React, { useState, useEffect } from "react";
 import { withRouter } from "next/router";
 import { Container, Button, Pagination } from "reactstrap";
 import { crudService } from "../../_services";
-import SearchInput from "../../components/form/searchInput";
-import Image from "next/future/image";
-import CheckableTag from "antd/lib/tag/CheckableTag";
-import { DateIcon, ProfileIcon, SearchIcon } from "../../components/icons";
-import { Icon } from "react-icons-kit";
 import Router from "next/router";
-import community from ".";
-import PageBanner from "../../components/card/pageBanner";
-import blogsBannerImage from "../../public/new_images/blogs-bg.svg";
-import blogsProfile from "../../public/new_images/blog-profile.svg";
-import rightArrow from "../../public/new_images/right-arrow.svg";
-import myImageLoader from "../../components/imageLoader";
 import { SearchOutlined } from "@ant-design/icons";
-import { Card, Space } from "antd";
 import { crudActions } from "../../_actions";
 import { connect } from "react-redux";
 import { RightOutlined } from "@ant-design/icons";
@@ -421,7 +409,7 @@ const Community = ({ router }) => {
                                             verticalAlign: "0.04em",
                                           }}
                                         />{" "}
-                                        Replies :{" "}
+                                        Answers :{" "}
                                         {item?.__meta__?.total_post_reply}
                                       </p>
                                     </div>

@@ -898,7 +898,9 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
                   height: "fit-content",
                 }}
               >
-                <div className="cards-header">
+                <div className="cards-header" style={{
+                  justifyContent : 'flex-start'
+                }}>
                   <Image
                     loader={myImageLoader}
                     style={{ borderRadius: "2px" }}

@@ -1,24 +1,19 @@
 import React, { Fragment, useRef } from "react";
 import Router, { useRouter, withRouter } from "next/router";
 import { connect } from "react-redux";
-import { Button, Container } from "reactstrap";
+
 import { crudService } from "../../_services";
 import { userActions } from "../../_actions";
 import { UsergroupAddOutlined, MessageOutlined, EyeOutlined } from "@ant-design/icons";
-import { RoboAdvisor, ServiceProvider, Consultant } from "../icons";
-import Image from "next/future/image";
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Link from "next/link";
+
 import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.min.css";
 import SwiperCore, { Navigation, Pagination } from "swiper/core";
-import moment from 'moment';
 import { isMobile } from "react-device-detect";
-import view_icon from "../../public/new_images/view_icon.svg";
-import myImageLoader from "../../components/imageLoader";
+
 
 
 SwiperCore.use([Navigation, Pagination]);
@@ -229,7 +224,7 @@ class CommunityCategory extends React.PureComponent {
                             <div className="content-x">
                               <div className="user-icon">
                                 <p>
-                                  <EyeOutlined style={{ fontSize: "16px", verticalAlign: "0.04em" }} />  Replies : {slide.__meta__.total_post_reply}
+                                  <EyeOutlined style={{ fontSize: "16px", verticalAlign: "0.04em" }} />  Answers : {slide.__meta__.total_post_reply}
                                   {/* <UsergroupAddOutlined style={{ fontSize: "16px", verticalAlign: "0.04em" }} />  */}
                                   {/* Views : {slide.__meta__.total_members} */}
                                 </p>
