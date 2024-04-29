@@ -169,16 +169,16 @@ class Categories extends React.PureComponent {
         icon: <Consultant />,
         urlTarge: "/consultant",
       },
-      {
-        title: "Work with a service provider",
-        description: [
-          "Pay at 20% less than market rates",
-          "App development, managed services, custom integration, UI design, Assessments & more",
-        ],
-        icon: <ServiceProvider />,
+      // {
+      //   title: "Work with a service provider",
+      //   description: [
+      //     "Pay at 20% less than market rates",
+      //     "App development, managed services, custom integration, UI design, Assessments & more",
+      //   ],
+      //   icon: <ServiceProvider />,
 
-        urlTarge: "/consultant/service_provider",
-      },
+      //   urlTarge: "/consultant/service_provider",
+      // },
       {
         title: "Access Free Research",
         description: [
