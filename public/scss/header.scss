@@ -67,16 +67,16 @@
   }
 }
 
-.active-nav-link{
-  color: #62B6FF !important;
-  border-bottom: 2px solid #62B6FF;
+.active-nav-link {
+  color: #62b6ff !important;
+  border-bottom: 2px solid #62b6ff;
 }
 
 // menu-wrapper
 .main-menu-wrapper {
   text-align: right;
 
-  .dropdown-service-custom{
+  .dropdown-service-custom {
     margin: -5px 0 0 !important;
   }
 
@@ -100,7 +100,7 @@
       a {
         padding: 9px 10px;
         font-size: 16px;
-       // font-family: "Inter";
+        // font-family: "Inter";
         font-style: normal;
         line-height: 26px;
         letter-spacing: 0.32px;
@@ -131,7 +131,6 @@
   text-align: right;
   float: left;
   margin-right: 10px;
-
 }
 
 .menu-wrapper {
@@ -251,8 +250,8 @@
       border-radius: 7px 0 0 7px;
     }
 
-    .ant-drawer-mask{
-      background-color : transparent !important
+    .ant-drawer-mask {
+      background-color: transparent !important;
     }
 
     .ant-drawer-body {

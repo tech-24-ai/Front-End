@@ -23,7 +23,7 @@ import {
   MobileView,
   isBrowser,
   isMobile,
-  isTablet
+  isTablet,
 } from "react-device-detect";
 import LogoBlack from "../../public/new_images/tech24_header_logo_white.svg";
 import LogoWhite from "../../public/new_images/tech24_header_logo_white.svg";
@@ -33,8 +33,6 @@ import Image from "next/future/image";
 import { useMediaQuery } from "react-responsive";
 
 function Header(props) {
-
-
   //const isBrowser = useDesktopMediaQuery();
   //const isTablet = useTabletAndBelowMediaQuery();
 
@@ -112,32 +110,29 @@ function Header(props) {
                 </div>
               </div>
             )}
-           {
-            isMobile && (
+            {isMobile && (
               <MobileView>
-              <Drawer
-                isloggedIn={isloggedIn}
-                openSideMenu={openSideMenu}
-                sideMenu={sideMenu}
-              />
-              <Link href={"/"}>
-                <Image
-                  loader={myImageLoader}
-                  src={isMainHeader ? LogoBlack : LogoWhite}
-                  alt=""
-                  placeholder="Logo"
-                  layout="raw"
-                  style={{
-                    objectFit: "contain",
-                    width: "100px",
-                    height: "auto",
-                  }}
+                <Drawer
+                  isloggedIn={isloggedIn}
+                  openSideMenu={openSideMenu}
+                  sideMenu={sideMenu}
                 />
-              </Link>
-            </MobileView>
-            )
-           }
-           
+                <Link href={"/"}>
+                  <Image
+                    loader={myImageLoader}
+                    src={isMainHeader ? LogoBlack : LogoWhite}
+                    alt=""
+                    placeholder="Logo"
+                    layout="raw"
+                    style={{
+                      objectFit: "contain",
+                      width: "100px",
+                      height: "auto",
+                    }}
+                  />
+                </Link>
+              </MobileView>
+            )}
           </Col>
           <Col md={9} className="right-block">
             {isMobile == false && (
@@ -297,39 +292,36 @@ function Header(props) {
                 </Navbar>
               </div>
             )}
-            {
-              isMobile && (
-                <MobileView>
-              <div style={{ float: "right", display: "flex" }}>
-                <NavItem>
-                  <img src="/new_images/search.svg" alt="search" />
-                </NavItem>
-
-                {isloggedIn && (
-                  <NavItem style={{ margin: 0 }}>
-                    <Link href="/Profile">
-                      <img
-                        src="/new_images/Avatar.svg"
-                        alt="avatar"
-                        style={{ cursor: "pointer" }}
-                      />
-                    </Link>
-                  </NavItem>
-                )}
-                {!isloggedIn && (
+            {isMobile && (
+              <MobileView>
+                <div style={{ float: "right", display: "flex" }}>
                   <NavItem>
-                    <Link href="/login">
-                      <Button color="light" className="px-4">
-                        Sign up
-                      </Button>
-                    </Link>
+                    <img src="/new_images/search.svg" alt="search" />
                   </NavItem>
-                )}
-              </div>
-            </MobileView>
-              )
-            }
-            
+
+                  {isloggedIn && (
+                    <NavItem style={{ margin: 0 }}>
+                      <Link href="/Profile">
+                        <img
+                          src="/new_images/Avatar.svg"
+                          alt="avatar"
+                          style={{ cursor: "pointer" }}
+                        />
+                      </Link>
+                    </NavItem>
+                  )}
+                  {!isloggedIn && (
+                    <NavItem>
+                      <Link href="/login">
+                        <Button color="light" className="px-4">
+                          Sign up
+                        </Button>
+                      </Link>
+                    </NavItem>
+                  )}
+                </div>
+              </MobileView>
+            )}
           </Col>
         </Row>
       </Container>
