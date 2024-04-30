@@ -156,7 +156,7 @@ function Menu(props) {
         </div>
       </Drawer>
       <style global jsx>{`
-        @media (max-width: 575px) {
+        @media (max-width: 1440px) {
           // .menu-block .menu-icon span {
           //   background-color: ${router.pathname == "/" ? "white" : ""};
           // }

@@ -351,7 +351,7 @@ const useTabletAndBelowMediaQuery = () =>
             // );
           }
         }
-        @media (max-width: 575px) {
+        @media (max-width: 1440px) {
           body {
             // background: linear-gradient(
             //   to left,

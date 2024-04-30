@@ -102,7 +102,7 @@ class AlertComponent extends React.PureComponent {
         )}
         {visible && (
           <style global jsx>{`
-            @media (max-width: 575px) {
+            @media (max-width: 1440px) {
               .ant-modal-content {
                 width: 85% !important;
                 height: auto !important;
