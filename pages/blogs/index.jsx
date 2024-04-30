@@ -43,6 +43,9 @@ function Blogs({ router }) {
   useEffect(() => {
     fetchBlogData();
   }, [page]);
+  useEffect(() => {
+    fetchBlogData();
+  }, []);
 
   const fetchBlogData = () => {
     crudService
