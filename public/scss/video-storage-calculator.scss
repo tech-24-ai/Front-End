@@ -157,7 +157,78 @@
   }
 }
 
-@media (max-width: 1440px) {
+@media (max-width: 767px) {
+  .videoStorageContainer {
+    padding: 0px 20px;
+    .resolutionDivTwo {
+      width: 10%;
+      margin: 10px 0px 0px 70px;
+    }
+    .antInput {
+      height: 35px !important;
+      line-height: 35px !important;
+      width: 90px !important;
+    }
+    .ant-slider {
+      margin: unset !important;
+    }
+    .resolutionDivTwo {
+      margin: 5px 15px 0px 20px !important;
+    }
+    .compressionDiv {
+      width: 100% !important;
+    }
+    .result {
+      position: unset !important;
+      width: 100% !important;
+      font-size: 16px !important;
+      min-height: 50px;
+      flex-direction: column;
+      align-items: flex-start !important;
+    }
+    .result div {
+      padding: unset !important;
+    }
+    .space {
+      flex-direction: row !important;
+    }
+    .ant-radio-wrapper {
+      width: unset !important;
+    }
+    .videoStorageContainer .ant-slider {
+      margin: -10px 0px -10px;
+    }
+    .videoContainer {
+      width: unset !important;
+    }
+    .compressionType {
+      margin-top: 30px;
+    }
+    .resolutionDivTwo {
+      width: unset !important;
+      position: absolute;
+      right: 15px;
+      margin: -6px 15px 0px 0px !important;
+    }
+    .heading {
+      font-size: 18px !important;
+      margin-top: 8px !important;
+    }
+    .resultText {
+      min-width: 100% !important;
+      padding: 10px !important;
+    }
+    .ant-col-4 {
+      max-width: unset !important;
+    }
+    .rowWithFlex {
+      width: unset !important;
+    }
+  }
+}
+
+//Tablet
+@media (min-width: 768px) and (max-width: 1440px) {
   .videoStorageContainer {
     padding: 0px 20px;
     .resolutionDivTwo {
