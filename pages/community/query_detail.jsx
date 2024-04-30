@@ -59,7 +59,7 @@ const Community = ({ router }) => {
   
     useEffect(() => {
         getAllPosts(searchQuery,currentPage,sortBy);
-    }, []);
+    }, [searchQuery, currentPage, sortBy]);
 
     useEffect(() => {
         if (value) {
@@ -69,9 +69,9 @@ const Community = ({ router }) => {
         }
     }, [value]);
     
-    const getAllPosts = async (searchText,cpage,orderBy) => {
+    const getAllPosts = async (searchText,page,orderBy) => {
         try {
-            const data = await crudService._getAll("community", { search: searchText, page: cpage + 1, pageSize: itemsPerPage, orderBy : orderBy });
+            const data = await crudService._getAll("community", { search: searchText, page: page + 1, pageSize: itemsPerPage, orderBy : orderBy });
             setCommunityFeature(data.data?.data);
             setTotal(data.data?.total);
         } catch (error) {
@@ -485,7 +485,8 @@ const Community = ({ router }) => {
             <div className="mt-5" style={{ width: "100%" }}>
             {communityFeature?.length > 0 && (
               <CustomPagination
-                pageCount={Math.ceil(total / itemsPerPage)}
+                // pageCount={Math.ceil(total / itemsPerPage)}
+                pageCount={total}
                 page={currentPage}
                 onPageChange={({ selected }) => setCurrentPage(selected)}
               />
