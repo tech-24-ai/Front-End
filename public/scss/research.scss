@@ -541,7 +541,142 @@
   }
 }
 
-@media (max-width: 1440px) {
+//Mobile
+@media (max-width: 767px) {
+  .main-content.researchs {
+    min-height: 100vh;
+    padding-bottom: 190px !important;
+  }
+  .researchs-section {
+    .page-banner .banner-bg .banner-container {
+      padding: 2rem 0;
+      .banner-image-container {
+        display: none;
+      }
+    }
+
+    .research-container {
+      margin: 2rem 0;
+      display: flex;
+      flex-direction: column;
+      .div-one {
+        width: 100%;
+      }
+      .second-div {
+        width: 100%;
+        margin-left: 0;
+        grid-template-columns: repeat(1, 1fr);
+        .research-card {
+          width: 100%;
+          height: auto;
+          .ant-card-cover {
+            img {
+              height: 150px;
+            }
+          }
+          .ant-card-body {
+            p.card-heading {
+              font-size: 16px;
+              line-height: 20px;
+              margin-bottom: 4rem;
+            }
+            p.researchs-card-body {
+              display: none;
+            }
+
+            .read-more {
+              padding: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .market-research-portal-section {
+    .page-banner {
+      .container,
+      .banner-container {
+        height: 100%;
+      }
+
+      .banner-container {
+        display: flex;
+        align-items: flex-end;
+        padding-bottom: 2rem !important;
+        justify-content: center;
+      }
+
+      .banner-title-container {
+        width: 100%;
+      }
+    }
+
+    // .latest-research {
+    //   .view-more {
+    //     display: none;
+    //   }
+    // }
+
+    .market-research-category-card-body {
+      min-width: unset;
+
+      .heading {
+        font-size: 1em;
+      }
+    }
+  }
+
+  .latest-research {
+    margin: 2rem 0 1rem 0;
+  }
+
+  .research-list-section {
+    .research-section {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .research-detail-section {
+    .research-detail-heading {
+      padding: 16px;
+      .title {
+        line-height: 34px;
+        font-size: 1.75rem;
+        font-family: "Poppins", sans-serif;
+      }
+    }
+
+    .research-content-wrapper {
+      flex-direction: column;
+
+      .research-content-section,
+      .related-research-section {
+        width: 100%;
+
+        .heading {
+          line-height: 30px;
+          font-size: 1.25rem;
+        }
+      }
+
+      .download-report-card {
+        .heading {
+          line-height: 30px;
+          font-size: 1.25rem;
+        }
+      }
+    }
+
+    .related-research-section {
+      margin-top: 4rem;
+    }
+  }
+}
+
+//Tablet
+@media (min-width: 768px) and (max-width: 1440px) {
   .main-content.researchs {
     min-height: 100vh;
     padding-bottom: 190px !important;

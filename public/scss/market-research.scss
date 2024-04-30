@@ -246,7 +246,62 @@ section.latest-research-section {
   }
 }
 
-@media (max-width: 1440px) {
+//Mobile
+@media (max-width: 767px) {
+  .market-research-portal-section {
+    .banner-image-container,
+    // .sub-title {
+    //   display: none;
+    // }
+    .title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .research-content {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      justify-content: space-between;
+      gap: 2rem 18px;
+
+      .research-card {
+        width: auto;
+        height: 205px;
+
+        .ant-card-body {
+          padding: 12px;
+
+          .research-card-text {
+            display: none;
+          }
+
+          .research-card-title {
+            font-size: 20px;
+            line-height: 20px;
+            letter-spacing: 0;
+          }
+        }
+
+        .custom-icon {
+          bottom: 1rem;
+          width: 32px !important;
+          height: 32px !important;
+          min-height: 32px !important;
+          min-width: 32px !important;
+        }
+      }
+    }
+
+    .market-trend-section {
+      .title {
+        width: 100%;
+      }
+    }
+  }
+}
+
+//Tablet
+@media (min-width: 768px) and (max-width: 1440px) {
   .market-research-portal-section {
     .banner-image-container,
     // .sub-title {
