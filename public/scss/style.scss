@@ -2223,6 +2223,33 @@ div.message-box-card {
   }
 }
 
+// slick-slider style
+.slick-slider {
+  .slick-list .slick-track {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .slick-dots {
+    margin-top: 1rem;
+    bottom: -3rem;
+
+    li button::before {
+      color: $themeSecondary !important;
+      font-size: 0.75rem;
+      margin-top: -3px;
+      opacity: 1 !important;
+    }
+
+    li.slick-active {
+      width: 2rem;
+      height: 0.75rem;
+      border-radius: 1000px;
+      background-color: $themeSecondary;
+    }
+  }
+}
+
 // tablet and mobile
 @media (max-width: 1440px) {
   .input-content {

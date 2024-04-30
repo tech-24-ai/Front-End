@@ -304,7 +304,7 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 1rem;
-
+    align-items: center;
     .title {
       color: #54616c;
       font-weight: 400;
@@ -550,9 +550,9 @@
       }
     }
 
-    .view-more-icon {
-      margin-top: 13% !important;
-      right: 90px !important;
-    }
+    // .view-more-icon {
+    //   margin-top: 13% !important;
+    //   right: 90px !important;
+    // }
   }
 }
