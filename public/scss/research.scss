@@ -302,8 +302,7 @@
           display: -webkit-box;
           -webkit-line-clamp: 2;
           -webkit-box-orient: vertical;
-          min-height: 3.5rem;
-          margin-bottom: 1.5rem;
+          min-height: 2.8rem;
         }
 
         .date-section {
@@ -311,7 +310,7 @@
           align-items: center;
           justify-content: flex-start;
           color: #54616c;
-          margin-top: 2rem;
+          margin-top: 1rem;
           font-size: 12px;
           font-family: 'Inter';
           position: relative;
@@ -602,6 +601,8 @@
         align-items: flex-end;
         padding-bottom: 2rem !important;
         justify-content: center;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
       }
 
       .banner-title-container {
@@ -626,6 +627,8 @@
 
   .latest-research {
     margin: 2rem 0 1rem 0;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
 
   .research-list-section {
@@ -736,6 +739,8 @@
         align-items: flex-end;
         padding-bottom: 2rem !important;
         justify-content: center;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
       }
 
       .banner-title-container {
@@ -760,6 +765,8 @@
 
   .latest-research {
     margin: 2rem 0 1rem 0;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
 
   .research-list-section {

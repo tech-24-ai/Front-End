@@ -85,14 +85,14 @@ const LatestResearch = ({
             arrows={false}
             responsive={[
               {
-                breakpoint: 1024,
+                breakpoint: 1200,
                 settings: {
                   slidesToShow: 2,
                   dots: true,
                 },
               },
               {
-                breakpoint: 600,
+                breakpoint: 767,
                 settings: {
                   slidesToShow: 1,
                   dots: true,

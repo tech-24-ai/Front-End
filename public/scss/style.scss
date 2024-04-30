@@ -2331,7 +2331,7 @@ div.message-box-card {
 
   .custom-grid-container {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
 }
