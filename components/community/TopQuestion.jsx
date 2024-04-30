@@ -33,7 +33,7 @@ const TrendingQuestion = ({ trendingQuestions }) => {
               onClick={() => slider.current?.slickPrev()}
               className="view-more-icon"
               style={{
-                left: "90px",
+                left: "72px",
                 marginTop: "7%",
                 zIndex: "99",
                 position: "absolute",
@@ -52,7 +52,7 @@ const TrendingQuestion = ({ trendingQuestions }) => {
               onClick={() => slider.current?.slickNext()}
               className="view-more-icon"
               style={{
-                right: "90px",
+                right: "76px",
                 marginTop: "7%",
                 zIndex: "99",
                 position: "absolute",

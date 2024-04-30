@@ -179,8 +179,8 @@
   .research-section {
     margin: 0 -10px;
     .slick-slider .slick-list .slick-track {
-      gap: 1rem;
-      display: flex;
+      // gap: 1rem;
+      // display: flex;
     }
     .slick-slider {
       .slick-next {
@@ -295,7 +295,7 @@
         .research-detail {
           font-weight: 400;
           font-size: 14px;
-          font-family: 'Inter';
+          font-family: "Inter";
           line-height: 20px;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -312,7 +312,7 @@
           color: #54616c;
           margin-top: 1rem;
           font-size: 12px;
-          font-family: 'Inter';
+          font-family: "Inter";
           position: relative;
           .date {
             line-height: 18px;
@@ -411,7 +411,7 @@
     .date-section {
       margin-top: 2em;
       display: flex;
-      font-family: 'Inter';
+      font-family: "Inter";
       align-items: center;
       justify-content: flex-start;
       color: #54616c;
@@ -457,7 +457,7 @@
         font-size: 0.875rem;
         line-height: 20px;
         color: #54616c;
-        font-family: 'Inter';
+        font-family: "Inter";
         font-family: 400;
       }
 

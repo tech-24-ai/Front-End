@@ -38,7 +38,7 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
             onClick={() => slider.current?.slickPrev()}
             className="view-more-icon"
             style={{
-              left: "90px",
+              left: "75px",
               marginTop: "7%",
               zIndex: "99",
               position: "absolute",
@@ -57,7 +57,7 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
             onClick={() => slider.current?.slickNext()}
             className="view-more-icon"
             style={{
-              right: "85px",
+              right: "75px",
               zIndex: "99",
               marginTop: "7%",
               position: "absolute",

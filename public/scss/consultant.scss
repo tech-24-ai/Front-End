@@ -769,15 +769,6 @@
   }
 }
 
-@media (min-width: 1600px) {
-  .consultant-list-container {
-    .consultant-list-item {
-      max-width: 504px;
-      min-width: 504px;
-    }
-  }
-}
-
 // consultants details page scss
 .consultant-details-page-section {
   padding: 2rem 0;
@@ -1194,6 +1185,8 @@
   }
 
   .consultant-section {
+    color: #00192f;
+
     .slick-slider .slick-list .slick-track {
       gap: 1rem;
       display: flex;
@@ -1238,7 +1231,7 @@
         background-color: #0074d9;
       }
     }
-    color: #00192f;
+
     .consultant-list {
       .h1-hidden {
         display: none;
@@ -1324,6 +1317,21 @@
   .title-section {
     .date-icon {
       display: none;
+    }
+  }
+}
+
+@media (min-width: 1441px) {
+  .consultant-section {
+    margin: 0 -10px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .consultant-list-container {
+    .consultant-list-item {
+      max-width: 504px;
+      min-width: 504px;
     }
   }
 }

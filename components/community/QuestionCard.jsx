@@ -20,8 +20,8 @@ const QuestionCard = ({ data, key }) => {
           <Image
             preview={false}
             src={
-              //   data.visitor.profile_pic_url ||
-              "https://s3-alpha-sig.figma.com/img/f89d/b836/41bb906adb1604f260e8fe4b09ed6652?Expires=1715558400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=QeHMqZ7rfdr3AqUj2eXBLXMsEZdGDemD0RpXRXz5SFYGktRvaqGk~hnUL-6~f~qU4VLT4uNlle4ES7W3~RF2sZC9OlPLGUQypASt1UzKxfepCo0oTkj2byqZP8h4bCbKurshobbgNR1wQquZA4rdtarwJH6tKvQ1AXAzzfy5DpMklPLCUh4ey-7aaV7IvN3juq81-L74g9DTk3TxcpklI7xR3aTo0tPtGsX6iFXv~K69tLqH8EA41CD3mM~07~oTutL3N33lakNfUy0Ttdvvs4rTqkhhXmaeBE-JNw2Xga6J8rMvFPz4AhpuK3AINy6RmOYZwtFstzxeC3BrueN~SA__"
+              data.visitor.profile_pic_url ||
+              "https://tech24-uat.s3.amazonaws.com/WTVfXLYeN3"
             }
             alt={data.visitor.name}
           />

@@ -477,6 +477,15 @@
   }
 }
 
+@media (min-width: 1441px) {
+  body {
+    background-color: red;
+  }
+  .blog-section {
+    margin-left: -15px;
+    margin-right: -5px;
+  }
+}
 
 //Mobile
 @media (max-width: 767px) {
