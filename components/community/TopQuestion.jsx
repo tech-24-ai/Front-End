@@ -81,6 +81,7 @@ const TrendingQuestion = ({ trendingQuestions }) => {
                     dots: true,
                   },
                 },
+
                 {
                   breakpoint: 600,
                   settings: {
