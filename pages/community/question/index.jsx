@@ -234,11 +234,11 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
   const voteCommunity = (data, type) => {
     crudService
       ._create("communitypost/vote", {
-        community_post_id: data?.community_id,
+        community_post_id: data?.id,
         vote_type: type,
       })
       .then((data) => {
-        data.status == 200 && fetchCommunityData();
+        data.status == 200 && setUpdateCom(true);
       });
   };
 
