@@ -34,11 +34,6 @@ import { useMediaQuery } from "react-responsive";
 
 function Header(props) {
 
-  const useDesktopMediaQuery = () =>
-  useMediaQuery({ query: '(min-width: 1440px)' })
-
-const useTabletAndBelowMediaQuery = () =>
-  useMediaQuery({ query: '(max-width: 1199px)' })
 
   //const isBrowser = useDesktopMediaQuery();
   //const isTablet = useTabletAndBelowMediaQuery();
