@@ -12,11 +12,10 @@ section.explore-wrapper {
     margin: 20px 0 35px 0;
     .content-title-wrapper {
       .main-title {
-        font-size: 32px;
         font-weight: 500;
         font-stretch: normal;
         font-style: normal;
-        line-height: 48px;
+
         letter-spacing: -0.5px;
         color: #ffffff;
         span {
@@ -25,7 +24,6 @@ section.explore-wrapper {
       }
 
       .main-title-two {
-        font-size: 20px;
         font-weight: 400;
         font-stretch: normal;
         font-style: normal;
@@ -64,10 +62,8 @@ section.explore-wrapper {
     }
 
     .slick-dots li button:before {
-      color: #fff;
-      font-size: 12px;
+      color: #fff !important;
       margin-top: -3px;
-      opacity: 1;
       &.slick-active {
         content: "";
       }
@@ -128,14 +124,75 @@ section.explore-wrapper {
   }
 }
 
-@media only screen and (max-width: 600px) {
-  .category .slider-container button.slick-prev, .category .slider-container button.slick-next{
+//Desktop Styles
+@media (min-width: 1441px) {
+  .explore-wrapper {
+    .content-wrapper {
+      .content-title-wrapper {
+        .main-title {
+          font-size: 32px;
+          line-height: 48px;
+        }
+
+        .main-title-two {
+          font-size: 1rem;
+          line-height: 1.5rem;
+        }
+      }
+    }
+  }
+}
+
+// tablet and mobile
+@media (max-width: 1440px) {
+  .category .slider-container button.slick-prev,
+  .category .slider-container button.slick-next {
     display: none !important;
-  } 
+  }
   .category .slider-container .slick-list .slick-track .slick-slide {
     height: fit-content !important;
     &.slick-current {
       height: fit-content !important;
     }
   }
+
+  .explore-wrapper {
+    .content-wrapper {
+      .content-title-wrapper {
+        .main-title {
+          font-size: 1.75rem;
+          line-height: 2.125rem;
+        }
+
+        .main-title-two {
+          font-size: 1rem;
+          line-height: 1.5rem;
+        }
+      }
+    }
+  }
+
+  section.explore-wrapper {
+    .content-wrapper {
+      margin: 0;
+    }
+  }
+}
+
+// Mobile Styles
+@media (max-width: 767px) {
+  .explore-wrapper {
+    .content-wrapper {
+      .content-title-wrapper {
+        .main-title {
+          font-size: 1.5rem;
+          line-height: 2rem;
+        }
+      }
+    }
+  }
+}
+
+// Tablet Styles
+@media (min-width: 768px) and (max-width: 1440px) {
 }

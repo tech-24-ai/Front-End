@@ -45,6 +45,10 @@ function MarketResearch({
     };
   };
 
+  const handleRedirect = () => {
+    Router.push("/market-research/research-list");
+  };
+
   return (
     <section className="market-research-portal-section">
       <PageBanner
@@ -90,7 +94,9 @@ function MarketResearch({
           </div>
           <div className="custom-grid-container">
             {categories?.map((data) => (
-              <div className="custom-grid-item">
+              <div className="custom-grid-item hover" onClick={() => {
+                handleRedirect();
+              }}>
                 <CategoryCard
                   heading={data.name}
                   description={`${data?.__meta__?.total_research}+ research`}

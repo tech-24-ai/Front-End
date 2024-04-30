@@ -27,7 +27,7 @@ import sports_logo from "../../public/new_images/sports_logo.svg";
 const Footer = (props) => {
   return (
     <Fragment>
-      {!isMobile &&
+      {!isMobile && (
         <footer className="footer-block">
           <Container>
             <Row style={{ paddingTop: 40 }}>
@@ -57,9 +57,7 @@ const Footer = (props) => {
                   <a>Quick Links</a>
                   <Link href="/market-research">Market Research</Link>
                   <Link href="/blogs">Blogs</Link>
-                  <Link href="/community">
-                    Community
-                  </Link>
+                  <Link href="/community">Community</Link>
                 </div>
                 <div className="link-wrapper">
                   <a>Services</a>
@@ -86,8 +84,8 @@ const Footer = (props) => {
               <Col md={12}>
                 <div className="social-wrapper">
                   <div className="copy-right">
-                    © {new Date().getFullYear()} {themeConfig.appName}. All rights
-                    reserved
+                    © {new Date().getFullYear()} {themeConfig.appName}. All
+                    rights reserved
                   </div>
                   <div className="social-link">
                     <a
@@ -160,7 +158,7 @@ const Footer = (props) => {
             </Row>
           </Container>
         </footer>
-      }
+      )}
       {/*  <footer
           style={{
             padding: "10px 20px",
@@ -171,129 +169,119 @@ const Footer = (props) => {
         >
           © {new Date().getFullYear()} {themeConfig.appName} : An IT Research & Advisory company
         </footer> */}
-      {
-        isMobile &&
+      {isMobile && (
         <footer className="footer-mobile">
-          <Container>
-              <div class="footer-container">
-                <div class="logo-container">
-                  <Link href="/">
-                    <a aria-label="redirect to home page">
-                      <Image
-                        loader={myImageLoader}
-                        className="mdg"
-                        src={LogoNew}
-                        alt=""
-                        placeholder="Logo"
-                        width={140}
-                        height={40}
-                      />
-                    </a>
-                  </Link>
-                </div>
-                <div class="info-container">
-                  <div class="info">
-                    <h4>
-                    Quick Links
-                    </h4>
-                    <Link href="/market-research">Market Research</Link>
-                    <Link href="/blogs">Blogs</Link>
-                    <Link href="/community">
-                      Community
-                    </Link>
-                  </div>
-                  <div class="info">
-                    <h4>
-                    Services
-                    </h4>
-                    <Link href="/it-robo">AI-Based Robo Advisor</Link>
-                    <Link href="/consultant">Talk to a Consultant</Link>
-                    <Link href="/d/tools_calculators/calculators">Tools & Calculator</Link>
-                  
-                  </div>
-                </div>
-                <div class="full-width-container">
-                  <h4>
-                  Help
-                  </h4>
-                  <Link href="/terms_and_conditions">Terms and Conditions</Link>
-                  <Link href="/privacy_policy">Privacy Policy</Link>
-                  <Link href="/cookies">Cookie Settings</Link>
-                  <Link href="/contact-us">Contact Us</Link>
-                  <Link href="/about-us">About Us</Link>
-                </div>
-                <div class="text-image-container">
-                  <p>© {new Date().getFullYear()} {themeConfig.appName} All rights reserved</p>
-                  <div className="social-media">
-                    <a
-                      href="https://www.linkedin.com/company/tech24.ai/"
-                      target="_blank"
-                      aria-label="redirect to LinkedIn page"
-                    >
-                      <Image
-                        loader={myImageLoader}
-                        style={{ borderRadius: "5px" }}
-                        width={24}
-                        height={24}
-                        preview="false"
-                        src={x_logo}
-                        alt="profile"
-                      />
-                    </a>
-                    <a
-                      href="https://twitter.com/tech24.ai"
-                      target="_blank"
-                      aria-label="redirect to twitter page"
-                    >
-                 
-                      <Image
-                        loader={myImageLoader}
-                        style={{ borderRadius: "5px" }}
-                        width={24}
-                        height={24}
-                        preview="false"
-                        src={instagram_logo}
-                        alt="profile"
-                      />
-                    </a>
-                    <a
-                      href="https://twitter.com/tech24.ai"
-                      target="_blank"
-                      aria-label="redirect to twitter page"
-                    >
-                   
-                      <Image
-                        loader={myImageLoader}
-                        style={{ borderRadius: "5px" }}
-                        width={24}
-                        height={24}
-                        preview="false"
-                        src={youtube_logo}
-                        alt="profile"
-                      />
-                    </a>
-                    <a
-                      href="https://twitter.com/tech24.ai"
-                      target="_blank"
-                      aria-label="redirect to twitter page"
-                    >
-                   
-                      <Image
-                        loader={myImageLoader}
-                        style={{ borderRadius: "5px" }}
-                        width={24}
-                        height={24}
-                        preview="false"
-                        src={sports_logo}
-                        alt="profile"
-                      />
-                    </a>
-                  </div>
-                </div>
+          <div class="footer-container">
+            <div class="logo-container">
+              <Link href="/">
+                <a aria-label="redirect to home page">
+                  <Image
+                    loader={myImageLoader}
+                    className="mdg"
+                    src={LogoNew}
+                    alt=""
+                    placeholder="Logo"
+                    width={140}
+                    height={40}
+                  />
+                </a>
+              </Link>
+            </div>
+            <div class="info-container">
+              <div class="info">
+                <h4>Quick Links</h4>
+                <Link href="/market-research">Market Research</Link>
+                <Link href="/blogs">Blogs</Link>
+                <Link href="/community">Community</Link>
               </div>
-          </Container>
+              <div class="info">
+                <h4>Services</h4>
+                <Link href="/it-robo">AI-Based Robo Advisor</Link>
+                <Link href="/consultant">Talk to a Consultant</Link>
+                <Link href="/d/tools_calculators/calculators">
+                  Tools & Calculator
+                </Link>
+              </div>
+            </div>
+            <div class="full-width-container info">
+              <h4>Help</h4>
+              <Link href="/terms_and_conditions">Terms and Conditions</Link>
+              <Link href="/privacy_policy">Privacy Policy</Link>
+              <Link href="/cookies">Cookie Settings</Link>
+              <Link href="/contact-us">Contact Us</Link>
+              <Link href="/about-us">About Us</Link>
+            </div>
+            <div class="text-image-container">
+              <p>
+                © {new Date().getFullYear()} {themeConfig.appName} All rights
+                reserved
+              </p>
+              <div className="social-media">
+                <a
+                  href="https://www.linkedin.com/company/tech24.ai/"
+                  target="_blank"
+                  aria-label="redirect to LinkedIn page"
+                >
+                  <Image
+                    loader={myImageLoader}
+                    style={{ borderRadius: "5px" }}
+                    width={24}
+                    height={24}
+                    preview="false"
+                    src={x_logo}
+                    alt="profile"
+                  />
+                </a>
+                <a
+                  href="https://twitter.com/tech24.ai"
+                  target="_blank"
+                  aria-label="redirect to twitter page"
+                >
+                  <Image
+                    loader={myImageLoader}
+                    style={{ borderRadius: "5px" }}
+                    width={24}
+                    height={24}
+                    preview="false"
+                    src={instagram_logo}
+                    alt="profile"
+                  />
+                </a>
+                <a
+                  href="https://twitter.com/tech24.ai"
+                  target="_blank"
+                  aria-label="redirect to twitter page"
+                >
+                  <Image
+                    loader={myImageLoader}
+                    style={{ borderRadius: "5px" }}
+                    width={24}
+                    height={24}
+                    preview="false"
+                    src={youtube_logo}
+                    alt="profile"
+                  />
+                </a>
+                <a
+                  href="https://twitter.com/tech24.ai"
+                  target="_blank"
+                  aria-label="redirect to twitter page"
+                >
+                  <Image
+                    loader={myImageLoader}
+                    style={{ borderRadius: "5px" }}
+                    width={24}
+                    height={24}
+                    preview="false"
+                    src={sports_logo}
+                    alt="profile"
+                  />
+                </a>
+              </div>
+            </div>
+          </div>
         </footer>
-      }
+      )}
     </Fragment>
   );
 };

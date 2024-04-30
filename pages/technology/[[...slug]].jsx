@@ -487,7 +487,7 @@ class Modules extends React.Component {
         {/* <BodyBackgroundColor color={bgColor && bgColor} /> */}
 
         <style global jsx>{`
-          @media (max-width: 575px) {
+          @media (max-width: 1440px) {
             .ant-modal-content {
               width: 100%;
               margin: auto;

@@ -462,18 +462,7 @@ input[type="radio"] {
   background: #1863dc;
 }
 
-@media (max-width: 480px) {
-  .cky-box-bottom-left {
-    left: unset;
-  }
-  .cky-consent-container {
-    width: auto;
-  }
 
-  .cky-btn:last-child {
-    // margin-top: 10px;
-  }
-}
 
 //cookies settings
 .cookies-body-container {
@@ -521,12 +510,27 @@ margin-left: 18px;
   width: 1em;
   margin-left: -1em;
 }
-@media (max-width: 575px) {
+
+//Mobile & Tablet as we no need to change font
+@media (max-width: 1440px) {
   .cookies-portal-section{
   .banner-image-container{
     img{
       display: none
     }
   }
+  }
+}
+
+@media (max-width: 1440px) {
+  .cky-box-bottom-left {
+    left: unset;
+  }
+  .cky-consent-container {
+    width: auto;
+  }
+
+  .cky-btn:last-child {
+    // margin-top: 10px;
   }
 }

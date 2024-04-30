@@ -133,7 +133,7 @@
       border-top-left-radius: 5px;
       border-bottom-left-radius: 5px;
       height: 40px;
-       background-color: $backgroundColor;
+      background-color: $backgroundColor;
 
       color: $white;
       text-align: center;
@@ -228,6 +228,20 @@
     }
   }
 
+  &.with-bg-secondary {
+    background-color: $themeSecondary;
+    border: none;
+    &:hover {
+      background-color: rgba($themeSecondary, 0.4);
+      color: $themeSecondary;
+    }
+
+    &:active {
+      background-color: rgba($themeSecondary, 0.4);
+      color: $themeSecondary;
+    }
+  }
+
   &.bg-white {
     background-color: #fff;
   }
@@ -314,7 +328,7 @@
   }
 }
 
-@media (max-width: 575px) {
+@media (max-width: 1440px) {
   .loginWrapper {
     margin-top: 0%;
     margin-bottom: 4%;

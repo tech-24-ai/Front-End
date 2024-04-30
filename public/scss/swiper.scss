@@ -63,7 +63,16 @@
   justify-content: flex-end;
 }
 
-@media (max-width: 575px) {
+//Mobile
+@media (max-width: 767px) {
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: $grey;
+  }
+}
+
+//Tablet
+@media (min-width: 768px) and (max-width: 1440px) {
   .swiper-button-next,
   .swiper-button-prev {
     color: $grey;

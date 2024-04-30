@@ -84,14 +84,18 @@ class Login extends React.Component {
         <Container>
           <div className="form-login-container">
             <div className="sign-content">
-              <BrowserView className="login-title-tank">
+              {
+                isMobile == false && <BrowserView className="login-title-tank">
                 <h3>Sign in</h3>
                 <h6>Enter your account details</h6>
               </BrowserView>
-              <MobileView className="login-title-tank">
+              }
+              {
+                isMobile == true && <MobileView className="login-title-tank">
                 <h3>Sign in</h3>
                 <h6>Enter your account details</h6>
               </MobileView>
+              }
               <FormGroup style={{ marginTop: "2rem", position: "relative" }}>
                 <h6>Email</h6>
                 <Input
@@ -199,33 +203,6 @@ class Login extends React.Component {
                 <div className="help-block">Password is required</div>
               )}
 
-              {/* <FormGroup
-                className="checkbox-password"
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  position: "relative",
-                }}
-              >
-              
-                <CustomInput
-                    type="checkbox"
-                    id="exCustomCheckbox"
-                    label="Remember Me"
-                    background="#F5F5FA"
-                  />
-                <a
-                  href="#"
-                  style={{
-                    color: "black",
-                    fontSize: "12px",
-                    fontWeight: "600",
-                  }}
-                  className="forget-password"
-                >
-                  Recover Password
-                </a>
-              </FormGroup> */}
 
               <div className="signinWrapper">
                 <ButtonGroup vertical style={{ width: "100%" }}>
@@ -248,12 +225,12 @@ class Login extends React.Component {
                       justifyContent: "center",
                     }}
                   >
-                    {isBrowser && (
+                    {isMobile ==  false && (
                       <span style={{ margin: 8 }}>
                         <img className="icon" src={OrIcon.src} />
                       </span>
                     )}
-                    {isMobile && (
+                    {isMobile == true && (
                       <span style={{ margin: 8 }}>
                         <img className="icon" src={OrIcon.src} />
                       </span>

@@ -164,7 +164,89 @@
   }
 }
 
-@media (max-width: 575px) {
+//Mobile
+@media (max-width: 767px) {
+  .troubleshoot {
+    .chat-button-container {
+      padding: 16px;
+    }
+  }
+  .pricing-advisor-section {
+    .page-heading {
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .pricing-advisor-content {
+      .card {
+        margin-bottom: 1rem;
+        padding: 0;
+        .ask-question {
+          padding: 1rem;
+          h5 {
+            font-size: 16px;
+            line-height: 24px;
+          }
+          .ant-radio-group {
+            flex-direction: column;
+            margin-bottom: 2rem;
+          }
+          .chat-body {
+            .ant-card {
+              margin-bottom: 0;
+            }
+          }
+
+          > div:nth-of-type(2) {
+            p {
+              margin-left: 10px !important;
+              margin-bottom: 0 !important;
+              padding: 15px !important;
+            }
+          }
+        }
+
+        .chat-container {
+          padding: 0 1rem;
+          .chat-body .ant-card {
+            max-width: 100%;
+          }
+        }
+      }
+    }
+    .trouble-section {
+      .chat-container {
+        padding-bottom: 20px !important;
+        .chat-body {
+          width: 100%;
+          .ant-card {
+            max-width: 100% !important;
+            text-align: start;
+          }
+          .radio-button {
+            text-align: start;
+          }
+        }
+      }
+    }
+
+    .chat-button-container {
+      align-items: flex-end !important;
+      flex-direction: column;
+      .send-button {
+        margin: unset !important;
+        margin: 20px 0px !important;
+      }
+      .stop-chat-button {
+        margin: unset !important;
+        width: auto !important;
+        margin-bottom: 20px !important;
+      }
+    }
+  }
+}
+
+//Tablet
+@media (min-width: 768px) and (max-width: 1440px) {
   .troubleshoot {
     .chat-button-container {
       padding: 16px;

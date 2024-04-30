@@ -23,7 +23,7 @@ import {
   MobileView,
   isBrowser,
   isMobile,
-  isTablet
+  isTablet,
 } from "react-device-detect";
 import LogoBlack from "../../public/new_images/tech24_header_logo_white.svg";
 import LogoWhite from "../../public/new_images/tech24_header_logo_white.svg";
@@ -33,13 +33,6 @@ import Image from "next/future/image";
 import { useMediaQuery } from "react-responsive";
 
 function Header(props) {
-
-  const useDesktopMediaQuery = () =>
-  useMediaQuery({ query: '(min-width: 1440px)' })
-
-const useTabletAndBelowMediaQuery = () =>
-  useMediaQuery({ query: '(max-width: 1199px)' })
-
   //const isBrowser = useDesktopMediaQuery();
   //const isTablet = useTabletAndBelowMediaQuery();
 
@@ -117,32 +110,29 @@ const useTabletAndBelowMediaQuery = () =>
                 </div>
               </div>
             )}
-           {
-            isMobile && (
+            {isMobile && (
               <MobileView>
-              <Drawer
-                isloggedIn={isloggedIn}
-                openSideMenu={openSideMenu}
-                sideMenu={sideMenu}
-              />
-              <Link href={"/"}>
-                <Image
-                  loader={myImageLoader}
-                  src={isMainHeader ? LogoBlack : LogoWhite}
-                  alt=""
-                  placeholder="Logo"
-                  layout="raw"
-                  style={{
-                    objectFit: "contain",
-                    width: "100px",
-                    height: "auto",
-                  }}
+                <Drawer
+                  isloggedIn={isloggedIn}
+                  openSideMenu={openSideMenu}
+                  sideMenu={sideMenu}
                 />
-              </Link>
-            </MobileView>
-            )
-           }
-           
+                <Link href={"/"}>
+                  <Image
+                    loader={myImageLoader}
+                    src={isMainHeader ? LogoBlack : LogoWhite}
+                    alt=""
+                    placeholder="Logo"
+                    layout="raw"
+                    style={{
+                      objectFit: "contain",
+                      width: "100px",
+                      height: "auto",
+                    }}
+                  />
+                </Link>
+              </MobileView>
+            )}
           </Col>
           <Col md={9} className="right-block">
             {isMobile == false && (
@@ -255,9 +245,9 @@ const useTabletAndBelowMediaQuery = () =>
                           |
                         </NavItem>
 
-                        <NavItem>
+                        {/* <NavItem>
                           <img src="/new_images/search.svg" alt="search" />
-                        </NavItem>
+                        </NavItem> */}
 
                         {isloggedIn && (
                           <NavItem style={{ margin: 0 }}>
@@ -274,7 +264,7 @@ const useTabletAndBelowMediaQuery = () =>
                           <NavItem>
                             <Link href="/login">
                               <Button color="light" className="px-4">
-                                Sign up
+                                Sign In
                               </Button>
                             </Link>
                           </NavItem>
@@ -302,39 +292,36 @@ const useTabletAndBelowMediaQuery = () =>
                 </Navbar>
               </div>
             )}
-            {
-              isMobile && (
-                <MobileView>
-              <div style={{ float: "right", display: "flex" }}>
-                <NavItem>
-                  <img src="/new_images/search.svg" alt="search" />
-                </NavItem>
-
-                {isloggedIn && (
-                  <NavItem style={{ margin: 0 }}>
-                    <Link href="/Profile">
-                      <img
-                        src="/new_images/Avatar.svg"
-                        alt="avatar"
-                        style={{ cursor: "pointer" }}
-                      />
-                    </Link>
-                  </NavItem>
-                )}
-                {!isloggedIn && (
+            {isMobile && (
+              <MobileView>
+                <div style={{ float: "right", display: "flex" }}>
                   <NavItem>
-                    <Link href="/login">
-                      <Button color="light" className="px-4">
-                        Sign up
-                      </Button>
-                    </Link>
+                    <img src="/new_images/search.svg" alt="search" />
                   </NavItem>
-                )}
-              </div>
-            </MobileView>
-              )
-            }
-            
+
+                  {isloggedIn && (
+                    <NavItem style={{ margin: 0 }}>
+                      <Link href="/Profile">
+                        <img
+                          src="/new_images/Avatar.svg"
+                          alt="avatar"
+                          style={{ cursor: "pointer" }}
+                        />
+                      </Link>
+                    </NavItem>
+                  )}
+                  {!isloggedIn && (
+                    <NavItem>
+                      <Link href="/login">
+                        <Button color="light" className="px-4">
+                        Sign In
+                        </Button>
+                      </Link>
+                    </NavItem>
+                  )}
+                </div>
+              </MobileView>
+            )}
           </Col>
         </Row>
       </Container>
@@ -351,7 +338,7 @@ const useTabletAndBelowMediaQuery = () =>
             // );
           }
         }
-        @media (max-width: 575px) {
+        @media (max-width: 1440px) {
           body {
             // background: linear-gradient(
             //   to left,

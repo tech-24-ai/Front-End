@@ -983,7 +983,7 @@ input.ant-input.custom-input {
     border-color: $black;
     background-color: $black;
   }
-  
+
   .custom-control-input:focus ~ .custom-control-label::before {
     box-shadow: 0 0 0 0.2rem rgb(0, 0, 0, 0.25);
   }
@@ -1570,63 +1570,6 @@ input.ant-input.custom-input {
   p.message {
     font-weight: 500;
     color: $grey;
-  }
-}
-
-@media (max-width: 575px) {
-  .input-content {
-    .ant-tree-select {
-      max-width: 75% !important;
-    }
-    .ant-tree-select .ant-select-selector {
-      height: 40px !important;
-    }
-    .ant-tree-select .ant-select-selector .ant-select-selection-placeholder,
-    .ant-tree-select .ant-select-selector .ant-select-selection-item,
-    .ant-tree-select .ant-select-selector .ant-select-selection-search {
-      line-height: 17px !important;
-      font-size: 12px !important;
-      margin-top: unset !important;
-      white-space: unset !important;
-      display: flex;
-      align-items: center;
-    }
-    .search-module-wrapper .search-btn {
-      width: 65px !important;
-      height: 65px !important;
-    }
-  }
-  .sub-title {
-    font-size: 16px;
-    font-weight: 500;
-    // line-height: 35px;
-    letter-spacing: 0.45px;
-    color: $black;
-    margin-bottom: 25px;
-    display: flex;
-    flex-direction: column;
-    align-items: baseline;
-
-    span {
-      font-size: 12px;
-      letter-spacing: 0.36px;
-      // padding-left: 5px;
-      // width: 100px;
-    }
-
-    .component {
-      // padding-left: 15px;
-    }
-    .connect-icon img {
-      width: 16px;
-    }
-    .superscript-icon img {
-      width: 16px;
-    }
-    sup {
-      top: -1em;
-      left: -0.5em;
-    }
   }
 }
 
@@ -2279,7 +2222,90 @@ div.message-box-card {
     }
   }
 }
-@media (max-width: 575px) {
+
+// slick-slider style
+.slick-slider {
+  .slick-list .slick-track {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .slick-dots {
+    margin-top: 1rem;
+    bottom: -3rem;
+
+    li button::before {
+      color: $themeSecondary !important;
+      font-size: 0.75rem;
+      margin-top: -3px;
+      opacity: 1 !important;
+    }
+
+    li.slick-active {
+      width: 2rem;
+      height: 0.75rem;
+      border-radius: 1000px;
+      background-color: $themeSecondary;
+    }
+  }
+}
+
+// tablet and mobile
+@media (max-width: 1440px) {
+  .input-content {
+    .ant-tree-select {
+      max-width: 75% !important;
+    }
+    .ant-tree-select .ant-select-selector {
+      height: 40px !important;
+    }
+    .ant-tree-select .ant-select-selector .ant-select-selection-placeholder,
+    .ant-tree-select .ant-select-selector .ant-select-selection-item,
+    .ant-tree-select .ant-select-selector .ant-select-selection-search {
+      line-height: 17px !important;
+      font-size: 12px !important;
+      margin-top: unset !important;
+      white-space: unset !important;
+      display: flex;
+      align-items: center;
+    }
+    .search-module-wrapper .search-btn {
+      width: 65px !important;
+      height: 65px !important;
+    }
+  }
+  .sub-title {
+    font-size: 16px;
+    font-weight: 500;
+    // line-height: 35px;
+    letter-spacing: 0.45px;
+    color: $black;
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+
+    span {
+      font-size: 12px;
+      letter-spacing: 0.36px;
+      // padding-left: 5px;
+      // width: 100px;
+    }
+
+    .component {
+      // padding-left: 15px;
+    }
+    .connect-icon img {
+      width: 16px;
+    }
+    .superscript-icon img {
+      width: 16px;
+    }
+    sup {
+      top: -1em;
+      left: -0.5em;
+    }
+  }
   .site-title {
     margin-bottom: 0px;
     display: block;
@@ -2332,7 +2358,123 @@ div.message-box-card {
 
   .custom-grid-container {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+  }
+}
+
+//Mobile
+@media (max-width: 767px) {
+  .input-content {
+    .ant-tree-select {
+      max-width: 75% !important;
+    }
+    .ant-tree-select .ant-select-selector {
+      height: 40px !important;
+    }
+    .ant-tree-select .ant-select-selector .ant-select-selection-placeholder,
+    .ant-tree-select .ant-select-selector .ant-select-selection-item,
+    .ant-tree-select .ant-select-selector .ant-select-selection-search {
+      line-height: 17px !important;
+      font-size: 12px !important;
+      margin-top: unset !important;
+      white-space: unset !important;
+      display: flex;
+      align-items: center;
+    }
+    .search-module-wrapper .search-btn {
+      width: 65px !important;
+      height: 65px !important;
+    }
+  }
+  .sub-title {
+    font-size: 16px;
+    font-weight: 500;
+    // line-height: 35px;
+    letter-spacing: 0.45px;
+    color: $black;
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+
+    span {
+      font-size: 12px;
+      letter-spacing: 0.36px;
+      // padding-left: 5px;
+      // width: 100px;
+    }
+
+    .component {
+      // padding-left: 15px;
+    }
+    .connect-icon img {
+      width: 16px;
+    }
+    .superscript-icon img {
+      width: 16px;
+    }
+    sup {
+      top: -1em;
+      left: -0.5em;
+    }
+  }
+}
+
+//Tablet
+@media (min-width: 768px) and (max-width: 1440px) {
+  .input-content {
+    .ant-tree-select {
+      max-width: 75% !important;
+    }
+    .ant-tree-select .ant-select-selector {
+      height: 40px !important;
+    }
+    .ant-tree-select .ant-select-selector .ant-select-selection-placeholder,
+    .ant-tree-select .ant-select-selector .ant-select-selection-item,
+    .ant-tree-select .ant-select-selector .ant-select-selection-search {
+      line-height: 17px !important;
+      font-size: 12px !important;
+      margin-top: unset !important;
+      white-space: unset !important;
+      display: flex;
+      align-items: center;
+    }
+    .search-module-wrapper .search-btn {
+      width: 65px !important;
+      height: 65px !important;
+    }
+  }
+  .sub-title {
+    font-size: 16px;
+    font-weight: 500;
+    // line-height: 35px;
+    letter-spacing: 0.45px;
+    color: $black;
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+
+    span {
+      font-size: 12px;
+      letter-spacing: 0.36px;
+      // padding-left: 5px;
+      // width: 100px;
+    }
+
+    .component {
+      // padding-left: 15px;
+    }
+    .connect-icon img {
+      width: 16px;
+    }
+    .superscript-icon img {
+      width: 16px;
+    }
+    sup {
+      top: -1em;
+      left: -0.5em;
+    }
   }
 }
