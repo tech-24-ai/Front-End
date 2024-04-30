@@ -75,7 +75,7 @@ const TrendingQuestion = ({ trendingQuestions }) => {
               arrows={false}
               responsive={[
                 {
-                  breakpoint: 1024,
+                  breakpoint: 1200,
                   settings: {
                     slidesToShow: 2,
                     dots: true,
@@ -83,7 +83,7 @@ const TrendingQuestion = ({ trendingQuestions }) => {
                 },
 
                 {
-                  breakpoint: 600,
+                  breakpoint: 767,
                   settings: {
                     slidesToShow: 1,
                     dots: true,
