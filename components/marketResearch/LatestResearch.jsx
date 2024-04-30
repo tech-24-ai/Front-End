@@ -45,7 +45,7 @@ const LatestResearch = ({
             style={{
               left: "75px",
               zIndex: "99",
-              marginTop: "16%",
+              marginTop: "15%",
               position: "absolute",
               width: "36px",
               height: "36px",
@@ -64,7 +64,7 @@ const LatestResearch = ({
             style={{
               right: "75px",
               zIndex: "99",
-              marginTop: "16%",
+              marginTop: "15%",
               position: "absolute",
               width: "36px",
               height: "36px",
@@ -85,7 +85,7 @@ const LatestResearch = ({
             arrows={false}
             responsive={[
               {
-                breakpoint: 1200,
+                breakpoint: 1024,
                 settings: {
                   slidesToShow: 2,
                   dots: true,
