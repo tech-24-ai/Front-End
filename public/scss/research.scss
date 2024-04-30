@@ -155,7 +155,7 @@
 
     .title {
       color: #54616c;
-      font-weight: 400;
+      font-weight: 500;
       font-size: 1.5rem;
       line-height: 2rem;
       &.bg {
@@ -295,12 +295,15 @@
         .research-detail {
           font-weight: 400;
           font-size: 14px;
+          font-family: 'Inter';
           line-height: 20px;
           overflow: hidden;
           text-overflow: ellipsis;
           display: -webkit-box;
           -webkit-line-clamp: 2;
           -webkit-box-orient: vertical;
+          min-height: 3.5rem;
+          margin-bottom: 1.5rem;
         }
 
         .date-section {
@@ -310,6 +313,7 @@
           color: #54616c;
           margin-top: 2rem;
           font-size: 12px;
+          font-family: 'Inter';
           position: relative;
           .date {
             line-height: 18px;
@@ -408,6 +412,7 @@
     .date-section {
       margin-top: 2em;
       display: flex;
+      font-family: 'Inter';
       align-items: center;
       justify-content: flex-start;
       color: #54616c;

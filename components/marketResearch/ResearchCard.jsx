@@ -39,7 +39,7 @@ const ResearchCard = ({ key, data, redirectUrl = null }) => {
           <p className="research-detail">{data.details}</p>
           <div className="date-section">
             <div className="date">{moment(data.created_at).format("LL")}</div>
-            <div className="custom-divider"></div>
+            {/* <div className="custom-divider"></div> */}
             {/* {<div className="time">10 min read</div>} */}
           </div>
         </div>
