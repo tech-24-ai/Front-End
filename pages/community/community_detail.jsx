@@ -140,9 +140,6 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
       crudService
         ._upload("uploadmedia", url[0])
         .then((data) => {
-          // File uploaded successfully, update state and handle any further actions
-          console.log("data", data?.data?.result);
-
           const postData = {
             community_id: communityData?.id,
             title: title,
@@ -163,7 +160,6 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
           });
         })
         .catch((error) => {
-          console.log("asdasd");
           console.log("error", error);
         });
     } else {
@@ -206,7 +202,6 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
   };
 
   const Tab1 = () => {
-    console.log("tab 1");
     const [headerSearch, setHeaderSearch] = useState();
     const [communityDetails, setCommunityDetails] = useState([]);
     const [sortBy, setSortBy] = useState("id");
@@ -219,7 +214,6 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
     //Sorting
 
     useEffect(() => {
-      console.log("isModalOpen", isModalOpen);
       const id = sessionStorage.getItem("community_id");
       if (isModalOpen) {
       } else {
@@ -556,7 +550,6 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
       }
     };
 
-    console.log("news data", newsData);
     // const [newsData, setNewsData] = useState([]);
     // const fetchNewsData = () => {
     //   const id = sessionStorage.getItem("community_id");

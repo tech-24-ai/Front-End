@@ -106,18 +106,14 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
-    console.log("handleOptionChange", event.target.value);
   };
 
   const handleDescriptionChange = (event) => {
     setReportDescription(event.target.value);
-    console.log("handleDescriptionChange", event.target.value);
   };
 
   const handleSubmit = (data, community_post_id, event) => {
-    console.log("func");
     if (!selectedOption || !reportDescription) {
-      console.log("error");
       return;
     }
     getPostReplies();
@@ -129,11 +125,9 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
       community_post_reply_id: 3,
       reason: reportDescription,
     };
-    console.log("postData", postData);
     crudService
       ._create("repost_abuse", postData)
       .then((response) => {
-        console.log("Report submitted successfully:", response);
         setSelectedOption("");
         setReportDescription("");
       })
@@ -165,9 +159,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
 
   const [updateCom, setUpdateCom] = useState(false);
   const [form] = Form.useForm();
-  const onChange = (key) => {
-    console.log(key);
-  };
+  const onChange = (key) => {};
 
   const editor = React.useRef(null);
   function focusEditor() {
@@ -199,8 +191,6 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
       ._create("community/join", { community_id: communityData?.id })
       .then(() => window.location.reload());
   };
-  console.log("com d", updateCom);
-  console.log("com ", communityData);
 
   const handleOk = (parent_id, community_post_id, replyText, isReply) => {
     if (replyText == undefined || replyText == null || replyText.trim() == "") {
