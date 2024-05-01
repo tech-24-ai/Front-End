@@ -519,7 +519,7 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
 
     const fetchCommunityData = () => {
       const id = sessionStorage.getItem("community_id");
-      if (id) {
+      if (id && !isModalOpen) {
         crudService
           ._getAll(`community/details/${id}`)
           .then((data) => {
@@ -538,7 +538,7 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
     }, []);
 
     const fetchNewsData = (communityId) => {
-      if (communityId) {
+      if (communityId && selectedIndex == 2) {
         crudService
           ._getAll(`get_news_announcements?community_id=${communityId}`)
           .then((data) => {
