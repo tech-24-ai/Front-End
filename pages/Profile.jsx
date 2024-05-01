@@ -438,6 +438,8 @@ import Router from "next/router";
 import moment from "moment";
 import { crudService } from "../_services";
 import { isMobile } from "react-device-detect";
+import { Menu, Dropdown } from 'antd';
+import { DownOutlined, SortAscendingOutlined, SortDescendingOutlined } from '@ant-design/icons';
 import {
   SearchOutlined,
   PlusOutlined,
@@ -492,6 +494,24 @@ const Profile = ({
     setCurrentPage(page);
   };
 
+  const [sortType, setSortType] = useState('asc');
+
+  const handleMenuClick = (e) => {
+    if (e.key === 'asc' || e.key === 'desc') {
+      setSortType(e.key);
+    }
+  };
+
+  const menu = (
+    <Menu onClick={handleMenuClick}>
+      <Menu.Item key="asc" icon={<SortAscendingOutlined />}>
+        Sort Ascending
+      </Menu.Item>
+      <Menu.Item key="desc" icon={<SortDescendingOutlined />}>
+        Sort Descending
+      </Menu.Item>
+    </Menu>
+  );
   //tab 2 data
   useEffect(() => {
     crudService
@@ -850,9 +870,8 @@ const Profile = ({
           {/* <div className="mt-2" >
             <h5 >Today</h5>
           </div>
-          <div style={{ borderBottom: "1px solid #0000005e", marginBottom: "20px", paddingLeft: "955px" }}></div>
-          </div>  */}
-          {/* <div style={{borderBottom: "1px solid #0000005e",marginBottom:"20px",paddingLeft: "955px"}}></div> */}
+          <div style={{ borderBottom: "1px solid #0000005e", marginBottom: "20px", paddingLeft: "955px" }}></div> */}
+         
           {visitorActivity?.map((data) => (
             <Card
               bordered={true}
@@ -948,7 +967,7 @@ const Profile = ({
                   </p>
                 )}
               </div>
-              <div>
+              <div className="ml-2">
                 <p
                   style={{
                     fontWeight: "400",
@@ -958,7 +977,9 @@ const Profile = ({
                 >
                   {calculateTimeAgo(data?.created_at)}
                 </p>
-              </div>
+              
+            </div>
+          
             </Card>
           ))}
           <div className="mt-5 mb-5" style={{ width: "100%" }}>
@@ -1021,9 +1042,16 @@ const Profile = ({
           />
 
           <div className="sorting">
-            <label className="sortby" htmlFor="sortDropdown">
-              Sort By:{" "}
+          <SortAscendingOutlined style={{ fontSize: '22px', color: '#007aff' }} /> 
+            <label className="sortby ml-2" htmlFor="sortDropdown">
+           
+           Sort By:{" "}
             </label>
+              {/* <Dropdown overlay={menu} trigger={['click']}>
+      <Button>
+        Sort <DownOutlined />
+      </Button>
+    </Dropdown> */}
             <select
               id="sortDropdown"
               style={{ border: "none", background: "transparent" }}
@@ -1034,7 +1062,7 @@ const Profile = ({
                 <option
                   className="sortby"
                   style={{ color: "#001622" }}
-                  value={value}
+                  // value={value}
                 >
                   {label}
                 </option>
@@ -1465,7 +1493,7 @@ const Profile = ({
               </p>
 
               <div className="level">
-                Level {visitorcommunityprofile?.data[0]?.current_level}{" "}
+                Level : {visitorcommunityprofile?.data[0]?.current_level}{" "}
                 {visitorcommunityprofile?.data[0]?.current_badge
                   ? `: ${visitorcommunityprofile?.data[0]?.current_badge}`
                   : ""}

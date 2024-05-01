@@ -1,3 +1,4 @@
+
 .bottomMarks{
   background-color: #0074d9;
   color: #0074d9;
@@ -1295,6 +1296,23 @@
 }
 
 @media (max-width: 1440px) {
+  .profile-container .card-header-data .profile-badge {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 155px;
+    top: 77px;
+    border: 1.5px solid #ffffff;
+    background-color: #0074d9;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+  }
   .profile-user {
     display: flex;
     flex-direction: column;
@@ -1384,8 +1402,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      // right: 102px;
-      top: 85px;
+      right: auto;
+      top: 75px;
       border: 1.5px solid #ffffff;
       background-color: #0074d9;
       font-weight: 500;
@@ -1607,11 +1625,11 @@
     }
     h6 {
       color: #4c4c4c;
-      font-weight: 500;
-      font-size: 14px;
+      font-weight: 400;
+      font-size: 16px;
     }
     h5 {
-      font-weight: 400;
+      font-weight: 500;
       font-size: 18px;
       margin-bottom: 0px;
       word-wrap: break-word;
@@ -1813,10 +1831,10 @@
   .para {
     color: #001622;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 20px;
     margin-top: 0.7rem;
     line-height: 24px;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
   }
   .chips {
     margin: 0.5rem 0;
@@ -1964,10 +1982,79 @@
     }
   }
 }
+@media (min-width: 1441px) {
+  .profile-container .card-header-data .profile-badge {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+     right: auto;
+    top: 75px;
+    border: 1.5px solid #ffffff;
+    background-color: #0074d9;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .para {
+    color: #001622;
+    font-weight: 500;
+    font-size: 18px;
+    margin-top: 0.7rem;
+    line-height: 24px;
+    margin-bottom: 0.9rem;
+  }
+
+}
 
 //  profile screen for small devices
 
-@media (max-width: 1440px) {
+@media (max-width: 767px) {
+  .para {
+    color: #001622;
+    font-weight: 500;
+    font-size: 18px;
+    margin-top: 0.7rem;
+    line-height: 24px;
+    margin-bottom: 0.9rem;
+  }
+.sortby{
+  display: none;
+}
+  .profile-container .card-header-data .profile-badge {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+     right: auto;
+    top: 68px;
+    border: 1.5px solid #ffffff;
+    background-color: #0074d9;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .para {
+    color: #001622;
+    font-weight: 500;
+    font-size: 18px;
+    margin-top: 0.7rem;
+    line-height: 24px;
+    margin-bottom: 0.9rem;
+  }
+
+  .slider-one .ant-slider-mark-text {
+    bottom: 0px;
+     font-size: 7px;
+  }
   .main-content {
     padding-bottom: 25px;
   }
@@ -1975,6 +2062,12 @@
     flex-direction: column-reverse;
     .ant-tabs {
       margin-top: 30px;
+    }
+    .ant-tabs-tab {
+      font-size: 16px;
+      line-height: 28px;
+      padding: 5px 0;
+      margin-left: 10px;
     }
     .ant-card-body {
       padding: 15px;
@@ -1989,6 +2082,7 @@
   // tab1
   .profile-tab-container {
     margin: 0;
+    margin-left: 15px;
     hr {
       display: none;
     }
@@ -1998,7 +2092,7 @@
         width: 100%;
         margin-right: 0;
         border-bottom: 1px solid #cccccc;
-        padding: 1rem 0;
+        padding: 1.5rem 0;
       }
       > :nth-child(2) {
         width: 100%;
@@ -2051,4 +2145,133 @@
       }
     }
   }
+}
+
+
+@media (min-width: 768px) and (max-width:1440px){
+  .col-md-9 {
+    max-width: 100%!important;
+  }
+  .col-md-3 {
+    max-width: 100%!important;
+  }
+  .profile-container .card-header-data .profile-badge {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+     right: auto;
+    top: 76px;
+    border: 1.5px solid #ffffff;
+    background-color: #0074d9;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+  }  .para {
+    color: #001622;
+    font-weight: 500;
+    font-size: 18px;
+    margin-top: 0.7rem;
+    line-height: 24px;
+    margin-bottom: 0.9rem;
+  }
+
+  .slider-one .ant-slider-mark-text {
+    bottom: 0px;
+     font-size: 7px;
+  }
+  .main-content {
+    padding-bottom: 25px;
+  }
+  .profile-container {
+    flex-direction: column-reverse;
+    .ant-tabs {
+      margin-top: 30px;
+    }
+    .ant-card-body {
+      padding: 15px;
+    }
+    .ant-tabs-tab {
+      font-size: 16px;
+      line-height: 28px;
+      padding: 5px 0;
+      margin-left: 10px;
+    }
+  }
+  // sign-out modal
+  .ant-modal-footer {
+    .sign-out-modal-button {
+      padding: 12px 30px;
+    }
+  }
+  // tab1
+  .profile-tab-container {
+    margin: 0;
+    margin-left: 15px;
+    hr {
+      display: none;
+    }
+    .input-container {
+      // flex-direction: column;
+      > :first-child {
+        width: 100%;
+        margin-right: 0;
+        border-bottom: 1px solid #cccccc;
+        padding: 1.5rem 0;
+      }
+      > :nth-child(2) {
+        width: 100%;
+        padding: 1rem 0;
+        border-bottom: 1px solid #cccccc;
+      }
+    }
+    .delete-container {
+      margin-top: 1.5rem;
+    }
+  }
+  //tab5
+  .mobile-delete-btn{
+    align-items: flex-start;
+    position: absolute;
+    top: 10px;
+    right: 0;
+  }
+  // tab2
+  .community-tab-container {
+    .cards-container {
+      gap: 24px;
+    }
+  }
+  .community-detail-wrapper {
+    .cards-container {
+      flex-direction: column-reverse;
+      .cards-header {
+        img {
+          width: 40px;
+          height: 40px;
+        }
+        .profile h5 {
+          font-size: 16px;
+        }
+        .profile p {
+          font-size: 10px;
+        }
+        .button {
+          font-size: 12px;
+        }
+      }
+    }
+    .search-container {
+      // span,
+      // input,
+      button {
+        height: 44px;
+        line-height: 44px;
+      }
+    }
+  } 
 }
