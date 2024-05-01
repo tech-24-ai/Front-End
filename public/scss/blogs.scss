@@ -564,12 +564,11 @@
     padding-bottom: 190px !important;
     margin-top: 60px;
   }
-  .blog-section .slick-slider .slick-list .slick-track {
-    gap: 0rem !important;
-    display: flex !important;
-  }
-  .view-more-icon {
-    display: none !important;
+  .blog-section {
+    margin: 0 -10px;
+    .view-more-arrow {
+      margin-top: 10% !important;
+    }
   }
 
   .blogs-section {
@@ -640,10 +639,5 @@
         }
       }
     }
-
-    // .view-more-icon {
-    //   margin-top: 13% !important;
-    //   right: 90px !important;
-    // }
   }
 }

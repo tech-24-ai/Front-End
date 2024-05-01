@@ -5,7 +5,6 @@
     padding-left: 100px;
     padding-right: 100px;
   }
-
   .question-card {
     background-color: #f2f4f7;
     border: 1px solid #ebebf0;
@@ -85,11 +84,66 @@
       line-height: 1.5rem;
     }
   }
+  //rated/community card css
+  .community-card {
+    background-color: #ffffff;
+    border: 1px solid #ebebf0;
+    border-radius: 8px;
+    min-height: 254px;
+
+    .community-card-header {
+      width: 100%;
+      height: 96px;
+      background-color: #ebebf0;
+      padding: 16px;
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      gap: 12px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+
+      .community-title-header {
+        font-family: "Poppins";
+        font-size: 20px;
+        line-height: 30px;
+        font-weight: 400;
+      }
+    }
+    .community-card-material {
+      height: 158px;
+      padding: 12px 16px !important;
+      overflow: hidden;
+      
+      .card-description-texts {
+        font-size: 14px;
+        font-family: "Inter";
+        font-weight: 400;
+        line-height: 20px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 5; 
+        -webkit-box-orient: vertical;
+      }
+
+      .card-review{
+        position: absolute;
+        bottom: 12px;
+        font-size: 12px;
+        font-family: "Inter";
+        line-height: 18px;
+      }
+    }
+  }
 }
 
 @media (min-width: 1441px) {
   .trending-category-below .category-box .category-banner-wrapper {
     margin: 0 -10px;
+     .view-more-arrow {
+      margin-top: 9% !important;
+    }
   }
 }
 
@@ -162,6 +216,15 @@
 
 //Tablet
 @media (min-width: 768px) and (max-width: 1440px) {
+  .trending-category-below {
+    .category-box .category-banner-wrapper {
+      margin-left: -10px;
+      margin-right: -5px;
+    }
+    .view-more-arrow {
+      margin-top: 12% !important;
+    }
+  }
 }
 
 /* ----------- iPad Pro ----------- */ /* Portrait and Landscape */

@@ -738,8 +738,11 @@
 
 @media (min-width: 767px) and (max-width: 1440px) {
   .container {
-    padding-left: 0.8rem;
-    padding-right: 0.8rem;
+    // padding-left: 0.8rem;
+    // padding-right: 0.8rem;
+
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 
   .main-content {

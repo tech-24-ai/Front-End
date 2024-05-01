@@ -22,7 +22,7 @@ body {
 .container {
   // max-width: 1440px;
   // max-width: 94%;
-  max-width: 100%;
+  max-width: 1920px;
   // padding: 0 8.125rem;
   // padding-left: 130px;
   // padding-right: 130px;
@@ -2250,6 +2250,25 @@ div.message-box-card {
   }
 }
 
+.view-more-arrow {
+  border: 2px solid #ffffff;
+  position: absolute;
+  height: 36px;
+  width: 36px;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: $themeSecondary;
+  cursor: pointer;
+  .anticon-arrow-right {
+    font-size: 1rem;
+    font-weight: bolder;
+    color: #ffffff;
+  }
+}
+
 // tablet and mobile
 @media (max-width: 1440px) {
   .input-content {
@@ -2426,6 +2445,10 @@ div.message-box-card {
       gap: 0 !important;
     }
   }
+
+  .view-more-arrow {
+    display: none !important;
+  }
 }
 
 //Tablet
@@ -2482,6 +2505,17 @@ div.message-box-card {
     sup {
       top: -1em;
       left: -0.5em;
+    }
+  }
+
+  .view-more-arrow {
+    margin-top: 20% !important;
+
+    &.previous-arrow {
+      left: 5px !important;
+    }
+    &.next-arrow {
+      right: 5px !important;
     }
   }
 }
