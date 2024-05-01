@@ -2269,6 +2269,21 @@ div.message-box-card {
   }
 }
 
+.date-divider {
+  padding-left: 1rem !important;
+  &::after {
+    top: 0 !important;
+  }
+
+  .ant-divider-inner-text {
+    font-size: 1.125rem;
+    font-weight: 500;
+    line-height: 1.75rem;
+    color: #54616c;
+    font-family: "Inter";
+  }
+}
+
 // tablet and mobile
 @media (max-width: 1440px) {
   .input-content {
@@ -2448,6 +2463,14 @@ div.message-box-card {
 
   .view-more-arrow {
     display: none !important;
+  }
+
+  .date-divider {
+    margin: 5px 0 !important;
+    .ant-divider-inner-text {
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
   }
 }
 

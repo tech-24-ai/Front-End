@@ -425,9 +425,19 @@
 
 // export default connect(mapStateToProps, actionCreators)(Profile);
 
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
-import { Tabs, Card, Input, Select, Slider, Modal, Button, Upload } from "antd";
+import {
+  Tabs,
+  Card,
+  Input,
+  Select,
+  Slider,
+  Modal,
+  Button,
+  Upload,
+  Divider,
+} from "antd";
 import { Container } from "reactstrap";
 import myImageLoader from "../components/imageLoader";
 import date_image from "../public/new_images/date_icon.svg";
@@ -438,8 +448,12 @@ import Router from "next/router";
 import moment from "moment";
 import { crudService } from "../_services";
 import { isMobile } from "react-device-detect";
-import { Menu, Dropdown } from 'antd';
-import { DownOutlined, SortAscendingOutlined, SortDescendingOutlined } from '@ant-design/icons';
+import { Menu, Dropdown } from "antd";
+import {
+  DownOutlined,
+  SortAscendingOutlined,
+  SortDescendingOutlined,
+} from "@ant-design/icons";
 import {
   SearchOutlined,
   PlusOutlined,
@@ -459,9 +473,8 @@ const Profile = ({
   visitor_points_history,
   countries,
   visitor_profile_levels,
-  visitor_activities,
   router,
-  visitor_library
+  visitor_library,
 }) => {
   const { q } = Router.query;
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -502,15 +515,13 @@ const Profile = ({
     setCurrentPage(page);
   };
 
-  const [sortType, setSortType] = useState('asc');
+  const [sortType, setSortType] = useState("asc");
 
   const handleMenuClick = (e) => {
-    if (e.key === 'asc' || e.key === 'desc') {
+    if (e.key === "asc" || e.key === "desc") {
       setSortType(e.key);
     }
   };
-
-
 
   const menu = (
     <Menu onClick={handleMenuClick}>
@@ -535,13 +546,10 @@ const Profile = ({
       })
       .then((result) => {
         setvisitorActivity(result?.data?.data);
-        console.log("result", result.data);
-        const totalPage = Math.ceil(
-          result?.data?.total / itemsPerPage
-        );
+        const totalPage = Math.ceil(result?.data?.total / itemsPerPage);
         setPageCount(isNaN(totalPage) ? 0 : totalPage);
       });
-  }, [page, searchQuery, filteredData, sortBy]);
+  }, [page]);
 
   // tab3 data
 
@@ -558,9 +566,7 @@ const Profile = ({
       .then((result) => {
         setvisitor_queries_history(result?.data?.data);
         console.log("result", result.data);
-        const totalPage = Math.ceil(
-          result?.data?.total / itemsPerPage
-        );
+        const totalPage = Math.ceil(result?.data?.total / itemsPerPage);
         setQuestionPageCount(isNaN(totalPage) ? 0 : totalPage);
       });
   }, [questionPage, searchQuery, filteredData, sortBy]);
@@ -585,13 +591,13 @@ const Profile = ({
   };
 
   const handleDelete = (id) => {
-    crudService._delete('visitor_library', id)
+    crudService
+      ._delete("visitor_library", id)
       .then((result) => {
-        console.log('Item deleted successfully:', result);
-
+        console.log("Item deleted successfully:", result);
       })
       .catch((error) => {
-        console.error('Error deleting item:', error);
+        console.error("Error deleting item:", error);
       });
   };
 
@@ -605,6 +611,39 @@ const Profile = ({
       label: "Most Viewed",
     },
   ];
+
+  const groupDataByDate = (data, field = "date") => {
+    return data.reduce((acc, currentItem) => {
+      const date = moment(new Date(currentItem[field])).format("MM-DD-YYYY");
+
+      if (!acc[date]) {
+        acc[date] = [];
+      }
+      acc[date].push(currentItem);
+      return acc;
+    }, {});
+  };
+
+  const groupedData = groupDataByDate(visitorActivity, "created_at");
+  const sortedDates = Object.keys(groupedData).sort(
+    (a, b) => moment(b, "MM-DD-YYYY") - moment(a, "MM-DD-YYYY")
+  );
+
+  const getTitle = (date) => {
+    // moment(date).isSame(moment(), "day")
+    //               ? "Today"
+    //               : moment(date).format("MMMM DD, YYYY")
+    const today = moment().format("MM-DD-YYYY");
+    const yesterday = moment().subtract(1, "days").format("MM-DD-YYYY");
+
+    if (date === today) {
+      return "Today";
+    } else if (date === yesterday) {
+      return "Yesterday";
+    } else {
+      return moment(date).format("DD MMMM YYYY");
+    }
+  };
 
   //Filter
   const handleSearch = (searchValue) => {
@@ -622,7 +661,6 @@ const Profile = ({
 
   const onChange = (key) => {
     console.log(key);
-    
   };
   const showEditModal = () => {
     setUpdateProfileData(() => ({
@@ -672,7 +710,6 @@ const Profile = ({
             setLoading(false);
           })
           .catch((error) => {
-            console.log("asdasd");
             console.log("error", error);
             setLoading(false);
           });
@@ -687,9 +724,7 @@ const Profile = ({
     getAllCrud("visitor_queries_history", "visitor_queries_history");
     // getAllCrud("visitor_points_history", "visitor_points_history");
     getAllCrud("visitor_profile_levels", "visitor_profile_levels");
-    getAllCrud("visitor_activities", "visitor_activities");
     getAllCrud("visitor_library", "visitor_library");
-
   }, [updateCom]);
 
   const fetchCountry = () => {
@@ -869,130 +904,61 @@ const Profile = ({
       return humanReadableDiff;
     };
     return (
-      <div className="community-tab-container questions-tab-container">
-        <div
-          className="cards-container"
-          style={{
-            marginTop: "1rem",
-          }}
-        >
-          {/* today */}
-          {/* <div className="mt-2" >
-            <h5 >Today</h5>
-          </div>
-          <div style={{ borderBottom: "1px solid #0000005e", marginBottom: "20px", paddingLeft: "955px" }}></div> */}
-         
-          {visitorActivity?.map((data) => (
-            <Card
-              bordered={true}
-              style={{
-                width: "100%",
-                height: "fit-content",
-                background: "rgb(176 184 191 / 8%)",
-              }}
-            >
-              <div className="cards-header">
-                <div>
-                  <div className="profile">
-                    <h5> {data?.communityPost.title}</h5>
-                    {/* <p>
-                  {data?.title} <div className="custom-border"></div>
-                  {calculateTimeAgo(data?.created_at)}
-                </p> */}
+      <div className="activity-tab-container">
+        <div className="cards-container">
+          {sortedDates.map((date) => (
+            <Fragment key={date}>
+              <Divider
+                className="date-divider"
+                orientation="left"
+                orientationMargin="0"
+              >
+                {getTitle(date)}
+              </Divider>
+
+              {groupedData[date].map((data) => (
+                <Card bordered={true}>
+                  <div className="cards-header">
+                    <p className="title">{data?.communityPost.title}</p>
                   </div>
-                </div>
-              </div>
-              <div className="mt-2 ml-2">
-                {data?.activity_type === 1 && (
-                  <p
-                    style={{
-                      fontWeight: "400",
-                      fontSize: "14px",
-                      color: "#54616C",
-                    }}
-                  >
-                    You created a question {data?.communityPost.title}
-                  </p>
-                )}
-                {data?.activity_type === 2 && (
-                  <p
-                    style={{
-                      fontWeight: "400",
-                      fontSize: "14px",
-                      color: "#54616C",
-                    }}
-                  >
-                    You answered the question {data?.communityPost.title}
-                  </p>
-                )}
+                  <div className="cards-content">
+                    {data?.activity_type === 1 && (
+                      <p>You created a question {data?.communityPost.title}</p>
+                    )}
+                    {data?.activity_type === 2 && (
+                      <p>
+                        You answered the question {data?.communityPost.title}
+                      </p>
+                    )}
 
-                {data?.activity_type === 3 && (
-                  <p
-                    style={{
-                      fontWeight: "400",
-                      fontSize: "14px",
-                      color: "#54616C",
-                    }}
-                  >
-                    You posted a comment on the answer to the question{" "}
-                    {data?.communityPost.title}
-                  </p>
-                )}
+                    {data?.activity_type === 3 && (
+                      <p>
+                        You posted a comment on the answer to the question{" "}
+                        {data?.communityPost.title}
+                      </p>
+                    )}
 
-                {data?.activity_type === 4 && (
-                  <p
-                    style={{
-                      fontWeight: "400",
-                      fontSize: "14px",
-                      color: "#54616C",
-                    }}
-                  >
-                    You upvoted or downvoted the answer to the question{" "}
-                    {data?.communityPost.title}
-                  </p>
-                )}
+                    {(data?.activity_type === 4 ||
+                      data?.activity_type === 5) && (
+                      <p>
+                        You upvoted or downvoted the answer to the question{" "}
+                        {data?.communityPost.title}
+                      </p>
+                    )}
 
-                {data?.activity_type === 5 && (
-                  <p
-                    style={{
-                      fontWeight: "400",
-                      fontSize: "14px",
-                      color: "#54616C",
-                    }}
-                  >
-                    You upvoted or downvoted the answer to the question{" "}
-                    {data?.communityPost.title}
-                  </p>
-                )}
-
-                {data?.activity_type === 6 && (
-                  <p
-                    style={{
-                      fontWeight: "400",
-                      fontSize: "14px",
-                      color: "#54616C",
-                    }}
-                  >
-                    You viewed the question {data?.communityPost.title}
-                  </p>
-                )}
-              </div>
-              <div className="ml-2">
-                <p
-                  style={{
-                    fontWeight: "400",
-                    fontSize: "12px",
-                    color: "#B0B8BF",
-                  }}
-                >
-                  {calculateTimeAgo(data?.created_at)}
-                </p>
-              
-            </div>
-          
-            </Card>
+                    {data?.activity_type === 6 && (
+                      <p>You viewed the question {data?.communityPost.title}</p>
+                    )}
+                  </div>
+                  <div className="post-days">
+                    <p>{calculateTimeAgo(data?.created_at)}</p>
+                  </div>
+                </Card>
+              ))}
+            </Fragment>
           ))}
-          <div className="mt-5 mb-5" style={{ width: "100%" }}>
+
+          <div className="custom-pagination">
             {visitorActivity?.length > 0 && (
               <CustomPagination
                 pageCount={pageCount}
@@ -1052,12 +1018,13 @@ const Profile = ({
           />
 
           <div className="sorting">
-          <SortAscendingOutlined style={{ fontSize: '22px', color: '#007aff' }} /> 
+            <SortAscendingOutlined
+              style={{ fontSize: "22px", color: "#007aff" }}
+            />
             <label className="sortby ml-2" htmlFor="sortDropdown">
-           
-           Sort By:{" "}
+              Sort By:{" "}
             </label>
-              {/* <Dropdown overlay={menu} trigger={['click']}>
+            {/* <Dropdown overlay={menu} trigger={['click']}>
       <Button>
         Sort <DownOutlined />
       </Button>
@@ -1229,8 +1196,9 @@ const Profile = ({
       });
 
       topMarks[100] = {
-        label: `${visitor_profile_levels?.[0]?.leavels[levelCount - 1].level
-          } \n ${visitor_profile_levels?.[0]?.leavels[levelCount - 1].title}`,
+        label: `${
+          visitor_profile_levels?.[0]?.leavels[levelCount - 1].level
+        } \n ${visitor_profile_levels?.[0]?.leavels[levelCount - 1].title}`,
         style: { whiteSpace: "pre" },
       };
 
@@ -1300,8 +1268,6 @@ const Profile = ({
   };
 
   const Tab5 = () => {
-
-
     const calculateTimeAgo = (createdAt) => {
       const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
       const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
@@ -1313,11 +1279,13 @@ const Profile = ({
 
     return (
       <div className="community-tab-container questions-tab-container">
-        <div className="search-container">
-        </div>
-        <div className="cards-container" style={{
-          marginTop: '1rem'
-        }}>
+        <div className="search-container"></div>
+        <div
+          className="cards-container"
+          style={{
+            marginTop: "1rem",
+          }}
+        >
           {libraryData?.map((data) => (
             <Card
               bordered={true}
@@ -1327,86 +1295,78 @@ const Profile = ({
               }}
               key={data.id}
             >
-              {data?.blog !== null &&
-                (
-                  <div className="cards-header">
+              {data?.blog !== null && (
+                <div className="cards-header">
+                  <div>
                     <div>
-                      <div>
-                        <div className="img">
-                          <Image
-                            style={{ borderRadius: "5px" }}
-                            width={48}
-                            height={48}
-                            preview="false"
-                            src={
-                              data?.blog?.image ||
-                              "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
-                            }
-                            alt="profile"
-                          />
-                        </div>
-
-                      </div>
-                      <div className="profile">
-                        <h5>
-                          {data?.blog?.name}
-                        </h5>
-                        <p>
-                          {calculateTimeAgo(data?.created_at)}
-                        </p>
+                      <div className="img">
+                        <Image
+                          style={{ borderRadius: "5px" }}
+                          width={48}
+                          height={48}
+                          preview="false"
+                          src={
+                            data?.blog?.image ||
+                            "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                          }
+                          alt="profile"
+                        />
                       </div>
                     </div>
-
-                  <div className="follow mobile-delete-btn">
-                      <button className="button" onClick={() => handleDelete(data.id)} style={{ background: "transparent" }}>
-                        <DeleteOutlined />
-                      </button>
+                    <div className="profile">
+                      <h5>{data?.blog?.name}</h5>
+                      <p>{calculateTimeAgo(data?.created_at)}</p>
                     </div>
                   </div>
-                )
-              }
-              {data?.market_research &&
-                (
-                  <div className="cards-header">
-                    <div>
-                      <div>
-                        <div className="img">
-                          <Image
-                            style={{ borderRadius: "5px" }}
-                            width={48}
-                            height={48}
-                            preview="false"
-                            src={
-                              data?.market_research?.image ||
-                              "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
-                            }
-                            alt="profile"
-                          />
-                        </div>
 
-                      </div>
-                      <div className="profile">
-                        <h5>
-                          {data?.market_research?.name}
-                        </h5>
-                        <p>
-                          {calculateTimeAgo(data?.created_at)}
-                        </p>
-                      </div>
-                    </div>
-  
                   <div className="follow mobile-delete-btn">
-                    <button className="button" onClick={() => handleDelete(data.id)} style={{ background: "transparent" }}>
+                    <button
+                      className="button"
+                      onClick={() => handleDelete(data.id)}
+                      style={{ background: "transparent" }}
+                    >
                       <DeleteOutlined />
                     </button>
                   </div>
+                </div>
+              )}
+              {data?.market_research && (
+                <div className="cards-header">
+                  <div>
+                    <div>
+                      <div className="img">
+                        <Image
+                          style={{ borderRadius: "5px" }}
+                          width={48}
+                          height={48}
+                          preview="false"
+                          src={
+                            data?.market_research?.image ||
+                            "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                          }
+                          alt="profile"
+                        />
+                      </div>
+                    </div>
+                    <div className="profile">
+                      <h5>{data?.market_research?.name}</h5>
+                      <p>{calculateTimeAgo(data?.created_at)}</p>
+                    </div>
                   </div>
-                )
-              }
 
+                  <div className="follow mobile-delete-btn">
+                    <button
+                      className="button"
+                      onClick={() => handleDelete(data.id)}
+                      style={{ background: "transparent" }}
+                    >
+                      <DeleteOutlined />
+                    </button>
+                  </div>
+                </div>
+              )}
             </Card>
-          ))
-          }
+          ))}
           {/* Render pagination controls */}
           <div className="mt-5" style={{ width: "100%" }}>
             {libraryData?.length > 0 && (
@@ -1420,7 +1380,7 @@ const Profile = ({
         </div>
       </div>
     );
-  }
+  };
 
   const items = [
     {
@@ -1685,7 +1645,7 @@ const mapStateToProps = (state) => {
     countries,
     visitor_profile_levels,
     visitor_activities,
-    visitor_library
+    visitor_library,
   } = state;
   return {
     visitorprofile,
@@ -1696,7 +1656,7 @@ const mapStateToProps = (state) => {
     countries,
     visitor_profile_levels,
     visitor_activities,
-    visitor_library
+    visitor_library,
   };
 };
 

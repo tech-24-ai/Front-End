@@ -1,5 +1,4 @@
-
-.bottomMarks{
+.bottomMarks {
   background-color: #0074d9;
   color: #0074d9;
 }
@@ -1819,7 +1818,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-       left: 53px;
+      left: 53px;
       top: 54px;
       border: 1.5px solid #ffffff;
       background-color: #0074d9;
@@ -1982,6 +1981,50 @@
     }
   }
 }
+
+.profile-container {
+  .activity-tab-container {
+    .cards-container {
+      display: flex;
+      gap: 1rem;
+      flex-direction: column;
+      .ant-card {
+        background-color: #f2f4f7;
+        border-radius: 8px;
+        border: 1px solid #d9dfe9;
+      }
+
+      .ant-card-body {
+        padding: 16px;
+
+        .cards-header {
+          .title {
+            font-size: 1.125rem;
+            line-height: 1.75rem;
+            font-weight: 500;
+            font-family: "Inter";
+            color: #00192f;
+            margin-bottom: 0.5rem;
+          }
+        }
+
+        .cards-content p,
+        .post-days p {
+          font-size: 0.75rem;
+          line-height: 1.125rem;
+          font-weight: 400;
+          color: #54616c;
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
+
+    .custom-pagination {
+      margin-top: 1rem;
+    }
+  }
+}
+
 @media (min-width: 1441px) {
   .profile-container .card-header-data .profile-badge {
     position: absolute;
@@ -1992,7 +2035,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-     right: auto;
+    right: auto;
     top: 75px;
     border: 1.5px solid #ffffff;
     background-color: #0074d9;
@@ -2008,14 +2051,12 @@
     line-height: 24px;
     margin-bottom: 0.9rem;
   }
-
 }
 
 //  profile screen for small devices
 
 @media (max-width: 767px) {
-  
-  .first_tab_Space .input-container{
+  .first_tab_Space .input-container {
     margin-left: 15px;
   }
 
@@ -2039,7 +2080,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-     right: auto;
+    right: auto;
     top: 68px;
     border: 1.5px solid #ffffff;
     background-color: #0074d9;
@@ -2058,7 +2099,7 @@
 
   .slider-one .ant-slider-mark-text {
     bottom: 0px;
-     font-size: 7px;
+    font-size: 7px;
   }
   .main-content {
     padding-bottom: 25px;
@@ -2087,7 +2128,7 @@
   // tab1
   .profile-tab-container {
     margin: 0;
- 
+
     hr {
       display: none;
     }
@@ -2110,7 +2151,7 @@
     }
   }
   //tab5
-  .mobile-delete-btn{
+  .mobile-delete-btn {
     align-items: flex-start;
     position: absolute;
     top: 10px;
@@ -2150,18 +2191,38 @@
       }
     }
   }
+
+  .questions-tab-container {
+    .cards-header div h5 {
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
+  }
+
+  .profile-container {
+    .activity-tab-container {
+      .cards-container {
+        .ant-card-body {
+          .cards-header {
+            .title {
+              font-size: 1rem;
+              line-height: 1.5rem;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
-
-@media (max-width:1440px){
- 
-  .profile_first_tab .col-md-3{
-    max-width: 100%!important;
+@media (max-width: 1440px) {
+  .profile_first_tab .col-md-3 {
+    max-width: 100% !important;
   }
-   .profile_first_tab .col-md-9{
-    max-width: 100%!important;
+  .profile_first_tab .col-md-9 {
+    max-width: 100% !important;
   }
-  .first_tab_Space .input-container{
+  .first_tab_Space .input-container {
     margin-left: 15px;
   }
   .profile-container .card-header-data .profile-badge {
@@ -2173,14 +2234,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-     right: auto;
+    right: auto;
     top: 76px;
     border: 1.5px solid #ffffff;
     background-color: #0074d9;
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
-  }  .para {
+  }
+  .para {
     color: #001622;
     font-weight: 500;
     font-size: 18px;
@@ -2191,7 +2253,7 @@
 
   .slider-one .ant-slider-mark-text {
     bottom: 0px;
-     font-size: 7px;
+    font-size: 7px;
   }
   .main-content {
     padding-bottom: 25px;
@@ -2218,7 +2280,7 @@
     }
   }
   // tab1
-  
+
   .profile-tab-container {
     margin: 0;
     hr {
@@ -2243,7 +2305,7 @@
     }
   }
   //tab5
-  .mobile-delete-btn{
+  .mobile-delete-btn {
     align-items: flex-start;
     position: absolute;
     top: 10px;
@@ -2282,5 +2344,5 @@
         line-height: 44px;
       }
     }
-  } 
+  }
 }
