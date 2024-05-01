@@ -108,18 +108,6 @@ function Detail({
                 __html: html,
               }}
             ></div>
-            {(research_detail?.document_content_type == 1 ||
-              research_detail?.document_content_type == 2) && (
-              <iframe
-                src={research_detail?.url}
-                height="500"
-                width="100%"
-                frameBorder="0"
-                allowFullScreen=""
-                title="market research"
-                className="mt-4"
-              />
-            )}
           </div>
           <div className="related-research-section">
             <div className="download-report-card">
@@ -176,18 +164,6 @@ function Detail({
                 __html: html,
               }}
             ></div>
-            {(research_detail?.document_content_type == 1 ||
-              research_detail?.document_content_type == 2) && (
-              <iframe
-                src={research_detail?.url}
-                height="300"
-                width="100%"
-                frameborder="0"
-                allowfullscreen=""
-                title="market research"
-                className="mt-4"
-              />
-            )}
           </div>
           <div className="related-research-section">
             {research_detail?.related_research.length > 0 && (
