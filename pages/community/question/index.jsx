@@ -301,8 +301,9 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
     <Container>
       <div className="row">
         <div className="col-md-12">
-          <h4 className="mt-5 mb-1 questions_font_12px">
+          <h4 className="mt-4 mb-1">
             <span
+              className="questions_font_12px"
               onClick={() => handleCommunity()}
               style={{
                 color: "#B0B8BF",
@@ -314,6 +315,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
               Community <RightOutlined style={{ verticalAlign: "0" }} />
             </span>{" "}
             <span
+              className="questions_font_12px"
               onClick={() => handleCommunityDetails()}
               style={{
                 color: "#B0B8BF",
@@ -326,6 +328,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
               <RightOutlined style={{ verticalAlign: "0" }} />
             </span>
             <span
+              className="questions_font_12px"
               style={{
                 color: "#0074D9",
                 fontFamily: "Inter",
@@ -367,7 +370,10 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     />
                     {/* <span className="label-counter">18</span> */}
                   </div>
-                  <div className="profile" style={{ flexDirection: "column" }}>
+                  <div
+                    className="profile"
+                    style={{ flexDirection: "column", fontFamily: "Inter" }}
+                  >
                     <h5>{communityQuestionDetail?.title}</h5>
                     <p>
                       {/* {!isMobile && (
@@ -714,6 +720,9 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
               </div>
               <p className="para questions_font_14px">
                 <span
+                  style={{
+                    fontFamily: "Inter",
+                  }}
                   dangerouslySetInnerHTML={{
                     __html: communityQuestionDetail?.description,
                   }}
@@ -721,7 +730,12 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
               </p>
               <div className="chips">
                 {communityQuestionDetail?.postTags?.map((tag) => (
-                  <div className="questions_font_10px">{tag?.name}</div>
+                  <div
+                    style={{ fontFamily: "Inter" }}
+                    className="questions_font_10px"
+                  >
+                    {tag?.name}
+                  </div>
                 ))}
               </div>
               {/* <div className="chips">
@@ -772,7 +786,12 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       }}
                     />
                   </div>
-                  <h6 className="questions_font_12px">
+                  <h6
+                    className="questions_font_12px"
+                    style={{
+                      fontFamily: "Inter",
+                    }}
+                  >
                     Upvote <p></p>{" "}
                     {communityQuestionDetail?.__meta__?.total_helpful}
                   </h6>
@@ -794,7 +813,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
               </div>
             </Card>
           </div>
-          <div style={{ marginTop: "3rem" }}>
+          <div style={{ marginTop: "2rem" }}>
             <div
               style={{
                 display: "flex",
@@ -816,11 +835,12 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                 <div
                   style={{
                     fontWeight: 400,
-                    fontSize: isMobile ? "16px" : "20px",
+                    fontSize: "20px",
                     fontFamily: "Poppins",
                     color: "#54616C",
                     marginLeft: "10px",
                   }}
+                  className="questions_font_16px"
                 >
                   Answers ({communityAnswers?.length})
                 </div>
@@ -829,7 +849,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
               {communityQuestionDetail?.is_discussion_open == 1 ? (
                 <div
                   style={{
-                    fontSize: isMobile ? "12px" : "14px",
+                    fontSize: "14px",
                     fontWeight: 500,
                     fontFamily: "Inter",
                     color: "#FFFFFF",
@@ -838,6 +858,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     backgroundColor: "#0074D9",
                     cursor: "pointer",
                   }}
+                  className="questions_font_12px"
                   onClick={() => setIsModalOpen(true)}
                 >
                   Answer this Question
@@ -904,6 +925,9 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                   </div>
                   <p className="para questions_font_14px">
                     <span
+                      style={{
+                        fontFamily: "Inter",
+                      }}
                       dangerouslySetInnerHTML={{
                         __html: answer?.description,
                       }}
@@ -951,9 +975,12 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                             borderRadius: "4px",
                             backgroundColor: "#D9DFE9",
                             display: "flex",
-                            width: isMobile ? "auto" : "7rem",
+                            width: "7rem",
                             cursor: "pointer",
+                            alignItems: "center",
+                            justifyContent: "center",
                           }}
+                          className="hide_replies"
                         >
                           <Image
                             loader={myImageLoader}
@@ -964,19 +991,19 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                             src={reply_icon}
                             alt="reply-icon"
                           />
-                          {!isMobile && (
-                            <div
-                              style={{
-                                fontSize: "14px",
-                                fontWeight: 500,
-                                fontFamily: "Inter",
-                                color: "#54616C",
-                                marginLeft: "5px",
-                              }}
-                            >
-                              Reply
-                            </div>
-                          )}
+
+                          <div
+                            style={{
+                              fontSize: "14px",
+                              fontWeight: 500,
+                              fontFamily: "Inter",
+                              color: "#54616C",
+                              marginLeft: "5px",
+                            }}
+                            className="replies"
+                          >
+                            Reply
+                          </div>
                         </div>
                         {answer?.comments && answer?.comments.length > 0 ? (
                           <div
@@ -985,7 +1012,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                               padding: "8px 12px",
                               borderRadius: "4px",
                               backgroundColor: "#F2F4F7",
-                              fontSize: isMobile ? "12px" : "14px",
+                              fontSize: "14px",
                               fontWeight: 500,
                               fontFamily: "Inter",
                               color: "#54616C",
@@ -993,6 +1020,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                               color: "#0074D9",
                               cursor: "pointer",
                             }}
+                            className="questions_font_12px"
                             onClick={() => setIsShowReplies(!isShowReplies)}
                           >
                             {isShowReplies ? "Hide Replies" : "View Replies"}
@@ -1063,10 +1091,20 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                               style={{
                                 flexDirection: "row",
                                 alignItems: "center",
+                                fontFamily: "Inter",
+                                marginTop: "-0.5rem",
                               }}
                             >
-                              <h5>{comment?.visitor?.name}</h5>
-                              <p style={{ margin: 0, alignItems: "center" }}>
+                              <h5 className="questions_font_14px">
+                                {comment?.visitor?.name}
+                              </h5>
+                              <p
+                                style={{
+                                  margin: 0,
+                                  alignItems: "center",
+                                  fontFamily: "",
+                                }}
+                              >
                                 <div
                                   className="custom-border"
                                   style={{ margin: "0 5px", height: "8px" }}
@@ -1099,8 +1137,14 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                             </div> */}
                           </div>
                         </div>
-                        <p className="para">
+                        <p
+                          className="para"
+                          style={{
+                            fontFamily: "Inter",
+                          }}
+                        >
                           <span
+                            className="questions_font_12px"
                             dangerouslySetInnerHTML={{
                               __html: comment?.description,
                             }}
@@ -1405,7 +1449,12 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     alt="profile"
                     name="url"
                   />
-                  <h6 className="questions_font_14px">{communityData?.name}</h6>
+                  <h6
+                    style={{ fontFamily: "Poppins" }}
+                    className="questions_font_14px"
+                  >
+                    {communityData?.name}
+                  </h6>
                   {/* <Image
                     loader={myImageLoader}
                     style={{ borderRadius: "2px", cursor: "pointer" }}
@@ -1417,7 +1466,12 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                   /> */}
                 </div>
                 <hr />
-                <div className="cards-body questions_font_12px">
+                <div
+                  className="cards-body questions_font_12px"
+                  style={{
+                    fontFamily: "Inter",
+                  }}
+                >
                   <span
                     dangerouslySetInnerHTML={{
                       __html: communityData?.description,
@@ -1429,10 +1483,11 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                   className="following-section"
                   style={{
                     justifyContent: isMobile && "space-evenly",
+                    fontFamily: "Inter",
                   }}
                 >
                   <div>
-                    <div className="head questions_font_14px">Answer</div>
+                    <div className="head questions_font_14px">Answers</div>
                     <div className="count">
                       {communityData?.__meta__?.total_post_reply}
                     </div>

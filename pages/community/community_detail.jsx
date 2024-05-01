@@ -656,8 +656,9 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
     <Container>
       <div className="row">
         <div className="col-md-12 community_details_header">
-          <h4 className="mt-5 mb-1 questions_font_12px">
+          <h4 className="mt-5 mb-1">
             <span
+              className="questions_font_12px"
               onClick={() => handleCommunity()}
               style={{
                 color: "#B0B8BF",
@@ -669,6 +670,7 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
               Community <RightOutlined style={{ verticalAlign: "0" }} />
             </span>{" "}
             <span
+              className="questions_font_12px"
               style={{
                 color: "#0074D9",
                 fontFamily: "Inter",

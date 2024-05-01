@@ -2185,6 +2185,12 @@
   .questions_font_16px {
     font-size: 16px !important;
   }
+  .hide_replies {
+    width: auto !important;
+    .replies {
+      display: none !important;
+    }
+  }
   .questions_image_48px {
     width: 48px !important;
     height: 48px !important;
