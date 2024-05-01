@@ -482,9 +482,16 @@ const Profile = ({
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [sortBy, setSortBy] = useState("id");
-  const itemsPerPage = 4;
+  const itemsPerPage = 5;
   const [page, setPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
+
+  const [questionPage, setQuestionPage] = useState(0);
+  const [questionPageCount, setQuestionPageCount] = useState(0);
+
+  const [libraryPage, setLibraryPage] = useState(0);
+  const [libraryPageCount, setLibraryPageCount] = useState(0);
+
   const [libraryData, setLibraryData] = useState([]);
 
   const [searchQuery, setSearchQuery] = useState(q);
@@ -527,7 +534,7 @@ const Profile = ({
         setvisitorActivity(result?.data?.data);
         console.log("result", result.data);
         const totalPage = Math.ceil(
-          result?.data?.total / result?.data?.perPage
+          result?.data?.total / itemsPerPage
         );
         setPageCount(isNaN(totalPage) ? 0 : totalPage);
       });
@@ -549,11 +556,11 @@ const Profile = ({
         setvisitor_queries_history(result?.data?.data);
         console.log("result", result.data);
         const totalPage = Math.ceil(
-          result?.data?.total / result?.data?.perPage
+          result?.data?.total / itemsPerPage
         );
-        setPageCount(isNaN(totalPage) ? 0 : totalPage);
+        setQuestionPageCount(isNaN(totalPage) ? 0 : totalPage);
       });
-  }, [page, searchQuery, filteredData, sortBy]);
+  }, [questionPage, searchQuery, filteredData, sortBy]);
 
   useEffect(() => {
     crudService
@@ -565,11 +572,10 @@ const Profile = ({
       })
       .then((result) => {
         setLibraryData(result?.data?.data);
-        console.log("setLibraryData", result?.data);
-        const totalPage = Math.ceil(result?.data?.total / result?.data?.perPage);
-        setPageCount(isNaN(totalPage) ? 0 : totalPage);
+        const totalPage = Math.ceil(result?.data?.total / itemsPerPage);
+        setLibraryPageCount(isNaN(totalPage) ? 0 : totalPage);
       });
-  }, [page, sortBy, itemsPerPage]);
+  }, [libraryPage]);
 
   const handleSort = (e) => {
     setSortBy(e.target.value);
@@ -613,6 +619,7 @@ const Profile = ({
 
   const onChange = (key) => {
     console.log(key);
+    
   };
   const showEditModal = () => {
     setUpdateProfileData(() => ({
@@ -1191,9 +1198,9 @@ const Profile = ({
           <div className="mt-5 mb-5" style={{ width: "100%" }}>
             {visitorquerieshistory?.length > 0 && (
               <CustomPagination
-                pageCount={pageCount}
-                page={page}
-                onPageChange={({ selected }) => setPage(selected)}
+                pageCount={questionPageCount}
+                page={questionPage}
+                onPageChange={({ selected }) => setQuestionPage(selected)}
               />
             )}
           </div>
@@ -1401,9 +1408,9 @@ const Profile = ({
           <div className="mt-5" style={{ width: "100%" }}>
             {libraryData?.length > 0 && (
               <CustomPagination
-                pageCount={pageCount}
-                page={page}
-                onPageChange={({ selected }) => setPage(selected)}
+                pageCount={libraryPageCount}
+                page={libraryPage}
+                onPageChange={({ selected }) => setLibraryPage(selected)}
               />
             )}
           </div>
