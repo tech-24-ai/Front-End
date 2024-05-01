@@ -106,18 +106,14 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
-    console.log("handleOptionChange", event.target.value);
   };
 
   const handleDescriptionChange = (event) => {
     setReportDescription(event.target.value);
-    console.log("handleDescriptionChange", event.target.value);
   };
 
   const handleSubmit = (data, community_post_id, event) => {
-    console.log("func");
     if (!selectedOption || !reportDescription) {
-      console.log("error");
       return;
     }
     getPostReplies();
@@ -129,11 +125,9 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
       community_post_reply_id: 3,
       reason: reportDescription,
     };
-    console.log("postData", postData);
     crudService
       ._create("repost_abuse", postData)
       .then((response) => {
-        console.log("Report submitted successfully:", response);
         setSelectedOption("");
         setReportDescription("");
       })
@@ -165,9 +159,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
 
   const [updateCom, setUpdateCom] = useState(false);
   const [form] = Form.useForm();
-  const onChange = (key) => {
-    console.log(key);
-  };
+  const onChange = (key) => {};
 
   const editor = React.useRef(null);
   function focusEditor() {
@@ -199,8 +191,6 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
       ._create("community/join", { community_id: communityData?.id })
       .then(() => window.location.reload());
   };
-  console.log("com d", updateCom);
-  console.log("com ", communityData);
 
   const handleOk = (parent_id, community_post_id, replyText, isReply) => {
     if (replyText == undefined || replyText == null || replyText.trim() == "") {
@@ -301,17 +291,17 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
 
   const handleCommunity = () => {
     Router.push("/community");
-  }
+  };
 
   const handleCommunityDetails = () => {
     Router.push(`/community/community_detail`);
-  }
+  };
 
   return (
     <Container>
       <div className="row">
         <div className="col-md-12">
-          <h4 className="mt-2 mb-1">
+          <h4 className="mt-5 mb-1 questions_font_12px">
             <span
               onClick={() => handleCommunity()}
               style={{
@@ -324,7 +314,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
               Community <RightOutlined style={{ verticalAlign: "0" }} />
             </span>{" "}
             <span
-             onClick={() => handleCommunityDetails()}
+              onClick={() => handleCommunityDetails()}
               style={{
                 color: "#B0B8BF",
                 fontFamily: "Inter",
@@ -332,23 +322,26 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                 cursor: "pointer",
               }}
             >
-              {communityData?.name} <RightOutlined style={{ verticalAlign: "0" }} />
+              {communityData?.name}{" "}
+              <RightOutlined style={{ verticalAlign: "0" }} />
             </span>
             <span
-                    style={{
-                      color: "#0074D9",
-                      fontFamily: "Inter",
-                      fontSize: "14px",
-                      cursor: "pointer",
-                    }}
-                  >
-                    {communityQuestionDetail?.title && communityQuestionDetail?.title.length > 30 ? 
-                    `${communityQuestionDetail?.title.substring(0, 30)}...` : communityQuestionDetail?.title}
-                  </span>
+              style={{
+                color: "#0074D9",
+                fontFamily: "Inter",
+                fontSize: "14px",
+                cursor: "pointer",
+              }}
+            >
+              {communityQuestionDetail?.title &&
+              communityQuestionDetail?.title.length > 30
+                ? `${communityQuestionDetail?.title.substring(0, 30)}...`
+                : communityQuestionDetail?.title}
+            </span>
           </h4>
         </div>
       </div>
-      <div className="profile-container row">
+      <div className="profile-container row" style={{ marginTop: "0" }}>
         <div className="community-tab-container questions-tab-container community-detail-wrapper col-md-9">
           <div className="cards-container">
             <Card
@@ -368,8 +361,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       height={50}
                       preview="false"
                       src={
-                        communityQuestionDetail?.visitor?.profile_pic_url ||
-                        ""
+                        communityQuestionDetail?.visitor?.profile_pic_url || ""
                       }
                       alt="profile"
                     />
@@ -384,7 +376,9 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                         <div className="custom-border"></div>
                       </>
                     )} */}
-                      {communityQuestionDetail?.visitor?.name} {" ("}{calculateTimeAgo(communityQuestionDetail?.created_at)}{")"}
+                      {communityQuestionDetail?.visitor?.name} {" ("}
+                      {calculateTimeAgo(communityQuestionDetail?.created_at)}
+                      {")"}
                     </p>
                   </div>
                 </div>
@@ -718,7 +712,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                 
                 </div> */}
               </div>
-              <p className="para">
+              <p className="para questions_font_14px">
                 <span
                   dangerouslySetInnerHTML={{
                     __html: communityQuestionDetail?.description,
@@ -727,7 +721,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
               </p>
               <div className="chips">
                 {communityQuestionDetail?.postTags?.map((tag) => (
-                  <div>{tag?.name}</div>
+                  <div className="questions_font_10px">{tag?.name}</div>
                 ))}
               </div>
               {/* <div className="chips">
@@ -746,7 +740,9 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     color: "#54616C",
                     margin: "0",
                     display: "flex",
+                    alignItems: "center",
                   }}
+                  className="questions_font_12px"
                 >
                   <Image
                     loader={myImageLoader}
@@ -761,7 +757,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     {communityQuestionDetail?.views_counter} views
                   </span>
                 </p>
-                <div className="rating">
+                <div className="rating questions_font_12px">
                   <div>
                     <Image
                       loader={myImageLoader}
@@ -776,7 +772,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       }}
                     />
                   </div>
-                  <h6>
+                  <h6 className="questions_font_12px">
                     Upvote <p></p>{" "}
                     {communityQuestionDetail?.__meta__?.total_helpful}
                   </h6>
@@ -830,23 +826,25 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                 </div>
               </div>
 
-              {
-                communityQuestionDetail?.is_discussion_open == 1 ? <div
-                style={{
-                  fontSize: isMobile ? "12px" : "14px",
-                  fontWeight: 500,
-                  fontFamily: "Inter",
-                  color: "#FFFFFF",
-                  padding: "4px 16px",
-                  borderRadius: "2px",
-                  backgroundColor: "#0074D9",
-                  cursor: "pointer",
-                }}
-                onClick={() => setIsModalOpen(true)}
-              >
-                Answer this Question
-              </div> : <></>
-              }
+              {communityQuestionDetail?.is_discussion_open == 1 ? (
+                <div
+                  style={{
+                    fontSize: isMobile ? "12px" : "14px",
+                    fontWeight: 500,
+                    fontFamily: "Inter",
+                    color: "#FFFFFF",
+                    padding: "4px 16px",
+                    borderRadius: "2px",
+                    backgroundColor: "#0074D9",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => setIsModalOpen(true)}
+                >
+                  Answer this Question
+                </div>
+              ) : (
+                <></>
+              )}
             </div>
 
             <div
@@ -904,7 +902,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       </div>
                     </div>
                   </div>
-                  <p className="para">
+                  <p className="para questions_font_14px">
                     <span
                       dangerouslySetInnerHTML={{
                         __html: answer?.description,
@@ -934,91 +932,94 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
               <h6 className="custom-border"></h6>
               <p>{communityQuestionDetail?.views_counter} views</p>
             </div> */}
-            {
-              communityQuestionDetail?.is_discussion_open == 1 && <div className="like-footer" style={{ marginTop: "1.5rem" }}>
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <div
-                  onClick={() =>
-                    setIsReplayModalOpen({
-                      isReplayModelOpen: true,
-                      details: answer,
-                    })
-                  }
-                  style={{
-                    border: "1px solid #D9DFE9",
-                    padding: "8px 12px",
-                    borderRadius: "4px",
-                    backgroundColor: "#D9DFE9",
-                    display: "flex",
-                    width: isMobile ? "auto" : "7rem",
-                    cursor: "pointer",
-                  }}
-                >
-                  <Image
-                    loader={myImageLoader}
-                    style={{ borderRadius: "5px", cursor: "pointer" }}
-                    width={16}
-                    height={16}
-                    preview="false"
-                    src={reply_icon}
-                    alt="reply-icon"
-                  />
-                  {!isMobile && (
+                  {communityQuestionDetail?.is_discussion_open == 1 && (
                     <div
-                      style={{
-                        fontSize: "14px",
-                        fontWeight: 500,
-                        fontFamily: "Inter",
-                        color: "#54616C",
-                        marginLeft: "5px",
-                      }}
+                      className="like-footer"
+                      style={{ marginTop: "1.5rem" }}
                     >
-                      Reply
-                    </div>
-                  )}
-                </div>
-                {answer?.comments && answer?.comments.length > 0 ? (
-                  <div
-                    style={{
-                      border: "1px solid #D9DFE9",
-                      padding: "8px 12px",
-                      borderRadius: "4px",
-                      backgroundColor: "#F2F4F7",
-                      fontSize: isMobile ? "12px" : "14px",
-                      fontWeight: 500,
-                      fontFamily: "Inter",
-                      color: "#54616C",
-                      marginLeft: isMobile ? "6px" : "10px",
-                      color: "#0074D9",
-                      cursor: "pointer",
-                    }}
-                    onClick={() => setIsShowReplies(!isShowReplies)}
-                  >
-                    {isShowReplies ? "Hide Replies" : "View Replies"}
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
-              <div className="rating">
-                <div>
-                  <Image
-                    loader={myImageLoader}
-                    style={{ borderRadius: "5px", cursor: "pointer" }}
-                    width={16}
-                    height={16}
-                    preview="false"
-                    src={like_button}
-                    alt="profile"
-                    onClick={() => {
-                      voteCommunityPostReplies(answer, 1);
-                    }}
-                  />
-                </div>
-                <h6>
-                  Upvote <p></p> {answer?.__meta__?.total_helpful}
-                </h6>
-                {/* <div className="left-border">
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <div
+                          onClick={() =>
+                            setIsReplayModalOpen({
+                              isReplayModelOpen: true,
+                              details: answer,
+                            })
+                          }
+                          style={{
+                            border: "1px solid #D9DFE9",
+                            padding: "8px 12px",
+                            borderRadius: "4px",
+                            backgroundColor: "#D9DFE9",
+                            display: "flex",
+                            width: isMobile ? "auto" : "7rem",
+                            cursor: "pointer",
+                          }}
+                        >
+                          <Image
+                            loader={myImageLoader}
+                            style={{ borderRadius: "5px", cursor: "pointer" }}
+                            width={16}
+                            height={16}
+                            preview="false"
+                            src={reply_icon}
+                            alt="reply-icon"
+                          />
+                          {!isMobile && (
+                            <div
+                              style={{
+                                fontSize: "14px",
+                                fontWeight: 500,
+                                fontFamily: "Inter",
+                                color: "#54616C",
+                                marginLeft: "5px",
+                              }}
+                            >
+                              Reply
+                            </div>
+                          )}
+                        </div>
+                        {answer?.comments && answer?.comments.length > 0 ? (
+                          <div
+                            style={{
+                              border: "1px solid #D9DFE9",
+                              padding: "8px 12px",
+                              borderRadius: "4px",
+                              backgroundColor: "#F2F4F7",
+                              fontSize: isMobile ? "12px" : "14px",
+                              fontWeight: 500,
+                              fontFamily: "Inter",
+                              color: "#54616C",
+                              marginLeft: isMobile ? "6px" : "10px",
+                              color: "#0074D9",
+                              cursor: "pointer",
+                            }}
+                            onClick={() => setIsShowReplies(!isShowReplies)}
+                          >
+                            {isShowReplies ? "Hide Replies" : "View Replies"}
+                          </div>
+                        ) : (
+                          <></>
+                        )}
+                      </div>
+                      <div className="rating">
+                        <div>
+                          <Image
+                            loader={myImageLoader}
+                            style={{ borderRadius: "5px", cursor: "pointer" }}
+                            width={16}
+                            height={16}
+                            preview="false"
+                            src={like_button}
+                            alt="profile"
+                            onClick={() => {
+                              voteCommunityPostReplies(answer, 1);
+                            }}
+                          />
+                        </div>
+                        <h6 className="questions_font_12px">
+                          Upvote <p></p> {answer?.__meta__?.total_helpful}
+                        </h6>
+                        {/* <div className="left-border">
                   <Image
                     loader={myImageLoader}
                     style={{ borderRadius: "5px", cursor: "pointer" }}
@@ -1032,10 +1033,10 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     }}
                   />
                 </div> */}
-              </div>
-            </div>
-            }
-                  
+                      </div>
+                    </div>
+                  )}
+
                   {answer?.comments.length > 0 &&
                     isShowReplies &&
                     answer?.comments.map((comment) => (
@@ -1382,11 +1383,16 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                   height: "fit-content",
                   marginTop: "1rem",
                 }}
+                className="question_header_card"
               >
-                <div className="cards-header" style={{
-                  justifyContent : 'flex-start'
-                }}>
+                <div
+                  className="cards-header"
+                  style={{
+                    justifyContent: "flex-start",
+                  }}
+                >
                   <Image
+                    className="questions_image_48px"
                     loader={myImageLoader}
                     style={{ borderRadius: "2px" }}
                     width={56}
@@ -1399,7 +1405,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     alt="profile"
                     name="url"
                   />
-                  <h6>{communityData?.name}</h6>
+                  <h6 className="questions_font_14px">{communityData?.name}</h6>
                   {/* <Image
                     loader={myImageLoader}
                     style={{ borderRadius: "2px", cursor: "pointer" }}
@@ -1411,7 +1417,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                   /> */}
                 </div>
                 <hr />
-                <div className="cards-body">
+                <div className="cards-body questions_font_12px">
                   <span
                     dangerouslySetInnerHTML={{
                       __html: communityData?.description,
@@ -1426,14 +1432,14 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                   }}
                 >
                   <div>
-                    <div className="head">Answer</div>
+                    <div className="head questions_font_14px">Answer</div>
                     <div className="count">
                       {communityData?.__meta__?.total_post_reply}
                     </div>
                   </div>
                   <div className="custom-border"></div>
                   <div>
-                    <div className="head">Questions </div>
+                    <div className="head questions_font_14px">Questions </div>
                     <div className="count">
                       {communityData?.__meta__?.total_posts}
                     </div>

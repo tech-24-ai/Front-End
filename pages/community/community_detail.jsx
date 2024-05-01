@@ -29,7 +29,6 @@ import Router from "next/router";
 // import ReactPaginate from "react-paginate-next";
 import CustomPagination from "../../components/pagination";
 
-
 const ReactQuill = dynamic(
   () => {
     return import("react-quill");
@@ -62,7 +61,7 @@ const SubmitButton = ({ form, children }) => {
   );
 };
 
-const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
+const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState();
   const [tags, setTag] = useState([]);
@@ -122,29 +121,25 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
     setDescription("");
     setTag([]);
     setUrl([]);
-  }
+  };
 
   const handleOk = () => {
-
     if (!title) {
       showAlert("Please add title");
-      return
+      return;
     }
 
     if (!description) {
       showAlert("Please add descriptions");
-      return
+      return;
     }
 
-    const finalUrl = []
+    const finalUrl = [];
     if (url && url.length > 0) {
       //Upload API
       crudService
         ._upload("uploadmedia", url[0])
         .then((data) => {
-          // File uploaded successfully, update state and handle any further actions
-          console.log("data", data?.data?.result);
-
           const postData = {
             community_id: communityData?.id,
             title: title,
@@ -158,14 +153,14 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
               setUpdateCom(true);
               setIsModalOpen(false);
               resetForm();
-              success("Your post is being reviewed and will be shown after approval.")
+              success(
+                "Your post is being reviewed and will be shown after approval."
+              );
             }
           });
         })
         .catch((error) => {
-          console.log("asdasd")
           console.log("error", error);
-
         });
     } else {
       const postData = {
@@ -180,11 +175,10 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
         if (response.status === 200) {
           setUpdateCom(true);
           setIsModalOpen(false);
-          resetForm()
+          resetForm();
         }
       });
     }
-
   };
 
   const voteCommunity = (data, type) => {
@@ -198,51 +192,51 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
       });
   };
 
+  const calculateTimeAgo = (createdAt) => {
+    const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
+    const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
+    const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
+    const duration = moment.duration(diffMilliseconds);
+    const humanReadableDiff = duration.humanize(true);
+    return humanReadableDiff;
+  };
+
   const Tab1 = () => {
-    console.log("tab 1")
     const [headerSearch, setHeaderSearch] = useState();
     const [communityDetails, setCommunityDetails] = useState([]);
     const [sortBy, setSortBy] = useState("id");
+    const [sortByOrder, setSortByOrder] = useState(true);
 
     const itemsPerPage = 10;
     const [page, setPage] = useState(0);
     const [pageCount, setPageCount] = useState(0);
 
-    const [searchQuery, setSearchQuery] = useState("");
-    const [filteredData, setFilteredData] = useState({});
-
-    const calculateTimeAgo = (createdAt) => {
-      const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
-      const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
-      const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
-      const duration = moment.duration(diffMilliseconds);
-      const humanReadableDiff = duration.humanize(true);
-      return humanReadableDiff;
-    };
-
     //Sorting
-
 
     useEffect(() => {
       const id = sessionStorage.getItem("community_id");
-      crudService
-        ._getAll(`communitypost/${id}`, {
-          orderBy: sortBy,
-          orderDirection: "DESC",
-          page: page + 1,
-          pageSize: itemsPerPage,
-          search: headerSearch
-          // search: searchQuery,
-          // ...filteredData,
-        })
-        .then((result) => {
+      if (isModalOpen) {
+      } else {
+        crudService
+          ._getAll(`communitypost/${id}`, {
+            orderBy: sortBy,
+            orderDirection: sortByOrder ? "DESC" : "ASC",
+            page: page + 1,
+            pageSize: itemsPerPage,
+            search: headerSearch,
+            // search: searchQuery,
+            // ...filteredData,
+          })
+          .then((result) => {
+            setCommunityDetails(result?.data);
+            const totalPage = Math.ceil(
+              result?.data.total / result?.data.perPage
+            );
 
-          setCommunityDetails(result?.data);
-          const totalPage = Math.ceil(result?.data.total / result?.data.perPage);
-
-          setPageCount(isNaN(totalPage) ? 0 : totalPage);
-        });
-    }, [page, searchQuery, filteredData, sortBy, headerSearch]);
+            setPageCount(isNaN(totalPage) ? 0 : totalPage);
+          });
+      }
+    }, [page, sortBy, headerSearch, sortByOrder]);
 
     const handleSort = (e) => {
       setSortBy(e.target.value);
@@ -267,7 +261,6 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
       },
     ];
 
-
     useEffect(() => {
       //getCommunityData();
     }, []);
@@ -285,10 +278,13 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
           /> */}
 
           <Input
+            className="community_search_small"
             placeholder="Search anything.."
             allowClear
             prefix={
-              <SearchOutlined style={{ color: "#0074D9", padding: "0 6px" }} />
+              <SearchOutlined
+                style={{ color: "#0074D9", padding: "0 6px", fontSize: "24px" }}
+              />
             }
             onChange={(e) => {
               setHeaderSearch(e?.target?.value);
@@ -301,38 +297,63 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
               borderRadius: "5px",
               background: "#ffffff",
               boxSizing: "border-box",
+              fontSize: "16px",
+              fontFamily: "Inter",
             }}
           />
 
-          {isMobile ? (
-            <Image
-              loader={myImageLoader}
-              style={{ borderRadius: "2px", cursor: "pointer" }}
-              width={44}
-              height={44}
-              preview="false"
-              src={shorting_icon}
-              alt="profile"
-            />
-          ) : (
-            <>
-              <div className="sorting mobile-display-n">
-                <label className="sortby" htmlFor="sortDropdown">Sort By: </label>
-                <select
-                  id="sortDropdown"
-                  style={{ border: "none", background: "transparent" }}
-                  value={sortBy}
-                  onChange={handleSort}
-                >
-                  {options.map(option => (
-                    <option key={option.value} value={option.value}>{option.label}</option>
-                  ))}
-                </select>
-              </div>
+          <Image
+            onClick={() => setSortByOrder(!sortByOrder)}
+            loader={myImageLoader}
+            style={{ borderRadius: "2px", cursor: "pointer", display: "none" }}
+            width={44}
+            height={44}
+            preview="false"
+            src={shorting_icon}
+            alt="profile"
+            className="shorting_icon"
+          />
 
-            </>
-          )}
+          <div className="sorting mobile-display-n d-none community_filter_section">
+            <label className="sortby" htmlFor="sortDropdown">
+              Sort By:{" "}
+            </label>
+            <select
+              id="sortDropdown"
+              style={{ border: "none", background: "transparent" }}
+              value={sortBy}
+              onChange={handleSort}
+            >
+              {options.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
+        {selectedIndex == "1" ? (
+          <div
+            onClick={showModal}
+            style={{
+              width: isMobile ? "100%" : 380,
+              padding: "12px 16px",
+              borderRadius: "2px",
+              fontWeight: "500",
+              fontSize: "18px",
+              color: "#FFFFFF",
+              textAlign: "center",
+              cursor: "pointer",
+              backgroundColor: "#0074D9",
+              fontFamily: "Inter",
+            }}
+            className="questions_font_16px ask_question_small"
+          >
+            Ask a Question
+          </div>
+        ) : (
+          <></>
+        )}
         <div className="cards-container">
           {communityDetails?.data?.map((data) => (
             <Card
@@ -361,7 +382,12 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
                     />
                     {/* <span className="label-counter">18</span> */}
                   </div>
-                  <div className="profile">
+                  <div
+                    className="profile"
+                    style={{
+                      fontFamily: "Inter",
+                    }}
+                  >
                     <h5>{data?.visitor?.name}</h5>
                     <p>
                       {!isMobile && (
@@ -389,18 +415,34 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
                   </div>
                 </div>
               </div>
-              <p className="para"><span
-                dangerouslySetInnerHTML={{ __html: data?.description }}
-              ></span></p>
+              <p
+                className="para questions_font_14px"
+                style={{
+                  fontFamily: "Inter",
+                }}
+              >
+                <span
+                  dangerouslySetInnerHTML={{ __html: data?.description }}
+                ></span>
+              </p>
               <div className="chips">
                 {data?.postTags?.map((tag) => (
-                  <div>{tag?.name}</div>
+                  <div
+                    style={{ fontFamily: "Inter" }}
+                    className="questions_font_10px"
+                  >
+                    {tag?.name}
+                  </div>
                 ))}
               </div>
-              <div className="chips">
-                <p>{data?.__meta__?.total_post_replies} answers</p>
+              <div className="chips" style={{ fontFamily: "Inter" }}>
+                <p className="questions_font_12px">
+                  {data?.__meta__?.total_post_replies} answers
+                </p>
                 <h6 className="custom-border"></h6>
-                <p>{data?.views_counter} views</p>
+                <p className="questions_font_12px">
+                  {data?.views_counter} views
+                </p>
               </div>
               {/* <div className="like-footer">
                 <div className="ans">
@@ -462,7 +504,6 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
             />
           )}
         </div>
-
       </div>
     );
   };
@@ -473,16 +514,17 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
     const [communityData, setCommunityData] = useState(null);
 
     useEffect(() => {
-      fetchCommunityData(); 
+      fetchCommunityData();
     }, []);
 
     const fetchCommunityData = () => {
-      const id = sessionStorage.getItem("community_id"); 
-      if (id) {
-        crudService._getAll(`community/details/${id}`)
+      const id = sessionStorage.getItem("community_id");
+      if (id && !isModalOpen) {
+        crudService
+          ._getAll(`community/details/${id}`)
           .then((data) => {
             const communityData = data?.data;
-            setCommunityData(communityData); 
+            setCommunityData(communityData);
             setCommunityId(communityData.id);
             fetchNewsData(communityData.id);
           })
@@ -492,12 +534,13 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
       }
     };
     useEffect(() => {
-      fetchCommunityData(); 
+      fetchCommunityData();
     }, []);
 
     const fetchNewsData = (communityId) => {
-      if (communityId) {
-        crudService._getAll(`get_news_announcements?community_id=${communityId}`)
+      if (communityId && selectedIndex == 2) {
+        crudService
+          ._getAll(`get_news_announcements?community_id=${communityId}`)
           .then((data) => {
             setNewsData(data?.data);
           })
@@ -507,7 +550,6 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
       }
     };
 
-    console.log("news data", newsData);
     // const [newsData, setNewsData] = useState([]);
     // const fetchNewsData = () => {
     //   const id = sessionStorage.getItem("community_id");
@@ -532,33 +574,38 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
     return (
       <div className="questions-tab-container">
         <ul>
-          {newsData && newsData.map(data => (
-            <li
-              key={data.id}
-              style={{
-                fontWeight: "500",
-                fontSize: "20px",
-                color: "#001622",
-              }}
-            >
-              {data.title}
-              <p
-                style={{ fontWeight: "400", fontSize: "14px", color: "#54616C" }}
-              >
-                {data.description}
-              </p>
-              <p
+          {newsData &&
+            newsData.map((data) => (
+              <li
+                key={data.id}
                 style={{
-                  fontWeight: "400",
-                  fontSize: "12px",
-                  color: "#B0B8BF",
+                  fontWeight: "500",
+                  fontSize: "20px",
+                  color: "#001622",
                 }}
               >
-                {data.created_at}
-              </p>
-              <hr />
-            </li>
-          ))}
+                {data.title}
+                <p
+                  style={{
+                    fontWeight: "400",
+                    fontSize: "14px",
+                    color: "#54616C",
+                  }}
+                >
+                  {data.description}
+                </p>
+                <p
+                  style={{
+                    fontWeight: "400",
+                    fontSize: "12px",
+                    color: "#B0B8BF",
+                  }}
+                >
+                  {calculateTimeAgo(data?.created_at)}
+                </p>
+                <hr />
+              </li>
+            ))}
         </ul>
       </div>
     );
@@ -583,11 +630,10 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
     Router.push("question");
   };
 
-
   const beforeUpload = (file) => {
     setUrl([...url, file]);
     return false;
-  }
+  };
 
   const items = [
     {
@@ -604,14 +650,13 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
 
   const handleCommunity = () => {
     Router.push("/community");
-  }
-
+  };
 
   return (
     <Container>
       <div className="row">
-        <div className="col-md-12">
-          <h4 className="mt-2 mb-1">
+        <div className="col-md-12 community_details_header">
+          <h4 className="mt-5 mb-1 questions_font_12px">
             <span
               onClick={() => handleCommunity()}
               style={{
@@ -635,9 +680,9 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
           </h4>
         </div>
       </div>
-      <div className="profile-container row" style={{marginTop:'1.5rem'}}>
+      <div className="profile-container row" style={{ marginTop: "1.5rem" }}>
         <Tabs
-          className="header-tabs col-md-9"
+          className="header-tabs col-md-9 community_header_tab"
           defaultActiveKey="1"
           onChange={onChange}
         >
@@ -668,7 +713,9 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
                     textAlign: "center",
                     cursor: "pointer",
                     backgroundColor: "#0074D9",
+                    fontFamily: "Inter",
                   }}
+                  className="questions_font_16px ask_question_large"
                 >
                   Ask a Question
                 </div>
@@ -874,11 +921,16 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
                   width: isMobile ? "100%" : 380,
                   height: "fit-content",
                 }}
+                className="community_top_card_small"
               >
-                <div className="cards-header" style={{
-                  justifyContent : 'flex-start'
-                }}>
+                <div
+                  className="cards-header"
+                  style={{
+                    justifyContent: "flex-start",
+                  }}
+                >
                   <Image
+                    className="questions_image_48px"
                     loader={myImageLoader}
                     style={{ borderRadius: "2px" }}
                     width={56}
@@ -891,7 +943,14 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
                     alt="profile"
                     name="url"
                   />
-                  <h6>{communityData?.name}</h6>
+                  <h6
+                    className="questions_font_14px"
+                    style={{
+                      fontFamily: "Poppins",
+                    }}
+                  >
+                    {communityData?.name}
+                  </h6>
                   {/* <Image
                     loader={myImageLoader}
                     style={{ borderRadius: "2px", cursor: "pointer" }}
@@ -903,7 +962,14 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
                   /> */}
                 </div>
                 <hr />
-                <div className="cards-body">{communityData?.description}</div>
+                <div
+                  className="cards-body questions_font_12px"
+                  style={{
+                    fontFamily: "Inter",
+                  }}
+                >
+                  {communityData?.description}
+                </div>
                 <hr />
                 <div
                   className="following-section"
@@ -912,15 +978,26 @@ const CommunityDetail = ({ getAllCrud, showAlert,success }) => {
                   }}
                 >
                   <div>
-                    <div className="head">Answer</div>
+                    <div
+                      className="head questions_font_14px"
+                      style={{
+                        fontFamily: "Inter",
+                      }}
+                    >
+                      Answers
+                    </div>
                     <div className="count">
                       {communityData?.__meta__?.total_post_reply}
                     </div>
-                    
                   </div>
                   <div className="custom-border"></div>
                   <div>
-                    <div className="head">Questions</div>
+                    <div
+                      className="head questions_font_14px"
+                      style={{ fontFamily: "Inter" }}
+                    >
+                      Questions
+                    </div>
                     <div className="count">
                       {communityData?.__meta__?.total_posts}
                     </div>

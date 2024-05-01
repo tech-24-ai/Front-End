@@ -43,11 +43,14 @@ function Header(props) {
   const { isloggedIn, openSideMenu, sideMenu, isMainHeader = true } = props;
 
   useEffect(() => {
-    if (isMainHeader) {
-      document.querySelector(".main-content").classList.remove("sticky");
-    } else {
-      document.querySelector(".main-content").classList.add("sticky");
-    }
+    console.log("isMainHeader",isMainHeader);
+    setTimeout(() => {
+      if (isMainHeader) {
+        document.querySelector(".main-content").classList.remove("sticky");
+      } else {
+        document.querySelector(".main-content").classList.add("sticky");
+      }
+    }, 100);
   }, [isMainHeader]);
 
   useEffect(() => {
@@ -59,9 +62,9 @@ function Header(props) {
           .filter((data, ind) => ind > 1)
           .map((data) => classList[data]);
 
-        document
-          .querySelector(".main-content")
-          .classList.remove(...extraClasses);
+        // document
+        //   .querySelector(".main-content")
+        //   .classList.remove(...extraClasses);
       }
       document.querySelector(".main-content").classList.add(url);
     }

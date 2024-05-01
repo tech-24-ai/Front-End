@@ -7,7 +7,7 @@ import { linkedin, twitter } from "react-icons-kit/fa";
 
 import Link from "next/link";
 import { connect } from "react-redux";
-import { isMobile, isBrowser } from "react-device-detect";
+import { isMobile, isBrowser, isTablet } from "react-device-detect";
 import { useLayoutEffect, useEffect } from "react";
 
 import LinkedinIcon from "../../public/images/header/Linkedin-icon.svg";
@@ -169,7 +169,7 @@ const Footer = (props) => {
         >
           © {new Date().getFullYear()} {themeConfig.appName} : An IT Research & Advisory company
         </footer> */}
-      {isMobile && (
+      {isMobile && isTablet == false && (
         <footer className="footer-mobile">
           <div class="footer-container">
             <div class="logo-container">
@@ -207,10 +207,121 @@ const Footer = (props) => {
               <h4>Help</h4>
               <Link href="/terms_and_conditions">Terms and Conditions</Link>
               <Link href="/privacy_policy">Privacy Policy</Link>
-              <Link href="/cookies">Cookie Settings</Link>
               <Link href="/contact-us">Contact Us</Link>
-              <Link href="/about-us">About Us</Link>
             </div>
+            <div class="text-image-container">
+              <p>
+                © {new Date().getFullYear()} {themeConfig.appName} All rights
+                reserved
+              </p>
+              <div className="social-media">
+                <a
+                  href="https://www.linkedin.com/company/tech24.ai/"
+                  target="_blank"
+                  aria-label="redirect to LinkedIn page"
+                >
+                  <Image
+                    loader={myImageLoader}
+                    style={{ borderRadius: "5px" }}
+                    width={24}
+                    height={24}
+                    preview="false"
+                    src={x_logo}
+                    alt="profile"
+                  />
+                </a>
+                <a
+                  href="https://twitter.com/tech24.ai"
+                  target="_blank"
+                  aria-label="redirect to twitter page"
+                >
+                  <Image
+                    loader={myImageLoader}
+                    style={{ borderRadius: "5px" }}
+                    width={24}
+                    height={24}
+                    preview="false"
+                    src={instagram_logo}
+                    alt="profile"
+                  />
+                </a>
+                <a
+                  href="https://twitter.com/tech24.ai"
+                  target="_blank"
+                  aria-label="redirect to twitter page"
+                >
+                  <Image
+                    loader={myImageLoader}
+                    style={{ borderRadius: "5px" }}
+                    width={24}
+                    height={24}
+                    preview="false"
+                    src={youtube_logo}
+                    alt="profile"
+                  />
+                </a>
+                <a
+                  href="https://twitter.com/tech24.ai"
+                  target="_blank"
+                  aria-label="redirect to twitter page"
+                >
+                  <Image
+                    loader={myImageLoader}
+                    style={{ borderRadius: "5px" }}
+                    width={24}
+                    height={24}
+                    preview="false"
+                    src={sports_logo}
+                    alt="profile"
+                  />
+                </a>
+              </div>
+            </div>
+          </div>
+        </footer>
+      )}
+
+      {isMobile == true && isTablet == true && (
+        <footer className="footer-mobile">
+          <div class="footer-container">
+            <div class="logo-container">
+              <Link href="/">
+                <a aria-label="redirect to home page">
+                  <Image
+                    loader={myImageLoader}
+                    className="mdg"
+                    src={LogoNew}
+                    alt=""
+                    placeholder="Logo"
+                    width={140}
+                    height={40}
+                  />
+                </a>
+              </Link>
+            </div>
+            <div class="info-container">
+              <div class="info">
+                <h4>Quick Links</h4>
+                <Link href="/market-research">Market Research</Link>
+                <Link href="/blogs">Blogs</Link>
+                <Link href="/community">Community</Link>
+              </div>
+              <div class="info">
+                <h4>Services</h4>
+                <Link href="/it-robo">AI-Based Robo Advisor</Link>
+                <Link href="/consultant">Talk to a Consultant</Link>
+                <Link href="/d/tools_calculators/calculators">
+                  Tools & Calculator
+                </Link>
+              </div>
+              <div class="info">
+              <h4>Help</h4>
+              <Link href="/terms_and_conditions">Terms and Conditions</Link>
+              <Link href="/privacy_policy">Privacy Policy</Link>
+              <Link href="/contact-us">Contact Us</Link>
+              </div>
+            </div>
+            
             <div class="text-image-container">
               <p>
                 © {new Date().getFullYear()} {themeConfig.appName} All rights
