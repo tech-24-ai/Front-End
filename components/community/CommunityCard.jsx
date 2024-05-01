@@ -3,6 +3,7 @@ import moment from "moment";
 import { Image } from "antd";
 import Router from "next/router";
 import { ArrowRightOutlined, ArrowLeftOutlined, UsergroupAddOutlined, MessageOutlined, EyeOutlined } from "@ant-design/icons";
+import { crudService } from "../../_services";
 
 
 const CommunityCard = ({ data, key }) => {
@@ -16,7 +17,12 @@ const CommunityCard = ({ data, key }) => {
     };
 
     return (
-        <div className="community-card" data-index={key} key={key}>
+        <div className="community-card" data-index={key} key={key}
+            onClick={() => {
+                sessionStorage.setItem("community_id", data?.url_slug);
+                Router.push("community/community_detail");
+            }}
+            style={{cursor: "pointer"}}>
             <div className="community-card-header">
                 <Image
                     preview={false}
@@ -28,6 +34,7 @@ const CommunityCard = ({ data, key }) => {
                     width={64}
                     height={64}
                     style={{borderRadius: "4.8px"}}
+                   
                 />
                 <div className="community-title-header">
                     <h5>{data?.name}</h5>
