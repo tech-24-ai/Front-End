@@ -162,6 +162,15 @@
 
 //Tablet
 @media (min-width: 768px) and (max-width: 1440px) {
+  .trending-category-below {
+    .category-box .category-banner-wrapper {
+      margin-left: -10px;
+      margin-right: -5px;
+    }
+    .view-more-arrow {
+      margin-top: 12% !important;
+    }
+  }
 }
 
 /* ----------- iPad Pro ----------- */ /* Portrait and Landscape */

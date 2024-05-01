@@ -14,7 +14,7 @@ const LatestResearch = ({
   titleBorder = false,
   title = 'Latest <span class="title bg">Research</span>',
   data,
-  viewMore = true
+  viewMore = true,
 }) => {
   console.log("data", data);
 
@@ -32,23 +32,20 @@ const LatestResearch = ({
             {titleBorder && <span className="side-border-title"></span>}
             <span className="title" dangerouslySetInnerHTML={parsedTitle()} />
           </p>
-          {viewMore == true && <Link href="/market-research/research-list">
-            <p className="view-more">View more</p>
-          </Link>
-          }
+          {viewMore == true && (
+            <Link href="/market-research/research-list">
+              <p className="view-more">View more</p>
+            </Link>
+          )}
         </div>
 
         <div className="research-section">
           <div
             onClick={() => slider.current?.slickPrev()}
-            className="view-more-icon"
+            className="view-more-arrow previous-arrow"
             style={{
               left: "75px",
-              zIndex: "99",
               marginTop: "15%",
-              position: "absolute",
-              width: "36px",
-              height: "36px",
             }}
           >
             <ArrowLeftOutlined
@@ -60,14 +57,10 @@ const LatestResearch = ({
           </div>
           <div
             onClick={() => slider.current?.slickNext()}
-            className="view-more-icon"
+            className="view-more-arrow next-arrow"
             style={{
               right: "75px",
-              zIndex: "99",
               marginTop: "15%",
-              position: "absolute",
-              width: "36px",
-              height: "36px",
             }}
           >
             <ArrowRightOutlined
@@ -88,7 +81,7 @@ const LatestResearch = ({
                 breakpoint: 1200,
                 settings: {
                   slidesToShow: 2,
-                  dots: true,
+                  dots: false,
                 },
               },
               {
@@ -106,7 +99,11 @@ const LatestResearch = ({
             )}
           >
             {data?.map((item, index) => (
-              <ResearchCard data={item} key={index} redirectUrl={`/market-research/${item.seo_url_slug}`} />
+              <ResearchCard
+                data={item}
+                key={index}
+                redirectUrl={`/market-research/${item.seo_url_slug}`}
+              />
             ))}
           </Slider>
         </div>

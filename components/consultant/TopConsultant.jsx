@@ -44,13 +44,10 @@ const TopConsultant = ({ getAllCrud, consultants, authentication }) => {
         <div className="consultant-section">
           <div
             onClick={() => slider.current?.slickPrev()}
-            className="view-more-icon"
+            className="view-more-arrow previous-arrow"
             style={{
               left: "75px",
-              zIndex: "99",
-              position: "absolute",
-              width: "36px",
-              height: "36px",
+              marginTop: "12%",
             }}
           >
             <ArrowLeftOutlined
@@ -62,13 +59,10 @@ const TopConsultant = ({ getAllCrud, consultants, authentication }) => {
           </div>
           <div
             onClick={() => slider.current?.slickNext()}
-            className="view-more-icon"
+            className="view-more-arrow next-arrow"
             style={{
               right: "75px",
-              zIndex: "99",
-              position: "absolute",
-              width: "36px",
-              height: "36px",
+              marginTop: "12%",
             }}
           >
             <ArrowRightOutlined
@@ -89,11 +83,11 @@ const TopConsultant = ({ getAllCrud, consultants, authentication }) => {
                 breakpoint: 1200,
                 settings: {
                   slidesToShow: 2,
-                  dots: true,
+                  dots: false,
                 },
               },
               {
-                breakpoint: 600,
+                breakpoint: 767,
                 settings: {
                   slidesToShow: 1,
                   dots: true,

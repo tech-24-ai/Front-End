@@ -36,14 +36,10 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
         <div className="blog-section">
           <div
             onClick={() => slider.current?.slickPrev()}
-            className="view-more-icon"
+            className="view-more-arrow previous-arrow"
             style={{
               left: "75px",
               marginTop: "7%",
-              zIndex: "99",
-              position: "absolute",
-              width: "36px",
-              height: "36px",
             }}
           >
             <ArrowLeftOutlined
@@ -55,14 +51,10 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
           </div>
           <div
             onClick={() => slider.current?.slickNext()}
-            className="view-more-icon"
+            className="view-more-arrow next-arrow"
             style={{
               right: "75px",
-              zIndex: "99",
               marginTop: "7%",
-              position: "absolute",
-              width: "36px",
-              height: "36px",
             }}
           >
             <ArrowRightOutlined
@@ -83,11 +75,11 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
                 breakpoint: 1200,
                 settings: {
                   slidesToShow: 2,
-                  dots: true,
+                  dots: false,
                 },
               },
               {
-                breakpoint: 600,
+                breakpoint: 767,
                 settings: {
                   slidesToShow: 1,
                   dots: true,

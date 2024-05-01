@@ -1346,6 +1346,13 @@
   }
 }
 
+//Tablet
+@media (min-width: 768px) and (max-width: 1440px) {
+  .consultant-section {
+    margin: 0 -7px;
+  }
+}
+
 @media (max-width: 1440px) {
   .time-zone-selection,
   .skill-selection {
