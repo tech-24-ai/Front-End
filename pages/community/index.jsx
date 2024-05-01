@@ -179,7 +179,7 @@ const Community = ({ community, getAllCrud }) => {
         }
         image={isMobile ? "" : CommunityImage}
       />
-
+      
       <Container>
         <div className="top-rated">
           <div>
@@ -299,7 +299,7 @@ const Community = ({ community, getAllCrud }) => {
                 color: "#0074D9",
                 textDecoration: "underline",
                 cursor: "pointer",
-                marginRight: isMobile ? 0 : "3.5rem",
+                // marginRight: isMobile ? 0 : "3.5rem",
                 alignContent: "center"
               }}
               onClick={handleViewAll}
