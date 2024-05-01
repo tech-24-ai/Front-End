@@ -44,8 +44,9 @@ const LatestResearch = ({
             onClick={() => slider.current?.slickPrev()}
             className="view-more-arrow previous-arrow"
             style={{
-              left: "75px",
-              marginTop: "15%",
+              left: "-5px",
+              marginTop: "0px",
+              top: "48%",
             }}
           >
             <ArrowLeftOutlined
@@ -59,8 +60,9 @@ const LatestResearch = ({
             onClick={() => slider.current?.slickNext()}
             className="view-more-arrow next-arrow"
             style={{
-              right: "75px",
-              marginTop: "15%",
+              right: "-10px",
+              marginTop: "0",
+              top: "48%",
             }}
           >
             <ArrowRightOutlined
@@ -88,7 +90,7 @@ const LatestResearch = ({
                 breakpoint: 767,
                 settings: {
                   slidesToShow: 1,
-                  dots: true,
+                  dots: false,
                 },
               },
             ]}

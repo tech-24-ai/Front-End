@@ -329,8 +329,9 @@ const TrendingQuestion = ({ trendingQuestions }) => {
               onClick={() => slider.current?.slickPrev()}
               className="view-more-arrow previous-arrow"
               style={{
-                left: "72px",
-                marginTop: "7%",
+                left: "-15px",
+                marginTop: "0px",
+                top:'40%'
               }}
             >
               <ArrowLeftOutlined
@@ -344,8 +345,9 @@ const TrendingQuestion = ({ trendingQuestions }) => {
               onClick={() => slider.current?.slickNext()}
               className="view-more-arrow next-arrow"
               style={{
-                right: "76px",
-                marginTop: "7%",
+                right: "-17px",
+                marginTop: "0px",
+                top:'40%'
               }}
             >
               <ArrowRightOutlined
@@ -366,7 +368,7 @@ const TrendingQuestion = ({ trendingQuestions }) => {
                   breakpoint: 1200,
                   settings: {
                     slidesToShow: 2,
-                    dots: true,
+                    dots: false,
                   },
                 },
 
@@ -374,7 +376,7 @@ const TrendingQuestion = ({ trendingQuestions }) => {
                   breakpoint: 767,
                   settings: {
                     slidesToShow: 1,
-                    dots: true,
+                    dots: false,
                   },
                 },
               ]}

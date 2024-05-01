@@ -116,8 +116,9 @@ const CommunityCategory_former = ({ data, isloggedIn, toggleLoginPopup }) => {
                             onClick={() => slider.current?.slickPrev()}
                             className="view-more-arrow previous-arrow"
                             style={{
-                                left: "72px",
-                                marginTop: "9%",
+                                left: "-18px",
+                                marginTop: "0px",
+                                top:'33%'
                             }}
                         >
                             <ArrowLeftOutlined
@@ -131,8 +132,9 @@ const CommunityCategory_former = ({ data, isloggedIn, toggleLoginPopup }) => {
                             onClick={() => slider.current?.slickNext()}
                             className="view-more-arrow next-arrow"
                             style={{
-                                right: "76px",
-                                marginTop: "9%",
+                                right: "-18px",
+                                marginTop: "0px",
+                                top:"33%"
                             }}
                         >
                             <ArrowRightOutlined
@@ -153,7 +155,7 @@ const CommunityCategory_former = ({ data, isloggedIn, toggleLoginPopup }) => {
                                     breakpoint: 1200,
                                     settings: {
                                         slidesToShow: 2,
-                                        dots: true,
+                                        dots: false,
                                     },
                                 },
 
@@ -161,7 +163,7 @@ const CommunityCategory_former = ({ data, isloggedIn, toggleLoginPopup }) => {
                                     breakpoint: 767,
                                     settings: {
                                         slidesToShow: 1,
-                                        dots: true,
+                                        dots: false,
                                     },
                                 },
                             ]}

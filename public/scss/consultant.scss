@@ -1153,7 +1153,7 @@
     padding: 0;
     margin: 0;
   }
-  margin: 4rem 0;
+  margin: 4rem 0 1rem 0;
   .title-section {
     margin-top: 40px;
     display: flex;
@@ -1186,6 +1186,7 @@
 
   .consultant-section {
     color: #00192f;
+    position: relative;
 
     .slick-slider .slick-list .slick-track {
       gap: 1rem;

@@ -1,6 +1,6 @@
 .trending-category-below {
   width: 100%;
-
+  position: relative;
   .container {
     padding-left: 100px;
     padding-right: 100px;
@@ -142,7 +142,7 @@
   .trending-category-below .category-box .category-banner-wrapper {
     margin: 0 -10px;
      .view-more-arrow {
-      margin-top: 9% !important;
+      // margin-top: 9% !important;
     }
   }
 }
@@ -222,7 +222,7 @@
       margin-right: -5px;
     }
     .view-more-arrow {
-      margin-top: 12% !important;
+      // margin-top: 12% !important;
     }
   }
 }

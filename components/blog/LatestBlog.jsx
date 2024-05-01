@@ -38,8 +38,9 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
             onClick={() => slider.current?.slickPrev()}
             className="view-more-arrow previous-arrow"
             style={{
-              left: "75px",
-              marginTop: "7%",
+              left: "-8px",
+              marginTop: "0px",
+              top:'45%'
             }}
           >
             <ArrowLeftOutlined
@@ -53,8 +54,9 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
             onClick={() => slider.current?.slickNext()}
             className="view-more-arrow next-arrow"
             style={{
-              right: "75px",
-              marginTop: "7%",
+              right: "-14px",
+              marginTop: "0px",
+              top:'45%'
             }}
           >
             <ArrowRightOutlined
@@ -82,7 +84,7 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
                 breakpoint: 767,
                 settings: {
                   slidesToShow: 1,
-                  dots: true,
+                  dots: false,
                 },
               },
             ]}

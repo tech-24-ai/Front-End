@@ -375,6 +375,7 @@
       }
     }
     color: #00192f;
+    position: relative;
     .blog-list,
     .showHoverClass {
       width: 33.33%;
@@ -566,9 +567,9 @@
   }
   .blog-section {
     margin: 0 -10px;
-    .view-more-arrow {
-      margin-top: 10% !important;
-    }
+    // .view-more-arrow {
+    //   margin-top: 10% !important;
+    // }
   }
 
   .blogs-section {
