@@ -245,9 +245,9 @@ function Header(props) {
                           |
                         </NavItem>
 
-                        <NavItem>
+                        {/* <NavItem>
                           <img src="/new_images/search.svg" alt="search" />
-                        </NavItem>
+                        </NavItem> */}
 
                         {isloggedIn && (
                           <NavItem style={{ margin: 0 }}>
@@ -264,7 +264,7 @@ function Header(props) {
                           <NavItem>
                             <Link href="/login">
                               <Button color="light" className="px-4">
-                                Sign up
+                                Sign In
                               </Button>
                             </Link>
                           </NavItem>
@@ -314,7 +314,7 @@ function Header(props) {
                     <NavItem>
                       <Link href="/login">
                         <Button color="light" className="px-4">
-                          Sign up
+                        Sign In
                         </Button>
                       </Link>
                     </NavItem>

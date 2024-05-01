@@ -245,9 +245,9 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     />
                   </div>
                   <div className="profile" style={{ flexDirection: "column" }}>
-                    <h5>{communityQuestionDetail?.visitor?.name}</h5>
+                    <h5>{communityQuestionDetail?.title}</h5>
                     <p>
-                      {calculateTimeAgo(communityQuestionDetail?.created_at)}
+                    {communityQuestionDetail?.visitor?.name}{"("}{calculateTimeAgo(communityQuestionDetail?.created_at)}{")"}
                     </p>
                   </div>
                 </div>
@@ -516,7 +516,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       <h6>
                         Upvote <p></p> {answer?.__meta__?.total_helpful}
                       </h6>
-                      <div className="left-border">
+                      {/* <div className="left-border">
                         <Image
                           loader={myImageLoader}
                           style={{ borderRadius: "5px", cursor: "pointer" }}
@@ -529,7 +529,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                             voteCommunityPostReplies(answer, 0);
                           }}
                         />
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                   }
@@ -746,7 +746,9 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                   marginTop: "1rem",
                 }}
               >
-                <div className="cards-header">
+                <div className="cards-header" style={{
+                  justifyContent : 'flex-start'
+                }}>
                   <Image
                     loader={myImageLoader}
                     style={{ borderRadius: "2px" }}

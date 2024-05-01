@@ -206,7 +206,8 @@ function ConsultantFilter({ data, setState, setSearchText, isCompany }) {
 
   return (
     <Fragment>
-      <BrowserView>
+      {
+        isMobile == false && <BrowserView>
         <div className="filter-section">
           <SearchInput
             placeholder={
@@ -239,7 +240,9 @@ function ConsultantFilter({ data, setState, setSearchText, isCompany }) {
           />
         </div>
       </BrowserView>
-      <MobileView>
+      }
+      {
+        isMobile == true && <MobileView>
         <div className="filter-section">
           <SearchInput
             placeholder={
@@ -277,6 +280,7 @@ function ConsultantFilter({ data, setState, setSearchText, isCompany }) {
           />
         </div>
       </MobileView>
+      }
       {Object.keys(data).length > 0 && (
         <div className="filtered-item-container">
           {Object.keys(data).map((key) =>

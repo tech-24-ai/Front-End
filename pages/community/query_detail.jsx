@@ -358,6 +358,7 @@ const Community = ({ router }) => {
                       marginTop: "-1rem",
                       height: "280px",
                       paddingRight: "0px",
+                      flex: "0 0 calc(50%  - 20px)"
                     }}
                   >
                     <div className="category-box">

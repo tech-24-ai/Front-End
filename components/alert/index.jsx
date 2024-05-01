@@ -120,6 +120,7 @@ class AlertComponent extends React.PureComponent {
               }
               .ant-modal-footer {
                 text-align: center !important;
+                justify-content: center;
               }
               .ant-modal-footer span {
                 font-weight: bold;

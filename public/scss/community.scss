@@ -228,6 +228,7 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 1rem;
+    align-items: center;
 
     .title {
       color: #54616c;
@@ -654,11 +655,11 @@
   }
 }
 
-.category-box{
-  .swiper{
-    .swiper-pagination-bullets{
+.category-box {
+  .swiper {
+    .swiper-pagination-bullets {
       height: 30px !important;
-      .swiper-pagination-bullet{
+      .swiper-pagination-bullet {
         height: 20px;
         width: 20px;
       }

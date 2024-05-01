@@ -769,15 +769,6 @@
   }
 }
 
-@media (min-width: 1600px) {
-  .consultant-list-container {
-    .consultant-list-item {
-      max-width: 504px;
-      min-width: 504px;
-    }
-  }
-}
-
 // consultants details page scss
 .consultant-details-page-section {
   padding: 2rem 0;
@@ -1158,7 +1149,6 @@
 }
 
 .top-consultant {
-
   p {
     padding: 0;
     margin: 0;
@@ -1169,8 +1159,9 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 1rem;
+    align-items: center;
 
-    .title {  
+    .title {
       color: #54616c;
       font-weight: 400;
       font-size: 1.5rem;
@@ -1194,24 +1185,27 @@
   }
 
   .consultant-section {
+    color: #00192f;
+
     .slick-slider .slick-list .slick-track {
       gap: 1rem;
       display: flex;
     }
     .slick-slider {
-      .slick-next{
+      .slick-next {
         right: 10px !important;
       }
-      .slick-prev{
+      .slick-prev {
         left: -5px !important;
         z-index: 1;
       }
-      .slick-next::before{
-        color: #0074D9;
+      .slick-next::before {
+        color: #0074d9;
         font-size: 35px;
         opacity: 1 !important;
-      }.slick-prev::before{
-        color: #0074D9;
+      }
+      .slick-prev::before {
+        color: #0074d9;
         opacity: 1 !important;
         font-size: 35px;
       }
@@ -1221,7 +1215,7 @@
       }
 
       .slick-dots li button:before {
-        color: #0074D9;
+        color: #0074d9;
         font-size: 12px;
         margin-top: -3px;
         opacity: 1;
@@ -1234,10 +1228,10 @@
         width: 2rem;
         height: 0.75rem;
         border-radius: 1000px;
-        background-color: #0074D9;
+        background-color: #0074d9;
       }
     }
-    color: #00192f;
+
     .consultant-list {
       .h1-hidden {
         display: none;
@@ -1275,7 +1269,7 @@
       .consultant-card {
         // border: 1px solid #54616c;
         border-radius: 8px;
-        .ant-image{
+        .ant-image {
           width: 100%;
         }
         img.ant-image-img {
@@ -1323,6 +1317,21 @@
   .title-section {
     .date-icon {
       display: none;
+    }
+  }
+}
+
+@media (min-width: 1441px) {
+  .consultant-section {
+    margin: 0 -10px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .consultant-list-container {
+    .consultant-list-item {
+      max-width: 504px;
+      min-width: 504px;
     }
   }
 }
@@ -2434,12 +2443,16 @@
       }
     }
   }
-  .consultant-page-section.create-meeting .page-content .left-section .title-section, .consultant-page-section.payment .page-content .left-section .title-section {
+  .consultant-page-section.create-meeting
+    .page-content
+    .left-section
+    .title-section,
+  .consultant-page-section.payment .page-content .left-section .title-section {
     padding: 1rem 0;
     display: flex;
     align-items: center;
     width: 80%;
-}
+  }
 }
 // feedback-page css
 @media (max-width: 1440px) {

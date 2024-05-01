@@ -7,8 +7,7 @@ import { connect } from "react-redux";
 import { Image } from "antd";
 import Router, { withRouter } from "next/router";
 import Slider from "react-slick";
-const TopConsultant = ({ getAllCrud, consultants,authentication  }) => {
-
+const TopConsultant = ({ getAllCrud, consultants, authentication }) => {
   const { loggedIn } = authentication;
   const slider = useRef();
   useEffect(() => {
@@ -47,7 +46,7 @@ const TopConsultant = ({ getAllCrud, consultants,authentication  }) => {
             onClick={() => slider.current?.slickPrev()}
             className="view-more-icon"
             style={{
-              left: "90px",
+              left: "75px",
               zIndex: "99",
               position: "absolute",
               width: "36px",
@@ -65,7 +64,7 @@ const TopConsultant = ({ getAllCrud, consultants,authentication  }) => {
             onClick={() => slider.current?.slickNext()}
             className="view-more-icon"
             style={{
-              right: "90px",
+              right: "75px",
               zIndex: "99",
               position: "absolute",
               width: "36px",
@@ -87,7 +86,7 @@ const TopConsultant = ({ getAllCrud, consultants,authentication  }) => {
             arrows={false}
             responsive={[
               {
-                breakpoint: 1024,
+                breakpoint: 1200,
                 settings: {
                   slidesToShow: 2,
                   dots: true,
@@ -109,9 +108,12 @@ const TopConsultant = ({ getAllCrud, consultants,authentication  }) => {
           >
             {consultants?.slice(0, 3).map((data) => (
               <div className="consultant-list">
-                <div className="consultant-card hover" onClick={() => {
-                  goToProfilePage(data.id)
-                }}>
+                <div
+                  className="consultant-card hover"
+                  onClick={() => {
+                    goToProfilePage(data.id);
+                  }}
+                >
                   <Image
                     preview={false}
                     src={

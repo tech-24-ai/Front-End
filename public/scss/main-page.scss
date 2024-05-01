@@ -62,10 +62,8 @@ section.explore-wrapper {
     }
 
     .slick-dots li button:before {
-      color: #fff;
-      font-size: 12px;
+      color: #fff !important;
       margin-top: -3px;
-      opacity: 1;
       &.slick-active {
         content: "";
       }
@@ -159,7 +157,9 @@ section.explore-wrapper {
   }
 
   .explore-wrapper {
+    height: 100vh !important;
     .content-wrapper {
+      margin: 0;
       .content-title-wrapper {
         .main-title {
           font-size: 1.75rem;
@@ -171,12 +171,6 @@ section.explore-wrapper {
           line-height: 1.5rem;
         }
       }
-    }
-  }
-
-  section.explore-wrapper {
-    .content-wrapper {
-      margin: 0;
     }
   }
 }

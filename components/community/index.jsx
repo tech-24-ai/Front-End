@@ -159,15 +159,15 @@ class CommunityCategory extends React.PureComponent {
             <Fragment>
               <Swiper
                 spaceBetween={50}
-                slidesPerView={isMobile ? 1 : 3}
+                slidesPerView={isMobile == true ? 1 : 3}
                 // pagination={isMobile ? { clickable: true } : false} 
                 pagination={
-                  isMobile
+                  isMobile == true
                     ? {
                       clickable: true,
                       renderBullet: function (index, className) {
                         if (index < 6) {
-                          return `<span class="${className}" style="margin-top: -10px;"></span>`;
+                          return `<span class="${className}" style="margin-top: 10px;"></span>`;
                         } else {
                           return '';
                         }

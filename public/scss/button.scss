@@ -133,7 +133,7 @@
       border-top-left-radius: 5px;
       border-bottom-left-radius: 5px;
       height: 40px;
-       background-color: $backgroundColor;
+      background-color: $backgroundColor;
 
       color: $white;
       text-align: center;
@@ -225,6 +225,20 @@
 
     &:active {
       background-color: rgba($backgroundColor, 0.4);
+    }
+  }
+
+  &.with-bg-secondary {
+    background-color: $themeSecondary;
+    border: none;
+    &:hover {
+      background-color: rgba($themeSecondary, 0.4);
+      color: $themeSecondary;
+    }
+
+    &:active {
+      background-color: rgba($themeSecondary, 0.4);
+      color: $themeSecondary;
     }
   }
 

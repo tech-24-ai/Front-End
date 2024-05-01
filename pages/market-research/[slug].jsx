@@ -7,7 +7,7 @@ import ResearchCard from "../../components/marketResearch/ResearchCard";
 import moment from "moment";
 import { ShareAltOutlined, SaveOutlined } from "@ant-design/icons";
 import CustomBreadcrumb from "../../components/breadcrumbs/Breadcrumb";
-import { MobileView, BrowserView } from "react-device-detect";
+import { MobileView, BrowserView, isMobile } from "react-device-detect";
 import BodyBackgroundColor from "../../components/style/bodyBackgroundColor";
 import { BookmarkIcon } from "../../components/icons";
 
@@ -99,64 +99,35 @@ function Detail({
             )}
           </div>
         </div>
-        <BrowserView>
-          <div className="research-content-wrapper">
-            <div className="research-content-section">
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: html,
-                }}
-              ></div>
-              {(research_detail?.document_content_type == 1 ||
-                research_detail?.document_content_type == 2) && (
-                <iframe
-                  src={research_detail?.url}
-                  height="500"
-                  width="100%"
-                  frameBorder="0"
-                  allowFullScreen=""
-                  title="market research"
-                  className="mt-4"
-                />
-              )}
-            </div>
-            <div className="related-research-section">
-              <div className="download-report-card">
-                <h6 className="heading">{research_detail?.name}</h6>
-                <p className="content">{research_detail?.details}</p>
-                <button
-                  className="custom-btn with-bg"
-                  onClick={() => handleDocumentDownload(research_detail)}
-                  style={{
-                    display:
-                      research_detail?.document_content_type == 3
-                        ? "block"
-                        : "none",
-                  }}
-                >
-                  Download Report
-                </button>
-              </div>
-              {research_detail?.related_research.length > 0 && (
-                <Fragment>
-                  <h6 className="heading">Related Research</h6>
-                  <div className="related-research-wrapper">
-                    {research_detail?.related_research.map((data, index) => (
-                      <ResearchCard data={data} key={index} />
-                    ))}
-                  </div>
-                </Fragment>
-              )}
-            </div>
+       {
+        isMobile == false &&  <BrowserView>
+        <div className="research-content-wrapper">
+          <div className="research-content-section">
+            <div
+              dangerouslySetInnerHTML={{
+                __html: html,
+              }}
+            ></div>
+            {(research_detail?.document_content_type == 1 ||
+              research_detail?.document_content_type == 2) && (
+              <iframe
+                src={research_detail?.url}
+                height="500"
+                width="100%"
+                frameBorder="0"
+                allowFullScreen=""
+                title="market research"
+                className="mt-4"
+              />
+            )}
           </div>
-        </BrowserView>
-        <MobileView>
-          <div className="research-content-wrapper">
+          <div className="related-research-section">
             <div className="download-report-card">
               <h6 className="heading">{research_detail?.name}</h6>
               <p className="content">{research_detail?.details}</p>
               <button
                 className="custom-btn with-bg"
+                onClick={() => handleDocumentDownload(research_detail)}
                 style={{
                   display:
                     research_detail?.document_content_type == 3
@@ -167,39 +138,72 @@ function Detail({
                 Download Report
               </button>
             </div>
-            <div className="research-content-section">
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: html,
-                }}
-              ></div>
-              {(research_detail?.document_content_type == 1 ||
-                research_detail?.document_content_type == 2) && (
-                <iframe
-                  src={research_detail?.url}
-                  height="300"
-                  width="100%"
-                  frameborder="0"
-                  allowfullscreen=""
-                  title="market research"
-                  className="mt-4"
-                />
-              )}
-            </div>
-            <div className="related-research-section">
-              {research_detail?.related_research.length > 0 && (
-                <Fragment>
-                  <h6 className="heading">Related Research</h6>
-                  <div className="related-research-wrapper">
-                    {research_detail?.related_research.map((data, index) => (
-                      <ResearchCard data={data} key={index} />
-                    ))}
-                  </div>
-                </Fragment>
-              )}
-            </div>
+            {research_detail?.related_research.length > 0 && (
+              <Fragment>
+                <h6 className="heading">Related Research</h6>
+                <div className="related-research-wrapper">
+                  {research_detail?.related_research.map((data, index) => (
+                    <ResearchCard data={data} key={index} />
+                  ))}
+                </div>
+              </Fragment>
+            )}
           </div>
-        </MobileView>
+        </div>
+      </BrowserView>
+       }
+       {
+        isMobile == true &&  <MobileView>
+        <div className="research-content-wrapper">
+          <div className="download-report-card">
+            <h6 className="heading">{research_detail?.name}</h6>
+            <p className="content">{research_detail?.details}</p>
+            <button
+              className="custom-btn with-bg"
+              style={{
+                display:
+                  research_detail?.document_content_type == 3
+                    ? "block"
+                    : "none",
+              }}
+            >
+              Download Report
+            </button>
+          </div>
+          <div className="research-content-section">
+            <div
+              dangerouslySetInnerHTML={{
+                __html: html,
+              }}
+            ></div>
+            {(research_detail?.document_content_type == 1 ||
+              research_detail?.document_content_type == 2) && (
+              <iframe
+                src={research_detail?.url}
+                height="300"
+                width="100%"
+                frameborder="0"
+                allowfullscreen=""
+                title="market research"
+                className="mt-4"
+              />
+            )}
+          </div>
+          <div className="related-research-section">
+            {research_detail?.related_research.length > 0 && (
+              <Fragment>
+                <h6 className="heading">Related Research</h6>
+                <div className="related-research-wrapper">
+                  {research_detail?.related_research.map((data, index) => (
+                    <ResearchCard data={data} key={index} />
+                  ))}
+                </div>
+              </Fragment>
+            )}
+          </div>
+        </div>
+      </MobileView>
+       }
       </Container>
       {css && <BodyBackgroundColor style={css} />}
     </section>

@@ -234,11 +234,11 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
   const voteCommunity = (data, type) => {
     crudService
       ._create("communitypost/vote", {
-        community_post_id: data?.community_id,
+        community_post_id: data?.id,
         vote_type: type,
       })
       .then((data) => {
-        data.status == 200 && fetchCommunityData();
+        data.status == 200 && setUpdateCom(true);
       });
   };
 
@@ -342,7 +342,8 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       cursor: "pointer",
                     }}
                   >
-                    {communityQuestionDetail?.title}
+                    {communityQuestionDetail?.title && communityQuestionDetail?.title.length > 30 ? 
+                    `${communityQuestionDetail?.title.substring(0, 30)}...` : communityQuestionDetail?.title}
                   </span>
           </h4>
         </div>
@@ -375,7 +376,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     {/* <span className="label-counter">18</span> */}
                   </div>
                   <div className="profile" style={{ flexDirection: "column" }}>
-                    <h5>{communityQuestionDetail?.visitor?.name}</h5>
+                    <h5>{communityQuestionDetail?.title}</h5>
                     <p>
                       {/* {!isMobile && (
                       <>
@@ -383,13 +384,13 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                         <div className="custom-border"></div>
                       </>
                     )} */}
-                      {calculateTimeAgo(communityQuestionDetail?.created_at)}
+                      {communityQuestionDetail?.visitor?.name} {" ("}{calculateTimeAgo(communityQuestionDetail?.created_at)}{")"}
                     </p>
                   </div>
                 </div>
 
-                <div className="follow">
-                  {/* <p className="button">Follow</p> */}
+                {/* <div className="follow">
+                 
                   <div className="img" onClick={openShareModal}>
                     <Image
                       loader={myImageLoader}
@@ -402,7 +403,6 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     />
                   </div>
 
-                  {/* Modal for share/report */}
                   <Modal
                     visible={
                       shareModalVisible ||
@@ -482,8 +482,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       </a>
                     </div>
                   </Modal>
-                  {/* Social Sharing */}
-                  <Modal
+                 <Modal
                     visible={socialModalVisible}
                     onCancel={handleModalClose}
                     footer={null}
@@ -606,7 +605,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       </div>
                     </div>
                   </Modal>
-                  {/* Report */}
+                 
 
                   <Modal
                     visible={reportModalVisible}
@@ -716,8 +715,8 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       </div>
                     </Form>
                   </Modal>
-                  {/* Modal for share/report above*/}
-                </div>
+                
+                </div> */}
               </div>
               <p className="para">
                 <span
@@ -781,7 +780,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     Upvote <p></p>{" "}
                     {communityQuestionDetail?.__meta__?.total_helpful}
                   </h6>
-                  <div className="left-border">
+                  {/* <div className="left-border">
                     <Image
                       loader={myImageLoader}
                       style={{ borderRadius: "5px", cursor: "pointer" }}
@@ -794,7 +793,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                         voteCommunity(communityQuestionDetail, 0);
                       }}
                     />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </Card>
@@ -1019,7 +1018,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                 <h6>
                   Upvote <p></p> {answer?.__meta__?.total_helpful}
                 </h6>
-                <div className="left-border">
+                {/* <div className="left-border">
                   <Image
                     loader={myImageLoader}
                     style={{ borderRadius: "5px", cursor: "pointer" }}
@@ -1032,7 +1031,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       voteCommunityPostReplies(answer, 0);
                     }}
                   />
-                </div>
+                </div> */}
               </div>
             </div>
             }
@@ -1384,7 +1383,9 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                   marginTop: "1rem",
                 }}
               >
-                <div className="cards-header">
+                <div className="cards-header" style={{
+                  justifyContent : 'flex-start'
+                }}>
                   <Image
                     loader={myImageLoader}
                     style={{ borderRadius: "2px" }}

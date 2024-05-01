@@ -22,7 +22,6 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
     });
   }, []);
 
-  
   return (
     <Container>
       <div className="latest-blog hover">
@@ -39,7 +38,8 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
             onClick={() => slider.current?.slickPrev()}
             className="view-more-icon"
             style={{
-              left: "100px",
+              left: "75px",
+              marginTop: "7%",
               zIndex: "99",
               position: "absolute",
               width: "36px",
@@ -57,8 +57,9 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
             onClick={() => slider.current?.slickNext()}
             className="view-more-icon"
             style={{
-              right: "95px",
+              right: "75px",
               zIndex: "99",
+              marginTop: "7%",
               position: "absolute",
               width: "36px",
               height: "36px",
@@ -79,7 +80,7 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
             arrows={false}
             responsive={[
               {
-                breakpoint: 1024,
+                breakpoint: 1200,
                 settings: {
                   slidesToShow: 2,
                   dots: true,
@@ -99,8 +100,8 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
               </div>
             )}
           >
-            {blogs?.slice(0, 3).map((data, index) => (              
-                // <Link href={`/blogs/${data.slug}`} key={index}>
+            {blogs?.slice(0, 3).map((data, index) => (
+              // <Link href={`/blogs/${data.slug}`} key={index}>
               <div
                 onClick={() => Router.push(`/blogs/${data.slug}`)}
                 onMouseOver={() => setShowHoverClass(index)}
@@ -136,15 +137,14 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
                     <div className="date">
                       {moment(data.created_at).format("LL")}
                     </div>
-                    <div className="custom-divider"></div>
-                    {/* {<div className="time">10 min read</div>} */}
+                    {/* <div className="custom-divider"></div>
+                    {<div className="time">10 min read</div>} */}
                   </div>
                 </div>
               </div>
               // </Link>
             ))}
           </Slider>
-        
         </div>
       </div>
     </Container>
