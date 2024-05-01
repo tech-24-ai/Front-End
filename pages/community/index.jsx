@@ -1,20 +1,17 @@
 import { useState, useEffect } from "react";
-import { withRouter } from "next/router";
 import { Container, Input } from "reactstrap";
 import { crudService } from "../../_services";
-
 import CommunityImage from "../../public/images/communityList.png";
-
-import Router from "next/router";
 import { crudActions } from "../../_actions";
 import { connect } from "react-redux";
 import PageBanner from "../../components/card/pageBanner";
 import { SearchOutlined } from "@ant-design/icons";
-
+import SearchInput from "../../components/form/searchInput";
 import React from "react";
 import { TreeSelect } from "antd";
 
 const unProtectedRoutes = ["/community", "/community/[detail]"];
+import Router, { withRouter } from "next/router";
 
 import CommunityCategory from "../../components/community/index";
 import TrendingCategory from "../../components/community/trending";
@@ -22,7 +19,7 @@ import Link from "next/link";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { isMobile } from "react-device-detect";
 
-const Community = ({ community, getAllCrud }) => {
+const Community = ({ community, getAllCrud, router }) => {
   const [posts, setPosts] = useState([]);
   const [fnColor, setFnColor] = useState("");
   const [isActive, setIsActive] = useState("All");
@@ -34,6 +31,7 @@ const Community = ({ community, getAllCrud }) => {
   const [allCommunityFeature, setAllCommunityFeature] = useState([]);
   const [topRatedCommunityFeature, setTopRatedCommunityFeature] = useState([]);
   const [trendingQuestions, setTrendingQuestions] = useState([]);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,6 +49,7 @@ const Community = ({ community, getAllCrud }) => {
 
     fetchData();
   }, []);
+  
   useEffect(() => {
     const fetchTrendingQuestions = async () => {
       try {
@@ -64,20 +63,23 @@ const Community = ({ community, getAllCrud }) => {
     fetchTrendingQuestions();
   }, []);
 
+
   useEffect(() => {
     const searchPosts = async () => {
       try {
-        const data = await crudService._getAll("community", { search: value });
-        // console.log("data", data);
-        setCommunityFeature(data.data);
+        const timeoutId = setTimeout(async () => {
+          const data = await crudService._getAll("community", { search: value });
+          setCommunityFeature(data.data);
+        }, 2000);
+        return () => clearTimeout(timeoutId);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-    setTimeout(() => {
-      searchPosts();
-    }, 300);
+
+    searchPosts();
   }, [value]);
+  
 
   const handleViewAll = () => {
     Router.push("/community/query_detail");
@@ -129,7 +131,7 @@ const Community = ({ community, getAllCrud }) => {
     const selectedTopRatedCommunity = topRatedCommunityFeature.find(
       (feature) => feature.name === newValue
     );
-
+   
     setAllCommunityFeature(selectedAllCommunity ? [selectedAllCommunity] : []);
     setTopRatedCommunityFeature(
       selectedTopRatedCommunity ? [selectedTopRatedCommunity] : []
@@ -140,6 +142,8 @@ const Community = ({ community, getAllCrud }) => {
     });
     setValue(newValue);
   };
+  
+
 
   return (
     <section
@@ -158,7 +162,14 @@ const Community = ({ community, getAllCrud }) => {
               Get answer form our community of Experts
             </p>
             <div className="mt-4" style={styles.inputGroup}>
-              <TreeSelect
+              <SearchInput
+                placeholder="Search anything"
+                className="SearchInput bg"
+                value={value}
+                onChange={onChange}
+                suffix={<SearchOutlined style={{ color: "#1E96FF" }} />}
+              />
+              {/* <TreeSelect
                 allowClear
                 treeDataSimpleMode
                 defaultValue={value}
@@ -173,7 +184,7 @@ const Community = ({ community, getAllCrud }) => {
                 treeData={arrData}
                 style={{ width: "100%", height: "", color: "#fff" }}
                 suffixIcon={<SearchOutlined />}
-              />
+              /> */}
             </div>
           </div>
         }
