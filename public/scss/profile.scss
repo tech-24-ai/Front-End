@@ -2014,17 +2014,22 @@
 //  profile screen for small devices
 
 @media (max-width: 767px) {
-  .para {
-    color: #001622;
-    font-weight: 500;
-    font-size: 18px;
-    margin-top: 0.7rem;
-    line-height: 24px;
-    margin-bottom: 0.9rem;
+  
+  .first_tab_Space .input-container{
+    margin-left: 15px;
   }
-.sortby{
-  display: none;
-}
+
+  // .para {
+  //   color: #001622;
+  //   font-weight: 500;
+  //   font-size: 18px;
+  //   margin-top: 0.7rem;
+  //   line-height: 24px;
+  //   margin-bottom: 0.9rem;
+  // }
+  // .sortby{
+  //   display: none;
+  // }
   .profile-container .card-header-data .profile-badge {
     position: absolute;
     width: 30px;
@@ -2082,7 +2087,7 @@
   // tab1
   .profile-tab-container {
     margin: 0;
-    margin-left: 15px;
+ 
     hr {
       display: none;
     }
@@ -2148,12 +2153,16 @@
 }
 
 
-@media (min-width: 768px) and (max-width:1440px){
-  .col-md-9 {
+@media (max-width:1440px){
+ 
+  .profile_first_tab .col-md-3{
     max-width: 100%!important;
   }
-  .col-md-3 {
+   .profile_first_tab .col-md-9{
     max-width: 100%!important;
+  }
+  .first_tab_Space .input-container{
+    margin-left: 15px;
   }
   .profile-container .card-header-data .profile-badge {
     position: absolute;
@@ -2209,9 +2218,9 @@
     }
   }
   // tab1
+  
   .profile-tab-container {
     margin: 0;
-    margin-left: 15px;
     hr {
       display: none;
     }

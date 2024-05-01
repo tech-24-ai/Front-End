@@ -496,6 +496,7 @@ const Profile = ({
 
   const [searchQuery, setSearchQuery] = useState(q);
   const [filteredData, setFilteredData] = useState({});
+
   // const [researchData, setResearchData] = useState([]);
   const onPageChange = (page) => {
     setCurrentPage(page);
@@ -508,6 +509,8 @@ const Profile = ({
       setSortType(e.key);
     }
   };
+
+
 
   const menu = (
     <Menu onClick={handleMenuClick}>
@@ -736,8 +739,8 @@ const Profile = ({
     }
 
     return (
-      <div className="profile-tab-container">
-        <div className="input-container">
+      <div className="profile-tab-container first_tab_Space">
+        <div className="input-container ">
           <div>
             <h6>First Name</h6>
             <h5 style={{ textTransform: "capitalize" }}>{firstname || ""}</h5>
@@ -1274,7 +1277,7 @@ const Profile = ({
               tooltipVisible={false}
             />
           </div>
-          <div className="level-calculation">
+          <div className="col-md-12 level-calculation">
             <div>
               <p>
                 {visitor_profile_levels?.[0]?.total_points_earned}
@@ -1460,8 +1463,8 @@ const Profile = ({
     (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
   return (
     <Container>
-      <div className="profile-container row">
-        <div className=" col-md-9">
+      <div className="profile-container profile_first_tab row">
+        <div className="col-md-9">
           <Tabs
             className="header-tabs"
             defaultActiveKey="1"
