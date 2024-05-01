@@ -331,8 +331,9 @@ const styles = {
   },
   title: {
     color: "#FFFFFF",
-    fontSize: "40px",
-    fontWeight: 600,
+    fontSize: "32px",
+    fontWeight: 500,
+    
   },
   subtitle: {
     color: "#E0E0E0",
