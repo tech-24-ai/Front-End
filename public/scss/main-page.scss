@@ -90,8 +90,10 @@ section.explore-wrapper {
           border-radius: 17px;
           background-color: #1e1e1e;
           height: 270px !important;
+          min-height: 270px;
           background: linear-gradient(#000, #1e1e1e7a); // min-height: 14rem;
           backdrop-filter: blur(10px);
+
           &.slick-current {
             height: 300px !important;
           }
@@ -152,7 +154,22 @@ section.explore-wrapper {
   .category .slider-container .slick-list .slick-track .slick-slide {
     height: fit-content !important;
     &.slick-current {
-      height: fit-content !important;
+      height: 20rem !important;
+    }
+
+    .category-card {
+      .learn-more-btn {
+        position: absolute;
+        bottom: 30px;
+      }
+
+      .description {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
     }
   }
 
