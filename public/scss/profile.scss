@@ -2043,54 +2043,6 @@
 
 //  profile screen for small devices
 
-@media (max-width: 767px) {
-  .first_tab_Space .input-container {
-    margin-left: 15px;
-  }
-
-  // .para {
-  //   color: #001622;
-  //   font-weight: 500;
-  //   font-size: 18px;
-  //   margin-top: 0.7rem;
-  //   line-height: 24px;
-  //   margin-bottom: 0.9rem;
-  // }
-  // .sortby{
-  //   display: none;
-  // }
-  .profile-container .card-header-data .profile-badge {
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    color: #ffffff;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    right: auto;
-    top: 68px;
-    border: 1.5px solid #ffffff;
-    background-color: #0074d9;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-  }
-  .para {
-    color: #001622;
-    font-weight: 500;
-    font-size: 18px;
-    margin-top: 0.7rem;
-    line-height: 24px;
-    margin-bottom: 0.9rem;
-  }
-
-  .slider-one .ant-slider-mark-text {
-    bottom: 0px;
-    font-size: 7px;
-  }
-}
-
 @media (max-width: 1440px) {
   .main-content {
     padding-bottom: 25px;
@@ -2269,6 +2221,57 @@
     line-height: 24px;
     margin-bottom: 0.9rem;
     // scss for large devices
+  }
+}
+
+@media (max-width: 767px) {
+  .first_tab_Space .input-container {
+    margin-left: 15px;
+  }
+
+  // .para {
+  //   color: #001622;
+  //   font-weight: 500;
+  //   font-size: 18px;
+  //   margin-top: 0.7rem;
+  //   line-height: 24px;
+  //   margin-bottom: 0.9rem;
+  // }
+  // .sortby{
+  //   display: none;
+  // }
+  .profile-container .card-header-data .profile-badge {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: auto;
+    top: 68px;
+    border: 1.5px solid #ffffff;
+    background-color: #0074d9;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .para {
+    color: #001622;
+    font-weight: 500;
+    font-size: 18px;
+    margin-top: 0.7rem;
+    line-height: 24px;
+    margin-bottom: 0.9rem;
+  }
+
+  .slider-one .ant-slider-mark-text {
+    bottom: 0px;
+    font-size: 7px;
+  }
+  .community_search_small {
+    width: 85% !important;
   }
 }
 

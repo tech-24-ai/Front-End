@@ -298,98 +298,122 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
   };
 
   return (
-    <Container>
-      <div className="row">
-        <div className="col-md-12">
-          <h4 className="mt-4 mb-1">
-            <span
-              className="questions_font_12px"
-              onClick={() => handleCommunity()}
+    <>
+      {communityData && (
+        <Container>
+          <div className="row">
+            <div className="col-md-12">
+              <h4 className="mt-4 mb-1">
+                <span
+                  className="questions_font_12px"
+                  onClick={() => handleCommunity()}
+                  style={{
+                    color: "#B0B8BF",
+                    fontFamily: "Inter",
+                    fontSize: "14px",
+                    cursor: "pointer",
+                  }}
+                >
+                  Community <RightOutlined style={{ verticalAlign: "0" }} />
+                </span>{" "}
+                <span
+                  className="questions_font_12px"
+                  onClick={() => handleCommunityDetails()}
+                  style={{
+                    color: "#B0B8BF",
+                    fontFamily: "Inter",
+                    fontSize: "14px",
+                    cursor: "pointer",
+                  }}
+                >
+                  {communityData?.name}{" "}
+                  <RightOutlined style={{ verticalAlign: "0" }} />
+                </span>
+                <span
+                  className="questions_font_12px"
+                  style={{
+                    color: "#0074D9",
+                    fontFamily: "Inter",
+                    fontSize: "14px",
+                    cursor: "pointer",
+                  }}
+                >
+                  {communityQuestionDetail?.title &&
+                  communityQuestionDetail?.title.length > 30
+                    ? `${communityQuestionDetail?.title.substring(0, 30)}...`
+                    : communityQuestionDetail?.title}
+                </span>
+              </h4>
+            </div>
+          </div>
+          {communityQuestionDetail?.is_discussion_open == 0 && (
+            <div
               style={{
-                color: "#B0B8BF",
+                color: "#001622",
                 fontFamily: "Inter",
+                fontWeight: 400,
                 fontSize: "14px",
-                cursor: "pointer",
+                border: "1px solid #A6D6FF",
+                borderRadius: "8px",
+                padding: "10px 12px",
+                backgroundColor: "#EAF5FF",
+                marginTop: "2rem",
               }}
-            >
-              Community <RightOutlined style={{ verticalAlign: "0" }} />
-            </span>{" "}
-            <span
               className="questions_font_12px"
-              onClick={() => handleCommunityDetails()}
-              style={{
-                color: "#B0B8BF",
-                fontFamily: "Inter",
-                fontSize: "14px",
-                cursor: "pointer",
-              }}
             >
-              {communityData?.name}{" "}
-              <RightOutlined style={{ verticalAlign: "0" }} />
-            </span>
-            <span
-              className="questions_font_12px"
-              style={{
-                color: "#0074D9",
-                fontFamily: "Inter",
-                fontSize: "14px",
-                cursor: "pointer",
-              }}
-            >
-              {communityQuestionDetail?.title &&
-              communityQuestionDetail?.title.length > 30
-                ? `${communityQuestionDetail?.title.substring(0, 30)}...`
-                : communityQuestionDetail?.title}
-            </span>
-          </h4>
-        </div>
-      </div>
-      <div className="profile-container row" style={{ marginTop: "0" }}>
-        <div className="community-tab-container questions-tab-container community-detail-wrapper col-md-9">
-          <div className="cards-container">
-            <Card
-              bordered={true}
-              style={{
-                width: "100%",
-                height: "fit-content",
-                marginTop: "1rem",
-              }}
-            >
-              <div className="cards-header">
-                <div>
-                  <div className="img">
-                    <Image
-                      style={{ borderRadius: "5px", zIndex: "1" }}
-                      width={50}
-                      height={50}
-                      preview="false"
-                      src={
-                        communityQuestionDetail?.visitor?.profile_pic_url || ""
-                      }
-                      alt="profile"
-                    />
-                    {/* <span className="label-counter">18</span> */}
-                  </div>
-                  <div
-                    className="profile"
-                    style={{ flexDirection: "column", fontFamily: "Inter" }}
-                  >
-                    <h5>{communityQuestionDetail?.title}</h5>
-                    <p>
-                      {/* {!isMobile && (
+              Please note that this query has been closed and hances you cannot
+              post new responses to this query.{" "}
+            </div>
+          )}
+          <div className="profile-container row" style={{ marginTop: "0" }}>
+            <div className="community-tab-container questions-tab-container community-detail-wrapper col-md-9">
+              <div className="cards-container">
+                <Card
+                  bordered={true}
+                  style={{
+                    width: "100%",
+                    height: "fit-content",
+                    marginTop: "1rem",
+                  }}
+                >
+                  <div className="cards-header">
+                    <div>
+                      <div className="img">
+                        <Image
+                          style={{ borderRadius: "5px", zIndex: "1" }}
+                          width={50}
+                          height={50}
+                          preview="false"
+                          src={
+                            communityQuestionDetail?.visitor?.profile_pic_url ||
+                            ""
+                          }
+                          alt="profile"
+                        />
+                        {/* <span className="label-counter">18</span> */}
+                      </div>
+                      <div
+                        className="profile"
+                        style={{ flexDirection: "column", fontFamily: "Inter" }}
+                      >
+                        <h5>{communityQuestionDetail?.title}</h5>
+                        <p>
+                          {/* {!isMobile && (
                       <>
                         {communityQuestionDetail?.title}{" "}
                         <div className="custom-border"></div>
                       </>
                     )} */}
-                      {communityQuestionDetail?.visitor?.name} {" ("}
-                      {calculateTimeAgo(communityQuestionDetail?.created_at)}
-                      {")"}
-                    </p>
-                  </div>
-                </div>
+                          {communityQuestionDetail?.visitor?.name} {" ("}
+                          {calculateTimeAgo(
+                            communityQuestionDetail?.created_at
+                          )}
+                          {")"}
+                        </p>
+                      </div>
+                    </div>
 
-                {/* <div className="follow">
+                    {/* <div className="follow">
                  
                   <div className="img" onClick={openShareModal}>
                     <Image
@@ -717,85 +741,85 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                   </Modal>
                 
                 </div> */}
-              </div>
-              <p className="para questions_font_14px">
-                <span
-                  style={{
-                    fontFamily: "Inter",
-                  }}
-                  dangerouslySetInnerHTML={{
-                    __html: communityQuestionDetail?.description,
-                  }}
-                ></span>
-              </p>
-              <div className="chips">
-                {communityQuestionDetail?.postTags?.map((tag) => (
-                  <div
-                    style={{ fontFamily: "Inter" }}
-                    className="questions_font_10px"
-                  >
-                    {tag?.name}
                   </div>
-                ))}
-              </div>
-              {/* <div className="chips">
+                  <p className="para questions_font_14px">
+                    <span
+                      style={{
+                        fontFamily: "Inter",
+                      }}
+                      dangerouslySetInnerHTML={{
+                        __html: communityQuestionDetail?.description,
+                      }}
+                    ></span>
+                  </p>
+                  <div className="chips">
+                    {communityQuestionDetail?.postTags?.map((tag) => (
+                      <div
+                        style={{ fontFamily: "Inter" }}
+                        className="questions_font_10px"
+                      >
+                        {tag?.name}
+                      </div>
+                    ))}
+                  </div>
+                  {/* <div className="chips">
               <p>
                 {communityQuestionDetail?.__meta__?.total_post_replies} answers
               </p>
               <h6 className="custom-border"></h6>
               <p>{communityQuestionDetail?.views_counter} views</p>
             </div> */}
-              <div className="like-footer">
-                <p
-                  style={{
-                    fontWeight: 500,
-                    fontSize: "14px",
-                    fontFamily: "Inter",
-                    color: "#54616C",
-                    margin: "0",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                  className="questions_font_12px"
-                >
-                  <Image
-                    loader={myImageLoader}
-                    style={{ borderRadius: "5px", cursor: "pointer" }}
-                    width={16}
-                    height={16}
-                    preview="false"
-                    src={view_icon}
-                    alt="view-icon"
-                  />
-                  <span style={{ marginLeft: "5px" }}>
-                    {communityQuestionDetail?.views_counter} views
-                  </span>
-                </p>
-                <div className="rating questions_font_12px">
-                  <div>
-                    <Image
-                      loader={myImageLoader}
-                      style={{ borderRadius: "5px", cursor: "pointer" }}
-                      width={16}
-                      height={16}
-                      preview="false"
-                      src={like_button}
-                      alt="profile"
-                      onClick={() => {
-                        voteCommunity(communityQuestionDetail, 1);
+                  <div className="like-footer">
+                    <p
+                      style={{
+                        fontWeight: 500,
+                        fontSize: "14px",
+                        fontFamily: "Inter",
+                        color: "#54616C",
+                        margin: "0",
+                        display: "flex",
+                        alignItems: "center",
                       }}
-                    />
-                  </div>
-                  <h6
-                    className="questions_font_12px"
-                    style={{
-                      fontFamily: "Inter",
-                    }}
-                  >
-                    Upvote <p></p>{" "}
-                    {communityQuestionDetail?.__meta__?.total_helpful}
-                  </h6>
-                  {/* <div className="left-border">
+                      className="questions_font_12px"
+                    >
+                      <Image
+                        loader={myImageLoader}
+                        style={{ borderRadius: "5px", cursor: "pointer" }}
+                        width={16}
+                        height={16}
+                        preview="false"
+                        src={view_icon}
+                        alt="view-icon"
+                      />
+                      <span style={{ marginLeft: "5px" }}>
+                        {communityQuestionDetail?.views_counter} views
+                      </span>
+                    </p>
+                    <div className="rating questions_font_12px">
+                      <div>
+                        <Image
+                          loader={myImageLoader}
+                          style={{ borderRadius: "5px", cursor: "pointer" }}
+                          width={16}
+                          height={16}
+                          preview="false"
+                          src={like_button}
+                          alt="profile"
+                          onClick={() => {
+                            voteCommunity(communityQuestionDetail, 1);
+                          }}
+                        />
+                      </div>
+                      <h6
+                        className="questions_font_12px"
+                        style={{
+                          fontFamily: "Inter",
+                        }}
+                      >
+                        Upvote <p></p>{" "}
+                        {communityQuestionDetail?.__meta__?.total_helpful}
+                      </h6>
+                      {/* <div className="left-border">
                     <Image
                       loader={myImageLoader}
                       style={{ borderRadius: "5px", cursor: "pointer" }}
@@ -809,109 +833,135 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       }}
                     />
                   </div> */}
-                </div>
-              </div>
-            </Card>
-          </div>
-          <div style={{ marginTop: "2rem" }}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <div
-                  style={{
-                    borderLeft: "2px solid red",
-                    borderTopRightRadius: "4px",
-                    borderBottomRightRadius: "4px",
-                    borderColor: "#0074D9",
-                    borderWidth: "4px",
-                    height: isMobile ? "24px" : "26px",
-                  }}
-                ></div>
-                <div
-                  style={{
-                    fontWeight: 400,
-                    fontSize: "20px",
-                    fontFamily: "Poppins",
-                    color: "#54616C",
-                    marginLeft: "10px",
-                  }}
-                  className="questions_font_16px"
-                >
-                  Answers ({communityAnswers?.length})
-                </div>
-              </div>
-
-              {communityQuestionDetail?.is_discussion_open == 1 ? (
-                <div
-                  style={{
-                    fontSize: "14px",
-                    fontWeight: 500,
-                    fontFamily: "Inter",
-                    color: "#FFFFFF",
-                    padding: "4px 16px",
-                    borderRadius: "2px",
-                    backgroundColor: "#0074D9",
-                    cursor: "pointer",
-                  }}
-                  className="questions_font_12px"
-                  onClick={() => setIsModalOpen(true)}
-                >
-                  Answer this Question
-                </div>
-              ) : (
-                <></>
-              )}
-            </div>
-
-            <div
-              className="cards-container"
-              style={{
-                marginTop: 0,
-              }}
-            >
-              {communityAnswers?.map((answer) => (
-                <Card
-                  bordered={true}
-                  style={{
-                    width: "100%",
-                    height: "fit-content",
-                    marginTop: "1rem",
-                  }}
-                >
-                  <div className="cards-header">
-                    <div>
-                      <div className="img">
-                        <Image
-                          style={{ borderRadius: "5px", zIndex: "1" }}
-                          width={50}
-                          height={50}
-                          preview="false"
-                          src={
-                            answer?.visitor?.profile_pic_url ||
-                            "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
-                          }
-                          alt="profile"
-                        />
-                        {/* <span className="label-counter">18</span> */}
-                      </div>
-                      <div
-                        className="profile"
-                        style={{ flexDirection: "column" }}
-                      >
-                        <h5>{answer?.visitor?.name}</h5>
-                        <p>{calculateTimeAgo(answer?.created_at)}</p>
-                      </div>
                     </div>
+                  </div>
+                </Card>
+              </div>
+              <div style={{ marginTop: "2rem" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <div
+                      style={{
+                        borderLeft: "2px solid red",
+                        borderTopRightRadius: "4px",
+                        borderBottomRightRadius: "4px",
+                        borderColor: "#0074D9",
+                        borderWidth: "4px",
+                        height: isMobile ? "24px" : "26px",
+                      }}
+                    ></div>
+                    <div
+                      style={{
+                        fontWeight: 400,
+                        fontSize: "20px",
+                        fontFamily: "Poppins",
+                        color: "#54616C",
+                        marginLeft: "10px",
+                      }}
+                      className="questions_font_16px"
+                    >
+                      Answers ({communityAnswers?.length})
+                    </div>
+                  </div>
 
-                    <div className="follow">
-                      {/* <p className="button">Follow</p> */}
-                      <div className="img">
-                        {/* <Image
+                  {communityQuestionDetail?.is_discussion_open == 1 ? (
+                    <div
+                      style={{
+                        fontSize: "14px",
+                        fontWeight: 500,
+                        fontFamily: "Inter",
+                        color: "#FFFFFF",
+                        padding: "4px 16px",
+                        borderRadius: "2px",
+                        backgroundColor: "#0074D9",
+                        cursor: "pointer",
+                      }}
+                      className="questions_font_12px"
+                      onClick={() => setIsModalOpen(true)}
+                    >
+                      Answer this Question
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+
+                <div
+                  className="cards-container"
+                  style={{
+                    marginTop: 0,
+                  }}
+                >
+                  {communityAnswers?.map((answer) => (
+                    <Card
+                      bordered={true}
+                      style={{
+                        width: "100%",
+                        height: "fit-content",
+                        marginTop: "1rem",
+                      }}
+                    >
+                      <div className="cards-header">
+                        <div>
+                          <div className="img">
+                            <Image
+                              style={{ borderRadius: "5px", zIndex: "1" }}
+                              width={50}
+                              height={50}
+                              preview="false"
+                              src={
+                                answer?.visitor?.profile_pic_url ||
+                                "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                              }
+                              alt="profile"
+                            />
+                            {/* <span className="label-counter">18</span> */}
+                          </div>
+                          <div
+                            className="profile"
+                            style={{ flexDirection: "column" }}
+                          >
+                            <h5>{answer?.visitor?.name}</h5>
+                            <p>{calculateTimeAgo(answer?.created_at)}</p>
+                          </div>
+                          <div
+                            className="custom-border"
+                            style={{
+                              margin: "5px 10px",
+                              height: "20px",
+                              backgroundColor: "#D9DFE9",
+                              width: "1px",
+                            }}
+                          ></div>
+                          {answer?.is_correct_answer == 1 && (
+                            <div
+                              style={{
+                                border: "1px solid #FFCC00",
+                                borderRadius: "4px",
+                                padding: "6px 12px",
+                                fontFamily: "Inter",
+                                fontWeight: 500,
+                                fontSize: "12px",
+                                color: "#C79F00",
+                                height: "30px",
+                                backgroundColor: "rgba(255, 204, 0, 0.22)",
+                              }}
+                            >
+                              Best Answer
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="follow">
+                          {/* <p className="button">Follow</p> */}
+                          <div className="img">
+                            {/* <Image
                       loader={myImageLoader}
                       style={{ borderRadius: "2px", cursor: "pointer" }}
                       width={32}
@@ -920,20 +970,20 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       src={three_dot_icon}
                       alt="profile"
                     /> */}
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <p className="para questions_font_14px">
-                    <span
-                      style={{
-                        fontFamily: "Inter",
-                      }}
-                      dangerouslySetInnerHTML={{
-                        __html: answer?.description,
-                      }}
-                    ></span>
-                  </p>
-                  {/* <div
+                      <p className="para questions_font_14px">
+                        <span
+                          style={{
+                            fontFamily: "Inter",
+                          }}
+                          dangerouslySetInnerHTML={{
+                            __html: answer?.description,
+                          }}
+                        ></span>
+                      </p>
+                      {/* <div
                     style={{
                       fontWeight: 500,
                       fontSize: "14px",
@@ -944,110 +994,120 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                   >
                     Read More
                   </div> */}
-                  {/* <div className="chips">
+                      {/* <div className="chips">
                 {communityQuestionDetail?.postTags?.map((tag) => (
                   <div>{tag?.name}</div>
                 ))}
               </div> */}
-                  {/* <div className="chips">
+                      {/* <div className="chips">
               <p>
                 {communityQuestionDetail?.__meta__?.total_post_replies} answers
               </p>
               <h6 className="custom-border"></h6>
               <p>{communityQuestionDetail?.views_counter} views</p>
             </div> */}
-                  {communityQuestionDetail?.is_discussion_open == 1 && (
-                    <div
-                      className="like-footer"
-                      style={{ marginTop: "1.5rem" }}
-                    >
-                      <div style={{ display: "flex", alignItems: "center" }}>
+                      {communityQuestionDetail?.is_discussion_open == 1 && (
                         <div
-                          onClick={() =>
-                            setIsReplayModalOpen({
-                              isReplayModelOpen: true,
-                              details: answer,
-                            })
-                          }
-                          style={{
-                            border: "1px solid #D9DFE9",
-                            padding: "8px 12px",
-                            borderRadius: "4px",
-                            backgroundColor: "#D9DFE9",
-                            display: "flex",
-                            width: "7rem",
-                            cursor: "pointer",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                          className="hide_replies"
+                          className="like-footer"
+                          style={{ marginTop: "1.5rem" }}
                         >
-                          <Image
-                            loader={myImageLoader}
-                            style={{ borderRadius: "5px", cursor: "pointer" }}
-                            width={16}
-                            height={16}
-                            preview="false"
-                            src={reply_icon}
-                            alt="reply-icon"
-                          />
+                          <div
+                            style={{ display: "flex", alignItems: "center" }}
+                          >
+                            <div
+                              onClick={() =>
+                                setIsReplayModalOpen({
+                                  isReplayModelOpen: true,
+                                  details: answer,
+                                })
+                              }
+                              style={{
+                                border: "1px solid #D9DFE9",
+                                padding: "8px 12px",
+                                borderRadius: "4px",
+                                backgroundColor: "#D9DFE9",
+                                display: "flex",
+                                width: "7rem",
+                                cursor: "pointer",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                              className="hide_replies"
+                            >
+                              <Image
+                                loader={myImageLoader}
+                                style={{
+                                  borderRadius: "5px",
+                                  cursor: "pointer",
+                                }}
+                                width={16}
+                                height={16}
+                                preview="false"
+                                src={reply_icon}
+                                alt="reply-icon"
+                              />
 
-                          <div
-                            style={{
-                              fontSize: "14px",
-                              fontWeight: 500,
-                              fontFamily: "Inter",
-                              color: "#54616C",
-                              marginLeft: "5px",
-                            }}
-                            className="replies"
-                          >
-                            Reply
+                              <div
+                                style={{
+                                  fontSize: "14px",
+                                  fontWeight: 500,
+                                  fontFamily: "Inter",
+                                  color: "#54616C",
+                                  marginLeft: "5px",
+                                }}
+                                className="replies"
+                              >
+                                Reply
+                              </div>
+                            </div>
+                            {answer?.comments && answer?.comments.length > 0 ? (
+                              <div
+                                style={{
+                                  border: "1px solid #D9DFE9",
+                                  padding: "8px 12px",
+                                  borderRadius: "4px",
+                                  backgroundColor: "#F2F4F7",
+                                  fontSize: "14px",
+                                  fontWeight: 500,
+                                  fontFamily: "Inter",
+                                  color: "#54616C",
+                                  marginLeft: isMobile ? "6px" : "10px",
+                                  color: "#0074D9",
+                                  cursor: "pointer",
+                                }}
+                                className="questions_font_12px"
+                                onClick={() => setIsShowReplies(!isShowReplies)}
+                              >
+                                {isShowReplies
+                                  ? "Hide Replies"
+                                  : "View Replies"}
+                              </div>
+                            ) : (
+                              <></>
+                            )}
                           </div>
-                        </div>
-                        {answer?.comments && answer?.comments.length > 0 ? (
-                          <div
-                            style={{
-                              border: "1px solid #D9DFE9",
-                              padding: "8px 12px",
-                              borderRadius: "4px",
-                              backgroundColor: "#F2F4F7",
-                              fontSize: "14px",
-                              fontWeight: 500,
-                              fontFamily: "Inter",
-                              color: "#54616C",
-                              marginLeft: isMobile ? "6px" : "10px",
-                              color: "#0074D9",
-                              cursor: "pointer",
-                            }}
-                            className="questions_font_12px"
-                            onClick={() => setIsShowReplies(!isShowReplies)}
-                          >
-                            {isShowReplies ? "Hide Replies" : "View Replies"}
-                          </div>
-                        ) : (
-                          <></>
-                        )}
-                      </div>
-                      <div className="rating">
-                        <div>
-                          <Image
-                            loader={myImageLoader}
-                            style={{ borderRadius: "5px", cursor: "pointer" }}
-                            width={16}
-                            height={16}
-                            preview="false"
-                            src={like_button}
-                            alt="profile"
-                            onClick={() => {
-                              voteCommunityPostReplies(answer, 1);
-                            }}
-                          />
-                        </div>
-                        <h6 className="questions_font_12px">
-                          Upvote <p></p> {answer?.__meta__?.total_helpful}
-                        </h6>
-                        {/* <div className="left-border">
+                          <div className="rating">
+                            <div>
+                              <Image
+                                loader={myImageLoader}
+                                style={{
+                                  borderRadius: "5px",
+                                  cursor: "pointer",
+                                }}
+                                width={16}
+                                height={16}
+                                preview="false"
+                                src={like_button}
+                                alt="profile"
+                                onClick={() => {
+                                  voteCommunityPostReplies(answer, 1);
+                                }}
+                              />
+                            </div>
+                            <h6 className="questions_font_12px">
+                              Upvote <p></p> {answer?.__meta__?.total_helpful}
+                            </h6>
+                            {/* <div className="left-border">
                   <Image
                     loader={myImageLoader}
                     style={{ borderRadius: "5px", cursor: "pointer" }}
@@ -1061,67 +1121,67 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     }}
                   />
                 </div> */}
-                      </div>
-                    </div>
-                  )}
-
-                  {answer?.comments.length > 0 &&
-                    isShowReplies &&
-                    answer?.comments.map((comment) => (
-                      <>
-                        <hr className="dotted" />
-                        <div className="cards-header">
-                          <div>
-                            <div className="img">
-                              <Image
-                                style={{ borderRadius: "5px", zIndex: "1" }}
-                                width={50}
-                                height={50}
-                                preview="false"
-                                src={
-                                  comment?.visitor?.profile_pic_url ||
-                                  "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
-                                }
-                                alt="profile"
-                              />
-                              {/* <span className="label-counter">18</span> */}
-                            </div>
-                            <div
-                              className="profile"
-                              style={{
-                                flexDirection: "row",
-                                alignItems: "center",
-                                fontFamily: "Inter",
-                                marginTop: "-0.5rem",
-                              }}
-                            >
-                              <h5 className="questions_font_14px">
-                                {comment?.visitor?.name}
-                              </h5>
-                              <p
-                                style={{
-                                  margin: 0,
-                                  alignItems: "center",
-                                  fontFamily: "",
-                                }}
-                              >
-                                <div
-                                  className="custom-border"
-                                  style={{ margin: "0 5px", height: "8px" }}
-                                ></div>
-
-                                {calculateTimeAgo(comment?.created_at)}
-                              </p>
-                            </div>
                           </div>
+                        </div>
+                      )}
 
-                          <div className="follow">
-                            {/* <p className="button">Follow</p> */}
-                            <EyeOutlined
-                              title="view comments"
-                              onClick={() => viewComments(comment)}
-                            />
-                            {/* <div className="img">
+                      {answer?.comments.length > 0 &&
+                        isShowReplies &&
+                        answer?.comments.map((comment) => (
+                          <>
+                            <hr className="dotted" />
+                            <div className="cards-header">
+                              <div>
+                                <div className="img">
+                                  <Image
+                                    style={{ borderRadius: "5px", zIndex: "1" }}
+                                    width={50}
+                                    height={50}
+                                    preview="false"
+                                    src={
+                                      comment?.visitor?.profile_pic_url ||
+                                      "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                                    }
+                                    alt="profile"
+                                  />
+                                  {/* <span className="label-counter">18</span> */}
+                                </div>
+                                <div
+                                  className="profile"
+                                  style={{
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    fontFamily: "Inter",
+                                    marginTop: "-0.5rem",
+                                  }}
+                                >
+                                  <h5 className="questions_font_14px">
+                                    {comment?.visitor?.name}
+                                  </h5>
+                                  <p
+                                    style={{
+                                      margin: 0,
+                                      alignItems: "center",
+                                      fontFamily: "",
+                                    }}
+                                  >
+                                    <div
+                                      className="custom-border"
+                                      style={{ margin: "0 5px", height: "8px" }}
+                                    ></div>
+
+                                    {calculateTimeAgo(comment?.created_at)}
+                                  </p>
+                                </div>
+                              </div>
+
+                              <div className="follow">
+                                {/* <p className="button">Follow</p> */}
+                                <EyeOutlined
+                                  title="view comments"
+                                  onClick={() => viewComments(comment)}
+                                />
+                                {/* <div className="img">
                               <Image
                                 loader={myImageLoader}
                                 style={{
@@ -1135,93 +1195,93 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                                 alt="profile"
                               />
                             </div> */}
-                          </div>
-                        </div>
-                        <p
-                          className="para"
-                          style={{
-                            fontFamily: "Inter",
-                          }}
-                        >
-                          <span
-                            className="questions_font_12px"
-                            dangerouslySetInnerHTML={{
-                              __html: comment?.description,
+                              </div>
+                            </div>
+                            <p
+                              className="para"
+                              style={{
+                                fontFamily: "Inter",
+                              }}
+                            >
+                              <span
+                                className="questions_font_12px"
+                                dangerouslySetInnerHTML={{
+                                  __html: comment?.description,
+                                }}
+                              ></span>
+                            </p>
+                          </>
+                        ))}
+                      <div>
+                        {answer?.comments?.length > 2 && isShowReplies && (
+                          <div
+                            style={{
+                              border: "1px solid #D9DFE9",
+                              padding: "8px 12px",
+                              borderRadius: "4px",
+                              backgroundColor: "#F2F4F7",
+                              fontSize: isMobile ? "12px" : "14px",
+                              fontWeight: 500,
+                              width: "105px",
+                              fontFamily: "Inter",
+                              color: "#54616C",
+                              marginLeft: isMobile ? "6px" : "10px",
+                              color: "#0074D9",
+                              cursor: "pointer",
                             }}
-                          ></span>
-                        </p>
-                      </>
-                    ))}
+                            onClick={() => {
+                              sessionStorage.setItem(
+                                "community_question_id",
+                                communityQuestionDetail?.url_slug
+                              );
+                              sessionStorage.setItem(
+                                "community_parent_id",
+                                answer?.id
+                              );
+                              sessionStorage.setItem(
+                                "community_post_details",
+                                JSON.stringify(answer)
+                              );
+                              Router.push("question/comments");
+                            }}
+                          >
+                            View More
+                          </div>
+                        )}
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {communityData && (
+              <div className="community-tab-container community-detail-card col-md-3">
+                <div
+                  className="cards-container"
+                  style={{
+                    display: isMobile && "unset",
+                    gap: "unset",
+                  }}
+                >
                   <div>
-                    {answer?.comments?.length > 2 && isShowReplies && (
-                      <div
+                    <Modal
+                      visible={isModalOpen}
+                      onCancel={handleCancel}
+                      footer={null}
+                    >
+                      <span
                         style={{
-                          border: "1px solid #D9DFE9",
-                          padding: "8px 12px",
-                          borderRadius: "4px",
-                          backgroundColor: "#F2F4F7",
-                          fontSize: isMobile ? "12px" : "14px",
-                          fontWeight: 500,
-                          width: "105px",
-                          fontFamily: "Inter",
-                          color: "#54616C",
-                          marginLeft: isMobile ? "6px" : "10px",
-                          color: "#0074D9",
+                          marginBottom: "-20px",
+                          fontWeight: "500",
+                          fontSize: "20px",
+                          fontFamily: "Poppins",
                           cursor: "pointer",
                         }}
-                        onClick={() => {
-                          sessionStorage.setItem(
-                            "community_question_id",
-                            communityQuestionDetail?.url_slug
-                          );
-                          sessionStorage.setItem(
-                            "community_parent_id",
-                            answer?.id
-                          );
-                          sessionStorage.setItem(
-                            "community_post_details",
-                            JSON.stringify(answer)
-                          );
-                          Router.push("question/comments");
-                        }}
                       >
-                        View More
-                      </div>
-                    )}
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {communityData && (
-          <div className="community-tab-container community-detail-card col-md-3">
-            <div
-              className="cards-container"
-              style={{
-                display: isMobile && "unset",
-                gap: "unset",
-              }}
-            >
-              <div>
-                <Modal
-                  visible={isModalOpen}
-                  onCancel={handleCancel}
-                  footer={null}
-                >
-                  <span
-                    style={{
-                      marginBottom: "-20px",
-                      fontWeight: "500",
-                      fontSize: "20px",
-                      fontFamily: "Poppins",
-                      cursor: "pointer",
-                    }}
-                  >
-                    Answer this Question
-                  </span>
-                  {/* <div className="mt-2 mb-3">
+                        Answer this Question
+                      </span>
+                      {/* <div className="mt-2 mb-3">
                     <span
                       style={{
                         fontWeight: 400,
@@ -1235,227 +1295,227 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       Egit liboro erat curcus.
                     </span>
                   </div> */}
-                  <Form
-                    form={form}
-                    name="validateOnly"
-                    layout="vertical"
-                    autoComplete="off"
-                  >
-                    <Form.Item
-                      style={{
-                        fontWeight: 500,
-                        fontFamily: "Inter",
-                        fontSize: "14px",
-                        color: "#4C4C4C",
-                      }}
-                      rules={[
-                        {
-                          required: true,
-                        },
-                      ]}
-                      label="Question"
+                      <Form
+                        form={form}
+                        name="validateOnly"
+                        layout="vertical"
+                        autoComplete="off"
+                      >
+                        <Form.Item
+                          style={{
+                            fontWeight: 500,
+                            fontFamily: "Inter",
+                            fontSize: "14px",
+                            color: "#4C4C4C",
+                          }}
+                          rules={[
+                            {
+                              required: true,
+                            },
+                          ]}
+                          label="Question"
+                        >
+                          <div
+                            style={{
+                              backgroundColor: "#D9DFE9",
+                              borderRadius: "2px",
+                              padding: "12px",
+                              fontWeight: 400,
+                              fontSize: "16px",
+                              color: "#54616C",
+                              fontFamily: "Inter",
+                            }}
+                          >
+                            {communityQuestionDetail?.title}
+                          </div>
+                        </Form.Item>
+                        <Form.Item
+                          style={{
+                            fontWeight: 500,
+                            fontFamily: "Inter",
+                            fontSize: "14px",
+                            color: "#4C4C4C",
+                          }}
+                          rules={[
+                            {
+                              required: true,
+                            },
+                          ]}
+                          name="description"
+                          label="Answer"
+                          onChange={(e) => setDescription(e.target.value)}
+                        >
+                          <div>
+                            <ReactQuill
+                              theme="snow"
+                              value={description}
+                              onChange={(e) => setDescription(e)}
+                              style={{ height: "100px", borderRadius: "2px" }}
+                              placeholder="Write your answer here"
+                            />
+                          </div>
+                        </Form.Item>
+
+                        <div
+                          onClick={(e) =>
+                            handleOk(
+                              null,
+                              communityQuestionDetail?.id,
+                              description,
+                              false
+                            )
+                          }
+                          className="btn"
+                          style={{
+                            width: isMobile ? "100%" : "470px",
+                            background: "#0074D9",
+                            borderRadius: "2px",
+                            padding: "12px 16px",
+                            color: "#fff",
+                            fontWeight: 500,
+                            fontFamily: "Inter",
+                            fontSize: "18px",
+                            marginTop: "2.5rem",
+                          }}
+                        >
+                          Submit
+                        </div>
+                      </Form>
+                    </Modal>
+
+                    {/* replay modal */}
+                    <Modal
+                      visible={isReplayModalOpen?.isReplayModelOpen}
+                      onCancel={handleCancel}
+                      footer={null}
                     >
-                      <div
+                      <span
                         style={{
-                          backgroundColor: "#D9DFE9",
-                          borderRadius: "2px",
-                          padding: "12px",
-                          fontWeight: 400,
-                          fontSize: "16px",
-                          color: "#54616C",
-                          fontFamily: "Inter",
+                          marginBottom: "-20px",
+                          fontWeight: "500",
+                          fontSize: "20px",
+                          fontFamily: "Poppins",
+                          cursor: "pointer",
                         }}
                       >
-                        {communityQuestionDetail?.title}
+                        Reply
+                      </span>
+                      <div className="mt-2 mb-3">
+                        <span
+                          style={{
+                            fontWeight: 400,
+                            color: "#54616C",
+                            fontFamily: "Inter",
+                            fontSize: "16px",
+                          }}
+                        >
+                          {" "}
+                          <span
+                            dangerouslySetInnerHTML={{
+                              __html: isReplayModalOpen?.details?.description,
+                            }}
+                          ></span>
+                        </span>
                       </div>
-                    </Form.Item>
-                    <Form.Item
-                      style={{
-                        fontWeight: 500,
-                        fontFamily: "Inter",
-                        fontSize: "14px",
-                        color: "#4C4C4C",
-                      }}
-                      rules={[
-                        {
-                          required: true,
-                        },
-                      ]}
-                      name="description"
-                      label="Answer"
-                      onChange={(e) => setDescription(e.target.value)}
-                    >
-                      <div>
-                        <ReactQuill
-                          theme="snow"
-                          value={description}
-                          onChange={(e) => setDescription(e)}
-                          style={{ height: "100px", borderRadius: "2px" }}
-                          placeholder="Write your answer here"
-                        />
-                      </div>
-                    </Form.Item>
+                      <Form
+                        form={form}
+                        name="validateOnly"
+                        layout="vertical"
+                        autoComplete="off"
+                      >
+                        <Form.Item
+                          style={{
+                            fontWeight: 500,
+                            fontFamily: "Inter",
+                            fontSize: "14px",
+                            color: "#4C4C4C",
+                          }}
+                          rules={[
+                            {
+                              required: true,
+                            },
+                          ]}
+                          name="replyResponse"
+                          label="Response"
+                          onChange={(e) => setReplyResponse(e.target.value)}
+                        >
+                          <div>
+                            <ReactQuill
+                              theme="snow"
+                              value={replyResponse}
+                              onChange={handleEditorChange}
+                              style={{ height: "100px", borderRadius: "2px" }}
+                              placeholder="Write your answer here"
+                            />
+                          </div>
+                        </Form.Item>
 
-                    <div
-                      onClick={(e) =>
-                        handleOk(
-                          null,
-                          communityQuestionDetail?.id,
-                          description,
-                          false
-                        )
-                      }
-                      className="btn"
-                      style={{
-                        width: isMobile ? "100%" : "470px",
-                        background: "#0074D9",
-                        borderRadius: "2px",
-                        padding: "12px 16px",
-                        color: "#fff",
-                        fontWeight: 500,
-                        fontFamily: "Inter",
-                        fontSize: "18px",
-                        marginTop: "2.5rem",
-                      }}
-                    >
-                      Submit
-                    </div>
-                  </Form>
-                </Modal>
-
-                {/* replay modal */}
-                <Modal
-                  visible={isReplayModalOpen?.isReplayModelOpen}
-                  onCancel={handleCancel}
-                  footer={null}
-                >
-                  <span
-                    style={{
-                      marginBottom: "-20px",
-                      fontWeight: "500",
-                      fontSize: "20px",
-                      fontFamily: "Poppins",
-                      cursor: "pointer",
-                    }}
-                  >
-                    Reply
-                  </span>
-                  <div className="mt-2 mb-3">
-                    <span
-                      style={{
-                        fontWeight: 400,
-                        color: "#54616C",
-                        fontFamily: "Inter",
-                        fontSize: "16px",
-                      }}
-                    >
-                      {" "}
-                      <span
-                        dangerouslySetInnerHTML={{
-                          __html: isReplayModalOpen?.details?.description,
-                        }}
-                      ></span>
-                    </span>
+                        <div
+                          onClick={() =>
+                            handleOk(
+                              isReplayModalOpen?.details?.parent_id == null
+                                ? isReplayModalOpen?.details?.id
+                                : isReplayModalOpen?.details?.parent_id,
+                              isReplayModalOpen?.details?.community_post_id,
+                              replyResponse,
+                              true
+                            )
+                          }
+                          className="btn"
+                          style={{
+                            width: isMobile ? "100%" : "470px",
+                            background: "#0074D9",
+                            borderRadius: "2px",
+                            padding: "12px 16px",
+                            color: "#fff",
+                            fontWeight: 500,
+                            fontFamily: "Inter",
+                            fontSize: "18px",
+                            marginTop: "2.5rem",
+                          }}
+                        >
+                          Submit
+                        </div>
+                      </Form>
+                    </Modal>
                   </div>
-                  <Form
-                    form={form}
-                    name="validateOnly"
-                    layout="vertical"
-                    autoComplete="off"
-                  >
-                    <Form.Item
-                      style={{
-                        fontWeight: 500,
-                        fontFamily: "Inter",
-                        fontSize: "14px",
-                        color: "#4C4C4C",
-                      }}
-                      rules={[
-                        {
-                          required: true,
-                        },
-                      ]}
-                      name="replyResponse"
-                      label="Response"
-                      onChange={(e) => setReplyResponse(e.target.value)}
-                    >
-                      <div>
-                        <ReactQuill
-                          theme="snow"
-                          value={replyResponse}
-                          onChange={handleEditorChange}
-                          style={{ height: "100px", borderRadius: "2px" }}
-                          placeholder="Write your answer here"
-                        />
-                      </div>
-                    </Form.Item>
 
+                  <Card
+                    bordered={true}
+                    style={{
+                      width: isMobile ? "100%" : 380,
+                      height: "fit-content",
+                      marginTop: "1rem",
+                    }}
+                    className="question_header_card"
+                  >
                     <div
-                      onClick={() =>
-                        handleOk(
-                          isReplayModalOpen?.details?.parent_id == null
-                            ? isReplayModalOpen?.details?.id
-                            : isReplayModalOpen?.details?.parent_id,
-                          isReplayModalOpen?.details?.community_post_id,
-                          replyResponse,
-                          true
-                        )
-                      }
-                      className="btn"
+                      className="cards-header"
                       style={{
-                        width: isMobile ? "100%" : "470px",
-                        background: "#0074D9",
-                        borderRadius: "2px",
-                        padding: "12px 16px",
-                        color: "#fff",
-                        fontWeight: 500,
-                        fontFamily: "Inter",
-                        fontSize: "18px",
-                        marginTop: "2.5rem",
+                        justifyContent: "flex-start",
                       }}
                     >
-                      Submit
-                    </div>
-                  </Form>
-                </Modal>
-              </div>
-
-              <Card
-                bordered={true}
-                style={{
-                  width: isMobile ? "100%" : 380,
-                  height: "fit-content",
-                  marginTop: "1rem",
-                }}
-                className="question_header_card"
-              >
-                <div
-                  className="cards-header"
-                  style={{
-                    justifyContent: "flex-start",
-                  }}
-                >
-                  <Image
-                    className="questions_image_48px"
-                    loader={myImageLoader}
-                    style={{ borderRadius: "2px" }}
-                    width={56}
-                    height={56}
-                    preview="false"
-                    src={
-                      communityData?.image_url ||
-                      "https://tech24-uat.s3.amazonaws.com/D10dkiDJHM"
-                    }
-                    alt="profile"
-                    name="url"
-                  />
-                  <h6
-                    style={{ fontFamily: "Poppins" }}
-                    className="questions_font_14px"
-                  >
-                    {communityData?.name}
-                  </h6>
-                  {/* <Image
+                      <Image
+                        className="questions_image_48px"
+                        loader={myImageLoader}
+                        style={{ borderRadius: "2px" }}
+                        width={56}
+                        height={56}
+                        preview="false"
+                        src={
+                          communityData?.image_url ||
+                          "https://tech24-uat.s3.amazonaws.com/D10dkiDJHM"
+                        }
+                        alt="profile"
+                        name="url"
+                      />
+                      <h6
+                        style={{ fontFamily: "Poppins" }}
+                        className="questions_font_14px"
+                      >
+                        {communityData?.name}
+                      </h6>
+                      {/* <Image
                     loader={myImageLoader}
                     style={{ borderRadius: "2px", cursor: "pointer" }}
                     width={24}
@@ -1464,43 +1524,45 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     src={three_dot_icon}
                     alt="profile"
                   /> */}
-                </div>
-                <hr />
-                <div
-                  className="cards-body questions_font_12px"
-                  style={{
-                    fontFamily: "Inter",
-                  }}
-                >
-                  <span
-                    dangerouslySetInnerHTML={{
-                      __html: communityData?.description,
-                    }}
-                  ></span>
-                </div>
-                <hr />
-                <div
-                  className="following-section"
-                  style={{
-                    justifyContent: isMobile && "space-evenly",
-                    fontFamily: "Inter",
-                  }}
-                >
-                  <div>
-                    <div className="head questions_font_14px">Answers</div>
-                    <div className="count">
-                      {communityData?.__meta__?.total_post_reply}
                     </div>
-                  </div>
-                  <div className="custom-border"></div>
-                  <div>
-                    <div className="head questions_font_14px">Questions </div>
-                    <div className="count">
-                      {communityData?.__meta__?.total_posts}
+                    <hr />
+                    <div
+                      className="cards-body questions_font_12px"
+                      style={{
+                        fontFamily: "Inter",
+                      }}
+                    >
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html: communityData?.description,
+                        }}
+                      ></span>
                     </div>
-                  </div>
-                </div>
-                {/* <hr />
+                    <hr />
+                    <div
+                      className="following-section"
+                      style={{
+                        justifyContent: isMobile && "space-evenly",
+                        fontFamily: "Inter",
+                      }}
+                    >
+                      <div>
+                        <div className="head questions_font_14px">Answers</div>
+                        <div className="count">
+                          {communityData?.__meta__?.total_post_reply}
+                        </div>
+                      </div>
+                      <div className="custom-border"></div>
+                      <div>
+                        <div className="head questions_font_14px">
+                          Questions{" "}
+                        </div>
+                        <div className="count">
+                          {communityData?.__meta__?.total_posts}
+                        </div>
+                      </div>
+                    </div>
+                    {/* <hr />
                 {communityData?.communityMember?.length === 0 ? (
                   <div
                     onClick={() => joinCommunity()}
@@ -1536,13 +1598,15 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     ).format("MMMM DD, YYYY")}
                   </p>
                 )} */}
-              </Card>
-              {/* ))} */}
-            </div>
+                  </Card>
+                  {/* ))} */}
+                </div>
+              </div>
+            )}
           </div>
-        )}
-      </div>
-    </Container>
+        </Container>
+      )}
+    </>
   );
 };
 

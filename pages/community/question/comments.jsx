@@ -789,7 +789,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                   }}
                 >
                   <div>
-                    <div className="head">Members</div>
+                    <div className="head">Answers</div>
                     <div className="count">
                       {communityData?.__meta__?.total_members}
                     </div>
