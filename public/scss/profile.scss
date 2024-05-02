@@ -2044,6 +2044,7 @@
 //  profile screen for small devices
 
 @media (max-width: 1440px) {
+  
   .main-content {
     padding-bottom: 25px;
   }
@@ -2225,6 +2226,12 @@
 }
 
 @media (max-width: 767px) {
+  .ant-timeline-item-content {
+    margin: 0 0 0 178px!important;
+  }
+  .ant-timeline-item-tail {
+    border-left: 3px solid #0074d9!important;
+  }
   .first_tab_Space .input-container {
     margin-left: 15px;
   }
@@ -2276,12 +2283,13 @@
 }
 
 @media (min-width: 1441px) {
+  .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+    margin-left:"10px",
+  }
   .community_details_header {
     padding: 0;
   }
-  .ask_question_large {
-    // display: unset;
-  }
+
   .ask_question_small {
     display: none;
   }
