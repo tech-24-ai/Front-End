@@ -444,7 +444,7 @@ import date_image from "../public/new_images/date_icon.svg";
 import { LikeOutlined, DeleteOutlined } from "@ant-design/icons";
 import { crudActions, alertActions } from "../_actions";
 import { connect } from "react-redux";
-import Router from "next/router";
+import Router, { withRouter } from "next/router";
 import moment from "moment";
 import { crudService } from "../_services";
 import { isMobile } from "react-device-detect";
@@ -483,6 +483,8 @@ const Profile = ({
   const [search, setSearch] = useState("");
   const [value, setValue] = useState();
   const [visitorActivity, setvisitorActivity] = useState([]);
+
+  const [activeTab, setActiveTab] = useState("1");
 
   const [inputValue, setInputValue] = useState("");
 
@@ -630,9 +632,6 @@ const Profile = ({
   );
 
   const getTitle = (date) => {
-    // moment(date).isSame(moment(), "day")
-    //               ? "Today"
-    //               : moment(date).format("MMMM DD, YYYY")
     const today = moment().format("MM-DD-YYYY");
     const yesterday = moment().subtract(1, "days").format("MM-DD-YYYY");
 
@@ -722,7 +721,6 @@ const Profile = ({
     getAllCrud("visitorprofile", "visitorprofile");
     getAllCrud("visitor_community", "visitor_community");
     getAllCrud("visitor_queries_history", "visitor_queries_history");
-    // getAllCrud("visitor_points_history", "visitor_points_history");
     getAllCrud("visitor_profile_levels", "visitor_profile_levels");
     getAllCrud("visitor_library", "visitor_library");
   }, [updateCom]);
@@ -747,6 +745,44 @@ const Profile = ({
         data.status == 200 && setUpdateCom(true);
       });
     setIsModalOpen(false);
+  };
+
+  const redirectToPage = ({
+    activity_type,
+    communityPost,
+    communityPostReply,
+    community,
+  }) => {
+    const basePath = window.location.origin;
+
+    if (
+      activity_type === 1 ||
+      activity_type === 6 ||
+      activity_type === 4 ||
+      activity_type === 5
+    ) {
+      //1/2: create/view Question => Open Question Tab
+      //4/5 Upvote/downvote Answer => Option Question Tab
+      sessionStorage.setItem("community_question_id", communityPost?.url_slug);
+      const url = `${basePath}/community/question`;
+      Router.replace(url);
+      return false;
+    }
+
+    if (activity_type === 2 || activity_type === 3) {
+      //2: Answer Question => Open Answer Tab
+      //3: Comment on Answer => Open question/Comment Tab with Comments
+      sessionStorage.setItem("community_id", community?.url_slug);
+      sessionStorage.setItem("community_question_id", communityPost?.url_slug);
+      sessionStorage.setItem("community_parent_id", communityPostReply?.id);
+      sessionStorage.setItem(
+        "community_post_details",
+        JSON.stringify(communityPostReply)
+      );
+      const url = `${basePath}/community/question/comments`;
+      Router.replace(url);
+      return false;
+    }
   };
 
   const Tab1 = () => {
@@ -917,7 +953,7 @@ const Profile = ({
               </Divider>
 
               {groupedData[date].map((data) => (
-                <Card bordered={true}>
+                <Card bordered={true} onClick={() => redirectToPage(data)}>
                   <div className="cards-header">
                     <p className="title">{data?.communityPost.title}</p>
                   </div>
@@ -1438,8 +1474,8 @@ const Profile = ({
         <div className="col-md-9">
           <Tabs
             className="header-tabs"
-            defaultActiveKey="1"
-            onChange={onChange}
+            activeKey={activeTab}
+            onChange={(tabIndex) => setActiveTab(tabIndex)}
           >
             {items.map((tab) => (
               <Tabs.TabPane tab={tab.label} key={tab.key}>
@@ -1676,4 +1712,4 @@ const actionCreators = {
   updateCrud: crudActions._update,
 };
 
-export default connect(mapStateToProps, actionCreators)(Profile);
+export default withRouter(connect(mapStateToProps, actionCreators)(Profile));
