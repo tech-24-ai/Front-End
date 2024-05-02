@@ -445,7 +445,7 @@ import date_image from "../public/new_images/date_icon.svg";
 import { LikeOutlined, DeleteOutlined } from "@ant-design/icons";
 import { crudActions, alertActions } from "../_actions";
 import { connect } from "react-redux";
-import Router from "next/router";
+import Router, { withRouter } from "next/router";
 import moment from "moment";
 import { crudService } from "../_services";
 import { isMobile } from "react-device-detect";
@@ -489,6 +489,9 @@ const Profile = ({
   const [value, setValue] = useState();
   const [visitorActivity, setvisitorActivity] = useState([]);
   const [sortByOrder, setSortByOrder] = useState(false);
+
+  const [activeTab, setActiveTab] = useState("1");
+
   const [inputValue, setInputValue] = useState("");
 
   // const [mode, setMode] = useState('left');
@@ -669,9 +672,6 @@ const Profile = ({
   );
 
   const getTitle = (date) => {
-    // moment(date).isSame(moment(), "day")
-    //               ? "Today"
-    //               : moment(date).format("MMMM DD, YYYY")
     const today = moment().format("MM-DD-YYYY");
     const yesterday = moment().subtract(1, "days").format("MM-DD-YYYY");
 
@@ -761,7 +761,6 @@ const Profile = ({
     getAllCrud("visitorprofile", "visitorprofile");
     getAllCrud("visitor_community", "visitor_community");
     getAllCrud("visitor_queries_history", "visitor_queries_history");
-    // getAllCrud("visitor_points_history", "visitor_points_history");
     getAllCrud("visitor_profile_levels", "visitor_profile_levels");
     getAllCrud("visitor_library", "visitor_library");
   }, [updateCom]);
@@ -990,7 +989,7 @@ const Profile = ({
               </Divider>
 
               {groupedData[date].map((data) => (
-                <Card bordered={true}>
+                <Card bordered={true} onClick={() => redirectToPage(data)}>
                   <div className="cards-header">
                     <p className="title">{data?.communityPost.title}</p>
                   </div>
@@ -1056,231 +1055,7 @@ const Profile = ({
     );
   };
 
-  
 
-  // const QuestionTab = () => {
-  //   const [headerSearch, setHeaderSearch] = useState();
-  //   // const onSearch = (value, _e, info) => console.log(info?.source, value);
-  //   // const { Search } = Input;
-  //   // const filterOption = (input, option) =>
-  //   //   (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
-  //   // const onChange = (value) => {
-  //   //   console.log(`selected ${value}`);
-  //   // };
-  //   // const onSearchSelect = (value) => {
-  //   //   console.log("search:", value);
-  //   // };
-
-  //   // const calculateTimeAgo = (createdAt) => {
-  //   //   const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
-  //   //   const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
-  //   //   const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
-  //   //   const duration = moment.duration(diffMilliseconds);
-  //   //   const humanReadableDiff = duration.humanize(true);
-  //   //   return humanReadableDiff;
-  //   // };
-
-  //   return (
-  //     <div className="community-tab-container questions-tab-container">
-  //       <div className="search-container">
-  //       <Input
-  //         className="community_search_small"
-  //         placeholder="Search anything.."
-  //         allowClear
-  //         prefix={
-  //           <SearchOutlined
-  //             style={{ color: "#0074D9", padding: "0 6px", fontSize: "24px" }}
-  //           />
-  //         }
-  //         onChange={(e) => {
-  //           setHeaderSearch(e?.target?.value);
-  //         }}
-  //         value={headerSearch}
-  //         style={{
-  //           width: isMobile ? "84%" : "74%",
-  //           padding: "10px",
-  //           border: "1px solid #ccc",
-  //           borderRadius: "5px",
-  //           background: "#ffffff",
-  //           boxSizing: "border-box",
-  //           fontSize: "16px",
-  //           fontFamily: "Inter",
-  //         }}
-  //       />
-
-  //       <Image
-  //         onClick={() => setSortByOrder(!sortByOrder)}
-  //         loader={myImageLoader}
-  //         style={{ borderRadius: "2px", cursor: "pointer", display: "none" }}
-  //         width={44}
-  //         height={44}
-  //         preview="false"
-  //         src={shorting_icon}
-  //         alt="profile"
-  //         className="shorting_icon"
-  //       />
-
-  //       <Modal
-  //         visible={sortByOrder}
-  //         footer={null}
-  //         onCancel={() => {
-  //           setSortByOrder(false);
-  //         }}
-  //       >
-  //         <div className="sorting shorting_icon">
-  //           <label className="sortby" htmlFor="sortDropdown">
-  //             Sort By:{" "}
-  //           </label>
-  //           <select
-  //             id="sortDropdown"
-  //             style={{ border: "none", background: "transparent" }}
-  //             value={sortBy}
-  //             onChange={handleSort}
-  //           >
-  //             {options.map((option) => (
-  //               <option key={option.value} value={option.value}>
-  //                 {option.label}
-  //               </option>
-  //             ))}
-  //           </select>
-  //         </div>
-  //       </Modal>
-  //       </div>
-  //       <div
-  //         className="cards-container"
-  //         style={{
-  //           marginTop: "1rem",
-  //         }}
-  //       >
-  //         {visitorquerieshistory?.map((data) => (
-  //           <Card
-  //             bordered={true}
-  //             style={{
-  //               width: "100%",
-  //               height: "fit-content",
-  //             }}
-  //           >
-  //             <div className="cards-header">
-  //               <div>
-  //                 <div>
-  //                   <div className="img">
-  //                     <Image
-  //                       style={{ borderRadius: "5px" }}
-  //                       width={48}
-  //                       height={48}
-  //                       preview="false"
-  //                       src={
-  //                         data?.visitor?.profile_pic_url
-  //                         //  ||
-  //                         // "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
-  //                       }
-  //                       alt="profile"
-  //                     />
-  //                   </div>
-  //                   <p className="profile-badge">
-  //                     {data?.visitor?.visitor_level}
-  //                   </p>
-  //                 </div>
-  //                 <div className="profile">
-  //                   <h5>{data?.visitor?.name}</h5>
-  //                   <p>
-  //                     {data?.title} <div className="custom-border"></div>
-  //                     {calculateTimeAgo(data?.created_at)}
-  //                   </p>
-  //                 </div>
-  //               </div>
-
-  //               <div className="follow">
-  //                 {/* <p className="button">Follow</p> */}
-  //                 {/* <div className="img">
-  //                 <Image
-  //                   loader={myImageLoader}
-  //                   style={{ borderRadius: "2px", cursor: "pointer" }}
-  //                   width={36}
-  //                   height={36}
-  //                   preview="false"
-  //                   src={three_dot_icon}
-  //                   alt="profile"
-  //                 />
-  //               </div> */}
-  //               </div>
-  //             </div>
-  //             <p className="para">
-  //               <span
-  //                 dangerouslySetInnerHTML={{ __html: data?.description }}
-  //               ></span>
-  //             </p>
-  //             <div className="chips">
-  //               {data?.postTags?.map((tag) => (
-  //                 <div>{tag?.name}</div>
-  //               ))}
-  //             </div>
-  //             <div className="chips">
-  //               <p>{data?.__meta__?.total_post_replies} answers</p>
-  //               <h6 className="custom-border"></h6>
-  //               <p>{data?.views_counter} views</p>
-  //             </div>
-  //             <div className="like-footer">
-  //               {/* <div className="ans">
-  //               <Image
-  //                 loader={myImageLoader}
-  //                 style={{ borderRadius: "5px", marginRight: "5px" }}
-  //                 width={16}
-  //                 height={16}
-  //                 preview="false"
-  //                 src={message_icon}
-  //                 alt="profile"
-  //               />
-  //               <span className="ans-text">Answer</span>
-  //             </div> */}
-  //               {/* <div className="rating">
-  //               <div>
-  //                 <Image
-  //                   loader={myImageLoader}
-  //                   style={{ borderRadius: "5px" }}
-  //                   width={16}
-  //                   height={16}
-  //                   preview="false"
-  //                   src={like_button}
-  //                   alt="profile"
-  //                 />
-  //               </div>
-  //               <h6>
-  //                 Upvote <p></p> {data?.__meta__?.total_helpful}
-  //               </h6>
-  //               <div className="left-border">
-  //                 <Image
-  //                   loader={myImageLoader}
-  //                   style={{ borderRadius: "5px" }}
-  //                   width={16}
-  //                   height={16}
-  //                   preview="false"
-  //                   src={dislike_button}
-  //                   alt="profile"
-  //                 />
-  //               </div> */}
-  //               {/* </div> */}
-  //             </div>
-  //           </Card>
-  //         ))}
-  //         {/* Render pagination controls */}
-  //         {/* <Pagination defaultCurrent={1} total={100}  onChange={onChange}/> */}
-  //         <div className="mt-5 mb-5" style={{ width: "100%" }}>
-  //           {visitorquerieshistory?.length > 0 && (
-  //             <CustomPagination
-  //               pageCount={questionPageCount}
-  //               page={questionPage}
-  //               onPageChange={({ selected }) => setQuestionPage(selected)}
-  //             />
-  //           )}
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // };
-
-  
- 
   const Tab4 = () => {
     const calculateMarks = () => {
       const topMarks = {};
@@ -1571,9 +1346,9 @@ const Profile = ({
       <div className="profile-container profile_first_tab row">
         <div className="col-md-9">
           <Tabs
-            className="header-tabs profile-tab"
-            defaultActiveKey="1"
-            onChange={onChange}
+            className="header-tabs"
+            activeKey={activeTab}
+            onChange={(tabIndex) => setActiveTab(tabIndex)}
           >
             {items.map((tab) => (
               <Tabs.TabPane tab={tab.label} key={tab.key}>
@@ -1810,4 +1585,4 @@ const actionCreators = {
   updateCrud: crudActions._update,
 };
 
-export default connect(mapStateToProps, actionCreators)(Profile);
+export default withRouter(connect(mapStateToProps, actionCreators)(Profile));
