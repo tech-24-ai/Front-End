@@ -12,6 +12,8 @@ import ResearchCard from "../../components/marketResearch/ResearchCard";
 import CustomFilter from "../../components/filter";
 import CustomBreadcrumb from "../../components/breadcrumbs/Breadcrumb";
 import CustomPagination from "../../components/pagination";
+import FilterOptionContainer from "../../components/marketResearch/FilterOptionContainer";
+import { isMobile } from "react-device-detect";
 
 const ResearchList = ({ router }) => {
   const { q } = Router.query;
@@ -21,7 +23,7 @@ const ResearchList = ({ router }) => {
   const [tagOptions, setTagOptions] = useState([]);
   const [typeOptions, setTypeOptions] = useState([]);
 
-  const [sortBy, setSortBy] = useState("id");
+  const [sortBy, setSortBy] = useState("id_desc");
   const itemsPerPage = 6;
 
   const [page, setPage] = useState(0);
@@ -31,7 +33,8 @@ const ResearchList = ({ router }) => {
   const [filteredData, setFilteredData] = useState({});
 
   useEffect(() => {
-    const sortData = sortBy.split("_");
+    console.log("sortBy", sortBy);
+    const sortData = sortBy?.split("_");
     crudService
       ._getAll("market_research", {
         orderBy: sortData[0],
@@ -188,7 +191,10 @@ const ResearchList = ({ router }) => {
           style={{ display: "flex", justifyContent: "space-between" }}
           className="mt-5"
         >
-          <div className="mobile-display-n" style={{ width: "25%", marginRight:20 }}>
+          <div
+            className="mobile-display-n"
+            style={{ width: "25%", marginRight: 20 }}
+          >
             <CustomFilter
               data={filterData}
               handleOptionChange={handleOptionChange}
@@ -243,6 +249,22 @@ const ResearchList = ({ router }) => {
           </div>
         </div>
       </Container>
+
+      {isMobile && (
+        <FilterOptionContainer
+          sortData={{
+            options: sortOptions,
+            value: sortBy,
+            setState: setSortBy,
+          }}
+          filterData={{
+            options: filterData,
+            value: filteredData,
+            setState: setFilteredData,
+            handleReset: handleReset,
+          }}
+        />
+      )}
     </section>
   );
 };
