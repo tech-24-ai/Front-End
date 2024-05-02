@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Image from "next/future/image";
+import Image from "next/image";
 import { Container } from "reactstrap";
 import myImageLoader from "../../components/imageLoader";
 import { RightOutlined } from "@ant-design/icons";
@@ -100,6 +100,11 @@ const QuestionTab = ({ getAllCrud, showAlert, success }) => {
     const id = sessionStorage.getItem("community_id");
     if (id) {
       crudService._getAll(`community/details/${id}`).then((data) => {
+        setCommunityData(data?.data);
+      });
+    }
+    if (window.location.pathname == "Profile") {
+      crudService._getAll(`visitor_queries_history`).then((data) => {
         setCommunityData(data?.data);
       });
     }

@@ -118,7 +118,7 @@ const CommunityCategory_former = ({ data, isloggedIn, toggleLoginPopup }) => {
                             style={{
                                 left: "-18px",
                                 marginTop: "0px",
-                                top:'33%'
+                                top:'45%'
                             }}
                         >
                             <ArrowLeftOutlined
@@ -134,7 +134,7 @@ const CommunityCategory_former = ({ data, isloggedIn, toggleLoginPopup }) => {
                             style={{
                                 right: "-18px",
                                 marginTop: "0px",
-                                top:"33%"
+                                top:"45%"
                             }}
                         >
                             <ArrowRightOutlined

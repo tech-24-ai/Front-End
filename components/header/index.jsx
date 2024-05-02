@@ -298,9 +298,9 @@ function Header(props) {
             {isMobile && (
               <MobileView>
                 <div style={{ float: "right", display: "flex" }}>
-                  <NavItem>
+                  {/* <NavItem>
                     <img src="/new_images/search.svg" alt="search" />
-                  </NavItem>
+                  </NavItem> */}
 
                   {isloggedIn && (
                     <NavItem style={{ margin: 0 }}>

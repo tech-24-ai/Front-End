@@ -427,6 +427,7 @@
 
 import React, { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
+import { RightOutlined } from "@ant-design/icons";
 import {
   Tabs,
   Card,
@@ -463,6 +464,10 @@ import profile_img from "../public/new_images/profile.svg";
 import { Pagination } from "antd";
 import CustomPagination from "../components/pagination";
 import SearchInput from "../components/form/searchInput";
+import {  Timeline, Icon } from 'antd';
+import QuestionTab from "../components/community/QuestionTab";
+import shorting_icon from "../public/new_images/sorting_icon.svg";
+
 const Profile = ({
   getAllCrud,
   updateCrud,
@@ -483,10 +488,17 @@ const Profile = ({
   const [search, setSearch] = useState("");
   const [value, setValue] = useState();
   const [visitorActivity, setvisitorActivity] = useState([]);
+  const [sortByOrder, setSortByOrder] = useState(false);
 
   const [activeTab, setActiveTab] = useState("1");
 
   const [inputValue, setInputValue] = useState("");
+
+  // const [mode, setMode] = useState('left');
+  // const onChange = (e) => {
+  //   setMode(e.target.value);
+  // };
+
 
   const [updateProfileData, setUpdateProfileData] = useState({
     alternate_email: "",
@@ -511,11 +523,39 @@ const Profile = ({
 
   const [searchQuery, setSearchQuery] = useState(q);
   const [filteredData, setFilteredData] = useState({});
-
+  const [mode, setMode] = useState('left');
   // const [researchData, setResearchData] = useState([]);
   const onPageChange = (page) => {
     setCurrentPage(page);
   };
+  const options = [
+    {
+      value: "id",
+      label: "Most Recent",
+    },
+    {
+      value: "views_counter",
+      label: "Most Viewed",
+    },
+    {
+      value: "total_post_replies",
+      label: "Most Answers",
+    },
+    {
+      value: "total_helpful",
+      label: "Most Voted",
+    },
+  ];
+
+  const calculateTimeAgo = (createdAt) => {
+    const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
+    const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
+    const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
+    const duration = moment.duration(diffMilliseconds);
+    const humanReadableDiff = duration.humanize(true);
+    return humanReadableDiff;
+  };
+
 
   const [sortType, setSortType] = useState("asc");
 
@@ -747,42 +787,38 @@ const Profile = ({
     setIsModalOpen(false);
   };
 
-  const redirectToPage = ({
-    activity_type,
-    communityPost,
-    communityPostReply,
-    community,
-  }) => {
-    const basePath = window.location.origin;
+  const [isMobile, setIsMobile] = useState(false);
 
-    if (
-      activity_type === 1 ||
-      activity_type === 6 ||
-      activity_type === 4 ||
-      activity_type === 5
-    ) {
-      //1/2: create/view Question => Open Question Tab
-      //4/5 Upvote/downvote Answer => Option Question Tab
-      sessionStorage.setItem("community_question_id", communityPost?.url_slug);
-      const url = `${basePath}/community/question`;
-      Router.replace(url);
-      return false;
-    }
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Change breakpoint as needed
+    };
 
-    if (activity_type === 2 || activity_type === 3) {
-      //2: Answer Question => Open Answer Tab
-      //3: Comment on Answer => Open question/Comment Tab with Comments
-      sessionStorage.setItem("community_id", community?.url_slug);
-      sessionStorage.setItem("community_question_id", communityPost?.url_slug);
-      sessionStorage.setItem("community_parent_id", communityPostReply?.id);
-      sessionStorage.setItem(
-        "community_post_details",
-        JSON.stringify(communityPostReply)
-      );
-      const url = `${basePath}/community/question/comments`;
-      Router.replace(url);
-      return false;
-    }
+    // Initial check on mount
+    handleResize();
+
+    // Listen to window resize events
+    window.addEventListener('resize', handleResize);
+
+    // Clean up the event listener on component unmount
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const style = {
+    display: 'inline-block',
+    height: 300,
+    marginLeft: 70,
+  };
+  const marks = {
+    100: '0°C',
+    26: '26°C',
+    37: '37°C',
+    100: {
+      style: {
+        color: '#f50',
+      },
+      label: <strong>100°C</strong>,
+    },
   };
 
   const Tab1 = () => {
@@ -1019,212 +1055,6 @@ const Profile = ({
     );
   };
 
-  const Tab3 = () => {
-    const onSearch = (value, _e, info) => console.log(info?.source, value);
-    const { Search } = Input;
-    const filterOption = (input, option) =>
-      (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
-    const onChange = (value) => {
-      console.log(`selected ${value}`);
-    };
-    const onSearchSelect = (value) => {
-      console.log("search:", value);
-    };
-
-    const calculateTimeAgo = (createdAt) => {
-      const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
-      const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
-      const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
-      const duration = moment.duration(diffMilliseconds);
-      const humanReadableDiff = duration.humanize(true);
-      return humanReadableDiff;
-    };
-
-    return (
-      <div className="community-tab-container questions-tab-container">
-        <div className="search-container">
-          <SearchInput
-            style={{
-              width: "95%",
-              height: "50px",
-              padding: "10px",
-              border: "1px solid #D9DFE9",
-              borderRadius: "5px",
-              background: "#ffffff",
-              boxSizing: "border-box",
-            }}
-            placeholder="Search a question...."
-            className="SearchInput"
-            parentProps={{ style: { width: "76%" } }}
-            onChange={(value) => handleSearch(value)}
-            prefix={
-              <SearchOutlined style={{ color: "#0074D9", padding: "0 6px" }} />
-            }
-            allowClear={true}
-            value={searchQuery}
-          />
-
-          <div className="sorting">
-            <SortAscendingOutlined
-              style={{ fontSize: "22px", color: "#007aff" }}
-            />
-            <label className="sortby ml-2" htmlFor="sortDropdown">
-              Sort By:{" "}
-            </label>
-            {/* <Dropdown overlay={menu} trigger={['click']}>
-      <Button>
-        Sort <DownOutlined />
-      </Button>
-    </Dropdown> */}
-            <select
-              id="sortDropdown"
-              style={{ border: "none", background: "transparent" }}
-              value={sortBy}
-              onChange={handleSort}
-            >
-              {sortOptions.map(({ value, label }) => (
-                <option
-                  className="sortby"
-                  style={{ color: "#001622" }}
-                  // value={value}
-                >
-                  {label}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <div
-          className="cards-container"
-          style={{
-            marginTop: "1rem",
-          }}
-        >
-          {visitorquerieshistory?.map((data) => (
-            <Card
-              bordered={true}
-              style={{
-                width: "100%",
-                height: "fit-content",
-              }}
-            >
-              <div className="cards-header">
-                <div>
-                  <div>
-                    <div className="img">
-                      <Image
-                        style={{ borderRadius: "5px" }}
-                        width={48}
-                        height={48}
-                        preview="false"
-                        src={
-                          data?.visitor?.profile_pic_url ||
-                          "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
-                        }
-                        alt="profile"
-                      />
-                    </div>
-                    <p className="profile-badge">
-                      {data?.visitor?.visitor_level}
-                    </p>
-                  </div>
-                  <div className="profile">
-                    <h5>{data?.visitor?.name}</h5>
-                    <p>
-                      {data?.title} <div className="custom-border"></div>
-                      {calculateTimeAgo(data?.created_at)}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="follow">
-                  {/* <p className="button">Follow</p> */}
-                  {/* <div className="img">
-                  <Image
-                    loader={myImageLoader}
-                    style={{ borderRadius: "2px", cursor: "pointer" }}
-                    width={36}
-                    height={36}
-                    preview="false"
-                    src={three_dot_icon}
-                    alt="profile"
-                  />
-                </div> */}
-                </div>
-              </div>
-              <p className="para">
-                <span
-                  dangerouslySetInnerHTML={{ __html: data?.description }}
-                ></span>
-              </p>
-              <div className="chips">
-                {data?.postTags?.map((tag) => (
-                  <div>{tag?.name}</div>
-                ))}
-              </div>
-              <div className="chips">
-                <p>{data?.__meta__?.total_post_replies} answers</p>
-                <h6 className="custom-border"></h6>
-                <p>{data?.views_counter} views</p>
-              </div>
-              <div className="like-footer">
-                {/* <div className="ans">
-                <Image
-                  loader={myImageLoader}
-                  style={{ borderRadius: "5px", marginRight: "5px" }}
-                  width={16}
-                  height={16}
-                  preview="false"
-                  src={message_icon}
-                  alt="profile"
-                />
-                <span className="ans-text">Answer</span>
-              </div> */}
-                {/* <div className="rating">
-                <div>
-                  <Image
-                    loader={myImageLoader}
-                    style={{ borderRadius: "5px" }}
-                    width={16}
-                    height={16}
-                    preview="false"
-                    src={like_button}
-                    alt="profile"
-                  />
-                </div>
-                <h6>
-                  Upvote <p></p> {data?.__meta__?.total_helpful}
-                </h6>
-                <div className="left-border">
-                  <Image
-                    loader={myImageLoader}
-                    style={{ borderRadius: "5px" }}
-                    width={16}
-                    height={16}
-                    preview="false"
-                    src={dislike_button}
-                    alt="profile"
-                  />
-                </div> */}
-                {/* </div> */}
-              </div>
-            </Card>
-          ))}
-          {/* Render pagination controls */}
-          {/* <Pagination defaultCurrent={1} total={100}  onChange={onChange}/> */}
-          <div className="mt-5 mb-5" style={{ width: "100%" }}>
-            {visitorquerieshistory?.length > 0 && (
-              <CustomPagination
-                pageCount={questionPageCount}
-                page={questionPage}
-                onPageChange={({ selected }) => setQuestionPage(selected)}
-              />
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  };
 
   const Tab4 = () => {
     const calculateMarks = () => {
@@ -1253,10 +1083,19 @@ const Profile = ({
     };
 
     const { topMarks, bottomMarks } = calculateMarks();
+    const timelineData = [
+      { position: '2015-09-01', content: 'Create a services' },
+      { position: '2015-09-01 09:12:11', content: 'Solve initial network problems' },
+      // Add more timeline items as needed
+    ]
 
     return (
-      <div className="levels-tab-container">
-        <Card
+      <div>
+      {/* Content for mobile view */}
+      {isMobile && (
+         
+         <div className="levels-tab-container">
+         <Card
           bordered={true}
           style={{
             width: "100%",
@@ -1264,7 +1103,37 @@ const Profile = ({
           }}
         >
           <p className="sliderTitle">
-            Starter since {visitor_profile_levels?.[0]?.joined_at}
+            Starter since  {visitor_profile_levels?.[0]?.joined_at}
+          </p>
+          <div className="">
+      <Timeline>
+        {/* <Timeline.Item label="2015-09-01">Create a services</Timeline.Item> */}
+        <Timeline.Item  marks={topMarks[100].label}>Solve initial network problems</Timeline.Item>
+
+        <Timeline.Item label="201">Solve initial network problems</Timeline.Item>
+        {/* Add more Timeline.Item components as needed */}
+      </Timeline>
+      </div>
+      </Card>
+    </div>
+        
+          
+        
+      )}
+
+      {/* Content for desktop view */}
+      {!isMobile && (
+        <div className="desktop-view">
+          <div className="levels-tab-container">
+         <Card
+          bordered={true}
+          style={{
+            width: "100%",
+            height: "fit-content",
+          }}
+        >
+          <p className="sliderTitle">
+            Starter since  {visitor_profile_levels?.[0]?.joined_at}
           </p>
           <div className="slider-container">
             <Slider
@@ -1292,7 +1161,7 @@ const Profile = ({
               tooltipVisible={false}
             />
           </div>
-          <div className="col-md-12 level-calculation">
+          <div className="level-calculation">
             <div>
               <p>
                 {visitor_profile_levels?.[0]?.total_points_earned}
@@ -1311,6 +1180,10 @@ const Profile = ({
           </div>
         </Card>
       </div>
+        </div>
+      )}
+    </div>
+      
     );
   };
 
@@ -1443,7 +1316,7 @@ const Profile = ({
     {
       key: "3",
       label: "Questions",
-      children: <Tab3 />,
+      children: <QuestionTab />,
     },
     {
       key: "4",
