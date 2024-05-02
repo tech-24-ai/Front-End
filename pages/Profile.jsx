@@ -923,17 +923,23 @@ const Profile = ({
                   </div>
                   <div className="cards-content">
                     {data?.activity_type === 1 && (
-                      <p>You created a question {data?.communityPost.title}</p>
+                      <p>
+                        <span>You created a question: </span>{" "}
+                        {data?.communityPost.title}
+                      </p>
                     )}
                     {data?.activity_type === 2 && (
                       <p>
-                        You answered the question {data?.communityPost.title}
+                        <span>You answered the question:</span>{" "}
+                        {data?.communityPost.title}
                       </p>
                     )}
 
                     {data?.activity_type === 3 && (
                       <p>
-                        You posted a comment on the answer to the question{" "}
+                        <span>
+                          You posted a comment on the answer to the question:
+                        </span>{" "}
                         {data?.communityPost.title}
                       </p>
                     )}
@@ -941,13 +947,18 @@ const Profile = ({
                     {(data?.activity_type === 4 ||
                       data?.activity_type === 5) && (
                       <p>
-                        You upvoted or downvoted the answer to the question{" "}
+                        <span>
+                          You upvoted or downvoted the answer to the question:{" "}
+                        </span>{" "}
                         {data?.communityPost.title}
                       </p>
                     )}
 
                     {data?.activity_type === 6 && (
-                      <p>You viewed the question {data?.communityPost.title}</p>
+                      <p>
+                        <span>You viewed the question: </span>{" "}
+                        {data?.communityPost.title}
+                      </p>
                     )}
                   </div>
                   <div className="post-days">
