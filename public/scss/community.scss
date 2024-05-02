@@ -1,4 +1,8 @@
 .community-listing-page {
+
+  .banner-head{
+    width: 35rem;
+  }
   .container {
     // padding-right: 0 !important;
     .banner-container {
@@ -402,6 +406,9 @@
 }
 
 @media (max-width: 1440px) {
+  .banner-head{
+    width: 24rem !important;
+  }
   .main-content.about-us {
     padding-bottom: 193px !important;
   }
@@ -641,7 +648,11 @@
     background-size: 3px 3px; /* Adjust the size of the dots */
   }
 }
-
+@media (max-width: 375px){
+   .banner-head{
+    width: 21rem !important;
+  }
+}
 // For Scale 125% (Zoom Level)
 @media (min-width: 1536px) and (max-width: 1920px) {
   .top-question {

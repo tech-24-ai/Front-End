@@ -220,6 +220,7 @@ const Community = ({ router }) => {
             <div className="col-md-12">
               <h4 className="mt-1 mb-3">
                 <span
+                  onClick={() => handleAllCommunity()}
                   className="ml-2"
                   style={{
                     color: "#B0B8BF",
@@ -230,7 +231,6 @@ const Community = ({ router }) => {
                   Community <RightOutlined style={{ verticalAlign: "0" }} />
                 </span>{" "}
                 <span
-                  onClick={() => handleAllCommunity()}
                   style={{
                     color: "#0074D9",
                     fontFamily: "Inter",
@@ -365,7 +365,7 @@ const Community = ({ router }) => {
                       <div
                         className="category-banner-wrapper"
                         id="categoryWrapper"
-                      >
+                      > 
                         <div className="category-banner-block">
                           <div
                             className="category-banner"

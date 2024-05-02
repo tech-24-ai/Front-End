@@ -26,8 +26,8 @@ const QuestionCard = ({ data, key }) => {
             alt={data.visitor.name}
           />
           <div className="profile-wrapper">
-            <h6>{data?.visitor?.name}</h6>
-            <p>{calculateTimeAgo(data?.created_at)}</p>
+            <h6>{data?.title}</h6>
+            <p> {data?.visitor?.name} {} ({calculateTimeAgo(data?.created_at)})</p>
           </div>
         </div>
 
@@ -42,6 +42,7 @@ const QuestionCard = ({ data, key }) => {
           style={{
             display: "flex",
             flexDirection: "row",
+            minHeight: '1.4rem',
           }}
         >
           {data.postTags.map((tag, index) => (

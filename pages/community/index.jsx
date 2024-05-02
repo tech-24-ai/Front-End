@@ -49,7 +49,7 @@ const Community = ({ community, getAllCrud, router }) => {
 
     fetchData();
   }, []);
-  
+
   useEffect(() => {
     const fetchTrendingQuestions = async () => {
       try {
@@ -79,7 +79,7 @@ const Community = ({ community, getAllCrud, router }) => {
 
     searchPosts();
   }, [value]);
-  
+
 
   const handleViewAll = () => {
     Router.push("/community/query_detail");
@@ -131,7 +131,7 @@ const Community = ({ community, getAllCrud, router }) => {
     const selectedTopRatedCommunity = topRatedCommunityFeature.find(
       (feature) => feature.name === newValue
     );
-   
+
     setAllCommunityFeature(selectedAllCommunity ? [selectedAllCommunity] : []);
     setTopRatedCommunityFeature(
       selectedTopRatedCommunity ? [selectedTopRatedCommunity] : []
@@ -142,7 +142,7 @@ const Community = ({ community, getAllCrud, router }) => {
     });
     setValue(newValue);
   };
-  
+
 
 
   return (
@@ -152,7 +152,7 @@ const Community = ({ community, getAllCrud, router }) => {
     >
       <PageBanner
         titleNode={
-          <div>
+          <div className="banner-head">
             <h2 style={styles.title}>
               Welcome to the Tech 24 <br />
               Community
@@ -169,28 +169,12 @@ const Community = ({ community, getAllCrud, router }) => {
                 onChange={onChange}
                 suffix={<SearchOutlined style={{ color: "#1E96FF" }} />}
               />
-              {/* <TreeSelect
-                allowClear
-                treeDataSimpleMode
-                defaultValue={value}
-                showSearch={true}
-                dropdownStyle={{
-                  maxHeight: 90,
-                  overflow: "auto",
-                }}
-                placeholder="Search anything..."
-                onChange={onChange}
-                // loadData={onLoadData}
-                treeData={arrData}
-                style={{ width: "100%", height: "", color: "#fff" }}
-                suffixIcon={<SearchOutlined />}
-              /> */}
             </div>
           </div>
         }
         image={isMobile ? "" : CommunityImage}
       />
-      
+
       <Container>
         <div className="top-rated">
           <div>
@@ -344,7 +328,7 @@ const styles = {
     color: "#FFFFFF",
     fontSize: "32px",
     fontWeight: 500,
-    
+
   },
   subtitle: {
     color: "#E0E0E0",
@@ -353,6 +337,7 @@ const styles = {
   },
   inputGroup: {
     width: "100%",
+    // width: isMobile ? "22rem" : "35rem",
     // display: "flex",
     // flexDirection: "column",
     // alignItems: "center",
@@ -369,7 +354,7 @@ const styles = {
   },
 
   input: {
-    width: "60%",
+    width: "100%",
     height: "38px",
     textAlign: "center",
     display: "flex",
