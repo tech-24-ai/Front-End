@@ -547,11 +547,17 @@ const Profile = ({
   ];
 
   const calculateTimeAgo = (createdAt) => {
-    const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
+    const currentDateTime = moment();
     const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
-    const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
+    const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
     const duration = moment.duration(diffMilliseconds);
-    const humanReadableDiff = duration.humanize(true);
+
+    let humanReadableDiff;
+    if (duration.asMinutes() < 60) {
+      humanReadableDiff = duration.minutes() + " minutes ago";
+    } else {
+      humanReadableDiff = duration.humanize(true);
+    }
     return humanReadableDiff;
   };
 
@@ -966,11 +972,17 @@ const Profile = ({
 
   const Tab2 = () => {
     const calculateTimeAgo = (createdAt) => {
-      const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
+      const currentDateTime = moment();
       const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
-      const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
+      const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
       const duration = moment.duration(diffMilliseconds);
-      const humanReadableDiff = duration.humanize(true);
+  
+      let humanReadableDiff;
+      if (duration.asMinutes() < 60) {
+        humanReadableDiff = duration.minutes() + " minutes ago";
+      } else {
+        humanReadableDiff = duration.humanize(true);
+      }
       return humanReadableDiff;
     };
     return (
@@ -1192,11 +1204,17 @@ const Profile = ({
 
   const Tab5 = () => {
     const calculateTimeAgo = (createdAt) => {
-      const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
+      const currentDateTime = moment();
       const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
-      const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
+      const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
       const duration = moment.duration(diffMilliseconds);
-      const humanReadableDiff = duration.humanize(true);
+  
+      let humanReadableDiff;
+      if (duration.asMinutes() < 60) {
+        humanReadableDiff = duration.minutes() + " minutes ago";
+      } else {
+        humanReadableDiff = duration.humanize(true);
+      }
       return humanReadableDiff;
     };
 
