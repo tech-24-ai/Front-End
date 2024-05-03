@@ -216,6 +216,7 @@ function ConsultantFilter({ data, setState, setSearchText, isCompany }) {
             className="testSearchInput"
             onChange={(value) => setSearchInput(value)}
             suffix={<SearchOutlined />}
+            width={200}
           />
           <DropdownButton
             label="Location"
