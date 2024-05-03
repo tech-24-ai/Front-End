@@ -5,12 +5,23 @@ import Router from "next/router";
 
 const QuestionCard = ({ data, key }) => {
   const calculateTimeAgo = (createdAt) => {
-    const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
+    const currentDateTime = moment();
     const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
-    const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
+    const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
     const duration = moment.duration(diffMilliseconds);
-    const humanReadableDiff = duration.humanize(true);
+
+    let humanReadableDiff;
+    if (duration.asMinutes() < 60) {
+      humanReadableDiff = duration.minutes() + " minutes ago";
+    } else {
+      humanReadableDiff = duration.humanize(true);
+    }
     return humanReadableDiff;
+  };
+
+  const handlePageRedirection = () => {
+    const { community, url_slug } = data;
+    Router.push(`community/${community?.url_slug}/question/${url_slug}`);
   };
 
   return (
@@ -27,7 +38,10 @@ const QuestionCard = ({ data, key }) => {
           />
           <div className="profile-wrapper">
             <h6>{data?.title}</h6>
-            <p> {data?.visitor?.name} {} ({calculateTimeAgo(data?.created_at)})</p>
+            <p>
+              {" "}
+              {data?.visitor?.name} {} ({calculateTimeAgo(data?.created_at)})
+            </p>
           </div>
         </div>
 
@@ -42,7 +56,7 @@ const QuestionCard = ({ data, key }) => {
           style={{
             display: "flex",
             flexDirection: "row",
-            minHeight: '1.4rem',
+            minHeight: "1.4rem",
           }}
         >
           {data.postTags.map((tag, index) => (
@@ -53,10 +67,7 @@ const QuestionCard = ({ data, key }) => {
         </div>
         <button
           className="custom-btn with-bg-secondary answer-btn"
-          onClick={() => {
-            sessionStorage.setItem("community_question_id", data?.url_slug);
-            Router.push("community/question");
-          }}
+          onClick={() => handlePageRedirection()}
         >
           Answer
         </button>

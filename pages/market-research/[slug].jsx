@@ -131,7 +131,7 @@ function Detail({
                 <h6 className="heading">Related Research</h6>
                 <div className="related-research-wrapper">
                   {research_detail?.related_research.map((data, index) => (
-                    <ResearchCard data={data} key={index} />
+                    <ResearchCard data={data} key={index} redirectUrl={`/market-research/${data?.seo_url_slug}`}/>
                   ))}
                 </div>
               </Fragment>

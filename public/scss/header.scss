@@ -81,7 +81,7 @@
   }
 
   .service-link a {
-    color: #000000 !important;
+    color: #b0b8bf !important;
   }
 
   .navbar-link-wrapper {
@@ -125,6 +125,10 @@
       }
     }
   }
+}
+
+.dropdown-item {
+  background-color: transparent !important;
 }
 
 .menu-search-block {
@@ -177,7 +181,7 @@
         font-style: normal;
         line-height: 34px;
         letter-spacing: 0.24px;
-        color: #E0E0E0;
+        color: #e0e0e0;
       }
     }
   }
@@ -246,7 +250,8 @@
 
     .ant-drawer-content {
       box-shadow: 0 1.5px 3px 0 rgba(0, 0, 0, 0.16);
-      height: 375px !important;
+      // height: 375px !important;
+      height: fit-content !important;
       border-radius: 7px 0 0 7px;
     }
 
@@ -263,12 +268,12 @@
       li {
         a {
           color: "#E0E0E0";
-          font-weight: 400 ;
-          font-size:20px;
+          font-weight: 400;
+          font-size: 20px;
         }
         div {
           a {
-            color: $black;
+            color: "#B0B8BF";
           }
         }
       }

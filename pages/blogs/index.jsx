@@ -22,7 +22,7 @@ function Blogs({ router }) {
   // const [pageSize] = useState(21);
   const [totalItems, setTotalItems] = useState(0);
 
-  const itemsPerPage = 7;
+  const itemsPerPage = 10;
   const [page, setPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
 
@@ -122,7 +122,7 @@ function Blogs({ router }) {
       <section className="blogs-section">
         <PageBanner
           titleNode={
-            <div>
+            <div className="banner-head">
               <h2 style={{ color: "white" }}>
                 Welcome to the Tech 24 <br />
                 Blog
@@ -133,7 +133,7 @@ function Blogs({ router }) {
               <div className="mt-4" style={styles.inputGroup}>
                 <div className="search-box">
                   <SearchInput
-                    placeholder="Search anything"
+                    placeholder="Search anything..."
                     className="SearchInput bg"
                     onChange={(value) => setValue(value)}
                     suffix={
@@ -159,7 +159,6 @@ function Blogs({ router }) {
             className="blogTitle"
             style={{
               color: "#005dd4",
-              paddingLeft: "14px",
               paddingBottom: "20px",
             }}
           >
@@ -181,7 +180,7 @@ function Blogs({ router }) {
                   >
                     <div style={{ letterSpacing: "normal" }}>
                       <Image
-                        className="blogImage"
+                        className="latest-blog-list-img"
                         style={{ transition: "transform 0.5s ease" }}
                         src={post.image}
                         preview={false}
