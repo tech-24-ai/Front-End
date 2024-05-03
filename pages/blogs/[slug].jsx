@@ -413,8 +413,8 @@ class Blog extends Component {
                       {/* {limitedData.map((item, index) => ( */}
                       {limitedData &&
                         limitedData.map((blogs) => (
-                          // <Link href={`blogs/${item.slug}`}>
-                          <div className="col-md-12 blog-list">
+                          <Link href={`blogs/${blogs.slug}`}>
+                          <div className="col-md-12 blog-list hover">
                             <div
                               className="blog-card"
                               style={{
@@ -456,12 +456,14 @@ class Blog extends Component {
                                   {moment(blogs.created_at).format("LL")}
                                 </div>
                                 <div className="custom-divider"></div>
-                                {/* {<div className="time">10 min read</div>} */}
+                                <div className="time">{blogs.read_time}</div>
+                                <div className="custom-divider"></div>
+                                <div className="time">{blogs.author}</div>
                               </div>
                             </div>
                           </div>
 
-                          // </Link>
+                          </Link>
                         ))}
                     </div>
                   </div>

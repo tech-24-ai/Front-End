@@ -22,7 +22,7 @@ function Blogs({ router }) {
   // const [pageSize] = useState(21);
   const [totalItems, setTotalItems] = useState(0);
 
-  const itemsPerPage = 9;
+  const itemsPerPage = 10;
   const [page, setPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
 
@@ -201,7 +201,10 @@ function Blogs({ router }) {
                       <div className="date">
                         {moment(post.created_at).format("LL")}
                       </div>
-                    
+                      <div className="custom-divider"></div>
+                      <div className="time">{post?.read_time}</div>
+                      <div className="custom-divider"></div>
+                      <div className="time">{blogs.author}</div>
                     </div>
                   </div>
                 </div>
