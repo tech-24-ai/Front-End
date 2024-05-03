@@ -31,6 +31,7 @@ import Drawer from "./drawer";
 import myImageLoader from "../imageLoader";
 import Image from "next/future/image";
 import { useMediaQuery } from "react-responsive";
+import { checkDeviceTyepe } from "../../utils/cookie";
 
 function Header(props) {
   //const isBrowser = useDesktopMediaQuery();
@@ -42,19 +43,20 @@ function Header(props) {
   const toggleNavbar = () => setCollapsed(!collapsed);
   const { isloggedIn, openSideMenu, sideMenu, isMainHeader = true } = props;
 
-  
   const [screenSize, getDimension] = useState({
     dynamicWidth: window.innerWidth,
     dynamicHeight: window.innerHeight,
   });
+
+  const {isMobile,isTablet,isBrowser} = checkDeviceTyepe(screenSize.dynamicWidth);
+  
   const setDimension = () => {
     getDimension({
       dynamicWidth: window.innerWidth,
       dynamicHeight: window.innerHeight,
     });
   };
-  console.log('screenSize', screenSize.dynamicWidth,screenSize.dynamicWidth > 1440)
-
+  
   useEffect(() => {
     window.addEventListener("resize", setDimension);
     if (isMainHeader) {
