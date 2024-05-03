@@ -13,7 +13,8 @@ import CustomFilter from "../../components/filter";
 import CustomBreadcrumb from "../../components/breadcrumbs/Breadcrumb";
 import CustomPagination from "../../components/pagination";
 import FilterOptionContainer from "../../components/marketResearch/FilterOptionContainer";
-import { isMobile } from "react-device-detect";
+//import { isMobile } from "react-device-detect";
+import { checkDeviceTyepe } from "../../utils/cookie";
 
 const ResearchList = ({ router }) => {
   const { q } = Router.query;
@@ -32,8 +33,31 @@ const ResearchList = ({ router }) => {
   const [searchQuery, setSearchQuery] = useState(q);
   const [filteredData, setFilteredData] = useState({});
 
+  const [screenSize, getDimension] = useState({
+    dynamicWidth: window.innerWidth,
+    dynamicHeight: window.innerHeight,
+  });
+
+  const setDimension = () => {
+    getDimension({
+      dynamicWidth: window.innerWidth,
+      dynamicHeight: window.innerHeight,
+    });
+  };
+
+  const {isMobile,isTablet,isBrowser} = checkDeviceTyepe(screenSize.dynamicWidth);
+  
   useEffect(() => {
-    console.log("sortBy", sortBy);
+    window.addEventListener("resize", setDimension);
+    return () => {
+      window.removeEventListener("resize", setDimension);
+    };
+
+   
+  }, [screenSize]);
+
+  useEffect(() => {
+    
     const sortData = sortBy?.split("_");
     crudService
       ._getAll("market_research", {
@@ -250,7 +274,7 @@ const ResearchList = ({ router }) => {
         </div>
       </Container>
 
-      {isMobile && (
+      {(isMobile || isTablet) && (
         <FilterOptionContainer
           sortData={{
             options: sortOptions,

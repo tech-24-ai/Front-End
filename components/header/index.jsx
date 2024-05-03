@@ -32,6 +32,7 @@ import myImageLoader from "../imageLoader";
 import Image from "next/future/image";
 import { useMediaQuery } from "react-responsive";
 import { crudService } from "../../_services";
+import { checkDeviceTyepe } from "../../utils/cookie";
 
 function Header(props) {
   //const isBrowser = useDesktopMediaQuery();
@@ -44,6 +45,36 @@ function Header(props) {
   const toggleNavbar = () => setCollapsed(!collapsed);
   const { isloggedIn, openSideMenu, sideMenu, isMainHeader = true } = props;
 
+  const [screenSize, getDimension] = useState({
+    dynamicWidth: window.innerWidth,
+    dynamicHeight: window.innerHeight,
+  });
+
+  const {isMobile,isTablet,isBrowser} = checkDeviceTyepe(screenSize.dynamicWidth);
+  
+  const setDimension = () => {
+    getDimension({
+      dynamicWidth: window.innerWidth,
+      dynamicHeight: window.innerHeight,
+    });
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", setDimension);
+
+    if (isMainHeader) {
+      document.querySelector(".main-content").classList.remove("sticky");
+    } else {
+      document.querySelector(".main-content").classList.add("sticky");
+    }
+
+    return () => {
+      window.removeEventListener("resize", setDimension);
+    };
+
+   
+  }, [screenSize]);
+  
   useEffect(() => {
     setTimeout(() => {
       if (isMainHeader) {
@@ -100,7 +131,7 @@ function Header(props) {
       <Container>
         <Row className="align-items-center">
           <Col md={3} className="left-block">
-            {isMobile == false && (
+            {isBrowser && (
               <div className="logo-content-block">
                 <div className="logo-wrapper">
                   <Link href="/" style={{ marginTop: "-10px", width: "125px" }}>
@@ -119,7 +150,7 @@ function Header(props) {
                 </div>
               </div>
             )}
-            {isMobile && (
+            {(isMobile || isTablet) && (
               <MobileView>
                 <Drawer
                   isloggedIn={isloggedIn}
@@ -144,7 +175,7 @@ function Header(props) {
             )}
           </Col>
           <Col md={9} className="right-block">
-            {isMobile == false && (
+            {isBrowser && (
               <div className="main-menu-wrapper">
                 <Navbar expand="md" className="p-0">
                   <NavbarToggler onClick={toggleNavbar} className="mr-2" />
@@ -318,7 +349,7 @@ function Header(props) {
                 </Navbar>
               </div>
             )}
-            {isMobile && (
+            {(isMobile || isTablet) && (
               <MobileView>
                 <div style={{ float: "right", display: "flex" }}>
                   {/* <NavItem>
