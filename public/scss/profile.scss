@@ -2104,7 +2104,7 @@
   }
   .community-detail-wrapper {
     .cards-container {
-      flex-direction: column-reverse;
+      // flex-direction: column-reverse;
       .cards-header {
         img {
           width: 40px;
@@ -2224,14 +2224,17 @@
     margin-bottom: 0.9rem;
     // scss for large devices
   }
+  .best-answer {
+    margin: 4px 7px;
+  }
 }
 
 @media (max-width: 767px) {
   .ant-timeline-item-content {
-    margin: 0 0 0 178px!important;
+    margin: 0 0 0 178px !important;
   }
   .ant-timeline-item-tail {
-    border-left: 3px solid #0074d9!important;
+    border-left: 3px solid #0074d9 !important;
   }
   .first_tab_Space .input-container {
     margin-left: 15px;
@@ -2299,6 +2302,9 @@
   }
   .shorting_icon {
     display: none !important;
+  }
+  .best-answer {
+    margin: 5px 10px;
   }
   // .main-content {
   //   padding-bottom: 25px;

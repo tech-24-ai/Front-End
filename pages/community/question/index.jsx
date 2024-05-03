@@ -930,31 +930,33 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                             <h5>{answer?.visitor?.name}</h5>
                             <p>{calculateTimeAgo(answer?.created_at)}</p>
                           </div>
-                          <div
-                            className="custom-border"
-                            style={{
-                              margin: "5px 10px",
-                              height: "20px",
-                              backgroundColor: "#D9DFE9",
-                              width: "1px",
-                            }}
-                          ></div>
                           {answer?.is_correct_answer == 1 && (
-                            <div
-                              style={{
-                                border: "1px solid #FFCC00",
-                                borderRadius: "4px",
-                                padding: "6px 12px",
-                                fontFamily: "Inter",
-                                fontWeight: 500,
-                                fontSize: "12px",
-                                color: "#C79F00",
-                                height: "30px",
-                                backgroundColor: "rgba(255, 204, 0, 0.22)",
-                              }}
-                            >
-                              Best Answer
-                            </div>
+                            <>
+                              <div
+                                className="custom-border best-answer"
+                                style={{
+                                  height: "20px",
+                                  backgroundColor: "#D9DFE9",
+                                  width: "1px",
+                                }}
+                              ></div>
+
+                              <div
+                                style={{
+                                  border: "1px solid #FFCC00",
+                                  borderRadius: "4px",
+                                  padding: "6px 12px",
+                                  fontFamily: "Inter",
+                                  fontWeight: 500,
+                                  fontSize: "12px",
+                                  color: "#C79F00",
+                                  height: "30px",
+                                  backgroundColor: "rgba(255, 204, 0, 0.22)",
+                                }}
+                              >
+                                Best Answer
+                              </div>
+                            </>
                           )}
                         </div>
 
