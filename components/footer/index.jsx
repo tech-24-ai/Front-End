@@ -7,7 +7,7 @@ import { linkedin, twitter } from "react-icons-kit/fa";
 
 import Link from "next/link";
 import { connect } from "react-redux";
-import { isMobile, isBrowser, isTablet } from "react-device-detect";
+//import { isMobile, isBrowser, isTablet } from "react-device-detect";
 import { useLayoutEffect, useEffect } from "react";
 
 import LinkedinIcon from "../../public/images/header/Linkedin-icon.svg";
@@ -23,6 +23,7 @@ import x_logo from "../../public/new_images/x_logo.svg";
 import instagram_logo from "../../public/new_images/instagram_logo.svg";
 import youtube_logo from "../../public/new_images/youtube_logo.svg";
 import sports_logo from "../../public/new_images/sports_logo.svg";
+import { checkDeviceTyepe } from "../../utils/cookie";
 
 const Footer = (props) => {
 
@@ -31,6 +32,9 @@ const Footer = (props) => {
     dynamicWidth: window.innerWidth,
     dynamicHeight: window.innerHeight,
   });
+
+  const {isMobile,isTablet,isBrowser} = checkDeviceTyepe(screenSize.dynamicWidth);
+
   const setDimension = () => {
     getDimension({
       dynamicWidth: window.innerWidth,

@@ -60,6 +60,7 @@ const QuestionCard = ({ data, key }) => {
         <button
           className="custom-btn with-bg-secondary answer-btn"
           onClick={() => {
+            sessionStorage.setItem("community_id", data?.community?.url_slug);
             sessionStorage.setItem("community_question_id", data?.url_slug);
             Router.push("community/question");
           }}
