@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect, Fragment, useState } from "react";
 import { Drawer } from "antd";
 import {
   Navbar,
@@ -20,12 +20,14 @@ import Image from "next/future/image";
 import myImageLoader from "../imageLoader";
 
 function Menu(props) {
+  const [isCollapse, setIsCollapse] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     document.querySelector(".main-content").classList.add("sticky");
   }, []);
   const { isloggedIn, openSideMenu, sideMenu } = props;
+
   return (
     <Fragment>
       <div className="menu-search-block">
@@ -95,26 +97,56 @@ function Menu(props) {
               <hr color="white" />
               <NavItem>
                 <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret>
+                  <DropdownToggle
+                    nav
+                    caret
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                    onClick={() => setIsCollapse(!isCollapse)}
+                  >
                     Service
                   </DropdownToggle>
-                  <DropdownMenu className="dropdown-service-custom">
-                    <DropdownItem className="service-link">
-                      <Link onClick={openSideMenu} href="/it-robo" style={{color: "black"}}>
-                        AI-Based Robo Advisor
-                      </Link>
-                    </DropdownItem>
-                    <DropdownItem className="service-link">
-                      <Link onClick={openSideMenu} href="/consultant" style={{color: "black"}}>
-                        Talk to a Consultant
-                      </Link>
-                    </DropdownItem>
-                    <DropdownItem className="service-link">
-                      <Link onClick={openSideMenu} href="/d/tools_calculators/calculators" style={{color: "black"}}>
-                      Tools & Calculator
-                      </Link>
-                    </DropdownItem>
-                  </DropdownMenu>
+                  {isCollapse && (
+                    <ul
+                      className="dropdown-service-custom"
+                      style={{
+                        backgroundColor: "#1F1F1F",
+                        width: "100%",
+                      }}
+                      onClick={() => setIsCollapse(!isCollapse)}
+                    >
+                      <DropdownItem className="service-link">
+                        <Link
+                          onClick={openSideMenu}
+                          href="/it-robo"
+                          style={{ color: "black" }}
+                        >
+                          AI-Based Robo Advisor
+                        </Link>
+                      </DropdownItem>
+                      <DropdownItem className="service-link">
+                        <Link
+                          onClick={openSideMenu}
+                          href="/consultant"
+                          style={{ color: "black" }}
+                        >
+                          Talk to a Consultant
+                        </Link>
+                      </DropdownItem>
+                      <DropdownItem className="service-link">
+                        <Link
+                          onClick={openSideMenu}
+                          href="/d/tools_calculators/calculators"
+                          style={{ color: "black" }}
+                        >
+                          Tools & Calculator
+                        </Link>
+                      </DropdownItem>
+                    </ul>
+                  )}
                 </UncontrolledDropdown>
               </NavItem>
               <hr color="white" />

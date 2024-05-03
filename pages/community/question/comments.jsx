@@ -247,7 +247,10 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                   <div className="profile" style={{ flexDirection: "column" }}>
                     <h5>{communityQuestionDetail?.title}</h5>
                     <p>
-                    {communityQuestionDetail?.visitor?.name}{"("}{calculateTimeAgo(communityQuestionDetail?.created_at)}{")"}
+                      {communityQuestionDetail?.visitor?.name}
+                      {"("}
+                      {calculateTimeAgo(communityQuestionDetail?.created_at)}
+                      {")"}
                     </p>
                   </div>
                 </div>
@@ -425,98 +428,100 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
               <h6 className="custom-border"></h6>
               <p>{communityQuestionDetail?.views_counter} views</p>
             </div> */}
-                  { communityQuestionDetail?.is_discussion_open == 1
-                    &&
-                    <div className="like-footer" style={{ marginTop: "1.5rem" }}>
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      <div
-                        onClick={() =>
-                          setIsReplayModalOpen({
-                            isReplayModelOpen: true,
-                            details: answer,
-                          })
-                        }
-                        style={{
-                          border: "1px solid #D9DFE9",
-                          padding: "8px 12px",
-                          borderRadius: "4px",
-                          backgroundColor: "#D9DFE9",
-                          display: "flex",
-                          width: isMobile ? "auto" : "7rem",
-                          cursor: "pointer",
-                        }}
-                      >
-                        <Image
-                          loader={myImageLoader}
-                          style={{ borderRadius: "5px", cursor: "pointer" }}
-                          width={16}
-                          height={16}
-                          preview="false"
-                          src={reply_icon}
-                          alt="reply-icon"
-                        />
-                        {!isMobile && (
-                          <div
-                            style={{
-                              fontSize: "14px",
-                              fontWeight: 500,
-                              fontFamily: "Inter",
-                              color: "#54616C",
-                              marginLeft: "5px",
-                            }}
-                          >
-                            Reply
-                          </div>
-                        )}
-                      </div>
-                      {answer?.comments && answer?.comments.length > 0 ? (
+                  {communityQuestionDetail?.is_discussion_open == 1 && (
+                    <div
+                      className="like-footer"
+                      style={{ marginTop: "1.5rem" }}
+                    >
+                      <div style={{ display: "flex", alignItems: "center" }}>
                         <div
+                          onClick={() =>
+                            setIsReplayModalOpen({
+                              isReplayModelOpen: true,
+                              details: answer,
+                            })
+                          }
                           style={{
                             border: "1px solid #D9DFE9",
                             padding: "8px 12px",
                             borderRadius: "4px",
-                            backgroundColor: "#F2F4F7",
-                            fontSize: isMobile ? "12px" : "14px",
-                            fontWeight: 500,
-                            fontFamily: "Inter",
-                            color: "#54616C",
-                            marginLeft: isMobile ? "6px" : "10px",
-                            color: "#0074D9",
+                            backgroundColor: "#D9DFE9",
+                            display: "flex",
+                            width: isMobile ? "auto" : "7rem",
                             cursor: "pointer",
                           }}
-                          onClick={() =>
-                            setIsShowReplies(
-                              isShowReplies == answer.id ? "" : answer.id
-                            )
-                          }
                         >
-                          {isShowReplies == answer.id
-                            ? "Hide Replies"
-                            : "View Replies"}
+                          <Image
+                            loader={myImageLoader}
+                            style={{ borderRadius: "5px", cursor: "pointer" }}
+                            width={16}
+                            height={16}
+                            preview="false"
+                            src={reply_icon}
+                            alt="reply-icon"
+                          />
+                          {!isMobile && (
+                            <div
+                              style={{
+                                fontSize: "14px",
+                                fontWeight: 500,
+                                fontFamily: "Inter",
+                                color: "#54616C",
+                                marginLeft: "5px",
+                              }}
+                            >
+                              Reply
+                            </div>
+                          )}
                         </div>
-                      ) : (
-                        <></>
-                      )}
-                    </div>
-                    <div className="rating">
-                      <div>
-                        <Image
-                          loader={myImageLoader}
-                          style={{ borderRadius: "5px", cursor: "pointer" }}
-                          width={16}
-                          height={16}
-                          preview="false"
-                          src={like_button}
-                          alt="profile"
-                          onClick={() => {
-                            voteCommunityPostReplies(answer, 1);
-                          }}
-                        />
+                        {answer?.comments && answer?.comments.length > 0 ? (
+                          <div
+                            style={{
+                              border: "1px solid #D9DFE9",
+                              padding: "8px 12px",
+                              borderRadius: "4px",
+                              backgroundColor: "#F2F4F7",
+                              fontSize: isMobile ? "12px" : "14px",
+                              fontWeight: 500,
+                              fontFamily: "Inter",
+                              color: "#54616C",
+                              marginLeft: isMobile ? "6px" : "10px",
+                              color: "#0074D9",
+                              cursor: "pointer",
+                            }}
+                            onClick={() =>
+                              setIsShowReplies(
+                                isShowReplies == answer.id ? "" : answer.id
+                              )
+                            }
+                          >
+                            {isShowReplies == answer.id
+                              ? "Hide Replies"
+                              : "View Replies"}
+                          </div>
+                        ) : (
+                          <></>
+                        )}
                       </div>
-                      <h6>
-                        Upvote <p></p> {answer?.__meta__?.total_helpful}
-                      </h6>
-                      {/* <div className="left-border">
+                      <div className="rating">
+                        <div>
+                          <Image
+                            loader={myImageLoader}
+                            style={{ borderRadius: "5px", cursor: "pointer" }}
+                            width={16}
+                            height={16}
+                            preview="false"
+                            src={like_button}
+                            alt="profile"
+                            onClick={() => {
+                              voteCommunityPostReplies(answer, 1);
+                            }}
+                          />
+                        </div>
+                        <h6>
+                          Upvote <p></p> {answer?.__meta__?.total_helpful}
+                        </h6>
+                        {/* <div className="left-border">
                         <Image
                           loader={myImageLoader}
                           style={{ borderRadius: "5px", cursor: "pointer" }}
@@ -530,9 +535,9 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                           }}
                         />
                       </div> */}
+                      </div>
                     </div>
-                  </div>
-                  }
+                  )}
                   {answer?.comments.length > 0 &&
                     isShowReplies == answer.id &&
                     answer?.comments.map((comment) => (
@@ -636,7 +641,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
             <div
               className="cards-container"
               style={{
-                display: isMobile && "unset",
+                display: "unset",
                 gap: "unset",
               }}
             >
@@ -741,14 +746,17 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
               <Card
                 bordered={true}
                 style={{
-                  width: isMobile ? "100%" : 380,
+                  width: "100%",
                   height: "fit-content",
                   marginTop: "1rem",
                 }}
               >
-                <div className="cards-header" style={{
-                  justifyContent : 'flex-start'
-                }}>
+                <div
+                  className="cards-header"
+                  style={{
+                    justifyContent: "flex-start",
+                  }}
+                >
                   <Image
                     loader={myImageLoader}
                     style={{ borderRadius: "2px" }}

@@ -61,7 +61,14 @@ const SubmitButton = ({ form, children }) => {
   );
 };
 
-const QuestionTab = ({ getAllCrud, showAlert, success }) => {
+const QuestionTab = ({
+  getAllCrud,
+  showAlert,
+  success,
+  componentName = "community",
+  askQuestion = true,
+  isSearch = true,
+}) => {
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState();
   const [tags, setTag] = useState([]);
@@ -98,13 +105,8 @@ const QuestionTab = ({ getAllCrud, showAlert, success }) => {
 
   const fetchCommunityData = () => {
     const id = sessionStorage.getItem("community_id");
-    if (id) {
+    if (id && componentName == "community") {
       crudService._getAll(`community/details/${id}`).then((data) => {
-        setCommunityData(data?.data);
-      });
-    }
-    if (window.location.pathname == "Profile") {
-      crudService._getAll(`visitor_queries_history`).then((data) => {
         setCommunityData(data?.data);
       });
     }
@@ -219,22 +221,43 @@ const QuestionTab = ({ getAllCrud, showAlert, success }) => {
 
   useEffect(() => {
     const id = sessionStorage.getItem("community_id");
-    crudService
-      ._getAll(`communitypost/${id}`, {
-        orderBy: sortBy,
-        orderDirection: window?.innerWidth > 1441 ? "DESC" : "ASC",
-        page: page + 1,
-        pageSize: itemsPerPage,
-        search: headerSearch,
-        // search: searchQuery,
-        // ...filteredData,
-      })
-      .then((result) => {
-        setCommunityDetails(result?.data);
-        const totalPage = Math.ceil(result?.data.total / result?.data.perPage);
+    if (id && componentName == "community") {
+      crudService
+        ._getAll(`communitypost/${id}`, {
+          orderBy: sortBy,
+          orderDirection: window?.innerWidth > 1441 ? "DESC" : "ASC",
+          page: page + 1,
+          pageSize: itemsPerPage,
+          search: headerSearch,
+          // search: searchQuery,
+          // ...filteredData,
+        })
+        .then((result) => {
+          setCommunityDetails(result?.data);
+          const totalPage = Math.ceil(
+            result?.data.total / result?.data.perPage
+          );
 
-        setPageCount(isNaN(totalPage) ? 0 : totalPage);
-      });
+          setPageCount(isNaN(totalPage) ? 0 : totalPage);
+        });
+    } else if (componentName == "profile") {
+      crudService
+        ._getAll(`visitor_queries_history`, {
+          orderBy: sortBy,
+          orderDirection: window?.innerWidth > 1441 ? "DESC" : "ASC",
+          page: page + 1,
+          pageSize: itemsPerPage,
+          search: headerSearch,
+        })
+        .then((result) => {
+          setCommunityDetails(result?.data);
+          const totalPage = Math.ceil(
+            result?.data.total / result?.data.perPage
+          );
+
+          setPageCount(isNaN(totalPage) ? 0 : totalPage);
+        });
+    }
   }, [page, sortBy, headerSearch]);
 
   const handleSort = (e) => {
@@ -294,8 +317,9 @@ const QuestionTab = ({ getAllCrud, showAlert, success }) => {
 
   return (
     <div className="community-tab-container questions-tab-container community-detail-wrapper">
-      <div className="search-container">
-        {/* <Search
+      {isSearch && (
+        <div className="search-container">
+          {/* <Search
             style={{ width: isMobile ? "84%" : "65%" }}
             placeholder="Search a question..."
             onSearch={onSearch}
@@ -304,51 +328,70 @@ const QuestionTab = ({ getAllCrud, showAlert, success }) => {
             value={headerSearch}
           /> */}
 
-        <Input
-          className="community_search_small"
-          placeholder="Search anything.."
-          allowClear
-          prefix={
-            <SearchOutlined
-              style={{ color: "#0074D9", padding: "0 6px", fontSize: "24px" }}
-            />
-          }
-          onChange={(e) => {
-            setHeaderSearch(e?.target?.value);
-          }}
-          value={headerSearch}
-          style={{
-            width: isMobile ? "84%" : "74%",
-            padding: "10px",
-            border: "1px solid #ccc",
-            borderRadius: "5px",
-            background: "#ffffff",
-            boxSizing: "border-box",
-            fontSize: "16px",
-            fontFamily: "Inter",
-          }}
-        />
+          <Input
+            className="community_search_small"
+            placeholder="Search anything.."
+            allowClear
+            prefix={
+              <SearchOutlined
+                style={{ color: "#0074D9", padding: "0 6px", fontSize: "24px" }}
+              />
+            }
+            onChange={(e) => {
+              setHeaderSearch(e?.target?.value);
+            }}
+            value={headerSearch}
+            style={{
+              width: isMobile ? "84%" : "74%",
+              padding: "10px",
+              border: "1px solid #ccc",
+              borderRadius: "5px",
+              background: "#ffffff",
+              boxSizing: "border-box",
+              fontSize: "16px",
+              fontFamily: "Inter",
+            }}
+          />
 
-        <Image
-          onClick={() => setSortByOrder(!sortByOrder)}
-          loader={myImageLoader}
-          style={{ borderRadius: "2px", cursor: "pointer", display: "none" }}
-          width={44}
-          height={44}
-          preview="false"
-          src={shorting_icon}
-          alt="profile"
-          className="shorting_icon"
-        />
+          <Image
+            onClick={() => setSortByOrder(!sortByOrder)}
+            loader={myImageLoader}
+            style={{ borderRadius: "2px", cursor: "pointer", display: "none" }}
+            width={44}
+            height={44}
+            preview="false"
+            src={shorting_icon}
+            alt="profile"
+            className="shorting_icon"
+          />
 
-        <Modal
-          visible={sortByOrder}
-          footer={null}
-          onCancel={() => {
-            setSortByOrder(false);
-          }}
-        >
-          <div className="sorting shorting_icon">
+          <Modal
+            visible={sortByOrder}
+            footer={null}
+            onCancel={() => {
+              setSortByOrder(false);
+            }}
+          >
+            <div className="sorting shorting_icon">
+              <label className="sortby" htmlFor="sortDropdown">
+                Sort By:{" "}
+              </label>
+              <select
+                id="sortDropdown"
+                style={{ border: "none", background: "transparent" }}
+                value={sortBy}
+                onChange={handleSort}
+              >
+                {options.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </Modal>
+
+          <div className="sorting mobile-display-n d-none community_filter_section">
             <label className="sortby" htmlFor="sortDropdown">
               Sort By:{" "}
             </label>
@@ -365,27 +408,9 @@ const QuestionTab = ({ getAllCrud, showAlert, success }) => {
               ))}
             </select>
           </div>
-        </Modal>
-
-        <div className="sorting mobile-display-n d-none community_filter_section">
-          <label className="sortby" htmlFor="sortDropdown">
-            Sort By:{" "}
-          </label>
-          <select
-            id="sortDropdown"
-            style={{ border: "none", background: "transparent" }}
-            value={sortBy}
-            onChange={handleSort}
-          >
-            {options.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
         </div>
-      </div>
-      {selectedIndex == "1" ? (
+      )}
+      {selectedIndex == "1" && askQuestion && (
         <div
           onClick={showModal}
           style={{
@@ -404,8 +429,6 @@ const QuestionTab = ({ getAllCrud, showAlert, success }) => {
         >
           Ask a Question
         </div>
-      ) : (
-        <></>
       )}
 
       <div>

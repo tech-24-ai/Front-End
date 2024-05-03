@@ -31,19 +31,20 @@ import Drawer from "./drawer";
 import myImageLoader from "../imageLoader";
 import Image from "next/future/image";
 import { useMediaQuery } from "react-responsive";
+import { crudService } from "../../_services";
 
 function Header(props) {
   //const isBrowser = useDesktopMediaQuery();
   //const isTablet = useTabletAndBelowMediaQuery();
 
   const [collapsed, setCollapsed] = useState(true);
+  const [profileData, setProfileData] = useState();
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const toggleNavbar = () => setCollapsed(!collapsed);
   const { isloggedIn, openSideMenu, sideMenu, isMainHeader = true } = props;
 
   useEffect(() => {
-    console.log("isMainHeader",isMainHeader);
     setTimeout(() => {
       if (isMainHeader) {
         document.querySelector(".main-content").classList.remove("sticky");
@@ -85,6 +86,11 @@ function Header(props) {
   if (!isloggedIn && !unProtectedRoutes.includes(router.pathname)) {
     // window.location.replace("/login");
   }
+  useEffect(() => {
+    crudService._getAll("visitorprofile").then((data) => {
+      setProfileData(data?.data);
+    });
+  }, []);
   return (
     <header
       className={`header-block ${isMainHeader ? "main-header" : "header1"} ${
@@ -177,6 +183,9 @@ function Header(props) {
                             className="dropdown-service-custom"
                             onMouseOver={() => setIsOpen(true)}
                             onMouseOut={() => setIsOpen(false)}
+                            style={{
+                              backgroundColor: "#1F1F1F",
+                            }}
                           >
                             <DropdownItem className="service-link">
                               <Link href="/it-robo">AI-Based Robo Advisor</Link>
@@ -255,11 +264,25 @@ function Header(props) {
                         {isloggedIn && (
                           <NavItem style={{ margin: 0 }}>
                             <Link href="/Profile">
-                              <img
-                                src="/new_images/Avatar.svg"
-                                alt="avatar"
-                                style={{ cursor: "pointer" }}
-                              />
+                              {profileData?.profile_pic_url ? (
+                                <img
+                                  src={`${profileData?.profile_pic_url}`}
+                                  alt="avatar"
+                                  style={{
+                                    cursor: "pointer",
+                                    width: "30px",
+                                    height: "30px",
+                                    borderRadius: "50%",
+                                    border: "1px solid #D9DFE9",
+                                  }}
+                                />
+                              ) : (
+                                <img
+                                  src="/new_images/Avatar.svg"
+                                  alt="avatar"
+                                  style={{ cursor: "pointer" }}
+                                />
+                              )}
                             </Link>
                           </NavItem>
                         )}
@@ -305,11 +328,25 @@ function Header(props) {
                   {isloggedIn && (
                     <NavItem style={{ margin: 0 }}>
                       <Link href="/Profile">
-                        <img
-                          src="/new_images/Avatar.svg"
-                          alt="avatar"
-                          style={{ cursor: "pointer" }}
-                        />
+                        {profileData?.profile_pic_url ? (
+                          <img
+                            src={`${profileData?.profile_pic_url}`}
+                            alt="avatar"
+                            style={{
+                              cursor: "pointer",
+                              width: "40px",
+                              height: "40px",
+                              borderRadius: "50%",
+                              border: "1px solid #D9DFE9",
+                            }}
+                          />
+                        ) : (
+                          <img
+                            src="/new_images/Avatar.svg"
+                            alt="avatar"
+                            style={{ cursor: "pointer" }}
+                          />
+                        )}
                       </Link>
                     </NavItem>
                   )}
@@ -317,7 +354,7 @@ function Header(props) {
                     <NavItem>
                       <Link href="/login">
                         <Button color="light" className="px-4">
-                        Sign In
+                          Sign In
                         </Button>
                       </Link>
                     </NavItem>
