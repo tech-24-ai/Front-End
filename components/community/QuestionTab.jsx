@@ -743,7 +743,7 @@ const QuestionTab = ({ getAllCrud, showAlert, success }) => {
       </div>
       <br></br>
       <div className="mt-5" style={{ width: "100%" }}>
-        {communityDetails?.data?.length > 0 && (
+        {communityDetails?.data?.length > 0 && pageCount > 1 && (
           <CustomPagination
             pageCount={pageCount}
             page={page}

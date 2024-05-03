@@ -463,7 +463,7 @@ const Community = ({ router }) => {
           </div>
           {!isSearchActive && !searchQuery && (
             <div className="mt-5" style={{ width: "100%" }}>
-              {communityFeature?.length > 0 && (
+              {communityFeature?.length > 0 && Math.ceil(total / itemsPerPage) > 1 && (
                 <CustomPagination
                   pageCount={Math.ceil(total / itemsPerPage)}
                   page={currentPage}

@@ -1052,7 +1052,7 @@ const Profile = ({
           ))}
 
           <div className="custom-pagination">
-            {visitorActivity?.length > 0 && (
+            {visitorActivity?.length > 0 && pageCount > 1 && (
               <CustomPagination
                 pageCount={pageCount}
                 page={page}
@@ -1310,7 +1310,7 @@ const Profile = ({
           ))}
           {/* Render pagination controls */}
           <div className="mt-5" style={{ width: "100%" }}>
-            {libraryData?.length > 0 && (
+            {libraryData?.length > 0 && libraryPageCount > 1 && (
               <CustomPagination
                 pageCount={libraryPageCount}
                 page={libraryPage}

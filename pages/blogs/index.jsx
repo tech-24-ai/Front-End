@@ -204,7 +204,7 @@ function Blogs({ router }) {
                       <div className="custom-divider"></div>
                       <div className="time">{post?.read_time}</div>
                       <div className="custom-divider"></div>
-                      <div className="time">{blogs.author}</div>
+                      <div className="time">{post?.author}</div>
                     </div>
                   </div>
                 </div>
@@ -213,7 +213,7 @@ function Blogs({ router }) {
           </div>
           <br></br>
           <div className="mt-5" style={{ width: "100%" }}>
-            {posts?.data?.length > 0 && (
+            {posts?.data?.length > 0 && pageCount> 1 && (
               <CustomPagination
                 pageCount={pageCount}
                 page={page}

@@ -261,7 +261,7 @@ const ResearchList = ({ router }) => {
                 ))}
               </div>
               <div className="mt-5" style={{ width: "100%" }}>
-                {researchData?.length > 0 && (
+                {researchData?.length > 0 && pageCount > 1 && (
                   <CustomPagination
                     pageCount={pageCount}
                     page={page}
