@@ -2104,7 +2104,7 @@
   }
   .community-detail-wrapper {
     .cards-container {
-      flex-direction: column-reverse;
+      // flex-direction: column-reverse;
       .cards-header {
         img {
           width: 40px;
@@ -2223,6 +2223,9 @@
     line-height: 24px;
     margin-bottom: 0.9rem;
     // scss for large devices
+  }
+  .best-answer {
+    margin: 4px 7px;
   }
 }
 
@@ -2347,6 +2350,12 @@
   }
   .community_filter_section {
     display: block !important;
+  }
+  .shorting_icon {
+    display: none !important;
+  }
+  .best-answer {
+    margin: 5px 10px;
   }
   // .main-content {
   //   padding-bottom: 25px;
