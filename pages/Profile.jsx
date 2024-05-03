@@ -825,6 +825,41 @@ const Profile = ({
     },
   };
 
+  const redirectToPage = ({
+    activity_type,
+    communityPost,
+    communityPostReply,
+    community,
+  }) => {
+    if (
+      activity_type === 1 ||
+      activity_type === 6 ||
+      activity_type === 4 ||
+      activity_type === 5
+    ) {
+      //1/2: create/view Question => Open Question Tab
+      //4/5 Upvote/downvote Answer => Option Question Tab
+      const url = `community/${community?.url_slug}/question/${communityPost?.url_slug}`;
+      Router.push(url);
+      return false;
+    }
+
+    if (activity_type === 2 || activity_type === 3) {
+      //2: Answer Question => Open Answer Tab
+      //3: Comment on Answer => Open question/Comment Tab with Comments
+      sessionStorage.setItem("community_id", community?.url_slug);
+      sessionStorage.setItem("community_question_id", communityPost?.url_slug);
+      sessionStorage.setItem("community_parent_id", communityPostReply?.id);
+      sessionStorage.setItem(
+        "community_post_details",
+        JSON.stringify(communityPostReply)
+      );
+      const url = `community/${community?.url_slug}/question/${communityPost?.url_slug}/comments`;
+      Router.push(url);
+      return false;
+    }
+  };
+
   const Tab1 = () => {
     const [isSignOutModalOpen, setIsSignOutModalOpen] = useState(false);
     const handleSignOutOk = () => {
@@ -976,7 +1011,7 @@ const Profile = ({
       const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
       const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
       const duration = moment.duration(diffMilliseconds);
-  
+
       let humanReadableDiff;
       if (duration.asMinutes() < 60) {
         humanReadableDiff = duration.minutes() + " minutes ago";
@@ -1208,7 +1243,7 @@ const Profile = ({
       const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
       const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
       const duration = moment.duration(diffMilliseconds);
-  
+
       let humanReadableDiff;
       if (duration.asMinutes() < 60) {
         humanReadableDiff = duration.minutes() + " minutes ago";
