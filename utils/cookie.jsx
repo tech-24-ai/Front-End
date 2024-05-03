@@ -21,11 +21,3 @@ const getCookieFromServer = (key, req) => {
   }
   return rawCookie.split('=')[1];
 };
-
-export const checkDeviceTyepe = (width) => {
-  const isMobile = width < 767;
-  const isTablet = width > 767 && width < 1440;
-  const isBrowser = width > 1440;
-
-  return {isMobile,isTablet,isBrowser};
-}

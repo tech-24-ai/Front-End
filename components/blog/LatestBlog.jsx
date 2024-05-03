@@ -131,10 +131,8 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
                     <div className="date">
                       {moment(data.created_at).format("LL")}
                     </div>
-                    <div className="custom-divider"></div>
-                    <div className="time">{data?.read_time}</div>
-                    <div className="custom-divider"></div>
-                    <div className="time">{data?.author}</div>
+                    {/* <div className="custom-divider"></div>
+                    {<div className="time">10 min read</div>} */}
                   </div>
                 </div>
               </div>

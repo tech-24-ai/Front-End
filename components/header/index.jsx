@@ -20,7 +20,10 @@ import { connect } from "react-redux";
 import Link from "next/link";
 import {
   BrowserView,
-  MobileView
+  MobileView,
+  isBrowser,
+  isMobile,
+  isTablet,
 } from "react-device-detect";
 import LogoBlack from "../../public/new_images/tech24_header_logo_white.svg";
 import LogoWhite from "../../public/new_images/tech24_header_logo_white.svg";
@@ -28,50 +31,19 @@ import Drawer from "./drawer";
 import myImageLoader from "../imageLoader";
 import Image from "next/future/image";
 import { useMediaQuery } from "react-responsive";
-import { crudService } from "../../_services";
-import { checkDeviceTyepe } from "../../utils/cookie";
 
 function Header(props) {
   //const isBrowser = useDesktopMediaQuery();
   //const isTablet = useTabletAndBelowMediaQuery();
 
   const [collapsed, setCollapsed] = useState(true);
-  const [profileData, setProfileData] = useState();
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const toggleNavbar = () => setCollapsed(!collapsed);
   const { isloggedIn, openSideMenu, sideMenu, isMainHeader = true } = props;
 
-  const [screenSize, getDimension] = useState({
-    dynamicWidth: window.innerWidth,
-    dynamicHeight: window.innerHeight,
-  });
-
-  const {isMobile,isTablet,isBrowser} = checkDeviceTyepe(screenSize.dynamicWidth);
-  const setDimension = () => {
-    getDimension({
-      dynamicWidth: window.innerWidth,
-      dynamicHeight: window.innerHeight,
-    });
-  };
-
   useEffect(() => {
-    window.addEventListener("resize", setDimension);
-
-    if (isMainHeader) {
-      document.querySelector(".main-content").classList.remove("sticky");
-    } else {
-      document.querySelector(".main-content").classList.add("sticky");
-    }
-
-    return () => {
-      window.removeEventListener("resize", setDimension);
-    };
-
-   
-  }, [screenSize]);
-  
-  useEffect(() => {
+    console.log("isMainHeader",isMainHeader);
     setTimeout(() => {
       if (isMainHeader) {
         document.querySelector(".main-content").classList.remove("sticky");
@@ -113,11 +85,6 @@ function Header(props) {
   if (!isloggedIn && !unProtectedRoutes.includes(router.pathname)) {
     // window.location.replace("/login");
   }
-  useEffect(() => {
-    crudService._getAll("visitorprofile").then((data) => {
-      setProfileData(data?.data);
-    });
-  }, []);
   return (
     <header
       className={`header-block ${isMainHeader ? "main-header" : "header1"} ${
@@ -127,7 +94,7 @@ function Header(props) {
       <Container>
         <Row className="align-items-center">
           <Col md={3} className="left-block">
-            {isBrowser && (
+            {isMobile == false && (
               <div className="logo-content-block">
                 <div className="logo-wrapper">
                   <Link href="/" style={{ marginTop: "-10px", width: "125px" }}>
@@ -146,9 +113,9 @@ function Header(props) {
                 </div>
               </div>
             )}
-            {(isMobile || isTablet) && (
-              <>
-               <Drawer
+            {isMobile && (
+              <MobileView>
+                <Drawer
                   isloggedIn={isloggedIn}
                   openSideMenu={openSideMenu}
                   sideMenu={sideMenu}
@@ -167,11 +134,11 @@ function Header(props) {
                     }}
                   />
                 </Link>
-              </>
+              </MobileView>
             )}
           </Col>
           <Col md={9} className="right-block">
-            {isBrowser && (
+            {isMobile == false && (
               <div className="main-menu-wrapper">
                 <Navbar expand="md" className="p-0">
                   <NavbarToggler onClick={toggleNavbar} className="mr-2" />
@@ -210,9 +177,6 @@ function Header(props) {
                             className="dropdown-service-custom"
                             onMouseOver={() => setIsOpen(true)}
                             onMouseOut={() => setIsOpen(false)}
-                            style={{
-                              backgroundColor: "#1F1F1F",
-                            }}
                           >
                             <DropdownItem className="service-link">
                               <Link href="/it-robo">AI-Based Robo Advisor</Link>
@@ -291,25 +255,11 @@ function Header(props) {
                         {isloggedIn && (
                           <NavItem style={{ margin: 0 }}>
                             <Link href="/Profile">
-                              {profileData?.profile_pic_url ? (
-                                <img
-                                  src={`${profileData?.profile_pic_url}`}
-                                  alt="avatar"
-                                  style={{
-                                    cursor: "pointer",
-                                    width: "30px",
-                                    height: "30px",
-                                    borderRadius: "50%",
-                                    border: "1px solid #D9DFE9",
-                                  }}
-                                />
-                              ) : (
-                                <img
-                                  src="/new_images/Avatar.svg"
-                                  alt="avatar"
-                                  style={{ cursor: "pointer" }}
-                                />
-                              )}
+                              <img
+                                src="/new_images/Avatar.svg"
+                                alt="avatar"
+                                style={{ cursor: "pointer" }}
+                              />
                             </Link>
                           </NavItem>
                         )}
@@ -345,47 +295,35 @@ function Header(props) {
                 </Navbar>
               </div>
             )}
-            {(isMobile || isTablet) && (
+            {isMobile && (
+              <MobileView>
                 <div style={{ float: "right", display: "flex" }}>
-                {/* <NavItem>
-                  <img src="/new_images/search.svg" alt="search" />
-                </NavItem> */}
+                  <NavItem>
+                    <img src="/new_images/search.svg" alt="search" />
+                  </NavItem>
 
-                {isloggedIn && (
-                  <NavItem style={{ margin: 0 }}>
-                    <Link href="/Profile">
-                      {profileData?.profile_pic_url ? (
-                        <img
-                          src={`${profileData?.profile_pic_url}`}
-                          alt="avatar"
-                          style={{
-                            cursor: "pointer",
-                            width: "40px",
-                            height: "40px",
-                            borderRadius: "50%",
-                            border: "1px solid #D9DFE9",
-                          }}
-                        />
-                      ) : (
+                  {isloggedIn && (
+                    <NavItem style={{ margin: 0 }}>
+                      <Link href="/Profile">
                         <img
                           src="/new_images/Avatar.svg"
                           alt="avatar"
                           style={{ cursor: "pointer" }}
                         />
-                      )}
-                    </Link>
-                  </NavItem>
-                )}
-                {!isloggedIn && (
-                  <NavItem>
-                    <Link href="/login">
-                      <Button color="light" className="px-4">
+                      </Link>
+                    </NavItem>
+                  )}
+                  {!isloggedIn && (
+                    <NavItem>
+                      <Link href="/login">
+                        <Button color="light" className="px-4">
                         Sign In
-                      </Button>
-                    </Link>
-                  </NavItem>
-                )}
-              </div>
+                        </Button>
+                      </Link>
+                    </NavItem>
+                  )}
+                </div>
+              </MobileView>
             )}
           </Col>
         </Row>

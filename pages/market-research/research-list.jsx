@@ -12,9 +12,6 @@ import ResearchCard from "../../components/marketResearch/ResearchCard";
 import CustomFilter from "../../components/filter";
 import CustomBreadcrumb from "../../components/breadcrumbs/Breadcrumb";
 import CustomPagination from "../../components/pagination";
-import FilterOptionContainer from "../../components/marketResearch/FilterOptionContainer";
-//import { isMobile } from "react-device-detect";
-import { checkDeviceTyepe } from "../../utils/cookie";
 
 const ResearchList = ({ router }) => {
   const { q } = Router.query;
@@ -24,7 +21,7 @@ const ResearchList = ({ router }) => {
   const [tagOptions, setTagOptions] = useState([]);
   const [typeOptions, setTypeOptions] = useState([]);
 
-  const [sortBy, setSortBy] = useState("id_desc");
+  const [sortBy, setSortBy] = useState("id");
   const itemsPerPage = 6;
 
   const [page, setPage] = useState(0);
@@ -33,32 +30,8 @@ const ResearchList = ({ router }) => {
   const [searchQuery, setSearchQuery] = useState(q);
   const [filteredData, setFilteredData] = useState({});
 
-  const [screenSize, getDimension] = useState({
-    dynamicWidth: window.innerWidth,
-    dynamicHeight: window.innerHeight,
-  });
-
-  const setDimension = () => {
-    getDimension({
-      dynamicWidth: window.innerWidth,
-      dynamicHeight: window.innerHeight,
-    });
-  };
-
-  const {isMobile,isTablet,isBrowser} = checkDeviceTyepe(screenSize.dynamicWidth);
-  
   useEffect(() => {
-    window.addEventListener("resize", setDimension);
-    return () => {
-      window.removeEventListener("resize", setDimension);
-    };
-
-   
-  }, [screenSize]);
-
-  useEffect(() => {
-    
-    const sortData = sortBy?.split("_");
+    const sortData = sortBy.split("_");
     crudService
       ._getAll("market_research", {
         orderBy: sortData[0],
@@ -215,10 +188,7 @@ const ResearchList = ({ router }) => {
           style={{ display: "flex", justifyContent: "space-between" }}
           className="mt-5"
         >
-          <div
-            className="mobile-display-n"
-            style={{ width: "25%", marginRight: 20 }}
-          >
+          <div className="mobile-display-n" style={{ width: "25%", marginRight:20 }}>
             <CustomFilter
               data={filterData}
               handleOptionChange={handleOptionChange}
@@ -273,22 +243,6 @@ const ResearchList = ({ router }) => {
           </div>
         </div>
       </Container>
-
-      {(isMobile || isTablet) && (
-        <FilterOptionContainer
-          sortData={{
-            options: sortOptions,
-            value: sortBy,
-            setState: setSortBy,
-          }}
-          filterData={{
-            options: filterData,
-            value: filteredData,
-            setState: setFilteredData,
-            handleReset: handleReset,
-          }}
-        />
-      )}
     </section>
   );
 };

@@ -15,7 +15,7 @@ const CustomFilter = ({
   };
 
   const renderOptions = (data) => {
-    const { options = [], name, multiple = false, value = null } = data;
+    const { options = [], name, multiple = false, value = "" } = data;
     if (multiple) {
       return (
         <Checkbox.Group
@@ -32,7 +32,7 @@ const CustomFilter = ({
       <Radio.Group
         name={name}
         options={options}
-        defaultValue={value}
+        value={value}
         onChange={(e) =>
           handleOptionChange({ value: e.target.value, name: e.target.name })
         }

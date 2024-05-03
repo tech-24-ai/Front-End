@@ -4,13 +4,7 @@ import { connect } from "react-redux";
 import { crudService } from "../../_services";
 import { userActions } from "../../_actions";
 import { Swiper, SwiperSlide } from "swiper/react";
-import {
-  ArrowRightOutlined,
-  ArrowLeftOutlined,
-  UsergroupAddOutlined,
-  MessageOutlined,
-  EyeOutlined,
-} from "@ant-design/icons";
+import { ArrowRightOutlined, ArrowLeftOutlined, UsergroupAddOutlined, MessageOutlined, EyeOutlined } from "@ant-design/icons";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "swiper/swiper-bundle.min.css";
@@ -25,14 +19,11 @@ const CommunityCategory_former = ({ data, isloggedIn, toggleLoginPopup }) => {
   const [changeIcon, setChangeIcon] = useState(false);
   const [hoverId, setHoverId] = useState(false);
   const swiperRef = useRef(null);
-  const counter = 7;
+  const counter = 7; 
 
   useEffect(() => {
     crudService
-      ._getAll(
-        "categories?orderBy=sort_order&orderPos=ASC&not_categories=[1,5]",
-        {}
-      )
+      ._getAll("categories?orderBy=sort_order&orderPos=ASC&not_categories=[1,5]", {})
       .then((result) => {
         setCategories(result.data);
         bindSlides(result.data);
@@ -89,7 +80,7 @@ const CommunityCategory_former = ({ data, isloggedIn, toggleLoginPopup }) => {
   };
 
   const handleGoToPage = (url) => {
-    const restrictedUrls = ["/cummunity", "/community/all_community"];
+    const restrictedUrls = ["/cummunity", "/community/query_detail"];
     if (!isloggedIn && restrictedUrls.includes(url)) {
       toggleLoginPopup(true);
       return false;
@@ -99,8 +90,7 @@ const CommunityCategory_former = ({ data, isloggedIn, toggleLoginPopup }) => {
   };
 
   const joinCommunity = (community_id) => {
-    crudService
-      ._create("community/join", { community_id })
+    crudService._create("community/join", { community_id })
       .then(() => window.location.reload());
   };
 
@@ -112,27 +102,25 @@ const CommunityCategory_former = ({ data, isloggedIn, toggleLoginPopup }) => {
 
   return (
     <div className="community-category-below">
-      {!isMobile && (
-        <div
-          onClick={() => swiperRef.current.swiper.slidePrev()}
-          className="view-more-icon"
+      {!isMobile && <div
+        onClick={() => swiperRef.current.swiper.slidePrev()}
+        className="view-more-icon"
+        style={{
+          left: "77px",
+          marginTop: "6%",
+          zIndex: "99",
+          position: "absolute",
+          width: "36px",
+          height: "36px",
+        }}
+      >
+        <ArrowLeftOutlined
           style={{
-            left: "77px",
-            marginTop: "6%",
-            zIndex: "99",
-            position: "absolute",
-            width: "36px",
-            height: "36px",
+            color: "#fff",
+            fontSize: "16px",
           }}
-        >
-          <ArrowLeftOutlined
-            style={{
-              color: "#fff",
-              fontSize: "16px",
-            }}
-          />
-        </div>
-      )}
+        />
+      </div>}
       <div className="category-box">
         <div className="category-banner-wrapper" id="categoryWrapper">
           <Swiper
@@ -141,15 +129,15 @@ const CommunityCategory_former = ({ data, isloggedIn, toggleLoginPopup }) => {
             pagination={
               isMobile == true
                 ? {
-                    clickable: true,
-                    renderBullet: function (index, className) {
-                      if (index < 6) {
-                        return `<span class="${className}" style="margin-top: 10px;"></span>`;
-                      } else {
-                        return "";
-                      }
-                    },
-                  }
+                  clickable: true,
+                  renderBullet: function (index, className) {
+                    if (index < 6) {
+                      return `<span class="${className}" style="margin-top: 10px;"></span>`;
+                    } else {
+                      return '';
+                    }
+                  },
+                }
                 : false
             }
             navigation={{
@@ -173,67 +161,38 @@ const CommunityCategory_former = ({ data, isloggedIn, toggleLoginPopup }) => {
                   data-index={index}
                   key={index}
                 >
-                  <div
-                    className="category-banner"
-                    data-index={index}
-                    key={index}
-                    style={{ height: "220px" }}
-                  >
-                    <div
-                      className="category-content"
-                      style={{ height: "unset" }}
-                    >
-                      <div
-                        className="content-head"
-                        onClick={() => {
-                          sessionStorage.setItem(
-                            "community_id",
-                            slide?.url_slug
-                          );
-                          Router.push("community/community_detail");
-                        }}
-                      >
-                        <div className="icon-bg" style={{ height: "unset" }}>
-                          <img
-                            className="icon-image"
-                            src={slide.image_url}
+                  <div className="category-banner" data-index={index}
+                    key={index} style={{ height: "220px" }}>
+                    <div className="category-content" style={{ height: "unset" }}>
+                      <div className="content-head" onClick={() => {
+                        sessionStorage.setItem("community_id", slide?.url_slug);
+                        Router.push("community/community_detail");
+                      }}>
+                        <div
+                          className="icon-bg" style={{ height: "unset" }}>
+                          <img className="icon-image" src={slide.image_url}
                             style={{ borderRadius: "4.8px" }}
                             alt={slide.name}
                             width={48}
                           />
                         </div>
-                        <div className="category-text">
-                          <h6 style={{ margin: "0", fontFamily: "Poppins" }}>
-                            {slide.name}
-                          </h6>
+                        <div
+                          className="category-text"
+                        >
+                          <h6 style={{ margin: "0", fontFamily: "Poppins" }}>{slide.name}</h6>
                         </div>
                       </div>
-                      <div
-                        className="content-structure"
-                        style={{ height: "unset" }}
-                      >
+                      <div className="content-structure" style={{ height: "unset" }}>
                         <p className="card-description">{slide.description}</p>
                         <div className="content-x">
                           <div className="user-icon">
                             <p>
-                              <EyeOutlined
-                                style={{
-                                  fontSize: "16px",
-                                  verticalAlign: "0.04em",
-                                }}
-                              />{" "}
-                              Answers : {slide.__meta__.total_post_reply}
+                              <EyeOutlined style={{ fontSize: "16px", verticalAlign: "0.04em" }} />  Answers : {slide.__meta__.total_post_reply}
                             </p>
                           </div>
                           <div className="query-icon">
                             <p>
-                              <MessageOutlined
-                                style={{
-                                  fontSize: "16px",
-                                  verticalAlign: "0.04em",
-                                }}
-                              />{" "}
-                              Questions : {slide.__meta__.total_posts}
+                              <MessageOutlined style={{ fontSize: "16px", verticalAlign: "0.04em" }} /> Questions : {slide.__meta__.total_posts}
                             </p>
                           </div>
                         </div>
@@ -244,21 +203,19 @@ const CommunityCategory_former = ({ data, isloggedIn, toggleLoginPopup }) => {
               </SwiperSlide>
             ))}
           </Swiper>
-          {isBrowser && (
-            <div
-              onClick={() => swiperRef.current.swiper.slideNext()}
-              className="view-more-icon"
-              style={{
-                right: "-14px",
-                marginTop: "7%",
-                width: "36px",
-                height: "36px",
-                position: "absolute",
-              }}
-            >
-              <ArrowRightOutlined />
-            </div>
-          )}
+          {isBrowser && <div
+            onClick={() => swiperRef.current.swiper.slideNext()}
+            className="view-more-icon"
+            style={{
+              right: "-14px",
+              marginTop: "7%",
+              width: "36px",
+              height: "36px",
+              position:  "absolute"
+            }}
+          >
+            <ArrowRightOutlined />
+          </div>}
         </div>
       </div>
     </div>
@@ -275,7 +232,4 @@ const actionCreators = {
   toggleLoginPopup: userActions.toggleLoginPopup,
 };
 
-export default connect(
-  mapStateToProps,
-  actionCreators
-)(CommunityCategory_former);
+export default connect(mapStateToProps, actionCreators)(CommunityCategory_former);

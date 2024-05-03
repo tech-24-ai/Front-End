@@ -8,7 +8,6 @@ function SearchInput({
   allowClear = false,
   onChange,
   parentProps,
-  width,
   ...more
 }) {
   if (allowClear) {
@@ -37,7 +36,6 @@ function SearchInput({
         value={value}
         onChange={handleChange}
         {...more}
-        style={{ width: width }}
       />
     </div>
   );

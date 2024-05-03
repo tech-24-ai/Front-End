@@ -464,7 +464,7 @@ import profile_img from "../public/new_images/profile.svg";
 import { Pagination } from "antd";
 import CustomPagination from "../components/pagination";
 import SearchInput from "../components/form/searchInput";
-import { Timeline, Icon } from "antd";
+import {  Timeline, Icon } from 'antd';
 import QuestionTab from "../components/community/QuestionTab";
 import shorting_icon from "../public/new_images/sorting_icon.svg";
 
@@ -499,6 +499,7 @@ const Profile = ({
   //   setMode(e.target.value);
   // };
 
+
   const [updateProfileData, setUpdateProfileData] = useState({
     alternate_email: "",
     country_code: "",
@@ -522,7 +523,7 @@ const Profile = ({
 
   const [searchQuery, setSearchQuery] = useState(q);
   const [filteredData, setFilteredData] = useState({});
-  const [mode, setMode] = useState("left");
+  const [mode, setMode] = useState('left');
   // const [researchData, setResearchData] = useState([]);
   const onPageChange = (page) => {
     setCurrentPage(page);
@@ -547,19 +548,14 @@ const Profile = ({
   ];
 
   const calculateTimeAgo = (createdAt) => {
-    const currentDateTime = moment();
+    const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
     const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
-    const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
+    const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
     const duration = moment.duration(diffMilliseconds);
-
-    let humanReadableDiff;
-    if (duration.asMinutes() < 60) {
-      humanReadableDiff = duration.minutes() + " minutes ago";
-    } else {
-      humanReadableDiff = duration.humanize(true);
-    }
+    const humanReadableDiff = duration.humanize(true);
     return humanReadableDiff;
   };
+
 
   const [sortType, setSortType] = useState("asc");
 
@@ -802,24 +798,24 @@ const Profile = ({
     handleResize();
 
     // Listen to window resize events
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     // Clean up the event listener on component unmount
-    return () => window.removeEventListener("resize", handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const style = {
-    display: "inline-block",
+    display: 'inline-block',
     height: 300,
     marginLeft: 70,
   };
   const marks = {
-    100: "0°C",
-    26: "26°C",
-    37: "37°C",
+    100: '0°C',
+    26: '26°C',
+    37: '37°C',
     100: {
       style: {
-        color: "#f50",
+        color: '#f50',
       },
       label: <strong>100°C</strong>,
     },
@@ -972,17 +968,11 @@ const Profile = ({
 
   const Tab2 = () => {
     const calculateTimeAgo = (createdAt) => {
-      const currentDateTime = moment();
+      const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
       const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
-      const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
+      const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
       const duration = moment.duration(diffMilliseconds);
-  
-      let humanReadableDiff;
-      if (duration.asMinutes() < 60) {
-        humanReadableDiff = duration.minutes() + " minutes ago";
-      } else {
-        humanReadableDiff = duration.humanize(true);
-      }
+      const humanReadableDiff = duration.humanize(true);
       return humanReadableDiff;
     };
     return (
@@ -1065,6 +1055,7 @@ const Profile = ({
     );
   };
 
+
   const Tab4 = () => {
     const calculateMarks = () => {
       const topMarks = {};
@@ -1085,136 +1076,171 @@ const Profile = ({
         label: `${
           visitor_profile_levels?.[0]?.leavels[levelCount - 1].level
         } \n ${visitor_profile_levels?.[0]?.leavels[levelCount - 1].title}`,
-        style: { whiteSpace: "pre" },
+        style: { whiteSpace: "pre"  },
       };
 
       return { topMarks, bottomMarks };
     };
 
     const { topMarks, bottomMarks } = calculateMarks();
-    const timelineData = [
-      { position: "2015-09-01", content: "Create a services" },
-      {
-        position: "2015-09-01 09:12:11",
-        content: "Solve initial network problems",
+    const style = {
+      display: 'inline-block',
+      height: 300,
+      marginLeft: 70,
+    };
+    const marks = {
+      0: '0°C',
+      26: '26°C',
+      37: '37°C',
+      100: {
+        style: {
+          color: '#f50',
+        },
+        label: <strong>100°C</strong>,
       },
-      // Add more timeline items as needed
-    ];
-
+    };
     return (
       <div>
-        {/* Content for mobile view */}
-        {isMobile && (
-          <div className="levels-tab-container">
-            <Card
-              bordered={true}
-              style={{
-                width: "100%",
-                height: "fit-content",
-              }}
-            >
-              <p className="sliderTitle">
-                Starter since {visitor_profile_levels?.[0]?.joined_at}
-              </p>
-              <div className="">
-                <Timeline>
-                  {/* <Timeline.Item label="2015-09-01">Create a services</Timeline.Item> */}
-                  <Timeline.Item marks={topMarks[100].label}>
-                    Solve initial network problems
-                  </Timeline.Item>
+      {/* Content for mobile view */}
+      {isMobile && (
+         
+         <div className="levels-tab-container">
+         <Card
+          bordered={true}
+          style={{
+            width: "100%",
+            height: "fit-content",
+            
+          }}
+        >
+          <p className="sliderTitle">
+            Starter since  {visitor_profile_levels?.[0]?.joined_at}
+          </p>
+          <div className="">
+          {/* ReactDOM.render( */}
+        <div style={{marginLeft:"50px"}}>
+        
+          <div style={style}>
+          <Slider
+          // className="slider-one"
+          className="verticalSliderfirst"
+          vertical range
+          marks={topMarks}
+          // step={null}
+          defaultValue={100}
+          
 
-                  <Timeline.Item label="201">
-                    Solve initial network problems
-                  </Timeline.Item>
-                  {/* Add more Timeline.Item components as needed */}
-                </Timeline>
-              </div>
-            </Card>
+        style={{left:"-45px", fontWeight:"bold"}}
+        />
+          {/* <Slider vertical range marks={Marks} defaultValue={[100]} /> */}
+            <Slider 
+            handleStyle={{ display: "none" }}
+            trackStyle={{ display: "none" }}
+            railStyle={{ display: "none" }}
+            className="verticalSlidertwo" vertical range marks={bottomMarks} defaultValue={[100]} 
+            style={{marginLeft:"150px"}}
+            />
           </div>
-        )}
+        </div>,
+  {/* mountNode, */}
+      </div>
+      <div className="level-calculation" style={{marginTop:"30px"}}>
+  <div>
+    <p>
+      {visitor_profile_levels?.[0]?.total_points_earned}
+      <span>Points</span>
+    </p>
+  </div>
+  <div>
+    <h6>
+      Answer = {visitor_profile_levels?.[0]?.answer_point_info} point
+    </h6>
+    <div className="custom-border"></div>
+    <h6>
+      Upvote = {visitor_profile_levels?.[0]?.upvote_point_info} point
+    </h6>
+  </div>
+</div>
+      </Card>
+    </div>
+        
+          
+        
+      )}
 
-        {/* Content for desktop view */}
-        {!isMobile && (
-          <div className="desktop-view">
-            <div className="levels-tab-container">
-              <Card
-                bordered={true}
-                style={{
-                  width: "100%",
-                  height: "fit-content",
-                }}
-              >
-                <p className="sliderTitle">
-                  Starter since {visitor_profile_levels?.[0]?.joined_at}
-                </p>
-                <div className="slider-container">
-                  <Slider
-                    className="slider-one"
-                    handleStyle={{ display: "none" }}
-                    trackStyle={{ display: "none" }}
-                    railStyle={{ display: "none" }}
-                    marks={topMarks}
-                    step={null}
-                    defaultValue={100}
-                    style={{ marginBottom: 20 }}
-                  />
-                  <Slider
-                    marks={bottomMarks}
-                    step={null}
-                    handleStyle={{
-                      backgroundColor: "#0074D9",
-                      height: "16.48px",
-                      width: "16.48px",
-                    }}
-                    trackStyle={{ backgroundColor: "#0074D9", height: "8px" }}
-                    railStyle={{ backgroundColor: "#EBEBF0", height: "8px" }}
-                    defaultValue={
-                      visitor_profile_levels?.[0]?.total_points_earned
-                    }
-                    onChange={(value) => console.log(value)}
-                    tooltipVisible={false}
-                  />
-                </div>
-                <div className="level-calculation">
-                  <div>
-                    <p>
-                      {visitor_profile_levels?.[0]?.total_points_earned}
-                      <span>Points</span>
-                    </p>
-                  </div>
-                  <div>
-                    <h6>
-                      Answer = {visitor_profile_levels?.[0]?.answer_point_info}{" "}
-                      point
-                    </h6>
-                    <div className="custom-border"></div>
-                    <h6>
-                      Upvote = {visitor_profile_levels?.[0]?.upvote_point_info}{" "}
-                      point
-                    </h6>
-                  </div>
-                </div>
-              </Card>
+      {/* Content for desktop view */}
+      {!isMobile && (
+        <div className="desktop-view">
+          <div className="levels-tab-container">
+         <Card
+          bordered={true}
+          style={{
+            width: "100%",
+            height: "fit-content",
+          }}
+        >
+          <p className="sliderTitle">
+            Starter since  {visitor_profile_levels?.[0]?.joined_at}
+          </p>
+          <div className="slider-container">
+            <Slider
+              className="slider-one"
+              handleStyle={{ display: "none" }}
+              trackStyle={{ display: "none" }}
+              railStyle={{ display: "none" }}
+              marks={topMarks}
+              step={null}
+              defaultValue={100}
+              style={{ marginBottom: 20 }}
+            />
+            <Slider
+              marks={bottomMarks}
+              step={null}
+              handleStyle={{
+                backgroundColor: "#0074D9",
+                height: "16.48px",
+                width: "16.48px",
+              }}
+              trackStyle={{ backgroundColor: "#0074D9", height: "8px" }}
+              railStyle={{ backgroundColor: "#EBEBF0", height: "8px" }}
+              defaultValue={visitor_profile_levels?.[0]?.total_points_earned}
+              onChange={(value) => console.log(value)}
+              tooltipVisible={false}
+            />
+          </div>
+          <div className="level-calculation">
+            <div>
+              <p>
+                {visitor_profile_levels?.[0]?.total_points_earned}
+                <span>Points</span>
+              </p>
+            </div>
+            <div>
+              <h6>
+                Answer = {visitor_profile_levels?.[0]?.answer_point_info} point
+              </h6>
+              <div className="custom-border"></div>
+              <h6>
+                Upvote = {visitor_profile_levels?.[0]?.upvote_point_info} point
+              </h6>
             </div>
           </div>
-        )}
+        </Card>
       </div>
+        </div>
+      )}
+    </div>
+      
     );
   };
 
   const Tab5 = () => {
     const calculateTimeAgo = (createdAt) => {
-      const currentDateTime = moment();
+      const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
       const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
-      const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
+      const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
       const duration = moment.duration(diffMilliseconds);
-  
-      let humanReadableDiff;
-      if (duration.asMinutes() < 60) {
-        humanReadableDiff = duration.minutes() + " minutes ago";
-      } else {
-        humanReadableDiff = duration.humanize(true);
-      }
+      const humanReadableDiff = duration.humanize(true);
       return humanReadableDiff;
     };
 
@@ -1337,7 +1363,7 @@ const Profile = ({
     {
       key: "3",
       label: "Questions",
-      children: <QuestionTab componentName="profile" askQuestion={false} />,
+      children: <QuestionTab />,
     },
     {
       key: "4",

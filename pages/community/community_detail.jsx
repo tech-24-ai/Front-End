@@ -194,17 +194,11 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
   };
 
   const calculateTimeAgo = (createdAt) => {
-    const currentDateTime = moment();
+    const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
     const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
-    const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
+    const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
     const duration = moment.duration(diffMilliseconds);
-
-    let humanReadableDiff;
-    if (duration.asMinutes() < 60) {
-      humanReadableDiff = duration.minutes() + " minutes ago";
-    } else {
-      humanReadableDiff = duration.humanize(true);
-    }
+    const humanReadableDiff = duration.humanize(true);
     return humanReadableDiff;
   };
 

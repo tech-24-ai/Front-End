@@ -413,8 +413,8 @@ class Blog extends Component {
                       {/* {limitedData.map((item, index) => ( */}
                       {limitedData &&
                         limitedData.map((blogs) => (
-                          <Link href={`blogs/${blogs.slug}`}>
-                          <div className="col-md-12 blog-list hover">
+                          // <Link href={`blogs/${item.slug}`}>
+                          <div className="col-md-12 blog-list">
                             <div
                               className="blog-card"
                               style={{
@@ -463,7 +463,7 @@ class Blog extends Component {
                             </div>
                           </div>
 
-                          </Link>
+                          // </Link>
                         ))}
                     </div>
                   </div>

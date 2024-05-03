@@ -16,6 +16,7 @@
 // import moment from "moment";
 // import { isMobile } from "react-device-detect";
 
+
 // SwiperCore.use([Navigation, Pagination]);
 // let counter = 7;
 
@@ -30,6 +31,7 @@
 //     };
 //     this.swiperRef = React.createRef();
 //   }
+
 
 //   componentDidMount() {
 //     crudService
@@ -102,6 +104,8 @@
 //       hoverId: id,
 //     });
 //   };
+ 
+
 
 //   handleGoToPage = (url) => {
 //     const restrictedUrls = ["/consultant", "/consultant/service_provider"];
@@ -112,6 +116,8 @@
 
 //     Router.push(url);
 //   };
+
+
 
 //   render() {
 //     const { changeIcon, slides, hoverId } = this.state;
@@ -314,7 +320,8 @@ const TrendingQuestion = ({ trendingQuestions }) => {
   const slider = useRef(null);
 
   return (
-    <Container style={{ padding: "0" }}>
+    <Container style={{padding: "0"}}>
+    
       <div className="trending-category-below">
         <div className="category-box">
           <div className="category-banner-wrapper" id="categoryWrapper">
@@ -324,7 +331,7 @@ const TrendingQuestion = ({ trendingQuestions }) => {
               style={{
                 left: "-15px",
                 marginTop: "0px",
-                top: "40%",
+                top:'40%'
               }}
             >
               <ArrowLeftOutlined
@@ -340,7 +347,7 @@ const TrendingQuestion = ({ trendingQuestions }) => {
               style={{
                 right: "-17px",
                 marginTop: "0px",
-                top: "40%",
+                top:'40%'
               }}
             >
               <ArrowRightOutlined

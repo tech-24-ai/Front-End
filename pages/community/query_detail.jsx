@@ -11,11 +11,13 @@ import { EyeOutlined } from "@ant-design/icons";
 import { MessageOutlined } from "@ant-design/icons";
 import { SettingOutlined } from "@ant-design/icons";
 import { Collapse, Select } from "antd";
-import moment from "moment";
-import { Input } from "antd";
+import moment from 'moment';
+import { Input } from 'antd';
 import ReactPaginate from "react-paginate-next";
 import CommunityCategory from "../../components/community/index";
 import CustomPagination from "../../components/pagination";
+
+
 
 const text = `
   A dog is a type of domesticated animal.
@@ -43,6 +45,7 @@ const options = {
 };
 
 const Community = ({ router }) => {
+
   const [communityFeature, setCommunityFeature] = useState([]);
   const [sortBy, setSortBy] = useState("id_desc");
   const [currentPage, setCurrentPage] = useState(0);
@@ -68,12 +71,7 @@ const Community = ({ router }) => {
 
   const getAllPosts = async (searchText, page, orderBy) => {
     try {
-      const data = await crudService._getAll("community", {
-        search: searchText,
-        page: page + 1,
-        pageSize: itemsPerPage,
-        orderBy: orderBy,
-      });
+      const data = await crudService._getAll("community", { search: searchText, page: page + 1, pageSize: itemsPerPage, orderBy: orderBy });
       setCommunityFeature(data.data?.data);
       setTotal(data.data?.total);
     } catch (error) {
@@ -86,6 +84,7 @@ const Community = ({ router }) => {
   //     );
   //     setFilteredData(filtered);
   // }, [searchQuery, communityFeature]);
+
 
   //Filter
   const handleSearch = (e) => {
@@ -100,6 +99,7 @@ const Community = ({ router }) => {
   //     currentPage * itemsPerPage,
   //     (currentPage + 1) * itemsPerPage
   // );
+
 
   let arrData = [];
   communityFeature?.map((item) => {
@@ -117,20 +117,17 @@ const Community = ({ router }) => {
     tag: "",
   });
   const parseDate = (dateString) => {
-    const [datePart, timePart] = dateString.split(" ");
-    const [month, day, year] = datePart.split("-");
-    const [hours, minutes] = timePart.split(":");
+    const [datePart, timePart] = dateString.split(' ');
+    const [month, day, year] = datePart.split('-');
+    const [hours, minutes] = timePart.split(':');
     const parsedDate = new Date(year, month - 1, day, hours, minutes);
-    return parsedDate.toLocaleDateString("en-US", {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    });
+    return parsedDate.toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" });
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
 
   const [activeIndex, setActiveIndex] = useState(null);
 
@@ -139,12 +136,12 @@ const Community = ({ router }) => {
   };
 
   const communityDetails = (data) => {
-    Router.push(data?.url_slug);
+    sessionStorage.setItem("community_id", data?.url_slug);
+    Router.push("community_detail");
   };
 
   const joinCommunity = (community_id) => {
-    crudService
-      ._create("community/join", { community_id })
+    crudService._create("community/join", { community_id })
       .then(() => window.location.reload());
   };
   const accordionData = [
@@ -202,7 +199,7 @@ const Community = ({ router }) => {
 
   const handleAllCommunity = () => {
     Router.push("/community");
-  };
+  }
 
   const sortOptions = [
     {
@@ -219,7 +216,7 @@ const Community = ({ router }) => {
     <>
       <section className="query-section mt-6">
         <Container>
-          <div className="row" style={{ paddingTop: "38px" }}>
+          <div className="row" style={{paddingTop: "38px"}}>
             <div className="col-md-12">
               <h4 className="mt-1 mb-3">
                 <span
@@ -328,7 +325,9 @@ const Community = ({ router }) => {
               </div> */}
             <div className="content-wrap">
               <div className="result-sort">
-                <div className="results">Results: {total}</div>
+                <div className="results">
+                  Results: {total}
+                </div>
                 <div className="sorting-display">
                   <label className="sortby" htmlFor="sortDropdown">
                     Sort By:{" "}
@@ -359,14 +358,14 @@ const Community = ({ router }) => {
                       marginTop: "-1rem",
                       height: "280px",
                       paddingRight: "0px",
-                      flex: "0 0 calc(50%  - 20px)",
+                      flex: "0 0 calc(50%  - 20px)"
                     }}
                   >
                     <div className="category-box">
                       <div
                         className="category-banner-wrapper"
                         id="categoryWrapper"
-                      >
+                      > 
                         <div className="category-banner-block">
                           <div
                             className="category-banner"
