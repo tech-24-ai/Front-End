@@ -61,7 +61,13 @@ const SubmitButton = ({ form, children }) => {
   );
 };
 
-const QuestionTab = ({ getAllCrud, showAlert, success }) => {
+const QuestionTab = ({
+  getAllCrud,
+  showAlert,
+  success,
+  isSearch = true,
+  askQuestion = true,
+}) => {
   const router = useRouter();
   const { community } = router.query;
   const [description, setDescription] = useState("");
