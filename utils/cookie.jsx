@@ -25,7 +25,7 @@ const getCookieFromServer = (key, req) => {
 export const checkDeviceTyepe = (width) => {
   const isMobile = width < 767;
   const isTablet = width > 767 && width < 1440;
-  const isDesktop = width > 1440;
+  const isBrowser = width > 1440;
 
-  return {isMobile,isTablet,isDesktop};
+  return {isMobile,isTablet,isBrowser};
 }

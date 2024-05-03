@@ -20,10 +20,7 @@ import { connect } from "react-redux";
 import Link from "next/link";
 import {
   BrowserView,
-  MobileView,
-  isBrowser,
-  isMobile,
-  isTablet,
+  MobileView
 } from "react-device-detect";
 import LogoBlack from "../../public/new_images/tech24_header_logo_white.svg";
 import LogoWhite from "../../public/new_images/tech24_header_logo_white.svg";
@@ -51,7 +48,6 @@ function Header(props) {
   });
 
   const {isMobile,isTablet,isBrowser} = checkDeviceTyepe(screenSize.dynamicWidth);
-  
   const setDimension = () => {
     getDimension({
       dynamicWidth: window.innerWidth,
@@ -151,8 +147,8 @@ function Header(props) {
               </div>
             )}
             {(isMobile || isTablet) && (
-              <MobileView>
-                <Drawer
+              <>
+               <Drawer
                   isloggedIn={isloggedIn}
                   openSideMenu={openSideMenu}
                   sideMenu={sideMenu}
@@ -171,7 +167,7 @@ function Header(props) {
                     }}
                   />
                 </Link>
-              </MobileView>
+              </>
             )}
           </Col>
           <Col md={9} className="right-block">
@@ -350,48 +346,46 @@ function Header(props) {
               </div>
             )}
             {(isMobile || isTablet) && (
-              <MobileView>
                 <div style={{ float: "right", display: "flex" }}>
-                  {/* <NavItem>
-                    <img src="/new_images/search.svg" alt="search" />
-                  </NavItem> */}
+                {/* <NavItem>
+                  <img src="/new_images/search.svg" alt="search" />
+                </NavItem> */}
 
-                  {isloggedIn && (
-                    <NavItem style={{ margin: 0 }}>
-                      <Link href="/Profile">
-                        {profileData?.profile_pic_url ? (
-                          <img
-                            src={`${profileData?.profile_pic_url}`}
-                            alt="avatar"
-                            style={{
-                              cursor: "pointer",
-                              width: "40px",
-                              height: "40px",
-                              borderRadius: "50%",
-                              border: "1px solid #D9DFE9",
-                            }}
-                          />
-                        ) : (
-                          <img
-                            src="/new_images/Avatar.svg"
-                            alt="avatar"
-                            style={{ cursor: "pointer" }}
-                          />
-                        )}
-                      </Link>
-                    </NavItem>
-                  )}
-                  {!isloggedIn && (
-                    <NavItem>
-                      <Link href="/login">
-                        <Button color="light" className="px-4">
-                          Sign In
-                        </Button>
-                      </Link>
-                    </NavItem>
-                  )}
-                </div>
-              </MobileView>
+                {isloggedIn && (
+                  <NavItem style={{ margin: 0 }}>
+                    <Link href="/Profile">
+                      {profileData?.profile_pic_url ? (
+                        <img
+                          src={`${profileData?.profile_pic_url}`}
+                          alt="avatar"
+                          style={{
+                            cursor: "pointer",
+                            width: "40px",
+                            height: "40px",
+                            borderRadius: "50%",
+                            border: "1px solid #D9DFE9",
+                          }}
+                        />
+                      ) : (
+                        <img
+                          src="/new_images/Avatar.svg"
+                          alt="avatar"
+                          style={{ cursor: "pointer" }}
+                        />
+                      )}
+                    </Link>
+                  </NavItem>
+                )}
+                {!isloggedIn && (
+                  <NavItem>
+                    <Link href="/login">
+                      <Button color="light" className="px-4">
+                        Sign In
+                      </Button>
+                    </Link>
+                  </NavItem>
+                )}
+              </div>
             )}
           </Col>
         </Row>
