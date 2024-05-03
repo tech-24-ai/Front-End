@@ -1076,19 +1076,29 @@ const Profile = ({
         label: `${
           visitor_profile_levels?.[0]?.leavels[levelCount - 1].level
         } \n ${visitor_profile_levels?.[0]?.leavels[levelCount - 1].title}`,
-        style: { whiteSpace: "pre" },
+        style: { whiteSpace: "pre"  },
       };
 
       return { topMarks, bottomMarks };
     };
 
     const { topMarks, bottomMarks } = calculateMarks();
-    const timelineData = [
-      { position: '2015-09-01', content: 'Create a services' },
-      { position: '2015-09-01 09:12:11', content: 'Solve initial network problems' },
-      // Add more timeline items as needed
-    ]
-
+    const style = {
+      display: 'inline-block',
+      height: 300,
+      marginLeft: 70,
+    };
+    const marks = {
+      0: '0°C',
+      26: '26°C',
+      37: '37°C',
+      100: {
+        style: {
+          color: '#f50',
+        },
+        label: <strong>100°C</strong>,
+      },
+    };
     return (
       <div>
       {/* Content for mobile view */}
@@ -1100,20 +1110,57 @@ const Profile = ({
           style={{
             width: "100%",
             height: "fit-content",
+            
           }}
         >
           <p className="sliderTitle">
             Starter since  {visitor_profile_levels?.[0]?.joined_at}
           </p>
           <div className="">
-      <Timeline>
-        {/* <Timeline.Item label="2015-09-01">Create a services</Timeline.Item> */}
-        <Timeline.Item  marks={topMarks[100].label}>Solve initial network problems</Timeline.Item>
+          {/* ReactDOM.render( */}
+        <div style={{marginLeft:"50px"}}>
+        
+          <div style={style}>
+          <Slider
+          // className="slider-one"
+          className="verticalSliderfirst"
+          vertical range
+          marks={topMarks}
+          // step={null}
+          defaultValue={100}
+          
 
-        <Timeline.Item label="201">Solve initial network problems</Timeline.Item>
-        {/* Add more Timeline.Item components as needed */}
-      </Timeline>
+        style={{left:"-45px", fontWeight:"bold"}}
+        />
+          {/* <Slider vertical range marks={Marks} defaultValue={[100]} /> */}
+            <Slider 
+            handleStyle={{ display: "none" }}
+            trackStyle={{ display: "none" }}
+            railStyle={{ display: "none" }}
+            className="verticalSlidertwo" vertical range marks={bottomMarks} defaultValue={[100]} 
+            style={{marginLeft:"150px"}}
+            />
+          </div>
+        </div>,
+  {/* mountNode, */}
       </div>
+      <div className="level-calculation" style={{marginTop:"30px"}}>
+  <div>
+    <p>
+      {visitor_profile_levels?.[0]?.total_points_earned}
+      <span>Points</span>
+    </p>
+  </div>
+  <div>
+    <h6>
+      Answer = {visitor_profile_levels?.[0]?.answer_point_info} point
+    </h6>
+    <div className="custom-border"></div>
+    <h6>
+      Upvote = {visitor_profile_levels?.[0]?.upvote_point_info} point
+    </h6>
+  </div>
+</div>
       </Card>
     </div>
         
