@@ -42,6 +42,33 @@ function Header(props) {
   const toggleNavbar = () => setCollapsed(!collapsed);
   const { isloggedIn, openSideMenu, sideMenu, isMainHeader = true } = props;
 
+  
+  const [screenSize, getDimension] = useState({
+    dynamicWidth: window.innerWidth,
+    dynamicHeight: window.innerHeight,
+  });
+  const setDimension = () => {
+    getDimension({
+      dynamicWidth: window.innerWidth,
+      dynamicHeight: window.innerHeight,
+    });
+  };
+  console.log('screenSize', screenSize.dynamicWidth,screenSize.dynamicWidth > 1440)
+
+  useEffect(() => {
+    window.addEventListener("resize", setDimension);
+    if (isMainHeader) {
+      document.querySelector(".main-content").classList.remove("sticky");
+    } else {
+      document.querySelector(".main-content").classList.add("sticky");
+    }
+    return () => {
+      window.removeEventListener("resize", setDimension);
+    };
+
+   
+  }, [screenSize]);
+
   useEffect(() => {
     console.log("isMainHeader",isMainHeader);
     setTimeout(() => {
@@ -94,7 +121,7 @@ function Header(props) {
       <Container>
         <Row className="align-items-center">
           <Col md={3} className="left-block">
-            {isMobile == false && (
+            {screenSize.dynamicWidth > 1440 && (
               <div className="logo-content-block">
                 <div className="logo-wrapper">
                   <Link href="/" style={{ marginTop: "-10px", width: "125px" }}>
@@ -113,9 +140,9 @@ function Header(props) {
                 </div>
               </div>
             )}
-            {isMobile && (
-              <MobileView>
-                <Drawer
+            {screenSize.dynamicWidth < 1440 && (
+              <>
+               <Drawer
                   isloggedIn={isloggedIn}
                   openSideMenu={openSideMenu}
                   sideMenu={sideMenu}
@@ -134,11 +161,11 @@ function Header(props) {
                     }}
                   />
                 </Link>
-              </MobileView>
+              </>
             )}
           </Col>
           <Col md={9} className="right-block">
-            {isMobile == false && (
+            {screenSize.dynamicWidth > 1440 && (
               <div className="main-menu-wrapper">
                 <Navbar expand="md" className="p-0">
                   <NavbarToggler onClick={toggleNavbar} className="mr-2" />
@@ -295,35 +322,33 @@ function Header(props) {
                 </Navbar>
               </div>
             )}
-            {isMobile && (
-              <MobileView>
-                <div style={{ float: "right", display: "flex" }}>
-                  {/* <NavItem>
-                    <img src="/new_images/search.svg" alt="search" />
-                  </NavItem> */}
+            {screenSize.dynamicWidth < 1440 && (
+              <div style={{ float: "right", display: "flex" }}>
+              {/* <NavItem>
+                <img src="/new_images/search.svg" alt="search" />
+              </NavItem> */}
 
-                  {isloggedIn && (
-                    <NavItem style={{ margin: 0 }}>
-                      <Link href="/Profile">
-                        <img
-                          src="/new_images/Avatar.svg"
-                          alt="avatar"
-                          style={{ cursor: "pointer" }}
-                        />
-                      </Link>
-                    </NavItem>
-                  )}
-                  {!isloggedIn && (
-                    <NavItem>
-                      <Link href="/login">
-                        <Button color="light" className="px-4">
-                        Sign In
-                        </Button>
-                      </Link>
-                    </NavItem>
-                  )}
-                </div>
-              </MobileView>
+              {isloggedIn && (
+                <NavItem style={{ margin: 0 }}>
+                  <Link href="/Profile">
+                    <img
+                      src="/new_images/Avatar.svg"
+                      alt="avatar"
+                      style={{ cursor: "pointer" }}
+                    />
+                  </Link>
+                </NavItem>
+              )}
+              {!isloggedIn && (
+                <NavItem>
+                  <Link href="/login">
+                    <Button color="light" className="px-4">
+                    Sign In
+                    </Button>
+                  </Link>
+                </NavItem>
+              )}
+            </div>
             )}
           </Col>
         </Row>

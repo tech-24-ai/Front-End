@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment,useState } from "react";
 import { Container, Col, Row } from "reactstrap";
 import { Icon } from "react-icons-kit";
 import { socialTwitter } from "react-icons-kit/ionicons/socialTwitter";
@@ -25,9 +25,31 @@ import youtube_logo from "../../public/new_images/youtube_logo.svg";
 import sports_logo from "../../public/new_images/sports_logo.svg";
 
 const Footer = (props) => {
+
+  
+  const [screenSize, getDimension] = useState({
+    dynamicWidth: window.innerWidth,
+    dynamicHeight: window.innerHeight,
+  });
+  const setDimension = () => {
+    getDimension({
+      dynamicWidth: window.innerWidth,
+      dynamicHeight: window.innerHeight,
+    });
+  };
+  
+  useEffect(() => {
+    window.addEventListener("resize", setDimension);
+    return () => {
+      window.removeEventListener("resize", setDimension);
+    };
+
+   
+  }, [screenSize]);
+
   return (
     <Fragment>
-      {!isMobile && (
+      {screenSize.dynamicWidth > 1440 && (
         <footer className="footer-block">
           <Container>
             <Row style={{ paddingTop: 40 }}>
@@ -169,7 +191,7 @@ const Footer = (props) => {
         >
           © {new Date().getFullYear()} {themeConfig.appName} : An IT Research & Advisory company
         </footer> */}
-      {isMobile && isTablet == false && (
+      {screenSize.dynamicWidth < 767 && (
         <footer className="footer-mobile">
           <div class="footer-container">
             <div class="logo-container">
@@ -281,7 +303,7 @@ const Footer = (props) => {
         </footer>
       )}
 
-      {isMobile == true && isTablet == true && (
+      {screenSize.dynamicWidth <= 1440 && screenSize.dynamicWidth > 767  && (
         <footer className="footer-mobile">
           <div class="footer-container">
             <div class="logo-container">
