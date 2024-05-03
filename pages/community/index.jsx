@@ -32,7 +32,6 @@ const Community = ({ community, getAllCrud, router }) => {
   const [topRatedCommunityFeature, setTopRatedCommunityFeature] = useState([]);
   const [trendingQuestions, setTrendingQuestions] = useState([]);
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -63,12 +62,13 @@ const Community = ({ community, getAllCrud, router }) => {
     fetchTrendingQuestions();
   }, []);
 
-
   useEffect(() => {
     const searchPosts = async () => {
       try {
         const timeoutId = setTimeout(async () => {
-          const data = await crudService._getAll("community", { search: value });
+          const data = await crudService._getAll("community", {
+            search: value,
+          });
           setCommunityFeature(data.data);
         }, 2000);
         return () => clearTimeout(timeoutId);
@@ -80,9 +80,8 @@ const Community = ({ community, getAllCrud, router }) => {
     searchPosts();
   }, [value]);
 
-
   const handleViewAll = () => {
-    Router.push("/community/query_detail");
+    Router.push("/community/all_community");
   };
 
   let arrData = [];
@@ -137,13 +136,11 @@ const Community = ({ community, getAllCrud, router }) => {
       selectedTopRatedCommunity ? [selectedTopRatedCommunity] : []
     );
     Router.push({
-      pathname: "/community/query_detail",
+      pathname: "/community/all_community",
       query: { value: newValue },
     });
     setValue(newValue);
   };
-
-
 
   return (
     <section
@@ -295,7 +292,7 @@ const Community = ({ community, getAllCrud, router }) => {
                 textDecoration: "underline",
                 cursor: "pointer",
                 // marginRight: isMobile ? 0 : "3.5rem",
-                alignContent: "center"
+                alignContent: "center",
               }}
               onClick={handleViewAll}
             >
@@ -328,7 +325,6 @@ const styles = {
     color: "#FFFFFF",
     fontSize: "32px",
     fontWeight: 500,
-
   },
   subtitle: {
     color: "#E0E0E0",

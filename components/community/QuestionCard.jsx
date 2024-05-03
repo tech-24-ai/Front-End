@@ -19,6 +19,11 @@ const QuestionCard = ({ data, key }) => {
     return humanReadableDiff;
   };
 
+  const handlePageRedirection = () => {
+    const { community, url_slug } = data;
+    Router.push(`community/${community?.url_slug}/question/${url_slug}`);
+  };
+
   return (
     <div className="question-card" data-index={key} key={key}>
       <div className="question-card-body">
@@ -33,7 +38,10 @@ const QuestionCard = ({ data, key }) => {
           />
           <div className="profile-wrapper">
             <h6>{data?.title}</h6>
-            <p> {data?.visitor?.name} {} ({calculateTimeAgo(data?.created_at)})</p>
+            <p>
+              {" "}
+              {data?.visitor?.name} {} ({calculateTimeAgo(data?.created_at)})
+            </p>
           </div>
         </div>
 
@@ -48,7 +56,7 @@ const QuestionCard = ({ data, key }) => {
           style={{
             display: "flex",
             flexDirection: "row",
-            minHeight: '1.4rem',
+            minHeight: "1.4rem",
           }}
         >
           {data.postTags.map((tag, index) => (
@@ -59,11 +67,7 @@ const QuestionCard = ({ data, key }) => {
         </div>
         <button
           className="custom-btn with-bg-secondary answer-btn"
-          onClick={() => {
-            sessionStorage.setItem("community_id", data?.community?.url_slug);
-            sessionStorage.setItem("community_question_id", data?.url_slug);
-            Router.push("community/question");
-          }}
+          onClick={() => handlePageRedirection()}
         >
           Answer
         </button>

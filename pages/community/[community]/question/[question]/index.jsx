@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/future/image";
 import { Container } from "reactstrap";
-import myImageLoader from "../../../components/imageLoader";
-import three_dot_icon from "../../../public/new_images/3dots.svg";
-import message_icon from "../../../public/new_images/message_icon.svg";
-import like_button from "../../../public/new_images/like_button.svg";
-import dislike_button from "../../../public/new_images/dislike_button.svg";
-import { alertActions, crudActions } from "../../../_actions";
+
+import three_dot_icon from "../../../../../public/new_images/3dots.svg";
+import message_icon from "../../../../../public/new_images/message_icon.svg";
+import like_button from "../../../../../public/new_images/like_button.svg";
+import dislike_button from "../../../../../public/new_images/dislike_button.svg";
+import { alertActions, crudActions } from "../../../../../_actions";
 import { connect } from "react-redux";
 import moment from "moment";
 import { EyeOutlined } from "@ant-design/icons";
-import { crudService } from "../../../_services";
+import { crudService } from "../../../../../_services";
 import {
   Form,
   Space,
@@ -24,20 +24,21 @@ import {
   Label,
 } from "antd";
 import { RightOutlined } from "@ant-design/icons";
-import shorting_icon from "../../../public/new_images/sorting_icon.svg";
-import view_icon from "../../../public/new_images/view_icon.svg";
-import reply_icon from "../../../public/new_images/reply_icon.svg";
+import shorting_icon from "../../../../../public/new_images/sorting_icon.svg";
+import view_icon from "../../../../../public/new_images/view_icon.svg";
+import reply_icon from "../../../../../public/new_images/reply_icon.svg";
 import "draft-js/dist/Draft.css";
 import "react-quill/dist/quill.snow.css";
-import community from "..";
+import community from "../../..";
 import dynamic from "next/dynamic";
-import Router from "next/router";
-import share_icon from "../../../public/images/share-android.svg";
-import flag_icon from "../../../public/images/triangle-flag.svg";
-import linkedin_icon from "../../../public/images/linkedin/Linkedin.svg";
-import facebook_icon from "../../../public/images/linkedin/Facebook.svg";
-import email_icon from "../../../public/images/linkedin/Email.svg";
-import twitter_icon from "../../../public/images/linkedin/X - jpeg.svg";
+import Router, { useRouter } from "next/router";
+import share_icon from "../../../../../public/images/share-android.svg";
+import flag_icon from "../../../../../public/images/triangle-flag.svg";
+import linkedin_icon from "../../../../../public/images/linkedin/Linkedin.svg";
+import facebook_icon from "../../../../../public/images/linkedin/Facebook.svg";
+import email_icon from "../../../../../public/images/linkedin/Email.svg";
+import twitter_icon from "../../../../../public/images/linkedin/X - jpeg.svg";
+import myImageLoader from "../../../../../components/imageLoader";
 
 const ReactQuill = dynamic(
   () => {
@@ -47,6 +48,14 @@ const ReactQuill = dynamic(
 );
 
 import { isMobile } from "react-device-detect";
+import {
+  EmailShareButton,
+  FacebookIcon,
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+} from "next-share";
+
 const SubmitButton = ({ form, children }) => {
   const [submittable, setSubmittable] = React.useState(false);
 
@@ -70,6 +79,10 @@ const SubmitButton = ({ form, children }) => {
   );
 };
 const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
+  const router = useRouter();
+  const slugQuery = router.query;
+  const socialShareLink = window.location.href;
+
   const [description, setDescription] = useState("");
   const [communityQuestionDetail, setCommunityQuestionDetail] = useState();
   const [isShowReplies, setIsShowReplies] = useState(false);
@@ -174,11 +187,12 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
   };
 
   const fetchCommunityData = () => {
-    const id = sessionStorage.getItem("community_id");
-    if (id) {
-      crudService._getAll(`community/details/${id}`).then((data) => {
-        setCommunityData(data?.data);
-      });
+    if (slugQuery.community) {
+      crudService
+        ._getAll(`community/details/${slugQuery.community}`)
+        .then((data) => {
+          setCommunityData(data?.data);
+        });
     }
   };
 
@@ -244,12 +258,12 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
   };
 
   useEffect(() => {
-    const id = sessionStorage.getItem("community_question_id");
-
-    if (id) {
-      crudService._getAll(`communitypost/details/${id}`, {}).then((data) => {
-        setCommunityQuestionDetail(data?.data);
-      });
+    if (slugQuery.question) {
+      crudService
+        ._getAll(`communitypost/details/${slugQuery.question}`, {})
+        .then((data) => {
+          setCommunityQuestionDetail(data?.data);
+        });
     }
   }, [updateCom]);
 
@@ -292,7 +306,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
     );
     sessionStorage.setItem("community_parent_id", comment?.id);
     sessionStorage.setItem("community_post_details", JSON.stringify(comment));
-    Router.push("question/comments");
+    Router.push(`${router.asPath}/comments`);
   };
 
   const handleCommunity = () => {
@@ -419,334 +433,329 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       </div>
                     </div>
 
-                    {/* <div className="follow">
-                 
-                  <div className="img" onClick={openShareModal}>
-                    <Image
-                      loader={myImageLoader}
-                      style={{ borderRadius: "2px", cursor: "pointer" }}
-                      width={32}
-                      height={32}
-                      preview="false"
-                      src={three_dot_icon}
-                      alt="profile"
-                    />
-                  </div>
-
-                  <Modal
-                    visible={
-                      shareModalVisible ||
-                      socialModalVisible ||
-                      reportModalVisible
-                    }
-                    onCancel={handleModalClose}
-                    footer={null}
-                    onClick={false}
-                    width={190}
-                    bodyStyle={{
-                      height: 100,
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                    style={
-                      isMobile
-                        ? { position: "relative", left: "6.5rem" }
-                        : { position: "relative", left: "8rem" }
-                    }
-                  >
-                    <div
-                      style={{
-                        width: "100%",
-                        background: "#F9FAFB",
-                        background: "",
-                        padding: "6px",
-                        display: "flex",
-                        flexDirection: "row",
-                        fontSize: "20px",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <a onClick={openSocialModal}>
+                    <div className="follow">
+                      <div className="img" onClick={openShareModal}>
                         <Image
                           loader={myImageLoader}
-                          style={{ borderRadius: "2px", marginTop: "1px" }}
-                          width={16}
-                          height={16}
+                          style={{ borderRadius: "2px", cursor: "pointer" }}
+                          width={32}
+                          height={32}
                           preview="false"
-                          src={share_icon}
+                          src={three_dot_icon}
                           alt="profile"
-                          name="url"
-                        />{" "}
-                        Share it
-                      </a>
-                    </div>
-
-                    <div
-                      style={{
-                        width: "100%",
-                        background: "#F9FAFB",
-                        background: "",
-                        padding: "6px",
-                        display: "flex",
-                        flexDirection: "row",
-                        fontSize: "20px",
-                        color: "#FF3B3B",
-                        justifyContent: "space-between",
-                        borderTop: "1px solid #EBEBF0",
-                      }}
-                    >
-                      <a onClick={openReportModal}>
-                        <Image
-                          loader={myImageLoader}
-                          style={{ borderRadius: "2px", marginTop: "1px" }}
-                          width={18}
-                          height={18}
-                          preview="false"
-                          src={flag_icon}
-                          alt="profile"
-                          name="url"
-                        />{" "}
-                        Report
-                      </a>
-                    </div>
-                  </Modal>
-                 <Modal
-                    visible={socialModalVisible}
-                    onCancel={handleModalClose}
-                    footer={null}
-                  >
-                    <span
-                      style={{
-                        marginBottom: "-20px",
-                        fontWeight: "500",
-                        fontSize: "20px",
-                        fontFamily: "Poppins",
-                        cursor: "pointer",
-                      }}
-                    >
-                      Share
-                    </span>
-                    <hr />
-
-                    <div style={{ width: "100%" }}>
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          justifyContent: "space-around",
-                          margin: "30px 0 10px 0",
-                        }}
-                      >
-                        <div style={{ textAlign: "center" }}>
-                          <a
-                            href="https://www.linkedin.com/company/tech24.ai/"
-                            target="_blank"
-                            aria-label="redirect to LinkedIn page"
-                          >
-                            <Image
-                              loader={myImageLoader}
-                              style={{ borderRadius: "2px" }}
-                              width={56}
-                              height={56}
-                              preview="false"
-                              src={linkedin_icon}
-                              alt="profile"
-                              name="url"
-                            />
-                            <div
-                              style={{ color: "#001622", textAlign: "center" }}
-                            >
-                              Linkedin
-                            </div>
-                          </a>
-                        </div>
-
-                        <div style={{ textAlign: "center" }}>
-                          <a
-                            href="https://www.linkedin.com/company/tech24.ai/"
-                            target="_blank"
-                            aria-label="redirect to LinkedIn page"
-                          >
-                            <Image
-                              loader={myImageLoader}
-                              style={{ borderRadius: "2px" }}
-                              width={56}
-                              height={56}
-                              preview="false"
-                              src={facebook_icon}
-                              alt="profile"
-                              name="url"
-                            />
-                            <div
-                              style={{ color: "#001622", textAlign: "center" }}
-                            >
-                              Facebook
-                            </div>
-                          </a>
-                        </div>
-                        <div style={{ textAlign: "center" }}>
-                          <a
-                            href="https://www.linkedin.com/company/tech24.ai/"
-                            target="_blank"
-                            aria-label="redirect to LinkedIn page"
-                          >
-                            <Image
-                              loader={myImageLoader}
-                              style={{ borderRadius: "2px" }}
-                              width={56}
-                              height={56}
-                              preview="false"
-                              src={email_icon}
-                              alt="profile"
-                              name="url"
-                            />
-                            <div
-                              style={{ color: "#001622", textAlign: "center" }}
-                            >
-                              Email
-                            </div>
-                          </a>
-                        </div>
-                        <div style={{ textAlign: "center" }}>
-                          <a
-                            href="https://www.linkedin.com/company/tech24.ai/"
-                            target="_blank"
-                            aria-label="redirect to LinkedIn page"
-                          >
-                            <Image
-                              loader={myImageLoader}
-                              style={{ borderRadius: "2px" }}
-                              width={56}
-                              height={56}
-                              preview="false"
-                              src={twitter_icon}
-                              alt="profile"
-                              name="url"
-                            />
-                            <div
-                              style={{ color: "#001622", textAlign: "center" }}
-                            >
-                              X (twitter)
-                            </div>
-                          </a>
-                        </div>
+                        />
                       </div>
-                    </div>
-                  </Modal>
-                 
 
-                  <Modal
-                    visible={reportModalVisible}
-                    footer={null}
-                    onCancel={handleModalClose}
-                  >
-                    <span
-                      style={{
-                        marginBottom: "-20px",
-                        fontWeight: "500",
-                        fontSize: "20px",
-                        fontFamily: "Poppins",
-                        cursor: "pointer",
-                      }}
-                    >
-                      Report this Question
-                    </span>
-                    <hr />
-                    <Form
-                      name="validateOnly"
-                      layout="vertical"
-                      autoComplete="off"
-                      onSubmit={handleSubmit}
-                    >
-                      <Form.Item
-                        style={{
-                          fontWeight: 500,
-                          fontFamily: "Inter",
-                          fontSize: "14px",
-                          color: "#4C4C4C",
+                      <Modal
+                        visible={
+                          shareModalVisible ||
+                          socialModalVisible ||
+                          reportModalVisible
+                        }
+                        onCancel={handleModalClose}
+                        footer={null}
+                        onClick={false}
+                        width={190}
+                        bodyStyle={{
+                          height: 100,
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          justifyContent: "center",
                         }}
-                        rules={[
-                          {
-                            required: true,
-                          },
-                        ]}
-                        label="Report a question"
-                        name="report a question"
+                        style={
+                          isMobile
+                            ? { position: "relative", left: "6.5rem" }
+                            : { position: "relative", left: "8rem" }
+                        }
                       >
-                        <select
-                          value={selectedOption}
-                          onChange={handleOptionChange}
+                        <div
                           style={{
-                            backgroundColor: "#fff",
-                            borderRadius: "2px",
-                            padding: "12px",
-                            fontWeight: 400,
-                            fontSize: "16px",
-                            color: "#001622",
-                            fontFamily: "Inter",
                             width: "100%",
+                            background: "#F9FAFB",
+                            background: "",
+                            padding: "6px",
+                            display: "flex",
+                            flexDirection: "row",
+                            fontSize: "20px",
+                            justifyContent: "space-between",
                           }}
                         >
-                          {reportTypes.map((type) => (
-                            <option key={type.id} value={type.id}>
-                              {type.name}
-                            </option>
-                          ))}
-                        </select>
-                      </Form.Item>
-                      <Form.Item
-                        style={{
-                          fontWeight: 500,
-                          fontFamily: "Inter",
-                          fontSize: "14px",
-                          color: "#4C4C4C",
-                        }}
-                        rules={[
-                          {
-                            required: true,
-                          },
-                        ]}
-                        name="description"
-                        label="Description"
-                      >
-                        <div style={{ width: "100%" }}>
-                          <textarea
-                            style={{
-                              width: "100%",
-                              height: "70px",
-                              padding: "10px",
-                            }}
-                            placeholder="Write a brief why you are reporting this question"
-                            onChange={handleDescriptionChange}
-                            value={reportDescription}
-                          ></textarea>
+                          <a onClick={openSocialModal}>
+                            <Image
+                              loader={myImageLoader}
+                              style={{ borderRadius: "2px", marginTop: "1px" }}
+                              width={16}
+                              height={16}
+                              preview="false"
+                              src={share_icon}
+                              alt="profile"
+                              name="url"
+                            />{" "}
+                            Share it
+                          </a>
                         </div>
-                      </Form.Item>
 
-                      <div
-                        onClick={(e) => handleSubmit()}
-                        className="btn"
-                        type="submit"
-                        style={{
-                          width: isMobile ? "100%" : "470px",
-                          background: "#0074D9",
-                          borderRadius: "2px",
-                          padding: "12px 16px",
-                          color: "#fff",
-                          fontWeight: 500,
-                          fontFamily: "Inter",
-                          fontSize: "18px",
-                          marginTop: "1.2rem",
-                        }}
+                        <div
+                          style={{
+                            width: "100%",
+                            background: "#F9FAFB",
+                            background: "",
+                            padding: "6px",
+                            display: "flex",
+                            flexDirection: "row",
+                            fontSize: "20px",
+                            color: "#FF3B3B",
+                            justifyContent: "space-between",
+                            borderTop: "1px solid #EBEBF0",
+                          }}
+                        >
+                          <a onClick={openReportModal}>
+                            <Image
+                              loader={myImageLoader}
+                              style={{ borderRadius: "2px", marginTop: "1px" }}
+                              width={18}
+                              height={18}
+                              preview="false"
+                              src={flag_icon}
+                              alt="profile"
+                              name="url"
+                            />{" "}
+                            Report
+                          </a>
+                        </div>
+                      </Modal>
+                      <Modal
+                        visible={socialModalVisible}
+                        onCancel={handleModalClose}
+                        footer={null}
                       >
-                        Submit
-                      </div>
-                    </Form>
-                  </Modal>
-                
-                </div> */}
+                        <span
+                          style={{
+                            marginBottom: "-20px",
+                            fontWeight: "500",
+                            fontSize: "20px",
+                            fontFamily: "Poppins",
+                            cursor: "pointer",
+                          }}
+                        >
+                          Share
+                        </span>
+                        <hr />
+
+                        <div style={{ width: "100%" }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              justifyContent: "space-around",
+                              margin: "30px 0 10px 0",
+                            }}
+                          >
+                            <LinkedinShareButton url={socialShareLink}>
+                              <Image
+                                loader={myImageLoader}
+                                style={{ borderRadius: "2px" }}
+                                width={56}
+                                height={56}
+                                preview="false"
+                                src={linkedin_icon}
+                                alt="profile"
+                                name="url"
+                              />
+                              <div
+                                style={{
+                                  color: "#001622",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Linkedin
+                              </div>
+                            </LinkedinShareButton>
+                            <FacebookShareButton
+                              url={socialShareLink}
+                              quote={communityQuestionDetail?.title}
+                            >
+                              <Image
+                                loader={myImageLoader}
+                                style={{ borderRadius: "2px" }}
+                                width={56}
+                                height={56}
+                                preview="false"
+                                src={facebook_icon}
+                                alt="profile"
+                                name="url"
+                              />
+                              <div
+                                style={{
+                                  color: "#001622",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Facebook
+                              </div>
+                            </FacebookShareButton>
+                            <EmailShareButton
+                              url={socialShareLink}
+                              subject={communityQuestionDetail?.title}
+                            >
+                              <Image
+                                loader={myImageLoader}
+                                style={{ borderRadius: "2px" }}
+                                width={56}
+                                height={56}
+                                preview="false"
+                                src={email_icon}
+                                alt="profile"
+                                name="url"
+                              />
+                              <div
+                                style={{
+                                  color: "#001622",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Email
+                              </div>
+                            </EmailShareButton>
+
+                            <TwitterShareButton
+                              url={socialShareLink}
+                              title={communityQuestionDetail?.title}
+                            >
+                              <Image
+                                loader={myImageLoader}
+                                style={{ borderRadius: "2px" }}
+                                width={56}
+                                height={56}
+                                preview="false"
+                                src={twitter_icon}
+                                alt="profile"
+                                name="url"
+                              />
+                              <div
+                                style={{
+                                  color: "#001622",
+                                  textAlign: "center",
+                                }}
+                              >
+                                X (twitter)
+                                <br />
+                              </div>
+                            </TwitterShareButton>
+                          </div>
+                        </div>
+                      </Modal>
+
+                      <Modal
+                        visible={reportModalVisible}
+                        footer={null}
+                        onCancel={handleModalClose}
+                      >
+                        <span
+                          style={{
+                            marginBottom: "-20px",
+                            fontWeight: "500",
+                            fontSize: "20px",
+                            fontFamily: "Poppins",
+                            cursor: "pointer",
+                          }}
+                        >
+                          Report this Question
+                        </span>
+                        <hr />
+                        <Form
+                          name="validateOnly"
+                          layout="vertical"
+                          autoComplete="off"
+                          onSubmit={handleSubmit}
+                        >
+                          <Form.Item
+                            style={{
+                              fontWeight: 500,
+                              fontFamily: "Inter",
+                              fontSize: "14px",
+                              color: "#4C4C4C",
+                            }}
+                            rules={[
+                              {
+                                required: true,
+                              },
+                            ]}
+                            label="Report a question"
+                            name="report a question"
+                          >
+                            <select
+                              value={selectedOption}
+                              onChange={handleOptionChange}
+                              style={{
+                                backgroundColor: "#fff",
+                                borderRadius: "2px",
+                                padding: "12px",
+                                fontWeight: 400,
+                                fontSize: "16px",
+                                color: "#001622",
+                                fontFamily: "Inter",
+                                width: "100%",
+                              }}
+                            >
+                              {reportTypes.map((type) => (
+                                <option key={type.id} value={type.id}>
+                                  {type.name}
+                                </option>
+                              ))}
+                            </select>
+                          </Form.Item>
+                          <Form.Item
+                            style={{
+                              fontWeight: 500,
+                              fontFamily: "Inter",
+                              fontSize: "14px",
+                              color: "#4C4C4C",
+                            }}
+                            rules={[
+                              {
+                                required: true,
+                              },
+                            ]}
+                            name="description"
+                            label="Description"
+                          >
+                            <div style={{ width: "100%" }}>
+                              <textarea
+                                style={{
+                                  width: "100%",
+                                  height: "70px",
+                                  padding: "10px",
+                                }}
+                                placeholder="Write a brief why you are reporting this question"
+                                onChange={handleDescriptionChange}
+                                value={reportDescription}
+                              ></textarea>
+                            </div>
+                          </Form.Item>
+
+                          <div
+                            onClick={(e) => handleSubmit()}
+                            className="btn"
+                            type="submit"
+                            style={{
+                              width: isMobile ? "100%" : "470px",
+                              background: "#0074D9",
+                              borderRadius: "2px",
+                              padding: "12px 16px",
+                              color: "#fff",
+                              fontWeight: 500,
+                              fontFamily: "Inter",
+                              fontSize: "18px",
+                              marginTop: "1.2rem",
+                            }}
+                          >
+                            Submit
+                          </div>
+                        </Form>
+                      </Modal>
+                    </div>
                   </div>
                   <p className="para questions_font_14px">
                     <span

@@ -25,7 +25,7 @@ import "draft-js/dist/Draft.css";
 import "react-quill/dist/quill.snow.css";
 import community from ".";
 import dynamic from "next/dynamic";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 // import ReactPaginate from "react-paginate-next";
 import CustomPagination from "../../components/pagination";
 
@@ -61,14 +61,9 @@ const SubmitButton = ({ form, children }) => {
   );
 };
 
-const QuestionTab = ({
-  getAllCrud,
-  showAlert,
-  success,
-  componentName = "community",
-  askQuestion = true,
-  isSearch = true,
-}) => {
+const QuestionTab = ({ getAllCrud, showAlert, success }) => {
+  const router = useRouter();
+  const { community } = router.query;
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState();
   const [tags, setTag] = useState([]);
@@ -104,9 +99,10 @@ const QuestionTab = ({
   };
 
   const fetchCommunityData = () => {
-    const id = sessionStorage.getItem("community_id");
-    if (id && componentName == "community") {
-      crudService._getAll(`community/details/${id}`).then((data) => {
+    // const id = sessionStorage.getItem("community_id");
+    const { community } = router.query;
+    if (community) {
+      crudService._getAll(`community/details/${community}`).then((data) => {
         setCommunityData(data?.data);
       });
     }
@@ -226,45 +222,23 @@ const QuestionTab = ({
   //Sorting
 
   useEffect(() => {
-    const id = sessionStorage.getItem("community_id");
-    if (id && componentName == "community") {
-      crudService
-        ._getAll(`communitypost/${id}`, {
-          orderBy: sortBy,
-          orderDirection: "DESC",
-          page: page + 1,
-          pageSize: itemsPerPage,
-          search: headerSearch,
-          // search: searchQuery,
-          // ...filteredData,
-        })
-        .then((result) => {
-          setCommunityDetails(result?.data);
-          const totalPage = Math.ceil(
-            result?.data.total / result?.data.perPage
-          );
+    crudService
+      ._getAll(`communitypost/${community}`, {
+        orderBy: sortBy,
+        orderDirection: window?.innerWidth > 1441 ? "DESC" : "ASC",
+        page: page + 1,
+        pageSize: itemsPerPage,
+        search: headerSearch,
+        // search: searchQuery,
+        // ...filteredData,
+      })
+      .then((result) => {
+        setCommunityDetails(result?.data);
+        const totalPage = Math.ceil(result?.data.total / result?.data.perPage);
 
-          setPageCount(isNaN(totalPage) ? 0 : totalPage);
-        });
-    } else if (componentName == "profile") {
-      crudService
-        ._getAll(`visitor_queries_history`, {
-          orderBy: sortBy,
-          orderDirection: "DESC",
-          page: page + 1,
-          pageSize: itemsPerPage,
-          search: headerSearch,
-        })
-        .then((result) => {
-          setCommunityDetails(result?.data);
-          const totalPage = Math.ceil(
-            result?.data.total / result?.data.perPage
-          );
-
-          setPageCount(isNaN(totalPage) ? 0 : totalPage);
-        });
-    }
-  }, [page, sortBy, headerSearch]);
+        setPageCount(isNaN(totalPage) ? 0 : totalPage);
+      });
+  }, [page, sortBy, headerSearch, community]);
 
   const handleSort = (e) => {
     setSortBy(e.target.value);
@@ -309,7 +283,10 @@ const QuestionTab = ({
 
   const gotoQuestionDetail = (url_slug) => {
     sessionStorage.setItem("community_question_id", url_slug);
-    Router.push("question");
+    const baseHref = window.location.href;
+
+    console.log("baseUrl", baseHref);
+    Router.replace(`${baseHref}/question/${url_slug}`);
   };
 
   const beforeUpload = (file) => {
