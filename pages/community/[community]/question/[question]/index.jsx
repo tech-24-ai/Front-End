@@ -212,7 +212,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
       return;
     }
     const postData = {
-      parent_id: parent_id || null,
+      parent_id: null,
       community_post_id: community_post_id,
       description: replyText,
     };

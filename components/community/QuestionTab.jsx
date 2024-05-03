@@ -185,6 +185,9 @@ const QuestionTab = ({
           setUpdateCom(true);
           setIsModalOpen(false);
           resetForm();
+          success(
+            "Your post is being reviewed and will be shown after approval."
+          );
         }
       });
     }
