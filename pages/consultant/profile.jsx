@@ -202,19 +202,27 @@ const profile = ({ consultant, getAllCrud, createCrud, authentication }) => {
                   </p>
                 )}
               </div>
-              <div className="rate-detail">
+              {/* <div className="rate-detail" style={{display: "none"}}>
                 <p>Project work</p>
                 <p>
                   <span>$0</span>/ Hour
                 </p>
-              </div>
+              </div> */}
             </Space>
 
             <Space className="self-summary-section-mobile" size={12}>
               <div className="custom-btn outline" onClick={meetingRoute}>
                 Video Call
               </div>
-              <div className="custom-btn outline">Hire for project</div>
+              <div className="custom-btn outline"
+                onClick={() => goToMessagePage(consultant)}
+                disabled={
+                  consultant &&
+                    consultant.chat_history &&
+                    consultant.chat_history.length
+                    ? false
+                    : true
+                }>Message</div>
             </Space>
           </div>
         )}
