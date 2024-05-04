@@ -82,7 +82,7 @@ const TopConsultant = ({ getAllCrud, consultants, authentication }) => {
             arrows={false}
             responsive={[
               {
-                breakpoint: 1200,
+                breakpoint: 1440,
                 settings: {
                   slidesToShow: 2,
                   dots: false,

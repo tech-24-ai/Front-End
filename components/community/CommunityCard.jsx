@@ -14,7 +14,8 @@ import { crudService } from "../../_services";
 const CommunityCard = ({ data, key }) => {
   const calculateTimeAgo = (createdAt) => {
     const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
-    const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
+    const blogPostDateTime = moment.utc(createdAt).local().format("MM-DD-YYYY hh:mm A");
+   
     const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
     const duration = moment.duration(diffMilliseconds);
     const humanReadableDiff = duration.humanize(true);

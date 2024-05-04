@@ -269,7 +269,8 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
 
   const calculateTimeAgo = (createdAt) => {
     const currentDateTime = moment();
-    const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
+    const blogPostDateTime = moment.utc(createdAt).local().format("MM-DD-YYYY hh:mm A");
+   
     const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
     const duration = moment.duration(diffMilliseconds);
 
@@ -414,7 +415,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       </div>
                       <div
                         className="profile"
-                        style={{ flexDirection: "column", fontFamily: "Inter" }}
+                        style={{ flexDirection: "column", fontFamily: "Inter",maxWidth:'90%' }}
                       >
                         <h5>{communityQuestionDetail?.title}</h5>
                         <p>

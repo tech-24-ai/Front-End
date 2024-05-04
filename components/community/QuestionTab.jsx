@@ -206,7 +206,8 @@ const QuestionTab = ({
 
   const calculateTimeAgo = (createdAt) => {
     const currentDateTime = moment();
-    const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
+    const blogPostDateTime = moment.utc(createdAt).local().format("MM-DD-YYYY hh:mm A");
+    console.log('blogPostDateTime', blogPostDateTime.toLocaleString());
     const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
     const duration = moment.duration(diffMilliseconds);
 

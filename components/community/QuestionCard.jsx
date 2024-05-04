@@ -6,7 +6,8 @@ import Router from "next/router";
 const QuestionCard = ({ data, key }) => {
   const calculateTimeAgo = (createdAt) => {
     const currentDateTime = moment();
-    const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
+    const blogPostDateTime = moment.utc(createdAt).local().format("MM-DD-YYYY hh:mm A");
+   
     const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
     const duration = moment.duration(diffMilliseconds);
 
@@ -36,7 +37,7 @@ const QuestionCard = ({ data, key }) => {
             }
             alt={data.visitor.name}
           />
-          <div className="profile-wrapper">
+          <div className="profile-wrapper" style={{maxWidth:'80%'}}>
             <h6>{data?.title}</h6>
             <p>
               {" "}
@@ -56,7 +57,7 @@ const QuestionCard = ({ data, key }) => {
           style={{
             display: "flex",
             flexDirection: "row",
-            minHeight: "1.4rem",
+            minHeight: "3.1rem",
           }}
         >
           {data.postTags.map((tag, index) => (

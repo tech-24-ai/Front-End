@@ -33,7 +33,7 @@ const TrendingQuestion = ({ trendingQuestions }) => {
               onClick={() => slider.current?.slickPrev()}
               className="view-more-arrow previous-arrow"
               style={{
-                left: "-18px",
+                left: "-20px",
                 marginTop: "0",
                 top:'33%'
               }}
@@ -69,7 +69,7 @@ const TrendingQuestion = ({ trendingQuestions }) => {
               arrows={false}
               responsive={[
                 {
-                  breakpoint: 1200,
+                  breakpoint: 1440,
                   settings: {
                     slidesToShow: 2,
                     dots: false,
