@@ -16,8 +16,7 @@ const LatestResearch = ({
   data,
   viewMore = true,
 }) => {
-  console.log("data", data);
-
+  
   const parsedTitle = () => {
     return { __html: title };
   };
