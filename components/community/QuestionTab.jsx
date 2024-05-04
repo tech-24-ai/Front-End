@@ -308,7 +308,7 @@ const QuestionTab = ({
   };
 
   return (
-    <div className="community-tab-container questions-tab-container community-detail-wrapper">
+    <div className="community-tab-container questions-tab-container community-detail-wrapper community-questions-details">
       {isSearch && (
         <div className="search-container">
           {/* <Search

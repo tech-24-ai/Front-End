@@ -2130,6 +2130,11 @@
       }
     }
   }
+  .community-questions-details{
+    .cards-container {
+      flex-direction: column-reverse !important;
+    }
+  }
 
   // font style for small and mid devices
   .questions_font_12px {
