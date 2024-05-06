@@ -207,7 +207,6 @@ const QuestionTab = ({
   const calculateTimeAgo = (createdAt) => {
     const currentDateTime = moment();
     const blogPostDateTime = moment.utc(createdAt).local().format("MM-DD-YYYY hh:mm A");
-    console.log('blogPostDateTime', blogPostDateTime.toLocaleString());
     const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
     const duration = moment.duration(diffMilliseconds);
 
@@ -309,7 +308,7 @@ const QuestionTab = ({
   };
 
   return (
-    <div className="community-tab-container questions-tab-container community-detail-wrapper community-questions-details">
+    <div className="community-tab-container questions-tab-container community-detail-wrapper">
       {isSearch && (
         <div className="search-container">
           {/* <Search
