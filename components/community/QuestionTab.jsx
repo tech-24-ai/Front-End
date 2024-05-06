@@ -234,7 +234,7 @@ const QuestionTab = ({
     crudService
       ._getAll(`communitypost/${community}`, {
         orderBy: sortBy,
-        orderDirection: window?.innerWidth > 1441 ? "DESC" : "ASC",
+        orderDirection: "DESC",
         page: page + 1,
         pageSize: itemsPerPage,
         search: headerSearch,

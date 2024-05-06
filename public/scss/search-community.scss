@@ -1,0 +1,17 @@
+.search-community-section{
+    .container{
+        .search-bar-community{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 10px;
+            .sorting-community{
+                border: 1px solid grey;
+                width: 16rem;
+                border-radius: 4px;
+                align-items: center;
+                padding: 8px 8px;
+            }
+        }
+    }
+}

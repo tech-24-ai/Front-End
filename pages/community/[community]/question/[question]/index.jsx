@@ -80,7 +80,7 @@ const SubmitButton = ({ form, children }) => {
     </Button>
   );
 };
-const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
+const CommunityQuestionDetail = ({ getAllCrud, success, showAlert, downloadDocument, }) => {
   const router = useRouter();
   const slugQuery = router.query;
   const socialShareLink = window.location.href;
@@ -323,6 +323,9 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
     Router.push(`/community/community_detail`);
   };
 
+  const handleDocumentDownload = ({ id, extension, name }) => {
+    downloadDocument(id, `${name}.${extension}`);
+  };
   return (
     <>
       {communityData && (
@@ -777,6 +780,17 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       }}
                     ></span>
                   </p>
+                  <div className="chips">
+                    {communityQuestionDetail?.attachments?.map((item) => (
+                      <div
+                        style={{ fontFamily: "Inter", cursor: "pointer" }}
+                        className="questions_font_10px"
+                        // onClick={() => handleDocumentDownload()}
+                      >
+                        {item?.name || "Attachment"}
+                      </div>
+                    ))}
+                  </div>
                   <div className="chips">
                     {communityQuestionDetail?.postTags?.map((tag) => (
                       <div
@@ -1664,6 +1678,8 @@ const actionCreators = {
   createCrud: crudActions._create,
   success: alertActions.success,
   showAlert: alertActions.warning,
+  downloadDocument: crudActions._download,
+
 };
 
 export default connect(
