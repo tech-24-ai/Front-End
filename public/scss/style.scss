@@ -2348,9 +2348,12 @@ div.message-box-card {
     }
   }
 
-  .ant-collapse .ant-collapse-item .ant-radio-group {
-    display: flex;
-    flex-direction: column;
+  .ant-collapse .ant-collapse-item {
+    .ant-radio-group,
+    .ant-checkbox-group {
+      display: flex;
+      flex-direction: column;
+    }
   }
 
   .apply-btn {

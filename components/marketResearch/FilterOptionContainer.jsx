@@ -34,7 +34,9 @@ const FilterOptionContainer = ({ sortData, filterData }) => {
   );
 
   filterData.options.map((data) => {
-    data.value = filteredData[data.name];
+    if (filteredData[data.name]) {
+      data.value = filteredData[data.name];
+    }
   });
 
   const filterSelectedOption = Object.keys(filterData.value);

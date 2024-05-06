@@ -56,24 +56,6 @@ const ResearchList = ({ router }) => {
     };
   }, [screenSize]);
 
-  useEffect(() => {
-    const sortData = sortBy?.split("_");
-    crudService
-      ._getAll("market_research", {
-        orderBy: sortData[0],
-        orderDirection: sortData[1] ?? "desc",
-        page: page + 1,
-        pageSize: itemsPerPage,
-        search: searchQuery,
-        ...filteredData,
-      })
-      .then((result) => {
-        setResearchData(result?.data?.data);
-        const totalPage = Math.ceil(result?.data?.total / result?.data.perPage);
-        setPageCount(isNaN(totalPage) ? 0 : totalPage);
-      });
-  }, [page, searchQuery, filteredData, sortBy]);
-
   // filter options
   useEffect(() => {
     // category filter
@@ -140,7 +122,11 @@ const ResearchList = ({ router }) => {
     setFilteredData({});
   };
 
-  const filterData = [
+  const research_filter_category_id = sessionStorage.getItem(
+    "research_filter_category_id"
+  );
+
+  let filterData = [
     {
       heading: "Research Type",
       name: "document_type",
@@ -175,6 +161,15 @@ const ResearchList = ({ router }) => {
     },
   ];
 
+  useEffect(() => {
+    if (research_filter_category_id) {
+      setFilteredData((prevState) => ({
+        ...prevState,
+        category: [Number(research_filter_category_id)],
+      }));
+    }
+  }, [research_filter_category_id]);
+
   const sortOptions = [
     {
       value: "id_desc",
@@ -189,6 +184,30 @@ const ResearchList = ({ router }) => {
   const handleSort = (e) => {
     setSortBy(e.target.value);
   };
+
+  useEffect(() => {
+    const sortData = sortBy?.split("_");
+    let params = {
+      orderBy: sortData[0],
+      orderDirection: sortData[1] ?? "desc",
+      page: page + 1,
+      pageSize: itemsPerPage,
+      search: searchQuery,
+      ...filteredData,
+    };
+
+    if (research_filter_category_id) {
+      params = {
+        category: [Number(research_filter_category_id)],
+        ...params,
+      };
+    }
+    crudService._getAll("market_research", params).then((result) => {
+      setResearchData(result?.data?.data);
+      const totalPage = Math.ceil(result?.data?.total / result?.data?.perPage);
+      setPageCount(isNaN(totalPage) ? 0 : totalPage);
+    });
+  }, [page, searchQuery, filteredData, sortBy]);
 
   return (
     <section className="research-list-section mt-4">

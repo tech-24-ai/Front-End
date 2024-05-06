@@ -36,7 +36,6 @@ function MarketResearch({
       return false;
     }
     const timerId = setTimeout(() => {
-      console.log("searchValue", searchValue);
       router.push(`${router.asPath}/research-list?q=${searchValue}`);
     }, 1000);
 
@@ -45,9 +44,14 @@ function MarketResearch({
     };
   };
 
-  const handleRedirect = () => {
+  const handleRedirect = (category_id) => {
+    sessionStorage.setItem("research_filter_category_id", category_id);
     Router.push("/market-research/research-list");
   };
+
+  useEffect(() => {
+    sessionStorage.removeItem("research_filter_category_id");
+  }, []);
 
   return (
     <section className="market-research-portal-section">
@@ -94,9 +98,12 @@ function MarketResearch({
           </div>
           <div className="custom-grid-container">
             {categories?.map((data) => (
-              <div className="custom-grid-item hover" onClick={() => {
-                handleRedirect();
-              }}>
+              <div
+                className="custom-grid-item hover"
+                onClick={() => {
+                  handleRedirect(data.id);
+                }}
+              >
                 <CategoryCard
                   heading={data.name}
                   description={`${data?.__meta__?.total_research}+ research`}
