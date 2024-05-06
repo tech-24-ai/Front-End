@@ -67,6 +67,7 @@ const QuestionTab = ({
   success,
   isSearch = true,
   askQuestion = true,
+  componentName="community"
 }) => {
   const router = useRouter();
   const { community } = router.query;
@@ -231,6 +232,7 @@ const QuestionTab = ({
   //Sorting
 
   useEffect(() => {
+    if(componentName=="community"){
     crudService
       ._getAll(`communitypost/${community}`, {
         orderBy: sortBy,
@@ -247,6 +249,22 @@ const QuestionTab = ({
 
         setPageCount(isNaN(totalPage) ? 0 : totalPage);
       });
+    } else if(componentName=="profile"){
+      crudService
+      ._getAll(`visitor_queries_history`, {
+        orderBy: sortBy,
+        orderDirection: "DESC",
+        page: page + 1,
+        pageSize: itemsPerPage,
+        search: headerSearch,
+      })
+      .then((result) => {
+        setCommunityDetails(result?.data);
+        const totalPage = Math.ceil(result?.data.total / result?.data.perPage);
+
+        setPageCount(isNaN(totalPage) ? 0 : totalPage);
+      });
+    }
   }, [page, sortBy, headerSearch, community]);
 
   const handleSort = (e) => {
