@@ -80,7 +80,12 @@ const SubmitButton = ({ form, children }) => {
     </Button>
   );
 };
-const CommunityQuestionDetail = ({ getAllCrud, success, showAlert, downloadDocument, }) => {
+const CommunityQuestionDetail = ({
+  getAllCrud,
+  success,
+  showAlert,
+  downloadDocument,
+}) => {
   const router = useRouter();
   const slugQuery = router.query;
   const socialShareLink = window.location.href;
@@ -1142,27 +1147,44 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert, downloadDocum
                               <></>
                             )}
                           </div>
-                          <div className="rating">
-                            <div>
-                              <Image
-                                loader={myImageLoader}
-                                style={{
-                                  borderRadius: "5px",
-                                  cursor: "pointer",
-                                }}
-                                width={16}
-                                height={16}
-                                preview="false"
-                                src={like_button}
-                                alt="profile"
-                                onClick={() => {
-                                  voteCommunityPostReplies(answer, 1);
-                                }}
-                              />
+                          <div className="right-side-section">
+                            <ShareSocialMedia
+                              link={window.location.href}
+                              title={communityQuestionDetail?.name}
+                            >
+                              <div className="share-btn">
+                                <ShareAltOutlined />{" "}
+                                <span className="btn-title">Share</span>
+                              </div>
+                            </ShareSocialMedia>
+                            {/* <div className="report-btn">
+                              <FlageIcon />
+                              <span className="btn-title">Report</span>
+                            </div> */}
+
+                            <div className="rating">
+                              <div>
+                                <Image
+                                  loader={myImageLoader}
+                                  style={{
+                                    borderRadius: "5px",
+                                    cursor: "pointer",
+                                  }}
+                                  width={16}
+                                  height={16}
+                                  preview="false"
+                                  src={like_button}
+                                  alt="profile"
+                                  onClick={() => {
+                                    voteCommunityPostReplies(answer, 1);
+                                  }}
+                                />
+                              </div>
+
+                              <h6 className="questions_font_12px">
+                                Upvote <p></p> {answer?.__meta__?.total_helpful}
+                              </h6>
                             </div>
-                            <h6 className="questions_font_12px">
-                              Upvote <p></p> {answer?.__meta__?.total_helpful}
-                            </h6>
                             {/* <div className="left-border">
                   <Image
                     loader={myImageLoader}
@@ -1679,7 +1701,6 @@ const actionCreators = {
   success: alertActions.success,
   showAlert: alertActions.warning,
   downloadDocument: crudActions._download,
-
 };
 
 export default connect(
