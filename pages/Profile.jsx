@@ -37,7 +37,7 @@ import profile_img from "../public/new_images/profile.svg";
 import { Pagination } from "antd";
 import CustomPagination from "../components/pagination";
 import SearchInput from "../components/form/searchInput";
-import { Timeline, Icon } from "antd";
+import {  Timeline, Icon } from 'antd';
 import QuestionTab from "../components/community/QuestionTab";
 import shorting_icon from "../public/new_images/sorting_icon.svg";
 
@@ -62,21 +62,39 @@ const Profile = ({
   const [value, setValue] = useState();
   const [visitorActivity, setvisitorActivity] = useState([]);
   const [sortByOrder, setSortByOrder] = useState(false);
-
+  const [countryId, setCountryId] = useState(visitorprofile?.country.id);
+  const [countryList, setCountryList] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState(
+    {
+      label: visitorprofile?.country.name,
+      id :visitorprofile?.country.id,
+    }
+  );
   const [activeTab, setActiveTab] = useState("1");
 
   const [inputValue, setInputValue] = useState("");
-
   // const [mode, setMode] = useState('left');
   // const onChange = (e) => {
   //   setMode(e.target.value);
   // };
+
+  
+  
 
   const [updateProfileData, setUpdateProfileData] = useState({
     alternate_email: "",
     country_code: "",
     mobile: "",
     profile_pic_url: "",
+    name:"",
+    first_name : "",
+    last_name : "",
+    designation :"",
+    job_title :"",
+    company :"",
+    city_district :"",
+    country:""
+    
   });
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -95,7 +113,7 @@ const Profile = ({
 
   const [searchQuery, setSearchQuery] = useState(q);
   const [filteredData, setFilteredData] = useState({});
-  const [mode, setMode] = useState("left");
+  const [mode, setMode] = useState('left');
   // const [researchData, setResearchData] = useState([]);
   const onPageChange = (page) => {
     setCurrentPage(page);
@@ -118,22 +136,40 @@ const Profile = ({
       label: "Most Voted",
     },
   ];
+// console.log("countryId",countryId);
+  useEffect(() => {
+    crudService._getAll("countries?orderBy=sort_order&orderPos=ASC", []).then(
+      (result) => {
+        if ((result.status = 200)) {
+          if (result.data) {
+            let countryData = result.data.map((country) => ({
+              label: country.name,
+              value: country.id,
+              regionId: country.group_id,
+              regionName: country.group,
+            }));
+            setCountryList(countryData);
+          }
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }, []);
+
+//  console.log("setSelectedCountry",countryList);
+
 
   const calculateTimeAgo = (createdAt) => {
-    const currentDateTime = moment();
-    const blogPostDateTime = moment.utc(createdAt).local().format("MM-DD-YYYY hh:mm A");
-   
-    const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
+    const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
+    const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
+    const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
     const duration = moment.duration(diffMilliseconds);
-
-    let humanReadableDiff;
-    if (duration.asMinutes() < 60) {
-      humanReadableDiff = duration.minutes() + " minutes ago";
-    } else {
-      humanReadableDiff = duration.humanize(true);
-    }
+    const humanReadableDiff = duration.humanize(true);
     return humanReadableDiff;
   };
+
 
   const [sortType, setSortType] = useState("asc");
 
@@ -283,11 +319,29 @@ const Profile = ({
     console.log(key);
   };
   const showEditModal = () => {
+    let visitorname = visitorprofile?.name;
+    let first_name = "";
+    let last_name = "";
+
+    if (visitorname) {
+      visitorname = visitorname.split(" ");
+      first_name = visitorname[0];
+      visitorname.splice(0, 1);
+      last_name = visitorname.join(" ");
+    }
     setUpdateProfileData(() => ({
       alternate_email: visitorprofile?.alternate_email,
       country_code: visitorprofile?.country_code,
       mobile: visitorprofile?.mobile,
       profile_pic_url: visitorprofile?.profile_pic_url,
+      first_name: first_name,
+      last_name: last_name,
+      designation: visitorprofile?.designation,
+      company: visitorprofile?.company,
+      city_district :  visitorprofile?.visitor_ip_city,
+      country : visitorprofile?.country,
+      job_title:visitorprofile?.designation,
+      name :visitorprofile?.name,
     }));
     setUpdateCom(false);
     setIsModalOpen(true);
@@ -336,7 +390,6 @@ const Profile = ({
       }
     }
   };
-
   useEffect(() => {
     getAllCrud("visitorcommunityprofile", "visitorcommunityprofile");
     getAllCrud("visitorprofile", "visitorprofile");
@@ -355,18 +408,38 @@ const Profile = ({
   });
 
   const updateProfile = () => {
+    let visitorname = visitorprofile?.name;
+    let first_name = "";
+    let last_name = "";
+
+    if (visitorname) {
+      visitorname = visitorname.split(" ");
+      first_name = visitorname[0];
+      visitorname.splice(0, 1);
+      last_name = visitorname.join(" ");
+    }
     crudService
       ._update("visitorprofile", visitorprofile?.id, {
         alternate_email: updateProfileData.alternate_email,
         country_code: updateProfileData.country_code,
         mobile: updateProfileData.mobile,
         profile_pic_url: updateProfileData.profile_pic_url,
+        first_name: updateProfileData.first_name,
+        // name: updateProfileData.first_name,
+        last_name: updateProfileData.last_name,
+        designation : updateProfileData.designation,
+        company : updateProfileData.company,
+        city_district:updateProfileData.city_district,
+        job_title:updateProfileData.designation,
+        country:countryId,
       })
       .then((data) => {
         data.status == 200 && setUpdateCom(true);
       });
     setIsModalOpen(false);
   };
+
+ 
 
   const [isMobile, setIsMobile] = useState(false);
 
@@ -379,63 +452,31 @@ const Profile = ({
     handleResize();
 
     // Listen to window resize events
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     // Clean up the event listener on component unmount
-    return () => window.removeEventListener("resize", handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+
   const style = {
-    display: "inline-block",
+    display: 'inline-block',
     height: 300,
     marginLeft: 70,
   };
   const marks = {
-    100: "0°C",
-    26: "26°C",
-    37: "37°C",
+    100: '0°C',
+    26: '26°C',
+    37: '37°C',
     100: {
       style: {
-        color: "#f50",
+        color: '#f50',
       },
       label: <strong>100°C</strong>,
     },
   };
 
-  const redirectToPage = ({
-    activity_type,
-    communityPost,
-    communityPostReply,
-    community,
-  }) => {
-    if (
-      activity_type === 1 ||
-      activity_type === 6 ||
-      activity_type === 4 ||
-      activity_type === 5
-    ) {
-      //1/2: create/view Question => Open Question Tab
-      //4/5 Upvote/downvote Answer => Option Question Tab
-      const url = `community/${community?.url_slug}/question/${communityPost?.url_slug}`;
-      Router.push(url);
-      return false;
-    }
-
-    if (activity_type === 2 || activity_type === 3) {
-      //2: Answer Question => Open Answer Tab
-      //3: Comment on Answer => Open question/Comment Tab with Comments
-      sessionStorage.setItem("community_id", community?.url_slug);
-      sessionStorage.setItem("community_question_id", communityPost?.url_slug);
-      sessionStorage.setItem("community_parent_id", communityPostReply?.id);
-      sessionStorage.setItem(
-        "community_post_details",
-        JSON.stringify(communityPostReply)
-      );
-      const url = `community/${community?.url_slug}/question/${communityPost?.url_slug}/comments`;
-      Router.push(url);
-      return false;
-    }
-  };
+  // console.log("updateProfileData",updateProfileData);
 
   const Tab1 = () => {
     const [isSignOutModalOpen, setIsSignOutModalOpen] = useState(false);
@@ -584,18 +625,11 @@ const Profile = ({
 
   const Tab2 = () => {
     const calculateTimeAgo = (createdAt) => {
-      const currentDateTime = moment();
-      const blogPostDateTime = moment.utc(createdAt).local().format("MM-DD-YYYY hh:mm A");
-   
-      const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
+      const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
+      const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
+      const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
       const duration = moment.duration(diffMilliseconds);
-
-      let humanReadableDiff;
-      if (duration.asMinutes() < 60) {
-        humanReadableDiff = duration.minutes() + " minutes ago";
-      } else {
-        humanReadableDiff = duration.humanize(true);
-      }
+      const humanReadableDiff = duration.humanize(true);
       return humanReadableDiff;
     };
     return (
@@ -665,7 +699,7 @@ const Profile = ({
           ))}
 
           <div className="custom-pagination">
-            {visitorActivity?.length > 0 && pageCount > 1 && (
+            {visitorActivity?.length > 0 && (
               <CustomPagination
                 pageCount={pageCount}
                 page={page}
@@ -677,6 +711,7 @@ const Profile = ({
       </div>
     );
   };
+
 
   const Tab4 = () => {
     const calculateMarks = () => {
@@ -698,137 +733,172 @@ const Profile = ({
         label: `${
           visitor_profile_levels?.[0]?.leavels[levelCount - 1].level
         } \n ${visitor_profile_levels?.[0]?.leavels[levelCount - 1].title}`,
-        style: { whiteSpace: "pre" },
+        style: { whiteSpace: "pre"  },
       };
 
       return { topMarks, bottomMarks };
     };
 
     const { topMarks, bottomMarks } = calculateMarks();
-    const timelineData = [
-      { position: "2015-09-01", content: "Create a services" },
-      {
-        position: "2015-09-01 09:12:11",
-        content: "Solve initial network problems",
+    const style = {
+      display: 'inline-block',
+      height: 300,
+      marginLeft: 70,
+    };
+    const marks = {
+      0: '0°C',
+      26: '26°C',
+      37: '37°C',
+      100: {
+        style: {
+          color: '#f50',
+        },
+        label: <strong>100°C</strong>,
       },
-      // Add more timeline items as needed
-    ];
-
+    };
     return (
       <div>
-        {/* Content for mobile view */}
-        {isMobile && (
-          <div className="levels-tab-container">
-            <Card
-              bordered={true}
-              style={{
-                width: "100%",
-                height: "fit-content",
-              }}
-            >
-              <p className="sliderTitle">
-                Starter since {visitor_profile_levels?.[0]?.joined_at}
-              </p>
-              <div className="">
-                <Timeline>
-                  {/* <Timeline.Item label="2015-09-01">Create a services</Timeline.Item> */}
-                  <Timeline.Item marks={topMarks[100].label}>
-                    Solve initial network problems
-                  </Timeline.Item>
+      {/* Content for mobile view */}
+      {isMobile && (
+         
+         <div className="levels-tab-container">
+         <Card
+          bordered={true}
+          style={{
+            width: "100%",
+            height: "fit-content",
+            
+          }}
+        >
+          <p className="sliderTitle">
+            Starter since  {visitor_profile_levels?.[0]?.joined_at}
+          </p>
+          <div className="">
+          {/* ReactDOM.render( */}
+        <div style={{marginLeft:"50px"}}>
+        
+          <div style={style}>
+          <Slider
+          // className="slider-one"
+          className="verticalSliderfirst"
+          vertical range
+          marks={topMarks}
+          // step={null}
+          defaultValue={100}
+          
 
-                  <Timeline.Item label="201">
-                    Solve initial network problems
-                  </Timeline.Item>
-                  {/* Add more Timeline.Item components as needed */}
-                </Timeline>
-              </div>
-            </Card>
+        style={{left:"-45px"}}
+        />
+          {/* <Slider vertical range marks={Marks} defaultValue={[100]} /> */}
+            <Slider 
+            handleStyle={{ display: "none" }}
+            trackStyle={{ display: "none" }}
+            railStyle={{ display: "none" }}
+            className="verticalSlidertwo" vertical range marks={bottomMarks} defaultValue={[100]} 
+            style={{marginLeft:"150px"}}
+            
+            />
           </div>
-        )}
+        </div>,
+  {/* mountNode, */}
+      </div>
+      <div className="level-calculation" style={{marginTop:"30px"}}>
+  <div>
+    <p>
+      {visitor_profile_levels?.[0]?.total_points_earned}
+      <span>Points</span>
+    </p>
+  </div>
+  <div>
+    <h6>
+      Answer = {visitor_profile_levels?.[0]?.answer_point_info} point
+    </h6>
+    <div className="custom-border"></div>
+    <h6>
+      Upvote = {visitor_profile_levels?.[0]?.upvote_point_info} point
+    </h6>
+  </div>
+</div>
+      </Card>
+    </div>
+        
+          
+        
+      )}
 
-        {/* Content for desktop view */}
-        {!isMobile && (
-          <div className="desktop-view">
-            <div className="levels-tab-container">
-              <Card
-                bordered={true}
-                style={{
-                  width: "100%",
-                  height: "fit-content",
-                }}
-              >
-                <p className="sliderTitle">
-                  Starter since {visitor_profile_levels?.[0]?.joined_at}
-                </p>
-                <div className="slider-container">
-                  <Slider
-                    className="slider-one"
-                    handleStyle={{ display: "none" }}
-                    trackStyle={{ display: "none" }}
-                    railStyle={{ display: "none" }}
-                    marks={topMarks}
-                    step={null}
-                    defaultValue={100}
-                    style={{ marginBottom: 20 }}
-                  />
-                  <Slider
-                    marks={bottomMarks}
-                    step={null}
-                    handleStyle={{
-                      backgroundColor: "#0074D9",
-                      height: "16.48px",
-                      width: "16.48px",
-                    }}
-                    trackStyle={{ backgroundColor: "#0074D9", height: "8px" }}
-                    railStyle={{ backgroundColor: "#EBEBF0", height: "8px" }}
-                    defaultValue={
-                      visitor_profile_levels?.[0]?.total_points_earned
-                    }
-                    onChange={(value) => console.log(value)}
-                    tooltipVisible={false}
-                  />
-                </div>
-                <div className="level-calculation">
-                  <div>
-                    <p>
-                      {visitor_profile_levels?.[0]?.total_points_earned}
-                      <span>Points</span>
-                    </p>
-                  </div>
-                  <div>
-                    <h6>
-                      Answer = {visitor_profile_levels?.[0]?.answer_point_info}{" "}
-                      point
-                    </h6>
-                    <div className="custom-border"></div>
-                    <h6>
-                      Upvote = {visitor_profile_levels?.[0]?.upvote_point_info}{" "}
-                      point
-                    </h6>
-                  </div>
-                </div>
-              </Card>
+      {/* Content for desktop view */}
+      {!isMobile && (
+        <div className="desktop-view">
+          <div className="levels-tab-container">
+         <Card
+          bordered={true}
+          style={{
+            width: "100%",
+            height: "fit-content",
+          }}
+        >
+          <p className="sliderTitle">
+            Starter since  {visitor_profile_levels?.[0]?.joined_at}
+          </p>
+          <div className="slider-container">
+            <Slider
+              className="slider-one"
+              handleStyle={{ display: "none" }}
+              trackStyle={{ display: "none" }}
+              railStyle={{ display: "none" }}
+              marks={topMarks}
+              step={null}
+              defaultValue={100}
+              style={{ marginBottom: 20 }}
+            />
+            <Slider
+              marks={bottomMarks}
+              step={null}
+              handleStyle={{
+                backgroundColor: "#0074D9",
+                height: "16.48px",
+                width: "16.48px",
+              }}
+              trackStyle={{ backgroundColor: "#0074D9", height: "8px" }}
+              railStyle={{ backgroundColor: "#EBEBF0", height: "8px" }}
+              defaultValue={visitor_profile_levels?.[0]?.total_points_earned}
+              onChange={(value) => console.log(value)}
+              tooltipVisible={false}
+            />
+          </div>
+          <div className="level-calculation">
+            <div>
+              <p>
+                {visitor_profile_levels?.[0]?.total_points_earned}
+                <span>Points</span>
+              </p>
+            </div>
+            <div>
+              <h6>
+                Answer = {visitor_profile_levels?.[0]?.answer_point_info} point
+              </h6>
+              <div className="custom-border"></div>
+              <h6>
+                Upvote = {visitor_profile_levels?.[0]?.upvote_point_info} point
+              </h6>
             </div>
           </div>
-        )}
+        </Card>
       </div>
+        </div>
+      )}
+    </div>
+      
     );
   };
 
   const Tab5 = () => {
     const calculateTimeAgo = (createdAt) => {
-      const currentDateTime = moment();
-      const blogPostDateTime = moment.utc(createdAt).local().format("MM-DD-YYYY hh:mm A");
-   
-      const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
+      const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
+      const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
+      const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
       const duration = moment.duration(diffMilliseconds);
-
-      let humanReadableDiff;
-      if (duration.asMinutes() < 60) {
-        humanReadableDiff = duration.minutes() + " minutes ago";
-      } else {
-        humanReadableDiff = duration.humanize(true);
-      }
+      const humanReadableDiff = duration.humanize(true);
       return humanReadableDiff;
     };
 
@@ -924,7 +994,7 @@ const Profile = ({
           ))}
           {/* Render pagination controls */}
           <div className="mt-5" style={{ width: "100%" }}>
-            {libraryData?.length > 0 && libraryPageCount > 1 && (
+            {libraryData?.length > 0 && (
               <CustomPagination
                 pageCount={libraryPageCount}
                 page={libraryPage}
@@ -951,7 +1021,7 @@ const Profile = ({
     {
       key: "3",
       label: "Questions",
-      children: <QuestionTab componentName="profile" askQuestion={false} />,
+      children: <QuestionTab />,
     },
     {
       key: "4",
@@ -1132,7 +1202,131 @@ const Profile = ({
                 </div>
               </div>
               <div className="profile-details">
-                <div>
+                <div className="row">
+                  <div className="col-md-6">
+                    <p className="mt-4">Name</p>
+                    <Input
+                      name="first_name"
+                      type="text"
+                      value={updateProfileData.first_name}
+                      onChange={(e) => {
+                        const { name, value } = e.target;
+                        setUpdateProfileData((prev) => ({
+                          ...prev,
+                          [name]: value,
+                        }));
+                      }}
+                      placeholder="Enter your Name here"
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <p className="mt-4">Last Name</p>
+                    <Input
+                      name="last_name"
+                      type="text"
+                      value={updateProfileData.last_name}
+                      onChange={(e) => {
+                        const { name, value } = e.target;
+                        setUpdateProfileData((prev) => ({
+                          ...prev,
+                          [name]: value,
+                        }));
+                      }}
+                      placeholder="Enter your Name here"
+                    />
+                  </div>
+                  
+                  {/* <div className="col-md-6">
+                    <p>Last Name</p>
+                    <Input
+                      name="last_name"
+                      type="text"
+                      value={updateProfileData.last_name || ""}
+                      onChange={(e) => {
+                        const { name, value } = e.target;
+                        setUpdateProfileData((prev) => ({
+                          ...prev,
+                          [name]: value,
+                        }));
+                      }}
+                      placeholder="Enter your Name here"
+                    />
+                  </div> */}
+                </div>
+               <div className="row">
+               <div className="col-md-6">
+                  <p>Comapny Name</p>
+                  <Input
+                    name="company"
+                    value={updateProfileData.company}
+                    onChange={(e) => {
+                      const { name, value } = e.target;
+                      setUpdateProfileData((prev) => ({
+                        ...prev,
+                        [name]: value,
+                      }));
+                    }}
+                    placeholder="Enter Compnay Nmae.."
+                  />
+                </div>
+                <div className="col-md-6">
+                  <p>Job Title</p>
+                  <Input
+                    name="designation"
+                    value={updateProfileData.designation}
+                    onChange={(e) => {
+                      const { name, value } = e.target;
+                      setUpdateProfileData((prev) => ({
+                        ...prev,
+                        [name]: value,
+                      }));
+                    }}
+                    placeholder="Enter your email ID here"
+                  />
+                </div>
+               </div>
+               <div className="row">
+                <div className="col-md-6">
+                  <p>Country/Region</p>
+                 
+                    <Select
+                    className="react-select-container"
+                    classNamePrefix="react-select"
+                    // defaultValue={colourOptions[0]}
+                    // isDisabled={true}
+                    // isClearable={true}
+                    value={selectedCountry}
+                    isSearchable={true}
+                    name="country"
+                    options={countryList}
+                    onChange={(e)=>setCountryId(e)}
+                    // onChange={(e) => {
+                    //   const { name, value } = e.target;
+                    //   setUpdateProfileData((prev) => ({
+                    //     ...prev,
+                    //     [name]: value,
+                    //   }));
+                    // }}
+                    placeholder="Select Country"
+                    style={{width:"200px"}}
+                  />
+                </div>
+                 <div className="col-md-6">
+                  <p>City/District</p>
+                  <Input
+                    name="city_district"
+                    value={updateProfileData.city_district}
+                    onChange={(e) => {
+                      const { name, value } = e.target;
+                      setUpdateProfileData((prev) => ({
+                        ...prev,
+                        [name]: value,
+                      }));
+                    }}
+                   />
+                </div>
+               </div>
+               <div className="">
                   <p>Alternate Email</p>
                   <Input
                     name="alternate_email"
@@ -1147,7 +1341,7 @@ const Profile = ({
                     placeholder="Enter your email ID here"
                   />
                 </div>
-                <div>
+               <div>
                   <p>Phone Number</p>
                   <div className="phone-number">
                     <Select
