@@ -204,7 +204,7 @@ class Categories extends React.PureComponent {
       centerPadding: "250px",
       responsive: [
         {
-          breakpoint: 600,
+          breakpoint: 820,
           settings: {
             centerPadding: "10px",
           },
