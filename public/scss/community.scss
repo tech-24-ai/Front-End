@@ -1,6 +1,5 @@
 .community-listing-page {
-
-  .banner-head{
+  .banner-head {
     width: 35rem;
   }
   .container {
@@ -399,6 +398,19 @@
   }
 }
 
+.community-tab-container {
+  .right-side-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .share-btn,
+  .report-btn {
+    margin-right: 1rem;
+  }
+}
+
 @media (min-width: 576px) {
   .main-content.about-us {
     padding-bottom: 80px !important;
@@ -406,7 +418,7 @@
 }
 
 @media (max-width: 1440px) {
-  .banner-head{
+  .banner-head {
     width: 23rem !important;
   }
   .main-content.about-us {
@@ -648,8 +660,20 @@
     background-size: 3px 3px; /* Adjust the size of the dots */
   }
 }
-@media (max-width: 375px){
-   .banner-head{
+
+@media (max-width: 767px) {
+  .community-tab-container {
+    .share-btn,
+    .report-btn {
+      margin-right: 1.5rem;
+      .btn-title {
+        display: none;
+      }
+    }
+  }
+}
+@media (max-width: 375px) {
+  .banner-head {
     width: 21rem !important;
   }
 }

@@ -2365,6 +2365,15 @@ div.message-box-card {
   }
 }
 
+.report-btn,
+.share-btn,
+.save-btn {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+  cursor: pointer;
+}
+
 // tablet and mobile
 @media (max-width: 1440px) {
   .input-content {

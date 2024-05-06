@@ -23,7 +23,7 @@ import {
   Modal,
   Label,
 } from "antd";
-import { RightOutlined } from "@ant-design/icons";
+import { RightOutlined, ShareAltOutlined } from "@ant-design/icons";
 import shorting_icon from "../../../../../public/new_images/sorting_icon.svg";
 import view_icon from "../../../../../public/new_images/view_icon.svg";
 import reply_icon from "../../../../../public/new_images/reply_icon.svg";
@@ -55,6 +55,8 @@ import {
   LinkedinShareButton,
   TwitterShareButton,
 } from "next-share";
+import ShareSocialMedia from "../../../../../components/shareSocial";
+import { FlageIcon } from "../../../../../components/icons";
 
 const SubmitButton = ({ form, children }) => {
   const [submittable, setSubmittable] = React.useState(false);
@@ -269,8 +271,11 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
 
   const calculateTimeAgo = (createdAt) => {
     const currentDateTime = moment();
-    const blogPostDateTime = moment.utc(createdAt).local().format("MM-DD-YYYY hh:mm A");
-   
+    const blogPostDateTime = moment
+      .utc(createdAt)
+      .local()
+      .format("MM-DD-YYYY hh:mm A");
+
     const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
     const duration = moment.duration(diffMilliseconds);
 
@@ -415,7 +420,11 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       </div>
                       <div
                         className="profile"
-                        style={{ flexDirection: "column", fontFamily: "Inter",maxWidth:'90%' }}
+                        style={{
+                          flexDirection: "column",
+                          fontFamily: "Inter",
+                          maxWidth: "90%",
+                        }}
                       >
                         <h5>{communityQuestionDetail?.title}</h5>
                         <p>
@@ -434,7 +443,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       </div>
                     </div>
 
-                    <div className="follow">
+                    {/* <div className="follow">
                       <div className="img" onClick={openShareModal}>
                         <Image
                           loader={myImageLoader}
@@ -756,7 +765,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                           </div>
                         </Form>
                       </Modal>
-                    </div>
+                    </div> */}
                   </div>
                   <p className="para questions_font_14px">
                     <span
@@ -811,31 +820,45 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                         {communityQuestionDetail?.views_counter} views
                       </span>
                     </p>
-                    <div className="rating questions_font_12px">
-                      <div>
-                        <Image
-                          loader={myImageLoader}
-                          style={{ borderRadius: "5px", cursor: "pointer" }}
-                          width={16}
-                          height={16}
-                          preview="false"
-                          src={like_button}
-                          alt="profile"
-                          onClick={() => {
-                            voteCommunity(communityQuestionDetail, 1);
-                          }}
-                        />
-                      </div>
-                      <h6
-                        className="questions_font_12px"
-                        style={{
-                          fontFamily: "Inter",
-                        }}
+                    <div className="right-side-section">
+                      <ShareSocialMedia
+                        link={window.location.href}
+                        title={communityQuestionDetail?.name}
                       >
-                        Upvote <p></p>{" "}
-                        {communityQuestionDetail?.__meta__?.total_helpful}
-                      </h6>
-                      {/* <div className="left-border">
+                        <div className="share-btn">
+                          <ShareAltOutlined />{" "}
+                          <span className="btn-title">Share</span>
+                        </div>
+                      </ShareSocialMedia>
+                      <div className="report-btn">
+                        <FlageIcon />
+                        <span className="btn-title">Report</span>
+                      </div>
+                      <div className="rating questions_font_12px">
+                        <div>
+                          <Image
+                            loader={myImageLoader}
+                            style={{ borderRadius: "5px", cursor: "pointer" }}
+                            width={16}
+                            height={16}
+                            preview="false"
+                            src={like_button}
+                            alt="profile"
+                            onClick={() => {
+                              voteCommunity(communityQuestionDetail, 1);
+                            }}
+                          />
+                        </div>
+                        <h6
+                          className="questions_font_12px"
+                          style={{
+                            fontFamily: "Inter",
+                          }}
+                        >
+                          Upvote <p></p>{" "}
+                          {communityQuestionDetail?.__meta__?.total_helpful}
+                        </h6>
+                        {/* <div className="left-border">
                     <Image
                       loader={myImageLoader}
                       style={{ borderRadius: "5px", cursor: "pointer" }}
@@ -849,6 +872,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       }}
                     />
                   </div> */}
+                      </div>
                     </div>
                   </div>
                 </Card>

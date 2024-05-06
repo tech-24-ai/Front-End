@@ -45,19 +45,18 @@ const ResearchList = ({ router }) => {
     });
   };
 
-  const {isMobile,isTablet,isBrowser} = checkDeviceTyepe(screenSize.dynamicWidth);
-  
+  const { isMobile, isTablet, isBrowser } = checkDeviceTyepe(
+    screenSize.dynamicWidth
+  );
+
   useEffect(() => {
     window.addEventListener("resize", setDimension);
     return () => {
       window.removeEventListener("resize", setDimension);
     };
-
-   
   }, [screenSize]);
 
   useEffect(() => {
-    
     const sortData = sortBy?.split("_");
     crudService
       ._getAll("market_research", {
@@ -70,7 +69,7 @@ const ResearchList = ({ router }) => {
       })
       .then((result) => {
         setResearchData(result?.data?.data);
-        const totalPage = Math.ceil(result?.data.total / result?.data.perPage);
+        const totalPage = Math.ceil(result?.data?.total / result?.data.perPage);
         setPageCount(isNaN(totalPage) ? 0 : totalPage);
       });
   }, [page, searchQuery, filteredData, sortBy]);
@@ -148,6 +147,7 @@ const ResearchList = ({ router }) => {
       multiple: false,
       options: typeOptions,
       value: filteredData["document_type"],
+      multiple: true,
     },
     {
       heading: "Research Category",
@@ -155,6 +155,7 @@ const ResearchList = ({ router }) => {
       name: "category",
       options: categoryOptions,
       value: filteredData["category"],
+      multiple: true,
     },
     {
       heading: "Research Topics",
@@ -162,6 +163,7 @@ const ResearchList = ({ router }) => {
       name: "topic",
       options: topicOptions,
       value: filteredData["topic"],
+      multiple: true,
     },
     {
       heading: "Research Tags",
@@ -169,6 +171,7 @@ const ResearchList = ({ router }) => {
       name: "tags",
       options: tagOptions,
       value: filteredData["tags"],
+      multiple: true,
     },
   ];
 
@@ -194,7 +197,7 @@ const ResearchList = ({ router }) => {
           data={[
             { label: "Market Research", url: "/market-research" },
             {
-              label: "Recently Added",
+              label: "All Research",
               url: "",
             },
           ]}

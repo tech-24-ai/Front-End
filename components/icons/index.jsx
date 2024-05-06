@@ -3687,6 +3687,31 @@ export const SortIcon = (props) => {
     </span>
   );
 };
+export const FlageIcon = (props) => {
+  return (
+    <span
+      role="img"
+      aria-label="bookmark-icon"
+      className="anticon anticon-bookmark-icon"
+    >
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}
+      >
+        <path
+          d="M5.3335 14.0003V10.667M5.3335 10.667L5.3335 2.74408C5.3335 2.27398 5.84959 1.98648 6.24931 2.23392L11.5396 5.50886C11.911 5.7388 11.9201 6.27593 11.5566 6.51825L5.3335 10.667Z"
+          stroke="#141414"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </span>
+  );
+};
 export const FilterIcon = (props) => {
   return (
     <span

@@ -25,6 +25,7 @@ const CustomFilter = ({
           name={name}
           onChange={(value) => handleOptionChange({ value, name })}
           options={options}
+          value={value}
         />
       );
     }
@@ -32,7 +33,7 @@ const CustomFilter = ({
       <Radio.Group
         name={name}
         options={options}
-        defaultValue={value}
+        value={value}
         onChange={(e) =>
           handleOptionChange({ value: e.target.value, name: e.target.name })
         }

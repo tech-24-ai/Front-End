@@ -384,7 +384,6 @@
         .research-detail {
           -webkit-line-clamp: 2;
         }
-       
       }
     }
   }
@@ -413,14 +412,6 @@
       justify-content: flex-start;
       color: #54616c;
       font-size: 12px;
-
-      .share-btn,
-      .save-btn {
-        display: flex;
-        align-items: center;
-        column-gap: 5px;
-        cursor: pointer;
-      }
 
       .save-btn {
         color: $themeSecondary;
@@ -686,7 +677,7 @@
     min-height: 100vh;
     padding-bottom: 190px !important;
   }
-  
+
   .research-section {
     margin-left: -15px;
     margin-right: -10px;
@@ -785,7 +776,6 @@
       grid-template-columns: 50% 50%;
       gap: 1.5rem;
       width: 100%;
-      
     }
   }
 

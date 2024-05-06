@@ -22,8 +22,6 @@ function Detail({
 }) {
   const slug = router.query.slug;
   const { loggedIn } = authentication;
-  console.log("router", router);
-  console.log("Local", window.location.href);
 
   const [html, setHtml] = useState("");
   const [css, setCss] = useState("");
@@ -99,87 +97,91 @@ function Detail({
             )}
           </div>
         </div>
-       {
-        isMobile == false &&  <BrowserView>
-        <div className="research-content-wrapper">
-          <div className="research-content-section">
-            <div
-              dangerouslySetInnerHTML={{
-                __html: html,
-              }}
-            ></div>
-          </div>
-          <div className="related-research-section">
-            <div className="download-report-card">
-              <h6 className="heading">{research_detail?.name}</h6>
-              <p className="content">{research_detail?.details}</p>
-              <button
-                className="custom-btn with-bg"
-                onClick={() => handleDocumentDownload(research_detail)}
-                style={{
-                  display:
-                    research_detail?.document_content_type == 3
-                      ? "block"
-                      : "none",
-                }}
-              >
-                Download Report
-              </button>
+        {isMobile == false && (
+          <BrowserView>
+            <div className="research-content-wrapper">
+              <div className="research-content-section">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: html,
+                  }}
+                ></div>
+              </div>
+              <div className="related-research-section">
+                <div className="download-report-card">
+                  <h6 className="heading">{research_detail?.name}</h6>
+                  <p className="content">{research_detail?.details}</p>
+                  <button
+                    className="custom-btn with-bg"
+                    onClick={() => handleDocumentDownload(research_detail)}
+                    style={{
+                      display:
+                        research_detail?.document_content_type == 3
+                          ? "block"
+                          : "none",
+                    }}
+                  >
+                    Download Report
+                  </button>
+                </div>
+                {research_detail?.related_research.length > 0 && (
+                  <Fragment>
+                    <h6 className="heading">Related Research</h6>
+                    <div className="related-research-wrapper">
+                      {research_detail?.related_research.map((data, index) => (
+                        <ResearchCard
+                          data={data}
+                          key={index}
+                          redirectUrl={`/market-research/${data?.seo_url_slug}`}
+                        />
+                      ))}
+                    </div>
+                  </Fragment>
+                )}
+              </div>
             </div>
-            {research_detail?.related_research.length > 0 && (
-              <Fragment>
-                <h6 className="heading">Related Research</h6>
-                <div className="related-research-wrapper">
-                  {research_detail?.related_research.map((data, index) => (
-                    <ResearchCard data={data} key={index} redirectUrl={`/market-research/${data?.seo_url_slug}`}/>
-                  ))}
-                </div>
-              </Fragment>
-            )}
-          </div>
-        </div>
-      </BrowserView>
-       }
-       {
-        isMobile == true &&  <MobileView>
-        <div className="research-content-wrapper">
-          <div className="download-report-card">
-            <h6 className="heading">{research_detail?.name}</h6>
-            <p className="content">{research_detail?.details}</p>
-            <button
-              className="custom-btn with-bg"
-              style={{
-                display:
-                  research_detail?.document_content_type == 3
-                    ? "block"
-                    : "none",
-              }}
-            >
-              Download Report
-            </button>
-          </div>
-          <div className="research-content-section">
-            <div
-              dangerouslySetInnerHTML={{
-                __html: html,
-              }}
-            ></div>
-          </div>
-          <div className="related-research-section">
-            {research_detail?.related_research.length > 0 && (
-              <Fragment>
-                <h6 className="heading">Related Research</h6>
-                <div className="related-research-wrapper">
-                  {research_detail?.related_research.map((data, index) => (
-                    <ResearchCard data={data} key={index} />
-                  ))}
-                </div>
-              </Fragment>
-            )}
-          </div>
-        </div>
-      </MobileView>
-       }
+          </BrowserView>
+        )}
+        {isMobile == true && (
+          <MobileView>
+            <div className="research-content-wrapper">
+              <div className="download-report-card">
+                <h6 className="heading">{research_detail?.name}</h6>
+                <p className="content">{research_detail?.details}</p>
+                <button
+                  className="custom-btn with-bg"
+                  style={{
+                    display:
+                      research_detail?.document_content_type == 3
+                        ? "block"
+                        : "none",
+                  }}
+                >
+                  Download Report
+                </button>
+              </div>
+              <div className="research-content-section">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: html,
+                  }}
+                ></div>
+              </div>
+              <div className="related-research-section">
+                {research_detail?.related_research.length > 0 && (
+                  <Fragment>
+                    <h6 className="heading">Related Research</h6>
+                    <div className="related-research-wrapper">
+                      {research_detail?.related_research.map((data, index) => (
+                        <ResearchCard data={data} key={index} />
+                      ))}
+                    </div>
+                  </Fragment>
+                )}
+              </div>
+            </div>
+          </MobileView>
+        )}
       </Container>
       {css && <BodyBackgroundColor style={css} />}
     </section>

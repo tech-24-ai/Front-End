@@ -9,7 +9,15 @@ import {
   TelegramIcon,
   TwitterShareButton,
   TwitterIcon,
+  EmailShareButton,
 } from "next-share";
+import Image from "next/future/image";
+
+import linkedin_icon from "../../public/images/linkedin/Linkedin.svg";
+import facebook_icon from "../../public/images/linkedin/Facebook.svg";
+import email_icon from "../../public/images/linkedin/Email.svg";
+import twitter_icon from "../../public/images/linkedin/X - jpeg.svg";
+import myImageLoader from "../imageLoader";
 
 function ShareSocialMedia({ children, link, title = "", hashtag = "" }) {
   const [open, setOpen] = useState(false);
@@ -25,16 +33,52 @@ function ShareSocialMedia({ children, link, title = "", hashtag = "" }) {
       content={
         <div className="share-social-media-wrapper">
           <LinkedinShareButton url={link}>
-            <LinkedinIcon size={25} round />
+            <Image
+              loader={myImageLoader}
+              style={{ borderRadius: "2px" }}
+              width={25}
+              height={25}
+              preview="false"
+              src={linkedin_icon}
+              alt="share on linked"
+              name="linked icon"
+            />
           </LinkedinShareButton>
           <FacebookShareButton url={link} quote={title} hashtag={hashtag}>
-            <FacebookIcon size={25} round />
+            <Image
+              loader={myImageLoader}
+              style={{ borderRadius: "2px" }}
+              width={25}
+              height={25}
+              preview="false"
+              src={facebook_icon}
+              alt="share on facebook"
+              name="facebook icon"
+            />
           </FacebookShareButton>
-          <TelegramShareButton url={link} title={title}>
-            <TelegramIcon size={25} round />
-          </TelegramShareButton>
+          <EmailShareButton url={link} title={title}>
+            <Image
+              loader={myImageLoader}
+              style={{ borderRadius: "2px" }}
+              width={25}
+              height={25}
+              preview="false"
+              src={email_icon}
+              alt="share on email"
+              name="email icon"
+            />
+          </EmailShareButton>
           <TwitterShareButton url={link} title={title}>
-            <TwitterIcon size={25} round />
+            <Image
+              loader={myImageLoader}
+              style={{ borderRadius: "2px" }}
+              width={25}
+              height={25}
+              preview="false"
+              src={twitter_icon}
+              alt="share on twitter"
+              name="twitter icon"
+            />
           </TwitterShareButton>
         </div>
       }

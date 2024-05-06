@@ -26,11 +26,16 @@ const FilterOptionContainer = ({ sortData, filterData }) => {
   const handleReset = () => {
     setIsFilterModalOpen(false);
     filterData.setState({});
+    setFilteredData({});
   };
 
   const sortSelectedOptions = sortData.options.filter(
     (data) => data.value == sortData.value
   );
+
+  filterData.options.map((data) => {
+    data.value = filteredData[data.name];
+  });
 
   const filterSelectedOption = Object.keys(filterData.value);
 
