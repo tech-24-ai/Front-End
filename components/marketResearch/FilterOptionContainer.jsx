@@ -24,6 +24,7 @@ const FilterOptionContainer = ({ sortData, filterData }) => {
   };
 
   const handleReset = () => {
+    sessionStorage.removeItem("research_filter_category_id");
     setIsFilterModalOpen(false);
     filterData.setState({});
     setFilteredData({});

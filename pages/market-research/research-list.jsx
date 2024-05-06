@@ -119,6 +119,7 @@ const ResearchList = ({ router }) => {
     setFilteredData((prevState) => ({ ...prevState, [name]: value }));
   };
   const handleReset = () => {
+    sessionStorage.removeItem("research_filter_category_id");
     setFilteredData({});
   };
 
