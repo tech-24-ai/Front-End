@@ -81,6 +81,18 @@ class Blog extends Component {
     // fetch category
     this.props.getCrud("categories", "categories");
   }
+  componentDidUpdate(prevProps) {
+    const { asPath } = this.props.router;
+    const prevAsPath = prevProps.router.asPath;
+
+    if (asPath !== prevAsPath) {
+        let slug = asPath.slice(1).split("/")[1];
+        this.props.getCrud("blog", `blogs/${slug}`);
+        this.props.getCrud("blogs", "blogs");
+        // fetch category
+        this.props.getCrud("categories", "categories");
+    }
+  }
 
   saveToLibrary = (id) => {
     this.props.createCrud("save_to_library", "blogs/save", { id });
