@@ -63,7 +63,7 @@ function Detail({
         <CustomBreadcrumb
           data={[
             { label: "Market Research", url: "/market-research" },
-            { label: "Recently Added", url: "/market-research/research-list" },
+            { label: "All Research", url: "/market-research/research-list" },
             { label: research_detail?.name, url: "" },
           ]}
         />
