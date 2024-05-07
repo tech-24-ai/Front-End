@@ -124,7 +124,7 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
     setUrl([]);
   };
 
-  const handleOk = () => {
+  const handleOk = async () => {
     if (!title) {
       showAlert("Please add title");
       return;
@@ -136,33 +136,46 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
     }
 
     const finalUrl = [];
+    
     if (url && url.length > 0) {
-      //Upload API
-      crudService
-        ._upload("uploadmedia", url[0])
-        .then((data) => {
-          const postData = {
-            community_id: communityData?.id,
-            title: title,
-            description: description,
-            tags: tags,
-            url: [data?.data?.result],
-          };
+      const index = 0;
 
-          crudService._create("communitypost", postData).then((response) => {
-            if (response.status === 200) {
-              setUpdateCom(true);
-              setIsModalOpen(false);
-              resetForm();
-              success(
-                "Your post is being reviewed and will be shown after approval."
-              );
-            }
-          });
-        })
-        .catch((error) => {
-          console.log("error", error);
+      for(index;index< url.length;index++){
+        const details = await crudService._upload("uploadmedia", url[index]);
+        finalUrl.push({url : details?.data?.result, name: details?.data?.filename});
+       
+      }
+
+      if(index == url.length){
+        const postData = {
+          community_id: communityData?.id,
+          title: title,
+          description: description,
+          tags: tags,
+          url: JSON.stringify(finalUrl),
+        };
+
+        crudService._create("communitypost", postData).then((response) => {
+          if (response.status === 200) {
+            setUpdateCom(true);
+            setIsModalOpen(false);
+            resetForm();
+            success(
+              "Your post is being reviewed and will be shown after approval."
+            );
+          }
         });
+      }
+     
+      //Upload API
+      // crudService
+      //   ._upload("uploadmedia", url[index])
+      //   .then((data) => {
+          
+      //   })
+      //   .catch((error) => {
+      //     console.log("error", error);
+      //   });
     } else {
       const postData = {
         community_id: communityData?.id,
@@ -489,6 +502,7 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
                       <div>
                         <ReactQuill
                           theme="snow"
+                          value={description}
                           onChange={handleEditorChange}
                           style={{ height: "100px", borderRadius: "2px" }}
                         />
