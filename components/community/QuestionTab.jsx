@@ -37,6 +37,7 @@ const ReactQuill = dynamic(
 );
 
 import { isMobile } from "react-device-detect";
+import SearchInput from "../form/searchInput";
 
 const SubmitButton = ({ form, children }) => {
   const [submittable, setSubmittable] = React.useState(false);
@@ -67,7 +68,7 @@ const QuestionTab = ({
   success,
   isSearch = true,
   askQuestion = true,
-  componentName="community"
+  componentName = "community",
 }) => {
   const router = useRouter();
   const { community } = router.query;
@@ -207,7 +208,10 @@ const QuestionTab = ({
 
   const calculateTimeAgo = (createdAt) => {
     const currentDateTime = moment();
-    const blogPostDateTime = moment.utc(createdAt).local().format("MM-DD-YYYY hh:mm A");
+    const blogPostDateTime = moment
+      .utc(createdAt)
+      .local()
+      .format("MM-DD-YYYY hh:mm A");
     const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
     const duration = moment.duration(diffMilliseconds);
 
@@ -232,40 +236,48 @@ const QuestionTab = ({
   //Sorting
 
   useEffect(() => {
-    if(componentName=="community"){
-    crudService
-      ._getAll(`communitypost/${community}`, {
-        orderBy: sortBy,
-        orderDirection: "DESC",
-        page: page + 1,
-        pageSize: itemsPerPage,
-        search: headerSearch,
-        // search: searchQuery,
-        // ...filteredData,
-      })
-      .then((result) => {
-        setCommunityDetails(result?.data);
-        const totalPage = Math.ceil(result?.data.total / result?.data.perPage);
+    fetchData();
+  }, [page, sortBy, community]);
 
-        setPageCount(isNaN(totalPage) ? 0 : totalPage);
-      });
-    } else if(componentName=="profile"){
+  const fetchData = () => {
+    if (componentName == "community") {
       crudService
-      ._getAll(`visitor_queries_history`, {
-        orderBy: sortBy,
-        orderDirection: "DESC",
-        page: page + 1,
-        pageSize: itemsPerPage,
-        search: headerSearch,
-      })
-      .then((result) => {
-        setCommunityDetails(result?.data);
-        const totalPage = Math.ceil(result?.data.total / result?.data.perPage);
+        ._getAll(`communitypost/${community}`, {
+          orderBy: sortBy,
+          orderDirection: "DESC",
+          page: page + 1,
+          pageSize: itemsPerPage,
+          search: headerSearch,
+          // search: searchQuery,
+          // ...filteredData,
+        })
+        .then((result) => {
+          setCommunityDetails(result?.data);
+          const totalPage = Math.ceil(
+            result?.data.total / result?.data.perPage
+          );
 
-        setPageCount(isNaN(totalPage) ? 0 : totalPage);
-      });
+          setPageCount(isNaN(totalPage) ? 0 : totalPage);
+        });
+    } else if (componentName == "profile") {
+      crudService
+        ._getAll(`visitor_queries_history`, {
+          orderBy: sortBy,
+          orderDirection: "DESC",
+          page: page + 1,
+          pageSize: itemsPerPage,
+          search: headerSearch,
+        })
+        .then((result) => {
+          setCommunityDetails(result?.data);
+          const totalPage = Math.ceil(
+            result?.data.total / result?.data.perPage
+          );
+
+          setPageCount(isNaN(totalPage) ? 0 : totalPage);
+        });
     }
-  }, [page, sortBy, headerSearch, community]);
+  };
 
   const handleSort = (e) => {
     setSortBy(e.target.value);
@@ -311,8 +323,6 @@ const QuestionTab = ({
   const gotoQuestionDetail = (url_slug) => {
     sessionStorage.setItem("community_question_id", url_slug);
     const baseHref = window.location.href;
-
-    console.log("baseUrl", baseHref);
     Router.replace(`${baseHref}/question/${url_slug}`);
   };
 
@@ -323,6 +333,10 @@ const QuestionTab = ({
 
   const handleCommunity = () => {
     Router.push("/community");
+  };
+
+  const handleSearch = () => {
+    fetchData();
   };
 
   return (
@@ -338,29 +352,18 @@ const QuestionTab = ({
             value={headerSearch}
           /> */}
 
-          <Input
-            className="community_search_small"
-            placeholder="Search anything.."
-            allowClear
-            prefix={
+          <SearchInput
+            placeholder="Search anything"
+            className="SearchInput"
+            parentProps={{ style: { width: isMobile ? "84%" : "74%" } }}
+            value={headerSearch}
+            onChange={(value) => setHeaderSearch(value)}
+            suffix={
               <SearchOutlined
-                style={{ color: "#0074D9", padding: "0 6px", fontSize: "24px" }}
+                style={{ color: "#1E96FF" }}
+                onClick={() => handleSearch()}
               />
             }
-            onChange={(e) => {
-              setHeaderSearch(e?.target?.value);
-            }}
-            value={headerSearch}
-            style={{
-              width: isMobile ? "84%" : "74%",
-              padding: "10px",
-              border: "1px solid #ccc",
-              borderRadius: "5px",
-              background: "#ffffff",
-              boxSizing: "border-box",
-              fontSize: "16px",
-              fontFamily: "Inter",
-            }}
           />
 
           <Image
