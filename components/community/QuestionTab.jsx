@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import { Container } from "reactstrap";
 import myImageLoader from "../../components/imageLoader";
 import { RightOutlined } from "@ant-design/icons";
@@ -38,6 +37,7 @@ const ReactQuill = dynamic(
 
 import { isMobile } from "react-device-detect";
 import SearchInput from "../form/searchInput";
+import Image from "next/future/image";
 
 const SubmitButton = ({ form, children }) => {
   const [submittable, setSubmittable] = React.useState(false);
@@ -649,6 +649,7 @@ const QuestionTab = ({
               <div>
                 <div className="img">
                   <Image
+                    loader={myImageLoader}
                     style={{ borderRadius: "5px", zIndex: "1" }}
                     width={50}
                     height={50}
@@ -667,11 +668,12 @@ const QuestionTab = ({
                     fontFamily: "Inter",
                   }}
                 >
-                  <h5>{data?.visitor?.name}</h5>
+                  <h5>{data?.title}</h5>
                   <p>
                     {!isMobile && (
                       <>
-                        {data?.title} <div className="custom-border"></div>
+                        {data?.visitor?.name}{" "}
+                        <div className="custom-border"></div>
                       </>
                     )}
                     {calculateTimeAgo(data?.created_at)}
@@ -679,10 +681,10 @@ const QuestionTab = ({
                 </div>
               </div>
 
-              <div className="follow">
-                {/* <p className="button">Follow</p> */}
+              {/* <div className="follow">
+                <p className="button">Follow</p>
                 <div className="img">
-                  {/* <Image
+                  <Image
                       loader={myImageLoader}
                       style={{ borderRadius: "2px", cursor: "pointer" }}
                       width={32}
@@ -690,9 +692,9 @@ const QuestionTab = ({
                       preview="false"
                       src={three_dot_icon}
                       alt="profile"
-                    /> */}
+                    />
                 </div>
-              </div>
+              </div> */}
             </div>
             <p
               className="para questions_font_14px"
