@@ -102,17 +102,14 @@ const ResearchList = ({ router }) => {
   }, []);
 
   //Filter
-  const handleSearch = (searchValue) => {
-    if (searchValue == null) {
-      return false;
+  const handleSearch = () => {
+    if (!searchQuery && q) {
+      const url = new URL(window.location.href);
+      url.searchParams.delete("q");
+      window.history.replaceState({}, "", url.toString());
     }
-    const timerId = setTimeout(() => {
-      setSearchQuery(searchValue);
-    }, 1000);
 
-    return () => {
-      clearTimeout(timerId);
-    };
+    fetchData();
   };
 
   const handleOptionChange = ({ name, value }) => {
@@ -187,6 +184,10 @@ const ResearchList = ({ router }) => {
   };
 
   useEffect(() => {
+    fetchData();
+  }, [page, filteredData, sortBy]);
+
+  const fetchData = () => {
     const sortData = sortBy?.split("_");
     let params = {
       orderBy: sortData[0],
@@ -208,7 +209,7 @@ const ResearchList = ({ router }) => {
       const totalPage = Math.ceil(result?.data?.total / result?.data?.perPage);
       setPageCount(isNaN(totalPage) ? 0 : totalPage);
     });
-  }, [page, searchQuery, filteredData, sortBy]);
+  };
 
   return (
     <section className="research-list-section mt-4">
@@ -227,9 +228,8 @@ const ResearchList = ({ router }) => {
           <SearchInput
             placeholder="Search anything"
             className="SearchInput"
-            onChange={(value) => handleSearch(value)}
-            prefix={<SearchOutlined />}
-            allowClear={true}
+            onChange={(value) => setSearchQuery(value)}
+            suffix={<SearchOutlined onClick={() => handleSearch()} />}
             value={searchQuery}
           />
         </div>

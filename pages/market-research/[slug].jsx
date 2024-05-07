@@ -27,7 +27,9 @@ function Detail({
   const [css, setCss] = useState("");
 
   useEffect(() => {
-    getAllCrud("research_detail", `market_research/show/${slug}`, {});
+    if (slug) {
+      getAllCrud("research_detail", `market_research/show/${slug}`, {});
+    }
   }, []);
 
   useEffect(() => {
