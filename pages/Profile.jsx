@@ -745,15 +745,51 @@ const Profile = ({
       height: 300,
       marginLeft: 70,
     };
+    const levelCount = visitor_profile_levels?.[0]?.leavels.length;
+      const interval = levelCount ? 100 / (levelCount - 1) : 0;
     const marks = {
-      0: '0°C',
-      26: '26°C',
-      37: '37°C',
+      
+      0:   {
+        style: {
+            // color: '#f50',
+        },
+        label: <span  style={{marginLeft:"60px"}}><span style={{fontSize:"15px"}}>{visitor_profile_levels?.[0]?.leavels[levelCount - 1].level}</span><br/><b style={{fontSize:"20px",marginLeft:"55px"}}></b></span>,
+      },
+      20:  {
+        style: {
+            // color: '#f50',
+        },
+        label: <span style={{marginLeft:"60px"}}><span style={{fontSize:"15px"}}>Level 5</span><br/><b style={{fontSize:"20px",marginLeft:"50px"}}>Pro</b></span>,
+
+      },
+      40:  {
+        style: {
+            // color: '#f50',
+        },
+        label: <span className="mt-2"><span style={{fontSize:"15px"}}>Level 4</span><br/><b style={{fontSize:"20px"}}>Contributor</b></span>,
+
+      },
+      60:  {
+        style: {
+            // color: '#f50',
+        },
+        label: <span className="mt-2"><span style={{fontSize:"15px"}}>Level 3</span><br/><b style={{fontSize:"20px"}}>Action Taker</b></span>,
+
+      },
+      80:  {
+        style: {
+            // color: '#f50',
+        },
+        label: <span style={{marginLeft:"60px"}}><span style={{fontSize:"15px"}}>Level 2</span><br/><b style={{fontSize:"20px",marginLeft:"50px"}}>Starter</b></span>,
+
+      },
+      // Level:"Levelvbhdfbv",
       100: {
         style: {
-          color: '#f50',
+            // color: '#f50',
         },
-        label: <strong>100°C</strong>,
+        label: <span style={{marginLeft:"58px"}}><span style={{fontSize:"15px"}}>Level 1</span><br/><b style={{fontSize:"20px",marginLeft:"48px"}}>New Bee</b></span>,
+
       },
     };
     return (
@@ -775,14 +811,14 @@ const Profile = ({
           </p>
           <div className="">
           {/* ReactDOM.render( */}
-        <div style={{marginLeft:"50px"}}>
+        <div style={{marginLeft:"50px",height:"500px"}}>
         
           <div style={style}>
           <Slider
           // className="slider-one"
           className="verticalSliderfirst"
           vertical range
-          marks={topMarks}
+          marks={marks}
           // step={null}
           defaultValue={100}
           
@@ -802,7 +838,7 @@ const Profile = ({
         </div>,
   {/* mountNode, */}
       </div>
-      <div className="level-calculation" style={{marginTop:"30px"}}>
+      <div className="level-calculation" style={{marginTop:"60px"}}>
   <div>
     <p>
       {visitor_profile_levels?.[0]?.total_points_earned}
