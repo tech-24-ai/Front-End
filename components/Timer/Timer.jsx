@@ -13,7 +13,7 @@ import RightArrow from "../../public/images/input/rightarrow.svg";
 import { alignCenter } from "react-icons-kit/fa";
 import Link from "next/link";
 
-let timeoutTime = 1000 * 60 * 2;
+let timeoutTime = 1000 * 60 * 150;
 // let timeoutTime = 60 * 2;
 function Timer({ isloggedIn, showLoginPopup, popupMsg, toggleLoginPopup }) {
   const { message, BtnText, isVideo, videoLink } = popupMsg;
@@ -128,13 +128,15 @@ function Timer({ isloggedIn, showLoginPopup, popupMsg, toggleLoginPopup }) {
           Register with LinkedIn  
       */}
               <div className="linkedin-modal-content">
-                <div className="modal-head" >
+                <div className="modal-head">
                   {message ? message : "Welcome to Tech24"}
                 </div>
-                <p className="modal-description">Sign up or sign in to join the conversation, address your questions, share your ideas, and engage with other members who share similar interests!</p>
-                <div
-                  className="loginWrapper"
-                >
+                <p className="modal-description">
+                  Sign up or sign in to join the conversation, address your
+                  questions, share your ideas, and engage with other members who
+                  share similar interests!
+                </p>
+                <div className="loginWrapper">
                   <ButtonGroup>
                     <Button color="default" hidden></Button>
                     {/* <Button color="default" onClick={redirectLogin}>
@@ -153,10 +155,12 @@ function Timer({ isloggedIn, showLoginPopup, popupMsg, toggleLoginPopup }) {
                         style={{ width: "25px", marginRight: "10px" }}
                         src={LinkedinIcon.src}
                       />
-                      <div style={{
-                        fontSize: 18,
-                        lineHeight: "28px"
-                      }}>
+                      <div
+                        style={{
+                          fontSize: 18,
+                          lineHeight: "28px",
+                        }}
+                      >
                         {BtnText ? BtnText : "Continue with LinkedIn"}
                       </div>
                       {/* <img
@@ -167,15 +171,13 @@ function Timer({ isloggedIn, showLoginPopup, popupMsg, toggleLoginPopup }) {
                   </ButtonGroup>
                 </div>
                 <div className="footer-section">
+                  <div>By creating an account, you agree to our</div>
                   <div>
-                    By creating an account, you agree to our
+                    <Link href="/terms_and_conditions">Terms & Conditions</Link>
+                    <span style={{ padding: "0 5px" }}>and</span>
+                    <Link href="/privacy_policy">Privacy Policy</Link>
                   </div>
-                  <div>
-                    <Link href="/terms_and_conditions">Terms & Conditions</Link> 
-                    <span style={{padding: "0 5px"}}>and</span> 
-                    <Link href="/privacy_policy">Privacy Policy</Link> 
-                  </div>
-                </div>  
+                </div>
                 {/* <div
                   key="submit"
                   className="custom-btn outline"

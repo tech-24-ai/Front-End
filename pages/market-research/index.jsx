@@ -16,7 +16,7 @@ function MarketResearch({
   router,
 }) {
   const marketBannerImage = "../../images/market-research.jpg";
-  const [value, setValue] = useState();
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     getAllCrud("market_research", "market_research", {
@@ -31,17 +31,8 @@ function MarketResearch({
   }, []);
 
   // search
-  const handleSearch = (searchValue) => {
-    if (searchValue == null) {
-      return false;
-    }
-    const timerId = setTimeout(() => {
-      router.push(`${router.asPath}/research-list?q=${searchValue}`);
-    }, 1000);
-
-    return () => {
-      clearTimeout(timerId);
-    };
+  const handleSearch = () => {
+    router.push(`${router.asPath}/research-list?q=${searchText}`);
   };
 
   const handleRedirect = (category_id) => {
@@ -70,8 +61,13 @@ function MarketResearch({
                 <SearchInput
                   placeholder="Search anything"
                   className="SearchInput bg"
-                  onChange={(value) => handleSearch(value)}
-                  suffix={<SearchOutlined style={{ color: "#1E96FF" }} />}
+                  onChange={(value) => setSearchText(value)}
+                  suffix={
+                    <SearchOutlined
+                      style={{ color: "#1E96FF" }}
+                      onClick={() => handleSearch()}
+                    />
+                  }
                 />
               </div>
             </div>

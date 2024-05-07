@@ -16,6 +16,7 @@ import { Input } from "antd";
 import ReactPaginate from "react-paginate-next";
 import CommunityCategory from "../../components/community/index";
 import CustomPagination from "../../components/pagination";
+import SearchInput from "../../components/form/searchInput";
 
 const text = `
   A dog is a type of domesticated animal.
@@ -35,7 +36,6 @@ const items = [
     showArrow: false,
   },
 ];
-import axios from "axios";
 const options = {
   day: "numeric",
   month: "long",
@@ -43,36 +43,27 @@ const options = {
 };
 
 const Community = ({ router }) => {
+  const { q } = Router.query;
   const [communityFeature, setCommunityFeature] = useState([]);
   const [sortBy, setSortBy] = useState("id_desc");
   const [currentPage, setCurrentPage] = useState(0);
   const [total, setTotal] = useState(0);
   const itemsPerPage = 10;
 
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(q);
   const [isSearchActive, setIsSearchActive] = useState(false);
-
-  const { value } = Router.query;
 
   useEffect(() => {
     getAllPosts(searchQuery, currentPage, sortBy);
-  }, [searchQuery, currentPage, sortBy]);
+  }, [currentPage, sortBy]);
 
-  useEffect(() => {
-    if (value) {
-      setSearchQuery(value);
-      setCurrentPage(0);
-      getAllPosts(value, 0, sortBy);
-    }
-  }, [value]);
-
-  const getAllPosts = async (searchText, page, orderBy) => {
+  const getAllPosts = async () => {
     try {
       const data = await crudService._getAll("community", {
-        search: searchText,
-        page: page + 1,
+        search: searchQuery,
+        page: currentPage + 1,
         pageSize: itemsPerPage,
-        orderBy: orderBy,
+        orderBy: sortBy,
       });
       setCommunityFeature(data.data?.data);
       setTotal(data.data?.total);
@@ -88,11 +79,13 @@ const Community = ({ router }) => {
   // }, [searchQuery, communityFeature]);
 
   //Filter
-  const handleSearch = (e) => {
-    setSearchQuery(e.target.value);
-    setCurrentPage(0);
-    setIsSearchActive(e.target.value.trim() !== "");
-    getAllPosts(e.target.value, 0, sortBy);
+  const handleSearch = () => {
+    if (!searchQuery && q) {
+      const url = new URL(window.location.href);
+      url.searchParams.delete("q");
+      window.history.replaceState({}, "", url.toString());
+    }
+    getAllPosts();
   };
 
   // Pagination
@@ -197,7 +190,6 @@ const Community = ({ router }) => {
   };
   const handleSort = (e) => {
     setSortBy(e.target.value);
-    getAllPosts(searchQuery, currentPage, e.target.value);
   };
 
   const handleAllCommunity = () => {
@@ -247,23 +239,17 @@ const Community = ({ router }) => {
             </div>
           </div>
           <div className="search-box mt-3">
-            <Input
-              placeholder="Search anything.."
-              prefix={
+            <SearchInput
+              placeholder="Search anything"
+              className="SearchInput"
+              value={searchQuery}
+              onChange={(value) => setSearchQuery(value)}
+              suffix={
                 <SearchOutlined
-                  style={{ color: "#0074D9", padding: "0 6px" }}
+                  style={{ color: "#1E96FF" }}
+                  onClick={() => handleSearch()}
                 />
               }
-              value={searchQuery}
-              onChange={handleSearch}
-              style={{
-                width: "100%",
-                padding: "10px",
-                border: "1px solid #ccc",
-                borderRadius: "5px",
-                background: "#ffffff",
-                boxSizing: "border-box",
-              }}
             />
           </div>
 
@@ -463,13 +449,14 @@ const Community = ({ router }) => {
           </div>
           {!isSearchActive && !searchQuery && (
             <div className="mt-5" style={{ width: "100%" }}>
-              {communityFeature?.length > 0 && Math.ceil(total / itemsPerPage) > 1 && (
-                <CustomPagination
-                  pageCount={Math.ceil(total / itemsPerPage)}
-                  page={currentPage}
-                  onPageChange={({ selected }) => setCurrentPage(selected)}
-                />
-              )}
+              {communityFeature?.length > 0 &&
+                Math.ceil(total / itemsPerPage) > 1 && (
+                  <CustomPagination
+                    pageCount={Math.ceil(total / itemsPerPage)}
+                    page={currentPage}
+                    onPageChange={({ selected }) => setCurrentPage(selected)}
+                  />
+                )}
             </div>
           )}
         </Container>

@@ -324,8 +324,8 @@ const CommunityQuestionDetail = ({
     Router.push("/community");
   };
 
-  const handleCommunityDetails = () => {
-    Router.push(`/community/community_detail`);
+  const handleCommunityDetails = ({ url_slug }) => {
+    Router.push(`/community/${url_slug}`);
   };
 
   const handleDocumentDownload = ({ id, extension, name }) => {
@@ -352,7 +352,7 @@ const CommunityQuestionDetail = ({
                 </span>{" "}
                 <span
                   className="questions_font_12px"
-                  onClick={() => handleCommunityDetails()}
+                  onClick={() => handleCommunityDetails(communityData)}
                   style={{
                     color: "#B0B8BF",
                     fontFamily: "Inter",

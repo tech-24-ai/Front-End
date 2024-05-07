@@ -123,23 +123,23 @@ const Community = ({ community, getAllCrud, router }) => {
   //     setAllCommunityFeature(selectedCommunity ? [selectedCommunity] : []);
   //     setValue(newValue);
   // };
-  const onChange = (newValue) => {
-    const selectedAllCommunity = allCommunityFeature.find(
-      (feature) => feature.name === newValue
-    );
-    const selectedTopRatedCommunity = topRatedCommunityFeature.find(
-      (feature) => feature.name === newValue
-    );
+  const handleSearch = () => {
+    // const selectedAllCommunity = allCommunityFeature.find(
+    //   (feature) => feature.name === newValue
+    // );
+    // const selectedTopRatedCommunity = topRatedCommunityFeature.find(
+    //   (feature) => feature.name === newValue
+    // );
 
-    setAllCommunityFeature(selectedAllCommunity ? [selectedAllCommunity] : []);
-    setTopRatedCommunityFeature(
-      selectedTopRatedCommunity ? [selectedTopRatedCommunity] : []
-    );
+    // setAllCommunityFeature(selectedAllCommunity ? [selectedAllCommunity] : []);
+    // setTopRatedCommunityFeature(
+    //   selectedTopRatedCommunity ? [selectedTopRatedCommunity] : []
+    // );
+    // setValue(newValue);
     Router.push({
       pathname: "/community/all_community",
-      query: { value: newValue },
+      query: { q: search },
     });
-    setValue(newValue);
   };
 
   return (
@@ -162,9 +162,14 @@ const Community = ({ community, getAllCrud, router }) => {
               <SearchInput
                 placeholder="Search anything"
                 className="SearchInput bg"
-                value={value}
-                onChange={onChange}
-                suffix={<SearchOutlined style={{ color: "#1E96FF" }} />}
+                value={search}
+                onChange={(value) => setSearch(value)}
+                suffix={
+                  <SearchOutlined
+                    style={{ color: "#1E96FF" }}
+                    onClick={() => handleSearch()}
+                  />
+                }
               />
             </div>
           </div>
