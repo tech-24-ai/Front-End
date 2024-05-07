@@ -2308,9 +2308,7 @@
   width: 11px!important;
   height: 116%!important;
 }
-.ant-slider-vertical .ant-slider-mark {
 
-}
  .verticalSlidertwo{
   margin: left 12px !important;
   padding: 10px!important;
@@ -2324,17 +2322,9 @@
   // margin-left: 30px;
  }
 
-  // .para {
-  //   color: #001622;
-  //   font-weight: 500;
-  //   font-size: 18px;
-  //   margin-top: 0.7rem;
-  //   line-height: 24px;
-  //   margin-bottom: 0.9rem;
-  // }
-  // .sortby{
-  //   display: none;
-  // }
+ .edit-profile-modal .ant-select{
+  width: 90%!important;
+ }
   .profile-container .card-header-data .profile-badge {
     position: absolute;
     width: 30px;
@@ -2345,7 +2335,7 @@
     justify-content: center;
     align-items: center;
     right: auto;
-    top: 68px;
+    top: 76px;
     border: 1.5px solid #ffffff;
     background-color: #0074d9;
     font-weight: 500;
