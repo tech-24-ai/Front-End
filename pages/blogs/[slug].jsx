@@ -31,6 +31,7 @@ import { MessageOutlined } from "@ant-design/icons";
 import { Avatar, Button, Comment, Form, List } from "antd";
 import CustomBreadcrumb from "../../components/breadcrumbs/Breadcrumb";
 import ShareSocialMedia from "../../components/shareSocial";
+import Head from "next/head";
 const { TextArea } = Input;
 
 class Blog extends Component {
@@ -44,6 +45,10 @@ class Blog extends Component {
       comments: [],
       submitting: false,
       value: "",
+      meta: { 
+        title: "",
+        description: "",
+      },
     };
   }
 
@@ -93,13 +98,18 @@ class Blog extends Component {
         this.props.getCrud("categories", "categories");
     }
   }
+  
 
   saveToLibrary = (id) => {
     this.props.createCrud("save_to_library", "blogs/save", { id });
   };
 
+  handleMeta = (e) => {
+    this.setState({ meta: e });
+  };
+  
   render() {
-    const { comments, submitting, value } = this.state;
+    const { comments, submitting, value, meta } = this.state;
     const { blog, categories, blogs, authentication } = this.props;
     // const limitedData = blogs.slice(0, 4);
     const limitedData = blogs ? blogs.slice(0, 4) : [];
@@ -132,9 +142,18 @@ class Blog extends Component {
     }
 
     return (
+      
       <section className="blog-detail-section">
         {blog && (
           <>
+            <Head>
+              <meta
+                name="viewport"
+                content="width=device-width, minimum-scale=1.0, maximum-scale=5.0, user-scalable=no"
+              />
+              <meta name="title" content={blog.meta_title} />
+              <meta name="description" content={blog.meta_description} />
+            </Head>
             <Container style={{ marginTop: "3rem" }}>
               {blog && (
                 <CustomBreadcrumb
@@ -145,10 +164,10 @@ class Blog extends Component {
                       url: "",
                     },
                   ]}
+                  setMeta={(e) => this.handleMeta(e)}
                 />
               )}
             </Container>
-
             <Container className="blog-container">
               <div className="row">
                 <div className="col-md-8">
