@@ -109,7 +109,6 @@ const QuestionTab = ({
   };
 
   const fetchCommunityData = () => {
-    // const id = sessionStorage.getItem("community_id");
     const { community } = router.query;
     if (community) {
       crudService._getAll(`community/details/${community}`).then((data) => {
@@ -121,7 +120,7 @@ const QuestionTab = ({
   useEffect(() => {
     getAllCrud("visitorprofile", "visitorprofile");
     fetchCommunityData();
-  }, [updateCom]);
+  }, [updateCom, router.query]);
 
   const joinCommunity = () => {
     crudService

@@ -91,7 +91,6 @@ const CommunityQuestionDetail = ({
 }) => {
   const router = useRouter();
   const slugQuery = router.query;
-  console.log("QUESTIONPage", slugQuery);
   const socialShareLink = window.location.href;
 
   const [description, setDescription] = useState("");
