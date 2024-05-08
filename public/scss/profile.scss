@@ -1919,6 +1919,13 @@
 
 // tab4
 .levels-tab-container {
+  .ant-slider-mark-text{
+    color: #000!important;
+    font-size: 18px!important;
+    padding: 10px!important;
+    height: 0px!important;
+    // top:10px!important;
+  }
   margin: 1rem 0;
   .sliderTitle {
     font-weight: 500;
@@ -1957,7 +1964,7 @@
         font-weight: 500;
         font-size: 20px;
         color: #0074d9;
-        margin-top: 0.5rem;
+        margin-top: 2.5rem;
         margin-bottom: unset;
         span {
           font-weight: 400;
@@ -2046,7 +2053,7 @@
     justify-content: center;
     align-items: center;
     right: auto;
-    top: 75px;
+    top: 79px;
     border: 1.5px solid #ffffff;
     background-color: #0074d9;
     font-weight: 500;
@@ -2236,7 +2243,7 @@
     justify-content: center;
     align-items: center;
     right: auto;
-    top: 76px;
+    top: 78px;
     border: 1.5px solid #ffffff;
     background-color: #0074d9;
     font-weight: 500;
@@ -2276,6 +2283,8 @@
   }
   .ant-slider-vertical .ant-slider-mark-text {
     left: -57px !important;
+  .ant-slider-vertical .ant-slider-mark-text{
+    left: -62px!important;
   }
   // .ant-slider-vertical .ant-slider-handle{
   //   margin-left: 54px;
@@ -2294,6 +2303,16 @@
     width: 25px !important;
     height: 25px !important;
   }
+    height: 162%!important;
+}
+.ant-slider-vertical .ant-slider-handle {
+  margin-top: -6px;
+  margin-left: 10px!important;
+  // width: 16px;
+  background: blue;
+  width: 25px!important;
+  height: 25px!important;
+}
   .ant-slider-handle {
     position: absolute;
     width: 14px;
@@ -2304,14 +2323,14 @@
     border-radius: 50%;
     box-shadow: 0;
     cursor: pointer;
-    transition: border-color 0.3s, box-shadow 0.6s,
-      transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-    left: 56px !important;
-  }
-  .ant-slider-vertical .ant-slider-rail {
-    width: 11px !important;
-    height: 116% !important;
-  }
+    transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    left:56px!important;
+}
+.ant-slider-vertical .ant-slider-rail {
+  width: 11px!important;
+  height: 190%!important;
+  left: 20px;
+}
 
   .verticalSlidertwo {
     margin: left 12px !important;

@@ -110,9 +110,7 @@ class AlertComponent extends React.PureComponent {
                 border-radius: 20px !important;
                 margin: auto !important;
               }
-              .ant-modal-close-x {
-                display: none;
-              }
+
               .ant-modal-body {
                 border-bottom: 1px solid;
                 color: #868181;
@@ -125,6 +123,11 @@ class AlertComponent extends React.PureComponent {
               .ant-modal-footer span {
                 font-weight: bold;
                 color: #007aff;
+              }
+            }
+            @media (max-width: 767px) {
+              .ant-modal-close-x {
+                display: none;
               }
             }
           `}</style>

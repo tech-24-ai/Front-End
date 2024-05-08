@@ -37,6 +37,7 @@ const ReactQuill = dynamic(
 
 import { isMobile } from "react-device-detect";
 import QuestionTab from "../../../components/community/QuestionTab";
+import NewsTab from "../../../components/community/NewsTab";
 
 const SubmitButton = ({ form, children }) => {
   const [submittable, setSubmittable] = React.useState(false);
@@ -124,7 +125,7 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
     setUrl([]);
   };
 
-  const handleOk = async () => {
+  const handleOk = () => {
     if (!title) {
       showAlert("Please add title");
       return;
@@ -136,46 +137,33 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
     }
 
     const finalUrl = [];
-    
     if (url && url.length > 0) {
-      const index = 0;
-
-      for(index;index< url.length;index++){
-        const details = await crudService._upload("uploadmedia", url[index]);
-        finalUrl.push({url : details?.data?.result, name: details?.data?.filename});
-       
-      }
-
-      if(index == url.length){
-        const postData = {
-          community_id: communityData?.id,
-          title: title,
-          description: description,
-          tags: tags,
-          url: JSON.stringify(finalUrl),
-        };
-
-        crudService._create("communitypost", postData).then((response) => {
-          if (response.status === 200) {
-            setUpdateCom(true);
-            setIsModalOpen(false);
-            resetForm();
-            success(
-              "Your post is being reviewed and will be shown after approval."
-            );
-          }
-        });
-      }
-     
       //Upload API
-      // crudService
-      //   ._upload("uploadmedia", url[index])
-      //   .then((data) => {
-          
-      //   })
-      //   .catch((error) => {
-      //     console.log("error", error);
-      //   });
+      crudService
+        ._upload("uploadmedia", url[0])
+        .then((data) => {
+          const postData = {
+            community_id: communityData?.id,
+            title: title,
+            description: description,
+            tags: tags,
+            url: [data?.data?.result],
+          };
+
+          crudService._create("communitypost", postData).then((response) => {
+            if (response.status === 200) {
+              setUpdateCom(true);
+              setIsModalOpen(false);
+              resetForm();
+              success(
+                "Your post is being reviewed and will be shown after approval."
+              );
+            }
+          });
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
     } else {
       const postData = {
         community_id: communityData?.id,
@@ -231,6 +219,11 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
       console.log("communityData", communityData);
       fetchNewsData(communityData?.id);
     }, []);
+    const gotoNewsDetail = (url_slug) => {
+      sessionStorage.setItem("community_id", url_slug);
+      const baseHref = window.location.href;
+      Router.replace(`${baseHref}/news/${url_slug}`);
+    };
 
     const fetchNewsData = (communityId) => {
       if (communityId && selectedIndex == 2) {
@@ -244,30 +237,10 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
           });
       }
     };
-
-    // const [newsData, setNewsData] = useState([]);
-    // const fetchNewsData = () => {
-    //   const id = sessionStorage.getItem("community_id");
-    //   if (id) {
-    //     crudService._getAll(`get_news_announcements?community_id=${22}`)
-    //       .then((data) => {
-    //         setNewsData(data?.data);
-    //         console.log("data", data);
-    //         console.log("news log", data?.data);
-    //       })
-    //       .catch((error) => {
-    //         showAlert("Error occurred while fetching news data.");
-    //         console.error("Error fetching news data:", error);
-    //       });
-    //   }
-    // };
-    // console.log("news data", newsData);
-    // useEffect(() => {
-    //   fetchNewsData();
-    // }, []);
-
+   
     return (
-      <div className="questions-tab-container">
+      <div className="questions-tab-container"
+      >
         <ul>
           {newsData &&
             newsData.map((data) => (
@@ -277,7 +250,9 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
                   fontWeight: "500",
                   fontSize: "20px",
                   color: "#001622",
+                  cursor: "pointer"
                 }}
+                onClick={() => gotoNewsDetail(data?.url_slug)}
               >
                 {data.title}
                 <p
@@ -340,6 +315,7 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
       key: "2",
       label: "News & Announcements",
       children: <Tab2 />,
+
     },
   ];
 
@@ -502,7 +478,6 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
                       <div>
                         <ReactQuill
                           theme="snow"
-                          value={description}
                           onChange={handleEditorChange}
                           style={{ height: "100px", borderRadius: "2px" }}
                         />
