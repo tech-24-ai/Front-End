@@ -53,7 +53,7 @@ const Community = ({ router }) => {
         try {
             const data = await crudService._getAll("communitypost/search", { search: searchText, page: page + 1, pageSize: itemsPerPage, orderBy: orderBy });
             setCommunityFeature(data.data?.data);
-            setTotal(data.data?.total);
+            setTotal(data.data?.lastPage);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
