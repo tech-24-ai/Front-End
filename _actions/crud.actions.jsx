@@ -174,7 +174,7 @@ function _delete(kind, url, id) {
   }
 }
 
-function _download(id, extension) {
+function _download(id, extension, customURL) {
   let type = "INVOICE";
   let kind = "Invoice";
   let url = `document?document_id=${id}`;
@@ -182,7 +182,7 @@ function _download(id, extension) {
     dispatch(request());
     dispatch(loaderActions.show());
 
-    crudService._download(url).then(
+    crudService._download(customURL || url).then(
       (result) => {
         dispatch(loaderActions.hide());
         if ((result.status = 200)) {

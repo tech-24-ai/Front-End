@@ -3,7 +3,7 @@ import Image from "next/future/image";
 import { Container } from "reactstrap";
 import myImageLoader from "../../components/imageLoader";
 import { RightOutlined } from "@ant-design/icons";
-import { crudActions, alertActions } from "../../_actions";
+import { crudActions, alertActions, loaderActions } from "../../_actions";
 import { connect } from "react-redux";
 import moment from "moment";
 import { crudService } from "../../_services";
@@ -61,7 +61,13 @@ const SubmitButton = ({ form, children }) => {
   );
 };
 
-const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
+const CommunityDetail = ({
+  getAllCrud,
+  showAlert,
+  success,
+  showLoader,
+  hideLoader,
+}) => {
   const router = useRouter();
   console.log("router.query", router.query);
   const [description, setDescription] = useState("");
@@ -126,6 +132,8 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
   };
 
   const handleOk = async () => {
+    showLoader();
+    setIsModalOpen(false);
     if (!title) {
       showAlert("Please add title");
       return;
@@ -159,6 +167,7 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
         };
 
         crudService._create("communitypost", postData).then((response) => {
+          hideLoader();
           if (response.status === 200) {
             setUpdateCom(true);
             setIsModalOpen(false);
@@ -189,6 +198,7 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
       };
 
       crudService._create("communitypost", postData).then((response) => {
+        hideLoader();
         if (response.status === 200) {
           setUpdateCom(true);
           setIsModalOpen(false);
@@ -202,12 +212,14 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
   };
 
   const voteCommunity = (data, type) => {
+    showLoader();
     crudService
       ._create("communitypost/vote", {
         community_post_id: data?.community_id,
         vote_type: type,
       })
       .then((data) => {
+        hideLoader();
         data.status == 200 && fetchCommunityData();
       });
   };
@@ -285,7 +297,7 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
                   fontWeight: "500",
                   fontSize: "20px",
                   color: "#001622",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
                 onClick={() => gotoNewsDetail(data?.url_slug)}
               >
@@ -773,6 +785,8 @@ const actionCreators = {
   createCrud: crudActions._create,
   showAlert: alertActions.warning,
   success: alertActions.success,
+  showLoader: loaderActions.show,
+  hideLoader: loaderActions.hide,
 };
 
 export default connect(mapStateToProps, actionCreators)(CommunityDetail);
