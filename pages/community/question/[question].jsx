@@ -274,7 +274,7 @@ const CommunityQuestionDetail = ({
           }
         });
     }
-  }, [updateCom]);
+  }, [updateCom, slugQuery]);
 
   const calculateTimeAgo = (createdAt) => {
     const currentDateTime = moment();
