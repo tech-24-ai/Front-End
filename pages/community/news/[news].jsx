@@ -29,7 +29,6 @@ import { ShareAltOutlined, SaveOutlined } from "@ant-design/icons";
 
 import { isMobile } from "react-device-detect";
 
-
 const SubmitButton = ({ form, children }) => {
   const [submittable, setSubmittable] = React.useState(false);
 
@@ -55,22 +54,17 @@ const SubmitButton = ({ form, children }) => {
 const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
   const router = useRouter();
   const slugQuery = router.query;
-  console.log('slugQuery', slugQuery);
+  console.log("slugQuery", slugQuery);
   const socialShareLink = window.location.href;
 
   const [description, setDescription] = useState("");
   const [communityQuestionDetail, setCommunityQuestionDetail] = useState();
   const [newsAnnouncementDetail, setNewsAnnouncementDetail] = useState();
 
- 
-
-
   const [updateCom, setUpdateCom] = useState(false);
 
- 
   const [communityData, setCommunityData] = useState();
   const [announceData, setAnnounceData] = useState();
-
 
   useEffect(() => {
     if (slugQuery.news) {
@@ -78,10 +72,10 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
         ._getAll(`get_news_announcements/show/${slugQuery.news}`, {})
         .then((data) => {
           setNewsAnnouncementDetail(data?.data);
-          console.log('setNewsAnnouncementDetail:', data?.data);
+          console.log("setNewsAnnouncementDetail:", data?.data);
         });
     }
-  }, [updateCom]);
+  }, [updateCom, slugQuery.news]);
 
   useEffect(() => {
     if (slugQuery.question) {
@@ -95,7 +89,10 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
 
   const calculateTimeAgo = (createdAt) => {
     const currentDateTime = moment();
-    const blogPostDateTime = moment.utc(createdAt).local().format("MM-DD-YYYY hh:mm A");
+    const blogPostDateTime = moment
+      .utc(createdAt)
+      .local()
+      .format("MM-DD-YYYY hh:mm A");
 
     const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
     const duration = moment.duration(diffMilliseconds);
@@ -109,9 +106,6 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
     return humanReadableDiff;
   };
 
- 
-
- 
   const handleCommunity = () => {
     Router.push("/community");
   };
@@ -125,9 +119,7 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
 
   return (
     <>
-      {
-        newsAnnouncementDetail &&
-      (
+      {newsAnnouncementDetail && (
         <Container>
           <div className="row">
             <div className="col-md-12">
@@ -154,7 +146,7 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
                     cursor: "pointer",
                   }}
                 >
-                    {newsAnnouncementDetail?.community?.name}{" "}
+                  {newsAnnouncementDetail?.community?.name}{" "}
                   <RightOutlined style={{ verticalAlign: "0" }} />
                 </span>
                 <span
@@ -167,14 +159,14 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
                   }}
                 >
                   {newsAnnouncementDetail?.title &&
-                    newsAnnouncementDetail?.title.length > 30
+                  newsAnnouncementDetail?.title.length > 30
                     ? `${newsAnnouncementDetail?.title.substring(0, 30)}...`
                     : newsAnnouncementDetail?.title}
                 </span>
               </h4>
             </div>
           </div>
-         
+
           <div className="profile-container row" style={{ marginTop: "0" }}>
             <div className="community-tab-container questions-tab-container community-detail-wrapper col-md-9">
               <div className="cards-container">
@@ -187,7 +179,7 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
                   }}
                 >
                   <div className="cards-header">
-                    <div style={{width: "100%"}}>
+                    <div style={{ width: "100%" }}>
                       {/* <div className="img">
                         <Image
                           style={{ borderRadius: "5px", zIndex: "1" }}
@@ -202,13 +194,16 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
                       </div> */}
                       <div
                         className="profile"
-                        style={{ flexDirection: "column", fontFamily: "Inter", maxWidth: '90%', marginLeft: "0" }}
+                        style={{
+                          flexDirection: "column",
+                          fontFamily: "Inter",
+                          maxWidth: "90%",
+                          marginLeft: "0",
+                        }}
                       >
-                        <h5>
-                            {newsAnnouncementDetail?.title}
-                        </h5>
+                        <h5>{newsAnnouncementDetail?.title}</h5>
                         <p>
-{/* 
+                          {/* 
                           {communityQuestionDetail?.visitor?.name} {" ("}
                           {calculateTimeAgo(
                             newsAnnouncementDetail?.created_at
@@ -217,8 +212,6 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
                         </p>
                       </div>
                     </div>
-
-
                   </div>
                   <p className="para questions_font_14px">
                     <span
@@ -255,21 +248,19 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
                       /> */}
                       <span style={{ marginLeft: "5px" }}>
                         {/* {communityQuestionDetail?.views_counter} views */}
-                        {calculateTimeAgo(
-                          newsAnnouncementDetail?.created_at
-                        )}
+                        {calculateTimeAgo(newsAnnouncementDetail?.created_at)}
                       </span>
                     </p>
-                    
+
                     <div className="questions_font_12px">
-                        <ShareSocialMedia
-                          link={window.location.href}
-                          title={newsAnnouncementDetail?.name}
-                        >
-                          <div className="date share-btn">
-                            <ShareAltOutlined /> Share
-                          </div>
-                        </ShareSocialMedia>
+                      <ShareSocialMedia
+                        link={window.location.href}
+                        title={newsAnnouncementDetail?.name}
+                      >
+                        <div className="date share-btn">
+                          <ShareAltOutlined /> Share
+                        </div>
+                      </ShareSocialMedia>
                       <div>
                         {/* <Image
                           loader={myImageLoader}
@@ -281,7 +272,7 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
                           alt="profile"
                         /> */}
                       </div>
-                       
+
                       {/* <h6
                         className="questions_font_12px"
                         style={{
@@ -295,10 +286,9 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
                   </div>
                 </Card>
               </div>
-
             </div>
 
-              {newsAnnouncementDetail && (
+            {newsAnnouncementDetail && (
               <div className="community-tab-container community-detail-card col-md-3">
                 <div
                   className="cards-container"
@@ -340,9 +330,8 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
                         style={{ fontFamily: "Poppins" }}
                         className="questions_font_14px"
                       >
-                          {newsAnnouncementDetail?.community?.name}
+                        {newsAnnouncementDetail?.community?.name}
                       </h6>
-                    
                     </div>
                     <hr />
                     <div
@@ -353,7 +342,8 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
                     >
                       <span
                         dangerouslySetInnerHTML={{
-                            __html: newsAnnouncementDetail?.community?.description,
+                          __html:
+                            newsAnnouncementDetail?.community?.description,
                         }}
                       ></span>
                     </div>
@@ -368,7 +358,10 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
                       <div>
                         <div className="head questions_font_14px">Answers</div>
                         <div className="count">
-                            {newsAnnouncementDetail?.community?.__meta__?.total_post_reply}
+                          {
+                            newsAnnouncementDetail?.community?.__meta__
+                              ?.total_post_reply
+                          }
                         </div>
                       </div>
                       <div className="custom-border"></div>
@@ -377,11 +370,13 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
                           Questions{" "}
                         </div>
                         <div className="count">
-                            {newsAnnouncementDetail?.community?.__meta__?.total_posts}
+                          {
+                            newsAnnouncementDetail?.community?.__meta__
+                              ?.total_posts
+                          }
                         </div>
                       </div>
                     </div>
-                 
                   </Card>
                 </div>
               </div>
@@ -406,10 +401,6 @@ const actionCreators = {
   success: alertActions.success,
   showAlert: alertActions.warning,
   downloadDocument: crudActions._download,
-
 };
 
-export default connect(
-  mapStateToProps,
-  actionCreators
-)(NewsDetails);
+export default connect(mapStateToProps, actionCreators)(NewsDetails);
