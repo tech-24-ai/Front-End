@@ -62,12 +62,12 @@ const Profile = ({
   const [value, setValue] = useState();
   const [visitorActivity, setvisitorActivity] = useState([]);
   const [sortByOrder, setSortByOrder] = useState(false);
-  const [countryId, setCountryId] = useState(visitorprofile?.country.id);
+  const [countryId, setCountryId] = useState(visitorprofile?.country?.id);
   const [countryList, setCountryList] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState(
     {
-      label: visitorprofile?.country.name,
-      id :visitorprofile?.country.id,
+      label: visitorprofile?.country?.name,
+      id :visitorprofile?.country?.id,
     }
   );
   const [activeTab, setActiveTab] = useState("1");
@@ -283,7 +283,7 @@ const Profile = ({
     }, {});
   };
 
-  const groupedData = groupDataByDate(visitorActivity, "created_at");
+  const groupedData = visitorActivity ? groupDataByDate(visitorActivity, "created_at") : [];
   const sortedDates = Object.keys(groupedData).sort(
     (a, b) => moment(b, "MM-DD-YYYY") - moment(a, "MM-DD-YYYY")
   );
@@ -796,7 +796,6 @@ const Profile = ({
       <div>
       {/* Content for mobile view */}
       {isMobile && (
-         
          <div className="levels-tab-container">
          <Card
           bordered={true}
@@ -819,21 +818,38 @@ const Profile = ({
           className="verticalSliderfirst"
           vertical range
           marks={marks}
-          // step={null}
-          defaultValue={100}
-          
-
-        style={{left:"-45px"}}
+           step={null}
+          trackStyle={{ backgroundColor: "#0074D9!important", height: "8px" }}
+            railStyle={{ backgroundColor: "#EBEBF0!important", height: "8px" }}
+            defaultValue={visitor_profile_levels?.[0]?.total_points_earned}
+            tooltipVisible={false}
+        style={{left:"-45px",top:"0px"}}
         />
           {/* <Slider vertical range marks={Marks} defaultValue={[100]} /> */}
             <Slider 
             handleStyle={{ display: "none" }}
             trackStyle={{ display: "none" }}
             railStyle={{ display: "none" }}
+            step={null}
             className="verticalSlidertwo" vertical range marks={bottomMarks} defaultValue={[100]} 
-            style={{marginLeft:"150px"}}
-            
+            style={{marginLeft:"150px",top:"-320px"}}
+            onChange={(value) => console.log(value)}
+         
             />
+             {/* <Slider
+              marks={bottomMarks}
+              step={null}
+              handleStyle={{
+                backgroundColor: "#0074D9",
+                height: "16.48px",
+                width: "16.48px",
+              }}
+              trackStyle={{ backgroundColor: "#0074D9", height: "8px" }}
+              railStyle={{ backgroundColor: "#EBEBF0", height: "8px" }}
+              defaultValue={visitor_profile_levels?.[0]?.total_points_earned}
+              onChange={(value) => console.log(value)}
+              tooltipVisible={false}
+            /> */}
           </div>
         </div>,
   {/* mountNode, */}
@@ -856,8 +872,8 @@ const Profile = ({
   </div>
 </div>
       </Card>
-    </div>
-        
+         </div>
+  
           
         
       )}
