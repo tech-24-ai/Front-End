@@ -62,12 +62,12 @@ const Profile = ({
   const [value, setValue] = useState();
   const [visitorActivity, setvisitorActivity] = useState([]);
   const [sortByOrder, setSortByOrder] = useState(false);
-  const [countryId, setCountryId] = useState(visitorprofile?.country.id);
+  const [countryId, setCountryId] = useState(visitorprofile?.country?.id);
   const [countryList, setCountryList] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState(
     {
-      label: visitorprofile?.country.name,
-      id :visitorprofile?.country.id,
+      label: visitorprofile?.country?.name,
+      id :visitorprofile?.country?.id,
     }
   );
   const [activeTab, setActiveTab] = useState("1");
@@ -283,7 +283,7 @@ const Profile = ({
     }, {});
   };
 
-  const groupedData = groupDataByDate(visitorActivity, "created_at");
+  const groupedData = visitorActivity ? groupDataByDate(visitorActivity, "created_at") : [];
   const sortedDates = Object.keys(groupedData).sort(
     (a, b) => moment(b, "MM-DD-YYYY") - moment(a, "MM-DD-YYYY")
   );
