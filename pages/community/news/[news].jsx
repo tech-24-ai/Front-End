@@ -330,7 +330,7 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
                         height={56}
                         preview="false"
                         src={
-                          newsAnnouncementDetail?.image_url ||
+                          newsAnnouncementDetail?.community?.image_url ||
                           "https://tech24-uat.s3.amazonaws.com/D10dkiDJHM"
                         }
                         alt="profile"
