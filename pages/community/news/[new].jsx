@@ -24,8 +24,8 @@ import "draft-js/dist/Draft.css";
 import "react-quill/dist/quill.snow.css";
 
 import Router, { useRouter } from "next/router";
-import myImageLoader from "../../../../../components/imageLoader";
-import ShareSocialMedia from "../../../../../components/shareSocial";
+import myImageLoader from "../../../components/imageLoader";
+import ShareSocialMedia from "../../../components/shareSocial";
 import { ShareAltOutlined, SaveOutlined } from "@ant-design/icons";
 
 import { isMobile } from "react-device-detect";
