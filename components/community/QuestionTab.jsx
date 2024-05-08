@@ -240,7 +240,7 @@ const QuestionTab = ({
   }, [page, sortBy, community]);
 
   const fetchData = () => {
-    if (componentName == "community") {
+    if (componentName == "community" && community) {
       crudService
         ._getAll(`communitypost/${community}`, {
           orderBy: sortBy,
@@ -259,7 +259,9 @@ const QuestionTab = ({
 
           setPageCount(isNaN(totalPage) ? 0 : totalPage);
         });
-    } else if (componentName == "profile") {
+    }
+
+    if (componentName == "profile") {
       crudService
         ._getAll(`visitor_queries_history`, {
           orderBy: sortBy,
