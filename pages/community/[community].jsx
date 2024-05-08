@@ -250,7 +250,9 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
           });
       }
     };
-
+    const gotoNewsDetail = (url_slug) => {
+      Router.replace(`/community/news/${url_slug}`);
+    };
     // const [newsData, setNewsData] = useState([]);
     // const fetchNewsData = () => {
     //   const id = sessionStorage.getItem("community_id");
@@ -283,7 +285,9 @@ const CommunityDetail = ({ getAllCrud, showAlert, success }) => {
                   fontWeight: "500",
                   fontSize: "20px",
                   color: "#001622",
+                  cursor: "pointer"
                 }}
+                onClick={() => gotoNewsDetail(data?.url_slug)}
               >
                 {data.title}
                 <p
