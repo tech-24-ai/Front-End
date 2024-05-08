@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/future/image";
 import { Container } from "reactstrap";
-
-import three_dot_icon from "../../../../../public/new_images/3dots.svg";
-import message_icon from "../../../../../public/new_images/message_icon.svg";
-import like_button from "../../../../../public/new_images/like_button.svg";
-import dislike_button from "../../../../../public/new_images/dislike_button.svg";
 import { alertActions, crudActions } from "../../../../../_actions";
 import { connect } from "react-redux";
 import moment from "moment";
