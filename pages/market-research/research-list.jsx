@@ -25,7 +25,7 @@ const ResearchList = ({ router }) => {
   const [typeOptions, setTypeOptions] = useState([]);
 
   const [sortBy, setSortBy] = useState("id_desc");
-  const itemsPerPage = 6;
+  const itemsPerPage = 10;
 
   const [page, setPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);

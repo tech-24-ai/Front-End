@@ -22,7 +22,7 @@ function Blogs({ router }) {
   // const [pageSize] = useState(21);
   const [totalItems, setTotalItems] = useState(0);
 
-  const itemsPerPage = 10;
+  const itemsPerPage = 12;
   const [page, setPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
 
