@@ -1,59 +1,73 @@
 import React, { useState, useEffect } from "react";
-import {
-  Form,
-  Space,
-  Upload,
-  Tabs,
-  Card,
-  Input,
-  Select,
-  Button,
-  Modal,
-  Label,
-} from "antd";
+import { Form, Modal, Button } from "antd";
 import { isMobile } from "react-device-detect";
 import { crudService } from "../../_services";
 
 const ReportAbuseModal = ({
   isModalOpen = false,
-  closeModel = value,
+  closeModel,
   reportTypes,
   data,
   reportFor,
+  heading = "",
 }) => {
-  const [selectedOption, setSelectedOption] = useState(2);
+  const [selectedOption, setSelectedOption] = useState(1);
   const [reportDescription, setReportDescription] = useState("");
 
-  console.log("communityQuestionDetail", data);
+  const [isloading, setIsloading] = useState(false);
 
   const handleSubmit = () => {
-    console.log("Call");
     if (!selectedOption || !reportDescription) {
       return;
     }
 
-    console.log("CallAFter");
-
-    const { community_id, id } = data;
+    const { community_id, id, community_post_id = null } = data;
     let postData = {};
     if (reportFor === "question") {
       postData = {
         report_abuse_type_id: selectedOption,
         community_id: community_id,
         community_post_id: id,
-        community_post_reply_id: 0,
         reason: reportDescription,
       };
     }
+
+    if (reportFor === "answer") {
+      postData = {
+        report_abuse_type_id: selectedOption,
+        community_id: community_id,
+        community_post_id: community_post_id,
+        community_post_reply_id: id,
+        reason: reportDescription,
+        reply_type: 1,
+      };
+    }
+
+    if (reportFor === "comment") {
+      postData = {
+        report_abuse_type_id: selectedOption,
+        community_id: community_id,
+        community_post_id: community_post_id,
+        community_post_reply_id: id,
+        reason: reportDescription,
+        reply_type: 2,
+      };
+    }
+
+    setIsloading(true);
 
     crudService
       ._create("repost_abuse", postData)
       .then((response) => {
         setSelectedOption(1);
         setReportDescription("");
+        closeModel();
+        setIsloading(false);
       })
       .catch((error) => {
         console.error("Error submitting report:", error);
+        setIsloading(false);
+        closeModel();
       });
   };
 
@@ -61,7 +75,8 @@ const ReportAbuseModal = ({
     <Modal
       visible={isModalOpen}
       footer={null}
-      onCancel={() => closeModel(false)}
+      onCancel={closeModel}
+      className="report-abuse-modal"
     >
       <span
         style={{
@@ -72,7 +87,7 @@ const ReportAbuseModal = ({
           cursor: "pointer",
         }}
       >
-        Report this Question
+        {heading}
       </span>
       <hr />
       <Form
@@ -80,6 +95,7 @@ const ReportAbuseModal = ({
         layout="vertical"
         autoComplete="off"
         onSubmit={handleSubmit}
+        className="report-abuse-form"
       >
         <Form.Item
           style={{
@@ -93,8 +109,8 @@ const ReportAbuseModal = ({
               required: true,
             },
           ]}
-          label="Report a question"
-          name="report a question"
+          label="Report Type"
+          name="report type"
         >
           <select
             value={selectedOption}
@@ -146,24 +162,22 @@ const ReportAbuseModal = ({
           </div>
         </Form.Item>
 
-        <div
-          className="btn"
-          type="submit"
-          onClick={() => handleSubmit()}
-          style={{
-            width: isMobile ? "100%" : "470px",
-            background: "#0074D9",
-            borderRadius: "2px",
-            padding: "12px 16px",
-            color: "#fff",
-            fontWeight: 500,
-            fontFamily: "Inter",
-            fontSize: "18px",
-            marginTop: "1.2rem",
-          }}
-        >
-          Submit
-        </div>
+        <Form.Item>
+          <Button
+            block
+            size="large"
+            type="primary"
+            disabled={isloading}
+            onClick={() => handleSubmit()}
+            style={{
+              fontWeight: 500,
+              fontFamily: "Inter",
+              fontSize: "18px",
+            }}
+          >
+            Submit
+          </Button>
+        </Form.Item>
       </Form>
     </Modal>
   );

@@ -48,13 +48,7 @@ const ReactQuill = dynamic(
 );
 
 import { isMobile } from "react-device-detect";
-import {
-  EmailShareButton,
-  FacebookIcon,
-  FacebookShareButton,
-  LinkedinShareButton,
-  TwitterShareButton,
-} from "next-share";
+
 import ShareSocialMedia from "../../../components/shareSocial";
 import { FlageIcon } from "../../../components/icons";
 import ReportAbuseModal from "../../../components/community/ReportAbuseModal";
@@ -104,13 +98,9 @@ const CommunityQuestionDetail = ({
   });
   const [communityAnswers, setCommunityAnswers] = useState();
 
-  const [shareModalVisible, setShareModalVisible] = useState(false);
-  const [socialModalVisible, setSocialModalVisible] = useState(false);
-  const [reportModalVisible, setReportModalVisible] = useState(false);
+  const [reportModalVisible, setReportModalVisible] = useState("");
 
   const [reportTypes, setReportTypes] = useState([]);
-  const [selectedOption, setSelectedOption] = useState("");
-  const [reportDescription, setReportDescription] = useState("");
 
   useEffect(() => {
     fetchReportTypes();
@@ -125,55 +115,6 @@ const CommunityQuestionDetail = ({
       .catch((error) => {
         console.error("Error fetching report types:", error);
       });
-  };
-
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
-
-  const handleDescriptionChange = (event) => {
-    setReportDescription(event.target.value);
-  };
-
-  const handleSubmit = (data, community_post_id, event) => {
-    if (!selectedOption || !reportDescription) {
-      return;
-    }
-    getPostReplies();
-
-    const postData = {
-      report_abuse_type_id: selectedOption,
-      community_id: communityData?.id,
-      community_post_id: communityQuestionDetail?.id,
-      community_post_reply_id: 3,
-      reason: reportDescription,
-    };
-    crudService
-      ._create("repost_abuse", postData)
-      .then((response) => {
-        setSelectedOption("");
-        setReportDescription("");
-      })
-      .catch((error) => {
-        console.error("Error submitting report:", error);
-      });
-  };
-  const handleModalClose = () => {
-    setShareModalVisible(false);
-    setSocialModalVisible(false);
-    setReportModalVisible(false);
-  };
-
-  const openShareModal = () => {
-    setShareModalVisible(true);
-  };
-
-  const openSocialModal = () => {
-    setSocialModalVisible(true);
-  };
-
-  const openReportModal = () => {
-    setReportModalVisible(true);
   };
 
   const handleEditorChange = (html) => {
@@ -338,7 +279,6 @@ const CommunityQuestionDetail = ({
     );
   };
 
-  console.log("communityData", communityData);
   return (
     <>
       {communityData && (
@@ -458,330 +398,6 @@ const CommunityQuestionDetail = ({
                         </p>
                       </div>
                     </div>
-
-                    {/* <div className="follow">
-                      <div className="img" onClick={openShareModal}>
-                        <Image
-                          loader={myImageLoader}
-                          style={{ borderRadius: "2px", cursor: "pointer" }}
-                          width={32}
-                          height={32}
-                          preview="false"
-                          src={three_dot_icon}
-                          alt="profile"
-                        />
-                      </div>
-
-                      <Modal
-                        visible={
-                          shareModalVisible ||
-                          socialModalVisible ||
-                          reportModalVisible
-                        }
-                        onCancel={handleModalClose}
-                        footer={null}
-                        onClick={false}
-                        width={190}
-                        bodyStyle={{
-                          height: 100,
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                        style={
-                          isMobile
-                            ? { position: "relative", left: "6.5rem" }
-                            : { position: "relative", left: "8rem" }
-                        }
-                      >
-                        <div
-                          style={{
-                            width: "100%",
-                            background: "#F9FAFB",
-                            background: "",
-                            padding: "6px",
-                            display: "flex",
-                            flexDirection: "row",
-                            fontSize: "20px",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <a onClick={openSocialModal}>
-                            <Image
-                              loader={myImageLoader}
-                              style={{ borderRadius: "2px", marginTop: "1px" }}
-                              width={16}
-                              height={16}
-                              preview="false"
-                              src={share_icon}
-                              alt="profile"
-                              name="url"
-                            />{" "}
-                            Share it
-                          </a>
-                        </div>
-
-                        <div
-                          style={{
-                            width: "100%",
-                            background: "#F9FAFB",
-                            background: "",
-                            padding: "6px",
-                            display: "flex",
-                            flexDirection: "row",
-                            fontSize: "20px",
-                            color: "#FF3B3B",
-                            justifyContent: "space-between",
-                            borderTop: "1px solid #EBEBF0",
-                          }}
-                        >
-                          <a onClick={openReportModal}>
-                            <Image
-                              loader={myImageLoader}
-                              style={{ borderRadius: "2px", marginTop: "1px" }}
-                              width={18}
-                              height={18}
-                              preview="false"
-                              src={flag_icon}
-                              alt="profile"
-                              name="url"
-                            />{" "}
-                            Report
-                          </a>
-                        </div>
-                      </Modal>
-                      <Modal
-                        visible={socialModalVisible}
-                        onCancel={handleModalClose}
-                        footer={null}
-                      >
-                        <span
-                          style={{
-                            marginBottom: "-20px",
-                            fontWeight: "500",
-                            fontSize: "20px",
-                            fontFamily: "Poppins",
-                            cursor: "pointer",
-                          }}
-                        >
-                          Share
-                        </span>
-                        <hr />
-
-                        <div style={{ width: "100%" }}>
-                          <div
-                            style={{
-                              display: "flex",
-                              flexDirection: "row",
-                              justifyContent: "space-around",
-                              margin: "30px 0 10px 0",
-                            }}
-                          >
-                            <LinkedinShareButton url={socialShareLink}>
-                              <Image
-                                loader={myImageLoader}
-                                style={{ borderRadius: "2px" }}
-                                width={56}
-                                height={56}
-                                preview="false"
-                                src={linkedin_icon}
-                                alt="profile"
-                                name="url"
-                              />
-                              <div
-                                style={{
-                                  color: "#001622",
-                                  textAlign: "center",
-                                }}
-                              >
-                                Linkedin
-                              </div>
-                            </LinkedinShareButton>
-                            <FacebookShareButton
-                              url={socialShareLink}
-                              quote={communityQuestionDetail?.title}
-                            >
-                              <Image
-                                loader={myImageLoader}
-                                style={{ borderRadius: "2px" }}
-                                width={56}
-                                height={56}
-                                preview="false"
-                                src={facebook_icon}
-                                alt="profile"
-                                name="url"
-                              />
-                              <div
-                                style={{
-                                  color: "#001622",
-                                  textAlign: "center",
-                                }}
-                              >
-                                Facebook
-                              </div>
-                            </FacebookShareButton>
-                            <EmailShareButton
-                              url={socialShareLink}
-                              subject={communityQuestionDetail?.title}
-                            >
-                              <Image
-                                loader={myImageLoader}
-                                style={{ borderRadius: "2px" }}
-                                width={56}
-                                height={56}
-                                preview="false"
-                                src={email_icon}
-                                alt="profile"
-                                name="url"
-                              />
-                              <div
-                                style={{
-                                  color: "#001622",
-                                  textAlign: "center",
-                                }}
-                              >
-                                Email
-                              </div>
-                            </EmailShareButton>
-
-                            <TwitterShareButton
-                              url={socialShareLink}
-                              title={communityQuestionDetail?.title}
-                            >
-                              <Image
-                                loader={myImageLoader}
-                                style={{ borderRadius: "2px" }}
-                                width={56}
-                                height={56}
-                                preview="false"
-                                src={twitter_icon}
-                                alt="profile"
-                                name="url"
-                              />
-                              <div
-                                style={{
-                                  color: "#001622",
-                                  textAlign: "center",
-                                }}
-                              >
-                                X (twitter)
-                                <br />
-                              </div>
-                            </TwitterShareButton>
-                          </div>
-                        </div>
-                      </Modal>
-
-                      <Modal
-                        visible={reportModalVisible}
-                        footer={null}
-                        onCancel={handleModalClose}
-                      >
-                        <span
-                          style={{
-                            marginBottom: "-20px",
-                            fontWeight: "500",
-                            fontSize: "20px",
-                            fontFamily: "Poppins",
-                            cursor: "pointer",
-                          }}
-                        >
-                          Report this Question
-                        </span>
-                        <hr />
-                        <Form
-                          name="validateOnly"
-                          layout="vertical"
-                          autoComplete="off"
-                          onSubmit={handleSubmit}
-                        >
-                          <Form.Item
-                            style={{
-                              fontWeight: 500,
-                              fontFamily: "Inter",
-                              fontSize: "14px",
-                              color: "#4C4C4C",
-                            }}
-                            rules={[
-                              {
-                                required: true,
-                              },
-                            ]}
-                            label="Report a question"
-                            name="report a question"
-                          >
-                            <select
-                              value={selectedOption}
-                              onChange={handleOptionChange}
-                              style={{
-                                backgroundColor: "#fff",
-                                borderRadius: "2px",
-                                padding: "12px",
-                                fontWeight: 400,
-                                fontSize: "16px",
-                                color: "#001622",
-                                fontFamily: "Inter",
-                                width: "100%",
-                              }}
-                            >
-                              {reportTypes.map((type) => (
-                                <option key={type.id} value={type.id}>
-                                  {type.name}
-                                </option>
-                              ))}
-                            </select>
-                          </Form.Item>
-                          <Form.Item
-                            style={{
-                              fontWeight: 500,
-                              fontFamily: "Inter",
-                              fontSize: "14px",
-                              color: "#4C4C4C",
-                            }}
-                            rules={[
-                              {
-                                required: true,
-                              },
-                            ]}
-                            name="description"
-                            label="Description"
-                          >
-                            <div style={{ width: "100%" }}>
-                              <textarea
-                                style={{
-                                  width: "100%",
-                                  height: "70px",
-                                  padding: "10px",
-                                }}
-                                placeholder="Write a brief why you are reporting this question"
-                                onChange={handleDescriptionChange}
-                                value={reportDescription}
-                              ></textarea>
-                            </div>
-                          </Form.Item>
-
-                          <div
-                            onClick={(e) => handleSubmit()}
-                            className="btn"
-                            type="submit"
-                            style={{
-                              width: isMobile ? "100%" : "470px",
-                              background: "#0074D9",
-                              borderRadius: "2px",
-                              padding: "12px 16px",
-                              color: "#fff",
-                              fontWeight: 500,
-                              fontFamily: "Inter",
-                              fontSize: "18px",
-                              marginTop: "1.2rem",
-                            }}
-                          >
-                            Submit
-                          </div>
-                        </Form>
-                      </Modal>
-                    </div> */}
                   </div>
                   <p className="para questions_font_14px">
                     <span
@@ -859,18 +475,21 @@ const CommunityQuestionDetail = ({
                       </ShareSocialMedia>
                       <div
                         className="report-btn"
-                        onClick={() => setReportModalVisible(true)}
+                        onClick={() => setReportModalVisible("question")}
                       >
                         <FlageIcon />
                         <span className="btn-title">Report</span>
                       </div>
-                      <ReportAbuseModal
-                        reportTypes={reportTypes}
-                        isModalOpen={reportModalVisible}
-                        closeModel={(value) => setReportModalVisible(value)}
-                        data={communityQuestionDetail}
-                        reportFor="question"
-                      />
+                      {reportModalVisible === "question" && (
+                        <ReportAbuseModal
+                          reportTypes={reportTypes}
+                          isModalOpen={reportModalVisible === "question"}
+                          closeModel={(value) => setReportModalVisible(value)}
+                          data={communityQuestionDetail}
+                          reportFor="question"
+                          heading="Report this Question"
+                        />
+                      )}
                       <div className="rating questions_font_12px">
                         <div>
                           <Image
@@ -1175,10 +794,26 @@ const CommunityQuestionDetail = ({
                                 <span className="btn-title">Share</span>
                               </div>
                             </ShareSocialMedia>
-                            {/* <div className="report-btn">
+                            <div
+                              className="report-btn"
+                              onClick={() => setReportModalVisible("answer")}
+                            >
                               <FlageIcon />
                               <span className="btn-title">Report</span>
-                            </div> */}
+                            </div>
+                            {reportModalVisible === "answer" && (
+                              <ReportAbuseModal
+                                reportTypes={reportTypes}
+                                isModalOpen={reportModalVisible === "answer"}
+                                closeModel={() => setReportModalVisible("")}
+                                data={{
+                                  ...answer,
+                                  community_id: communityData?.id,
+                                }}
+                                reportFor="answer"
+                                heading="Report this Answer"
+                              />
+                            )}
 
                             <div className="rating">
                               <div>
@@ -1272,6 +907,43 @@ const CommunityQuestionDetail = ({
                               </div>
 
                               <div className="follow">
+                                <div className="right-side-section">
+                                  <ShareSocialMedia
+                                    link={window.location.href}
+                                    title={communityQuestionDetail?.name}
+                                  >
+                                    <div className="share-btn">
+                                      <ShareAltOutlined />{" "}
+                                      <span className="btn-title">Share</span>
+                                    </div>
+                                  </ShareSocialMedia>
+                                  <div
+                                    className="report-btn"
+                                    onClick={() =>
+                                      setReportModalVisible("comment")
+                                    }
+                                  >
+                                    <FlageIcon />
+                                    <span className="btn-title">Report</span>
+                                  </div>
+                                  {reportModalVisible === "comment" && (
+                                    <ReportAbuseModal
+                                      reportTypes={reportTypes}
+                                      isModalOpen={
+                                        reportModalVisible === "comment"
+                                      }
+                                      closeModel={() =>
+                                        setReportModalVisible("")
+                                      }
+                                      data={{
+                                        ...comment,
+                                        community_id: communityData?.id,
+                                      }}
+                                      reportFor="comment"
+                                      heading="Report this Comment"
+                                    />
+                                  )}
+                                </div>
                                 {/* <p className="button">Follow</p> */}
                                 <EyeOutlined
                                   title="view comments"
