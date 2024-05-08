@@ -6,7 +6,7 @@ import three_dot_icon from "../../../public/new_images/3dots.svg";
 import message_icon from "../../../public/new_images/message_icon.svg";
 import like_button from "../../../public/new_images/like_button.svg";
 import dislike_button from "../../../public/new_images/dislike_button.svg";
-import { alertActions, crudActions } from "../../../_actions";
+import { alertActions, crudActions, loaderActions } from "../../../_actions";
 import { connect } from "react-redux";
 import moment from "moment";
 import { EyeOutlined } from "@ant-design/icons";
@@ -57,6 +57,7 @@ import {
 } from "next-share";
 import ShareSocialMedia from "../../../components/shareSocial";
 import { FlageIcon } from "../../../components/icons";
+import ReportAbuseModal from "../../../components/community/ReportAbuseModal";
 
 const SubmitButton = ({ form, children }) => {
   const [submittable, setSubmittable] = React.useState(false);
@@ -85,6 +86,8 @@ const CommunityQuestionDetail = ({
   success,
   showAlert,
   downloadDocument,
+  showLoader,
+  hideLoader,
 }) => {
   const router = useRouter();
   const slugQuery = router.query;
@@ -200,6 +203,9 @@ const CommunityQuestionDetail = ({
   };
 
   const handleOk = (parent_id, community_post_id, replyText, isReply) => {
+    setIsModalOpen(false);
+    setIsReplayModalOpen({ isReplayModelOpen: false, details: {} });
+    showLoader();
     if (replyText == undefined || replyText == null || replyText.trim() == "") {
       showAlert("Please add description.");
       return;
@@ -211,6 +217,7 @@ const CommunityQuestionDetail = ({
     };
 
     crudService._create("communitypostreply", postData).then((response) => {
+      hideLoader();
       if (response.status === 200) {
         isReply
           ? setIsReplayModalOpen({ isReplayModelOpen: false, details: {} })
@@ -229,23 +236,27 @@ const CommunityQuestionDetail = ({
   };
 
   const voteCommunity = (data, type) => {
+    showLoader();
     crudService
       ._create("communitypost/vote", {
         community_post_id: data?.id,
         vote_type: type,
       })
       .then((data) => {
+        hideLoader();
         data.status == 200 && setUpdateCom(true);
       });
   };
 
   const voteCommunityPostReplies = (data, type) => {
+    showLoader();
     crudService
       ._create("communitypostreply/vote", {
         community_post_reply_id: data?.id,
         vote_type: type,
       })
       .then((data) => {
+        hideLoader();
         data.status == 200 && setUpdateCom(true);
       });
   };
@@ -262,7 +273,7 @@ const CommunityQuestionDetail = ({
           }
         });
     }
-  }, [updateCom]);
+  }, [updateCom, slugQuery]);
 
   const calculateTimeAgo = (createdAt) => {
     const currentDateTime = moment();
@@ -318,8 +329,13 @@ const CommunityQuestionDetail = ({
     Router.push(`/community/${url_slug}`);
   };
 
-  const handleDocumentDownload = ({ id, extension, name }) => {
-    downloadDocument(id, `${name}.${extension}`);
+  const handleDocumentDownload = (item) => {
+    const { id, name } = item;
+    downloadDocument(
+      id,
+      name,
+      `communitypost/download_attachment?attachment_id=${id}`
+    );
   };
 
   console.log("communityData", communityData);
@@ -782,7 +798,7 @@ const CommunityQuestionDetail = ({
                       <div
                         style={{ fontFamily: "Inter", cursor: "pointer" }}
                         className="questions_font_10px"
-                        // onClick={() => handleDocumentDownload()}
+                        onClick={() => handleDocumentDownload(item)}
                       >
                         {item?.name || "Attachment"}
                       </div>
@@ -841,10 +857,20 @@ const CommunityQuestionDetail = ({
                           <span className="btn-title">Share</span>
                         </div>
                       </ShareSocialMedia>
-                      <div className="report-btn">
+                      <div
+                        className="report-btn"
+                        onClick={() => setReportModalVisible(true)}
+                      >
                         <FlageIcon />
                         <span className="btn-title">Report</span>
                       </div>
+                      <ReportAbuseModal
+                        reportTypes={reportTypes}
+                        isModalOpen={reportModalVisible}
+                        closeModel={(value) => setReportModalVisible(value)}
+                        data={communityQuestionDetail}
+                        reportFor="question"
+                      />
                       <div className="rating questions_font_12px">
                         <div>
                           <Image
@@ -1693,6 +1719,8 @@ const actionCreators = {
   success: alertActions.success,
   showAlert: alertActions.warning,
   downloadDocument: crudActions._download,
+  showLoader: loaderActions.show,
+  hideLoader: loaderActions.hide,
 };
 
 export default connect(

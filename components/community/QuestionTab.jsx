@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container } from "reactstrap";
 import myImageLoader from "../../components/imageLoader";
 import { RightOutlined } from "@ant-design/icons";
-import { crudActions, alertActions } from "../../_actions";
+import { crudActions, alertActions, loaderActions } from "../../_actions";
 import { connect } from "react-redux";
 import moment from "moment";
 import { crudService } from "../../_services";
@@ -69,6 +69,8 @@ const QuestionTab = ({
   isSearch = true,
   askQuestion = true,
   componentName = "community",
+  showLoader,
+  hideLoader,
 }) => {
   const router = useRouter();
   const { community } = router.query;
@@ -107,7 +109,6 @@ const QuestionTab = ({
   };
 
   const fetchCommunityData = () => {
-    // const id = sessionStorage.getItem("community_id");
     const { community } = router.query;
     if (community) {
       crudService._getAll(`community/details/${community}`).then((data) => {
@@ -119,7 +120,7 @@ const QuestionTab = ({
   useEffect(() => {
     getAllCrud("visitorprofile", "visitorprofile");
     fetchCommunityData();
-  }, [updateCom]);
+  }, [updateCom, router.query]);
 
   const joinCommunity = () => {
     crudService
@@ -135,6 +136,8 @@ const QuestionTab = ({
   };
 
   const handleOk = () => {
+    showLoader();
+    setIsModalOpen(false);
     if (!title) {
       showAlert("Please add title");
       return;
@@ -160,6 +163,7 @@ const QuestionTab = ({
           };
 
           crudService._create("communitypost", postData).then((response) => {
+            hideLoader();
             if (response.status === 200) {
               setUpdateCom(true);
               setIsModalOpen(false);
@@ -183,6 +187,7 @@ const QuestionTab = ({
       };
 
       crudService._create("communitypost", postData).then((response) => {
+        hideLoader();
         if (response.status === 200) {
           setUpdateCom(true);
           setIsModalOpen(false);
@@ -240,7 +245,7 @@ const QuestionTab = ({
   }, [page, sortBy, community]);
 
   const fetchData = () => {
-    if (componentName == "community") {
+    if (componentName == "community" && community) {
       crudService
         ._getAll(`communitypost/${community}`, {
           orderBy: sortBy,
@@ -259,7 +264,9 @@ const QuestionTab = ({
 
           setPageCount(isNaN(totalPage) ? 0 : totalPage);
         });
-    } else if (componentName == "profile") {
+    }
+
+    if (componentName == "profile") {
       crudService
         ._getAll(`visitor_queries_history`, {
           orderBy: sortBy,
@@ -797,6 +804,8 @@ const actionCreators = {
   createCrud: crudActions._create,
   showAlert: alertActions.warning,
   success: alertActions.success,
+  showLoader: loaderActions.show,
+  hideLoader: loaderActions.hide,
 };
 
 export default connect(mapStateToProps, actionCreators)(QuestionTab);
