@@ -321,9 +321,7 @@ const QuestionTab = ({
   });
 
   const gotoQuestionDetail = (url_slug) => {
-    sessionStorage.setItem("community_question_id", url_slug);
-    const baseHref = window.location.href;
-    Router.replace(`${baseHref}/question/${url_slug}`);
+    Router.replace(`/community/question/${url_slug}`);
   };
 
   const beforeUpload = (file) => {

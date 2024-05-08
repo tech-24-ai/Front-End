@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/future/image";
 import { Container } from "reactstrap";
-
-import three_dot_icon from "../../../../../public/new_images/3dots.svg";
-import message_icon from "../../../../../public/new_images/message_icon.svg";
-import like_button from "../../../../../public/new_images/like_button.svg";
-import dislike_button from "../../../../../public/new_images/dislike_button.svg";
-import { alertActions, crudActions } from "../../../../../_actions";
+import { alertActions, crudActions } from "../../../_actions";
 import { connect } from "react-redux";
 import moment from "moment";
 import { EyeOutlined } from "@ant-design/icons";
-import { crudService } from "../../../../../_services";
+import { crudService } from "../../../_services";
 import {
   Form,
   Space,
@@ -24,16 +19,13 @@ import {
   Label,
 } from "antd";
 import { RightOutlined } from "@ant-design/icons";
-import shorting_icon from "../../../../../public/new_images/sorting_icon.svg";
-import view_icon from "../../../../../public/new_images/view_icon.svg";
-import reply_icon from "../../../../../public/new_images/reply_icon.svg";
+import view_icon from "../../../public/new_images/view_icon.svg";
 import "draft-js/dist/Draft.css";
 import "react-quill/dist/quill.snow.css";
-import community from "../../..";
-import dynamic from "next/dynamic";
+
 import Router, { useRouter } from "next/router";
-import myImageLoader from "../../../../../components/imageLoader";
-import ShareSocialMedia from "../../../../../components/shareSocial";
+import myImageLoader from "../../../components/imageLoader";
+import ShareSocialMedia from "../../../components/shareSocial";
 import { ShareAltOutlined, SaveOutlined } from "@ant-design/icons";
 
 import { isMobile } from "react-device-detect";

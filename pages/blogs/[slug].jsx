@@ -112,7 +112,7 @@ class Blog extends Component {
     const { comments, submitting, value, meta } = this.state;
     const { blog, categories, blogs, authentication } = this.props;
     // const limitedData = blogs.slice(0, 4);
-    const limitedData = blogs ? blogs.slice(0, 4) : [];
+    const limitedData = blog ? blog.related_blogs.slice(0, 4) : [];
     const shareTitle = blog && blog.name;
     const slug = blog && blog.slug;
     const baseUrl = process.env.NEXT_PUBLIC_LINKEDIN_REDIRECT_URI?.replace(
@@ -142,7 +142,6 @@ class Blog extends Component {
     }
 
     return (
-      
       <section className="blog-detail-section">
         {blog && (
           <>
@@ -216,6 +215,7 @@ class Blog extends Component {
                             }}
                           />
                         </div>
+                        
                         <div className="social-section">
                           {/* <div className="like">1.1K</div>
                           <div className="custom-divider"></div> */}
@@ -239,6 +239,16 @@ class Blog extends Component {
                                 </div>
                               </Fragment>
                             )}
+                        </div>
+                        <br/>
+                        <div className="date-section">
+                          <div className="date">
+                            {moment(blog.created_at).format("LL")}
+                          </div>
+                          <div className="custom-divider"></div>
+                          <div className="time">{blog?.read_time}</div>
+                          <div className="custom-divider"></div>
+                          <div className="time">{blog?.author}</div>
                         </div>
                         {/* <div className="row">
                       <div className="col-md-12" style={{border:"1px solid #caced1", background:"#caced1"}}>
@@ -445,55 +455,58 @@ class Blog extends Component {
                       {limitedData &&
                         limitedData.map((blogs) => (
                           <Link href={`/blogs/${blogs.slug}`}>
-                          <div className="col-md-12 blog-list hover">
-                            <div
-                              className="blog-card"
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                height: "100%",
-                                justifyContent: "space-between",
-                              }}
-                            >
-                              <div>
-                                <Image
-                                  tyle={{
-                                    transition: "transform 0.5s ease",
-                                  }}
-                                  // width={350}
-                                  // height={210}
-                                  width={380}
-                                  height={283}
-                                  src={blogs.image}
-                                  preview={false}
-                                  alt=""
-                                  placeholder="blog banner"
-                                  onMouseOver={(e) => {
-                                    e.target.style.transform = "scale(1.1)"; // Zoom in on hover
-                                  }}
-                                  onMouseOut={(e) => {
-                                    e.target.style.transform = "scale(1)"; // Zoom out on mouse out
-                                  }}
-                                />
-                                <p className="card-heading">
-                                  {blogs.blog_topic.name}
-                                </p>
+                            <div className="col-md-12 blog-list hover">
+                              <div
+                                className="blog-card"
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  height: "100%",
+                                  justifyContent: "space-between",
+                                }}
+                              >
+                                <div>
+                                  <Image
+                                    tyle={{
+                                      transition: "transform 0.5s ease",
+                                    }}
+                                    // width={350}
+                                    // height={210}
+                                    width={380}
+                                    height={283}
+                                    src={blogs.image}
+                                    preview={false}
+                                    alt=""
+                                    placeholder="blog banner"
+                                    onMouseOver={(e) => {
+                                      e.target.style.transform = "scale(1.1)"; // Zoom in on hover
+                                    }}
+                                    onMouseOut={(e) => {
+                                      e.target.style.transform = "scale(1)"; // Zoom out on mouse out
+                                    }}
+                                  />
+                                  <p className="card-heading">
+                                    {blogs.blog_topic.name}
+                                  </p>
 
-                                <p className="blogs-card-body">{blogs.name}</p>
-                                <p className="blog-detail">{blogs.details} </p>
-                              </div>
-                              <div className="date-section">
-                                <div className="date">
-                                  {moment(blogs.created_at).format("LL")}
+                                  <p className="blogs-card-body">
+                                    {blogs.name}
+                                  </p>
+                                  <p className="blog-detail">
+                                    {blogs.details}{" "}
+                                  </p>
                                 </div>
-                                <div className="custom-divider"></div>
-                                <div className="time">{blogs?.read_time}</div>
-                                <div className="custom-divider"></div>
-                                <div className="time">{blogs?.author}</div>
+                                <div className="date-section">
+                                  <div className="date">
+                                    {moment(blogs.created_at).format("LL")}
+                                  </div>
+                                  <div className="custom-divider"></div>
+                                  <div className="time">{blogs?.read_time}</div>
+                                  <div className="custom-divider"></div>
+                                  <div className="time">{blogs?.author}</div>
+                                </div>
                               </div>
                             </div>
-                          </div>
-
                           </Link>
                         ))}
                     </div>
@@ -537,11 +550,10 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
 );
 
 const mapStateToProps = (state) => {
-  const { blog, categories, blogs, authentication } = state;
+  const { blog, categories, authentication } = state;
   return {
     blog: blog ? blog[0] : null,
     categories,
-    blogs,
     authentication,
   };
 };
