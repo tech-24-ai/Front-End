@@ -57,6 +57,7 @@ import {
 } from "next-share";
 import ShareSocialMedia from "../../../components/shareSocial";
 import { FlageIcon } from "../../../components/icons";
+import ReportAbuseModal from "../../../components/community/ReportAbuseModal";
 
 const SubmitButton = ({ form, children }) => {
   const [submittable, setSubmittable] = React.useState(false);
@@ -90,6 +91,7 @@ const CommunityQuestionDetail = ({
 }) => {
   const router = useRouter();
   const slugQuery = router.query;
+  console.log("QUESTIONPage", slugQuery);
   const socialShareLink = window.location.href;
 
   const [description, setDescription] = useState("");
@@ -856,10 +858,20 @@ const CommunityQuestionDetail = ({
                           <span className="btn-title">Share</span>
                         </div>
                       </ShareSocialMedia>
-                      <div className="report-btn">
+                      <div
+                        className="report-btn"
+                        onClick={() => setReportModalVisible(true)}
+                      >
                         <FlageIcon />
                         <span className="btn-title">Report</span>
                       </div>
+                      <ReportAbuseModal
+                        reportTypes={reportTypes}
+                        isModalOpen={reportModalVisible}
+                        closeModel={(value) => setReportModalVisible(value)}
+                        data={communityQuestionDetail}
+                        reportFor="question"
+                      />
                       <div className="rating questions_font_12px">
                         <div>
                           <Image
