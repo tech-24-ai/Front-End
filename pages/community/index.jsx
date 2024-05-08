@@ -137,8 +137,8 @@ const Community = ({ community, getAllCrud, router }) => {
     // );
     // setValue(newValue);
     Router.push({
-      pathname: "/community/all_community",
-      query: { q: search },
+      pathname: "/community/searchCommunity",
+      query: { value: search },
     });
   };
 
