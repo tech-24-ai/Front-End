@@ -256,7 +256,7 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
                     <div className="questions_font_12px">
                       <ShareSocialMedia
                         link={window.location.href}
-                        title={newsAnnouncementDetail?.name}
+                        title={newsAnnouncementDetail?.title}
                       >
                         <div className="date share-btn">
                           <ShareAltOutlined /> Share
