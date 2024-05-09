@@ -170,9 +170,9 @@ const Community = ({ community, getAllCrud, router }) => {
             <div className="community-stats">
               <div className="stat-container">
                 <h4>
-                  {totalCounts.totalMembers}
+                  {allCommunityFeature?.length}
                 </h4>
-                <p>Members</p>
+                <p>Total Community</p>
               </div>
               <div className="stat-container">
                 <h4>
