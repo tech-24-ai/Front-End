@@ -84,6 +84,7 @@ class AlertComponent extends React.PureComponent {
             onCancel={this.onDismiss}
             transitionName="none"
             maskTransitionName="none"
+            maskClosable={false}
             style={{
               textAlign: "center",
               backgroundColor: "rgba(248, 248, 248, 0.92) !important",

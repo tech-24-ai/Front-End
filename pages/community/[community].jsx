@@ -131,8 +131,6 @@ const CommunityDetail = ({
   };
 
   const handleOk = async () => {
-    showLoader();
-    setIsModalOpen(false);
     if (!title) {
       showAlert("Please add title");
       return;
@@ -164,7 +162,8 @@ const CommunityDetail = ({
           tags: tags,
           url: JSON.stringify(finalUrl),
         };
-
+        showLoader();
+        setIsModalOpen(false);
         crudService
           ._create("communitypost", postData)
           .then((response) => {
@@ -200,7 +199,8 @@ const CommunityDetail = ({
         tags: tags,
         url: [],
       };
-
+      showLoader();
+      setIsModalOpen(false);
       crudService
         ._create("communitypost", postData)
         .then((response) => {
@@ -222,6 +222,7 @@ const CommunityDetail = ({
 
   const voteCommunity = (data, type) => {
     showLoader();
+    setIsModalOpen(false);
     crudService
       ._create("communitypost/vote", {
         community_post_id: data?.community_id,
