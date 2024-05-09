@@ -310,7 +310,7 @@ const CommunityQuestionDetail = ({
                     cursor: "pointer",
                   }}
                 >
-                  {communityData?.name}{" "}
+                  {communityData?.name}{" (Question)"}
                   <RightOutlined style={{ verticalAlign: "0" }} />
                 </span>
                 <span
@@ -351,6 +351,7 @@ const CommunityQuestionDetail = ({
           )}
           <div className="profile-container row" style={{ marginTop: "0" }}>
             <div className="community-tab-container questions-tab-container community-detail-wrapper col-md-9">
+              <h5>Question</h5>
               <div className="cards-container">
                 <Card
                   bordered={true}
