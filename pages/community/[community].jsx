@@ -69,7 +69,6 @@ const CommunityDetail = ({
   hideLoader,
 }) => {
   const router = useRouter();
-  console.log("router.query", router.query);
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState();
   const [tags, setTag] = useState([]);
@@ -116,7 +115,7 @@ const CommunityDetail = ({
   useEffect(() => {
     getAllCrud("visitorprofile", "visitorprofile");
     fetchCommunityData();
-  }, [updateCom]);
+  }, [updateCom, router.query]);
 
   const joinCommunity = () => {
     crudService
@@ -246,7 +245,6 @@ const CommunityDetail = ({
   const Tab2 = () => {
     const [newsData, setNewsData] = useState([]);
     useEffect(() => {
-      console.log("communityData", communityData);
       fetchNewsData(communityData?.id);
     }, []);
 
