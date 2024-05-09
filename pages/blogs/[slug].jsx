@@ -185,6 +185,18 @@ class Blog extends Component {
                           borderTopLeftRadius: "10px",
                         }}
                       />
+                      <div className="date-section">
+                        <div className="date">
+                          {moment(blog.created_at).format("LL")}
+                        </div>
+                        <div className="custom-divider"></div>
+                        <div className="time">{blog?.read_time}</div>
+                        <div className="custom-divider"></div>
+                        <div className="time">{blog?.author}</div>
+                      </div>
+                      <div className="blog-tags-container">
+                        <div className="blog-tags">{blog.details}</div>
+                      </div>
                       <div className="inner-text-container">
                         {/* <div style={{ display: "flex" }}>
                       <ProfileIcon />
@@ -241,15 +253,6 @@ class Blog extends Component {
                             )}
                         </div>
                         <br/>
-                        <div className="date-section">
-                          <div className="date">
-                            {moment(blog.created_at).format("LL")}
-                          </div>
-                          <div className="custom-divider"></div>
-                          <div className="time">{blog?.read_time}</div>
-                          <div className="custom-divider"></div>
-                          <div className="time">{blog?.author}</div>
-                        </div>
                         {/* <div className="row">
                       <div className="col-md-12" style={{border:"1px solid #caced1", background:"#caced1"}}>
                     <Comment

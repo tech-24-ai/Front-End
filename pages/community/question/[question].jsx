@@ -144,9 +144,6 @@ const CommunityQuestionDetail = ({
   };
 
   const handleOk = (parent_id, community_post_id, replyText, isReply) => {
-    setIsModalOpen(false);
-    setIsReplayModalOpen({ isReplayModelOpen: false, details: {} });
-    showLoader();
     if (replyText == undefined || replyText == null || replyText.trim() == "") {
       showAlert("Please add description.");
       return;
@@ -156,7 +153,9 @@ const CommunityQuestionDetail = ({
       community_post_id: community_post_id,
       description: replyText,
     };
-
+    showLoader();
+    setIsModalOpen(false);
+    setIsReplayModalOpen({ isReplayModelOpen: false, details: {} });
     crudService
       ._create("communitypostreply", postData)
       .then((response) => {
@@ -1148,6 +1147,7 @@ const CommunityQuestionDetail = ({
                       visible={isReplayModalOpen?.isReplayModelOpen}
                       onCancel={handleCancel}
                       footer={null}
+                      maskClosable={false}
                     >
                       <span
                         style={{
