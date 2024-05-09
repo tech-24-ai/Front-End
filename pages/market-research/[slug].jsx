@@ -30,7 +30,7 @@ function Detail({
     if (slug) {
       getAllCrud("research_detail", `market_research/show/${slug}`, {});
     }
-  }, []);
+  }, [slug]);
 
   useEffect(() => {
     if (research_detail?.document_content_type == 4) {
@@ -71,7 +71,7 @@ function Detail({
         />
         <br />
         <div className="research-detail-heading">
-          <h5 className="title">{research_detail?.name}</h5>
+          <h5 className="research-title">{research_detail?.name}</h5>
           <div className="date-section">
             <div className="date">
               {moment(research_detail?.created_at).format("LL")}
