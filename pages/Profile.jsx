@@ -238,9 +238,9 @@ const Profile = ({
       .then((result) => {
         setLibraryData(result?.data?.data);
         console.log("libraryData",result?.data);
-        const totalPage = Math.ceil(result?.data?.total / itemsPerPage);
-        console.log("totalPage", totalPage);
-        setLibraryPageCount(isNaN(totalPage) ? 0 : totalPage);
+        const libraryPageCount = Math.ceil(result?.data?.total / itemsPerPage);
+        console.log("libraryPageCount", libraryPageCount);
+        setLibraryPageCount(isNaN(libraryPageCount) ? 0 : libraryPageCount);
       });
   }, [libraryPage, sortBy]);
 
@@ -254,6 +254,7 @@ const Profile = ({
       ._delete("visitor_library", id)
       .then((result) => {
         console.log("Item deleted successfully:", result);
+        setLibraryData(libraryData.filter(item => item.id !== id));
       })
       .catch((error) => {
         console.error("Error deleting item:", error);
@@ -753,34 +754,34 @@ const Profile = ({
         style: {
             // color: '#f50',
         },
-        label: <span  style={{marginLeft:"60px"}}><span style={{fontSize:"15px"}}>{visitor_profile_levels?.[0]?.leavels[levelCount - 1].level}</span><br/><b style={{fontSize:"20px",marginLeft:"55px"}}></b></span>,
+        label: <span  style={{marginLeft:"50px"}}><span style={{fontSize:"15px"}}>{visitor_profile_levels?.[0]?.leavels[levelCount - 1].level}</span><br/><b style={{fontSize:"15px"}}>Legend</b></span>,
       },
       20:  {
         style: {
             // color: '#f50',
         },
-        label: <span style={{marginLeft:"60px"}}><span style={{fontSize:"15px"}}>Level 5</span><br/><b style={{fontSize:"20px",marginLeft:"50px"}}>Pro</b></span>,
+        label: <span style={{marginLeft:"50px"}}><span style={{fontSize:"15px"}}>Level 5</span><br/><b style={{fontSize:"15px"}}>Pro</b></span>,
 
       },
       40:  {
         style: {
             // color: '#f50',
         },
-        label: <span className="mt-2"><span style={{fontSize:"15px"}}>Level 4</span><br/><b style={{fontSize:"20px"}}>Contributor</b></span>,
+        label: <span  style={{marginLeft:"0px"}}><span style={{fontSize:"15px"}}>Level 4</span><br/><b style={{fontSize:"15px"}}>Contributor</b></span>,
 
       },
       60:  {
         style: {
             // color: '#f50',
         },
-        label: <span className="mt-2"><span style={{fontSize:"15px"}}>Level 3</span><br/><b style={{fontSize:"20px"}}>Action Taker</b></span>,
+        label: <span className="mt-2"  style={{marginLeft:"0px"}}><span style={{fontSize:"15px"}}>Level 3</span><br/><b style={{fontSize:"15px"}}>Action Taker</b></span>,
 
       },
       80:  {
         style: {
             // color: '#f50',
         },
-        label: <span style={{marginLeft:"60px"}}><span style={{fontSize:"15px"}}>Level 2</span><br/><b style={{fontSize:"20px",marginLeft:"50px"}}>Starter</b></span>,
+        label: <span style={{marginLeft:"50px"}}><span style={{fontSize:"15px"}}>Level 2</span><br/><b style={{fontSize:"15px"}}>Starter</b></span>,
 
       },
       // Level:"Levelvbhdfbv",
@@ -788,7 +789,7 @@ const Profile = ({
         style: {
             // color: '#f50',
         },
-        label: <span style={{marginLeft:"58px"}}><span style={{fontSize:"15px"}}>Level 1</span><br/><b style={{fontSize:"20px",marginLeft:"48px"}}>New Bee</b></span>,
+        label: <span style={{marginLeft:"50px"}}><span style={{fontSize:"15px"}}>Level 1</span><br/><b style={{fontSize:"15px"}}>New Bee</b></span>,
 
       },
     };
@@ -800,8 +801,8 @@ const Profile = ({
          <Card
           bordered={true}
           style={{
-            width: "100%",
-            height: "fit-content",
+            // width: "100%",
+            // height: "fit-content",
             
           }}
         >
@@ -819,10 +820,10 @@ const Profile = ({
           vertical range
           marks={marks}
            step={null}
-          trackStyle={{ backgroundColor: "#0074D9!important", height: "8px" }}
-            railStyle={{ backgroundColor: "#EBEBF0!important", height: "8px" }}
-            defaultValue={visitor_profile_levels?.[0]?.total_points_earned}
-            tooltipVisible={false}
+          trackStyle={{ backgroundColor: "#0074D9", height: "8px" }}
+            railStyle={{ backgroundColor: "#EBEBF0", height: "8px" }}
+        defaltValue={visitor_profile_levels?.[0]?.total_points_earned}
+          
         style={{left:"-45px",top:"0px"}}
         />
           {/* <Slider vertical range marks={Marks} defaultValue={[100]} /> */}
@@ -831,10 +832,10 @@ const Profile = ({
             trackStyle={{ display: "none" }}
             railStyle={{ display: "none" }}
             step={null}
+            
             className="verticalSlidertwo" vertical range marks={bottomMarks} defaultValue={[100]} 
             style={{marginLeft:"150px",top:"-320px"}}
             onChange={(value) => console.log(value)}
-         
             />
              {/* <Slider
               marks={bottomMarks}
@@ -908,8 +909,8 @@ const Profile = ({
               step={null}
               handleStyle={{
                 backgroundColor: "#0074D9",
-                height: "16.48px",
-                width: "16.48px",
+                height: "25.48px",
+                width: "25.48px",
               }}
               trackStyle={{ backgroundColor: "#0074D9", height: "8px" }}
               railStyle={{ backgroundColor: "#EBEBF0", height: "8px" }}
@@ -1046,7 +1047,7 @@ const Profile = ({
           ))}
           {/* Render pagination controls */}
           <div className="mt-5" style={{ width: "100%" }}>
-            {libraryData?.length > 0 && (
+            {libraryData?.length > 0 &&  libraryPageCount > 1 &&(
               <CustomPagination
                 pageCount={libraryPageCount}
                 page={libraryPage}
