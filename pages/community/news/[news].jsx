@@ -110,12 +110,9 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
     Router.push("/community");
   };
 
-  const handleCommunityDetails = () => {
-    Router.push(`/community/community_detail`);
+  const handleCommunityDetails = (url_slug) => {
+    Router.push(`/community/${url_slug}`);
   };
-  // const handleCommunityDetails = ({ url_slug }) => {
-  //   Router.push(`/community/${url_slug}`);
-  // };
 
   return (
     <>
@@ -138,7 +135,11 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
                 </span>{" "}
                 <span
                   className="questions_font_12px"
-                  onClick={() => handleCommunityDetails()}
+                  onClick={() =>
+                    handleCommunityDetails(
+                      newsAnnouncementDetail?.community?.url_slug
+                    )
+                  }
                   style={{
                     color: "#B0B8BF",
                     fontFamily: "Inter",

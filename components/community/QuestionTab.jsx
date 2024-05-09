@@ -71,6 +71,7 @@ const QuestionTab = ({
   componentName = "community",
   showLoader,
   hideLoader,
+  downloadDocument,
 }) => {
   const router = useRouter();
   const { community } = router.query;
@@ -342,6 +343,15 @@ const QuestionTab = ({
 
   const handleSearch = () => {
     fetchData();
+  };
+
+  const handleDocumentDownload = (item) => {
+    const { id, name } = item;
+    downloadDocument(
+      id,
+      name,
+      `communitypost/download_attachment?attachment_id=${id}`
+    );
   };
 
   return (
@@ -648,7 +658,10 @@ const QuestionTab = ({
               marginTop: "1rem",
               cursor: "pointer",
             }}
-            onClick={() => gotoQuestionDetail(data?.url_slug)}
+            onClick={(e) => {
+              e.stopPropagation();
+              gotoQuestionDetail(data?.url_slug);
+            }}
           >
             <div className="cards-header">
               <div>
@@ -671,6 +684,7 @@ const QuestionTab = ({
                   className="profile"
                   style={{
                     fontFamily: "Inter",
+                    width: "95%",
                   }}
                 >
                   <h5>{data?.title}</h5>
@@ -711,6 +725,20 @@ const QuestionTab = ({
                 dangerouslySetInnerHTML={{ __html: data?.description }}
               ></span>
             </p>
+            <div className="chips">
+              {data?.attachments?.map((item) => (
+                <div
+                  style={{ fontFamily: "Inter", cursor: "pointer" }}
+                  className="questions_font_10px"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDocumentDownload(item);
+                  }}
+                >
+                  {item?.name || "Attachment"}
+                </div>
+              ))}
+            </div>
             <div className="chips">
               {data?.postTags?.map((tag) => (
                 <div
@@ -806,6 +834,7 @@ const actionCreators = {
   success: alertActions.success,
   showLoader: loaderActions.show,
   hideLoader: loaderActions.hide,
+  downloadDocument: crudActions._download,
 };
 
 export default connect(mapStateToProps, actionCreators)(QuestionTab);
