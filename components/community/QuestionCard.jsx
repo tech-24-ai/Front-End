@@ -22,7 +22,7 @@ const QuestionCard = ({ data, key }) => {
 
   const handlePageRedirection = () => {
     const { community, url_slug } = data;
-    Router.push(`community/${community?.url_slug}/question/${url_slug}`);
+    Router.push(`community/question/${url_slug}`);
   };
 
   return (
