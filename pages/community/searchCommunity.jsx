@@ -20,6 +20,7 @@ import CustomPagination from "../../components/pagination";
 import { isMobile } from "react-device-detect";
 import myImageLoader from "../../components/imageLoader";
 import Image from "next/future/image";
+import SearchInput from "../../components/form/searchInput";
 
 
 
@@ -39,7 +40,7 @@ const Community = ({ router }) => {
     
     useEffect(() => {
         getAllPosts(searchQuery, currentPage, sortBy);
-    }, [searchQuery, currentPage, sortBy]);
+    }, [currentPage, sortBy]);
 
     useEffect(() => {
         if (value) {
@@ -62,10 +63,10 @@ const Community = ({ router }) => {
 
     //Filter
     const handleSearch = (e) => {
-        setSearchQuery(e.target.value);
+        //setSearchQuery(e.target.value);
         setCurrentPage(0);
-        setIsSearchActive(e.target.value.trim() !== "");
-        getAllPosts(e.target.value, 0, sortBy);
+        setIsSearchActive(searchQuery.trim() !== "");
+        getAllPosts(searchQuery, 0, sortBy);
     };
 
 
@@ -188,24 +189,19 @@ const Community = ({ router }) => {
               </div>
             </div>
             <div className="mt-3 search-bar-community">
-              <Input
-                placeholder="Search anything.."
-                prefix={
-                  <SearchOutlined
-                    style={{ color: "#0074D9", padding: "0 6px" }}
-                  />
-                }
-                value={searchQuery}
-                onChange={handleSearch}
-                style={{
-                  width: "100%",
-                  padding: "10px",
-                  border: "1px solid #ccc",
-                  borderRadius: "5px",
-                  background: "#ffffff",
-                  boxSizing: "border-box",
-                }}
-              />
+            <SearchInput
+              placeholder="Search anything"
+              className="SearchInput"
+              value={searchQuery}
+              onChange={(value) => setSearchQuery(value)}
+              suffix={
+                <SearchOutlined
+                  style={{ color: "#1E96FF" }}
+                  onClick={() => handleSearch()}
+                />
+              }
+            />
+             
               <div className="sorting-community sorting-display">
                 <label className="sortby" htmlFor="sortDropdown">
                   Sort By:{" "}
