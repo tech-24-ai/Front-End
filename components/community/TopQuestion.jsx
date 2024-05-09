@@ -85,6 +85,11 @@ const TrendingQuestion = ({ trendingQuestions }) => {
                   initialSlide: 0
                 },
               ]}
+              appendDots={(dots) => (
+                <div>
+                  <ul> {dots} </ul>
+                </div>
+              )}
             >
               {trendingQuestions?.slice(0, 5).map((data, index) => (
                 <QuestionCard data={data} key={index} />
