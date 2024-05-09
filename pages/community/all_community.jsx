@@ -243,6 +243,7 @@ const Community = ({ router }) => {
               placeholder="Search anything"
               className="SearchInput"
               value={searchQuery}
+              onPressEnter={() => handleSearch()}
               onChange={(value) => setSearchQuery(value)}
               suffix={
                 <SearchOutlined

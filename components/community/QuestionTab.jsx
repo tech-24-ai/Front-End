@@ -373,6 +373,7 @@ const QuestionTab = ({
             parentProps={{ style: { width: isMobile ? "84%" : "74%" } }}
             value={headerSearch}
             onChange={(value) => setHeaderSearch(value)}
+            onPressEnter={() => handleSearch()}
             suffix={
               <SearchOutlined
                 style={{ color: "#1E96FF" }}

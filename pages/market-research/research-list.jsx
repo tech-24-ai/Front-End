@@ -228,6 +228,7 @@ const ResearchList = ({ router }) => {
           <SearchInput
             placeholder="Search anything"
             className="SearchInput"
+            onPressEnter={() => handleSearch()}
             onChange={(value) => setSearchQuery(value)}
             suffix={<SearchOutlined onClick={() => handleSearch()} />}
             value={searchQuery}

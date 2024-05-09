@@ -33,7 +33,6 @@ const Community = ({ community, getAllCrud, router }) => {
   const [trendingQuestions, setTrendingQuestions] = useState([]);
   const [stats, setStats] = useState(null);
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -51,21 +50,20 @@ const Community = ({ community, getAllCrud, router }) => {
     fetchData();
   }, []);
 
-
   useEffect(() => {
     const statsFetch = async () => {
       try {
         const statsData = await crudService._getAll("community_stats");
         if (statsData?.data?.data && statsData.data.data.length > 0) {
-          const setItem = statsData.data.data[0]; 
-          setStats(setItem); 
+          const setItem = statsData.data.data[0];
+          setStats(setItem);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
-    statsFetch(); 
+    statsFetch();
   }, []);
   useEffect(() => {
     const fetchTrendingQuestions = async () => {
@@ -114,8 +112,8 @@ const Community = ({ community, getAllCrud, router }) => {
     arrData.push(data);
   });
 
-
   const handleSearch = () => {
+    console.log("Enter");
     Router.push({
       pathname: "/community/searchCommunity",
       query: { value: search },
@@ -147,36 +145,29 @@ const Community = ({ community, getAllCrud, router }) => {
             <p style={styles.subtitle}>
               Get answer form our community of Experts
             </p>
-            {
-              stats && (
-                <div className="community-stats">
-                  <div className="stat-container">
-                    <h4>
-                      {stats?.total_member}
-                    </h4>
-                    <p>Total Community</p>
-                  </div>
-                  <div className="stat-container">
-                    <h4>
-                      {stats?.total_question}
-                    </h4>
-                    <p>Questions</p>
-                  </div>
-                  <div className="stat-container">
-                    <h4>
-                      {stats?.total_answer}
-                    </h4>
-                    <p>Answers</p>
-                  </div>
+            {stats && (
+              <div className="community-stats">
+                <div className="stat-container">
+                  <h4>{stats?.total_member}</h4>
+                  <p>Total Community</p>
                 </div>
-              )
-            }
+                <div className="stat-container">
+                  <h4>{stats?.total_question}</h4>
+                  <p>Questions</p>
+                </div>
+                <div className="stat-container">
+                  <h4>{stats?.total_answer}</h4>
+                  <p>Answers</p>
+                </div>
+              </div>
+            )}
             <div className="mt-4" style={styles.inputGroup}>
               <SearchInput
                 placeholder="Search anything"
                 className="SearchInput bg"
                 value={search}
                 onChange={(value) => setSearch(value)}
+                onPressEnter={() => handleSearch()}
                 suffix={
                   <SearchOutlined
                     style={{ color: "#1E96FF" }}
