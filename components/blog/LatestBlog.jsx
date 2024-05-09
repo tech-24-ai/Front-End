@@ -84,7 +84,8 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
                 breakpoint: 767,
                 settings: {
                   slidesToShow: 1,
-                  dots: false,
+                  dots: true,
+                  initialSlide: 0
                 },
               },
             ]}
