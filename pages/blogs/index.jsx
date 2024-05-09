@@ -136,6 +136,10 @@ function Blogs({ router }) {
                     placeholder="Search anything..."
                     className="SearchInput bg"
                     onChange={(value) => setValue(value)}
+                    onPressEnter={() => {
+                      setPage(0);
+                      fetchBlogData();
+                    }}
                     suffix={
                       <SearchOutlined
                         style={{ color: "#1E96FF" }}
@@ -164,10 +168,9 @@ function Blogs({ router }) {
           >
             Blogs
           </h4>
-          {
-            posts?.data && posts?.data?.length > 0 ?  <div className="second-div">
-            {
-              posts?.data?.map((post, key) => (
+          {posts?.data && posts?.data?.length > 0 ? (
+            <div className="second-div">
+              {posts?.data?.map((post, key) => (
                 <Link href={`blogs/${post.slug}`} key={key}>
                   <div className="blog-list">
                     <div
@@ -211,27 +214,27 @@ function Blogs({ router }) {
                     </div>
                   </div>
                 </Link>
-              ))
-            }
-            
-          </div> :  <p
-            style={{
-              fontWeight: "400",
-              fontSize: "14px",
-              color: "#54616C",
-              textAlign: "center",
-              padding: "10px",
-              width:'100%',
-              textAlign:'center'
-            }}
-          >
-            No Data Available
-          </p>
-          }
-         
+              ))}
+            </div>
+          ) : (
+            <p
+              style={{
+                fontWeight: "400",
+                fontSize: "14px",
+                color: "#54616C",
+                textAlign: "center",
+                padding: "10px",
+                width: "100%",
+                textAlign: "center",
+              }}
+            >
+              No Data Available
+            </p>
+          )}
+
           <br></br>
           <div className="mt-5" style={{ width: "100%" }}>
-            {posts?.data?.length > 0 && pageCount> 1 && (
+            {posts?.data?.length > 0 && pageCount > 1 && (
               <CustomPagination
                 pageCount={pageCount}
                 page={page}

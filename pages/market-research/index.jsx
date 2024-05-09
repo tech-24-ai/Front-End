@@ -32,6 +32,7 @@ function MarketResearch({
 
   // search
   const handleSearch = () => {
+    console.log("SEARCHENTER");
     router.push(`${router.asPath}/research-list?q=${searchText}`);
   };
 
@@ -62,6 +63,7 @@ function MarketResearch({
                   placeholder="Search anything"
                   className="SearchInput bg"
                   onChange={(value) => setSearchText(value)}
+                  onPressEnter={() => handleSearch()}
                   suffix={
                     <SearchOutlined
                       style={{ color: "#1E96FF" }}
