@@ -177,6 +177,10 @@
   }
 
   .research-section {
+    .slick-slider .slick-list .slick-track {
+      gap: 1rem;
+      display: flex;
+    }
     .slick-slider {
       .slick-next {
         right: 10px !important;
@@ -535,6 +539,11 @@
 
 //Mobile
 @media (max-width: 767px) {
+
+  .research-section .slick-slider .slick-list .slick-track {
+    gap: 0rem !important;
+    display: flex !important;
+  }
   .main-content.researchs {
     min-height: 100vh;
     padding-bottom: 190px !important;
