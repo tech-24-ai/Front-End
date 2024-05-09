@@ -18,16 +18,11 @@ import {
 import { useRouter } from "next/router";
 import { connect } from "react-redux";
 import Link from "next/link";
-import {
-  BrowserView,
-  MobileView
-} from "react-device-detect";
 import LogoBlack from "../../public/new_images/tech24_header_logo_white.svg";
 import LogoWhite from "../../public/new_images/tech24_header_logo_white.svg";
 import Drawer from "./drawer";
 import myImageLoader from "../imageLoader";
 import Image from "next/future/image";
-import { useMediaQuery } from "react-responsive";
 import { crudService } from "../../_services";
 import { checkDeviceTyepe } from "../../utils/cookie";
 
@@ -98,6 +93,8 @@ function Header(props) {
     }
   }, [router]);
 
+  console.log('screenSize.dynamicWidth', screenSize.dynamicWidth);
+
   const unProtectedRoutes = [
     "/",
     "/content/[slug]",
@@ -127,7 +124,7 @@ function Header(props) {
       <Container>
         <Row className="align-items-center">
           <Col md={3} className="left-block">
-            {(screenSize.dynamicWidth > 1000) && (
+            {(screenSize.dynamicWidth >= 1000) && (
               <div className="logo-content-block">
                 <div className="logo-wrapper">
                   <Link href="/" style={{ marginTop: "-10px", width: "125px" }}>
@@ -171,13 +168,12 @@ function Header(props) {
             )}
           </Col>
           <Col md={9} className="right-block">
-            {(screenSize.dynamicWidth > 1000) && (
+            {(screenSize.dynamicWidth >= 1000) && (
               <div className="main-menu-wrapper">
                 <Navbar expand="md" className="p-0">
                   <NavbarToggler onClick={toggleNavbar} className="mr-2" />
                   <Collapse isOpen={true} navbar>
-                    <BrowserView viewClassName="navbar-link-wrapper">
-                      <Nav className="navbar-link-wrapper">
+                  <Nav className="navbar-link-wrapper">
                         {/* <NavItem>
                           <Link href="/platform">
                             <a>Platform</a>
@@ -337,7 +333,6 @@ function Header(props) {
                           </NavItem>
                         )} */}
                       </Nav>
-                    </BrowserView>
                     {/* <MobileView viewClassName='navbar-link-wrapper'>
                         <Link href="#"><a className="Market-link">Market Intelligence</a></Link>
                       </MobileView> */}

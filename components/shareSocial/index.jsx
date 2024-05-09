@@ -56,7 +56,7 @@ function ShareSocialMedia({ children, link, title = "", hashtag = "" }) {
               name="facebook icon"
             />
           </FacebookShareButton>
-          <EmailShareButton url={link} title={title}>
+          <EmailShareButton url={link}  subject={title}>
             <Image
               loader={myImageLoader}
               style={{ borderRadius: "2px" }}
