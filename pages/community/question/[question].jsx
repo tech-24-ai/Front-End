@@ -446,7 +446,7 @@ const CommunityQuestionDetail = ({
                     <div className="right-side-section">
                       <ShareSocialMedia
                         link={window.location.href}
-                        title={communityQuestionDetail?.name}
+                        title={communityQuestionDetail?.title}
                       >
                         <div className="share-btn">
                           <ShareAltOutlined />{" "}
@@ -767,7 +767,7 @@ const CommunityQuestionDetail = ({
                           <div className="right-side-section">
                             <ShareSocialMedia
                               link={window.location.href}
-                              title={communityQuestionDetail?.name}
+                              title={communityQuestionDetail?.title}
                             >
                               <div className="share-btn">
                                 <ShareAltOutlined />{" "}
@@ -890,7 +890,7 @@ const CommunityQuestionDetail = ({
                                 <div className="right-side-section">
                                   <ShareSocialMedia
                                     link={window.location.href}
-                                    title={communityQuestionDetail?.name}
+                                    title={communityQuestionDetail?.title}
                                   >
                                     <div className="share-btn">
                                       <ShareAltOutlined />{" "}
