@@ -157,23 +157,28 @@ const CommunityQuestionDetail = ({
       description: replyText,
     };
 
-    crudService._create("communitypostreply", postData).then((response) => {
-      hideLoader();
-      if (response.status === 200) {
-        isReply
-          ? setIsReplayModalOpen({ isReplayModelOpen: false, details: {} })
-          : setIsModalOpen(false);
-        !isReply ? setDescription("") : setReplyResponse("");
-        setUpdateCom(true);
-        isReply
-          ? success(
-              "Your reply is being reviewed and will be shown after approval."
-            )
-          : success(
-              "Your answer is being reviewed and will be shown after approval."
-            );
-      }
-    });
+    crudService
+      ._create("communitypostreply", postData)
+      .then((response) => {
+        hideLoader();
+        if (response.status === 200) {
+          isReply
+            ? setIsReplayModalOpen({ isReplayModelOpen: false, details: {} })
+            : setIsModalOpen(false);
+          !isReply ? setDescription("") : setReplyResponse("");
+          setUpdateCom(true);
+          isReply
+            ? success(
+                "Your reply is being reviewed and will be shown after approval."
+              )
+            : success(
+                "Your answer is being reviewed and will be shown after approval."
+              );
+        }
+      })
+      .catch(() => {
+        hideLoader();
+      });
   };
 
   const voteCommunity = (data, type) => {
@@ -186,6 +191,9 @@ const CommunityQuestionDetail = ({
       .then((data) => {
         hideLoader();
         data.status == 200 && setUpdateCom(true);
+      })
+      .catch(() => {
+        hideLoader();
       });
   };
 
@@ -199,6 +207,9 @@ const CommunityQuestionDetail = ({
       .then((data) => {
         hideLoader();
         data.status == 200 && setUpdateCom(true);
+      })
+      .catch(() => {
+        hideLoader();
       });
   };
 

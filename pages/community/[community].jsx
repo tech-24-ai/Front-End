@@ -165,17 +165,22 @@ const CommunityDetail = ({
           url: JSON.stringify(finalUrl),
         };
 
-        crudService._create("communitypost", postData).then((response) => {
-          hideLoader();
-          if (response.status === 200) {
-            setUpdateCom(true);
-            setIsModalOpen(false);
-            resetForm();
-            success(
-              "Your post is being reviewed and will be shown after approval."
-            );
-          }
-        });
+        crudService
+          ._create("communitypost", postData)
+          .then((response) => {
+            hideLoader();
+            if (response.status === 200) {
+              setUpdateCom(true);
+              setIsModalOpen(false);
+              resetForm();
+              success(
+                "Your post is being reviewed and will be shown after approval."
+              );
+            }
+          })
+          .catch(() => {
+            hideLoader();
+          });
       }
 
       //Upload API
@@ -196,17 +201,22 @@ const CommunityDetail = ({
         url: [],
       };
 
-      crudService._create("communitypost", postData).then((response) => {
-        hideLoader();
-        if (response.status === 200) {
-          setUpdateCom(true);
-          setIsModalOpen(false);
-          resetForm();
-          success(
-            "Your post is being reviewed and will be shown after approval."
-          );
-        }
-      });
+      crudService
+        ._create("communitypost", postData)
+        .then((response) => {
+          hideLoader();
+          if (response.status === 200) {
+            setUpdateCom(true);
+            setIsModalOpen(false);
+            resetForm();
+            success(
+              "Your post is being reviewed and will be shown after approval."
+            );
+          }
+        })
+        .catch(() => {
+          hideLoader();
+        });
     }
   };
 
@@ -220,6 +230,9 @@ const CommunityDetail = ({
       .then((data) => {
         hideLoader();
         data.status == 200 && fetchCommunityData();
+      })
+      .catch(() => {
+        hideLoader();
       });
   };
 
@@ -444,6 +457,7 @@ const CommunityDetail = ({
                   visible={isModalOpen}
                   onCancel={handleCancel}
                   footer={null}
+                  maskClosable={false}
                 >
                   <span
                     style={{
@@ -487,7 +501,7 @@ const CommunityDetail = ({
                           required: true,
                         },
                       ]}
-                      name="title"
+                      // name="title"
                       onChange={(e) => {
                         setTitle(e.target.value);
                       }}
