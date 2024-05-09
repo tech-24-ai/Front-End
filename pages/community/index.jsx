@@ -142,6 +142,16 @@ const Community = ({ community, getAllCrud, router }) => {
     });
   };
 
+  const totalCounts = allCommunityFeature.reduce(
+    (adder, community) => {
+      adder.totalPosts += community.__meta__.total_posts;
+      adder.totalPostReplies += community.__meta__.total_post_reply;
+      adder.totalMembers += community.__meta__.total_members;
+      return adder;
+    },
+    { totalPosts: 0, totalPostReplies: 0, totalMembers: 0 }
+  );
+
   return (
     <section
       className="community-section community-listing-page"
@@ -158,16 +168,22 @@ const Community = ({ community, getAllCrud, router }) => {
               Get answer form our community of Experts
             </p>
             <div className="community-stats">
-            <div className="stat-container">
-             <h4>12.5K</h4>
-             <p>Members</p>
-            </div>
               <div className="stat-container">
-                <h4>984</h4>
+                <h4>
+                  {totalCounts.totalMembers}
+                </h4>
+                <p>Members</p>
+              </div>
+              <div className="stat-container">
+                <h4>
+                  {totalCounts.totalPosts}
+                </h4>
                 <p>Questions</p>
               </div>
               <div className="stat-container">
-                <h4>4K</h4>
+                <h4>
+                  {totalCounts.totalPostReplies}
+                </h4>
                 <p>Answers</p>
               </div>
             </div>
