@@ -142,6 +142,16 @@ const Community = ({ community, getAllCrud, router }) => {
     });
   };
 
+  const totalCounts = allCommunityFeature.reduce(
+    (adder, community) => {
+      adder.totalPosts += community.__meta__.total_posts;
+      adder.totalPostReplies += community.__meta__.total_post_reply;
+      adder.totalMembers += community.__meta__.total_members;
+      return adder;
+    },
+    { totalPosts: 0, totalPostReplies: 0, totalMembers: 0 }
+  );
+
   return (
     <section
       className="community-section community-listing-page"
@@ -154,10 +164,29 @@ const Community = ({ community, getAllCrud, router }) => {
               Welcome to the Tech 24 <br />
               Community
             </h2>
-
             <p style={styles.subtitle}>
               Get answer form our community of Experts
             </p>
+            <div className="community-stats">
+              <div className="stat-container">
+                <h4>
+                  {allCommunityFeature?.length}
+                </h4>
+                <p>Total Community</p>
+              </div>
+              <div className="stat-container">
+                <h4>
+                  {totalCounts.totalPosts}
+                </h4>
+                <p>Questions</p>
+              </div>
+              <div className="stat-container">
+                <h4>
+                  {totalCounts.totalPostReplies}
+                </h4>
+                <p>Answers</p>
+              </div>
+            </div>
             <div className="mt-4" style={styles.inputGroup}>
               <SearchInput
                 placeholder="Search anything"
