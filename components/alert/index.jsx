@@ -66,6 +66,7 @@ class AlertComponent extends React.PureComponent {
             transitionName="none"
             maskTransitionName="none"
             style={{ textAlign: "center" }}
+            maskClosable={false}
           >
             <div className={alert.type}>
               {iconImage && <img className="icon" src={iconImage.src} />}
