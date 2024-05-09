@@ -276,31 +276,13 @@ const CommunityDetail = ({
     const gotoNewsDetail = (url_slug) => {
       Router.replace(`/community/news/${url_slug}`);
     };
-    // const [newsData, setNewsData] = useState([]);
-    // const fetchNewsData = () => {
-    //   const id = sessionStorage.getItem("community_id");
-    //   if (id) {
-    //     crudService._getAll(`get_news_announcements?community_id=${22}`)
-    //       .then((data) => {
-    //         setNewsData(data?.data);
-    //         console.log("data", data);
-    //         console.log("news log", data?.data);
-    //       })
-    //       .catch((error) => {
-    //         showAlert("Error occurred while fetching news data.");
-    //         console.error("Error fetching news data:", error);
-    //       });
-    //   }
-    // };
-    // console.log("news data", newsData);
-    // useEffect(() => {
-    //   fetchNewsData();
-    // }, []);
+    
 
     return (
+    
       <div className="questions-tab-container">
         <ul>
-          {newsData &&
+          {newsData && newsData.length > 0 ? (
             newsData.map((data) => (
               <li
                 key={data.id}
@@ -333,9 +315,23 @@ const CommunityDetail = ({
                 </p>
                 <hr />
               </li>
-            ))}
+            ))
+          ) : (
+                <p
+                  style={{
+                    fontWeight: "400",
+                    fontSize: "14px",
+                    color: "#54616C",
+                    textAlign: "center",
+                    padding: "10px"
+                  }}
+                >
+                  No Data Available
+                </p>
+          )}
         </ul>
       </div>
+
     );
   };
 

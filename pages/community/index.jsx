@@ -154,10 +154,23 @@ const Community = ({ community, getAllCrud, router }) => {
               Welcome to the Tech 24 <br />
               Community
             </h2>
-
             <p style={styles.subtitle}>
               Get answer form our community of Experts
             </p>
+            <div className="community-stats">
+            <div className="stat-container">
+             <h4>12.5K</h4>
+             <p>Members</p>
+            </div>
+              <div className="stat-container">
+                <h4>984</h4>
+                <p>Questions</p>
+              </div>
+              <div className="stat-container">
+                <h4>4K</h4>
+                <p>Answers</p>
+              </div>
+            </div>
             <div className="mt-4" style={styles.inputGroup}>
               <SearchInput
                 placeholder="Search anything"

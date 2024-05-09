@@ -1,10 +1,47 @@
 .community-listing-page {
   .banner-head {
     width: 35rem;
+
+    .community-stats{
+      // height: 70px;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 2rem;
+
+      .stat-container{
+        width: 9rem;
+        position: relative;
+        h4{
+          font-family: "Poppins";
+          font-size: 24px;
+          font-weight: 500;
+          color: #E0E0E0;
+        }
+        p{
+          font-size: 16px;
+          font-weight: 400;
+          font-family: "Inter";
+          color: #B0B8BF;
+        }
+      }
+      .stat-container:not(:last-child)::after{
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 80%;
+        width: 1px;
+        background-color: #404040;
+      }
+    }
   }
   .container {
     // padding-right: 0 !important;
     .banner-container {
+      height: 480px;
       padding-bottom: 0 !important;
       .banner-image-container span,
       .banner-image-container img {
@@ -420,6 +457,41 @@
 @media (max-width: 1440px) {
   .banner-head {
     width: 23rem !important;
+
+     .community-stats{
+    
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 2rem;
+
+      .stat-container{
+        width: 7rem !important;
+        position: relative;
+        h4{
+          font-family: "Poppins";
+          font-size: 20px;
+          font-weight: 500;
+          color: #E0E0E0;
+        }
+        p{
+          font-size: 14px;
+          font-weight: 400;
+          font-family: "Inter";
+          color: #B0B8BF;
+        }
+      }
+      .stat-container:not(:last-child)::after{
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 80%;
+        width: 1px;
+        background-color: #404040;
+      }
+    }
   }
   .main-content.about-us {
     padding-bottom: 193px !important;
@@ -671,7 +743,17 @@
       }
     }
   }
-}
+  .community-listing-page {
+    .container {
+   
+      .banner-container {
+   
+        height: 370px;
+        }
+      }
+    }
+  }
+
 @media (max-width: 375px) {
   .banner-head {
     width: 21rem !important;
