@@ -147,7 +147,7 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
                     cursor: "pointer",
                   }}
                 >
-                  {newsAnnouncementDetail?.community?.name}{" "}
+                  {newsAnnouncementDetail?.community?.name}{"  (News & Announcements)"}
                   <RightOutlined style={{ verticalAlign: "0" }} />
                 </span>
                 <span
@@ -171,6 +171,7 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
           <div className="profile-container row" style={{ marginTop: "0" }}>
             <div className="community-tab-container questions-tab-container community-detail-wrapper col-md-9">
               <div className="cards-container">
+              <h5>News & Announcements</h5>
                 <Card
                   bordered={true}
                   style={{
