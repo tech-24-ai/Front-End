@@ -206,82 +206,80 @@ function ConsultantFilter({ data, setState, setSearchText, isCompany }) {
 
   return (
     <Fragment>
-      {
-        isMobile == false && <BrowserView>
-        <div className="filter-section">
-          <SearchInput
-            placeholder={
-              isCompany ? "Find a Service Provider" : "Find Consultant"
-            }
-            className="testSearchInput"
-            onChange={(value) => setSearchInput(value)}
-            suffix={<SearchOutlined />}
-            width={200}
-          />
-          <DropdownButton
-            label="Location"
-            name="location"
-            onChange={handleFilter}
-            checkedList={data.location}
-            items={location}
-          />
-          <DropdownButton
-            label="Skills"
-            name="skills"
-            onChange={handleFilter}
-            checkedList={data.skills}
-            items={skills}
-          />
-          <DropdownButton
-            label="Subskills"
-            name="subskills"
-            onChange={handleFilter}
-            checkedList={data.subskills}
-            items={subSkills}
-          />
-        </div>
-      </BrowserView>
-      }
-      {
-        isMobile == true && <MobileView>
-        <div className="filter-section">
-          <SearchInput
-            placeholder={
-              isCompany ? "Find Service Provider" : "Find Consultant"
-            }
-            className="search-input"
-            onChange={(value) => setSearchInput(value)}
-            suffix={<SearchOutlined />}
-          />
-          <Swiper
-            spaceBetween={5}
-            nodes={[
-              <DropdownButton
-                label="Location"
-                name="location"
-                onChange={handleFilter}
-                checkedList={data.location}
-                items={location}
-              />,
-              <DropdownButton
-                label="Skills"
-                name="skills"
-                onChange={handleFilter}
-                checkedList={data.skills}
-                items={skills}
-              />,
-              <DropdownButton
-                label="Subskills"
-                name="subskills"
-                onChange={handleFilter}
-                checkedList={data.subskills}
-                items={subSkills}
-              />,
-            ]}
-          />
-        </div>
-      </MobileView>
-      }
+      {isMobile == false && (
+        <BrowserView>
+          <div className="filter-section">
+            <SearchInput
+              placeholder={
+                isCompany ? "Find a Service Provider" : "Find Consultant"
+              }
+              className="testSearchInput"
+              onSearch={(value) => setSearchInput(value)}
+              width={200}
+            />
+            <DropdownButton
+              label="Location"
+              name="location"
+              onChange={handleFilter}
+              checkedList={data.location}
+              items={location}
+            />
+            <DropdownButton
+              label="Skills"
+              name="skills"
+              onChange={handleFilter}
+              checkedList={data.skills}
+              items={skills}
+            />
+            <DropdownButton
+              label="Subskills"
+              name="subskills"
+              onChange={handleFilter}
+              checkedList={data.subskills}
+              items={subSkills}
+            />
+          </div>
+        </BrowserView>
+      )}
+      {isMobile == true && (
+        <MobileView>
+          <div className="filter-section">
+            <SearchInput
+              placeholder={
+                isCompany ? "Find Service Provider" : "Find Consultant"
+              }
+              className="search-input"
+              onSearch={(value) => setSearchInput(value)}
+            />
+            <Swiper
+              spaceBetween={5}
+              nodes={[
+                <DropdownButton
+                  label="Location"
+                  name="location"
+                  onChange={handleFilter}
+                  checkedList={data.location}
+                  items={location}
+                />,
+                <DropdownButton
+                  label="Skills"
+                  name="skills"
+                  onChange={handleFilter}
+                  checkedList={data.skills}
+                  items={skills}
+                />,
+                <DropdownButton
+                  label="Subskills"
+                  name="subskills"
+                  onChange={handleFilter}
+                  checkedList={data.subskills}
+                  items={subSkills}
+                />,
+              ]}
+            />
+          </div>
+        </MobileView>
+      )}
       {Object.keys(data).length > 0 && (
         <div className="filtered-item-container">
           {Object.keys(data).map((key) =>

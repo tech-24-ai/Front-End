@@ -328,59 +328,55 @@ span.anticon {
 
 // new custom search input
 div.new-custom-search-input {
-  // width: 78%;
   width: 100%;
-  .ant-input-affix-wrapper {
-    border-radius: 8px;
-    padding: 10px;
-    height: 50px;
-    // min-width: 403px;
-    color: #b0b8bf;
-
-    &:hover .anticon-close {
-      display: block;
+  .ant-input-search {
+    .ant-input-wrapper {
+      border: 1px solid #d9dfe9;
+      border-radius: 8px;
     }
 
-    border: 1.5px solid #d9dfe9;
     &.bg {
-      border: none;
-      background-color: #1f1f1f;
-    }
-
-    input.ant-input {
-      // height: 25px;
-      font-size: 1rem;
-      background-color: transparent;
-      color: inherit;
-    }
-
-    .anticon-close {
-      display: none;
-    }
-    .ant-input-suffix,
-    .ant-input-prefix {
-      span.anticon-search {
-        width: 40px;
-        height: 40px;
-        margin-top: -5px;
-        display: flex;
-        justify-content: flex-end;
-        align-items: flex-end;
-        border-radius: 50%;
-        cursor: pointer;
-        svg {
-          color: inherit;
-          font-size: 20px;
-          margin-bottom: 6px;
-          margin-right: 6px;
-        }
+      .ant-input-wrapper {
+        background-color: #1f1f1f;
+        border: none;
+        border-radius: 8px;
       }
+      .ant-input-affix-wrapper,
+      .ant-input-group-addon {
+        background-color: transparent;
+        border: none;
+      }
+    }
 
-      .anticon-close {
+    .ant-input-clear-icon {
+      color: $themeSecondary;
+    }
+
+    .ant-input-affix-wrapper {
+      border-top-left-radius: inherit !important;
+      border-bottom-left-radius: inherit !important;
+      height: 50px;
+      color: #b0b8bf;
+      border: none;
+      input.ant-input {
+        font-size: 1rem;
+        background-color: transparent;
+        color: inherit;
+      }
+    }
+
+    .ant-input-group-addon {
+      border-top-right-radius: inherit;
+      border-bottom-right-radius: inherit;
+      // border: 1px solid #1f1f1f;
+      background: none;
+      button {
+        background: none;
+        border: none;
+        box-shadow: none;
+
         svg {
-          color: #005dd4;
-          font-size: 1rem;
-          cursor: pointer;
+          color: $themeSecondary;
         }
       }
     }

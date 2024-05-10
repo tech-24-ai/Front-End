@@ -25,7 +25,6 @@ const Community = ({ community, getAllCrud, router }) => {
   const [isActive, setIsActive] = useState("All");
   const [isHover, setIsHover] = useState("All");
   const [communityFeature, setCommunityFeature] = useState([]);
-  const [search, setSearch] = useState("");
   const [value, setValue] = useState();
 
   const [allCommunityFeature, setAllCommunityFeature] = useState([]);
@@ -112,11 +111,10 @@ const Community = ({ community, getAllCrud, router }) => {
     arrData.push(data);
   });
 
-  const handleSearch = () => {
-    console.log("Enter");
+  const handleSearch = (searchValue) => {
     Router.push({
       pathname: "/community/searchCommunity",
-      query: { value: search },
+      query: { value: searchValue },
     });
   };
 
@@ -164,16 +162,8 @@ const Community = ({ community, getAllCrud, router }) => {
             <div className="mt-4" style={styles.inputGroup}>
               <SearchInput
                 placeholder="Search anything"
-                className="SearchInput bg"
-                value={search}
-                onChange={(value) => setSearch(value)}
-                onPressEnter={() => handleSearch()}
-                suffix={
-                  <SearchOutlined
-                    style={{ color: "#1E96FF" }}
-                    onClick={() => handleSearch()}
-                  />
-                }
+                className="bg"
+                onSearch={(value) => handleSearch(value)}
               />
             </div>
           </div>

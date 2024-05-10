@@ -3,27 +3,22 @@ import { withRouter } from "next/router";
 import { Container } from "reactstrap";
 import { crudService } from "../../_services";
 import Router from "next/router";
-import { SearchOutlined, CloseCircleOutlined, RightOutlined } from "@ant-design/icons";
+import {
+  SearchOutlined,
+  CloseCircleOutlined,
+  RightOutlined,
+} from "@ant-design/icons";
 import { crudActions } from "../../_actions";
 import { connect } from "react-redux";
-import moment from 'moment';
-import {
-  Card,
-  Input,
-  Select,
-  Modal,
-  Label,
-} from "antd";
+import moment from "moment";
+import { Card, Input, Select, Modal, Label } from "antd";
 import CustomPagination from "../../components/pagination";
 import { isMobile } from "react-device-detect";
 import myImageLoader from "../../components/imageLoader";
 import Image from "next/future/image";
 import SearchInput from "../../components/form/searchInput";
 
-
-
 const Community = ({ router }) => {
-
   const { value } = Router.query;
   const [communityFeature, setCommunityFeature] = useState([]);
   const [sortBy, setSortBy] = useState("created_at");
@@ -33,8 +28,6 @@ const Community = ({ router }) => {
   const itemsPerPage = 10;
 
   const [searchQuery, setSearchQuery] = useState(value);
-
-
 
   useEffect(() => {
     getAllPosts(searchQuery, currentPage, sortBy, orderDirection);
@@ -55,13 +48,13 @@ const Community = ({ router }) => {
         page: page + 1,
         pageSize: itemsPerPage,
         orderBy: sortBy,
-        orderDirection: orderDirection
+        orderDirection: orderDirection,
       });
-     
+
       if (data?.data?.response_type === 1) {
         setCommunityFeature(data.data?.data);
       } else if (data?.data?.response_type === 2) {
-        console.log("console")
+        console.log("console");
       }
 
       setTotal(data.data?.lastPage);
@@ -70,14 +63,13 @@ const Community = ({ router }) => {
     }
   };
 
-
   //Filter
-  const handleSearch = (value) => {
-    setSearchQuery(value);
+  const handleSearch = (searchText) => {
+    setSearchQuery(searchText);
     setCurrentPage(0);
-    getAllPosts(value, 0, sortBy);
+    // setIsSearchActive(searchText.trim() !== "");
+    getAllPosts(searchText, 0, sortBy);
   };
-
 
   let arrData = [];
   communityFeature?.map((item) => {
@@ -95,17 +87,20 @@ const Community = ({ router }) => {
     tag: "",
   });
   const parseDate = (dateString) => {
-    const [datePart, timePart] = dateString.split(' ');
-    const [month, day, year] = datePart.split('-');
-    const [hours, minutes] = timePart.split(':');
+    const [datePart, timePart] = dateString.split(" ");
+    const [month, day, year] = datePart.split("-");
+    const [hours, minutes] = timePart.split(":");
     const parsedDate = new Date(year, month - 1, day, hours, minutes);
-    return parsedDate.toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" });
+    return parsedDate.toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
 
   const [activeIndex, setActiveIndex] = useState(null);
 
@@ -119,10 +114,10 @@ const Community = ({ router }) => {
   };
 
   const joinCommunity = (community_id) => {
-    crudService._create("community/join", { community_id })
+    crudService
+      ._create("community/join", { community_id })
       .then(() => window.location.reload());
   };
-
 
   const handleSort = (e) => {
     setSortBy(e.target.value);
@@ -134,7 +129,6 @@ const Community = ({ router }) => {
     getAllPosts(searchQuery, currentPage, e.target.value, orderDirection);
   };
 
-
   // const handleClearSearch = () => {
   //   setSearchQuery("");
   //   setCurrentPage(0);
@@ -143,7 +137,7 @@ const Community = ({ router }) => {
   // };
   const handleAllCommunity = () => {
     Router.push("/community");
-  }
+  };
 
   const calculateTimeAgo = (createdAt) => {
     const currentDateTime = moment();
@@ -166,7 +160,6 @@ const Community = ({ router }) => {
   const gotoQuestionDetail = (url_slug) => {
     Router.replace(`/community/question/${url_slug}`);
   };
-
 
   const sortOptions = [
     {
@@ -192,7 +185,7 @@ const Community = ({ router }) => {
                     color: "#B0B8BF",
                     fontFamily: "Inter",
                     fontSize: "14px",
-                    cursor: "pointer"
+                    cursor: "pointer",
                   }}
                 >
                   Community <RightOutlined style={{ verticalAlign: "0" }} />
@@ -212,20 +205,9 @@ const Community = ({ router }) => {
           </div>
           <div className="mt-3 search-bar-community">
             <SearchInput
-              placeholder="Search anything.."
-              prefix={<SearchOutlined style={{ color: "#0074D9", padding: "0 6px" }} />}
-              // suffix={searchQuery && <CloseCircleOutlined onClick={handleClearSearch} style={{ color: "#0074D9", cursor: "pointer" }} />}
-              allowClear= "true"
-              value={searchQuery}
-              onChange={handleSearch}
-              style={{
-                width: "100%",
-                padding: "10px",
-                border: "1px solid #ccc",
-                borderRadius: "5px",
-                background: "#ffffff",
-                boxSizing: "border-box",
-              }}
+              placeholder="Search anything"
+              defaultValue={searchQuery}
+              onSearch={(value) => handleSearch(value)}
             />
             <div className="sorting-community sorting-display">
               <label className="sortby" htmlFor="sortDropdown">

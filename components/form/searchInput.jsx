@@ -1,43 +1,21 @@
 import React, { useState } from "react";
 import { Input } from "antd";
-import { CloseOutlined } from "@ant-design/icons";
-function SearchInput({
-  placeholder = "Search",
-  suffix,
-  prefix,
-  allowClear = false,
-  onChange,
-  parentProps,
-  width,
-  ...more
-}) {
- 
-  const [value, setValue] = useState("");
-
-  const handleChange = (e) => {
-    setValue(e.target.value);
-    onChange(e.target.value);
+import { SearchOutlined } from "@ant-design/icons";
+const { Search } = Input;
+function SearchInput({ onSearch, parentProps, ...props }) {
+  const handleSearch = (value, _e, info) => {
+    onSearch(value);
   };
-
-  const handleClear = () => {
-    setValue("");
-    onChange("");
-  };
-  if (allowClear) {
-    suffix = <CloseOutlined onClick={() => handleClear()} />;
-  }
 
   return (
     <div className="new-custom-search-input" {...parentProps}>
-      <Input
-        placeholder={placeholder}
-        suffix={suffix}
-        prefix={prefix}
-        className="SearchInput"
-        value={value}
-        onChange={handleChange}
-        {...more}
-        style={{ width: width }}
+      <Search
+        placeholder="Search"
+        enterButton={<SearchOutlined style={{ fontSize: "20px" }} />}
+        allowClear
+        size="large"
+        onSearch={handleSearch}
+        {...props}
       />
     </div>
   );

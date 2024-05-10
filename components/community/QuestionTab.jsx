@@ -243,7 +243,7 @@ const QuestionTab = ({
 
   useEffect(() => {
     fetchData();
-  }, [page, sortBy, community]);
+  }, [page, headerSearch, sortBy, community]);
 
   const fetchData = () => {
     if (componentName == "community" && community) {
@@ -341,10 +341,6 @@ const QuestionTab = ({
     Router.push("/community");
   };
 
-  const handleSearch = () => {
-    fetchData();
-  };
-
   const handleDocumentDownload = (item) => {
     const { id, name } = item;
     downloadDocument(
@@ -358,28 +354,11 @@ const QuestionTab = ({
     <div className="community-tab-container questions-tab-container community-detail-wrapper">
       {isSearch && (
         <div className="search-container">
-          {/* <Search
-            style={{ width: isMobile ? "84%" : "65%" }}
-            placeholder="Search a question..."
-            onSearch={onSearch}
-            enterButton
-            onChange={headerSearchFunction}
-            value={headerSearch}
-          /> */}
-
           <SearchInput
             placeholder="Search anything"
-            className="SearchInput"
             parentProps={{ style: { width: isMobile ? "84%" : "74%" } }}
-            value={headerSearch}
-            onChange={(value) => setHeaderSearch(value)}
-            onPressEnter={() => handleSearch()}
-            suffix={
-              <SearchOutlined
-                style={{ color: "#1E96FF" }}
-                onClick={() => handleSearch()}
-              />
-            }
+            defaultValue={headerSearch}
+            onSearch={(value) => setHeaderSearch(value)}
           />
 
           <Image
@@ -462,7 +441,12 @@ const QuestionTab = ({
       )}
 
       <div>
-        <Modal maskClosable={false} visible={isModalOpen} onCancel={handleCancel} footer={null}>
+        <Modal
+          maskClosable={false}
+          visible={isModalOpen}
+          onCancel={handleCancel}
+          footer={null}
+        >
           <span
             style={{
               marginBottom: "-20px",

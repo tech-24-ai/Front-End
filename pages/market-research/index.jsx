@@ -16,8 +16,6 @@ function MarketResearch({
   router,
 }) {
   const marketBannerImage = "../../images/market-research.jpg";
-  const [searchText, setSearchText] = useState("");
-
   useEffect(() => {
     getAllCrud("market_research", "market_research", {
       orderBy: "id",
@@ -31,7 +29,7 @@ function MarketResearch({
   }, []);
 
   // search
-  const handleSearch = () => {
+  const handleSearch = (searchText) => {
     console.log("SEARCHENTER");
     router.push(`${router.asPath}/research-list?q=${searchText}`);
   };
@@ -60,16 +58,9 @@ function MarketResearch({
             <div className="mt-4" style={styles.inputGroup}>
               <div className="search-box">
                 <SearchInput
+                  className="bg"
                   placeholder="Search anything"
-                  className="SearchInput bg"
-                  onChange={(value) => setSearchText(value)}
-                  onPressEnter={() => handleSearch()}
-                  suffix={
-                    <SearchOutlined
-                      style={{ color: "#1E96FF" }}
-                      onClick={() => handleSearch()}
-                    />
-                  }
+                  onSearch={(value) => handleSearch(value)}
                 />
               </div>
             </div>
