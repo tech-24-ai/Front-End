@@ -2334,6 +2334,15 @@
     // transition: border-color 0.3s, box-shadow 0.6s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
     left:56px!important;
 }
+.ant-slider-dot{
+  bottom: 80%;
+    transform: translateY(50%);
+    width: 25px;
+    height: 25px;
+    margin-left: -10px;
+    color: blue;
+    background: blue
+}
 .ant-slider-vertical .ant-slider-rail {
   width: 16px!important;
   height: 200%!important;

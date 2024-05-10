@@ -104,6 +104,7 @@ const Profile = ({
   const [libraryPageCount, setLibraryPageCount] = useState(0);
 
   const [libraryData, setLibraryData] = useState([]);
+  const [reloadComponent, setreloadComponent] = useState(false);
 
   const [searchQuery, setSearchQuery] = useState(q);
   const [filteredData, setFilteredData] = useState({});
@@ -234,23 +235,28 @@ const Profile = ({
         console.log("libraryPageCount", libraryPageCount);
         setLibraryPageCount(isNaN(libraryPageCount) ? 0 : libraryPageCount);
       });
-  }, [libraryPage, sortBy]);
+  }, [libraryPage, sortBy, reloadComponent]);
 
+  console.log("reloadComponent",reloadComponent);
+  
   const handleSort = (e) => {
     setSortBy(e.target.value);
   };
-
+ 
   const handleDelete = (id) => {
+    
     crudService
-      ._delete("visitor_library", id)
-      .then((result) => {
-        console.log("Item deleted successfully:", result);
-        setLibraryData(libraryData.filter((item) => item.id !== id));
-      })
-      .catch((error) => {
-        console.error("Error deleting item:", error);
-      });
-  };
+        ._delete("visitor_library", id)
+        .then((result) => {
+            console.log("Item deleted successfully:", result);
+            setreloadComponent(true)
+          
+        })
+        .catch((error) => {
+            console.error("Error deleting item:", error);
+        });
+};
+
 
   const sortOptions = [
     {
@@ -751,6 +757,8 @@ const Profile = ({
       const bottomMarks = {};
       const levelCount = visitor_profile_levels?.[0]?.leavels.length;
       const interval = levelCount ? 100 / (levelCount - 1) : 0;
+      
+      // console.log("interval",interval);
 
       visitor_profile_levels?.[0]?.leavels.forEach((level, index) => {
         const label = Math.round(interval * index);
@@ -767,8 +775,10 @@ const Profile = ({
         } \n ${visitor_profile_levels?.[0]?.leavels[levelCount - 1].title}`,
         style: { whiteSpace: "pre" },
       };
+      console.log("topMarks",bottomMarks);
+      
 
-      return { topMarks, bottomMarks };
+      return { bottomMarks, topMarks };
     };
 
     const { topMarks, bottomMarks } = calculateMarks();
@@ -1141,11 +1151,11 @@ const Profile = ({
     //   label: "Community",
     //   children: <Tab2 />,
     // },
-    {
-      key: "3",
-      label: "Questions",
-      children: <QuestionTab />,
-    },
+    // {
+    //   key: "3",
+    //   label: "Questions",
+    //   children: <QuestionTab />,
+    // },
     {
       key: "4",
       label: "Levels",
