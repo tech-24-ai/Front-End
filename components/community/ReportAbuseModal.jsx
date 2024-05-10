@@ -77,6 +77,7 @@ const ReportAbuseModal = ({
       footer={null}
       onCancel={closeModel}
       className="report-abuse-modal"
+      maskClosable={false}
     >
       <span
         style={{

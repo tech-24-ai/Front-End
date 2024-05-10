@@ -1052,6 +1052,7 @@ const CommunityQuestionDetail = ({
                       visible={isModalOpen}
                       onCancel={handleCancel}
                       footer={null}
+                      maskClosable={false}
                     >
                       <span
                         style={{

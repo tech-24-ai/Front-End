@@ -189,7 +189,7 @@ class Blog extends Component {
                         style={{
                           display: "flex",
                           justifyContent: "space-between",
-                          width: "90%",
+                          width: "100%",
                         }}
                       >
                         <div
@@ -202,7 +202,7 @@ class Blog extends Component {
                         >
                           {blog?.author}
                         </div>
-                        <div style={{ display: "flex" }}>
+                        <div style={{ display: "flex", alignItems: "center" }}>
                           <div className="date">
                             {moment(blog.created_at).format("LL")}
                           </div>
