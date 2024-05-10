@@ -147,8 +147,8 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
                     cursor: "pointer",
                   }}
                 >
-                  {newsAnnouncementDetail?.community?.name}{" "}
-                  <RightOutlined style={{ verticalAlign: "0" }} />
+                  {newsAnnouncementDetail?.community?.name}{"  (News & Announcements)"}
+                  <RightOutlined style={{ verticalAlign: "0", padding: "0 6px" }} />
                 </span>
                 <span
                   className="questions_font_12px"
@@ -156,7 +156,7 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
                     color: "#0074D9",
                     fontFamily: "Inter",
                     fontSize: "14px",
-                    cursor: "pointer",
+                    cursor: "pointer"
                   }}
                 >
                   {newsAnnouncementDetail?.title &&
@@ -167,6 +167,8 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
               </h4>
             </div>
           </div>
+
+          <h5 style={{margin: "1.4rem 0"}}>News & Announcements</h5>
 
           <div className="profile-container row" style={{ marginTop: "0" }}>
             <div className="community-tab-container questions-tab-container community-detail-wrapper col-md-9">

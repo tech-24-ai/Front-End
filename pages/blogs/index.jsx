@@ -136,6 +136,10 @@ function Blogs({ router }) {
                     placeholder="Search anything..."
                     className="SearchInput bg"
                     onChange={(value) => setValue(value)}
+                    onPressEnter={() => {
+                      setPage(0);
+                      fetchBlogData();
+                    }}
                     suffix={
                       <SearchOutlined
                         style={{ color: "#1E96FF" }}
@@ -164,56 +168,73 @@ function Blogs({ router }) {
           >
             Blogs
           </h4>
-          <div className="second-div">
-            {posts?.data?.map((post, key) => (
-              <Link href={`blogs/${post.slug}`} key={key}>
-                <div className="blog-list">
-                  <div
-                    className="blog-card"
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      height: "100%",
-                      justifyContent: "space-between",
-                      cursor: "pointer",
-                    }}
-                  >
-                    <div style={{ letterSpacing: "normal" }}>
-                      <Image
-                        className="latest-blog-list-img"
-                        style={{ transition: "transform 0.5s ease" }}
-                        src={post.image}
-                        preview={false}
-                        alt=""
-                        placeholder="blog banner"
-                        onMouseOver={(e) => {
-                          e.target.style.transform = "scale(1.1)";
-                        }}
-                        onMouseOut={(e) => {
-                          e.target.style.transform = "scale(1)";
-                        }}
-                      />
-                      <p className="category bg">{post.blog_topic_name}</p>
-                      <p className="blog-heading">{post.name}</p>
-                      <p className="blog-detail">{post.details}</p>
-                    </div>
-                    <div className="date-section">
-                      <div className="date">
-                        {moment(post.created_at).format("LL")}
+          {posts?.data && posts?.data?.length > 0 ? (
+            <div className="second-div">
+              {posts?.data?.map((post, key) => (
+                <Link href={`blogs/${post.slug}`} key={key}>
+                  <div className="blog-list">
+                    <div
+                      className="blog-card"
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        height: "100%",
+                        justifyContent: "space-between",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <div style={{ letterSpacing: "normal" }}>
+                        <Image
+                          className="latest-blog-list-img"
+                          style={{ transition: "transform 0.5s ease" }}
+                          src={post.image}
+                          preview={false}
+                          alt=""
+                          placeholder="blog banner"
+                          onMouseOver={(e) => {
+                            e.target.style.transform = "scale(1.1)";
+                          }}
+                          onMouseOut={(e) => {
+                            e.target.style.transform = "scale(1)";
+                          }}
+                        />
+                        <p className="category bg">{post.blog_topic_name}</p>
+                        <p className="blog-heading">{post.name}</p>
+                        <p className="blog-detail">{post.details}</p>
                       </div>
-                      <div className="custom-divider"></div>
-                      <div className="time">{post?.read_time}</div>
-                      <div className="custom-divider"></div>
-                      <div className="time">{post?.author}</div>
+                      <div className="date-section">
+                        <div className="date">
+                          {moment(post.created_at).format("LL")}
+                        </div>
+                        <div className="custom-divider"></div>
+                        <div className="time">{post?.read_time}</div>
+                        <div className="custom-divider"></div>
+                        <div className="time">{post?.author}</div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <p
+              style={{
+                fontWeight: "400",
+                fontSize: "14px",
+                color: "#54616C",
+                textAlign: "center",
+                padding: "10px",
+                width: "100%",
+                textAlign: "center",
+              }}
+            >
+              No Data Available
+            </p>
+          )}
+
           <br></br>
           <div className="mt-5" style={{ width: "100%" }}>
-            {posts?.data?.length > 0 && pageCount> 1 && (
+            {posts?.data?.length > 0 && pageCount > 1 && (
               <CustomPagination
                 pageCount={pageCount}
                 page={page}

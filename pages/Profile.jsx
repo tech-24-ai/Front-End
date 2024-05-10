@@ -37,7 +37,7 @@ import profile_img from "../public/new_images/profile.svg";
 import { Pagination } from "antd";
 import CustomPagination from "../components/pagination";
 import SearchInput from "../components/form/searchInput";
-import {  Timeline, Icon } from 'antd';
+import { Timeline, Icon } from "antd";
 import QuestionTab from "../components/community/QuestionTab";
 import shorting_icon from "../public/new_images/sorting_icon.svg";
 
@@ -64,12 +64,10 @@ const Profile = ({
   const [sortByOrder, setSortByOrder] = useState(false);
   const [countryId, setCountryId] = useState(visitorprofile?.country?.id);
   const [countryList, setCountryList] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState(
-    {
-      label: visitorprofile?.country?.name,
-      id :visitorprofile?.country?.id,
-    }
-  );
+  const [selectedCountry, setSelectedCountry] = useState({
+    label: visitorprofile?.country?.name,
+    id: visitorprofile?.country?.id,
+  });
   const [activeTab, setActiveTab] = useState("1");
 
   const [inputValue, setInputValue] = useState("");
@@ -78,23 +76,19 @@ const Profile = ({
   //   setMode(e.target.value);
   // };
 
-  
-  
-
   const [updateProfileData, setUpdateProfileData] = useState({
     alternate_email: "",
     country_code: "",
     mobile: "",
     profile_pic_url: "",
-    name:"",
-    first_name : "",
-    last_name : "",
-    designation :"",
-    job_title :"",
-    company :"",
-    city_district :"",
-    country:""
-    
+    name: "",
+    first_name: "",
+    last_name: "",
+    designation: "",
+    job_title: "",
+    company: "",
+    city_district: "",
+    country: "",
   });
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -114,7 +108,7 @@ const Profile = ({
 
   const [searchQuery, setSearchQuery] = useState(q);
   const [filteredData, setFilteredData] = useState({});
-  const [mode, setMode] = useState('left');
+  const [mode, setMode] = useState("left");
   // const [researchData, setResearchData] = useState([]);
   const onPageChange = (page) => {
     setCurrentPage(page);
@@ -137,7 +131,7 @@ const Profile = ({
       label: "Most Voted",
     },
   ];
-// console.log("countryId",countryId);
+  // console.log("countryId",countryId);
   useEffect(() => {
     crudService._getAll("countries?orderBy=sort_order&orderPos=ASC", []).then(
       (result) => {
@@ -159,8 +153,7 @@ const Profile = ({
     );
   }, []);
 
-//  console.log("setSelectedCountry",countryList);
-
+  //  console.log("setSelectedCountry",countryList);
 
   const calculateTimeAgo = (createdAt) => {
     const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
@@ -170,7 +163,6 @@ const Profile = ({
     const humanReadableDiff = duration.humanize(true);
     return humanReadableDiff;
   };
-
 
   const [sortType, setSortType] = useState("asc");
 
@@ -238,7 +230,7 @@ const Profile = ({
       })
       .then((result) => {
         setLibraryData(result?.data?.data);
-        console.log("libraryData",result?.data);
+        console.log("libraryData", result?.data);
         const libraryPageCount = Math.ceil(result?.data?.total / itemsPerPage);
         console.log("libraryPageCount", libraryPageCount);
         setLibraryPageCount(isNaN(libraryPageCount) ? 0 : libraryPageCount);
@@ -289,7 +281,9 @@ const Profile = ({
     }, {});
   };
 
-  const groupedData = visitorActivity ? groupDataByDate(visitorActivity, "created_at") : [];
+  const groupedData = visitorActivity
+    ? groupDataByDate(visitorActivity, "created_at")
+    : [];
   const sortedDates = Object.keys(groupedData).sort(
     (a, b) => moment(b, "MM-DD-YYYY") - moment(a, "MM-DD-YYYY")
   );
@@ -344,10 +338,10 @@ const Profile = ({
       last_name: last_name,
       designation: visitorprofile?.designation,
       company: visitorprofile?.company,
-      city_district :  visitorprofile?.visitor_ip_city,
-      country : visitorprofile?.country,
-      job_title:visitorprofile?.designation,
-      name :visitorprofile?.name,
+      city_district: visitorprofile?.visitor_ip_city,
+      country: visitorprofile?.country,
+      job_title: visitorprofile?.designation,
+      name: visitorprofile?.name,
     }));
     setUpdateCom(false);
     setIsModalOpen(true);
@@ -433,19 +427,17 @@ const Profile = ({
         first_name: updateProfileData.first_name,
         // name: updateProfileData.first_name,
         last_name: updateProfileData.last_name,
-        designation : updateProfileData.designation,
-        company : updateProfileData.company,
-        city_district:updateProfileData.city_district,
-        job_title:updateProfileData.designation,
-        country:countryId,
+        designation: updateProfileData.designation,
+        company: updateProfileData.company,
+        city_district: updateProfileData.city_district,
+        job_title: updateProfileData.designation,
+        country: countryId,
       })
       .then((data) => {
         data.status == 200 && setUpdateCom(true);
       });
     setIsModalOpen(false);
   };
-
- 
 
   const [isMobile, setIsMobile] = useState(false);
 
@@ -458,25 +450,24 @@ const Profile = ({
     handleResize();
 
     // Listen to window resize events
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     // Clean up the event listener on component unmount
-    return () => window.removeEventListener('resize', handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-
   const style = {
-    display: 'inline-block',
+    display: "inline-block",
     height: 300,
     marginLeft: 70,
   };
   const marks = {
-    100: '0°C',
-    26: '26°C',
-    37: '37°C',
+    100: "0°C",
+    26: "26°C",
+    37: "37°C",
     100: {
       style: {
-        color: '#f50',
+        color: "#f50",
       },
       label: <strong>100°C</strong>,
     },
@@ -638,6 +629,48 @@ const Profile = ({
       const humanReadableDiff = duration.humanize(true);
       return humanReadableDiff;
     };
+
+    const redirectToPage = ({
+      activity_type,
+      communityPost,
+      communityPostReply,
+      community,
+    }) => {
+      if (
+        activity_type === 1 ||
+        activity_type === 6 ||
+        activity_type === 4 ||
+        activity_type === 5
+      ) {
+        //1/2: create/view Question => Open Question Tab
+        //4/5 Upvote/downvote Answer => Option Question Tab
+        const url = `community/question/${communityPost?.url_slug}`;
+        Router.push(url);
+        return false;
+      }
+
+      if (activity_type === 2 || activity_type === 3) {
+        //2: Answer Question => Open Answer Tab
+        //3: Comment on Answer => Open question/Comment Tab with Comments
+        sessionStorage.setItem("community_id", community?.url_slug);
+        sessionStorage.setItem(
+          "community_question_id",
+          communityPost?.url_slug
+        );
+        sessionStorage.setItem("community_parent_id", communityPostReply?.id);
+        sessionStorage.setItem(
+          "community_post_details",
+          JSON.stringify({
+            ...communityPostReply,
+            communityPost: { ...communityPost, community },
+          })
+        );
+        // const url = `community/${community?.url_slug}/question/${communityPost?.url_slug}/comments`;
+        const url = `community/question/comments`;
+        Router.push(url);
+        return false;
+      }
+    };
     return (
       <div className="activity-tab-container">
         <div className="cards-container">
@@ -718,7 +751,6 @@ const Profile = ({
     );
   };
 
-
   const Tab4 = () => {
     const calculateMarks = () => {
       const topMarks = {};
@@ -741,7 +773,7 @@ const Profile = ({
         label: `${
           visitor_profile_levels?.[0]?.leavels[levelCount - 1].level
         } \n ${visitor_profile_levels?.[0]?.leavels[levelCount - 1].title}`,
-        style: { whiteSpace: "pre"  },
+        style: { whiteSpace: "pre" },
       };
       console.log("topMarks",bottomMarks);
       
@@ -751,102 +783,139 @@ const Profile = ({
 
     const { topMarks, bottomMarks } = calculateMarks();
     const style = {
-      display: 'inline-block',
+      display: "inline-block",
       height: 300,
       marginLeft: 70,
     };
     const levelCount = visitor_profile_levels?.[0]?.leavels.length;
-      const interval = levelCount ? 100 / (levelCount - 1) : 0;
+    const interval = levelCount ? 100 / (levelCount - 1) : 0;
     const marks = {
-      
-      0:   {
+      0: {
         style: {
-            // color: '#f50',
+          // color: '#f50',
         },
-        label: <span  style={{marginLeft:"50px"}}><span style={{fontSize:"15px"}}>{visitor_profile_levels?.[0]?.leavels[levelCount - 1].level}</span><br/><b style={{fontSize:"15px"}}>Legend</b></span>,
+        label: (
+          <span style={{ marginLeft: "50px" }}>
+            <span style={{ fontSize: "15px" }}>
+              {visitor_profile_levels?.[0]?.leavels[levelCount - 1].level}
+            </span>
+            <br />
+            <b style={{ fontSize: "15px" }}>Legend</b>
+          </span>
+        ),
       },
-      20:  {
+      20: {
         style: {
-            // color: '#f50',
+          // color: '#f50',
         },
-        label: <span style={{marginLeft:"50px"}}><span style={{fontSize:"15px"}}>Level 5</span><br/><b style={{fontSize:"15px"}}>Pro</b></span>,
-
+        label: (
+          <span style={{ marginLeft: "50px" }}>
+            <span style={{ fontSize: "15px" }}>Level 5</span>
+            <br />
+            <b style={{ fontSize: "15px" }}>Pro</b>
+          </span>
+        ),
       },
-      40:  {
+      40: {
         style: {
-            // color: '#f50',
+          // color: '#f50',
         },
-        label: <span  style={{marginLeft:"0px"}}><span style={{fontSize:"15px"}}>Level 4</span><br/><b style={{fontSize:"15px"}}>Contributor</b></span>,
-
+        label: (
+          <span style={{ marginLeft: "0px" }}>
+            <span style={{ fontSize: "15px" }}>Level 4</span>
+            <br />
+            <b style={{ fontSize: "15px" }}>Contributor</b>
+          </span>
+        ),
       },
-      60:  {
+      60: {
         style: {
-            // color: '#f50',
+          // color: '#f50',
         },
-        label: <span className="mt-2"  style={{marginLeft:"0px"}}><span style={{fontSize:"15px"}}>Level 3</span><br/><b style={{fontSize:"15px"}}>Action Taker</b></span>,
-
+        label: (
+          <span className="mt-2" style={{ marginLeft: "0px" }}>
+            <span style={{ fontSize: "15px" }}>Level 3</span>
+            <br />
+            <b style={{ fontSize: "15px" }}>Action Taker</b>
+          </span>
+        ),
       },
-      80:  {
+      80: {
         style: {
-            // color: '#f50',
+          // color: '#f50',
         },
-        label: <span style={{marginLeft:"50px"}}><span style={{fontSize:"15px"}}>Level 2</span><br/><b style={{fontSize:"15px"}}>Starter</b></span>,
-
+        label: (
+          <span style={{ marginLeft: "50px" }}>
+            <span style={{ fontSize: "15px" }}>Level 2</span>
+            <br />
+            <b style={{ fontSize: "15px" }}>Starter</b>
+          </span>
+        ),
       },
       // Level:"Levelvbhdfbv",
       100: {
         style: {
-            // color: '#f50',
+          // color: '#f50',
         },
-        label: <span style={{marginLeft:"50px"}}><span style={{fontSize:"15px"}}>Level 1</span><br/><b style={{fontSize:"15px"}}>New Bee</b></span>,
-
+        label: (
+          <span style={{ marginLeft: "50px" }}>
+            <span style={{ fontSize: "15px" }}>Level 1</span>
+            <br />
+            <b style={{ fontSize: "15px" }}>New Bee</b>
+          </span>
+        ),
       },
     };
     return (
       <div>
-      {/* Content for mobile view */}
-      {isMobile && (
-         <div className="levels-tab-container">
-         <Card
-          bordered={true}
-          style={{
-            // width: "100%",
-            // height: "fit-content",
-            
-          }}
-        >
-          <p className="sliderTitle">
-            Starter since  {visitor_profile_levels?.[0]?.joined_at}
-          </p>
-          <div className="">
-          {/* ReactDOM.render( */}
-        <div style={{marginLeft:"50px",height:"500px"}}>
-        
-          <div style={style}>
-          <Slider
-          // className="slider-one"
-          className="verticalSliderfirst"
-          vertical range
-          marks={marks}
-           step={null}
-          trackStyle={{ backgroundColor: "#0074D9", height: "8px" }}
-            railStyle={{ backgroundColor: "#EBEBF0", height: "8px" }}
-        defaltValue={visitor_profile_levels?.[0]?.total_points_earned}
-          
-        style={{left:"-45px",top:"0px"}}
-        />
-          {/* <Slider vertical range marks={Marks} defaultValue={[100]} /> */}
-            <Slider 
-            handleStyle={{ display: "none" }}
-            trackStyle={{ display: "none" }}
-            railStyle={{ display: "none" }}
-            step={null}
-            
-            className="verticalSlidertwo" vertical range marks={bottomMarks} defaultValue={[100]} 
-            style={{marginLeft:"150px",top:"-320px"}}
-            onChange={(value) => console.log(value)}
-            />
-             {/* <Slider
+        {/* Content for mobile view */}
+        {isMobile && (
+          <div className="levels-tab-container">
+            <Card
+              bordered={true}
+              style={
+                {
+                  // width: "100%",
+                  // height: "fit-content",
+                }
+              }
+            >
+              <p className="sliderTitle">
+                Starter since {visitor_profile_levels?.[0]?.joined_at}
+              </p>
+              <div className="">
+                {/* ReactDOM.render( */}
+                <div style={{ marginLeft: "50px", height: "500px" }}>
+                  <div style={style}>
+                    <Slider
+                      // className="slider-one"
+                      className="verticalSliderfirst"
+                      vertical
+                      range
+                      marks={marks}
+                      step={null}
+                      trackStyle={{ backgroundColor: "#0074D9", height: "8px" }}
+                      railStyle={{ backgroundColor: "#EBEBF0", height: "8px" }}
+                      defaltValue={
+                        visitor_profile_levels?.[0]?.total_points_earned
+                      }
+                      style={{ left: "-45px", top: "0px" }}
+                    />
+                    {/* <Slider vertical range marks={Marks} defaultValue={[100]} /> */}
+                    <Slider
+                      handleStyle={{ display: "none" }}
+                      trackStyle={{ display: "none" }}
+                      railStyle={{ display: "none" }}
+                      step={null}
+                      className="verticalSlidertwo"
+                      vertical
+                      range
+                      marks={bottomMarks}
+                      defaultValue={[100]}
+                      style={{ marginLeft: "150px", top: "-320px" }}
+                      onChange={(value) => console.log(value)}
+                    />
+                    {/* <Slider
               marks={bottomMarks}
               step={null}
               handleStyle={{
@@ -860,97 +929,99 @@ const Profile = ({
               onChange={(value) => console.log(value)}
               tooltipVisible={false}
             /> */}
+                  </div>
+                </div>
+                ,{/* mountNode, */}
+              </div>
+              <div className="level-calculation" style={{ marginTop: "60px" }}>
+                <div>
+                  <p>
+                    {visitor_profile_levels?.[0]?.total_points_earned}
+                    <span>Points</span>
+                  </p>
+                </div>
+                <div>
+                  <h6>
+                    Answer = {visitor_profile_levels?.[0]?.answer_point_info}{" "}
+                    point
+                  </h6>
+                  <div className="custom-border"></div>
+                  <h6>
+                    Upvote = {visitor_profile_levels?.[0]?.upvote_point_info}{" "}
+                    point
+                  </h6>
+                </div>
+              </div>
+            </Card>
           </div>
-        </div>,
-  {/* mountNode, */}
-      </div>
-      <div className="level-calculation" style={{marginTop:"60px"}}>
-  <div>
-    <p>
-      {visitor_profile_levels?.[0]?.total_points_earned}
-      <span>Points</span>
-    </p>
-  </div>
-  <div>
-    <h6>
-      Answer = {visitor_profile_levels?.[0]?.answer_point_info} point
-    </h6>
-    <div className="custom-border"></div>
-    <h6>
-      Upvote = {visitor_profile_levels?.[0]?.upvote_point_info} point
-    </h6>
-  </div>
-</div>
-      </Card>
-         </div>
-  
-          
-        
-      )}
+        )}
 
-      {/* Content for desktop view */}
-      {!isMobile && (
-        <div className="desktop-view">
-          <div className="levels-tab-container">
-         <Card
-          bordered={true}
-          style={{
-            width: "100%",
-            height: "fit-content",
-          }}
-        >
-          <p className="sliderTitle">
-            Starter since  {visitor_profile_levels?.[0]?.joined_at}
-          </p>
-          <div className="slider-container">
-            <Slider
-              className="slider-one"
-              handleStyle={{ display: "none" }}
-              trackStyle={{ display: "none" }}
-              railStyle={{ display: "none" }}
-              marks={topMarks}
-              step={null}
-              defaultValue={100}
-              style={{ marginBottom: 20 }}
-            />
-            <Slider
-              marks={bottomMarks}
-              step={null}
-              handleStyle={{
-                backgroundColor: "#0074D9",
-                height: "25.48px",
-                width: "25.48px",
-              }}
-              trackStyle={{ backgroundColor: "#0074D9", height: "8px" }}
-              railStyle={{ backgroundColor: "#EBEBF0", height: "8px" }}
-              defaultValue={visitor_profile_levels?.[0]?.total_points_earned}
-              onChange={(value) => console.log(value)}
-              tooltipVisible={false}
-            />
-          </div>
-          <div className="level-calculation">
-            <div>
-              <p>
-                {visitor_profile_levels?.[0]?.total_points_earned}
-                <span>Points</span>
-              </p>
+        {/* Content for desktop view */}
+        {!isMobile && (
+          <div className="desktop-view">
+            <div className="levels-tab-container">
+              <Card
+                bordered={true}
+                style={{
+                  width: "100%",
+                  height: "fit-content",
+                }}
+              >
+                <p className="sliderTitle">
+                  Starter since {visitor_profile_levels?.[0]?.joined_at}
+                </p>
+                <div className="slider-container">
+                  <Slider
+                    className="slider-one"
+                    handleStyle={{ display: "none" }}
+                    trackStyle={{ display: "none" }}
+                    railStyle={{ display: "none" }}
+                    marks={topMarks}
+                    step={null}
+                    defaultValue={100}
+                    style={{ marginBottom: 20 }}
+                  />
+                  <Slider
+                    marks={bottomMarks}
+                    step={null}
+                    handleStyle={{
+                      backgroundColor: "#0074D9",
+                      height: "25.48px",
+                      width: "25.48px",
+                    }}
+                    trackStyle={{ backgroundColor: "#0074D9", height: "8px" }}
+                    railStyle={{ backgroundColor: "#EBEBF0", height: "8px" }}
+                    defaultValue={
+                      visitor_profile_levels?.[0]?.total_points_earned
+                    }
+                    onChange={(value) => console.log(value)}
+                    tooltipVisible={false}
+                  />
+                </div>
+                <div className="level-calculation">
+                  <div>
+                    <p>
+                      {visitor_profile_levels?.[0]?.total_points_earned}
+                      <span>Points</span>
+                    </p>
+                  </div>
+                  <div>
+                    <h6>
+                      Answer = {visitor_profile_levels?.[0]?.answer_point_info}{" "}
+                      point
+                    </h6>
+                    <div className="custom-border"></div>
+                    <h6>
+                      Upvote = {visitor_profile_levels?.[0]?.upvote_point_info}{" "}
+                      point
+                    </h6>
+                  </div>
+                </div>
+              </Card>
             </div>
-            <div>
-              <h6>
-                Answer = {visitor_profile_levels?.[0]?.answer_point_info} point
-              </h6>
-              <div className="custom-border"></div>
-              <h6>
-                Upvote = {visitor_profile_levels?.[0]?.upvote_point_info} point
-              </h6>
-            </div>
           </div>
-        </Card>
+        )}
       </div>
-        </div>
-      )}
-    </div>
-      
     );
   };
 
@@ -1056,7 +1127,7 @@ const Profile = ({
           ))}
           {/* Render pagination controls */}
           <div className="mt-5" style={{ width: "100%" }}>
-            {libraryData?.length > 0 &&  libraryPageCount > 1 &&(
+            {libraryData?.length > 0 && libraryPageCount > 1 && (
               <CustomPagination
                 pageCount={libraryPageCount}
                 page={libraryPage}
@@ -1297,7 +1368,7 @@ const Profile = ({
                       placeholder="Enter your Name here"
                     />
                   </div>
-                  
+
                   {/* <div className="col-md-6">
                     <p>Last Name</p>
                     <Input
@@ -1315,80 +1386,80 @@ const Profile = ({
                     />
                   </div> */}
                 </div>
-               <div className="row">
-               <div className="col-md-6">
-                  <p>Comapny Name</p>
-                  <Input
-                    name="company"
-                    value={updateProfileData.company}
-                    onChange={(e) => {
-                      const { name, value } = e.target;
-                      setUpdateProfileData((prev) => ({
-                        ...prev,
-                        [name]: value,
-                      }));
-                    }}
-                    placeholder="Enter Compnay Nmae.."
-                  />
+                <div className="row">
+                  <div className="col-md-6">
+                    <p>Comapny Name</p>
+                    <Input
+                      name="company"
+                      value={updateProfileData.company}
+                      onChange={(e) => {
+                        const { name, value } = e.target;
+                        setUpdateProfileData((prev) => ({
+                          ...prev,
+                          [name]: value,
+                        }));
+                      }}
+                      placeholder="Enter Compnay Nmae.."
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <p>Job Title</p>
+                    <Input
+                      name="designation"
+                      value={updateProfileData.designation}
+                      onChange={(e) => {
+                        const { name, value } = e.target;
+                        setUpdateProfileData((prev) => ({
+                          ...prev,
+                          [name]: value,
+                        }));
+                      }}
+                      placeholder="Enter your email ID here"
+                    />
+                  </div>
                 </div>
-                <div className="col-md-6">
-                  <p>Job Title</p>
-                  <Input
-                    name="designation"
-                    value={updateProfileData.designation}
-                    onChange={(e) => {
-                      const { name, value } = e.target;
-                      setUpdateProfileData((prev) => ({
-                        ...prev,
-                        [name]: value,
-                      }));
-                    }}
-                    placeholder="Enter your email ID here"
-                  />
-                </div>
-               </div>
-               <div className="row">
-                <div className="col-md-6">
-                  <p>Country/Region</p>
-                 
+                <div className="row">
+                  <div className="col-md-6">
+                    <p>Country/Region</p>
+
                     <Select
-                    className="react-select-container"
-                    classNamePrefix="react-select"
-                    // defaultValue={colourOptions[0]}
-                    // isDisabled={true}
-                    // isClearable={true}
-                    value={selectedCountry}
-                    isSearchable={true}
-                    name="country"
-                    options={countryList}
-                    onChange={(e)=>setCountryId(e)}
-                    // onChange={(e) => {
-                    //   const { name, value } = e.target;
-                    //   setUpdateProfileData((prev) => ({
-                    //     ...prev,
-                    //     [name]: value,
-                    //   }));
-                    // }}
-                    placeholder="Select Country"
-                    style={{width:"200px"}}
-                  />
+                      className="react-select-container"
+                      classNamePrefix="react-select"
+                      // defaultValue={colourOptions[0]}
+                      // isDisabled={true}
+                      // isClearable={true}
+                      value={selectedCountry}
+                      isSearchable={true}
+                      name="country"
+                      options={countryList}
+                      onChange={(e) => setCountryId(e)}
+                      // onChange={(e) => {
+                      //   const { name, value } = e.target;
+                      //   setUpdateProfileData((prev) => ({
+                      //     ...prev,
+                      //     [name]: value,
+                      //   }));
+                      // }}
+                      placeholder="Select Country"
+                      style={{ width: "200px" }}
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <p>City/District</p>
+                    <Input
+                      name="city_district"
+                      value={updateProfileData.city_district}
+                      onChange={(e) => {
+                        const { name, value } = e.target;
+                        setUpdateProfileData((prev) => ({
+                          ...prev,
+                          [name]: value,
+                        }));
+                      }}
+                    />
+                  </div>
                 </div>
-                 <div className="col-md-6">
-                  <p>City/District</p>
-                  <Input
-                    name="city_district"
-                    value={updateProfileData.city_district}
-                    onChange={(e) => {
-                      const { name, value } = e.target;
-                      setUpdateProfileData((prev) => ({
-                        ...prev,
-                        [name]: value,
-                      }));
-                    }}
-                   />
-                </div>
-               </div>
-               <div className="">
+                <div className="">
                   <p>Alternate Email</p>
                   <Input
                     name="alternate_email"
@@ -1403,7 +1474,7 @@ const Profile = ({
                     placeholder="Enter your email ID here"
                   />
                 </div>
-               <div>
+                <div>
                   <p>Phone Number</p>
                   <div className="phone-number">
                     <Select

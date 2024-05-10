@@ -31,6 +31,7 @@ const Community = ({ community, getAllCrud, router }) => {
   const [allCommunityFeature, setAllCommunityFeature] = useState([]);
   const [topRatedCommunityFeature, setTopRatedCommunityFeature] = useState([]);
   const [trendingQuestions, setTrendingQuestions] = useState([]);
+  const [stats, setStats] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,6 +50,21 @@ const Community = ({ community, getAllCrud, router }) => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const statsFetch = async () => {
+      try {
+        const statsData = await crudService._getAll("community_stats");
+        if (statsData?.data?.data && statsData.data.data.length > 0) {
+          const setItem = statsData.data.data[0];
+          setStats(setItem);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    statsFetch();
+  }, []);
   useEffect(() => {
     const fetchTrendingQuestions = async () => {
       try {
@@ -96,51 +112,23 @@ const Community = ({ community, getAllCrud, router }) => {
     arrData.push(data);
   });
 
-  // console.log("tree data", arrData);
-
-  // const genTreeNode = (parentId, isLeaf = false) => {
-  //   const random = Math.random().toString(36).substring(2, 6);
-  //   return {
-  //     id: random,
-  //     pId: parentId,
-  //     value: random,
-  //     title: isLeaf ? "Tree Node" : "Expand to load",
-  //     isLeaf,
-  //   };
-  // };
-  // const onLoadData = ({ id }) =>
-  //   new Promise((resolve) => {
-  //     setTimeout(() => {
-  //       // setTreeData(
-  //       //     treeData.concat([genTreeNode(id, false), genTreeNode(id, true), genTreeNode(id, true)]),
-  //       // );
-  //       resolve(undefined);
-  //     }, 300);
-  //   });
-
-  // const onChange = (newValue) => {
-  //     const selectedCommunity = allCommunityFeature.find(feature => feature.name === newValue);
-  //     setAllCommunityFeature(selectedCommunity ? [selectedCommunity] : []);
-  //     setValue(newValue);
-  // };
   const handleSearch = () => {
-    // const selectedAllCommunity = allCommunityFeature.find(
-    //   (feature) => feature.name === newValue
-    // );
-    // const selectedTopRatedCommunity = topRatedCommunityFeature.find(
-    //   (feature) => feature.name === newValue
-    // );
-
-    // setAllCommunityFeature(selectedAllCommunity ? [selectedAllCommunity] : []);
-    // setTopRatedCommunityFeature(
-    //   selectedTopRatedCommunity ? [selectedTopRatedCommunity] : []
-    // );
-    // setValue(newValue);
+    console.log("Enter");
     Router.push({
       pathname: "/community/searchCommunity",
       query: { value: search },
     });
   };
+
+  // const totalCounts = allCommunityFeature.reduce(
+  //   (adder, community) => {
+  //     adder.totalPosts += community.__meta__.total_posts;
+  //     adder.totalPostReplies += community.__meta__.total_post_reply;
+  //     adder.totalMembers += community.__meta__.total_members;
+  //     return adder;
+  //   },
+  //   { totalPosts: 0, totalPostReplies: 0, totalMembers: 0 }
+  // );
 
   return (
     <section
@@ -154,16 +142,32 @@ const Community = ({ community, getAllCrud, router }) => {
               Welcome to the Tech 24 <br />
               Community
             </h2>
-
             <p style={styles.subtitle}>
               Get answer form our community of Experts
             </p>
+            {stats && (
+              <div className="community-stats">
+                <div className="stat-container">
+                  <h4>{stats?.total_member}</h4>
+                  <p>Total Community</p>
+                </div>
+                <div className="stat-container">
+                  <h4>{stats?.total_question}</h4>
+                  <p>Questions</p>
+                </div>
+                <div className="stat-container">
+                  <h4>{stats?.total_answer}</h4>
+                  <p>Answers</p>
+                </div>
+              </div>
+            )}
             <div className="mt-4" style={styles.inputGroup}>
               <SearchInput
                 placeholder="Search anything"
                 className="SearchInput bg"
                 value={search}
                 onChange={(value) => setSearch(value)}
+                onPressEnter={() => handleSearch()}
                 suffix={
                   <SearchOutlined
                     style={{ color: "#1E96FF" }}

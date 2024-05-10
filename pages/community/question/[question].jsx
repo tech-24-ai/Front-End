@@ -144,9 +144,6 @@ const CommunityQuestionDetail = ({
   };
 
   const handleOk = (parent_id, community_post_id, replyText, isReply) => {
-    setIsModalOpen(false);
-    setIsReplayModalOpen({ isReplayModelOpen: false, details: {} });
-    showLoader();
     if (replyText == undefined || replyText == null || replyText.trim() == "") {
       showAlert("Please add description.");
       return;
@@ -156,24 +153,31 @@ const CommunityQuestionDetail = ({
       community_post_id: community_post_id,
       description: replyText,
     };
-
-    crudService._create("communitypostreply", postData).then((response) => {
-      hideLoader();
-      if (response.status === 200) {
-        isReply
-          ? setIsReplayModalOpen({ isReplayModelOpen: false, details: {} })
-          : setIsModalOpen(false);
-        !isReply ? setDescription("") : setReplyResponse("");
-        setUpdateCom(true);
-        isReply
-          ? success(
-              "Your reply is being reviewed and will be shown after approval."
-            )
-          : success(
-              "Your answer is being reviewed and will be shown after approval."
-            );
-      }
-    });
+    showLoader();
+    setIsModalOpen(false);
+    setIsReplayModalOpen({ isReplayModelOpen: false, details: {} });
+    crudService
+      ._create("communitypostreply", postData)
+      .then((response) => {
+        hideLoader();
+        if (response.status === 200) {
+          isReply
+            ? setIsReplayModalOpen({ isReplayModelOpen: false, details: {} })
+            : setIsModalOpen(false);
+          !isReply ? setDescription("") : setReplyResponse("");
+          setUpdateCom(true);
+          isReply
+            ? success(
+                "Your reply is being reviewed and will be shown after approval."
+              )
+            : success(
+                "Your answer is being reviewed and will be shown after approval."
+              );
+        }
+      })
+      .catch(() => {
+        hideLoader();
+      });
   };
 
   const voteCommunity = (data, type) => {
@@ -186,6 +190,9 @@ const CommunityQuestionDetail = ({
       .then((data) => {
         hideLoader();
         data.status == 200 && setUpdateCom(true);
+      })
+      .catch(() => {
+        hideLoader();
       });
   };
 
@@ -199,6 +206,9 @@ const CommunityQuestionDetail = ({
       .then((data) => {
         hideLoader();
         data.status == 200 && setUpdateCom(true);
+      })
+      .catch(() => {
+        hideLoader();
       });
   };
 
@@ -270,6 +280,15 @@ const CommunityQuestionDetail = ({
     Router.push(`/community/${url_slug}`);
   };
 
+  const handleDocumentDownload = (item) => {
+    const { id, name } = item;
+    downloadDocument(
+      id,
+      name,
+      `communitypost/download_attachment?attachment_id=${id}`
+    );
+  };
+
   return (
     <>
       {communityData && (
@@ -299,8 +318,9 @@ const CommunityQuestionDetail = ({
                     cursor: "pointer",
                   }}
                 >
-                  {communityData?.name}{" "}
-                  <RightOutlined style={{ verticalAlign: "0" }} />
+                  {communityData?.name}
+                  {" (Question)"}
+                  <RightOutlined style={{ verticalAlign: "0", padding: "0 6px" }} />
                 </span>
                 <span
                   className="questions_font_12px"
@@ -319,6 +339,7 @@ const CommunityQuestionDetail = ({
               </h4>
             </div>
           </div>
+          <h5 style={{ margin: "1.4rem 0" }}>Question</h5>
           {communityQuestionDetail?.is_discussion_open == 0 && (
             <div
               style={{
@@ -401,6 +422,20 @@ const CommunityQuestionDetail = ({
                     ></span>
                   </p>
                   <div className="chips">
+                    {communityQuestionDetail?.attachments?.map((item) => (
+                      <div
+                        style={{ fontFamily: "Inter", cursor: "pointer" }}
+                        className="questions_font_10px"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDocumentDownload(item);
+                        }}
+                      >
+                        {item?.name || "Attachment"}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="chips">
                     {communityQuestionDetail?.postTags?.map((tag) => (
                       <div
                         style={{ fontFamily: "Inter" }}
@@ -446,7 +481,7 @@ const CommunityQuestionDetail = ({
                     <div className="right-side-section">
                       <ShareSocialMedia
                         link={window.location.href}
-                        title={communityQuestionDetail?.name}
+                        title={communityQuestionDetail?.title}
                       >
                         <div className="share-btn">
                           <ShareAltOutlined />{" "}
@@ -767,7 +802,7 @@ const CommunityQuestionDetail = ({
                           <div className="right-side-section">
                             <ShareSocialMedia
                               link={window.location.href}
-                              title={communityQuestionDetail?.name}
+                              title={communityQuestionDetail?.title}
                             >
                               <div className="share-btn">
                                 <ShareAltOutlined />{" "}
@@ -890,7 +925,7 @@ const CommunityQuestionDetail = ({
                                 <div className="right-side-section">
                                   <ShareSocialMedia
                                     link={window.location.href}
-                                    title={communityQuestionDetail?.name}
+                                    title={communityQuestionDetail?.title}
                                   >
                                     <div className="share-btn">
                                       <ShareAltOutlined />{" "}
@@ -1136,6 +1171,7 @@ const CommunityQuestionDetail = ({
                       visible={isReplayModalOpen?.isReplayModelOpen}
                       onCancel={handleCancel}
                       footer={null}
+                      maskClosable={false}
                     >
                       <span
                         style={{
@@ -1372,6 +1408,7 @@ const actionCreators = {
   showAlert: alertActions.warning,
   showLoader: loaderActions.show,
   hideLoader: loaderActions.hide,
+  downloadDocument: crudActions._download,
 };
 
 export default connect(

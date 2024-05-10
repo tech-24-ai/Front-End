@@ -66,6 +66,7 @@ class AlertComponent extends React.PureComponent {
             transitionName="none"
             maskTransitionName="none"
             style={{ textAlign: "center" }}
+            maskClosable={false}
           >
             <div className={alert.type}>
               {iconImage && <img className="icon" src={iconImage.src} />}
@@ -83,6 +84,7 @@ class AlertComponent extends React.PureComponent {
             onCancel={this.onDismiss}
             transitionName="none"
             maskTransitionName="none"
+            maskClosable={false}
             style={{
               textAlign: "center",
               backgroundColor: "rgba(248, 248, 248, 0.92) !important",

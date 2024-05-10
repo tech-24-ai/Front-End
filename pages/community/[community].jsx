@@ -131,8 +131,6 @@ const CommunityDetail = ({
   };
 
   const handleOk = async () => {
-    showLoader();
-    setIsModalOpen(false);
     if (!title) {
       showAlert("Please add title");
       return;
@@ -164,18 +162,24 @@ const CommunityDetail = ({
           tags: tags,
           url: JSON.stringify(finalUrl),
         };
-
-        crudService._create("communitypost", postData).then((response) => {
-          hideLoader();
-          if (response.status === 200) {
-            setUpdateCom(true);
-            setIsModalOpen(false);
-            resetForm();
-            success(
-              "Your post is being reviewed and will be shown after approval."
-            );
-          }
-        });
+        showLoader();
+        setIsModalOpen(false);
+        crudService
+          ._create("communitypost", postData)
+          .then((response) => {
+            hideLoader();
+            if (response.status === 200) {
+              setUpdateCom(true);
+              setIsModalOpen(false);
+              resetForm();
+              success(
+                "Your post is being reviewed and will be shown after approval."
+              );
+            }
+          })
+          .catch(() => {
+            hideLoader();
+          });
       }
 
       //Upload API
@@ -195,23 +199,30 @@ const CommunityDetail = ({
         tags: tags,
         url: [],
       };
-
-      crudService._create("communitypost", postData).then((response) => {
-        hideLoader();
-        if (response.status === 200) {
-          setUpdateCom(true);
-          setIsModalOpen(false);
-          resetForm();
-          success(
-            "Your post is being reviewed and will be shown after approval."
-          );
-        }
-      });
+      showLoader();
+      setIsModalOpen(false);
+      crudService
+        ._create("communitypost", postData)
+        .then((response) => {
+          hideLoader();
+          if (response.status === 200) {
+            setUpdateCom(true);
+            setIsModalOpen(false);
+            resetForm();
+            success(
+              "Your post is being reviewed and will be shown after approval."
+            );
+          }
+        })
+        .catch(() => {
+          hideLoader();
+        });
     }
   };
 
   const voteCommunity = (data, type) => {
     showLoader();
+    setIsModalOpen(false);
     crudService
       ._create("communitypost/vote", {
         community_post_id: data?.community_id,
@@ -220,6 +231,9 @@ const CommunityDetail = ({
       .then((data) => {
         hideLoader();
         data.status == 200 && fetchCommunityData();
+      })
+      .catch(() => {
+        hideLoader();
       });
   };
 
@@ -263,31 +277,13 @@ const CommunityDetail = ({
     const gotoNewsDetail = (url_slug) => {
       Router.replace(`/community/news/${url_slug}`);
     };
-    // const [newsData, setNewsData] = useState([]);
-    // const fetchNewsData = () => {
-    //   const id = sessionStorage.getItem("community_id");
-    //   if (id) {
-    //     crudService._getAll(`get_news_announcements?community_id=${22}`)
-    //       .then((data) => {
-    //         setNewsData(data?.data);
-    //         console.log("data", data);
-    //         console.log("news log", data?.data);
-    //       })
-    //       .catch((error) => {
-    //         showAlert("Error occurred while fetching news data.");
-    //         console.error("Error fetching news data:", error);
-    //       });
-    //   }
-    // };
-    // console.log("news data", newsData);
-    // useEffect(() => {
-    //   fetchNewsData();
-    // }, []);
+    
 
     return (
+    
       <div className="questions-tab-container">
         <ul>
-          {newsData &&
+          {newsData && newsData.length > 0 ? (
             newsData.map((data) => (
               <li
                 key={data.id}
@@ -320,9 +316,23 @@ const CommunityDetail = ({
                 </p>
                 <hr />
               </li>
-            ))}
+            ))
+          ) : (
+                <p
+                  style={{
+                    fontWeight: "400",
+                    fontSize: "14px",
+                    color: "#54616C",
+                    textAlign: "center",
+                    padding: "10px"
+                  }}
+                >
+                  No Data Available
+                </p>
+          )}
         </ul>
       </div>
+
     );
   };
 
@@ -444,6 +454,7 @@ const CommunityDetail = ({
                   visible={isModalOpen}
                   onCancel={handleCancel}
                   footer={null}
+                  maskClosable={false}
                 >
                   <span
                     style={{
@@ -487,7 +498,7 @@ const CommunityDetail = ({
                           required: true,
                         },
                       ]}
-                      name="title"
+                      // name="title"
                       onChange={(e) => {
                         setTitle(e.target.value);
                       }}
