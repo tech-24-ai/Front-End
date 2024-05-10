@@ -11,10 +11,7 @@ function SearchInput({
   width,
   ...more
 }) {
-  if (allowClear) {
-    suffix = <CloseOutlined onClick={() => handleClear()} />;
-  }
-
+ 
   const [value, setValue] = useState("");
 
   const handleChange = (e) => {
@@ -26,6 +23,9 @@ function SearchInput({
     setValue("");
     onChange("");
   };
+  if (allowClear) {
+    suffix = <CloseOutlined onClick={() => handleClear()} />;
+  }
 
   return (
     <div className="new-custom-search-input" {...parentProps}>
