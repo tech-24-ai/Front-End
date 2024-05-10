@@ -280,6 +280,15 @@ const CommunityQuestionDetail = ({
     Router.push(`/community/${url_slug}`);
   };
 
+  const handleDocumentDownload = (item) => {
+    const { id, name } = item;
+    downloadDocument(
+      id,
+      name,
+      `communitypost/download_attachment?attachment_id=${id}`
+    );
+  };
+
   return (
     <>
       {communityData && (
@@ -309,7 +318,8 @@ const CommunityQuestionDetail = ({
                     cursor: "pointer",
                   }}
                 >
-                  {communityData?.name}{" (Question)"}
+                  {communityData?.name}
+                  {" (Question)"}
                   <RightOutlined style={{ verticalAlign: "0" }} />
                 </span>
                 <span
@@ -411,6 +421,20 @@ const CommunityQuestionDetail = ({
                       }}
                     ></span>
                   </p>
+                  <div className="chips">
+                    {communityQuestionDetail?.attachments?.map((item) => (
+                      <div
+                        style={{ fontFamily: "Inter", cursor: "pointer" }}
+                        className="questions_font_10px"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDocumentDownload(item);
+                        }}
+                      >
+                        {item?.name || "Attachment"}
+                      </div>
+                    ))}
+                  </div>
                   <div className="chips">
                     {communityQuestionDetail?.postTags?.map((tag) => (
                       <div
@@ -1384,6 +1408,7 @@ const actionCreators = {
   showAlert: alertActions.warning,
   showLoader: loaderActions.show,
   hideLoader: loaderActions.hide,
+  downloadDocument: crudActions._download,
 };
 
 export default connect(
