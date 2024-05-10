@@ -8,7 +8,6 @@ import { crudActions } from "../../_actions";
 import { connect } from "react-redux";
 import moment from 'moment';
 import {
-
   Card,
   Input,
   Select,
@@ -19,6 +18,7 @@ import CustomPagination from "../../components/pagination";
 import { isMobile } from "react-device-detect";
 import myImageLoader from "../../components/imageLoader";
 import Image from "next/future/image";
+import SearchInput from "../../components/form/searchInput";
 
 
 
@@ -26,32 +26,44 @@ const Community = ({ router }) => {
 
   const { value } = Router.query;
   const [communityFeature, setCommunityFeature] = useState([]);
-  const [sortBy, setSortBy] = useState("id_desc");
+  const [sortBy, setSortBy] = useState("created_at");
+  const [orderDirection, setOrderDirection] = useState("DESC");
   const [currentPage, setCurrentPage] = useState(0);
   const [total, setTotal] = useState(0);
   const itemsPerPage = 10;
 
   const [searchQuery, setSearchQuery] = useState(value);
-  const [isSearchActive, setIsSearchActive] = useState(false);
 
 
 
   useEffect(() => {
-    getAllPosts(searchQuery, currentPage, sortBy);
-  }, [searchQuery, currentPage, sortBy]);
+    getAllPosts(searchQuery, currentPage, sortBy, orderDirection);
+  }, [searchQuery, currentPage, sortBy, orderDirection]);
 
   useEffect(() => {
     if (value) {
       setSearchQuery(value);
       setCurrentPage(0);
-      getAllPosts(value, 0, sortBy);
+      getAllPosts(value, 0, sortBy, orderDirection);
     }
   }, [value]);
 
-  const getAllPosts = async (searchText, page, orderBy) => {
+  const getAllPosts = async (searchText, page, sortBy, orderDirection) => {
     try {
-      const data = await crudService._getAll("communitypost/search", { search: searchText, page: page + 1, pageSize: itemsPerPage, orderBy: orderBy });
-      setCommunityFeature(data.data?.data);
+      const data = await crudService._getAll("communitypost/search", {
+        search: searchText,
+        page: page + 1,
+        pageSize: itemsPerPage,
+        orderBy: sortBy,
+        orderDirection: orderDirection
+      });
+     
+      if (data?.data?.response_type === 1) {
+        setCommunityFeature(data.data?.data);
+      } else if (data?.data?.response_type === 2) {
+        console.log("console")
+      }
+
       setTotal(data.data?.lastPage);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -60,11 +72,10 @@ const Community = ({ router }) => {
 
 
   //Filter
-  const handleSearch = (e) => {
-    setSearchQuery(e.target.value);
+  const handleSearch = (value) => {
+    setSearchQuery(value);
     setCurrentPage(0);
-    setIsSearchActive(e.target.value.trim() !== "");
-    getAllPosts(e.target.value, 0, sortBy);
+    getAllPosts(value, 0, sortBy);
   };
 
 
@@ -115,19 +126,21 @@ const Community = ({ router }) => {
 
   const handleSort = (e) => {
     setSortBy(e.target.value);
-    getAllPosts(searchQuery, currentPage, e.target.value);
+    if (e.target.label === "Most Recent") {
+      setOrderDirection("DESC");
+    } else {
+      setOrderDirection("ASC");
+    }
+    getAllPosts(searchQuery, currentPage, e.target.value, orderDirection);
   };
-  // const handleSort = (e) => {
-  //   const orderBy = e.target.value === 'id_desc' ? 'updated_at_desc' : 'updated_at_asc';
-  //   setSortBy(e.target.value);
-  //   getAllPosts(searchQuery, currentPage, orderBy);
+
+
+  // const handleClearSearch = () => {
+  //   setSearchQuery("");
+  //   setCurrentPage(0);
+  //   setIsSearchActive(false);
+  //   getAllPosts("", 0, sortBy);
   // };
-  const handleClearSearch = () => {
-    setSearchQuery("");
-    setCurrentPage(0);
-    setIsSearchActive(false);
-    getAllPosts("", 0, sortBy);
-  };
   const handleAllCommunity = () => {
     Router.push("/community");
   }
@@ -154,17 +167,17 @@ const Community = ({ router }) => {
     Router.replace(`/community/question/${url_slug}`);
   };
 
+
   const sortOptions = [
     {
-      value: "id_desc",
+      value: "created_at",
       label: "Most Recent",
     },
     {
-      value: "id_asc",
-      label: "Most Older",
+      value: "created_at",
+      label: "Oldest",
     },
   ];
-
   return (
     <>
       <section className="query-section mt-6 search-community-section community-tab-container questions-tab-container community-detail-wrapper">
@@ -179,6 +192,7 @@ const Community = ({ router }) => {
                     color: "#B0B8BF",
                     fontFamily: "Inter",
                     fontSize: "14px",
+                    cursor: "pointer"
                   }}
                 >
                   Community <RightOutlined style={{ verticalAlign: "0" }} />
@@ -197,14 +211,11 @@ const Community = ({ router }) => {
             </div>
           </div>
           <div className="mt-3 search-bar-community">
-            <Input
+            <SearchInput
               placeholder="Search anything.."
-              prefix={
-                <SearchOutlined
-                  style={{ color: "#0074D9", padding: "0 6px" }}
-                />
-              }
-              suffix={searchQuery && <CloseCircleOutlined onClick={handleClearSearch} style={{ color: "#0074D9", cursor: "pointer" }} />}
+              prefix={<SearchOutlined style={{ color: "#0074D9", padding: "0 6px" }} />}
+              // suffix={searchQuery && <CloseCircleOutlined onClick={handleClearSearch} style={{ color: "#0074D9", cursor: "pointer" }} />}
+              allowClear= "true"
               value={searchQuery}
               onChange={handleSearch}
               style={{
