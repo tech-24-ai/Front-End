@@ -320,7 +320,9 @@ const CommunityQuestionDetail = ({
                 >
                   {communityData?.name}
                   {" (Question)"}
-                  <RightOutlined style={{ verticalAlign: "0", padding: "0 6px" }} />
+                  <RightOutlined
+                    style={{ verticalAlign: "0", padding: "0 6px" }}
+                  />
                 </span>
                 <span
                   className="questions_font_12px"
@@ -789,9 +791,15 @@ const CommunityQuestionDetail = ({
                                   cursor: "pointer",
                                 }}
                                 className="questions_font_12px"
-                                onClick={() => setIsShowReplies(!isShowReplies)}
+                                onClick={() =>
+                                  setIsShowReplies(
+                                    isShowReplies == answer?.id
+                                      ? null
+                                      : answer?.id
+                                  )
+                                }
                               >
-                                {isShowReplies
+                                {isShowReplies == answer?.id
                                   ? "Hide Replies"
                                   : "View Replies"}
                               </div>
@@ -872,7 +880,7 @@ const CommunityQuestionDetail = ({
                       )}
 
                       {answer?.comments.length > 0 &&
-                        isShowReplies &&
+                        isShowReplies == answer?.id &&
                         answer?.comments.map((comment) => (
                           <>
                             <hr className="dotted" />
@@ -996,41 +1004,42 @@ const CommunityQuestionDetail = ({
                           </>
                         ))}
                       <div>
-                        {answer?.comments?.length > 2 && isShowReplies && (
-                          <div
-                            style={{
-                              border: "1px solid #D9DFE9",
-                              padding: "8px 12px",
-                              borderRadius: "4px",
-                              backgroundColor: "#F2F4F7",
-                              fontSize: isMobile ? "12px" : "14px",
-                              fontWeight: 500,
-                              width: "105px",
-                              fontFamily: "Inter",
-                              color: "#54616C",
-                              marginLeft: isMobile ? "6px" : "10px",
-                              color: "#0074D9",
-                              cursor: "pointer",
-                            }}
-                            onClick={() => {
-                              sessionStorage.setItem(
-                                "community_question_id",
-                                communityQuestionDetail?.url_slug
-                              );
-                              sessionStorage.setItem(
-                                "community_parent_id",
-                                answer?.id
-                              );
-                              sessionStorage.setItem(
-                                "community_post_details",
-                                JSON.stringify(answer)
-                              );
-                              Router.push("question/comments");
-                            }}
-                          >
-                            View More
-                          </div>
-                        )}
+                        {answer?.comments?.length > 2 &&
+                          isShowReplies == answer?.id && (
+                            <div
+                              style={{
+                                border: "1px solid #D9DFE9",
+                                padding: "8px 12px",
+                                borderRadius: "4px",
+                                backgroundColor: "#F2F4F7",
+                                fontSize: isMobile ? "12px" : "14px",
+                                fontWeight: 500,
+                                width: "105px",
+                                fontFamily: "Inter",
+                                color: "#54616C",
+                                marginLeft: isMobile ? "6px" : "10px",
+                                color: "#0074D9",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => {
+                                sessionStorage.setItem(
+                                  "community_question_id",
+                                  communityQuestionDetail?.url_slug
+                                );
+                                sessionStorage.setItem(
+                                  "community_parent_id",
+                                  answer?.id
+                                );
+                                sessionStorage.setItem(
+                                  "community_post_details",
+                                  JSON.stringify(answer)
+                                );
+                                Router.push("question/comments");
+                              }}
+                            >
+                              View More
+                            </div>
+                          )}
                       </div>
                     </Card>
                   ))}
