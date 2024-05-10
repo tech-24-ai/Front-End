@@ -42,6 +42,8 @@ const ReactQuill = dynamic(
 );
 
 import { isMobile } from "react-device-detect";
+import ReportAbuseModal from "../../../../components/community/ReportAbuseModal";
+import { FlageIcon } from "../../../../components/icons";
 const SubmitButton = ({ form, children }) => {
   const [submittable, setSubmittable] = React.useState(false);
 
@@ -71,6 +73,8 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
   const communityAnswer = JSON.parse(
     sessionStorage.getItem("community_post_details")
   );
+  const [reportTypes, setReportTypes] = useState([]);
+  const [reportModalVisible, setReportModalVisible] = useState("");
   const [isShowReplies, setIsShowReplies] = useState(false);
   const [replyResponse, setReplyResponse] = useState();
   const [isReplayModalOpen, setIsReplayModalOpen] = useState({
@@ -217,6 +221,17 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
     }, 100);
   };
 
+  useEffect(() => {
+    crudService
+      ._getAll("repost_abuse/types")
+      .then((response) => {
+        setReportTypes(response?.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching report types:", error);
+      });
+  }, []);
+
   return (
     <Container>
       <div className="profile-container row">
@@ -254,6 +269,25 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       {")"}
                     </p>
                   </div>
+                </div>
+                <div className="right-side-section">
+                  <div
+                    className="report-btn"
+                    onClick={() => setReportModalVisible("question")}
+                  >
+                    <FlageIcon />
+                    <span className="btn-title">Report</span>
+                  </div>
+                  {reportModalVisible === "question" && (
+                    <ReportAbuseModal
+                      reportTypes={reportTypes}
+                      isModalOpen={reportModalVisible === "question"}
+                      closeModel={(value) => setReportModalVisible(value)}
+                      data={communityQuestionDetail}
+                      reportFor="question"
+                      heading="Report this Question"
+                    />
+                  )}
                 </div>
               </div>
               <p className="para">
@@ -299,6 +333,29 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       <h5>{communityAnswer?.visitor?.name}</h5>
                       <p>{calculateTimeAgo(communityAnswer?.created_at)}</p>
                     </div>
+                  </div>
+                  <div className="right-side-section">
+                    <div
+                      className="report-btn"
+                      onClick={() => setReportModalVisible("comment")}
+                    >
+                      <FlageIcon />
+                      <span className="btn-title">Report</span>
+                    </div>
+                    {reportModalVisible === "comment" && (
+                      <ReportAbuseModal
+                        reportTypes={reportTypes}
+                        isModalOpen={reportModalVisible === "comment"}
+                        closeModel={(value) => setReportModalVisible(value)}
+                        data={{
+                          ...communityAnswer,
+                          community_id:
+                            communityAnswer.communityPost.community_id,
+                        }}
+                        reportFor="comment"
+                        heading="Report this Question"
+                      />
+                    )}
                   </div>
                 </div>
                 <p className="para">
