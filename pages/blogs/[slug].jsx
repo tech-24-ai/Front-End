@@ -45,7 +45,7 @@ class Blog extends Component {
       comments: [],
       submitting: false,
       value: "",
-      meta: { 
+      meta: {
         title: "",
         description: "",
       },
@@ -91,14 +91,13 @@ class Blog extends Component {
     const prevAsPath = prevProps.router.asPath;
 
     if (asPath !== prevAsPath) {
-        let slug = asPath.slice(1).split("/")[1];
-        this.props.getCrud("blog", `blogs/${slug}`);
-        this.props.getCrud("blogs", "blogs");
-        // fetch category
-        this.props.getCrud("categories", "categories");
+      let slug = asPath.slice(1).split("/")[1];
+      this.props.getCrud("blog", `blogs/${slug}`);
+      this.props.getCrud("blogs", "blogs");
+      // fetch category
+      this.props.getCrud("categories", "categories");
     }
   }
-  
 
   saveToLibrary = (id) => {
     this.props.createCrud("save_to_library", "blogs/save", { id });
@@ -107,7 +106,7 @@ class Blog extends Component {
   handleMeta = (e) => {
     this.setState({ meta: e });
   };
-  
+
   render() {
     const { comments, submitting, value, meta } = this.state;
     const { blog, categories, blogs, authentication } = this.props;
@@ -185,17 +184,32 @@ class Blog extends Component {
                           borderTopLeftRadius: "10px",
                         }}
                       />
-                      <div className="date-section">
-                        <div className="date">
-                          {moment(blog.created_at).format("LL")}
+                      <div
+                        className="date-section"
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          width: "90%",
+                        }}
+                      >
+                        <div
+                          className="time"
+                          style={{
+                            fontWeight: 400,
+                            fontSize: "14px",
+                            color: "#001622",
+                          }}
+                        >
+                          {blog?.author}
                         </div>
-                        <div className="custom-divider"></div>
-                        <div className="time">{blog?.read_time}</div>
-                        <div className="custom-divider"></div>
-                        <div className="time">{blog?.author}</div>
-                      </div>
-                      <div className="blog-tags-container">
-                        <div className="blog-tags">{blog.details}</div>
+                        <div style={{ display: "flex" }}>
+                          <div className="date">
+                            {moment(blog.created_at).format("LL")}
+                          </div>
+                          <div className="custom-divider"></div>
+                          <div className="time">{blog?.read_time}</div>
+                          {/* <div className="custom-divider"></div> */}
+                        </div>
                       </div>
                       <div className="inner-text-container">
                         {/* <div style={{ display: "flex" }}>
@@ -227,7 +241,10 @@ class Blog extends Component {
                             }}
                           />
                         </div>
-                        
+                        <div className="blog-tags-container">
+                          <div className="blog-tags">{blog.details}</div>
+                        </div>
+
                         <div className="social-section">
                           {/* <div className="like">1.1K</div>
                           <div className="custom-divider"></div> */}
@@ -252,7 +269,7 @@ class Blog extends Component {
                               </Fragment>
                             )}
                         </div>
-                        <br/>
+                        <br />
                         {/* <div className="row">
                       <div className="col-md-12" style={{border:"1px solid #caced1", background:"#caced1"}}>
                     <Comment
