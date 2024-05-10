@@ -320,7 +320,7 @@ const CommunityQuestionDetail = ({
                 >
                   {communityData?.name}
                   {" (Question)"}
-                  <RightOutlined style={{ verticalAlign: "0" }} />
+                  <RightOutlined style={{ verticalAlign: "0", padding: "0 6px" }} />
                 </span>
                 <span
                   className="questions_font_12px"
@@ -339,6 +339,7 @@ const CommunityQuestionDetail = ({
               </h4>
             </div>
           </div>
+          <h5 style={{ margin: "1.4rem 0" }}>Question</h5>
           {communityQuestionDetail?.is_discussion_open == 0 && (
             <div
               style={{
@@ -360,7 +361,6 @@ const CommunityQuestionDetail = ({
           )}
           <div className="profile-container row" style={{ marginTop: "0" }}>
             <div className="community-tab-container questions-tab-container community-detail-wrapper col-md-9">
-              <h5>Question</h5>
               <div className="cards-container">
                 <Card
                   bordered={true}
