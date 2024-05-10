@@ -652,6 +652,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                   visible={isReplayModalOpen?.isReplayModelOpen}
                   onCancel={handleCancel}
                   footer={null}
+                  maskClosable={false}
                 >
                   <span
                     style={{

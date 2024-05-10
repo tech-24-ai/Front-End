@@ -400,6 +400,7 @@ const QuestionTab = ({
             onCancel={() => {
               setSortByOrder(false);
             }}
+            maskClosable={false}
           >
             <div className="sorting shorting_icon">
               <label className="sortby" htmlFor="sortDropdown">
@@ -461,7 +462,7 @@ const QuestionTab = ({
       )}
 
       <div>
-        <Modal visible={isModalOpen} onCancel={handleCancel} footer={null}>
+        <Modal maskClosable={false} visible={isModalOpen} onCancel={handleCancel} footer={null}>
           <span
             style={{
               marginBottom: "-20px",

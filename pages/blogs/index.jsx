@@ -202,14 +202,32 @@ function Blogs({ router }) {
                         <p className="blog-heading">{post.name}</p>
                         <p className="blog-detail">{post.details}</p>
                       </div>
-                      <div className="date-section">
-                        <div className="date">
-                          {moment(post.created_at).format("LL")}
+                      <div
+                        className="date-section"
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          width: "100%",
+                        }}
+                      >
+                        <div
+                          className="time"
+                          style={{
+                            fontWeight: 400,
+                            fontSize: "14px",
+                            color: "#001622",
+                          }}
+                        >
+                          {post?.author}
                         </div>
-                        <div className="custom-divider"></div>
-                        <div className="time">{post?.read_time}</div>
-                        <div className="custom-divider"></div>
-                        <div className="time">{post?.author}</div>
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <div className="date">
+                            {moment(post.created_at).format("LL")}
+                          </div>
+                          <div className="custom-divider"></div>
+                          <div className="time">{post?.read_time}</div>
+                          {/* <div className="custom-divider"></div> */}
+                        </div>
                       </div>
                     </div>
                   </div>
