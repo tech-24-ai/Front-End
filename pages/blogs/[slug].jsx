@@ -139,6 +139,10 @@ class Blog extends Component {
     if (editorData) {
       processedEditorData = editorData.replace(/\\\\n/g, "");
     }
+    const splitBlogTags = (data) => {
+      let tags = data.split(",");
+      return tags;
+    };
 
     return (
       <section className="blog-detail-section">
@@ -242,7 +246,9 @@ class Blog extends Component {
                           />
                         </div>
                         <div className="blog-tags-container">
-                          <div className="blog-tags">{blog.details}</div>
+                          {splitBlogTags(blog.details).map((tag) => (
+                            <div className="blog-tags">{tag}</div>
+                          ))}
                         </div>
 
                         <div className="social-section">

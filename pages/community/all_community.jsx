@@ -54,8 +54,13 @@ const Community = ({ router }) => {
   const [isSearchActive, setIsSearchActive] = useState(false);
 
   useEffect(() => {
-    getAllPosts(searchQuery, currentPage, sortBy);
-  }, [currentPage, sortBy]);
+    if (!searchQuery && q) {
+      const url = new URL(window.location.href);
+      url.searchParams.delete("q");
+      window.history.replaceState({}, "", url.toString());
+    }
+    getAllPosts();
+  }, [currentPage, searchQuery, sortBy]);
 
   const getAllPosts = async () => {
     try {
@@ -79,15 +84,6 @@ const Community = ({ router }) => {
   // }, [searchQuery, communityFeature]);
 
   //Filter
-  const handleSearch = () => {
-    if (!searchQuery && q) {
-      const url = new URL(window.location.href);
-      url.searchParams.delete("q");
-      window.history.replaceState({}, "", url.toString());
-    }
-    getAllPosts();
-  };
-
   // Pagination
   // const slicedData = filteredData.slice(
   //     currentPage * itemsPerPage,
@@ -241,16 +237,8 @@ const Community = ({ router }) => {
           <div className="search-box mt-3">
             <SearchInput
               placeholder="Search anything"
-              className="SearchInput"
-              value={searchQuery}
-              onPressEnter={() => handleSearch()}
-              onChange={(value) => setSearchQuery(value)}
-              suffix={
-                <SearchOutlined
-                  style={{ color: "#1E96FF" }}
-                  onClick={() => handleSearch()}
-                />
-              }
+              defaultValue={searchQuery}
+              onSearch={(value) => setSearchQuery(value)}
             />
           </div>
 

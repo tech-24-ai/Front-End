@@ -109,7 +109,7 @@ const ResearchList = ({ router }) => {
       window.history.replaceState({}, "", url.toString());
     }
 
-    fetchData();
+    // fetchData();
   };
 
   const handleOptionChange = ({ name, value }) => {
@@ -184,8 +184,14 @@ const ResearchList = ({ router }) => {
   };
 
   useEffect(() => {
+    if (!searchQuery && q) {
+      const url = new URL(window.location.href);
+      url.searchParams.delete("q");
+      window.history.replaceState({}, "", url.toString());
+    }
+
     fetchData();
-  }, [page, filteredData, sortBy]);
+  }, [page, searchQuery, filteredData, sortBy]);
 
   const fetchData = () => {
     const sortData = sortBy?.split("_");
@@ -227,11 +233,8 @@ const ResearchList = ({ router }) => {
         <div className="search-box">
           <SearchInput
             placeholder="Search anything"
-            className="SearchInput"
-            onPressEnter={() => handleSearch()}
-            onChange={(value) => setSearchQuery(value)}
-            suffix={<SearchOutlined onClick={() => handleSearch()} />}
-            value={searchQuery}
+            onSearch={(value) => setSearchQuery(value)}
+            defaultValue={searchQuery}
           />
         </div>
 

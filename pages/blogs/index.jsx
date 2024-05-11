@@ -42,10 +42,7 @@ function Blogs({ router }) {
 
   useEffect(() => {
     fetchBlogData();
-  }, [page]);
-  useEffect(() => {
-    fetchBlogData();
-  }, []);
+  }, [page, value]);
 
   const fetchBlogData = () => {
     crudService
@@ -133,23 +130,13 @@ function Blogs({ router }) {
               <div className="mt-4" style={styles.inputGroup}>
                 <div className="search-box">
                   <SearchInput
-                    placeholder="Search anything..."
-                    className="SearchInput bg"
-                    onChange={(value) => setValue(value)}
-                    onPressEnter={() => {
+                    placeholder="Search anything"
+                    className="bg"
+                    onSearch={(value) => {
                       setPage(0);
-                      fetchBlogData();
+                      setValue(value);
                     }}
-                    suffix={
-                      <SearchOutlined
-                        style={{ color: "#1E96FF" }}
-                        onClick={() => {
-                          setPage(0);
-                          fetchBlogData();
-                        }}
-                      />
-                    }
-                    value={value}
+                    defaultValue={value}
                   />
                 </div>
               </div>
