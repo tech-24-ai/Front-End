@@ -71,6 +71,7 @@ function Detail({
         />
         <br />
         <div className="research-detail-heading">
+          <h5 className="research-title">{research_detail?.category?.name}</h5>
           <h5 className="research-title">{research_detail?.name}</h5>
           <div className="date-section">
             <div className="date">
@@ -108,6 +109,11 @@ function Detail({
                     __html: html,
                   }}
                 ></div>
+                <div className="research-tags-container">
+                  {research_detail?.documentTags.map((tag) => (
+                    <div className="research-tags">{tag.name}</div>
+                  ))}
+                </div>
               </div>
               <div className="related-research-section">
                 <div className="download-report-card">
