@@ -30,8 +30,8 @@ function MarketResearch({
 
   // search
   const handleSearch = (searchText) => {
-    console.log("SEARCHENTER");
-    router.push(`${router.asPath}/research-list?q=${searchText}`);
+    const slicedSearchText = searchText.slice(0, 60); // Limit search text to 0 to 60 characters
+    router.push(`${router.asPath}/research-list?q=${slicedSearchText}`);
   };
 
   const handleRedirect = (category_id) => {

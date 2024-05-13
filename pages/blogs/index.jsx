@@ -134,7 +134,7 @@ function Blogs({ router }) {
                     className="bg"
                     onSearch={(value) => {
                       setPage(0);
-                      setValue(value);
+                      setValue(value.slice(0, 60));
                     }}
                     defaultValue={value}
                   />

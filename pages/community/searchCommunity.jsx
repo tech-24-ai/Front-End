@@ -80,15 +80,30 @@ const Community = ({ router }) => {
   };
 
   //Filter
+  // const handleSearch = (searchText) => {
+  //   setSearchQuery(searchText);
+  //   setCurrentPage(0);
+    
+  //   if (searchText.trim() === "") {
+  //     Router.push("/community/searchCommunity");
+  //   } else {
+  //     Router.push(`/community/searchCommunity?value=${searchText}`);
+  //   }
+  //   getAllPosts(searchText, 0, sortBy, orderDirection);
+  // };
   const handleSearch = (searchText) => {
-    setSearchQuery(searchText);
+
+    const filteredText = searchText.trim().slice(0, 60); 
+
+    setSearchQuery(filteredText);
     setCurrentPage(0);
-    if (searchText.trim() === "") {
+    if (filteredText === "") {
       Router.push("/community/searchCommunity");
     } else {
-      Router.push(`/community/searchCommunity?value=${searchText}`);
+      Router.push(`/community/searchCommunity?value=${encodeURIComponent(filteredText)}`);
     }
-    getAllPosts(searchText, 0, sortBy, orderDirection);
+
+    getAllPosts(filteredText, 0, sortBy, orderDirection);
   };
 
 
