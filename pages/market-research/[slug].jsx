@@ -71,7 +71,7 @@ function Detail({
         />
         <br />
         <div className="research-detail-heading">
-          <h5 className="research-title">{research_detail?.category?.name}</h5>
+          <h5 className="research-title research-category-name">{research_detail?.category?.name}</h5>
           <h5 className="research-title">{research_detail?.name}</h5>
           <div className="date-section">
             <div className="date">
@@ -86,6 +86,7 @@ function Detail({
                 <ShareAltOutlined /> Share
               </div>
             </ShareSocialMedia>
+<br />
 
             {loggedIn && research_detail?.is_saved_document == null && (
               <Fragment>
@@ -99,6 +100,8 @@ function Detail({
               </Fragment>
             )}
           </div>
+          <p>{research_detail?.researchTopic?.title}</p>
+          
         </div>
         {isMobile == false && (
           <BrowserView>

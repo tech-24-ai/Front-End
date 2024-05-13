@@ -26,7 +26,7 @@ import Router, { useRouter } from "next/router";
 import myImageLoader from "../../../components/imageLoader";
 import ShareSocialMedia from "../../../components/shareSocial";
 import { ShareAltOutlined, SaveOutlined } from "@ant-design/icons";
-
+import profile_img from "../../public/new_images/profile.svg";
 import { isMobile } from "react-device-detect";
 
 const SubmitButton = ({ form, children }) => {
@@ -147,8 +147,11 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
                     cursor: "pointer",
                   }}
                 >
-                  {newsAnnouncementDetail?.community?.name}{"  (News & Announcements)"}
-                  <RightOutlined style={{ verticalAlign: "0", padding: "0 6px" }} />
+                  {newsAnnouncementDetail?.community?.name}
+                  {"  (News & Announcements)"}
+                  <RightOutlined
+                    style={{ verticalAlign: "0", padding: "0 6px" }}
+                  />
                 </span>
                 <span
                   className="questions_font_12px"
@@ -156,7 +159,7 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
                     color: "#0074D9",
                     fontFamily: "Inter",
                     fontSize: "14px",
-                    cursor: "pointer"
+                    cursor: "pointer",
                   }}
                 >
                   {newsAnnouncementDetail?.title &&
@@ -168,7 +171,7 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
             </div>
           </div>
 
-          <h5 style={{margin: "1.4rem 0"}}>News & Announcements</h5>
+          <h5 style={{ margin: "1.4rem 0" }}>News & Announcements</h5>
 
           <div className="profile-container row" style={{ marginTop: "0" }}>
             <div className="community-tab-container questions-tab-container community-detail-wrapper col-md-9">
@@ -324,7 +327,7 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
                         preview="false"
                         src={
                           newsAnnouncementDetail?.community?.image_url ||
-                          "https://tech24-uat.s3.amazonaws.com/D10dkiDJHM"
+                          profile_img
                         }
                         alt="profile"
                         name="url"

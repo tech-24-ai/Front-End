@@ -37,6 +37,7 @@ const ReactQuill = dynamic(
 
 import { isMobile } from "react-device-detect";
 import QuestionTab from "../../components/community/QuestionTab";
+import profile_img from "../../public/new_images/profile.svg";
 
 const SubmitButton = ({ form, children }) => {
   const [submittable, setSubmittable] = React.useState(false);
@@ -277,10 +278,8 @@ const CommunityDetail = ({
     const gotoNewsDetail = (url_slug) => {
       Router.replace(`/community/news/${url_slug}`);
     };
-    
 
     return (
-    
       <div className="questions-tab-container">
         <ul>
           {newsData && newsData.length > 0 ? (
@@ -318,21 +317,20 @@ const CommunityDetail = ({
               </li>
             ))
           ) : (
-                <p
-                  style={{
-                    fontWeight: "400",
-                    fontSize: "14px",
-                    color: "#54616C",
-                    textAlign: "center",
-                    padding: "10px"
-                  }}
-                >
-                  No Data Available
-                </p>
+            <p
+              style={{
+                fontWeight: "400",
+                fontSize: "14px",
+                color: "#54616C",
+                textAlign: "center",
+                padding: "10px",
+              }}
+            >
+              No Data Available
+            </p>
           )}
         </ul>
       </div>
-
     );
   };
 
@@ -354,10 +352,22 @@ const CommunityDetail = ({
     sessionStorage.setItem("community_question_id", url_slug);
     Router.push("question");
   };
-
+  const allowedFileTypes = [
+    "image/png",
+    "image/jpeg",
+    "image/jpg",
+    "image/svg+xml",
+    "video/mp4",
+    "video/mov",
+  ];
   const beforeUpload = (file) => {
     setUrl([...url, file]);
-    return false;
+    const fileType = file.type;
+    const isAllowed = allowedFileTypes.includes(fileType);
+    if (!isAllowed) {
+      message.error("Only PNG, JPG, JPEG, SVG, MP4, MOV files are allowed!");
+    }
+    return isAllowed;
   };
 
   const items = [
@@ -560,6 +570,7 @@ const CommunityDetail = ({
                         style={{ height: "30px!important" }}
                         beforeUpload={beforeUpload}
                         maxCount={1}
+                        accept=".png,.jpg,.jpeg,.svg,.mp4,.mov"
                       >
                         <button
                           style={{
@@ -665,10 +676,7 @@ const CommunityDetail = ({
                     width={56}
                     height={56}
                     preview="false"
-                    src={
-                      communityData?.image_url ||
-                      "https://tech24-uat.s3.amazonaws.com/D10dkiDJHM"
-                    }
+                    src={communityData?.image_url || profile_img}
                     alt="profile"
                     name="url"
                   />
