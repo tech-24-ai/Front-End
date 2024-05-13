@@ -61,43 +61,43 @@ function Blogs({ router }) {
       });
   };
 
-  useEffect(() => {
-    blogsList(0);
-    let query = router.query;
-    crudService._getAll("categories", {}).then((result) => {
-      let categories = result.data;
-      categories.unshift({
-        name: "All",
-        id: 0,
-        color: "#C0C0C0",
-      });
-      if (query) {
-        const currentCategory = categories.filter(
-          (c) => c.name == query.cat
-        )[0];
-        if (currentCategory) {
-          blogsList(currentCategory.id);
-          setIsActive(query.cat);
-          setIsHover(query.cat);
-        }
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   blogsList(0);
+  //   let query = router.query;
+  //   crudService._getAll("categories", {}).then((result) => {
+  //     let categories = result.data;
+  //     categories.unshift({
+  //       name: "All",
+  //       id: 0,
+  //       color: "#C0C0C0",
+  //     });
+  //     if (query) {
+  //       const currentCategory = categories.filter(
+  //         (c) => c.name == query.cat
+  //       )[0];
+  //       if (currentCategory) {
+  //         blogsList(currentCategory.id);
+  //         setIsActive(query.cat);
+  //         setIsHover(query.cat);
+  //       }
+  //     }
+  //   });
+  // }, []);
 
-  const blogsList = (id) => {
-    crudService._getAll("blogs", { blog_topic_id: id }).then((result) => {
-      setPosts(result.data);
-    });
-  };
+  // const blogsList = (id) => {
+  //   crudService._getAll("blogs", { blog_topic_id: id }).then((result) => {
+  //     setPosts(result.data);
+  //   });
+  // };
 
-  const searchPosts = async () => {
-    try {
-      const data = await crudService._getAll("blogs", { search: value });
-      setPosts(data.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  // const searchPosts = async () => {
+  //   try {
+  //     const data = await crudService._getAll("blogs", { search: value });
+  //     setPosts(data.data);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
