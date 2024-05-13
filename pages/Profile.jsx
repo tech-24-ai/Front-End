@@ -1092,7 +1092,7 @@ const Profile = ({
                     </div>
                     <div className="profile">
                       <h5>{data?.blog?.name}</h5>
-                      <p>{calculateTimeAgo(data?.created_at)}</p>
+                      <p>{"Saved before "}{calculateTimeAgo(data?.created_at)}</p>
                     </div>
                   </div>
 
