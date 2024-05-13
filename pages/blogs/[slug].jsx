@@ -216,17 +216,17 @@ class Blog extends Component {
                       />
                       <div
                         className="date-section"
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          width: "100%",
-                        }}
+                        // style={{
+                        //   display: "flex",
+                        //   justifyContent: "space-between",
+                        //   width: "100%",
+                        // }}
                       >
                         <div
                           className="time"
                           style={{
                             fontWeight: 400,
-                            fontSize: "14px",
+                            fontSize: "17px",
                             color: "#001622",
                           }}
                         >

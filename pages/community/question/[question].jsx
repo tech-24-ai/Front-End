@@ -39,6 +39,7 @@ import facebook_icon from "../../../public/images/linkedin/Facebook.svg";
 import email_icon from "../../../public/images/linkedin/Email.svg";
 import twitter_icon from "../../../public/images/linkedin/X - jpeg.svg";
 import myImageLoader from "../../../components/imageLoader";
+import profile_img from "../../public/new_images/profile.svg";
 
 const ReactQuill = dynamic(
   () => {
@@ -382,7 +383,7 @@ const CommunityQuestionDetail = ({
                           preview="false"
                           src={
                             communityQuestionDetail?.visitor?.profile_pic_url ||
-                            ""
+                            profile_img
                           }
                           alt="profile"
                         />
@@ -629,8 +630,7 @@ const CommunityQuestionDetail = ({
                               height={50}
                               preview="false"
                               src={
-                                answer?.visitor?.profile_pic_url ||
-                                "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                                answer?.visitor?.profile_pic_url || profile_img
                               }
                               alt="profile"
                             />
@@ -894,7 +894,7 @@ const CommunityQuestionDetail = ({
                                     preview="false"
                                     src={
                                       comment?.visitor?.profile_pic_url ||
-                                      "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                                      profile_img
                                     }
                                     alt="profile"
                                   />
@@ -968,10 +968,12 @@ const CommunityQuestionDetail = ({
                                   )}
                                 </div>
                                 {/* <p className="button">Follow</p> */}
-                                <EyeOutlined
-                                  title="view comments"
-                                  onClick={() => viewComments(comment)}
-                                />
+                                {comment?.comments.length > 0 && (
+                                  <EyeOutlined
+                                    title="view comments"
+                                    onClick={() => viewComments(comment)}
+                                  />
+                                )}
                                 {/* <div className="img">
                               <Image
                                 loader={myImageLoader}
@@ -1296,10 +1298,7 @@ const CommunityQuestionDetail = ({
                         width={56}
                         height={56}
                         preview="false"
-                        src={
-                          communityData?.image_url ||
-                          "https://tech24-uat.s3.amazonaws.com/D10dkiDJHM"
-                        }
+                        src={communityData?.image_url || profile_img}
                         alt="profile"
                         name="url"
                       />

@@ -1077,8 +1077,7 @@ const Profile = ({
                           height={48}
                           preview="false"
                           src={
-                            data?.blog?.image ||
-                            "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                            data?.blog?.image || profile_img
                           }
                           alt="profile"
                         />
@@ -1112,8 +1111,7 @@ const Profile = ({
                           height={48}
                           preview="false"
                           src={
-                            data?.market_research?.image ||
-                            "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                            data?.market_research?.image || profile_img
                           }
                           alt="profile"
                         />

@@ -12,6 +12,7 @@ import { connect } from "react-redux";
 import moment from "moment";
 import { EyeOutlined } from "@ant-design/icons";
 import { crudService } from "../../../../_services";
+import profile_img from "../../public/new_images/profile.svg";
 import {
   Form,
   Space,
@@ -254,8 +255,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       height={50}
                       preview="false"
                       src={
-                        communityQuestionDetail?.visitor?.profile_pic_url ||
-                        "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                        communityQuestionDetail?.visitor?.profile_pic_url || profile_img
                       }
                       alt="profile"
                     />
@@ -320,8 +320,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                         height={50}
                         preview="false"
                         src={
-                          communityAnswer?.visitor?.profile_pic_url ||
-                          "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                          communityAnswer?.visitor?.profile_pic_url || profile_img
                         }
                         alt="profile"
                       />
@@ -425,8 +424,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                           height={50}
                           preview="false"
                           src={
-                            answer?.visitor?.profile_pic_url ||
-                            "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                            answer?.visitor?.profile_pic_url || profile_img
                           }
                           alt="profile"
                         />
@@ -610,8 +608,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                                 height={50}
                                 preview="false"
                                 src={
-                                  comment?.visitor?.profile_pic_url ||
-                                  "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                                  comment?.visitor?.profile_pic_url || profile_img
                                 }
                                 alt="profile"
                               />
@@ -822,10 +819,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     width={56}
                     height={56}
                     preview="false"
-                    src={
-                      communityData?.image_url ||
-                      "https://tech24-uat.s3.amazonaws.com/D10dkiDJHM"
-                    }
+                    src={communityData?.image_url || profile_img}
                     alt="profile"
                     name="url"
                   />
