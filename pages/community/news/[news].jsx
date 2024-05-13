@@ -26,7 +26,7 @@ import Router, { useRouter } from "next/router";
 import myImageLoader from "../../../components/imageLoader";
 import ShareSocialMedia from "../../../components/shareSocial";
 import { ShareAltOutlined, SaveOutlined } from "@ant-design/icons";
-import profile_img from "../../public/new_images/profile.svg";
+import profile_img from "../../../public/new_images/profile.svg";
 import { isMobile } from "react-device-detect";
 
 const SubmitButton = ({ form, children }) => {

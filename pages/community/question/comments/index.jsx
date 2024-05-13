@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 import moment from "moment";
 import { EyeOutlined } from "@ant-design/icons";
 import { crudService } from "../../../../_services";
-import profile_img from "../../public/new_images/profile.svg";
+import profile_img from "../../../../public/new_images/profile.svg";
 import {
   Form,
   Space,
