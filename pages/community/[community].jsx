@@ -508,7 +508,8 @@ const CommunityDetail = ({
                           required: true,
                         },
                       ]}
-                      // name="title"
+                      value={title}
+                      name="title"
                       onChange={(e) => {
                         setTitle(e.target.value);
                       }}
