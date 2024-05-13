@@ -200,7 +200,18 @@ const Profile = ({
       });
   }, [page]);
 
-  // tab3 data
+  // tab5 data
+  const handleCardClick = (data) => {
+    if (data?.blog !== null) {
+      console.log("blog details", data.blog);
+      const blogSlug = data.blog.slug;
+      Router.push(`/blogs/${blogSlug}`);
+    } else if (data?.market_research !== null) {
+      console.log("market research", data.market_research);
+      const marketResearchSlug = data.market_research.seo_url_slug;
+      Router.push(`/market-research/${marketResearchSlug}`);
+    }
+  };
 
   useEffect(() => {
     crudService
@@ -1050,8 +1061,10 @@ const Profile = ({
               style={{
                 width: "100%",
                 height: "fit-content",
+                cursor: "pointer"
               }}
               key={data.id}
+              onClick={() => handleCardClick(data)} 
             >
               {data?.blog !== null && (
                 <div className="cards-header">
