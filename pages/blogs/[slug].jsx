@@ -214,33 +214,7 @@ class Blog extends Component {
                           borderTopLeftRadius: "10px",
                         }}
                       />
-                      <div
-                        className="date-section"
-                        // style={{
-                        //   display: "flex",
-                        //   justifyContent: "space-between",
-                        //   width: "100%",
-                        // }}
-                      >
-                        <div
-                          className="time"
-                          style={{
-                            fontWeight: 400,
-                            fontSize: "17px",
-                            color: "#001622",
-                          }}
-                        >
-                          {blog?.author}
-                        </div>
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                          <div className="date">
-                            {moment(blog.created_at).format("LL")}
-                          </div>
-                          <div className="custom-divider"></div>
-                          <div className="time">{blog?.read_time}</div>
-                          {/* <div className="custom-divider"></div> */}
-                        </div>
-                      </div>
+                      
                       <div className="inner-text-container">
                         {/* <div style={{ display: "flex" }}>
                       <ProfileIcon />
@@ -258,6 +232,23 @@ class Blog extends Component {
                         <div>
                           <h3>{blog.meta_title}</h3>
                         </div>
+                        <div className="blog-tags-container">
+                          {splitBlogTags(blog.details).map((tag) => (
+                            <div className="blog-tags">{tag}</div>
+                          ))}
+                        </div>
+                        <br/>
+                        <div className="date-section">
+                                  <div className="date">
+                                    {moment(blog.created_at).format("LL")}
+                                  </div>
+                                  <div className="custom-divider"></div>
+                                  <div className="time">{blog?.read_time}</div>
+                                  <div className="custom-divider"></div>
+                                  <div className="time">{blog?.author}</div>
+                                </div>
+                       
+                      <br/>
                         <div>
                           {/* <p>{editorData}</p> */}
                           {/* <div
@@ -271,11 +262,7 @@ class Blog extends Component {
                             }}
                           />
                         </div>
-                        <div className="blog-tags-container">
-                          {splitBlogTags(blog.details).map((tag) => (
-                            <div className="blog-tags">{tag}</div>
-                          ))}
-                        </div>
+                       
 
                         <div className="social-section">
                           {/* <div className="like">1.1K</div>
