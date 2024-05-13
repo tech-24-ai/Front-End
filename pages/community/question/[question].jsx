@@ -39,7 +39,7 @@ import facebook_icon from "../../../public/images/linkedin/Facebook.svg";
 import email_icon from "../../../public/images/linkedin/Email.svg";
 import twitter_icon from "../../../public/images/linkedin/X - jpeg.svg";
 import myImageLoader from "../../../components/imageLoader";
-import profile_img from "../../public/new_images/profile.svg";
+import profile_img from "../../../public/new_images/profile.svg";
 
 const ReactQuill = dynamic(
   () => {
