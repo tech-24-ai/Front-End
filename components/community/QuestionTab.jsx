@@ -20,6 +20,8 @@ import {
 } from "antd";
 import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import shorting_icon from "../../public/new_images/sorting_icon.svg";
+import profile_img from "../../public/new_images/profile.svg";
+
 import "draft-js/dist/Draft.css";
 import "react-quill/dist/quill.snow.css";
 import community from ".";
@@ -660,7 +662,7 @@ const QuestionTab = ({
                     preview="false"
                     src={
                       data?.visitor?.profile_pic_url ||
-                      "https://cdn.pixabay.com/photo/2015/07/20/13/01/man-852770_1280.jpg"
+                      profile_img
                     }
                     alt="profile"
                   />
