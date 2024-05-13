@@ -198,6 +198,7 @@ const Community = ({ router }) => {
             <SearchInput
               placeholder="Search anything"
               defaultValue={searchQuery}
+              maxLength={60}
               onSearch={(value) => handleSearch(value)}
             />
             <div className="sorting-community sorting-display">

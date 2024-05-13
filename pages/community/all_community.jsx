@@ -169,6 +169,7 @@ const Community = ({ router }) => {
               placeholder="Search anything"
               defaultValue={searchQuery}
               onSearch={(value) => setSearchQuery(value)}
+              maxLength={60}
             />
           </div>
 

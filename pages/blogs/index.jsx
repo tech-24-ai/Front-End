@@ -133,6 +133,7 @@ function Blogs({ router }) {
                       setPage(0);
                       setValue(value.slice(0, 60));
                     }}
+                    maxLength={60}
                     defaultValue={value}
                   />
                 </div>

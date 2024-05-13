@@ -160,6 +160,7 @@ const Community = ({ community, getAllCrud, router }) => {
               <SearchInput
                 placeholder="Search anything"
                 className="bg"
+                maxLength={60}
                 onSearch={(value) => handleSearch(value)}
               />
             </div>

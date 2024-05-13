@@ -61,6 +61,7 @@ function MarketResearch({
                   className="bg"
                   placeholder="Search anything"
                   onSearch={(value) => handleSearch(value)}
+                  maxLength={60}
                 />
               </div>
             </div>

@@ -235,6 +235,7 @@ const ResearchList = ({ router }) => {
             placeholder="Search anything"
             onSearch={(value) => setSearchQuery(value)}
             defaultValue={searchQuery}
+            maxLength={60}
           />
         </div>
 
