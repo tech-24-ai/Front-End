@@ -15,6 +15,7 @@ import { withRouter } from "next/router";
 import { Container, Row, Col, FormGroup, Label, Input, Card } from "reactstrap";
 import { crudActions } from "../../_actions";
 import Link from "next/dist/client/link";
+import { Modal } from "antd";
 
 import Image from "next/image";
 import myImageLoader from "../../components/imageLoader";
@@ -49,6 +50,8 @@ class Blog extends Component {
         title: "",
         description: "",
       },
+      showModal: false,
+      modalMessage: ""
     };
   }
 
@@ -99,16 +102,39 @@ class Blog extends Component {
     }
   }
 
-  saveToLibrary = (id) => {
-    this.props.createCrud("save_to_library", "blogs/save", { id });
+  // saveToLibrary = (id) => {
+  //   this.props.createCrud("save_to_library", "blogs/save", { id });
+  // };
+  saveToLibrary = async (id) => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    try {
+      await this.props.createCrud("save_to_library", "blogs/save", { id });
+      this.setState({
+        modalMessage: "Blog saved successfully!",
+        showModal: true
+      });
+    } catch (error) {
+      console.error("Error saving blog:", error);
+      this.setState({
+        modalMessage: "Failed to save blog. Please try again later.",
+        showModal: true
+      });
+    }
   };
+
+  // To reload the page
+  reloadPage = () => {
+    window.location.reload();
+  };
+
+
 
   handleMeta = (e) => {
     this.setState({ meta: e });
   };
-
+  
   render() {
-    const { comments, submitting, value, meta } = this.state;
+    const { comments, submitting, value, meta, showModal, modalMessage } = this.state;
     const { blog, categories, blogs, authentication } = this.props;
     // const limitedData = blogs.slice(0, 4);
     const limitedData = blog ? blog.related_blogs.slice(0, 4) : [];
@@ -274,6 +300,20 @@ class Blog extends Component {
                                 </div>
                               </Fragment>
                             )}
+                          <Modal
+                            title="Save Blog"
+                            visible={this.state.showModal}
+                            onOk={() => {
+                              this.setState({ showModal: false });
+                              this.reloadPage();
+                            }}
+                            onCancel={() => {
+                              this.setState({ showModal: false });
+                              this.reloadPage();
+                            }}
+                          >
+                            <p>{this.state.modalMessage}</p>
+                          </Modal>
                         </div>
                         <br />
                         {/* <div className="row">
