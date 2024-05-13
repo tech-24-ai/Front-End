@@ -120,10 +120,7 @@ function Blogs({ router }) {
         <PageBanner
           titleNode={
             <div className="banner-head">
-              <h2 style={{ color: "white" }}>
-                Welcome to the Tech 24 <br />
-                Blog
-              </h2>
+              <h2 style={{ color: "white" }}>Welcome to the Tech 24 Blog</h2>
 
               <p style={{ color: "white" }}>Get our blogs</p>
               <hr></hr>

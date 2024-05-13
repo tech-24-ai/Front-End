@@ -136,10 +136,7 @@ const Community = ({ community, getAllCrud, router }) => {
       <PageBanner
         titleNode={
           <div className="banner-head">
-            <h2 style={styles.title}>
-              Welcome to the Tech 24 <br />
-              Community
-            </h2>
+            <h2 style={styles.title}>Welcome to the Tech 24 Community</h2>
             <p style={styles.subtitle}>
               Get answer form our community of Experts
             </p>

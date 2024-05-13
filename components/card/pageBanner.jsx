@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "reactstrap";
 import Image from "next/future/image";
 import { isMobile } from "react-device-detect";
@@ -15,6 +15,25 @@ function pageBanner({
     backgroundSize: "cover", // Optional: Adjust based on your needs
     backgroundRepeat: "no-repeat", // Optional: Adjust based on your needs
   };
+  const [screenSize, getDimension] = useState({
+    dynamicWidth: window.innerWidth,
+    dynamicHeight: window.innerHeight,
+  });
+
+  const setDimension = () => {
+    getDimension({
+      dynamicWidth: window.innerWidth,
+      dynamicHeight: window.innerHeight,
+    });
+  };
+  useEffect(() => {
+    window.addEventListener("resize", setDimension);
+
+    return () => {
+      window.removeEventListener("resize", setDimension);
+    };
+  }, [screenSize]);
+
   return (
     <div
       className="page-banner"
@@ -25,9 +44,10 @@ function pageBanner({
         style={
           backgroundImage
             ? {
-                background: isMobile
-                  ? "linear-gradient(0deg, #141414 35%, transparent)"
-                  : "linear-gradient(90deg, #141414 20%, transparent)",
+                background:
+                  screenSize.dynamicWidth < 1440
+                    ? "linear-gradient(0deg, #141414 35%, transparent)"
+                    : "linear-gradient(90deg, #141414 20%, transparent)",
               }
             : {}
         }

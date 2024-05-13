@@ -2,7 +2,7 @@
   .banner-head {
     width: 35rem;
 
-    .community-stats{
+    .community-stats {
       // height: 70px;
 
       display: flex;
@@ -11,23 +11,23 @@
       width: 100%;
       margin-top: 2rem;
 
-      .stat-container{
+      .stat-container {
         width: 10rem;
         position: relative;
-        h4{
+        h4 {
           font-family: "Poppins";
           font-size: 24px;
           font-weight: 500;
-          color: #E0E0E0;
+          color: #e0e0e0;
         }
-        p{
+        p {
           font-size: 16px;
           font-weight: 400;
           font-family: "Inter";
-          color: #B0B8BF;
+          color: #b0b8bf;
         }
       }
-      .stat-container:not(:last-child)::after{
+      .stat-container:not(:last-child)::after {
         content: "";
         position: absolute;
         top: 0;
@@ -455,34 +455,43 @@
 }
 
 @media (max-width: 1440px) {
-  .banner-head {
-    width: 23rem !important;
+  .community-section {
+    .banner-container {
+      height: 340px !important;
+      .banner-title-container {
+        width: 100%;
+        .banner-head {
+          width: 100% !important;
+        }
+      }
+    }
+  }
 
-     .community-stats{
-    
+  .banner-head {
+    .community-stats {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       width: 100%;
       margin-top: 2rem;
 
-      .stat-container{
+      .stat-container {
         width: 7rem !important;
         position: relative;
-        h4{
+        h4 {
           font-family: "Poppins";
           font-size: 20px;
           font-weight: 500;
-          color: #E0E0E0;
+          color: #e0e0e0;
         }
-        p{
+        p {
           font-size: 14px;
           font-weight: 400;
           font-family: "Inter";
-          color: #B0B8BF;
+          color: #b0b8bf;
         }
       }
-      .stat-container:not(:last-child)::after{
+      .stat-container:not(:last-child)::after {
         content: "";
         position: absolute;
         top: 0;
@@ -745,14 +754,12 @@
   }
   .community-listing-page {
     .container {
-   
       .banner-container {
-   
         height: 370px;
-        }
       }
     }
   }
+}
 
 @media (max-width: 375px) {
   .banner-head {
