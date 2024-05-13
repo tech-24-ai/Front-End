@@ -255,7 +255,8 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       height={50}
                       preview="false"
                       src={
-                        communityQuestionDetail?.visitor?.profile_pic_url || profile_img
+                        communityQuestionDetail?.visitor?.profile_pic_url ||
+                        profile_img
                       }
                       alt="profile"
                     />
@@ -320,7 +321,8 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                         height={50}
                         preview="false"
                         src={
-                          communityAnswer?.visitor?.profile_pic_url || profile_img
+                          communityAnswer?.visitor?.profile_pic_url ||
+                          profile_img
                         }
                         alt="profile"
                       />
@@ -423,9 +425,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                           width={50}
                           height={50}
                           preview="false"
-                          src={
-                            answer?.visitor?.profile_pic_url || profile_img
-                          }
+                          src={answer?.visitor?.profile_pic_url || profile_img}
                           alt="profile"
                         />
                         {/* <span className="label-counter">18</span> */}
@@ -608,7 +608,8 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                                 height={50}
                                 preview="false"
                                 src={
-                                  comment?.visitor?.profile_pic_url || profile_img
+                                  comment?.visitor?.profile_pic_url ||
+                                  profile_img
                                 }
                                 alt="profile"
                               />
@@ -632,14 +633,14 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                               </p>
                             </div>
                           </div>
-
-                          <div className="follow">
-                            {/* <p className="button">Follow</p> */}
-                            <EyeOutlined
-                              title="view comments"
-                              onClick={() => viewComments(comment)}
-                            />
-                            {/* <div className="img">
+                          {comment?.comments.length > 0 && (
+                            <div className="follow">
+                              {/* <p className="button">Follow</p> */}
+                              <EyeOutlined
+                                title="view comments"
+                                onClick={() => viewComments(comment)}
+                              />
+                              {/* <div className="img">
                               <Image
                       loader={myImageLoader}
                       style={{ borderRadius: "2px", cursor: "pointer" }}
@@ -650,7 +651,8 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       alt="profile"
                     />
                             </div> */}
-                          </div>
+                            </div>
+                          )}
                         </div>
                         <p className="para">
                           <span
