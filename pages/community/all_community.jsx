@@ -18,29 +18,6 @@ import CommunityCategory from "../../components/community/index";
 import CustomPagination from "../../components/pagination";
 import SearchInput from "../../components/form/searchInput";
 
-const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
-const items = [
-  {
-    key: "1",
-    label: "This is panel header with arrow icon",
-    children: <p>{text}</p>,
-  },
-  {
-    key: "2",
-    label: "This is panel header with no arrow icon",
-    children: <p>{text}</p>,
-    showArrow: false,
-  },
-];
-const options = {
-  day: "numeric",
-  month: "long",
-  year: "numeric",
-};
 
 const Community = ({ router }) => {
   const { q } = Router.query;
@@ -76,19 +53,17 @@ const Community = ({ router }) => {
       console.error("Error fetching data:", error);
     }
   };
-  // useEffect(() => {
-  //     const filtered = communityFeature.filter(item =>
-  //         item.name.toLowerCase().includes(searchQuery.toLowerCase())
-  //     );
-  //     setFilteredData(filtered);
-  // }, [searchQuery, communityFeature]);
+ 
 
   //Filter
-  // Pagination
-  // const slicedData = filteredData.slice(
-  //     currentPage * itemsPerPage,
-  //     (currentPage + 1) * itemsPerPage
-  // );
+  const handleSearch = () => {
+    if (!searchQuery && q) {
+      const url = new URL(window.location.href);
+      url.searchParams.delete("q");
+      window.history.replaceState({}, "", url.toString());
+    }
+    getAllPosts();
+  };
 
   let arrData = [];
   communityFeature?.map((item) => {
@@ -105,28 +80,7 @@ const Community = ({ router }) => {
     query: "",
     tag: "",
   });
-  const parseDate = (dateString) => {
-    const [datePart, timePart] = dateString.split(" ");
-    const [month, day, year] = datePart.split("-");
-    const [hours, minutes] = timePart.split(":");
-    const parsedDate = new Date(year, month - 1, day, hours, minutes);
-    return parsedDate.toLocaleDateString("en-US", {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    });
-  };
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const [activeIndex, setActiveIndex] = useState(null);
-
-  const toggleAccordion = (index) => {
-    setActiveIndex(activeIndex === index ? null : index);
-  };
-
+ 
   const communityDetails = (data) => {
     Router.push(data?.url_slug);
   };
@@ -136,31 +90,7 @@ const Community = ({ router }) => {
       ._create("community/join", { community_id })
       .then(() => window.location.reload());
   };
-  const accordionData = [
-    {
-      title: "FILTERS",
-    },
-    {
-      title: "Research Type",
-      content: "O  Applied Research",
-    },
-    {
-      title: "Research Category",
-      content: "O  Applied Research",
-    },
-    {
-      title: "Research Topics",
-      content: "O  Applied Research",
-    },
-    {
-      title: "Research Vendors",
-      content: "O  Applied Research",
-    },
-    {
-      title: "Research Tags",
-      content: "O  Applied Research",
-    },
-  ];
+ 
 
   const accordionItemStyle = {
     borderBottom: "1px solid #ccc",

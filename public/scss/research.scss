@@ -431,6 +431,24 @@
       width: 67%;
     }
 
+    .research-tags-container{
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+  
+      .research-tags{
+        width: fit-content;
+        background-color: #fff;
+        padding: 6px 12px;
+        border-radius: 4px;
+        border: 1px solid #d9dfe9;
+        margin-left: 10px;
+      }
+      :first-child{
+        margin-left: 0 !important;
+      }
+    }
+
     .download-report-card {
       padding: 1.5em;
       border-radius: 16px;
