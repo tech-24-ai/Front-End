@@ -301,13 +301,10 @@ class Blog extends Component {
                               </Fragment>
                             )}
                           <Modal
+                            cancelButtonProps={{ style: { display: 'none' } }}
                             title="Save Blog"
                             visible={this.state.showModal}
                             onOk={() => {
-                              this.setState({ showModal: false });
-                              this.reloadPage();
-                            }}
-                            onCancel={() => {
                               this.setState({ showModal: false });
                               this.reloadPage();
                             }}
