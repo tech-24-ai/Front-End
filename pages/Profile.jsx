@@ -1095,7 +1095,7 @@ const Profile = ({
                       <p style={{
                         marginBottom:0
                       }}>{"Blog"}</p>
-                      <p>{"Saved before "}{calculateTimeAgo(data?.created_at)}</p>
+                      <p>{"Saved "}{calculateTimeAgo(data?.created_at)}</p>
                     </div>
                   </div>
 
@@ -1132,7 +1132,7 @@ const Profile = ({
                       <p style={{
                         marginBottom:0
                       }}>{"Market research"}</p>
-                      <p>{calculateTimeAgo(data?.created_at)}</p>
+                      <p>{"Saved "}{calculateTimeAgo(data?.created_at)}</p>
                     </div>
                   </div>
 
