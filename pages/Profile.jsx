@@ -1092,6 +1092,7 @@ const Profile = ({
                     </div>
                     <div className="profile">
                       <h5>{data?.blog?.name}</h5>
+                      <p>{"Blog"}</p>
                       <p>{"Saved before "}{calculateTimeAgo(data?.created_at)}</p>
                     </div>
                   </div>
@@ -1126,6 +1127,9 @@ const Profile = ({
                     </div>
                     <div className="profile">
                       <h5>{data?.market_research?.name}</h5>
+                      <p style={{
+                        marginBottom:0
+                      }}>{"Market research"}</p>
                       <p>{calculateTimeAgo(data?.created_at)}</p>
                     </div>
                   </div>
