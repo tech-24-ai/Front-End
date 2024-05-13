@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/future/image";
 import { Container } from "reactstrap";
 
-import three_dot_icon from "../../../public/new_images/3dots.svg";
-import message_icon from "../../../public/new_images/message_icon.svg";
 import like_button from "../../../public/new_images/like_button.svg";
-import dislike_button from "../../../public/new_images/dislike_button.svg";
 import { alertActions, crudActions, loaderActions } from "../../../_actions";
 import { connect } from "react-redux";
 import moment from "moment";
@@ -32,14 +29,8 @@ import "react-quill/dist/quill.snow.css";
 import community from "../..";
 import dynamic from "next/dynamic";
 import Router, { useRouter } from "next/router";
-import share_icon from "../../../public/images/share-android.svg";
-import flag_icon from "../../../public/images/triangle-flag.svg";
-import linkedin_icon from "../../../public/images/linkedin/Linkedin.svg";
-import facebook_icon from "../../../public/images/linkedin/Facebook.svg";
-import email_icon from "../../../public/images/linkedin/Email.svg";
-import twitter_icon from "../../../public/images/linkedin/X - jpeg.svg";
 import myImageLoader from "../../../components/imageLoader";
-import profile_img from "../../public/new_images/profile.svg";
+import profile_img from "../../../public/new_images/profile.svg";
 
 const ReactQuill = dynamic(
   () => {
