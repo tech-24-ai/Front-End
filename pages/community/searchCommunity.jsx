@@ -94,7 +94,7 @@ const Community = ({ router }) => {
 
   const communityDetails = (data) => {
     sessionStorage.setItem("community_id", data?.url_slug);
-    Router.push("community_detail");
+    Router.push(data?.url_slug);
   };
 
   const handleSort = (e) => {
