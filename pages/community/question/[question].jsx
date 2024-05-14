@@ -135,13 +135,15 @@ const CommunityQuestionDetail = ({
       .then(() => window.location.reload());
   };
 
+  console.log('isReplayModalOpen?.details', isReplayModalOpen?.details);
+
   const handleOk = (parent_id, community_post_id, replyText, isReply) => {
     if (replyText == undefined || replyText == null || replyText.trim() == "") {
       showAlert("Please add description.");
       return;
     }
     const postData = {
-      parent_id: null,
+      parent_id: parent_id,
       community_post_id: community_post_id,
       description: replyText,
     };
@@ -962,7 +964,7 @@ const CommunityQuestionDetail = ({
                                   )}
                                 </div>
                                 {/* <p className="button">Follow</p> */}
-                                {comment?.comments.length > 0 && (
+                                {(
                                   <EyeOutlined
                                     title="view comments"
                                     onClick={() => viewComments(comment)}

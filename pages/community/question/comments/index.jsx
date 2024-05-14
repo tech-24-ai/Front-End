@@ -399,6 +399,25 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                 >
                   Comments ({communityAnswers?.length})
                 </div>
+                <div
+                      style={{
+                        fontSize: "14px",
+                        fontWeight: 500,
+                        fontFamily: "Inter",
+                        color: "#FFFFFF",
+                        padding: "4px 16px",
+                        borderRadius: "2px",
+                        backgroundColor: "#0074D9",
+                        cursor: "pointer",
+                      }}
+                      className="questions_font_12px"
+                      onClick={() => setIsReplayModalOpen({
+                        isReplayModelOpen: true,
+                        details: communityAnswer,
+                      })}
+                    >
+                      Add Comments
+                    </div>
               </div>
             </div>
 
@@ -633,7 +652,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                               </p>
                             </div>
                           </div>
-                          {comment?.comments.length > 0 && (
+                          {(
                             <div className="follow">
                               {/* <p className="button">Follow</p> */}
                               <EyeOutlined
@@ -774,9 +793,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     <div
                       onClick={() =>
                         handleOk(
-                          isReplayModalOpen?.details?.parent_id == null
-                            ? isReplayModalOpen?.details?.id
-                            : isReplayModalOpen?.details?.parent_id,
+                          isReplayModalOpen?.details?.id,
                           communityQuestionDetail?.id,
                           replyResponse,
                           true

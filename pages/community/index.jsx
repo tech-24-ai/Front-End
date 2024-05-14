@@ -35,12 +35,12 @@ const Community = ({ community, getAllCrud, router }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const allCommunityData = await crudService._getAll("community");
+        const allCommunityData = await crudService._getAll("community?orderBy=created_at&orderDirection=desc");
         setAllCommunityFeature(allCommunityData.data);
         const topRatedCommunityData = await crudService._getAll(
-          "community?top_rated"
+          "community?page=1&pageSize=5&orderBy=top_rated"
         );
-        setTopRatedCommunityFeature(topRatedCommunityData.data);
+        setTopRatedCommunityFeature(topRatedCommunityData?.data?.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -189,7 +189,7 @@ const Community = ({ community, getAllCrud, router }) => {
                   color: "#54616C",
                 }}
               >
-                Top
+                Most Active
               </span>{" "}
               <span
                 style={{
@@ -199,7 +199,7 @@ const Community = ({ community, getAllCrud, router }) => {
                   marginLeft: "10px",
                 }}
               >
-                Rated
+                Discussion Groups
               </span>
             </h4>
           </div>
@@ -278,7 +278,7 @@ const Community = ({ community, getAllCrud, router }) => {
                   marginLeft: "10px",
                 }}
               >
-                Community
+                Discussion Groups
               </span>
             </h4>
             <h4

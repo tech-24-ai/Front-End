@@ -22,7 +22,7 @@ import SearchInput from "../../components/form/searchInput";
 const Community = ({ router }) => {
   const { q } = Router.query;
   const [communityFeature, setCommunityFeature] = useState([]);
-  const [sortBy, setSortBy] = useState("id_desc");
+  const [sortBy, setSortBy] = useState("desc");
   const [currentPage, setCurrentPage] = useState(0);
   const [total, setTotal] = useState(0);
   const itemsPerPage = 10;
@@ -45,7 +45,8 @@ const Community = ({ router }) => {
         search: searchQuery,
         page: currentPage + 1,
         pageSize: itemsPerPage,
-        orderBy: sortBy,
+        orderBy: "created_at",
+        orderDirection: sortBy,
       });
       setCommunityFeature(data.data?.data);
       setTotal(data.data?.total);
@@ -124,11 +125,11 @@ const Community = ({ router }) => {
 
   const sortOptions = [
     {
-      value: "id_desc",
+      value: "desc",
       label: "Most Recent",
     },
     {
-      value: "id_asc",
+      value: "asc",
       label: "Most Older",
     },
   ];
@@ -147,6 +148,7 @@ const Community = ({ router }) => {
                     color: "#B0B8BF",
                     fontFamily: "Inter",
                     fontSize: "14px",
+                    cursor: "pointer",
                   }}
                 >
                   Community <RightOutlined style={{ verticalAlign: "0" }} />
@@ -156,10 +158,9 @@ const Community = ({ router }) => {
                     color: "#0074D9",
                     fontFamily: "Inter",
                     fontSize: "14px",
-                    cursor: "pointer",
                   }}
                 >
-                  All Community
+                  All Discussion Groups
                 </span>
               </h4>
             </div>

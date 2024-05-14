@@ -18,11 +18,11 @@ function MarketResearch({
   const marketBannerImage = "../../images/market-research.jpg";
   useEffect(() => {
     getAllCrud("market_research", "market_research", {
-      orderBy: "id",
+      orderBy: "created_at",
       orderDirection: "desc",
-      pageSize: 4,
+      pageSize: 5,
     });
-    getAllCrud("all_research", "market_research", {});
+    getAllCrud("all_research", "market_research",{});
     getAllCrud("categories", "research_categories", {
       orderBy: "total_research",
     });

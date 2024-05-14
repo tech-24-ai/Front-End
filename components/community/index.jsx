@@ -182,7 +182,7 @@ const CommunityCategory_former = ({ data, isloggedIn, toggleLoginPopup }) => {
                 </div>
               )}
             >
-              {data?.slice(0, 5).map((data, index) => (
+              {data?.map((data, index) => (
                 <CommunityCard data={data} key={index} />
               ))}
             </Slider>
