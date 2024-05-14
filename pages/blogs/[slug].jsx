@@ -188,7 +188,7 @@ class Blog extends Component {
                   data={[
                     { label: "Blogs", url: "/blogs" },
                     {
-                      label: blog.blog_topic.name,
+                      label: blog.name,
                       url: "",
                     },
                   ]}
@@ -204,10 +204,10 @@ class Blog extends Component {
                       <Image
                         s
                         loader={myImageLoader}
-                        src={blog.image}
+                        src={blog.banner || blog.image}
                         alt=""
                         width={900}
-                        height={548}
+                        height={345}
                         style={{
                           objectFit: "cover",
                           borderTopRightRadius: "10px",
@@ -230,7 +230,7 @@ class Blog extends Component {
                       </p>
                     </div> */}
                         <div>
-                          <h3>{blog.meta_title}</h3>
+                          <h3>{blog.name}</h3>
                         </div>
                         <div className="blog-tags-container">
                           {splitBlogTags(blog.details).map((tag) => (
@@ -493,7 +493,7 @@ class Blog extends Component {
 
                 <div className="col-md-4">
                   <h4
-                    className="related-blog mt-4"
+                    className="related-blog"
                     style={{ paddingBottom: "1rem" }}
                   >
                     Related Blogs
