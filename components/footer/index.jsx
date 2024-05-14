@@ -89,7 +89,9 @@ const Footer = (props) => {
                   <a>Services</a>
                   <Link href="/it-robo">AI-Based Robo Advisor</Link>
                   <Link href="/consultant">Talk to a Consultant</Link>
-                  <Link href="/access">Access Communities</Link>
+                  <Link href="/d/tools_calculators/calculators">
+                  Tools & Calculator
+                </Link>
                 </div>
                 <div className="link-wrapper">
                   <a>Help</a>
