@@ -463,6 +463,13 @@
         .banner-head {
           width: 100% !important;
         }
+        .community-stats{
+          width: 65%!important;
+        }
+        .new-custom-search-input{
+          width: 65%!important;
+
+        }
       }
     }
   }
@@ -472,7 +479,7 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      width: 100%;
+      width: 65%;
       margin-top: 2rem;
 
       .stat-container {
