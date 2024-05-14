@@ -104,12 +104,12 @@ const Profile = ({
   const [libraryPageCount, setLibraryPageCount] = useState(0);
 
   const [libraryData, setLibraryData] = useState([]);
-  const [reloadComponent, setreloadComponent] = useState(false);
+   const [reloadComponent, setreloadComponent] = useState(false);
 
   const [searchQuery, setSearchQuery] = useState(q);
   const [filteredData, setFilteredData] = useState({});
   const [mode, setMode] = useState("left");
-  // const [researchData, setResearchData] = useState([]);
+  //  const [researchData, setResearchData] = useState([]);
   const onPageChange = (page) => {
     setCurrentPage(page);
   };
@@ -205,6 +205,7 @@ const Profile = ({
     if (data?.blog !== null) {
       console.log("blog details", data.blog);
       const blogSlug = data.blog.slug;
+     
       Router.push(`/blogs/${blogSlug}`);
     } else if (data?.market_research !== null) {
       console.log("market research", data.market_research);
@@ -253,15 +254,16 @@ const Profile = ({
   const handleSort = (e) => {
     setSortBy(e.target.value);
   };
- 
+
+
   const handleDelete = (id) => {
     
     crudService
         ._delete("visitor_library", id)
         .then((result) => {
-            console.log("Item deleted successfully:", result);
-            setreloadComponent(true)
-          
+          console.log("Item deleted successfully:", result);
+          setreloadComponent(prevState => !prevState);
+                    
         })
         .catch((error) => {
             console.error("Error deleting item:", error);
@@ -1102,7 +1104,10 @@ const Profile = ({
                   <div className="follow mobile-delete-btn">
                     <button
                       className="button"
-                      onClick={() => handleDelete(data.id)}
+                      onClick={(e) => {
+                        e.stopPropagation(); // Stop event propagation to parent elements
+                        handleDelete(data.id);
+                    }}
                       style={{ background: "transparent" }}
                     >
                       <DeleteOutlined />
