@@ -242,9 +242,9 @@ class Blog extends Component {
                                   <div className="date">
                                     {moment(blog.created_at).format("LL")}
                                   </div>
-                                  <div className="custom-divider"></div>
+                                  {/* <div className="custom-divider"></div> */}
                                   <div className="time">{blog?.read_time}</div>
-                                  <div className="custom-divider"></div>
+                                  {/* <div className="custom-divider"></div> */}
                                   <div className="time">{blog?.author}</div>
                                 </div>
                        
@@ -550,9 +550,9 @@ class Blog extends Component {
                                   <div className="date">
                                     {moment(blogs.created_at).format("LL")}
                                   </div>
-                                  <div className="custom-divider"></div>
+                                  {/* <div className="custom-divider"></div> */}
                                   <div className="time">{blogs?.read_time}</div>
-                                  <div className="custom-divider"></div>
+                                  {/* <div className="custom-divider"></div> */}
                                   <div className="time">{blogs?.author}</div>
                                 </div>
                               </div>
