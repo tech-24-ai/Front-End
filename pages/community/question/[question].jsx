@@ -432,7 +432,10 @@ const CommunityQuestionDetail = ({
                   <div className="chips">
                     {communityQuestionDetail?.postTags?.map((tag) => (
                       <div
-                        style={{ fontFamily: "Inter" }}
+                        style={{
+                          fontFamily: "Inter",
+                          backgroundColor: "unset",
+                        }}
                         className="questions_font_10px"
                       >
                         {tag?.name}

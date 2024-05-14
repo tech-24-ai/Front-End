@@ -660,10 +660,7 @@ const QuestionTab = ({
                     width={50}
                     height={50}
                     preview="false"
-                    src={
-                      data?.visitor?.profile_pic_url ||
-                      profile_img
-                    }
+                    src={data?.visitor?.profile_pic_url || profile_img}
                     alt="profile"
                   />
                   {/* <span className="label-counter">18</span> */}
@@ -730,7 +727,7 @@ const QuestionTab = ({
             <div className="chips">
               {data?.postTags?.map((tag) => (
                 <div
-                  style={{ fontFamily: "Inter" }}
+                  style={{ fontFamily: "Inter", backgroundColor: "unset" }}
                   className="questions_font_10px"
                 >
                   {tag?.name}
