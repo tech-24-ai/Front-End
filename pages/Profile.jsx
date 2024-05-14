@@ -156,12 +156,19 @@ const Profile = ({
   //  console.log("setSelectedCountry",countryList);
 
   const calculateTimeAgo = (createdAt) => {
-    const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
-    const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
-    const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
-    const duration = moment.duration(diffMilliseconds);
-    const humanReadableDiff = duration.humanize(true);
-    return humanReadableDiff;
+    const currentDateTime = moment();
+      const blogPostDateTime = moment.utc(createdAt).local().format("MM-DD-YYYY hh:mm A");
+     
+      const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
+      const duration = moment.duration(diffMilliseconds);
+  
+      let humanReadableDiff;
+      if (duration.asMinutes() < 60) {
+        humanReadableDiff = duration.minutes() + " minutes ago";
+      } else {
+        humanReadableDiff = duration.humanize(true);
+      }
+      return humanReadableDiff;
   };
 
   const [sortType, setSortType] = useState("asc");
@@ -635,11 +642,18 @@ const Profile = ({
 
   const Tab2 = () => {
     const calculateTimeAgo = (createdAt) => {
-      const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
-      const blogPostDateTime = moment(createdAt, "MM-DD-YYYY hh:mm A");
-      const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
+      const currentDateTime = moment();
+      const blogPostDateTime = moment.utc(createdAt).local().format("MM-DD-YYYY hh:mm A");
+     
+      const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
       const duration = moment.duration(diffMilliseconds);
-      const humanReadableDiff = duration.humanize(true);
+  
+      let humanReadableDiff;
+      if (duration.asMinutes() < 60) {
+        humanReadableDiff = duration.minutes() + " minutes ago";
+      } else {
+        humanReadableDiff = duration.humanize(true);
+      }
       return humanReadableDiff;
     };
 
@@ -648,6 +662,7 @@ const Profile = ({
       communityPost,
       communityPostReply,
       community,
+      visitor
     }) => {
       if (
         activity_type === 1 ||
@@ -671,11 +686,12 @@ const Profile = ({
           communityPost?.url_slug
         );
         sessionStorage.setItem("community_parent_id", communityPostReply?.id);
+        const communityPostReplyDetails = {...communityPostReply,visitor }
         sessionStorage.setItem(
           "community_post_details",
           JSON.stringify({
-            ...communityPostReply,
-            communityPost: { ...communityPost, community },
+            ...communityPostReplyDetails,
+            communityPost: { ...communityPost, community, visitor },
           })
         );
         // const url = `community/${community?.url_slug}/question/${communityPost?.url_slug}/comments`;
