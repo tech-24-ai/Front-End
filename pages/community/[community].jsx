@@ -302,7 +302,15 @@ const CommunityDetail = ({
                     color: "#54616C",
                   }}
                 >
-                  {data.description}
+                 
+                  <span
+                      style={{
+                        fontFamily: "Inter",
+                      }}
+                      dangerouslySetInnerHTML={{
+                        __html: data.description,
+                      }}
+                    ></span>
                 </p>
                 <p
                   style={{
