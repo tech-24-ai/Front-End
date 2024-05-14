@@ -69,7 +69,7 @@
       .question-tag-wrapper {
         display: grid;
         gap: 0.5rem;
-        justify-content: center;
+        justify-content: flex-start;
         .question-tag {
           background-color: #fff;
           padding: 6px 12px;
@@ -247,7 +247,7 @@
         .question-tag-wrapper {
           display: grid;
           gap: 0.5rem;
-          justify-content: center;
+          justify-content: flex-start;
           .question-tag {
             background-color: #fff;
             padding: 6px 12px;

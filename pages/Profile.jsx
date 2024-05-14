@@ -785,17 +785,26 @@ const Profile = ({
       const topMarks = {};
       const bottomMarks = {};
       const levelCount = visitor_profile_levels?.[0]?.leavels.length;
-      const interval = levelCount ? 100 / (levelCount - 1) : 0;
-      
-      // console.log("interval",interval);
+      const interval = levelCount ? 100 / (levelCount) : 0;
+      const currentValue = -1 ;
+     
+      topMarks[0] = {
+        label: "Level 0",
+        style: { whiteSpace: "pre" },
+      };
+      bottomMarks[0] = 0;
 
       visitor_profile_levels?.[0]?.leavels.forEach((level, index) => {
-        const label = Math.round(interval * index);
+        const label = Math.round(interval * (index+1));
         topMarks[label] = {
           label: `${level.level} \n ${level.title}`,
           style: { whiteSpace: "pre" },
         };
         bottomMarks[label] = level.max_range;
+        if(visitor_profile_levels?.[0]?.total_points_earned < parseInt(level.max_range) && currentValue == -1){
+          currentValue = parseInt( Math.round(interval * (index)));
+          console.log('currentValue', currentValue);
+        }
       });
 
       topMarks[100] = {
@@ -804,97 +813,18 @@ const Profile = ({
         } \n ${visitor_profile_levels?.[0]?.leavels[levelCount - 1].title}`,
         style: { whiteSpace: "pre" },
       };
-      console.log("topMarks",bottomMarks);
       
 
-      return { bottomMarks, topMarks };
+      return { bottomMarks, topMarks,currentValue };
     };
 
-    const { topMarks, bottomMarks } = calculateMarks();
+    const { topMarks, bottomMarks, currentValue } = calculateMarks();
     const style = {
       display: "inline-block",
       height: 300,
       marginLeft: 70,
     };
-    const levelCount = visitor_profile_levels?.[0]?.leavels.length;
-    const interval = levelCount ? 100 / (levelCount - 1) : 0;
-    const marks = {
-      0: {
-        style: {
-          // color: '#f50',
-        },
-        label: (
-          <span style={{ marginLeft: "50px" }}>
-            <span style={{ fontSize: "15px" }}>
-              {visitor_profile_levels?.[0]?.leavels[levelCount - 1].level}
-            </span>
-            <br />
-            <b style={{ fontSize: "15px" }}>Legend</b>
-          </span>
-        ),
-      },
-      20: {
-        style: {
-          // color: '#f50',
-        },
-        label: (
-          <span style={{ marginLeft: "50px" }}>
-            <span style={{ fontSize: "15px" }}>Level 5</span>
-            <br />
-            <b style={{ fontSize: "15px" }}>Pro</b>
-          </span>
-        ),
-      },
-      40: {
-        style: {
-          // color: '#f50',
-        },
-        label: (
-          <span style={{ marginLeft: "0px" }}>
-            <span style={{ fontSize: "15px" }}>Level 4</span>
-            <br />
-            <b style={{ fontSize: "15px" }}>Contributor</b>
-          </span>
-        ),
-      },
-      60: {
-        style: {
-          // color: '#f50',
-        },
-        label: (
-          <span className="mt-2" style={{ marginLeft: "0px" }}>
-            <span style={{ fontSize: "15px" }}>Level 3</span>
-            <br />
-            <b style={{ fontSize: "15px" }}>Action Taker</b>
-          </span>
-        ),
-      },
-      80: {
-        style: {
-          // color: '#f50',
-        },
-        label: (
-          <span style={{ marginLeft: "50px" }}>
-            <span style={{ fontSize: "15px" }}>Level 2</span>
-            <br />
-            <b style={{ fontSize: "15px" }}>Starter</b>
-          </span>
-        ),
-      },
-      // Level:"Levelvbhdfbv",
-      100: {
-        style: {
-          // color: '#f50',
-        },
-        label: (
-          <span style={{ marginLeft: "50px" }}>
-            <span style={{ fontSize: "15px" }}>Level 1</span>
-            <br />
-            <b style={{ fontSize: "15px" }}>New Bee</b>
-          </span>
-        ),
-      },
-    };
+    
     return (
       <div>
         {/* Content for mobile view */}
@@ -921,12 +851,13 @@ const Profile = ({
                       className="verticalSliderfirst"
                       vertical
                       range
-                      marks={marks}
+                      marks={topMarks}
+                      disabled={true}
                       step={null}
                       trackStyle={{ backgroundColor: "#0074D9", height: "8px" }}
                       railStyle={{ backgroundColor: "#EBEBF0", height: "8px" }}
                       defaltValue={
-                        visitor_profile_levels?.[0]?.total_points_earned
+                        currentValue
                       }
                       style={{ left: "-45px", top: "0px" }}
                     />
@@ -936,6 +867,7 @@ const Profile = ({
                       trackStyle={{ display: "none" }}
                       railStyle={{ display: "none" }}
                       step={null}
+                      disabled={true}
                       className="verticalSlidertwo"
                       vertical
                       range
@@ -944,20 +876,6 @@ const Profile = ({
                       style={{ marginLeft: "150px", top: "-320px" }}
                       onChange={(value) => console.log(value)}
                     />
-                    {/* <Slider
-              marks={bottomMarks}
-              step={null}
-              handleStyle={{
-                backgroundColor: "#0074D9",
-                height: "16.48px",
-                width: "16.48px",
-              }}
-              trackStyle={{ backgroundColor: "#0074D9", height: "8px" }}
-              railStyle={{ backgroundColor: "#EBEBF0", height: "8px" }}
-              defaultValue={visitor_profile_levels?.[0]?.total_points_earned}
-              onChange={(value) => console.log(value)}
-              tooltipVisible={false}
-            /> */}
                   </div>
                 </div>
                 ,{/* mountNode, */}
@@ -1007,7 +925,8 @@ const Profile = ({
                     railStyle={{ display: "none" }}
                     marks={topMarks}
                     step={null}
-                    defaultValue={100}
+                    open={true}
+                    defaultValue={currentValue}
                     style={{ marginBottom: 20 }}
                   />
                   <Slider
@@ -1015,13 +934,16 @@ const Profile = ({
                     step={null}
                     handleStyle={{
                       backgroundColor: "#0074D9",
-                      height: "25.48px",
-                      width: "25.48px",
+                      height: "20.48px",
+                      width: "20.48px",
+                    }}
+                    tooltip={{
+                      open: true,
                     }}
                     trackStyle={{ backgroundColor: "#0074D9", height: "8px" }}
                     railStyle={{ backgroundColor: "#EBEBF0", height: "8px" }}
                     defaultValue={
-                      visitor_profile_levels?.[0]?.total_points_earned
+                      currentValue
                     }
                     onChange={(value) => console.log(value)}
                     tooltipVisible={false}
