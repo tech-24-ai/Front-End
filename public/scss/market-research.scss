@@ -302,6 +302,12 @@ section.latest-research-section {
 
 //Tablet
 @media (min-width: 768px) and (max-width: 1440px) {
+  .page-banner .banner-bg .banner-container .banner-title-container p {
+    font-size: 12px!important;
+  }
+  .new-custom-search-input{
+    width: 65%!important;
+  }
   .market-research-portal-section {
     .banner-image-container,
     // .sub-title {
@@ -311,6 +317,7 @@ section.latest-research-section {
       font-size: 18px;
       font-weight: 600;
     }
+
 
     .research-content {
       display: grid;
