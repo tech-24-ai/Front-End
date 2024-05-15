@@ -100,23 +100,25 @@ function Detail({
               </Fragment>
             )}
           </div>
-          <p>{"Research Topic : "}{research_detail?.researchTopic?.title}</p>
+          <p className="date-section">{"Research Topic : "}{research_detail?.researchTopic?.title}</p>
           
         </div>
         {isMobile == false && (
           <BrowserView>
             <div className="research-content-wrapper">
               <div className="research-content-section">
+              <div className="research-tags-container">
+                  {research_detail?.documentTags.map((tag) => (
+                    <div className="research-tags">{tag.name}</div>
+                  ))}
+                </div>
+                <br/>
                 <div
                   dangerouslySetInnerHTML={{
                     __html: html,
                   }}
                 ></div>
-                <div className="research-tags-container">
-                  {research_detail?.documentTags.map((tag) => (
-                    <div className="research-tags">{tag.name}</div>
-                  ))}
-                </div>
+                
               </div>
               <div className="related-research-section">
                 <div className="download-report-card">

@@ -150,7 +150,8 @@ class Blog extends Component {
       month: "long",
       year: "numeric",
     };
-    let editorData = blog && blog.html;
+    // let editorData = blog && JSON.parse(blog.html);
+    let editorData = blog && JSON.parse(blog.html);
     let editorStyle = "";
     if (editorData) {
       const parseDditorData = JSON.parse(editorData);
@@ -217,19 +218,7 @@ class Blog extends Component {
                       />
 
                       <div className="inner-text-container">
-                        {/* <div style={{ display: "flex" }}>
-                      <ProfileIcon />
-                      <p className="admin-text">Admin</p>
-
-                      <DateIcon />
-
-                      <p className="admin-text">
-                        {blog &&
-                          new Date(
-                            Date.parse(blog.created_at.replace(/-/g, "/"))
-                          ).toLocaleDateString("en-US", options)}
-                      </p>
-                    </div> */}
+                       
                         <div>
                           <h3>{blog.name}</h3>
                         </div>
@@ -259,7 +248,6 @@ class Blog extends Component {
                       /> */}
                           <div
                             dangerouslySetInnerHTML={{
-                              // __html: processedEditorData,
                               __html: editorData,
                             }}
                           />
@@ -301,194 +289,10 @@ class Blog extends Component {
                           </Modal>
                         </div>
                         <br />
-                        {/* <div className="row">
-                      <div className="col-md-12" style={{border:"1px solid #caced1", background:"#caced1"}}>
-                    <Comment
-                    
-                    avatar={<Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />}
-                  
-                    content={
-                      
-                      <Input
-                        onChange={this.handleChange}
-                        onSubmit={this.handleSubmit}
-                        submitting={submitting}
-                        value={value}
-                        placeholder="Write a comment..."
-                        style={{height:"200px",border:"white",pointerEvents:"none",background:"#caced1",color:"white"}}
-                      />
-                    
-                    }
-                    
-                  />
-                  <button className="btn btn-primary btn-sm mb-2 mr-2" style={{float:"right",width:"80px"}}>Post</button>
-                   </div>
-                    </div> */}
-                        {/* <div class="py-4">
-                        <div class="row row-cols-1 g-4 mb-4">
-
-                          <div class="col">
-                              <div class="h-100 card-review">
-                                <div class="pb-0 d-flex flex-row justify-content-between align-items-center">
-                                    <div class="d-flex align-items-center">
-                                      <img class="rounded-circle me-2"
-                                            src="https://via.placeholder.com/256/fe669e/fff.png" />
-                                      <div class="d-flex flex-column justify-content-center align-items-start fs-5 lh-sm">
-                                          <b className="ml-3">Studio KonKon 9h</b>
-                                          <small class="text-muted">14th Sept 2021</small>
-                                      </div>
-                                    </div>
-                                    <span class="fs-1 my-0 fw-bolder text-success">10</span>
-                                </div>
-                                <div class="card-body py-2">
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                </div>
-                                <div class="pt-0 d-flex flex-row align-items-center text-muted">
-                                    <span class="me-1"><i class="zmdi zmdi-comments"></i></span>
-                                  
-                                    <p className="like-review ml-5"><LikeOutlined /> <b className="mt-3">5</b></p>
-                                    <p className="like-review ml-5"><MessageOutlined /> <b className="mt-3">Reply</b></p>
-
-                                </div>
-
-                                <p class="stretched-link">-View more Reply</p>
-                              </div>
-                          </div>
-
-                          <div class="col">
-                              <div class="h-100 card-review">
-                                <div class="pb-0 d-flex flex-row justify-content-between align-items-center">
-                                    <div class="d-flex align-items-center">
-                                      <img class="rounded-circle me-2"
-                                            src="https://via.placeholder.com/256/fe669e/fff.png" />
-                                      <div class="d-flex flex-column justify-content-center align-items-start fs-5 lh-sm">
-                                          <b className="ml-3">Studio KonKon 9h</b>
-                                          <small class="text-muted">14th Sept 2021</small>
-                                      </div>
-                                    </div>
-                                    <span class="fs-1 my-0 fw-bolder text-success">10</span>
-                                </div>
-                                <div class="card-body py-2">
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                </div>
-                                <div class="pt-0 d-flex flex-row align-items-center text-muted">
-                                    <span class="me-1"><i class="zmdi zmdi-comments"></i></span>
-                                  
-                                    <p className="like-review ml-5"><LikeOutlined /> <b className="mt-3">5</b></p>
-                                    <p className="like-review ml-5"><MessageOutlined /> <b className="mt-3">Reply</b></p>
-
-                                </div>
-
-                                <p class="stretched-link">-View more Reply</p>
-                              </div>
-                          </div>
-
-                          <div class="col">
-                              <div class="h-100 card-review">
-                                <div class="pb-0 d-flex flex-row justify-content-between align-items-center">
-                                    <div class="d-flex align-items-center">
-                                      <img class="rounded-circle me-2"
-                                            src="https://via.placeholder.com/256/fe669e/fff.png" />
-                                      <div class="d-flex flex-column justify-content-center align-items-start fs-5 lh-sm">
-                                          <b className="ml-3">Studio KonKon 9h</b>
-                                          <small class="text-muted">14th Sept 2021</small>
-                                      </div>
-                                    </div>
-                                    <span class="fs-1 my-0 fw-bolder text-success">10</span>
-                                </div>
-                                <div class="card-body py-2">
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                </div>
-                                <div class="pt-0 d-flex flex-row align-items-center text-muted">
-                                    <span class="me-1"><i class="zmdi zmdi-comments"></i></span>
-                                  
-                                    <p className="like-review ml-5"><LikeOutlined /> <b className="mt-3">5</b></p>
-                                    <p className="like-review ml-5"><MessageOutlined /> <b className="mt-3">Reply</b></p>
-
-                                </div>
-
-                                <p class="stretched-link">-View more Reply</p>
-                              </div>
-                          </div>
-
-
-                        </div>
-                    </div> */}
-                        {/* <div className="social-link">
-                      <LinkedinShareButton url={shareUrl} title={shareTitle}>
-                        <Image
-                          loader={myImageLoader}
-                          src={LinkedInIconBlack}
-                          alt=""
-                          placeholder="Website"
-                          
-                          height={25}
-                          width={25}
-                        />
-                      </LinkedinShareButton>
-
-                      <FacebookShareButton url={shareUrl} title={shareTitle}>
-                        <Image
-                          loader={myImageLoader}
-                          src={FaceBookIconBlack}
-                          alt=""
-                          placeholder="twitter"
-                          
-                          height={25}
-                          width={25}
-                        />
-                      </FacebookShareButton>
-
-                      <TwitterShareButton url={shareUrl} title={shareTitle}>
-                        <Image
-                          loader={myImageLoader}
-                          src={TwitterIconBlack}
-                          alt=""
-                          placeholder="Youtube"
-                          
-                          height={25}
-                          width={25}
-                        />
-                      </TwitterShareButton>
-                    </div> */}
+                       
                       </div>
                     </div>
-                    {/* <div className="prev-next-footer">
-                  <div style={{ textAlign: "left", width: "35%" }}>
-                    <p className="admin-text">Previous:</p>
-                    <div className="arrow-container">
-                      <Image
-                        loader={myImageLoader}
-                        src={leftArrowIndicator}
-                        alt=""
-                        
-                        width={20}
-                        height={20}
-                      />
-                      <p style={{ marginLeft: "10px" }}>
-                        Why a free afternoon each week can boost employees’
-                        sense.
-                      </p>
-                    </div>
-                  </div>
-                  <div style={{ textAlign: "right", width: "29%" }}>
-                    <p className="admin-text">Next:</p>
-                    <div className="arrow-container">
-                      <p style={{ marginRight: "10px" }}>
-                        The 7 things Biden should do first to tackle climate
-                        change.
-                      </p>
-                      <Image
-                        loader={myImageLoader}
-                        src={rightArrowIndicator}
-                        alt=""
-                        
-                        width={20}
-                        height={20}
-                      />
-                    </div>
-                  </div>
-                </div> */}
+                   
                   </div>
                 </div>
 
