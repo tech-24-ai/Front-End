@@ -331,7 +331,7 @@ const QuestionTab = ({
   });
 
   const gotoQuestionDetail = (url_slug) => {
-    Router.replace(`/community/question/${url_slug}`);
+    Router.push(`/community/question/${url_slug}`);
   };
 
   const beforeUpload = (file) => {
