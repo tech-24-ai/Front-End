@@ -51,7 +51,7 @@ class Blog extends Component {
         description: "",
       },
       showModal: false,
-      modalMessage: ""
+      modalMessage: "",
     };
   }
 
@@ -111,13 +111,13 @@ class Blog extends Component {
       await this.props.createCrud("save_to_library", "blogs/save", { id });
       this.setState({
         modalMessage: "Blog saved successfully!",
-        showModal: true
+        showModal: true,
       });
     } catch (error) {
       console.error("Error saving blog:", error);
       this.setState({
         modalMessage: "Failed to save blog. Please try again later.",
-        showModal: true
+        showModal: true,
       });
     }
   };
@@ -127,14 +127,13 @@ class Blog extends Component {
     window.location.reload();
   };
 
-
-
   handleMeta = (e) => {
     this.setState({ meta: e });
   };
-  
+
   render() {
-    const { comments, submitting, value, meta, showModal, modalMessage } = this.state;
+    const { comments, submitting, value, meta, showModal, modalMessage } =
+      this.state;
     const { blog, categories, blogs, authentication } = this.props;
     // const limitedData = blogs.slice(0, 4);
     const limitedData = blog ? blog.related_blogs.slice(0, 4) : [];
@@ -154,11 +153,14 @@ class Blog extends Component {
     // let editorData = blog && JSON.parse(blog.html);
     let editorData = blog && JSON.parse(blog.html);
     let editorStyle = "";
-    if (editorData?.css) {
-      editorStyle = editorData.css;
-    }
-    if (editorData?.html) {
-      editorData = editorData.html;
+    if (editorData) {
+      const parseDditorData = JSON.parse(editorData);
+      if (parseDditorData?.css) {
+        editorStyle = parseDditorData.css;
+      }
+      if (parseDditorData?.html) {
+        editorData = parseDditorData.html;
+      }
     }
 
     // let processedEditorData = "";
@@ -214,7 +216,7 @@ class Blog extends Component {
                           borderTopLeftRadius: "10px",
                         }}
                       />
-                      
+
                       <div className="inner-text-container">
                        
                         <div>
@@ -225,18 +227,18 @@ class Blog extends Component {
                             <div className="blog-tags">{tag}</div>
                           ))}
                         </div>
-                        <br/>
+                        <br />
                         <div className="date-section">
-                                  <div className="date">
-                                    {moment(blog.created_at).format("LL")}
-                                  </div>
-                                  {/* <div className="custom-divider"></div> */}
-                                  <div className="time">{blog?.read_time}</div>
-                                  {/* <div className="custom-divider"></div> */}
-                                  <div className="time">{blog?.author}</div>
-                                </div>
-                       
-                      <br/>
+                          <div className="date">
+                            {moment(blog.created_at).format("LL")}
+                          </div>
+                          {/* <div className="custom-divider"></div> */}
+                          <div className="time">{blog?.read_time}</div>
+                          {/* <div className="custom-divider"></div> */}
+                          <div className="time">{blog?.author}</div>
+                        </div>
+
+                        <br />
                         <div>
                           {/* <p>{editorData}</p> */}
                           {/* <div
@@ -250,7 +252,6 @@ class Blog extends Component {
                             }}
                           />
                         </div>
-                       
 
                         <div className="social-section">
                           {/* <div className="like">1.1K</div>
@@ -276,7 +277,7 @@ class Blog extends Component {
                               </Fragment>
                             )}
                           <Modal
-                            cancelButtonProps={{ style: { display: 'none' } }}
+                            cancelButtonProps={{ style: { display: "none" } }}
                             title="Save Blog"
                             visible={this.state.showModal}
                             onOk={() => {
