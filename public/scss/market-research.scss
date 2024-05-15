@@ -250,9 +250,10 @@ section.latest-research-section {
 @media (max-width: 767px) {
   .market-research-portal-section {
     .banner-image-container,
-    // .sub-title {
-    //   display: none;
-    // }
+    .sub-title {
+      // display: none;
+      margin-top: 5px!important;
+    }
     .title {
       font-size: 18px;
       font-weight: 600;
@@ -310,9 +311,9 @@ section.latest-research-section {
   }
   .market-research-portal-section {
     .banner-image-container,
-    // .sub-title {
-    //   display: none;
-    // }
+    .sub-title {
+      margin-top: 10px!important;
+    }
     .title {
       font-size: 18px;
       font-weight: 600;
