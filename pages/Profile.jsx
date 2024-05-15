@@ -69,7 +69,7 @@ const Profile = ({
     id: visitorprofile?.country?.id,
   });
   const [activeTab, setActiveTab] = useState("1");
-
+  const [isSignOutModalOpen, setIsSignOutModalOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
   // const [mode, setMode] = useState('left');
   // const onChange = (e) => {
@@ -410,6 +410,19 @@ const Profile = ({
       }
     }
   };
+
+  //SignOut 
+ 
+  const handleSignOutOk = () => {
+    setIsSignOutModalOpen(false);
+    Router.push("/logout");
+  };
+  const showSignOutModal = () => {
+    setIsSignOutModalOpen(true);
+  };
+  const handleSignOutCancel = () => {
+    setIsSignOutModalOpen(false);
+  };
   useEffect(() => {
     getAllCrud("visitorcommunityprofile", "visitorcommunityprofile");
     getAllCrud("visitorprofile", "visitorprofile");
@@ -496,17 +509,7 @@ const Profile = ({
   // console.log("updateProfileData",updateProfileData);
 
   const Tab1 = () => {
-    const [isSignOutModalOpen, setIsSignOutModalOpen] = useState(false);
-    const handleSignOutOk = () => {
-      setIsSignOutModalOpen(false);
-      Router.push("/logout");
-    };
-    const showSignOutModal = () => {
-      setIsSignOutModalOpen(true);
-    };
-    const handleSignOutCancel = () => {
-      setIsSignOutModalOpen(false);
-    };
+  
 
     let visitorname = visitorprofile?.name;
     let firstname = "";
@@ -577,11 +580,11 @@ const Profile = ({
                   ? `+${visitorprofile?.country_code} `
                   : ""}
                 {visitorprofile?.mobile || "-"}
-                {!visitorprofile?.mobile && (
+                {/* {!visitorprofile?.mobile && (
                   <div onClick={() => setIsModalOpen(true)} className="add">
                     Add
                   </div>
-                )}
+                )} */}
               </h5>
             </div>
           </div>
@@ -598,44 +601,16 @@ const Profile = ({
             <h6>Alternate Email</h6>
             <h5>
               {visitorprofile?.alternate_email || "-"}
-              {!visitorprofile?.alternate_email && (
+              {/* {!visitorprofile?.alternate_email && (
                 <div onClick={() => setIsModalOpen(true)} className="add">
                   Add
                 </div>
-              )}
+              )} */}
             </h5>
           </div>
         </div>
         <hr />
-        <div className="delete-container mb-2">
-          <div>{/* Delete Account */}</div>
-          <div onClick={showSignOutModal}>Sign Out</div>
-        </div>
-        <Modal
-          className="sign-out-container"
-          title="Sign Out"
-          visible={isSignOutModalOpen}
-          onOk={handleSignOutOk}
-          onCancel={handleSignOutCancel}
-          footer={[
-            <div
-              onClick={handleSignOutCancel}
-              className="sign-out-modal-button"
-            >
-              Cancel
-            </div>,
-            <div
-              onClick={handleSignOutOk}
-              className="sign-out-modal-button confirm"
-            >
-              Confirm
-            </div>,
-          ]}
-        >
-          <div className="edit-profile-container">
-            <p>Are you sure you want to sign out?</p>
-          </div>
-        </Modal>
+       
       </div>
     );
   };
@@ -888,17 +863,34 @@ const Profile = ({
                   </p>
                 </div>
                 <div>
-                  <h6>
-                    Answer = {visitor_profile_levels?.[0]?.answer_point_info}{" "}
-                    point
-                  </h6>
-                  <div className="custom-border"></div>
-                  <h6>
-                    Upvote = {visitor_profile_levels?.[0]?.upvote_point_info}{" "}
-                    point
-                  </h6>
+                <h6>
+                      Submit Question = {visitor_profile_levels?.[0]?.submit_que_point_info}{" "}
+                      point
+                    </h6>
+                    <div className="custom-border"></div>
+                    <h6>
+                      Upvote = {visitor_profile_levels?.[0]?.upvote_point_info}{" "}
+                      point
+                    </h6>
+                    <div className="custom-border"></div>
+                    <h6>
+                      Answer = {visitor_profile_levels?.[0]?.answer_point_info}{" "}
+                      point
+                    </h6>
+                   
+                    <div className="custom-border"></div>
+                    <h6>
+                      Correct Answer = {visitor_profile_levels?.[0]?.correct_answer_point_info}{" "}
+                      point
+                    </h6>
                 </div>
+                
               </div>
+              <div className="text-center">
+                  <span>
+                  You will move to the next level when your total points exceed the maximum range for the current level. For example, if you have 158 points, you will be at Level 1
+                  </span>
+                </div>
             </Card>
           </div>
         )}
@@ -959,8 +951,8 @@ const Profile = ({
                     </p>
                   </div>
                   <div>
-                    <h6>
-                      Answer = {visitor_profile_levels?.[0]?.answer_point_info}{" "}
+                  <h6>
+                      Submit Question = {visitor_profile_levels?.[0]?.submit_que_point_info}{" "}
                       point
                     </h6>
                     <div className="custom-border"></div>
@@ -968,7 +960,24 @@ const Profile = ({
                       Upvote = {visitor_profile_levels?.[0]?.upvote_point_info}{" "}
                       point
                     </h6>
+                    <div className="custom-border"></div>
+                    <h6>
+                      Answer = {visitor_profile_levels?.[0]?.answer_point_info}{" "}
+                      point
+                    </h6>
+                   
+                    <div className="custom-border"></div>
+                    <h6>
+                      Correct Answer = {visitor_profile_levels?.[0]?.correct_answer_point_info}{" "}
+                      point
+                    </h6>
                   </div>
+                   
+                </div>
+                <div className="text-center">
+                  <span>
+                  You will move to the next level when your total points exceed the maximum range for the current level. For example, if you have 158 points, you will be at Level 1
+                  </span>
                 </div>
               </Card>
             </div>
@@ -1252,6 +1261,11 @@ const Profile = ({
               <div onClick={showEditModal} className="button">
                 Edit Profile
               </div>
+              <div className="delete-container mt-3" style={{
+                float:'right',
+              }}>
+                <div onClick={showSignOutModal}>Sign Out</div>
+              </div>
             </div>
           </Card>
           <Modal
@@ -1482,6 +1496,29 @@ const Profile = ({
           </Modal>
         </div>
       </div>
+
+      <Modal
+        className="sign-out-container"
+        title="Sign Out"
+        visible={isSignOutModalOpen}
+        onOk={handleSignOutOk}
+        onCancel={handleSignOutCancel}
+        footer={[
+          <div onClick={handleSignOutCancel} className="sign-out-modal-button">
+            Cancel
+          </div>,
+          <div
+            onClick={handleSignOutOk}
+            className="sign-out-modal-button confirm"
+          >
+            Confirm
+          </div>,
+        ]}
+      >
+        <div className="edit-profile-container">
+          <p>Are you sure you want to sign out?</p>
+        </div>
+      </Modal>
     </Container>
   );
 };

@@ -1433,6 +1433,17 @@
     div {
       display: flex;
     }
+    .delete-container {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      color: #ff3b3b;
+      font-size: 14px;
+      font-weight: 400;
+      div {
+        cursor: pointer;
+      }
+    }
   }
   .button {
     width: 100%;
@@ -1632,17 +1643,7 @@
       word-wrap: break-word;
     }
   }
-  .delete-container {
-    margin-top: 2rem;
-    display: flex;
-    justify-content: space-between;
-    color: #ff3b3b;
-    font-size: 14px;
-    font-weight: 400;
-    div {
-      cursor: pointer;
-    }
-  }
+ 
 }
 
 // tab2
