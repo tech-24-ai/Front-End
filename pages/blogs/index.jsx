@@ -107,7 +107,6 @@ function Blogs({ router }) {
             </div>
           }
           backgroundImage={marketBannerImage}
-          backgroundStyle={{ height: "386px" }}
           // image={""}
           // height={isBrowser ? 386 : 220}
         />
