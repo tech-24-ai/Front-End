@@ -241,7 +241,7 @@ const Community = ({ community, getAllCrud, router }) => {
                   marginLeft: "10px",
                 }}
               >
-                Question
+                Questions
               </span>
             </h4>
           </div>
