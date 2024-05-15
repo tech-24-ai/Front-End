@@ -18,7 +18,7 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
     getAllCrud("blogs", "blogs", {
       orderBy: "blogs.created_at",
       orderPos: "desc",
-      pageSize: 3,
+      pageSize: 5,
     });
   }, []);
 

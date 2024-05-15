@@ -12,7 +12,7 @@ const TopConsultant = ({ getAllCrud, consultants, authentication }) => {
   const slider = useRef();
   useEffect(() => {
     getAllCrud("consultants", "consultants", {
-      pageSize: 3,
+      pageSize: 5,
       orderBy: "top_consultants",
       orderPos: "desc",
       is_company: false,

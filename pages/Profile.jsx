@@ -920,6 +920,7 @@ const Profile = ({
                 <div className="slider-container">
                   <Slider
                     className="slider-one"
+                    disabled={true}
                     handleStyle={{ display: "none" }}
                     trackStyle={{ display: "none" }}
                     railStyle={{ display: "none" }}
@@ -932,6 +933,7 @@ const Profile = ({
                   <Slider
                     marks={bottomMarks}
                     step={null}
+                    disabled={true}
                     handleStyle={{
                       backgroundColor: "#0074D9",
                       height: "20.48px",
