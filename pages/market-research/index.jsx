@@ -49,11 +49,11 @@ function MarketResearch({
         titleNode={
           <div>
             <h4>Market Research</h4>
-            <p className="sub-title">
+            <p className="sub-title subSecondTitle">
               Gain insights on technology, simplify IT planning and operations.
               <br />
               <br />
-              Try it now. It's free!
+             Try it now. It's free!
             </p>
             <div className="mt-4" style={styles.inputGroup}>
               <div className="search-box">

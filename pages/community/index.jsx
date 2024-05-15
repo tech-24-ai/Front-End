@@ -31,7 +31,7 @@ const Community = ({ community, getAllCrud, router }) => {
   const [topRatedCommunityFeature, setTopRatedCommunityFeature] = useState([]);
   const [trendingQuestions, setTrendingQuestions] = useState([]);
   const [stats, setStats] = useState(null);
-
+  const marketBannerImage = "../../images/market-research.jpg";
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -137,7 +137,7 @@ const Community = ({ community, getAllCrud, router }) => {
         titleNode={
           <div className="banner-head">
            
-            <h4>Welcome to the Tech 24 Community</h4>
+            <h4 className="newtabTitle">Welcome to the Tech 24 Community</h4>
             <p className="sub-title">
             Get answer form our community of Experts
               </p>
@@ -163,11 +163,14 @@ const Community = ({ community, getAllCrud, router }) => {
                 className="bg"
                 maxLength={60}
                 onSearch={(value) => handleSearch(value)}
+                
               />
             </div>
           </div>
         }
-        image={isMobile ? "" : CommunityImage}
+        backgroundImage={marketBannerImage}
+        backgroundStyle={{ height: "386px" }}
+        // image={isMobile ? "" : CommunityImage}
       />
 
       <Container>

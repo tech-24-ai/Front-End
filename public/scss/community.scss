@@ -455,6 +455,9 @@
 }
 
 @media (max-width: 1440px) {
+  .page-banner .banner-bg .banner-container .banner-title-container .newtabTitle{
+    width: 73%!important;
+  }
   .community-section {
     .banner-container {
       height: 340px !important;
@@ -464,10 +467,10 @@
           width: 100% !important;
         }
         .community-stats{
-          width: 65%!important;
+          width: 60%!important;
         }
         .new-custom-search-input{
-          width: 65%!important;
+          width: 58%!important;
 
         }
       }
@@ -750,6 +753,27 @@
 }
 
 @media (max-width: 767px) {
+  .page-banner .banner-bg .banner-container .banner-title-container .newtabTitle{
+    width: 100%!important;
+  }
+  .community-section {
+    .banner-container {
+      height: 340px !important;
+      .banner-title-container {
+        width: 100%;
+        .banner-head {
+          width: 100% !important;
+        }
+        .community-stats{
+          width: 100%!important;
+        }
+        .new-custom-search-input{
+          width: 100%!important;
+
+        }
+      }
+    }
+  }
   .community-tab-container {
     .share-btn,
     .report-btn {

@@ -1,9 +1,17 @@
 .market-research-portal-section {
+  .page-banner .banner-bg .banner-container .banner-title-container p.subSecondTitle{
+    margin-top: 10px!important;
+
+  }
+   .page-banner .banner-bg .banner-container .banner-title-container p.subSecondTitle::last-line::first-letter{
+    color: red!important;
+   }
   .market-research-body-container {
     // margin: 1rem 0;
     margin-top: 3.5rem;
     margin-bottom: 1rem;
   }
+ 
 
   .title {
     text-align: center;

@@ -26,7 +26,7 @@ function Blogs({ router }) {
   const [page, setPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
   const [sortBy, setSortBy] = useState("desc");
-
+  const marketBannerImage = "../../images/market-research.jpg";
 
   // const fetchData = async () => {
   //   try {
@@ -85,12 +85,12 @@ function Blogs({ router }) {
       <section className="blogs-section">
         <PageBanner
           titleNode={
-            <div className="banner-head">
+            <div className="banner-head mt-4">
               <h2 style={{ color: "white" }}>Welcome to the Tech 24 Blog</h2>
 
               <p style={{ color: "white" }}>Get our blogs</p>
               <hr></hr>
-              <div className="mt-4" style={styles.inputGroup}>
+              <div className="" style={styles.inputGroup}>
                 <div className="search-box">
                   <SearchInput
                     placeholder="Search anything"
@@ -106,8 +106,10 @@ function Blogs({ router }) {
               </div>
             </div>
           }
-          image={""}
-          height={isBrowser ? 386 : 220}
+          backgroundImage={marketBannerImage}
+          backgroundStyle={{ height: "386px" }}
+          // image={""}
+          // height={isBrowser ? 386 : 220}
         />
         <Container className="blog-container">
         <h4
@@ -265,6 +267,7 @@ const styles = {
   },
   inputGroup: {
     width: "100%",
+    marginTop:"-15px",
   },
   searchContainer: {
     display: "flex",
