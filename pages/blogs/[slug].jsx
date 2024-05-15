@@ -154,12 +154,12 @@ class Blog extends Component {
     let editorData = blog && JSON.parse(blog.html);
     let editorStyle = "";
     if (editorData) {
-      const parseDditorData = JSON.parse(editorData);
-      if (parseDditorData?.css) {
-        editorStyle = parseDditorData.css;
+   
+      if (editorData?.css) {
+        editorStyle = editorData.css;
       }
-      if (parseDditorData?.html) {
-        editorData = parseDditorData.html;
+      if (editorData?.html) {
+        editorData = editorData.html;
       }
     }
 
