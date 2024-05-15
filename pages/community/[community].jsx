@@ -80,13 +80,21 @@ const CommunityDetail = ({
     setDescription(html);
   };
 
+  const hashKey = window.location.hash;
+  const hashValue = hashKey == "#news" ? "2" : "1";
+
   const [updateCom, setUpdateCom] = useState(false);
   const [form] = Form.useForm();
-  const [selectedIndex, setSelectedIndex] = useState("1");
+  const [selectedIndex, setSelectedIndex] = useState(hashValue);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onChange = (key) => {
     setSelectedIndex(key);
+    if (key == 2) {
+      window.location.hash = "#news";
+    } else {
+      window.location.hash = "#question";
+    }
   };
 
   const editor = React.useRef(null);
@@ -427,7 +435,7 @@ const CommunityDetail = ({
       <div className="profile-container row" style={{ marginTop: "1.5rem" }}>
         <Tabs
           className="header-tabs col-md-9 community_header_tab"
-          defaultActiveKey="1"
+          activeKey={selectedIndex}
           onChange={onChange}
         >
           {items.map((tab) => (
