@@ -55,8 +55,10 @@ function Detail({
     downloadDocument(id, `${name}.${extension}`);
   };
 
-  const saveToLibrary = (id) => {
-    createCrud("save_to_library", "market_research/save", { id });
+  const saveToLibrary = ({ id, is_saved_document }) => {
+    if (loggedIn && is_saved_document == null) {
+      createCrud("save_to_library", "market_research/save", { id });
+    }
   };
 
   return (
@@ -71,13 +73,16 @@ function Detail({
         />
         <br />
         <div className="research-detail-heading">
-          <h5 className="research-title research-category-name">{"Category : "}{research_detail?.category?.name}</h5>
+          <h5 className="research-title research-category-name">
+            {"Category : "}
+            {research_detail?.category?.name}
+          </h5>
           <h5 className="research-title">{research_detail?.name}</h5>
           <div className="date-section">
             <div className="date">
               {moment(research_detail?.created_at).format("LL")}
             </div>
-            <div className="custom-divider"></div>
+            <div className="custom-divider" style={{ margin: "0 20px" }}></div>
             <ShareSocialMedia
               link={window.location.href}
               title={research_detail?.name}
@@ -86,39 +91,42 @@ function Detail({
                 <ShareAltOutlined /> Share
               </div>
             </ShareSocialMedia>
-<br />
+            <br />
 
-            {loggedIn && research_detail?.is_saved_document == null && (
-              <Fragment>
-                <div className="custom-divider"></div>
-                <div
-                  className="date save-btn"
-                  onClick={() => saveToLibrary(research_detail?.id)}
-                >
-                  <BookmarkIcon height={13} width={10} /> Save
-                </div>
-              </Fragment>
-            )}
+            <Fragment>
+              <div
+                className="custom-divider"
+                style={{ margin: "0 20px" }}
+              ></div>
+              <div
+                className="date save-btn"
+                onClick={() => saveToLibrary(research_detail)}
+              >
+                <BookmarkIcon height={13} width={10} />
+                {research_detail?.is_saved_document ? "Saved" : "Save"}
+              </div>
+            </Fragment>
           </div>
-          <p className="date-section">{"Research Topic : "}{research_detail?.researchTopic?.title}</p>
-          
+          <p className="date-section">
+            {"Research Topic : "}
+            {research_detail?.researchTopic?.title}
+          </p>
         </div>
         {isMobile == false && (
           <BrowserView>
             <div className="research-content-wrapper">
               <div className="research-content-section">
-              <div className="research-tags-container">
+                <div className="research-tags-container">
                   {research_detail?.documentTags.map((tag) => (
                     <div className="research-tags">{tag.name}</div>
                   ))}
                 </div>
-                <br/>
+                <br />
                 <div
                   dangerouslySetInnerHTML={{
                     __html: html,
                   }}
                 ></div>
-                
               </div>
               <div className="related-research-section">
                 <div className="download-report-card">

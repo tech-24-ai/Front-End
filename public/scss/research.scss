@@ -406,9 +406,10 @@
       font-size: 2.5em;
       line-height: 48px;
       color: #0074d9;
+      padding-top: 24px;
     }
 
-    .research-category-name{
+    .research-category-name {
       font-size: 1.5rem;
       line-height: unset;
       margin: 0;
@@ -438,13 +439,13 @@
       width: 67%;
     }
 
-    .research-tags-container{
+    .research-tags-container {
       display: flex;
       flex-wrap: wrap;
       margin-top: 1rem;
       // justify-content: space-between;
-  
-      .research-tags{
+
+      .research-tags {
         width: fit-content;
         background-color: #fff;
         padding: 6px 12px;
@@ -566,7 +567,6 @@
 
 //Mobile
 @media (max-width: 767px) {
-
   .research-section .slick-slider .slick-list .slick-track {
     gap: 0rem !important;
     display: flex !important;
