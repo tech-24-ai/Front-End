@@ -25,6 +25,8 @@ function Blogs({ router }) {
   const itemsPerPage = 12;
   const [page, setPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
+  const [sortBy, setSortBy] = useState("desc");
+
 
   // const fetchData = async () => {
   //   try {
@@ -42,7 +44,7 @@ function Blogs({ router }) {
 
   useEffect(() => {
     fetchBlogData();
-  }, [page, value]);
+  }, [page, value, sortBy]);
 
   const fetchBlogData = () => {
     crudService
@@ -50,69 +52,33 @@ function Blogs({ router }) {
         page: page + 1,
         pageSize: itemsPerPage,
         search: value,
+        orderBy:"blogs.created_at",
+        orderPos:sortBy
       })
       .then((result) => {
-        console.log("result", result);
         setPosts(result?.data);
-        setTotalItems(result?.totalItems);
+        setTotalItems(result?.data.total);
         const totalPage = Math.ceil(result?.data.total / result?.data.perPage);
-        console.log("totalPage", totalPage);
+       
         setPageCount(isNaN(totalPage) ? 0 : totalPage);
       });
   };
 
-  // useEffect(() => {
-  //   blogsList(0);
-  //   let query = router.query;
-  //   crudService._getAll("categories", {}).then((result) => {
-  //     let categories = result.data;
-  //     categories.unshift({
-  //       name: "All",
-  //       id: 0,
-  //       color: "#C0C0C0",
-  //     });
-  //     if (query) {
-  //       const currentCategory = categories.filter(
-  //         (c) => c.name == query.cat
-  //       )[0];
-  //       if (currentCategory) {
-  //         blogsList(currentCategory.id);
-  //         setIsActive(query.cat);
-  //         setIsHover(query.cat);
-  //       }
-  //     }
-  //   });
-  // }, []);
-
-  // const blogsList = (id) => {
-  //   crudService._getAll("blogs", { blog_topic_id: id }).then((result) => {
-  //     setPosts(result.data);
-  //   });
-  // };
-
-  // const searchPosts = async () => {
-  //   try {
-  //     const data = await crudService._getAll("blogs", { search: value });
-  //     setPosts(data.data);
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   }
-  // };
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
+  const handleSort = (e) => {
+    setSortBy(e.target.value);
   };
-  const onLoadData = async (treeNode) => {
-    const { value } = treeNode.props;
-    if (value) {
-      const data = await crudService._getAll("blogs", { search: value });
-      return data.data.map((item) => ({
-        value: item.name,
-        title: item.name,
-      }));
-    }
-    return [];
-  };
+
+  const sortOptions = [
+    {
+      value: "desc",
+      label: "Most Recent",
+    },
+    {
+      value: "asc",
+      label: "Most Older",
+    },
+  ];
+
 
   return (
     <>
@@ -144,15 +110,40 @@ function Blogs({ router }) {
           height={isBrowser ? 386 : 220}
         />
         <Container className="blog-container">
-          <h4
+        <h4
             className="blogTitle"
             style={{
-              color: "#005dd4",
-              paddingBottom: "20px",
+              color: "#005dd4"
             }}
           >
-            Blogs
+            Blogs 
           </h4>
+          <div className="result-sort" style={{
+              paddingBottom: "20px",
+            }}>
+          <div className="results">Results: {totalItems}</div>
+              <div className="sorting mobile-display-n">
+                <label className="sortby" htmlFor="sortDropdown">
+                  Sort By:{" "}
+                </label>
+                <select
+                  id="sortDropdown"
+                  style={{ border: "none", background: "transparent" }}
+                  value={sortBy}
+                  onChange={handleSort}
+                >
+                  {sortOptions.map(({ value, label }) => (
+                    <option
+                      className="sortby"
+                      style={{ color: "#001622" }}
+                      value={value}
+                    >
+                      {label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
           {posts?.data && posts?.data?.length > 0 ? (
             <div className="second-div">
               {posts?.data?.map((post, key) => (

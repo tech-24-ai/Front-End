@@ -686,12 +686,12 @@ const Profile = ({
           communityPost?.url_slug
         );
         sessionStorage.setItem("community_parent_id", communityPostReply?.id);
-        const communityPostReplyDetails = {...communityPostReply,visitor }
+        const communityPostReplyDetails = {...communityPostReply }
         sessionStorage.setItem(
           "community_post_details",
           JSON.stringify({
             ...communityPostReplyDetails,
-            communityPost: { ...communityPost, community, visitor },
+            communityPost: { ...communityPost, community },
           })
         );
         // const url = `community/${community?.url_slug}/question/${communityPost?.url_slug}/comments`;
