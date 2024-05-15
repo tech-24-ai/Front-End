@@ -24,6 +24,7 @@ const Community = ({ router }) => {
   const { value } = Router.query;
   const [communityFeature, setCommunityFeature] = useState([]);
   const [communityList, setCommunityList] = useState([]);
+  const [newsList, setNewsList] = useState([]);
   const [sortBy, setSortBy] = useState("created_at_desc");
   const [orderDirection, setOrderDirection] = useState("DESC");
   const [currentPage, setCurrentPage] = useState(0);
@@ -68,9 +69,16 @@ const Community = ({ router }) => {
       if (data?.data?.response_type === 1) {
         setCommunityFeature(data.data?.data);
         setCommunityList([]);
+        setNewsList([]);
       } else if (data?.data?.response_type === 2) {
         setCommunityList(data.data?.data);
         setCommunityFeature([]);
+        setNewsList([]);
+      } else if (data?.data?.response_type === 3) {
+        console.log("console news", data.data?.data)
+        setNewsList(data.data?.data);
+        setCommunityFeature([]);
+        setCommunityList([]);
       }
 
       setTotal(data.data?.lastPage);
@@ -150,7 +158,9 @@ const Community = ({ router }) => {
   const gotoQuestionDetail = (url_slug) => {
     Router.replace(`/community/question/${url_slug}`);
   };
-
+  const gotoNewsDetail = (url_slug) => {
+    Router.replace(`/community/news/${url_slug}`);
+  };
   const sortOptions = [
     {
       value: "created_at_desc",
@@ -304,7 +314,56 @@ const Community = ({ router }) => {
                 </div>
               </Card>
             ))}
+            {
+              <div className="questions-tab-container" style={{ marginTop: "1rem" }}>
+                <ul>
+                  {newsList && newsList.length > 0 && (
+                    newsList.map((data) => (
+                      <li
+                        key={data.id}
+                        style={{
+                          fontWeight: "500",
+                          fontSize: "20px",
+                          color: "#001622",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => gotoNewsDetail(data?.url_slug)}
+                      >
+                        {data.title}
+                        <p
+                          style={{
+                            fontWeight: "400",
+                            fontSize: "14px",
+                            color: "#54616C",
+                          }}
+                        >
 
+                          <span
+                            style={{
+                              fontFamily: "Inter",
+                            }}
+                            dangerouslySetInnerHTML={{
+                              __html: data.description,
+                            }}
+                          ></span>
+                        </p>
+                        <p
+                          style={{
+                            fontWeight: "400",
+                            fontSize: "12px",
+                            color: "#B0B8BF",
+                          }}
+                        >
+                          {calculateTimeAgo(data?.created_at)}
+                        </p>
+                        <hr />
+                      </li>
+                    ))
+                 
+                  )}
+                </ul>
+              </div>
+            }
               <div className="content-wrap">
                 <div className="mt-4 content-card-display">
                   {communityList.length > 0 && communityList.map((item, index) => (
