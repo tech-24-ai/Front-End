@@ -151,7 +151,8 @@ class Blog extends Component {
       year: "numeric",
     };
     // let editorData = blog && JSON.parse(blog.html);
-    let editorData = blog && JSON.parse(blog.html);
+    let editorData = blog && blog.html;
+    console.log('editor', editorData);
     let editorStyle = "";
     if (editorData) {
    
@@ -199,7 +200,7 @@ class Blog extends Component {
               )}
             </Container>
             <Container className="blog-container">
-              <div className="row">
+              <div className="row" style={{ width: "100%" }}>
                 <div className="col-md-8">
                   <div className="second-div">
                     <div className="blog-card">
@@ -218,7 +219,7 @@ class Blog extends Component {
                       />
 
                       <div className="inner-text-container">
-                       
+
                         <div>
                           <h3>{blog.name}</h3>
                         </div>
@@ -249,6 +250,10 @@ class Blog extends Component {
                           <div
                             dangerouslySetInnerHTML={{
                               __html: editorData,
+                            }}
+                            style={{
+                              maxWidth: "100%",
+                              overflow: "hidden"
                             }}
                           />
                         </div>
@@ -289,10 +294,10 @@ class Blog extends Component {
                           </Modal>
                         </div>
                         <br />
-                       
+
                       </div>
                     </div>
-                   
+
                   </div>
                 </div>
 
