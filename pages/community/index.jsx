@@ -310,7 +310,7 @@ const Community = ({ community, getAllCrud, router }) => {
                   color: "#54616C",
                 }}
               >
-                News & 
+                Latest  
               </span>{" "}
               <span
                 style={{
@@ -320,7 +320,7 @@ const Community = ({ community, getAllCrud, router }) => {
                   marginLeft: "10px",
                 }}
               >
-                Announcements
+                News & Announcements
               </span>
             </h4>
           </div>
