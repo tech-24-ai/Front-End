@@ -352,7 +352,7 @@ const QuestionTab = ({
 
   const options = [
     {
-      value: "id",
+      value: "created_at",
       label: "Most Recent",
     },
     {
@@ -613,8 +613,8 @@ const QuestionTab = ({
                   <Image
                     loader={myImageLoader}
                     style={{ borderRadius: "2px", cursor: "pointer" }}
-                    width={32}
-                    height={32}
+                    width={25}
+                    height={25}
                     preview="false"
                     src={edit_icon}
                     alt="profile"
