@@ -152,10 +152,9 @@ class Blog extends Component {
     };
     // let editorData = blog && JSON.parse(blog.html);
     let editorData = blog && blog.html;
-    console.log('editor', editorData);
+    console.log("editor", editorData);
     let editorStyle = "";
     if (editorData) {
-   
       if (editorData?.css) {
         editorStyle = editorData.css;
       }
@@ -204,22 +203,25 @@ class Blog extends Component {
                 <div className="col-md-8">
                   <div className="second-div">
                     <div className="blog-card">
-                      <Image
-                        s
-                        loader={myImageLoader}
-                        src={blog.banner || blog.image}
-                        alt=""
-                        width={900}
-                        height={345}
-                        style={{
-                          objectFit: "cover",
-                          borderTopRightRadius: "10px",
-                          borderTopLeftRadius: "10px",
-                        }}
-                      />
+                      <div className="image-section">
+                        <Image
+                          loader={myImageLoader}
+                          src={blog.banner || blog.image}
+                          alt=""
+                          width={900}
+                          height={345}
+                          style={{
+                            objectFit: "cover",
+                            borderTopRightRadius: "10px",
+                            borderTopLeftRadius: "10px",
+                          }}
+                        />
+                        <div className="image-label bg">
+                          {blog.blog_topic?.name}
+                        </div>
+                      </div>
 
                       <div className="inner-text-container">
-
                         <div>
                           <h3>{blog.name}</h3>
                         </div>
@@ -253,7 +255,7 @@ class Blog extends Component {
                             }}
                             style={{
                               maxWidth: "100%",
-                              overflow: "hidden"
+                              overflow: "hidden",
                             }}
                           />
                         </div>
@@ -294,10 +296,8 @@ class Blog extends Component {
                           </Modal>
                         </div>
                         <br />
-
                       </div>
                     </div>
-
                   </div>
                 </div>
 
