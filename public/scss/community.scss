@@ -458,8 +458,29 @@
   // .page-banner .banner-bg .banner-container .banner-title-container .newTitlefortab
   //   font-size: ;;
   // }
+  .community-section {
+    .page-banner {
+      .container,
+      .banner-container {
+        height: 100%;
+      }
+
+      .banner-container {
+        display: flex;
+        align-items: flex-end;
+        padding-bottom: 2rem !important;
+        justify-content: center;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+      }
+
+      .banner-title-container {
+        width: 100%;
+      }
+    }
+  }
   .page-banner .banner-bg .banner-container .banner-title-container .newtabTitle{
-    width: 100%!important;
+    width: 70%!important;
   }
   .community-section {
     .banner-container {
@@ -759,12 +780,33 @@
 }
 
 @media (max-width: 767px) {
+  .community-section {
+    .page-banner {
+      .container,
+      .banner-container {
+        height: 100%;
+      }
+
+      .banner-container {
+        display: flex;
+        align-items: flex-end;
+        padding-bottom: 2rem !important;
+        justify-content: center;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+      }
+
+      .banner-title-container {
+        width: 100%;
+      }
+    }
+  }
   .page-banner .banner-bg .banner-container .banner-title-container .newtabTitle{
     width: 100%!important;
   }
   .community-section {
     .banner-container {
-      height: 340px !important;
+      height: 386px !important;
       align-items: flex-end!important;
       .banner-title-container {
         width: 100%;
@@ -806,6 +848,27 @@
 }
 // For Scale 125% (Zoom Level)
 @media (min-width: 1536px) and (max-width: 1920px) {
+  .community-section {
+    .page-banner {
+      .container,
+      .banner-container {
+        height: 100%;
+      }
+
+      .banner-container {
+        display: flex;
+        align-items: flex-end;
+        padding-bottom: 2rem !important;
+        justify-content: center;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+      }
+
+      .banner-title-container {
+        width: 100%;
+      }
+    }
+  }
   .top-question {
     .view-more-icon {
       right: 110px !important;
