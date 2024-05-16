@@ -105,13 +105,13 @@ function Blogs({ router }) {
               </div>
             </div>
           }
-          backgroundImage={marketBannerImage}
-          // height={isBrowser ? 386 : 386}
-         backgroundStyle={{ height: "386px" }}
+        //   backgroundImage={marketBannerImage}
+        //   // height={isBrowser ? 386 : 386}
+        //  backgroundStyle={{ height: "386px" }}
 
-          // backgroundImage={blogBannerImage}
-          // // image={""}
-          // height={isBrowser ? 386 : 220}
+          backgroundImage={blogBannerImage}
+          // image={""}
+          height={isBrowser ? 386 : 220}
         />
         <Container className="blog-container">
           <h4
