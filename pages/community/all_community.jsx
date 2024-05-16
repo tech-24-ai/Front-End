@@ -160,7 +160,7 @@ const Community = ({ router }) => {
                     fontSize: "14px",
                   }}
                 >
-                  All Discussion Groups
+                  All Discussion Groups 
                 </span>
               </h4>
             </div>
