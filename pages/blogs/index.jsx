@@ -94,7 +94,7 @@ function Blogs({ router }) {
                 <div className="search-box">
                   <SearchInput
                     placeholder="Search anything"
-                    className="bg"
+                    className="bg blogSearchInput"
                     onSearch={(value) => {
                       setPage(0);
                       setValue(value.slice(0, 60));
@@ -146,7 +146,7 @@ function Blogs({ router }) {
               </div>
             </div>
           {posts?.data && posts?.data?.length > 0 ? (
-            <div className="second-div">
+            <div className="second-div ">
               {posts?.data?.map((post, key) => (
                 <Link href={`blogs/${post.slug}`} key={key}>
                   <div className="blog-list">

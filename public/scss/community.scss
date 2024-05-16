@@ -478,11 +478,14 @@
   }
 
   .banner-head {
+    .communityStats{
+      width: 65%!important;
+    }
     .community-stats {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      width: 65%;
+      width: 100%;
       margin-top: 2rem;
 
       .stat-container {

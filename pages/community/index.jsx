@@ -160,7 +160,7 @@ const Community = ({ community, getAllCrud, router }) => {
             Get answer form our community of Experts
               </p>
             {stats && (
-              <div className="community-stats">
+              <div className="community-stats communityStats">
                 <div className="stat-container">
                   <h4>{stats?.total_member}</h4>
                   <p>Total Members</p>
