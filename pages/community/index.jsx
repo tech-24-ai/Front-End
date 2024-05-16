@@ -11,6 +11,7 @@ import React from "react";
 import { TreeSelect } from "antd";
 
 const unProtectedRoutes = ["/community", "/community/[detail]"];
+import {isBrowser } from "react-device-detect";
 import Router, { withRouter } from "next/router";
 
 import CommunityCategory from "../../components/community/index";
@@ -155,7 +156,7 @@ const Community = ({ community, getAllCrud, router }) => {
         titleNode={
           <div className="banner-head">
            
-            <h4 className="newtabTitle">Welcome to the Tech 24 Community</h4>
+            <h4 className="newtabTitle newTitlefortab">Welcome to the Tech 24 Community</h4>
             <p className="sub-title">
             Get answer form our community of Experts
               </p>
@@ -187,7 +188,8 @@ const Community = ({ community, getAllCrud, router }) => {
           </div>
         }
         backgroundImage={marketBannerImage}
-        backgroundStyle={{ height: "386px" }}
+        // height={isBrowser ? 386 : 220}
+         backgroundStyle={{ height: "386px" }}
         // image={isMobile ? "" : CommunityImage}
       />
 

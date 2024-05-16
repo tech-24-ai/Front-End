@@ -455,8 +455,11 @@
 }
 
 @media (max-width: 1440px) {
+  // .page-banner .banner-bg .banner-container .banner-title-container .newTitlefortab
+  //   font-size: ;;
+  // }
   .page-banner .banner-bg .banner-container .banner-title-container .newtabTitle{
-    width: 73%!important;
+    width: 100%!important;
   }
   .community-section {
     .banner-container {
