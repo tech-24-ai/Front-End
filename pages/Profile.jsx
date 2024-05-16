@@ -765,7 +765,7 @@ const Profile = ({
      
       topMarks[0] = {
         label: "Level 0",
-        style: { whiteSpace: "pre" },
+        style: { whiteSpace: !isMobile ? "pre" : "" },
       };
       bottomMarks[0] = 0;
 
@@ -773,20 +773,19 @@ const Profile = ({
         const label = Math.round(interval * (index+1));
         topMarks[label] = {
           label: `${level.level} \n ${level.title}`,
-          style: { whiteSpace: "pre" },
+          style: { whiteSpace: !isMobile ? "pre" : ""  },
         };
         bottomMarks[label] = level.max_range;
         if(visitor_profile_levels?.[0]?.total_points_earned < parseInt(level.max_range) && currentValue == -1){
           currentValue = parseInt( Math.round(interval * (index)));
-          console.log('currentValue', currentValue);
-        }
+          }
       });
 
       topMarks[100] = {
         label: `${
           visitor_profile_levels?.[0]?.leavels[levelCount - 1].level
         } \n ${visitor_profile_levels?.[0]?.leavels[levelCount - 1].title}`,
-        style: { whiteSpace: "pre" },
+        style: { whiteSpace: !isMobile ? "pre" : ""  },
       };
       
 
@@ -825,13 +824,12 @@ const Profile = ({
                       // className="slider-one"
                       className="verticalSliderfirst"
                       vertical
-                      range
                       marks={topMarks}
                       disabled={true}
                       step={null}
                       trackStyle={{ backgroundColor: "#0074D9", height: "8px" }}
                       railStyle={{ backgroundColor: "#EBEBF0", height: "8px" }}
-                      defaltValue={
+                      defaultValue={
                         currentValue
                       }
                       style={{ left: "-45px", top: "0px" }}
@@ -845,10 +843,9 @@ const Profile = ({
                       disabled={true}
                       className="verticalSlidertwo"
                       vertical
-                      range
-                      marks={bottomMarks}
-                      defaultValue={[100]}
-                      style={{ marginLeft: "150px", top: "-320px" }}
+                       marks={bottomMarks}
+                       defaultValue={currentValue}
+                      style={{ marginLeft: "150px", top: "-340px" }}
                       onChange={(value) => console.log(value)}
                     />
                   </div>
@@ -862,7 +859,7 @@ const Profile = ({
                     <span>Points</span>
                   </p>
                 </div>
-                <div>
+                {/* <div>
                 <h6>
                       Submit Question = {visitor_profile_levels?.[0]?.submit_que_point_info}{" "}
                       point
@@ -883,12 +880,16 @@ const Profile = ({
                       Correct Answer = {visitor_profile_levels?.[0]?.correct_answer_point_info}{" "}
                       point
                     </h6>
-                </div>
+                </div> */}
                 
               </div>
               <div className="text-center">
                   <span>
-                  You will move to the next level when your total points exceed the maximum range for the current level. For example, if you have 158 points, you will be at Level 1
+                  You earn points for various activities: 1 point for submitting a question, 1 point for each upvote, 2 points for providing an answer, and 3 points if your answer is marked as correct. 
+                  </span>
+                  <br/>
+                  <span>
+                  Once your total points surpass the limit of your current level, you will be promoted to the next level. For instance, reaching 150 points will advance you to Level 1 (New Bee).
                   </span>
                 </div>
             </Card>
@@ -950,7 +951,7 @@ const Profile = ({
                       <span>Points</span>
                     </p>
                   </div>
-                  <div>
+                  {/* <div>
                   <h6>
                       Submit Question = {visitor_profile_levels?.[0]?.submit_que_point_info}{" "}
                       point
@@ -971,12 +972,16 @@ const Profile = ({
                       Correct Answer = {visitor_profile_levels?.[0]?.correct_answer_point_info}{" "}
                       point
                     </h6>
-                  </div>
+                  </div> */}
                    
                 </div>
                 <div className="text-center">
                   <span>
-                  You will move to the next level when your total points exceed the maximum range for the current level. For example, if you have 158 points, you will be at Level 1
+                  You earn points for various activities: 1 point for submitting a question, 1 point for each upvote, 2 points for providing an answer, and 3 points if your answer is marked as correct. 
+                  </span>
+                  <br/>
+                  <span>
+                  Once your total points surpass the limit of your current level, you will be promoted to the next level. For instance, reaching 150 points will advance you to Level 1 (New Bee).
                   </span>
                 </div>
               </Card>
