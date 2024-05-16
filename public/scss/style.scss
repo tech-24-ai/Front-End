@@ -2374,6 +2374,27 @@ div.message-box-card {
   cursor: pointer;
 }
 
+.image-section {
+  .image-label {
+    position: absolute;
+    top: 0;
+    padding: 4px 6px;
+    border-radius: 4px;
+    margin-top: 0.75rem;
+    margin-left: 0.75rem;
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+    color: #ffffff;
+    background-color: $backgroundColor;
+
+    &.bg {
+      color: $themeSecondary;
+      background-color: rgba($themeSecondary, 0.2);
+    }
+  }
+}
+
 // tablet and mobile
 @media (max-width: 1440px) {
   .input-content {

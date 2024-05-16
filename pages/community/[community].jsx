@@ -75,6 +75,9 @@ const CommunityDetail = ({
   const [tags, setTag] = useState([]);
   const [url, setUrl] = useState([]);
   const [tagsAPIData, setTagsAPIData] = useState();
+  const [prevFiles, setPrevFiles] = useState([]);
+  const [communityData, setCommunityData] = useState();
+  const [updateCom, setUpdateCom] = useState(false);
 
   const handleEditorChange = (html) => {
     setDescription(html);
@@ -83,7 +86,6 @@ const CommunityDetail = ({
   const hashKey = window.location.hash;
   const hashValue = hashKey == "#news" ? "2" : "1";
 
-  const [updateCom, setUpdateCom] = useState(false);
   const [form] = Form.useForm();
   const [selectedIndex, setSelectedIndex] = useState(hashValue);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -102,7 +104,6 @@ const CommunityDetail = ({
     editor.current.focus();
   }
 
-  const [communityData, setCommunityData] = useState();
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -139,6 +140,19 @@ const CommunityDetail = ({
     setUrl([]);
   };
 
+  useEffect(() => {
+    let previousFiles = [];
+    url.map((file) => {
+      file.id && file.id != -987654321 ? (
+        previousFiles.push({ url: file?.url, name: file?.name })
+      ) : (
+        <></>
+      );
+    });
+
+    setPrevFiles(previousFiles);
+  }, [url]);
+
   const handleOk = async () => {
     if (!title) {
       showAlert("Please add title");
@@ -150,14 +164,14 @@ const CommunityDetail = ({
       return;
     }
 
-    const finalUrl = [];
-
     if (url && url.length > 0) {
       const index = 0;
 
       for (index; index < url.length; index++) {
-        const details = await crudService._upload("uploadmedia", url[index]);
-        finalUrl.push({
+        const details =
+          !url[index].id &&
+          (await crudService._upload("uploadmedia", url[index]));
+        prevFiles.push({
           url: details?.data?.result,
           name: details?.data?.filename,
         });
@@ -169,7 +183,7 @@ const CommunityDetail = ({
           title: title,
           description: description,
           tags: tags,
-          url: JSON.stringify(finalUrl),
+          url: JSON.stringify(prevFiles),
         };
         showLoader();
         setIsModalOpen(false);
@@ -367,23 +381,28 @@ const CommunityDetail = ({
     sessionStorage.setItem("community_question_id", url_slug);
     Router.push("question");
   };
-  const allowedFileTypes = [
-    "image/png",
-    "image/jpeg",
-    "image/jpg",
-    "image/svg+xml",
-    "video/mp4",
-    "video/mov",
-  ];
+
   const beforeUpload = (file) => {
-    setUrl([...url, file]);
-    const fileType = file.type;
-    const isAllowed = allowedFileTypes.includes(fileType);
-    if (!isAllowed) {
-      message.error("Only PNG, JPG, JPEG, SVG, MP4, MOV files are allowed!");
-    }
-    return isAllowed;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setUrl([
+        ...url,
+        {
+          id: -987654321,
+          name: file.name,
+          url: e.target.result,
+        },
+        file,
+      ]);
+    };
+    reader.readAsDataURL(file);
+    return false;
   };
+
+  let previewURL = [];
+  url.map((data) => {
+    data.id && previewURL.push(data);
+  });
 
   const items = [
     {
@@ -401,6 +420,8 @@ const CommunityDetail = ({
   const handleCommunity = () => {
     Router.push("/community");
   };
+
+  console.log("url", url);
 
   return (
     <Container>
@@ -582,11 +603,11 @@ const CommunityDetail = ({
                         name="url"
                         action={`${process.env.NEXT_PUBLIC_API_BASE_URL}uploadmedia`}
                         listType="picture-card"
-                        fileList={url}
+                        fileList={previewURL}
                         style={{ height: "30px!important" }}
                         beforeUpload={beforeUpload}
                         maxCount={1}
-                        accept=".png,.jpg,.jpeg,.svg,.mp4,.mov"
+                        accept=".png,.jpg,.jpeg,.svg,.mp4,.mov,.pdf"
                       >
                         <button
                           style={{
@@ -653,7 +674,7 @@ const CommunityDetail = ({
                       onClick={handleOk}
                       className="btn"
                       style={{
-                        width: isMobile ? "100%" : "470px",
+                        width: "100%",
                         background: "#0074D9",
                         borderRadius: "2px",
                         padding: "12px 16px",

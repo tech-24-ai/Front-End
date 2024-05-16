@@ -58,10 +58,11 @@ function MarketResearch({
             <div className="mt-4" style={styles.inputGroup}>
               <div className="search-box">
                 <SearchInput
-                  className="bg"
+                  className="bg marketReseachInput"
                   placeholder="Search anything"
                   onSearch={(value) => handleSearch(value)}
                   maxLength={60}
+                  
                 />
               </div>
             </div>

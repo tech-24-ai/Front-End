@@ -15,6 +15,8 @@ import Router, { withRouter } from "next/router";
 
 import CommunityCategory from "../../components/community/index";
 import TrendingCategory from "../../components/community/trending";
+import NewsAnnouncementsData from "../../components/community/news_and_announcement";
+
 import Link from "next/link";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { isMobile } from "react-device-detect";
@@ -26,7 +28,8 @@ const Community = ({ community, getAllCrud, router }) => {
   const [isHover, setIsHover] = useState("All");
   const [communityFeature, setCommunityFeature] = useState([]);
   const [value, setValue] = useState();
-
+  
+  const [allnewsAnnouncementsData, setallnewsAnnouncementsData] = useState([]);
   const [allCommunityFeature, setAllCommunityFeature] = useState([]);
   const [topRatedCommunityFeature, setTopRatedCommunityFeature] = useState([]);
   const [trendingQuestions, setTrendingQuestions] = useState([]);
@@ -47,6 +50,21 @@ const Community = ({ community, getAllCrud, router }) => {
     };
 
     fetchData();
+  }, []);
+
+
+  useEffect(() => {
+    const newsfetchData = async () => {
+      try {
+        const allnewsAnnouncementsData = await crudService._getAll("get_news_announcements/latest?pageSize=5&orderBy=created_at&orderDirection=desc");
+        setallnewsAnnouncementsData(allnewsAnnouncementsData.data);
+        
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    
+    newsfetchData();
   }, []);
 
   useEffect(() => {
@@ -174,10 +192,30 @@ const Community = ({ community, getAllCrud, router }) => {
       />
 
       <Container>
+      <div className="all-community">
+          <div className="float-right justify-content-between mt-5 mb-3">
+           
+            <h4
+              style={{
+                fontWeight: 400,
+                fontSize: "16px",
+                color: "#0074D9",
+                textDecoration: "underline",
+                cursor: "pointer",
+                // marginRight: isMobile ? 0 : "3.5rem",
+                alignContent: "center",
+              }}
+              onClick={handleViewAll}
+            >
+              View all
+            </h4>
+          </div>
+       
+        </div>
         <div className="top-rated">
           <div>
-            <h4 className="mt-5 mb-4 d-flex">
-              <div
+            <h4 className="mb-4 d-flex" style={{marginTop:"90px"}}>
+              <div 
                 style={{
                   width: "4px",
                   height: "32px",
@@ -204,7 +242,7 @@ const Community = ({ community, getAllCrud, router }) => {
                 }}
               >
                 Discussion Groups
-              </span>
+              </span> 
             </h4>
           </div>
           <div
@@ -252,10 +290,10 @@ const Community = ({ community, getAllCrud, router }) => {
             <TrendingCategory trendingQuestions={trendingQuestions} />
           </div>
         </div>
-
-        <div className="all-community">
-          <div className="d-flex justify-content-between mt-5 mb-3">
-            <h4 className="d-flex">
+        {/* new accoupation */}
+        <div className="trending-question">
+          <div>
+            <h4 className="mt-5 mb-4 d-flex">
               <div
                 style={{
                   width: "4px",
@@ -272,8 +310,8 @@ const Community = ({ community, getAllCrud, router }) => {
                   color: "#54616C",
                 }}
               >
-                All
-              </span>
+                News & 
+              </span>{" "}
               <span
                 style={{
                   fontWeight: 500,
@@ -282,29 +320,12 @@ const Community = ({ community, getAllCrud, router }) => {
                   marginLeft: "10px",
                 }}
               >
-                Discussion Groups
+                Announcements
               </span>
             </h4>
-            <h4
-              style={{
-                fontWeight: 400,
-                fontSize: "16px",
-                color: "#0074D9",
-                textDecoration: "underline",
-                cursor: "pointer",
-                // marginRight: isMobile ? 0 : "3.5rem",
-                alignContent: "center",
-              }}
-              onClick={handleViewAll}
-            >
-              View all
-            </h4>
           </div>
-          <div
-            className="community-category-container"
-            style={{ width: "100%" }}
-          >
-            <CommunityCategory data={allCommunityFeature} />
+          <div className="community-category-container">
+            <NewsAnnouncementsData allnewsAnnouncementsData={allnewsAnnouncementsData} />
           </div>
         </div>
       </Container>
@@ -372,9 +393,10 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { community } = state;
+  const { community,get_news_announcements } = state;
   return {
     community,
+    get_news_announcements,
   };
 };
 
