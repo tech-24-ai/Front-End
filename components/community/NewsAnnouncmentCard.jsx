@@ -21,8 +21,8 @@ const NewsAnnouncmentCard = ({ data, key }) => {
   };
 
   const handlePageRedirection = () => {
-    const { community, url_slug } = data;
-    Router.push(`community/question/${url_slug}`);
+    const { get_news_announcements, url_slug } = data;
+    Router.push(`community/news/${url_slug}`);
   };
 
   return (
@@ -66,12 +66,12 @@ const NewsAnnouncmentCard = ({ data, key }) => {
             </p>
           ))} */}
         </div>
-        {/* <button
+        <button
           className="custom-btn with-bg-secondary answer-btn"
           onClick={() => handlePageRedirection()}
         >
           Answer
-        </button> */}
+        </button>
       </div>
     </div>
   );
