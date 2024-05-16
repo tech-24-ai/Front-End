@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Space, Tag } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import blogsProfile from "../../public/new_images/blog-profile.svg";
 import InstaIconBlack from "../../public/new_images/InstaIconBlack.svg";
 import LinkedInIconBlack from "../../public/new_images/LinkedInIconBlack.svg";
@@ -150,8 +150,8 @@ class Blog extends Component {
       month: "long",
       year: "numeric",
     };
-    // let editorData = blog && JSON.parse(blog.html);
-    let editorData = blog && blog.html;
+    let editorData = blog && JSON.parse(blog.html);
+    // let editorData = blog && blog.html;
     console.log("editor", editorData);
     let editorStyle = "";
     if (editorData) {
@@ -203,42 +203,37 @@ class Blog extends Component {
                 <div className="col-md-8">
                   <div className="second-div">
                     <div className="blog-card">
-                      <div className="image-section">
-                        <Image
-                          loader={myImageLoader}
-                          src={blog.banner || blog.image}
-                          alt=""
-                          width={900}
-                          height={345}
-                          style={{
-                            objectFit: "cover",
-                            borderTopRightRadius: "10px",
-                            borderTopLeftRadius: "10px",
-                          }}
-                        />
-                        <div className="image-label bg">
-                          {blog.blog_topic?.name}
-                        </div>
+                      <Image
+                        loader={myImageLoader}
+                        src={blog.banner || blog.image}
+                        alt=""
+                        width={900}
+                        height={345}
+                        style={{
+                          objectFit: "cover",
+                          borderTopRightRadius: "10px",
+                          borderTopLeftRadius: "10px",
+                        }}
+                      />
+                      <div className="card-heading">
+                        {blog.blog_topic?.name}
                       </div>
 
                       <div className="inner-text-container">
                         <div>
                           <h3>{blog.name}</h3>
                         </div>
-                        <div className="blog-tags-container">
-                          {splitBlogTags(blog.details).map((tag) => (
-                            <div className="blog-tags">{tag}</div>
-                          ))}
-                        </div>
-                        <br />
+
+                        {blog?.author && (
+                          <div className="time">by {blog?.author}</div>
+                        )}
                         <div className="date-section">
-                          <div className="date">
-                            {moment(blog.created_at).format("LL")}
-                          </div>
-                          {/* <div className="custom-divider"></div> */}
+                          <ClockCircleOutlined />
                           <div className="time">{blog?.read_time}</div>
-                          {/* <div className="custom-divider"></div> */}
-                          <div className="time">{blog?.author}</div>
+                          <div className="dot-separator"></div>
+                          <div className="date">
+                            Published {moment(blog.created_at).format("LL")}
+                          </div>
                         </div>
 
                         <br />
@@ -259,6 +254,13 @@ class Blog extends Component {
                             }}
                           />
                         </div>
+                        <br />
+                        <div className="blog-tags-container">
+                          {splitBlogTags(blog.details).map((tag) => (
+                            <div className="blog-tags">{tag}</div>
+                          ))}
+                        </div>
+                        <br />
 
                         <div className="social-section">
                           {/* <div className="like">1.1K</div>
