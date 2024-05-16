@@ -284,7 +284,7 @@ const CommunityDetail = ({
       }
     };
     const gotoNewsDetail = (url_slug) => {
-      Router.replace(`/community/news/${url_slug}`);
+      Router.push(`/community/news/${url_slug}`);
     };
 
     return (
