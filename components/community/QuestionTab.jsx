@@ -61,6 +61,7 @@ const QuestionTab = ({
   const [url, setUrl] = useState([]);
   const [tagsAPIData, setTagsAPIData] = useState();
   const [questionEditable, setQuestionEditable] = useState(null);
+  const [communityId, setCommunityId] = useState(null);
   const [prevFiles, setPrevFiles] = useState([]);
   const [updateCom, setUpdateCom] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState("1");
@@ -68,7 +69,7 @@ const QuestionTab = ({
   const [communityData, setCommunityData] = useState();
   const [headerSearch, setHeaderSearch] = useState();
   const [communityDetails, setCommunityDetails] = useState([]);
-  const [sortBy, setSortBy] = useState("id");
+  const [sortBy, setSortBy] = useState("updated_at");
   const [sortByOrder, setSortByOrder] = useState(false);
   const [page, setPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
@@ -175,7 +176,7 @@ const QuestionTab = ({
       }
 
       const postData = {
-        community_id: questionEditable || communityData?.id,
+        community_id: communityId || communityData?.id,
         title: title,
         description: description,
         tags: tags,
@@ -221,7 +222,7 @@ const QuestionTab = ({
       }
     } else {
       const postData = {
-        community_id: questionEditable || communityData?.id,
+        community_id: communityId || communityData?.id,
         title: title,
         description: description,
         tags: tags,
@@ -435,6 +436,17 @@ const QuestionTab = ({
     data.id && previewURL.push(data);
   });
 
+  previewURL.forEach((data) => {
+    if (data.id && data.extension == "application/pdf") {
+      data.url = "https://tech24-uat.s3.amazonaws.com/9UtKGqddEl";
+    }
+    if (data.id && data.extension == "video/quicktime") {
+      data.url = "https://tech24-uat.s3.amazonaws.com/yrUrbuAfMw";
+    }
+  });
+
+  console.log("previewURL", previewURL);
+
   const handleRemove = (file) => {
     setUrl((prevFileList) => {
       const newFileList = prevFileList.filter(
@@ -581,7 +593,7 @@ const QuestionTab = ({
                         <div className="custom-border"></div>
                       </>
                     )}
-                    {calculateTimeAgo(data?.created_at)}
+                    {calculateTimeAgo(data?.updated_at)}
                   </p>
                 </div>
               </div>
@@ -593,7 +605,8 @@ const QuestionTab = ({
                     setDescription(data?.description);
                     setTitle(data?.title);
                     setTag(data?.postTags?.map((e) => e.id));
-                    setQuestionEditable(data?.community_id);
+                    setQuestionEditable(data?.id);
+                    setCommunityId(data?.community_id);
                     setUrl(data?.attachments);
                   }}
                 >
