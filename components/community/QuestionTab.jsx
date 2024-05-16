@@ -21,6 +21,7 @@ import {
 import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import shorting_icon from "../../public/new_images/sorting_icon.svg";
 import profile_img from "../../public/new_images/profile.svg";
+import edit_icon from "../../public/new_images/edit.png";
 
 import "draft-js/dist/Draft.css";
 import "react-quill/dist/quill.snow.css";
@@ -41,29 +42,6 @@ import { isMobile } from "react-device-detect";
 import SearchInput from "../form/searchInput";
 import Image from "next/future/image";
 
-const SubmitButton = ({ form, children }) => {
-  const [submittable, setSubmittable] = React.useState(false);
-
-  useEffect(() => {
-    getAllCrud("communitypost", "communitypost");
-  }, [updateCom]);
-  // Watch all values
-  const values = Form.useWatch([], form);
-  React.useEffect(() => {
-    form
-      .validateFields({
-        validateOnly: true,
-      })
-      .then(() => setSubmittable(true))
-      .catch(() => setSubmittable(false));
-  }, [form, values]);
-  return (
-    <Button type="primary" htmlType="submit" disabled={!submittable}>
-      {children}
-    </Button>
-  );
-};
-
 const QuestionTab = ({
   getAllCrud,
   showAlert,
@@ -77,20 +55,39 @@ const QuestionTab = ({
 }) => {
   const router = useRouter();
   const { community } = router.query;
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState();
   const [title, setTitle] = useState();
   const [tags, setTag] = useState([]);
   const [url, setUrl] = useState([]);
   const [tagsAPIData, setTagsAPIData] = useState();
+  const [questionEditable, setQuestionEditable] = useState(null);
+  const [prevFiles, setPrevFiles] = useState([]);
+  const [updateCom, setUpdateCom] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState("1");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [communityData, setCommunityData] = useState();
+  const [headerSearch, setHeaderSearch] = useState();
+  const [communityDetails, setCommunityDetails] = useState([]);
+  const [sortBy, setSortBy] = useState("id");
+  const [sortByOrder, setSortByOrder] = useState(false);
+  const [page, setPage] = useState(0);
+  const [pageCount, setPageCount] = useState(0);
+  const itemsPerPage = 10;
 
   const handleEditorChange = (html) => {
     setDescription(html);
   };
 
-  const [updateCom, setUpdateCom] = useState(false);
   const [form] = Form.useForm();
-  const [selectedIndex, setSelectedIndex] = useState("1");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (title || description) {
+      form.setFieldsValue({
+        title,
+        description,
+      });
+    }
+  }, [title, form, description]);
 
   const onChange = (key) => {
     setSelectedIndex(key);
@@ -100,8 +97,6 @@ const QuestionTab = ({
   function focusEditor() {
     editor.current.focus();
   }
-
-  const [communityData, setCommunityData] = useState();
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -138,7 +133,21 @@ const QuestionTab = ({
     setUrl([]);
   };
 
-  const handleOk = () => {
+  useEffect(() => {
+    let previousFiles = [];
+    questionEditable &&
+      url.map((file) => {
+        file.id && file.id != -987654321 ? (
+          previousFiles.push({ url: file?.url, name: file?.name })
+        ) : (
+          <></>
+        );
+      });
+
+    setPrevFiles(previousFiles);
+  }, [url]);
+
+  const handleOk = async () => {
     showLoader();
     setIsModalOpen(false);
     if (!title) {
@@ -151,21 +160,51 @@ const QuestionTab = ({
       return;
     }
 
-    const finalUrl = [];
+    // const finalUrl = [];
+    showLoader();
     if (url && url.length > 0) {
-      //Upload API
-      crudService
-        ._upload("uploadmedia", url[0])
-        .then((data) => {
-          const postData = {
-            community_id: communityData?.id,
-            title: title,
-            description: description,
-            tags: tags,
-            url: [data?.data?.result],
-          };
+      const index = 0;
+      for (index; index < url.length; index++) {
+        const details =
+          !url[index].id &&
+          (await crudService._upload("uploadmedia", url[index]));
+        prevFiles.push({
+          url: details?.data?.result,
+          name: details?.data?.filename,
+        });
+      }
 
-          crudService._create("communitypost", postData).then((response) => {
+      const postData = {
+        community_id: questionEditable || communityData?.id,
+        title: title,
+        description: description,
+        tags: tags,
+        url: JSON.stringify(prevFiles),
+      };
+      showLoader();
+      if (questionEditable) {
+        showLoader();
+        crudService
+          ._update("communitypost", questionEditable, postData)
+          .then((response) => {
+            hideLoader();
+            if (response.status === 200) {
+              setUpdateCom(true);
+              setIsModalOpen(false);
+              resetForm();
+              fetchData();
+              success(
+                "Your post is being reviewed and will be shown after approval."
+              );
+            }
+          })
+          .catch(() => {
+            hideLoader();
+          });
+      } else {
+        crudService
+          ._create("communitypost", postData)
+          .then((response) => {
             hideLoader();
             if (response.status === 200) {
               setUpdateCom(true);
@@ -175,31 +214,57 @@ const QuestionTab = ({
                 "Your post is being reviewed and will be shown after approval."
               );
             }
+          })
+          .catch(() => {
+            hideLoader();
           });
-        })
-        .catch((error) => {
-          console.log("error", error);
-        });
+      }
     } else {
       const postData = {
-        community_id: communityData?.id,
+        community_id: questionEditable || communityData?.id,
         title: title,
         description: description,
         tags: tags,
         url: [],
       };
-
-      crudService._create("communitypost", postData).then((response) => {
-        hideLoader();
-        if (response.status === 200) {
-          setUpdateCom(true);
-          setIsModalOpen(false);
-          resetForm();
-          success(
-            "Your post is being reviewed and will be shown after approval."
-          );
-        }
-      });
+      if (questionEditable) {
+        showLoader();
+        crudService
+          ._update("communitypost", questionEditable, postData)
+          .then((response) => {
+            hideLoader();
+            if (response.status === 200) {
+              setUpdateCom(true);
+              setIsModalOpen(false);
+              resetForm();
+              fetchData();
+              success(
+                "Your post is being reviewed and will be shown after approval."
+              );
+            }
+          })
+          .catch(() => {
+            hideLoader();
+          });
+      } else {
+        showLoader();
+        crudService
+          ._create("communitypost", postData)
+          .then((response) => {
+            hideLoader();
+            if (response.status === 200) {
+              setUpdateCom(true);
+              setIsModalOpen(false);
+              resetForm();
+              success(
+                "Your post is being reviewed and will be shown after approval."
+              );
+            }
+          })
+          .catch(() => {
+            hideLoader();
+          });
+      }
     }
   };
 
@@ -231,15 +296,6 @@ const QuestionTab = ({
     }
     return humanReadableDiff;
   };
-
-  const [headerSearch, setHeaderSearch] = useState();
-  const [communityDetails, setCommunityDetails] = useState([]);
-  const [sortBy, setSortBy] = useState("id");
-  const [sortByOrder, setSortByOrder] = useState(false);
-
-  const itemsPerPage = 10;
-  const [page, setPage] = useState(0);
-  const [pageCount, setPageCount] = useState(0);
 
   //Sorting
 
@@ -335,7 +391,19 @@ const QuestionTab = ({
   };
 
   const beforeUpload = (file) => {
-    setUrl([...url, file]);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setUrl([
+        ...url,
+        {
+          id: -987654321,
+          name: file.name,
+          url: e.target.result,
+        },
+        file,
+      ]);
+    };
+    reader.readAsDataURL(file);
     return false;
   };
 
@@ -352,6 +420,30 @@ const QuestionTab = ({
     );
   };
 
+  const fetchTags = () => {
+    crudService._getAll(`tags`).then((data) => {
+      setTagsAPIData(data?.data);
+    });
+  };
+
+  useEffect(() => {
+    questionEditable ? fetchTags() : resetForm();
+  }, [questionEditable]);
+
+  let previewURL = [];
+  url.map((data) => {
+    data.id && previewURL.push(data);
+  });
+
+  const handleRemove = (file) => {
+    setUrl((prevFileList) => {
+      const newFileList = prevFileList.filter(
+        (item) => item.name !== file.name
+      );
+      return newFileList;
+    });
+  };
+
   return (
     <div className="community-tab-container questions-tab-container community-detail-wrapper">
       {isSearch && (
@@ -360,7 +452,10 @@ const QuestionTab = ({
             placeholder="Search anything"
             parentProps={{ style: { width: isMobile ? "84%" : "74%" } }}
             defaultValue={headerSearch}
-            onSearch={(value) => setHeaderSearch(value)}
+            onSearch={(value) => {
+              setHeaderSearch(value);
+              setPage(0);
+            }}
           />
 
           <Image
@@ -442,200 +537,6 @@ const QuestionTab = ({
         </div>
       )}
 
-      <div>
-        <Modal
-          maskClosable={false}
-          visible={isModalOpen}
-          onCancel={handleCancel}
-          footer={null}
-        >
-          <span
-            style={{
-              marginBottom: "-20px",
-              fontWeight: "500",
-              fontSize: "20px",
-              fontFamily: "Poppins",
-            }}
-          >
-            Ask a Question
-          </span>
-          {/* <div className="mt-2 mb-3">
-                    <span
-                      style={{
-                        fontWeight: 400,
-                        color: "#54616C",
-                        fontFamily: "Inter",
-                        fontSize: "16px",
-                      }}
-                    >
-                      {" "}
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Egit liboro erat curcus.
-                    </span>
-                  </div> */}
-          <Form
-            form={form}
-            name="validateOnly"
-            layout="vertical"
-            autoComplete="off"
-          >
-            <Form.Item
-              style={{
-                fontWeight: 500,
-                fontFamily: "Inter",
-                fontSize: "14px",
-                color: "#4C4C4C",
-              }}
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-              name="title"
-              onChange={(e) => {
-                setTitle(e.target.value);
-              }}
-              label="Title"
-            >
-              <Input
-                style={{
-                  borderRadius: "2px",
-                  border: "1px solid #D9DFE9",
-                  padding: "12px",
-                }}
-                value={title}
-              />
-            </Form.Item>
-            <Form.Item
-              style={{
-                fontWeight: 500,
-                fontFamily: "Inter",
-                fontSize: "14px",
-                color: "#4C4C4C",
-              }}
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-              value={description}
-              name="description"
-              label="Question"
-              onChange={(e) => setDescription(e.target.value)}
-            >
-              <div>
-                <ReactQuill
-                  theme="snow"
-                  onChange={handleEditorChange}
-                  style={{ height: "100px", borderRadius: "2px" }}
-                />
-              </div>
-            </Form.Item>
-
-            <Form.Item
-              style={{
-                fontWeight: 500,
-                fontFamily: "Inter",
-                fontSize: "14px",
-                color: "#4C4C4C",
-                marginTop: isMobile ? "90px" : "55px",
-              }}
-              label="Attachment"
-              valuePropName="fileList"
-              getValueFromEvent={normFile}
-            >
-              <Upload
-                name="url"
-                action={`${process.env.NEXT_PUBLIC_API_BASE_URL}uploadmedia`}
-                listType="picture-card"
-                fileList={url}
-                style={{ height: "30px!important" }}
-                beforeUpload={beforeUpload}
-                maxCount={1}
-              >
-                <button
-                  style={{
-                    border: 0,
-                    background: "none",
-                    display: "contents",
-                  }}
-                  type="button"
-                >
-                  <PlusOutlined />
-                  Add
-                </button>
-              </Upload>
-            </Form.Item>
-            <Form.Item
-              style={{
-                fontWeight: 500,
-                fontFamily: "Inter",
-                fontSize: "14px",
-                color: "#4C4C4C",
-              }}
-              label="Tags"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <Form.Item
-                style={{
-                  fontWeight: 500,
-                  fontFamily: "Inter",
-                  fontSize: "14px",
-                  color: "#4C4C4C",
-                }}
-              >
-                <Select
-                  showArrow
-                  className="ask-question-tag"
-                  mode="multiple"
-                  style={{
-                    width: isMobile ? "100%" : "470px",
-                    borderRadius: "2px",
-                    border: "1px solid #D9DFE9",
-                    padding: "12px 0",
-                  }}
-                  placeholder="Select tags"
-                  onClick={() => {
-                    crudService._getAll(`tags`).then((data) => {
-                      setTagsAPIData(data?.data);
-                    });
-                  }}
-                  defaultValue={[]}
-                  options={tagsOptions}
-                  value={tags}
-                  onChange={(e) => setTag(e)}
-                />
-              </Form.Item>
-            </Form.Item>
-
-            {/* <Form.Item>
-                      <Space> */}
-            <div
-              onClick={handleOk}
-              className="btn"
-              style={{
-                width: isMobile ? "100%" : "470px",
-                background: "#0074D9",
-                borderRadius: "2px",
-                padding: "12px 16px",
-                color: "#fff",
-                fontWeight: 500,
-                fontFamily: "Inter",
-                fontSize: "18px",
-              }}
-            >
-              Post Question
-            </div>
-            {/* </Space>
-                    </Form.Item> */}
-          </Form>
-        </Modal>
-      </div>
-
       <div className="cards-container">
         {communityDetails?.data?.map((data) => (
           <Card
@@ -684,6 +585,30 @@ const QuestionTab = ({
                   </p>
                 </div>
               </div>
+              {data?.isQuestionEditable == 1 && (
+                <div
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsModalOpen(true);
+                    setDescription(data?.description);
+                    setTitle(data?.title);
+                    setTag(data?.postTags?.map((e) => e.id));
+                    setQuestionEditable(data?.community_id);
+                    setUrl(data?.attachments);
+                  }}
+                >
+                  <Image
+                    loader={myImageLoader}
+                    style={{ borderRadius: "2px", cursor: "pointer" }}
+                    width={32}
+                    height={32}
+                    preview="false"
+                    src={edit_icon}
+                    alt="profile"
+                    className="edit_icon"
+                  />
+                </div>
+              )}
 
               {/* <div className="follow">
                 <p className="button">Follow</p>
@@ -800,6 +725,200 @@ const QuestionTab = ({
             onPageChange={({ selected }) => setPage(selected)}
           />
         )}
+      </div>
+      <div>
+        <Modal
+          maskClosable={false}
+          visible={isModalOpen}
+          onCancel={handleCancel}
+          footer={null}
+        >
+          <span
+            style={{
+              marginBottom: "-20px",
+              fontWeight: "500",
+              fontSize: "20px",
+              fontFamily: "Poppins",
+            }}
+          >
+            Ask a Question
+          </span>
+          {/* <div className="mt-2 mb-3">
+                    <span
+                      style={{
+                        fontWeight: 400,
+                        color: "#54616C",
+                        fontFamily: "Inter",
+                        fontSize: "16px",
+                      }}
+                    >
+                      {" "}
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Egit liboro erat curcus.
+                    </span>
+                  </div> */}
+          <Form
+            form={form}
+            name="validateOnly"
+            layout="vertical"
+            autoComplete="off"
+            initialValues={{
+              title: title,
+              description: description,
+            }}
+          >
+            <Form.Item
+              style={{
+                fontWeight: 500,
+                fontFamily: "Inter",
+                fontSize: "14px",
+                color: "#4C4C4C",
+              }}
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+              name="title"
+              label="Title"
+            >
+              <Input
+                style={{
+                  borderRadius: "2px",
+                  border: "1px solid #D9DFE9",
+                  padding: "12px",
+                }}
+                value={title}
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                }}
+              />
+            </Form.Item>
+            <Form.Item
+              style={{
+                fontWeight: 500,
+                fontFamily: "Inter",
+                fontSize: "14px",
+                color: "#4C4C4C",
+              }}
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+              name="description"
+              label="Question"
+            >
+              <div>
+                <ReactQuill
+                  theme="snow"
+                  style={{ height: "100px", borderRadius: "2px" }}
+                  value={description}
+                  onChange={handleEditorChange}
+                />
+              </div>
+            </Form.Item>
+
+            <Form.Item
+              style={{
+                fontWeight: 500,
+                fontFamily: "Inter",
+                fontSize: "14px",
+                color: "#4C4C4C",
+                marginTop: isMobile ? "90px" : "55px",
+              }}
+              label="Attachment"
+              valuePropName="fileList"
+              getValueFromEvent={normFile}
+            >
+              <Upload
+                name="url"
+                action={`${process.env.NEXT_PUBLIC_API_BASE_URL}uploadmedia`}
+                listType="picture-card"
+                fileList={previewURL}
+                style={{ height: "30px!important" }}
+                beforeUpload={beforeUpload}
+                maxCount={1}
+                accept=".png,.jpg,.jpeg,.svg,.mp4,.mov,.pdf"
+                onRemove={handleRemove}
+              >
+                <button
+                  style={{
+                    border: 0,
+                    background: "none",
+                    display: "contents",
+                  }}
+                  type="button"
+                >
+                  <PlusOutlined />
+                  Add
+                </button>
+              </Upload>
+            </Form.Item>
+            <Form.Item
+              style={{
+                fontWeight: 500,
+                fontFamily: "Inter",
+                fontSize: "14px",
+                color: "#4C4C4C",
+              }}
+              label="Tags"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <Form.Item
+                style={{
+                  fontWeight: 500,
+                  fontFamily: "Inter",
+                  fontSize: "14px",
+                  color: "#4C4C4C",
+                }}
+              >
+                <Select
+                  showArrow
+                  className="ask-question-tag"
+                  mode="multiple"
+                  style={{
+                    width: isMobile ? "100%" : "470px",
+                    borderRadius: "2px",
+                    border: "1px solid #D9DFE9",
+                    padding: "12px 0",
+                  }}
+                  placeholder="Select tags"
+                  onClick={() => fetchTags()}
+                  defaultValue={tags}
+                  options={tagsOptions}
+                  value={tags}
+                  onChange={(e) => setTag(e)}
+                />
+              </Form.Item>
+            </Form.Item>
+
+            {/* <Form.Item>
+                      <Space> */}
+            <div
+              onClick={handleOk}
+              className="btn"
+              style={{
+                width: "100%",
+                background: "#0074D9",
+                borderRadius: "2px",
+                padding: "12px 16px",
+                color: "#fff",
+                fontWeight: 500,
+                fontFamily: "Inter",
+                fontSize: "18px",
+              }}
+            >
+              {questionEditable ? "Update Question" : "Post Question"}
+            </div>
+            {/* </Space>
+                    </Form.Item> */}
+          </Form>
+        </Modal>
       </div>
     </div>
   );

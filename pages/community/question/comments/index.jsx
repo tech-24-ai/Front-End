@@ -454,7 +454,9 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                         style={{ flexDirection: "column" }}
                       >
                         <h5>{answer?.visitor?.name}</h5>
-                        <p>{calculateTimeAgo(answer?.created_at)}</p>
+                        <p>
+                          {calculateTimeAgo(answer?.comments[0]?.created_at)}
+                        </p>
                       </div>
                     </div>
 
