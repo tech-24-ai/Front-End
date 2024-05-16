@@ -26,7 +26,7 @@ function Blogs({ router }) {
   const [page, setPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
   const [sortBy, setSortBy] = useState("desc");
-  const marketBannerImage = "../../images/market-research.jpg";
+  const blogBannerImage = "../../images/blog_banner.jpg";
 
   // const fetchData = async () => {
   //   try {
@@ -52,14 +52,14 @@ function Blogs({ router }) {
         page: page + 1,
         pageSize: itemsPerPage,
         search: value,
-        orderBy:"blogs.created_at",
-        orderPos:sortBy
+        orderBy: "blogs.created_at",
+        orderPos: sortBy,
       })
       .then((result) => {
         setPosts(result?.data);
         setTotalItems(result?.data.total);
         const totalPage = Math.ceil(result?.data.total / result?.data.perPage);
-       
+
         setPageCount(isNaN(totalPage) ? 0 : totalPage);
       });
   };
@@ -78,7 +78,6 @@ function Blogs({ router }) {
       label: "Most Older",
     },
   ];
-
 
   return (
     <>
@@ -110,42 +109,48 @@ function Blogs({ router }) {
           // height={isBrowser ? 386 : 386}
          backgroundStyle={{ height: "386px" }}
 
+          // backgroundImage={blogBannerImage}
+          // // image={""}
+          // height={isBrowser ? 386 : 220}
         />
         <Container className="blog-container">
-        <h4
+          <h4
             className="blogTitle"
             style={{
-              color: "#005dd4"
+              color: "#005dd4",
             }}
           >
-            Blogs 
+            Blogs
           </h4>
-          <div className="result-sort" style={{
+          <div
+            className="result-sort"
+            style={{
               paddingBottom: "20px",
-            }}>
-          <div className="results">Results: {totalItems}</div>
-              <div className="sorting mobile-display-n">
-                <label className="sortby" htmlFor="sortDropdown">
-                  Sort By:{" "}
-                </label>
-                <select
-                  id="sortDropdown"
-                  style={{ border: "none", background: "transparent" }}
-                  value={sortBy}
-                  onChange={handleSort}
-                >
-                  {sortOptions.map(({ value, label }) => (
-                    <option
-                      className="sortby"
-                      style={{ color: "#001622" }}
-                      value={value}
-                    >
-                      {label}
-                    </option>
-                  ))}
-                </select>
-              </div>
+            }}
+          >
+            <div className="results">Results: {totalItems}</div>
+            <div className="sorting mobile-display-n">
+              <label className="sortby" htmlFor="sortDropdown">
+                Sort By:{" "}
+              </label>
+              <select
+                id="sortDropdown"
+                style={{ border: "none", background: "transparent" }}
+                value={sortBy}
+                onChange={handleSort}
+              >
+                {sortOptions.map(({ value, label }) => (
+                  <option
+                    className="sortby"
+                    style={{ color: "#001622" }}
+                    value={value}
+                  >
+                    {label}
+                  </option>
+                ))}
+              </select>
             </div>
+          </div>
           {posts?.data && posts?.data?.length > 0 ? (
             <div className="second-div ">
               {posts?.data?.map((post, key) => (
@@ -267,7 +272,7 @@ const styles = {
   },
   inputGroup: {
     width: "100%",
-    marginTop:"-15px",
+    marginTop: "-15px",
   },
   searchContainer: {
     display: "flex",
