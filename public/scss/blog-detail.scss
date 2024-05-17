@@ -145,7 +145,6 @@
       margin-left: 20px;
       width: 100%;
     }
-  
   }
 
   .blog-container {
@@ -194,9 +193,8 @@
       background-color: rgba($themeSecondary, 0.2);
       color: $themeSecondary;
       padding: 4px 6px;
-      margin: 1rem 0;
+      margin: 0.5rem 0 1rem;
       width: 203px;
-      margin-top: 2px;
       border-radius: 4px;
     }
     .card-detail-body {
@@ -431,7 +429,6 @@
 
         .blog-card {
           img {
-            object-fit: fill !important;
             width: 100%;
             height: auto;
           }
@@ -451,6 +448,16 @@
         .prev-next-footer {
           display: none;
         }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1440px) {
+  .blog-container {
+    .blog-card {
+      .ant-image {
+        height: auto !important;
       }
     }
   }

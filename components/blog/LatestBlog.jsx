@@ -9,6 +9,7 @@ import moment from "moment";
 import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import { Image } from "antd";
 import Slider from "react-slick";
+import { wrappReadMinute } from "../../_global";
 const LatestBlog = ({ getAllCrud, blogs }) => {
   const [showHoverClass, setShowHoverClass] = useState(null);
 
@@ -40,7 +41,7 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
             style={{
               left: "-8px",
               marginTop: "0px",
-              top:'45%'
+              top: "45%",
             }}
           >
             <ArrowLeftOutlined
@@ -56,7 +57,7 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
             style={{
               right: "-14px",
               marginTop: "0px",
-              top:'45%'
+              top: "45%",
             }}
           >
             <ArrowRightOutlined
@@ -85,7 +86,7 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
                 settings: {
                   slidesToShow: 1,
                   dots: true,
-                  initialSlide: 0
+                  initialSlide: 0,
                 },
               },
             ]}
@@ -133,7 +134,9 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
                       {moment(data.created_at).format("LL")}
                     </div>
                     <div className="custom-divider"></div>
-                    <div className="time">{data?.read_time}</div>
+                    <div className="time">
+                      {wrappReadMinute(data?.read_time)}
+                    </div>
                     <div className="custom-divider"></div>
                     <div className="time">{data?.author}</div>
                   </div>

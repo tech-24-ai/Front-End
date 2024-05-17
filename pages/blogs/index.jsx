@@ -6,12 +6,16 @@ import { crudService } from "../../_services";
 import moment from "moment";
 import { Pagination, TreeSelect } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
-import { Image } from "antd";
+import { Image, Modal } from "antd";
 import PageBanner from "../../components/card/pageBanner";
 import { isMobile, isBrowser } from "react-device-detect";
 import CustomPagination from "../../components/pagination";
 import SearchInput from "../../components/form/searchInput";
+import { wrappReadMinute } from "../../_global";
+import myImageLoader from "../../components/imageLoader";
+const shorting_icon = "../../new_images/sorting_icon.svg";
 // import ReactPaginate from "react-paginate-next";
+const blogBannerImage = "../../images/blog_banner.jpg";
 
 function Blogs({ router }) {
   const [posts, setPosts] = useState([]);
@@ -26,7 +30,8 @@ function Blogs({ router }) {
   const [page, setPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
   const [sortBy, setSortBy] = useState("desc");
-  const blogBannerImage = "../../images/blog_banner.jpg";
+
+  const [sortByOrder, setSortByOrder] = useState(false);
 
   // const fetchData = async () => {
   //   try {
@@ -105,9 +110,9 @@ function Blogs({ router }) {
               </div>
             </div>
           }
-        //   backgroundImage={marketBannerImage}
-        //   // height={isBrowser ? 386 : 386}
-        //  backgroundStyle={{ height: "386px" }}
+          //   backgroundImage={marketBannerImage}
+          //   // height={isBrowser ? 386 : 386}
+          //  backgroundStyle={{ height: "386px" }}
 
           backgroundImage={blogBannerImage}
           // image={""}
@@ -129,6 +134,47 @@ function Blogs({ router }) {
             }}
           >
             <div className="results">Results: {totalItems}</div>
+            <Image
+              onClick={() => setSortByOrder(!sortByOrder)}
+              style={{
+                borderRadius: "2px",
+                cursor: "pointer",
+                display: "none",
+              }}
+              width={44}
+              height={44}
+              preview={false}
+              src={shorting_icon}
+              alt="profile"
+              className="shorting_icon"
+            />
+
+            <Modal
+              visible={sortByOrder}
+              footer={null}
+              onCancel={() => {
+                setSortByOrder(false);
+              }}
+              maskClosable={false}
+            >
+              <div className="sorting shorting_icon">
+                <label className="sortby" htmlFor="sortDropdown">
+                  Sort By:{" "}
+                </label>
+                <select
+                  id="sortDropdown"
+                  style={{ border: "none", background: "transparent" }}
+                  value={sortBy}
+                  onChange={handleSort}
+                >
+                  {sortOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </Modal>
             <div className="sorting mobile-display-n">
               <label className="sortby" htmlFor="sortDropdown">
                 Sort By:{" "}
@@ -210,7 +256,9 @@ function Blogs({ router }) {
                             {moment(post.created_at).format("LL")}
                           </div>
                           <div className="custom-divider"></div>
-                          <div className="time">{post?.read_time}</div>
+                          <div className="time">
+                            {wrappReadMinute(post?.read_time)}
+                          </div>
                           {/* <div className="custom-divider"></div> */}
                         </div>
                       </div>

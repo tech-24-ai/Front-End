@@ -64,11 +64,6 @@
       font-family: "Inter";
       // padding: 0 5px;
     }
-
-    .time {
-      // padding: 0 5px;
-      // border-left: 1.5px solid #54616c;
-    }
   }
   .blog-tags-container {
     display: flex;
@@ -323,6 +318,25 @@
     padding: 6px 8px;
     border-radius: 4px;
     width: calc(2rem + 8px);
+  }
+
+  .sorting {
+    padding: 10px;
+    border: 1px solid #d9dfe9;
+    border-radius: 2px;
+
+    .sortby {
+      margin-bottom: 0;
+      font-weight: 500;
+      font-size: 0.875rem;
+      line-height: 20px;
+      color: #54616c;
+    }
+
+    select {
+      color: #001622;
+      padding: 0 5px;
+    }
   }
 }
 
@@ -709,8 +723,8 @@
   }
 
   .blogs-section {
-    .blogSearchInput{
-      width:53%!important;
+    .blogSearchInput {
+      width: 53% !important;
     }
     .testSearchInput {
       width: auto;

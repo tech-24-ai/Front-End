@@ -17,7 +17,8 @@ import { crudActions } from "../../_actions";
 import Link from "next/dist/client/link";
 import { Modal } from "antd";
 
-import Image from "next/image";
+// import Image from "next/future/image";
+import { Image } from "antd";
 import myImageLoader from "../../components/imageLoader";
 import { BrowserView } from "react-device-detect";
 import SearchInput from "../../components/form/searchInput";
@@ -33,6 +34,7 @@ import { Avatar, Button, Comment, Form, List } from "antd";
 import CustomBreadcrumb from "../../components/breadcrumbs/Breadcrumb";
 import ShareSocialMedia from "../../components/shareSocial";
 import Head from "next/head";
+import { wrappReadMinute } from "../../_global";
 const { TextArea } = Input;
 
 class Blog extends Component {
@@ -204,13 +206,12 @@ class Blog extends Component {
                   <div className="second-div">
                     <div className="blog-card">
                       <Image
-                        loader={myImageLoader}
                         src={blog.banner || blog.image}
                         alt=""
-                        width={900}
-                        height={345}
+                        // width={900}
+                        // height={345}
+                        preview={false}
                         style={{
-                          objectFit: "cover",
                           borderTopRightRadius: "10px",
                           borderTopLeftRadius: "10px",
                         }}
@@ -229,7 +230,9 @@ class Blog extends Component {
                         )}
                         <div className="date-section">
                           <ClockCircleOutlined />
-                          <div className="time">{blog?.read_time}</div>
+                          <div className="time">
+                            {wrappReadMinute(blog?.read_time)}
+                          </div>
                           <div className="dot-separator"></div>
                           <div className="date">
                             Published {moment(blog.created_at).format("LL")}
@@ -329,13 +332,11 @@ class Blog extends Component {
                               >
                                 <div>
                                   <Image
-                                    tyle={{
+                                    style={{
                                       transition: "transform 0.5s ease",
                                     }}
-                                    // width={350}
-                                    // height={210}
-                                    width={380}
-                                    height={283}
+                                    // width={380}
+                                    // height={283}
                                     src={blogs.image}
                                     preview={false}
                                     alt=""
@@ -363,7 +364,9 @@ class Blog extends Component {
                                     {moment(blogs.created_at).format("LL")}
                                   </div>
                                   {/* <div className="custom-divider"></div> */}
-                                  <div className="time">{blogs?.read_time}</div>
+                                  <div className="time">
+                                    {wrappReadMinute(blogs?.read_time)}
+                                  </div>
                                   {/* <div className="custom-divider"></div> */}
                                   <div className="time">{blogs?.author}</div>
                                 </div>
