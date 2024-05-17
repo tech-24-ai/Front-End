@@ -281,8 +281,8 @@ function Header(props) {
                         </NavItem>
 
                         <NavItem>
-                        <Link href="/search-global" style={{cursor: "pointer"}}>
-                          <img src="/new_images/search.svg" alt="search" />
+                        <Link href="/search-global">
+                          <img src="/new_images/search.svg" style={{cursor: "pointer"}} alt="search" />
                           </Link>
                         </NavItem>
 

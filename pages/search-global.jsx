@@ -155,6 +155,15 @@ const SearchList = ({ router }) => {
                 setPageCount(isNaN(totalPage) ? 0 : totalPage);
             });
         } else if (categoryType === "blogs") {
+            let params = {
+                orderBy: 'blogs.created_at',
+                orderPos: sortData[1] ?? "desc",
+                page: page + 1,
+                pageSize: itemsPerPage,
+                search: searchQuery,
+                ...filteredData,
+            };
+
             crudService._getAll("blogs", params).then((result) => {
                 setBlogsData(result?.data?.data);
                 setCommunityData([]);
