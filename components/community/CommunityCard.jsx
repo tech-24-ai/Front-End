@@ -12,16 +12,6 @@ import {
 import { crudService } from "../../_services";
 
 const CommunityCard = ({ data, key }) => {
-  const calculateTimeAgo = (createdAt) => {
-    const currentDateTime = moment().format("MM-DD-YYYY hh:mm A");
-    const blogPostDateTime = moment.utc(createdAt).local().format("MM-DD-YYYY hh:mm A");
-
-    const diffMilliseconds = blogPostDateTime.diff(currentDateTime);
-    const duration = moment.duration(diffMilliseconds);
-    const humanReadableDiff = duration.humanize(true);
-    return humanReadableDiff;
-  };
-
   const pageRedirection = () => {
     if (data?.url_slug) {
       const url = `community/${data?.url_slug}`;
@@ -35,18 +25,25 @@ const CommunityCard = ({ data, key }) => {
       data-index={key}
       key={key}
       onClick={() => pageRedirection()}
-      style={{ cursor: "pointer", border: ".5px solid #d9dfe9", borderRadius: "6px", height: "240px", marginTop: "10px" }}
-    >
-      <div className="community-card-header"
-        style={{ 
-        display: 'flex', 
-        justifyContent: "flex-start", 
-        alignItems: "center", 
-        height: "80px", 
-        background: '#f2f4f7', 
-        borderTopLeftRadius: "6px", 
-        borderTopLeftRadius: "6px",
+      style={{
+        cursor: "pointer",
+        border: ".5px solid #d9dfe9",
+        borderRadius: "6px",
+        height: "240px",
+        marginTop: "10px",
       }}
+    >
+      <div
+        className="community-card-header"
+        style={{
+          display: "flex",
+          justifyContent: "flex-start",
+          alignItems: "center",
+          height: "80px",
+          background: "#f2f4f7",
+          borderTopLeftRadius: "6px",
+          borderTopLeftRadius: "6px",
+        }}
       >
         <Image
           preview={false}
@@ -63,9 +60,13 @@ const CommunityCard = ({ data, key }) => {
         </div>
       </div>
       <div className="community-card-material" style={{ padding: "12px" }}>
-        <p className="card-description-texts" style={{ minHeight: "100px" }}>{data.description}</p>
-        <div className="card-review"
-          style={{ fontSize: "14px", fontWeight: "500", color: "#001622" }}>
+        <p className="card-description-texts" style={{ minHeight: "100px" }}>
+          {data.description}
+        </p>
+        <div
+          className="card-review"
+          style={{ fontSize: "14px", fontWeight: "500", color: "#001622" }}
+        >
           <EyeOutlined style={{ fontSize: "16px", verticalAlign: "0.04em" }} />{" "}
           Answers : {data.__meta__.total_post_reply}
           <span style={{ margin: "0 6px", color: "#dde3ec" }}></span>

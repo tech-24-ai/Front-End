@@ -2,24 +2,9 @@ import React from "react";
 import moment from "moment";
 import { Image } from "antd";
 import Router from "next/router";
+import { calculateDateTime } from "../../_global";
 
 const QuestionCard = ({ data, key }) => {
-  const calculateTimeAgo = (createdAt) => {
-    const currentDateTime = moment();
-    const blogPostDateTime = moment.utc(createdAt).local().format("MM-DD-YYYY hh:mm A");
-   
-    const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
-    const duration = moment.duration(diffMilliseconds);
-
-    let humanReadableDiff;
-    if (duration.asMinutes() < 60) {
-      humanReadableDiff = duration.minutes() + " minutes ago";
-    } else {
-      humanReadableDiff = duration.humanize(true);
-    }
-    return humanReadableDiff;
-  };
-
   const handlePageRedirection = () => {
     const { community, url_slug } = data;
     Router.push(`community/question/${url_slug}`);
@@ -37,11 +22,11 @@ const QuestionCard = ({ data, key }) => {
             }
             alt={data.visitor.name}
           />
-          <div className="profile-wrapper" style={{maxWidth:'80%'}}>
+          <div className="profile-wrapper" style={{ maxWidth: "80%" }}>
             <h6>{data?.title}</h6>
             <p>
               {" "}
-              {data?.visitor?.name} {} ({calculateTimeAgo(data?.created_at)})
+              {data?.visitor?.name} {} ({calculateDateTime(data?.created_at)})
             </p>
           </div>
         </div>

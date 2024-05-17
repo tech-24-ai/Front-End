@@ -41,6 +41,7 @@ const ReactQuill = dynamic(
 import { isMobile } from "react-device-detect";
 import SearchInput from "../form/searchInput";
 import Image from "next/future/image";
+import { calculateDateTime } from "../../_global";
 
 const QuestionTab = ({
   getAllCrud,
@@ -307,24 +308,6 @@ const QuestionTab = ({
       .then((data) => {
         data.status == 200 && fetchCommunityData();
       });
-  };
-
-  const calculateTimeAgo = (createdAt) => {
-    const currentDateTime = moment();
-    const blogPostDateTime = moment
-      .utc(createdAt)
-      .local()
-      .format("MM-DD-YYYY hh:mm A");
-    const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
-    const duration = moment.duration(diffMilliseconds);
-
-    let humanReadableDiff;
-    if (duration.asMinutes() < 60) {
-      humanReadableDiff = duration.minutes() + " minutes ago";
-    } else {
-      humanReadableDiff = duration.humanize(true);
-    }
-    return humanReadableDiff;
   };
 
   //Sorting
@@ -620,7 +603,7 @@ const QuestionTab = ({
                         <div className="custom-border"></div>
                       </>
                     )}
-                    {calculateTimeAgo(data?.updated_at)}
+                    {calculateDateTime(data?.created_at)}
                   </p>
                 </div>
               </div>

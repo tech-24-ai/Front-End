@@ -38,6 +38,7 @@ const ReactQuill = dynamic(
 import { isMobile } from "react-device-detect";
 import QuestionTab from "../../components/community/QuestionTab";
 import profile_img from "../../public/new_images/profile.svg";
+import { calculateDateTime } from "../../_global";
 
 const SubmitButton = ({ form, children }) => {
   const [submittable, setSubmittable] = React.useState(false);
@@ -288,25 +289,6 @@ const CommunityDetail = ({
       });
   };
 
-  const calculateTimeAgo = (createdAt) => {
-    const currentDateTime = moment();
-    const blogPostDateTime = moment
-      .utc(createdAt)
-      .local()
-      .format("MM-DD-YYYY hh:mm A");
-
-    const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
-    const duration = moment.duration(diffMilliseconds);
-
-    let humanReadableDiff;
-    if (duration.asMinutes() < 60) {
-      humanReadableDiff = duration.minutes() + " minutes ago";
-    } else {
-      humanReadableDiff = duration.humanize(true);
-    }
-    return humanReadableDiff;
-  };
-
   const Tab2 = () => {
     const [newsData, setNewsData] = useState([]);
     useEffect(() => {
@@ -368,7 +350,7 @@ const CommunityDetail = ({
                     color: "#B0B8BF",
                   }}
                 >
-                  {calculateTimeAgo(data?.created_at)}
+                  {calculateDateTime(data?.created_at, { isDateTime: true })}
                 </p>
                 <hr />
               </li>

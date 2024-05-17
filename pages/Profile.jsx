@@ -40,6 +40,7 @@ import SearchInput from "../components/form/searchInput";
 import { Timeline, Icon } from "antd";
 import QuestionTab from "../components/community/QuestionTab";
 import shorting_icon from "../public/new_images/sorting_icon.svg";
+import { calculateDateTime } from "../_global";
 
 const Profile = ({
   getAllCrud,
@@ -104,7 +105,7 @@ const Profile = ({
   const [libraryPageCount, setLibraryPageCount] = useState(0);
 
   const [libraryData, setLibraryData] = useState([]);
-   const [reloadComponent, setreloadComponent] = useState(false);
+  const [reloadComponent, setreloadComponent] = useState(false);
 
   const [searchQuery, setSearchQuery] = useState(q);
   const [filteredData, setFilteredData] = useState({});
@@ -155,22 +156,6 @@ const Profile = ({
 
   //  console.log("setSelectedCountry",countryList);
 
-  const calculateTimeAgo = (createdAt) => {
-    const currentDateTime = moment();
-      const blogPostDateTime = moment.utc(createdAt).local().format("MM-DD-YYYY hh:mm A");
-     
-      const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
-      const duration = moment.duration(diffMilliseconds);
-  
-      let humanReadableDiff;
-      if (duration.asMinutes() < 60) {
-        humanReadableDiff = duration.minutes() + " minutes ago";
-      } else {
-        humanReadableDiff = duration.humanize(true);
-      }
-      return humanReadableDiff;
-  };
-
   const [sortType, setSortType] = useState("asc");
 
   const handleMenuClick = (e) => {
@@ -212,7 +197,7 @@ const Profile = ({
     if (data?.blog !== null) {
       console.log("blog details", data.blog);
       const blogSlug = data.blog.slug;
-     
+
       Router.push(`/blogs/${blogSlug}`);
     } else if (data?.market_research !== null) {
       console.log("market research", data.market_research);
@@ -256,27 +241,23 @@ const Profile = ({
       });
   }, [libraryPage, sortBy, reloadComponent]);
 
-  console.log("reloadComponent",reloadComponent);
-  
+  console.log("reloadComponent", reloadComponent);
+
   const handleSort = (e) => {
     setSortBy(e.target.value);
   };
 
-
   const handleDelete = (id) => {
-    
     crudService
-        ._delete("visitor_library", id)
-        .then((result) => {
-          console.log("Item deleted successfully:", result);
-          setreloadComponent(prevState => !prevState);
-                    
-        })
-        .catch((error) => {
-            console.error("Error deleting item:", error);
-        });
-};
-
+      ._delete("visitor_library", id)
+      .then((result) => {
+        console.log("Item deleted successfully:", result);
+        setreloadComponent((prevState) => !prevState);
+      })
+      .catch((error) => {
+        console.error("Error deleting item:", error);
+      });
+  };
 
   const sortOptions = [
     {
@@ -411,8 +392,8 @@ const Profile = ({
     }
   };
 
-  //SignOut 
- 
+  //SignOut
+
   const handleSignOutOk = () => {
     setIsSignOutModalOpen(false);
     Router.push("/logout");
@@ -509,8 +490,6 @@ const Profile = ({
   // console.log("updateProfileData",updateProfileData);
 
   const Tab1 = () => {
-  
-
     let visitorname = visitorprofile?.name;
     let firstname = "";
     let lastname = "";
@@ -610,34 +589,17 @@ const Profile = ({
           </div>
         </div>
         <hr />
-       
       </div>
     );
   };
 
   const Tab2 = () => {
-    const calculateTimeAgo = (createdAt) => {
-      const currentDateTime = moment();
-      const blogPostDateTime = moment.utc(createdAt).local().format("MM-DD-YYYY hh:mm A");
-     
-      const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
-      const duration = moment.duration(diffMilliseconds);
-  
-      let humanReadableDiff;
-      if (duration.asMinutes() < 60) {
-        humanReadableDiff = duration.minutes() + " minutes ago";
-      } else {
-        humanReadableDiff = duration.humanize(true);
-      }
-      return humanReadableDiff;
-    };
-
     const redirectToPage = ({
       activity_type,
       communityPost,
       communityPostReply,
       community,
-      visitor
+      visitor,
     }) => {
       if (
         activity_type === 1 ||
@@ -661,7 +623,7 @@ const Profile = ({
           communityPost?.url_slug
         );
         sessionStorage.setItem("community_parent_id", communityPostReply?.id);
-        const communityPostReplyDetails = {...communityPostReply }
+        const communityPostReplyDetails = { ...communityPostReply };
         sessionStorage.setItem(
           "community_post_details",
           JSON.stringify({
@@ -734,7 +696,7 @@ const Profile = ({
                     )}
                   </div>
                   <div className="post-days">
-                    <p>{calculateTimeAgo(data?.created_at)}</p>
+                    <p>{calculateDateTime(data?.created_at)}</p>
                   </div>
                 </Card>
               ))}
@@ -760,9 +722,9 @@ const Profile = ({
       const topMarks = {};
       const bottomMarks = {};
       const levelCount = visitor_profile_levels?.[0]?.leavels.length;
-      const interval = levelCount ? 100 / (levelCount) : 0;
-      const currentValue = -1 ;
-     
+      const interval = levelCount ? 100 / levelCount : 0;
+      const currentValue = -1;
+
       topMarks[0] = {
         label: "Level 0",
         style: { whiteSpace: !isMobile ? "pre" : "" },
@@ -770,26 +732,29 @@ const Profile = ({
       bottomMarks[0] = 0;
 
       visitor_profile_levels?.[0]?.leavels.forEach((level, index) => {
-        const label = Math.round(interval * (index+1));
+        const label = Math.round(interval * (index + 1));
         topMarks[label] = {
           label: `${level.level} \n ${level.title}`,
-          style: { whiteSpace: !isMobile ? "pre" : ""  },
+          style: { whiteSpace: !isMobile ? "pre" : "" },
         };
         bottomMarks[label] = level.max_range;
-        if(visitor_profile_levels?.[0]?.total_points_earned < parseInt(level.max_range) && currentValue == -1){
-          currentValue = parseInt( Math.round(interval * (index)));
-          }
+        if (
+          visitor_profile_levels?.[0]?.total_points_earned <
+            parseInt(level.max_range) &&
+          currentValue == -1
+        ) {
+          currentValue = parseInt(Math.round(interval * index));
+        }
       });
 
       topMarks[100] = {
         label: `${
           visitor_profile_levels?.[0]?.leavels[levelCount - 1].level
         } \n ${visitor_profile_levels?.[0]?.leavels[levelCount - 1].title}`,
-        style: { whiteSpace: !isMobile ? "pre" : ""  },
+        style: { whiteSpace: !isMobile ? "pre" : "" },
       };
-      
 
-      return { bottomMarks, topMarks,currentValue };
+      return { bottomMarks, topMarks, currentValue };
     };
 
     const { topMarks, bottomMarks, currentValue } = calculateMarks();
@@ -798,7 +763,7 @@ const Profile = ({
       height: 300,
       marginLeft: 70,
     };
-    
+
     return (
       <div>
         {/* Content for mobile view */}
@@ -829,9 +794,7 @@ const Profile = ({
                       step={null}
                       trackStyle={{ backgroundColor: "#0074D9", height: "8px" }}
                       railStyle={{ backgroundColor: "#EBEBF0", height: "8px" }}
-                      defaultValue={
-                        currentValue
-                      }
+                      defaultValue={currentValue}
                       style={{ left: "-45px", top: "0px" }}
                     />
                     {/* <Slider vertical range marks={Marks} defaultValue={[100]} /> */}
@@ -843,8 +806,8 @@ const Profile = ({
                       disabled={true}
                       className="verticalSlidertwo"
                       vertical
-                       marks={bottomMarks}
-                       defaultValue={currentValue}
+                      marks={bottomMarks}
+                      defaultValue={currentValue}
                       style={{ marginLeft: "150px", top: "-340px" }}
                       onChange={(value) => console.log(value)}
                     />
@@ -881,17 +844,20 @@ const Profile = ({
                       point
                     </h6>
                 </div> */}
-                
               </div>
               <div className="text-center">
-                  <span>
-                  You earn points for various activities: 1 point for submitting a question, 1 point for each upvote, 2 points for providing an answer, and 3 points if your answer is marked as correct. 
-                  </span>
-                  <br/>
-                  <span>
-                  Once your total points surpass the limit of your current level, you will be promoted to the next level. For instance, reaching 150 points will advance you to Level 1 (New Bee).
-                  </span>
-                </div>
+                <span>
+                  You earn points for various activities: 1 point for submitting
+                  a question, 1 point for each upvote, 2 points for providing an
+                  answer, and 3 points if your answer is marked as correct.
+                </span>
+                <br />
+                <span>
+                  Once your total points surpass the limit of your current
+                  level, you will be promoted to the next level. For instance,
+                  reaching 150 points will advance you to Level 1 (New Bee).
+                </span>
+              </div>
             </Card>
           </div>
         )}
@@ -937,9 +903,7 @@ const Profile = ({
                     }}
                     trackStyle={{ backgroundColor: "#0074D9", height: "8px" }}
                     railStyle={{ backgroundColor: "#EBEBF0", height: "8px" }}
-                    defaultValue={
-                      currentValue
-                    }
+                    defaultValue={currentValue}
                     onChange={(value) => console.log(value)}
                     tooltipVisible={false}
                   />
@@ -973,15 +937,19 @@ const Profile = ({
                       point
                     </h6>
                   </div> */}
-                   
                 </div>
                 <div className="text-center">
                   <span>
-                  You earn points for various activities: 1 point for submitting a question, 1 point for each upvote, 2 points for providing an answer, and 3 points if your answer is marked as correct. 
+                    You earn points for various activities: 1 point for
+                    submitting a question, 1 point for each upvote, 2 points for
+                    providing an answer, and 3 points if your answer is marked
+                    as correct.
                   </span>
-                  <br/>
+                  <br />
                   <span>
-                  Once your total points surpass the limit of your current level, you will be promoted to the next level. For instance, reaching 150 points will advance you to Level 1 (New Bee).
+                    Once your total points surpass the limit of your current
+                    level, you will be promoted to the next level. For instance,
+                    reaching 150 points will advance you to Level 1 (New Bee).
                   </span>
                 </div>
               </Card>
@@ -993,22 +961,6 @@ const Profile = ({
   };
 
   const Tab5 = () => {
-    const calculateTimeAgo = (createdAt) => {
-      const currentDateTime = moment();
-      const blogPostDateTime = moment.utc(createdAt).local().format("MM-DD-YYYY hh:mm A");
-     
-      const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
-      const duration = moment.duration(diffMilliseconds);
-  
-      let humanReadableDiff;
-      if (duration.asMinutes() < 60) {
-        humanReadableDiff = duration.minutes() + " minutes ago";
-      } else {
-        humanReadableDiff = duration.humanize(true);
-      }
-      return humanReadableDiff;
-    };
-
     return (
       <div className="community-tab-container questions-tab-container">
         <div className="search-container"></div>
@@ -1020,111 +972,120 @@ const Profile = ({
         >
           {libraryData && libraryData.length > 0 ? (
             libraryData.map((data) => (
-            <Card
-              bordered={true}
-              style={{
-                width: "100%",
-                height: "fit-content",
-                cursor: "pointer"
-              }}
-              key={data.id}
-              onClick={() => handleCardClick(data)} 
-            >
-              {data?.blog !== null && (
-                <div className="cards-header">
-                  <div>
-                    <div>
-                      <div className="img">
-                        <Image
-                          style={{ borderRadius: "5px" }}
-                          width={48}
-                          height={48}
-                          preview="false"
-                          src={
-                            data?.blog?.image || profile_img
-                          }
-                          alt="profile"
-                        />
-                      </div>
-                    </div>
-                    <div className="profile">
-                      <h5>{data?.blog?.name}</h5>
-                      <p style={{
-                        marginBottom:0
-                      }}>{"Blog"}</p>
-                      <p>{"Saved "}{calculateTimeAgo(data?.created_at)}</p>
-                    </div>
-                  </div>
-
-                  <div className="follow mobile-delete-btn">
-                    <button
-                      className="button"
-                      onClick={(e) => {
-                        e.stopPropagation(); // Stop event propagation to parent elements
-                        handleDelete(data.id);
-                    }}
-                      style={{ background: "transparent" }}
-                    >
-                      <DeleteOutlined />
-                    </button>
-                  </div>
-                </div>
-              )}
-              {data?.market_research && (
-                <div className="cards-header">
-                  <div>
-                    <div>
-                      <div className="img">
-                        <Image
-                          style={{ borderRadius: "5px" }}
-                          width={48}
-                          height={48}
-                          preview="false"
-                          src={
-                            data?.market_research?.image || profile_img
-                          }
-                          alt="profile"
-                        />
-                      </div>
-                    </div>
-                    <div className="profile">
-                      <h5>{data?.market_research?.name}</h5>
-                      <p style={{
-                        marginBottom:0
-                      }}>{"Market research"}</p>
-                      <p>{"Saved "}{calculateTimeAgo(data?.created_at)}</p>
-                    </div>
-                  </div>
-
-                  <div className="follow mobile-delete-btn">
-                    <button
-                      className="button"
-                      onClick={() => handleDelete(data.id)}
-                      style={{ background: "transparent" }}
-                    >
-                      <DeleteOutlined />
-                    </button>
-                  </div>
-                </div>
-              )}
-            </Card>
-
-            ))
-            ) : (
-              <p
+              <Card
+                bordered={true}
                 style={{
-                  fontWeight: "400",
-                  fontSize: "14px",
-                  color: "#54616C",
-                  // textAlign :"center",
-                  padding: "10px",
-                  marginLeft : "35%",
+                  width: "100%",
+                  height: "fit-content",
+                  cursor: "pointer",
                 }}
+                key={data.id}
+                onClick={() => handleCardClick(data)}
               >
-                No Data Available
-              </p>
-            )}
-        
+                {data?.blog !== null && (
+                  <div className="cards-header">
+                    <div>
+                      <div>
+                        <div className="img">
+                          <Image
+                            style={{ borderRadius: "5px" }}
+                            width={48}
+                            height={48}
+                            preview="false"
+                            src={data?.blog?.image || profile_img}
+                            alt="profile"
+                          />
+                        </div>
+                      </div>
+                      <div className="profile">
+                        <h5>{data?.blog?.name}</h5>
+                        <p
+                          style={{
+                            marginBottom: 0,
+                          }}
+                        >
+                          {"Blog"}
+                        </p>
+                        <p>
+                          {"Saved "}
+                          {calculateDateTime(data?.created_at)}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="follow mobile-delete-btn">
+                      <button
+                        className="button"
+                        onClick={(e) => {
+                          e.stopPropagation(); // Stop event propagation to parent elements
+                          handleDelete(data.id);
+                        }}
+                        style={{ background: "transparent" }}
+                      >
+                        <DeleteOutlined />
+                      </button>
+                    </div>
+                  </div>
+                )}
+                {data?.market_research && (
+                  <div className="cards-header">
+                    <div>
+                      <div>
+                        <div className="img">
+                          <Image
+                            style={{ borderRadius: "5px" }}
+                            width={48}
+                            height={48}
+                            preview="false"
+                            src={data?.market_research?.image || profile_img}
+                            alt="profile"
+                          />
+                        </div>
+                      </div>
+                      <div className="profile">
+                        <h5>{data?.market_research?.name}</h5>
+                        <p
+                          style={{
+                            marginBottom: 0,
+                          }}
+                        >
+                          {"Market research"}
+                        </p>
+                        <p>
+                          {"Saved "}
+                          {calculateDateTime(data?.created_at)}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="follow mobile-delete-btn">
+                      <button
+                        className="button"
+                        onClick={() => handleDelete(data.id)}
+                        style={{ background: "transparent" }}
+                      >
+                        <DeleteOutlined />
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </Card>
+            ))
+          ) : (
+            <p
+              style={{
+                fontWeight: "400",
+                fontSize: "14px",
+                color: "#54616C",
+                // textAlign :"center",
+                padding: "10px",
+                marginLeft: "35%",
+              }}
+            >
+              No Data Available
+            </p>
+          )}
+
           {/* Render pagination controls */}
           <div className="mt-5" style={{ width: "100%" }}>
             {libraryData?.length > 0 && libraryPageCount > 1 && (
@@ -1283,9 +1244,12 @@ const Profile = ({
               <div onClick={showEditModal} className="button">
                 Edit Profile
               </div>
-              <div className="delete-container mt-3" style={{
-                float:'right',
-              }}>
+              <div
+                className="delete-container mt-3"
+                style={{
+                  float: "right",
+                }}
+              >
                 <div onClick={showSignOutModal}>Sign Out</div>
               </div>
             </div>
