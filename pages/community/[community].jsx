@@ -79,6 +79,35 @@ const CommunityDetail = ({
   const [communityData, setCommunityData] = useState();
   const [updateCom, setUpdateCom] = useState(false);
 
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, false] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      ["link", "image"],
+      ["clean"],
+    ],
+  };
+
+  const formats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+  ];
+
   const handleEditorChange = (html) => {
     setDescription(html);
   };
@@ -576,6 +605,8 @@ const CommunityDetail = ({
                     >
                       <div>
                         <ReactQuill
+                          modules={modules}
+                          formats={formats}
                           theme="snow"
                           value={description}
                           onChange={handleEditorChange}
@@ -590,7 +621,7 @@ const CommunityDetail = ({
                         fontFamily: "Inter",
                         fontSize: "14px",
                         color: "#4C4C4C",
-                        marginTop: isMobile ? "90px" : "55px",
+                        marginTop: isMobile ? "90px" : "95px",
                       }}
                       label="Attachment"
                       valuePropName="fileList"
