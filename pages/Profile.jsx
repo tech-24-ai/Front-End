@@ -1018,7 +1018,8 @@ const Profile = ({
             marginTop: "1rem",
           }}
         >
-          {libraryData?.map((data) => (
+          {libraryData && libraryData.length > 0 ? (
+            libraryData.map((data) => (
             <Card
               bordered={true}
               style={{
@@ -1107,7 +1108,23 @@ const Profile = ({
                 </div>
               )}
             </Card>
-          ))}
+
+            ))
+            ) : (
+              <p
+                style={{
+                  fontWeight: "400",
+                  fontSize: "14px",
+                  color: "#54616C",
+                  // textAlign :"center",
+                  padding: "10px",
+                  marginLeft : "35%",
+                }}
+              >
+                No Data Available
+              </p>
+            )}
+        
           {/* Render pagination controls */}
           <div className="mt-5" style={{ width: "100%" }}>
             {libraryData?.length > 0 && libraryPageCount > 1 && (
