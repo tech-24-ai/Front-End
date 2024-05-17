@@ -377,7 +377,14 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                 alignItems: "center",
               }}
             >
-              <div style={{ display: "flex", alignItems: "center" }}>
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
                 <div
                   style={{
                     borderLeft: "2px solid red",
@@ -387,37 +394,40 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     borderWidth: "4px",
                     height: isMobile ? "24px" : "26px",
                   }}
-                ></div>
-                <div
-                  style={{
-                    fontWeight: 400,
-                    fontSize: isMobile ? "16px" : "20px",
-                    fontFamily: "Poppins",
-                    color: "#54616C",
-                    marginLeft: "10px",
-                  }}
                 >
-                  Comments ({communityAnswers?.length})
+                  <div
+                    style={{
+                      fontWeight: 400,
+                      fontSize: isMobile ? "16px" : "20px",
+                      fontFamily: "Poppins",
+                      color: "#54616C",
+                      marginLeft: "10px",
+                    }}
+                  >
+                    Comments ({communityAnswers?.length})
+                  </div>
                 </div>
                 <div
-                      style={{
-                        fontSize: "14px",
-                        fontWeight: 500,
-                        fontFamily: "Inter",
-                        color: "#FFFFFF",
-                        padding: "4px 16px",
-                        borderRadius: "2px",
-                        backgroundColor: "#0074D9",
-                        cursor: "pointer",
-                      }}
-                      className="questions_font_12px"
-                      onClick={() => setIsReplayModalOpen({
-                        isReplayModelOpen: true,
-                        details: communityAnswer,
-                      })}
-                    >
-                      Add Comments
-                    </div>
+                  style={{
+                    fontSize: "14px",
+                    fontWeight: 500,
+                    fontFamily: "Inter",
+                    color: "#FFFFFF",
+                    padding: "4px 16px",
+                    borderRadius: "2px",
+                    backgroundColor: "#0074D9",
+                    cursor: "pointer",
+                  }}
+                  className="questions_font_12px"
+                  onClick={() =>
+                    setIsReplayModalOpen({
+                      isReplayModelOpen: true,
+                      details: communityAnswer,
+                    })
+                  }
+                >
+                  Add Comments
+                </div>
               </div>
             </div>
 
@@ -654,7 +664,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                               </p>
                             </div>
                           </div>
-                          {(
+                          {
                             <div className="follow">
                               {/* <p className="button">Follow</p> */}
                               <EyeOutlined
@@ -673,7 +683,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     />
                             </div> */}
                             </div>
-                          )}
+                          }
                         </div>
                         <p className="para">
                           <span
