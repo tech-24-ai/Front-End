@@ -45,6 +45,7 @@ const ReactQuill = dynamic(
 import { isMobile } from "react-device-detect";
 import ReportAbuseModal from "../../../../components/community/ReportAbuseModal";
 import { FlageIcon } from "../../../../components/icons";
+import { calculateDateTime } from "../../../../_global";
 const SubmitButton = ({ form, children }) => {
   const [submittable, setSubmittable] = React.useState(false);
 
@@ -194,25 +195,6 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
       });
   };
 
-  const calculateTimeAgo = (createdAt) => {
-    const currentDateTime = moment();
-    const blogPostDateTime = moment
-      .utc(createdAt)
-      .local()
-      .format("MM-DD-YYYY hh:mm A");
-
-    const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
-    const duration = moment.duration(diffMilliseconds);
-
-    let humanReadableDiff;
-    if (duration.asMinutes() < 60) {
-      humanReadableDiff = duration.minutes() + " minutes ago";
-    } else {
-      humanReadableDiff = duration.humanize(true);
-    }
-    return humanReadableDiff;
-  };
-
   const getPostReplies = () => {
     const id = sessionStorage.getItem("community_parent_id");
     if (id) {
@@ -296,7 +278,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     <p>
                       {communityQuestionDetail?.visitor?.name}
                       {"("}
-                      {calculateTimeAgo(communityQuestionDetail?.created_at)}
+                      {calculateDateTime(communityQuestionDetail?.created_at)}
                       {")"}
                     </p>
                   </div>
@@ -362,7 +344,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       style={{ flexDirection: "column" }}
                     >
                       <h5>{communityAnswer?.visitor?.name}</h5>
-                      <p>{calculateTimeAgo(communityAnswer?.created_at)}</p>
+                      <p>{calculateDateTime(communityAnswer?.created_at)}</p>
                     </div>
                   </div>
                   <div className="right-side-section">
@@ -495,7 +477,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       >
                         <h5>{answer?.visitor?.name}</h5>
                         <p>
-                          {calculateTimeAgo(answer?.comments[0]?.created_at)}
+                          {calculateDateTime(answer?.comments[0]?.created_at)}
                         </p>
                       </div>
                     </div>
@@ -690,7 +672,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                                   style={{ margin: "0 5px", height: "8px" }}
                                 ></div>
 
-                                {calculateTimeAgo(comment?.created_at)}
+                                {calculateDateTime(comment?.created_at)}
                               </p>
                             </div>
                           </div>

@@ -28,6 +28,7 @@ import ShareSocialMedia from "../../../components/shareSocial";
 import { ShareAltOutlined, SaveOutlined } from "@ant-design/icons";
 import profile_img from "../../../public/new_images/profile.svg";
 import { isMobile } from "react-device-detect";
+import { calculateDateTime } from "../../../_global";
 
 const SubmitButton = ({ form, children }) => {
   const [submittable, setSubmittable] = React.useState(false);
@@ -86,25 +87,6 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
         });
     }
   }, [updateCom]);
-
-  const calculateTimeAgo = (createdAt) => {
-    const currentDateTime = moment();
-    const blogPostDateTime = moment
-      .utc(createdAt)
-      .local()
-      .format("MM-DD-YYYY hh:mm A");
-
-    const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
-    const duration = moment.duration(diffMilliseconds);
-
-    let humanReadableDiff;
-    if (duration.asMinutes() < 60) {
-      humanReadableDiff = duration.minutes() + " minutes ago";
-    } else {
-      humanReadableDiff = duration.humanize(true);
-    }
-    return blogPostDateTime;
-  };
 
   const handleCommunity = () => {
     Router.push("/community");
@@ -209,12 +191,11 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
                       >
                         <h5>{newsAnnouncementDetail?.title}</h5>
                         <p>
-                          {/* 
-                          {communityQuestionDetail?.visitor?.name} {" ("}
-                          {calculateTimeAgo(
+                          {/* communityQuestionDetail?.visitor?.name} {" ("}
+                          {calculateDateTime(
                             newsAnnouncementDetail?.created_at
                           )}
-                          {")"} */}
+                          {")" */}
                         </p>
                       </div>
                     </div>
@@ -254,7 +235,7 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
                       /> */}
                       <span style={{ marginLeft: "5px" }}>
                         {/* {communityQuestionDetail?.views_counter} views */}
-                        {calculateTimeAgo(newsAnnouncementDetail?.created_at)}
+                        {calculateDateTime(newsAnnouncementDetail?.created_at)}
                       </span>
                     </p>
 

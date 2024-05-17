@@ -46,6 +46,7 @@ import { isMobile } from "react-device-detect";
 import ShareSocialMedia from "../../../components/shareSocial";
 import { FlageIcon } from "../../../components/icons";
 import ReportAbuseModal from "../../../components/community/ReportAbuseModal";
+import { calculateDateTime } from "../../../_global";
 
 const SubmitButton = ({ form, children }) => {
   const [submittable, setSubmittable] = React.useState(false);
@@ -249,25 +250,6 @@ const CommunityQuestionDetail = ({
     }
   }, [updateCom, slugQuery]);
 
-  const calculateTimeAgo = (createdAt) => {
-    const currentDateTime = moment();
-    const blogPostDateTime = moment
-      .utc(createdAt)
-      .local()
-      .format("MM-DD-YYYY hh:mm A");
-
-    const diffMilliseconds = currentDateTime.diff(blogPostDateTime);
-    const duration = moment.duration(diffMilliseconds);
-
-    let humanReadableDiff;
-    if (duration.asMinutes() < 60) {
-      humanReadableDiff = duration.minutes() + " minutes ago";
-    } else {
-      humanReadableDiff = duration.humanize(true);
-    }
-    return humanReadableDiff;
-  };
-
   const getPostReplies = () => {
     const id = communityQuestionDetail?.id;
 
@@ -428,7 +410,7 @@ const CommunityQuestionDetail = ({
                       </>
                     )} */}
                           {communityQuestionDetail?.visitor?.name} {" ("}
-                          {calculateTimeAgo(
+                          {calculateDateTime(
                             communityQuestionDetail?.created_at
                           )}
                           {")"}
@@ -666,7 +648,7 @@ const CommunityQuestionDetail = ({
                             style={{ flexDirection: "column" }}
                           >
                             <h5>{answer?.visitor?.name}</h5>
-                            <p>{calculateTimeAgo(answer?.created_at)}</p>
+                            <p>{calculateDateTime(answer?.created_at)}</p>
                           </div>
                           {answer?.is_correct_answer == 1 && (
                             <>
@@ -988,7 +970,7 @@ const CommunityQuestionDetail = ({
                                       style={{ margin: "0 5px", height: "8px" }}
                                     ></div>
 
-                                    {calculateTimeAgo(comment?.created_at)}
+                                    {calculateDateTime(comment?.created_at)}
                                   </p>
                                 </div>
                               </div>
