@@ -46,7 +46,7 @@ const NewsAnnouncmentCard = ({ data, key }) => {
                     alt="profile"
                     
                   />
-          <div className="profile-wrapper" style={{maxWidth:'80%'}}>
+          <div className="profile-wrapper-news" style={{maxWidth:'80%'}}>
             <h6>{data?.title}</h6>
             <p>
               {" "}

@@ -50,6 +50,28 @@
             line-height: 1.125rem;
           }
         }
+        .profile-wrapper-news {
+          h6 {
+            font-weight: 500;
+            font-size: 1.115rem;
+            line-height: 1.45rem;
+            color: #001622;
+            // font-family: "Inter";
+            margin-bottom: 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow:hidden;
+          }
+          p {
+            margin-bottom: 0;
+            color: #54616c;
+            font-family: "Inter";
+            font-weight: 400;
+            font-size: 0.75rem;
+            line-height: 1.125rem;
+          }
+        }
       }
 
       .question-description {
@@ -64,10 +86,6 @@
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
         min-height: 4.5rem;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow:hidden;
       }
 
       .question-tag-wrapper {
@@ -195,6 +213,42 @@
   
 }
 
+.trending-question {
+  p {
+    padding: 0;
+    margin: 0;
+  }
+  margin: 4rem 0 1rem 0;
+  .title-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    align-items: center;
+
+    .title {
+      color: #54616c;
+      font-weight: 500;
+      font-size: 1.5rem;
+      line-height: 2rem;
+      &.bg {
+        color: $themeSecondary;
+        font-weight: 500;
+        font-size: 1.5rem;
+        line-height: 2rem;
+      }
+    }
+
+    .view-more {
+      color: $themeSecondary;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5rem;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}
+
 @media (min-width: 1441px) {
   .trending-category-below .category-box .category-banner-wrapper {
     margin: 0 -10px;
@@ -232,6 +286,16 @@
           }
 
           .profile-wrapper {
+            h6 {
+              font-size: 1rem;
+              line-height: 1.5rem;
+            }
+            p {
+              font-size: 0.625rem;
+              line-height: 1.125rem;
+            }
+          }
+          .profile-wrapper-news {
             h6 {
               font-size: 1rem;
               line-height: 1.5rem;
