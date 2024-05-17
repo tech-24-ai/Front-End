@@ -786,7 +786,7 @@
 
 @media (max-width: 767px) {
   .community-listing-page .banner-head .community-stats .stat-container:not(:last-child)::after{
-    right: 10px!important;
+    right: -5px!important;
   }
   
   .community-section {
