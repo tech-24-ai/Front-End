@@ -104,7 +104,6 @@ const CommunityDetail = ({
     editor.current.focus();
   }
 
-
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -420,8 +419,6 @@ const CommunityDetail = ({
   const handleCommunity = () => {
     Router.push("/community");
   };
-
-  console.log("url", url);
 
   return (
     <Container>

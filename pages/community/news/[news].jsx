@@ -103,7 +103,7 @@ const NewsDetails = ({ getAllCrud, success, showAlert, downloadDocument }) => {
     } else {
       humanReadableDiff = duration.humanize(true);
     }
-    return humanReadableDiff;
+    return blogPostDateTime;
   };
 
   const handleCommunity = () => {
