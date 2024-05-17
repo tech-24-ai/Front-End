@@ -15,7 +15,7 @@ import { connect } from "react-redux";
 import moment from "moment";
 import { Card, Input, Select, Modal, Label } from "antd";
 import CustomPagination from "../../components/pagination";
-import { isMobile } from "react-device-detect";
+import { isMobile, isBrowser } from "react-device-detect";
 import myImageLoader from "../../components/imageLoader";
 import Image from "next/future/image";
 import SearchInput from "../../components/form/searchInput";
@@ -33,6 +33,7 @@ const Community = ({ router }) => {
 
   const [searchQuery, setSearchQuery] = useState(value);
   const [isSearchActive, setIsSearchActive] = useState(false);
+  const [responseType, setResponseType] = useState(null);
 
   useEffect(() => {
     getAllPosts(searchQuery, currentPage, sortBy, orderDirection);
@@ -81,6 +82,7 @@ const Community = ({ router }) => {
         setCommunityList([]);
       }
 
+      setResponseType(data?.data?.response_type);
       setTotal(data.data?.lastPage);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -88,20 +90,9 @@ const Community = ({ router }) => {
   };
 
   //Filter
-  // const handleSearch = (searchText) => {
-  //   setSearchQuery(searchText);
-  //   setCurrentPage(0);
-    
-  //   if (searchText.trim() === "") {
-  //     Router.push("/community/searchCommunity");
-  //   } else {
-  //     Router.push(`/community/searchCommunity?value=${searchText}`);
-  //   }
-  //   getAllPosts(searchText, 0, sortBy, orderDirection);
-  // };
   const handleSearch = (searchText) => {
 
-    const filteredText = searchText.trim().slice(0, 60); 
+    const filteredText = searchText.trim().slice(0, 60);
 
     setSearchQuery(filteredText);
     setCurrentPage(0);
@@ -129,9 +120,6 @@ const Community = ({ router }) => {
     }
     getAllPosts(searchQuery, currentPage, e.target.value, orderDirection);
   };
- 
-
-
 
   const handleAllCommunity = () => {
     Router.push("/community");
@@ -171,7 +159,17 @@ const Community = ({ router }) => {
       label: "Oldest"
     }
   ];
-
+  const getBreadcrumbText = () => {
+    if (responseType === 1) {
+      return "Question & Answers";
+    } else if (responseType === 2) {
+      return "Discussion Group";
+    } else if (responseType === 3) {
+      return "News";
+    } else {
+      return "Result data";
+    }
+  };
   return (
     <>
       <section className="query-section mt-6 search-community-section community-tab-container questions-tab-container community-detail-wrapper">
@@ -193,16 +191,36 @@ const Community = ({ router }) => {
                 </span>{" "}
                 <span
                   style={{
+                    color: "#B0B8BF",
+                    fontFamily: "Inter",
+                    fontSize: "14px",
+                    cursor: "pointer",
+                  }}
+                >
+                  Search Result <RightOutlined style={{ verticalAlign: "0" }} />
+                </span>{" "}
+                <span
+                  style={{
                     color: "#0074D9",
                     fontFamily: "Inter",
                     fontSize: "14px",
                     cursor: "pointer",
                   }}
                 >
-                  Search Result
+                  {getBreadcrumbText()}
                 </span>
               </h4>
             </div>
+          </div>
+          <div>
+            <h4 style={{
+              marginLeft: "9px",
+              fontSize: "large",
+              fontWeight: "500",
+              fontFamily: 'Inter'
+            }}>
+              {getBreadcrumbText()}
+            </h4>
           </div>
           <div className="mt-3 search-bar-community">
             <SearchInput
@@ -211,27 +229,29 @@ const Community = ({ router }) => {
               maxLength={60}
               onSearch={(value) => handleSearch(value)}
             />
-            <div className="sorting-community sorting-display">
-              <label className="sortby" htmlFor="sortDropdown">
-                Sort By:{" "}
-              </label>
-              <select
-                id="sortDropdown"
-                style={{ border: "none", background: "transparent" }}
-                value={sortBy}
-                onChange={handleSort}
-              >
-                {sortOptions.map(({ value, label }) => (
-                  <option
-                    className="sortby"
-                    style={{ color: "#001622" }}
-                    value={value}
-                  >
-                    {label}
-                  </option>
-                ))}
-              </select>
-            </div>
+            {!isMobile  && isBrowser &&
+              <div className="sorting-community sorting-display">
+                <label className="sortby" htmlFor="sortDropdown">
+                  Sort By:{" "}
+                </label>
+                <select
+                  id="sortDropdown"
+                  style={{ border: "none", background: "transparent", marginBottom: "0.6rem" }}
+                  value={sortBy}
+                  onChange={handleSort}
+                >
+                  {sortOptions.map(({ value, label }) => (
+                    <option
+                      className="sortby"
+                      style={{ color: "#001622", border: "none" }}
+                      value={value}
+                    >
+                      {label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            }
           </div>
 
           <div className="cards-container">
@@ -359,87 +379,86 @@ const Community = ({ router }) => {
                         <hr />
                       </li>
                     ))
-                 
+
                   )}
                 </ul>
               </div>
             }
-              <div className="content-wrap">
-                <div className="mt-4 content-card-display">
-                  {communityList.length > 0 && communityList.map((item, index) => (
-                    <div
-                      className="community-category-below community-category-mobile"
-                      style={{
-                        marginTop: "-1rem",
-                        height: "280px",
-                        paddingRight: "0px",
-                        flex: "0 0 calc(50%  - 20px)",
-                      }}
-                    >
-                      <div className="category-box">
-                        <div
-                          className="category-banner-wrapper"
-                          id="categoryWrapper"
-                        >
-                          <div className="category-banner-block">
-                            <div
-                              className="category-banner"
-                              style={{ height: "220px" }}
-                            >
-                              <div className="category-content">
-                                <div
-                                  className="content-header"
-                                  onClick={() => communityDetails(item)}
-                                >
-                                  <div className="icon-bg">
-                                    <img
-                                      src={item.image_url}
-                                      style={{ borderRadius: "4.8px" }}
-                                      alt={item.name}
-                                      width={48}
-                                      height={48}
-                                      className="icon-image"
-                                    />
-                                  </div>
-                                  <div
-                                    className="category-text"
-                                    style={{ maxWidth: "70%" }}
-                                  >
-                                    <h6>{item.name}</h6>
-                                  </div>
+            <div className="content-wrap">
+              <div className="mt-4 content-card-display">
+                {communityList.length > 0 && communityList.map((item, index) => (
+                  <div
+                    className="community-category-below community-category-mobile"
+                    style={{
+                      marginTop: "-1rem",
+                      height: "280px",
+                      paddingRight: "0px",
+                      flex: "0 0 calc(50%  - 20px)",
+                    }}
+                  >
+                    <div className="category-box">
+                      <div
+                        className="category-banner-wrapper"
+                        id="categoryWrapper"
+                      >
+                        <div className="category-banner-block">
+                          <div
+                            className="category-banner"
+                            style={{ height: "220px" }}
+                          >
+                            <div className="category-content">
+                              <div
+                                className="content-header"
+                                onClick={() => communityDetails(item)}
+                              >
+                                <div className="icon-bg">
+                                  <img
+                                    src={item.image_url}
+                                    style={{ borderRadius: "4.8px" }}
+                                    alt={item.name}
+                                    width={48}
+                                    height={48}
+                                    className="icon-image"
+                                  />
                                 </div>
                                 <div
-                                  className="card-body"
-                                  style={{ paddingTop: "12px" }}
-                                  onClick={() => communityDetails(item)}
+                                  className="category-text"
+                                  style={{ maxWidth: "70%" }}
                                 >
-                                  <p class="card-description">
-                                    {item.description}
-                                  </p>
-                                  <div className="content-x">
-                                    <div className="user-icon">
-                                      <p>
-                                        <EyeOutlined
-                                          style={{
-                                            fontSize: "16px",
-                                            verticalAlign: "0.04em",
-                                          }}
-                                        />{" "}
-                                        Answers :{" "}
-                                        {item?.__meta__?.total_post_reply}
-                                      </p>
-                                    </div>
-                                    <div className="query-icon">
-                                      <p>
-                                        <MessageOutlined
-                                          style={{
-                                            fontSize: "16px",
-                                            verticalAlign: "0.04em",
-                                          }}
-                                        />{" "}
-                                        Queries : {item?.__meta__?.total_posts}
-                                      </p>
-                                    </div>
+                                  <h6>{item.name}</h6>
+                                </div>
+                              </div>
+                              <div
+                                className="card-body"
+                                style={{ paddingTop: "12px" }}
+                                onClick={() => communityDetails(item)}
+                              >
+                                <p class="card-description">
+                                  {item.description}
+                                </p>
+                                <div className="content-x">
+                                  <div className="user-icon">
+                                    <p>
+                                      <EyeOutlined
+                                        style={{
+                                          fontSize: "16px",
+                                          verticalAlign: "0.04em",
+                                        }}
+                                      />{" "}
+                                      Answers :{" "}
+                                      {item?.__meta__?.total_post_reply}
+                                    </p>
+                                  </div>
+                                  <div className="query-icon">
+                                    <p>
+                                      <MessageOutlined
+                                        style={{
+                                          fontSize: "16px",
+                                          verticalAlign: "0.04em",
+                                        }}
+                                      />{" "}
+                                      Queries : {item?.__meta__?.total_posts}
+                                    </p>
                                   </div>
                                 </div>
                               </div>
@@ -448,8 +467,9 @@ const Community = ({ router }) => {
                         </div>
                       </div>
                     </div>
-                  ))}
-                  {/* {!isSearchActive && !searchQuery && (
+                  </div>
+                ))}
+                {/* {!isSearchActive && !searchQuery && (
                     <div className="mt-5" style={{ width: "100%" }}>
                       {communityFeature?.length > 0 &&
                         Math.ceil(total / itemsPerPage) > 1 && (
@@ -461,8 +481,8 @@ const Community = ({ router }) => {
                         )}
                     </div>
                   )} */}
-                </div>
               </div>
+            </div>
           </div>
           <br></br>
           <div className="mt-5" style={{ width: "100%" }}>
@@ -475,7 +495,7 @@ const Community = ({ router }) => {
             )}
           </div>
         </Container>
-      </section>
+      </section >
     </>
   );
 };

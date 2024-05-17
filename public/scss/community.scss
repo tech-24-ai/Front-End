@@ -458,6 +458,9 @@
   // .page-banner .banner-bg .banner-container .banner-title-container .newTitlefortab
   //   font-size: ;;
   // }
+  .community-listing-page .banner-head .community-stats .stat-container:not(:last-child)::after{
+    right: -15px!important;
+  }
   
   .page-banner .banner-bg .banner-container .banner-title-container .newtabTitle{
     width: 70%!important;
@@ -782,6 +785,10 @@
 }
 
 @media (max-width: 767px) {
+  .community-listing-page .banner-head .community-stats .stat-container:not(:last-child)::after{
+    right: 10px!important;
+  }
+  
   .community-section {
     .page-banner {
       .container,
@@ -816,7 +823,7 @@
           width: 100% !important;
         }
         .community-stats{
-          width: 100%!important;
+          width: 110%!important;
         }
         .new-custom-search-input{
           width: 100%!important;
