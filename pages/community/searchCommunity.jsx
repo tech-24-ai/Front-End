@@ -78,7 +78,6 @@ const Community = ({ router }) => {
         setCommunityFeature([]);
         setNewsList([]);
       } else if (data?.data?.response_type === 3) {
-        console.log("console news", data.data?.data)
         setNewsList(data.data?.data);
         setCommunityFeature([]);
         setCommunityList([]);
