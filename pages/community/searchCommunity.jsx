@@ -81,7 +81,7 @@ const Community = ({ router }) => {
         setCommunityFeature([]);
         setCommunityList([]);
       }
-      
+
       setResponseType(data?.data?.response_type);
       setTotal(data.data?.lastPage);
     } catch (error) {
@@ -92,7 +92,7 @@ const Community = ({ router }) => {
   //Filter
   const handleSearch = (searchText) => {
 
-    const filteredText = searchText.trim().slice(0, 60); 
+    const filteredText = searchText.trim().slice(0, 60);
 
     setSearchQuery(filteredText);
     setCurrentPage(0);
@@ -119,7 +119,7 @@ const Community = ({ router }) => {
       setOrderDirection("ASC");
     }
     getAllPosts(searchQuery, currentPage, e.target.value, orderDirection);
-  }; 
+  };
 
   const handleAllCommunity = () => {
     Router.push("/community");
@@ -212,6 +212,16 @@ const Community = ({ router }) => {
               </h4>
             </div>
           </div>
+          <div>
+            <h4 style={{
+              marginLeft: "9px",
+              fontSize: "large",
+              fontWeight: "500",
+              fontFamily: 'Inter'
+            }}>
+              {getBreadcrumbText()}
+            </h4>
+          </div>
           <div className="mt-3 search-bar-community">
             <SearchInput
               placeholder="Search anything"
@@ -219,28 +229,28 @@ const Community = ({ router }) => {
               maxLength={60}
               onSearch={(value) => handleSearch(value)}
             />
-            {isBrowser &&
-            <div className="sorting-community sorting-display">
-              <label className="sortby" htmlFor="sortDropdown">
-                Sort By:{" "}
-              </label>
-              <select
-                id="sortDropdown"
-                style={{ border: "none", background: "transparent", marginBottom: "0.6rem" }}
-                value={sortBy}
-                onChange={handleSort}
-              >
-                {sortOptions.map(({ value, label }) => (
-                  <option
-                    className="sortby"
-                    style={{ color: "#001622", border: "none" }}
-                    value={value}
-                  >
-                    {label}
-                  </option>
-                ))}
-              </select>
-            </div>
+            {!isMobile  && isBrowser &&
+              <div className="sorting-community sorting-display">
+                <label className="sortby" htmlFor="sortDropdown">
+                  Sort By:{" "}
+                </label>
+                <select
+                  id="sortDropdown"
+                  style={{ border: "none", background: "transparent", marginBottom: "0.6rem" }}
+                  value={sortBy}
+                  onChange={handleSort}
+                >
+                  {sortOptions.map(({ value, label }) => (
+                    <option
+                      className="sortby"
+                      style={{ color: "#001622", border: "none" }}
+                      value={value}
+                    >
+                      {label}
+                    </option>
+                  ))}
+                </select>
+              </div>
             }
           </div>
 
@@ -369,87 +379,86 @@ const Community = ({ router }) => {
                         <hr />
                       </li>
                     ))
-                 
+
                   )}
                 </ul>
               </div>
             }
-              <div className="content-wrap">
-                <div className="mt-4 content-card-display">
-                  {communityList.length > 0 && communityList.map((item, index) => (
-                    <div
-                      className="community-category-below community-category-mobile"
-                      style={{
-                        marginTop: "-1rem",
-                        height: "280px",
-                        paddingRight: "0px",
-                        flex: "0 0 calc(50%  - 20px)",
-                      }}
-                    >
-                      <div className="category-box">
-                        <div
-                          className="category-banner-wrapper"
-                          id="categoryWrapper"
-                        >
-                          <div className="category-banner-block">
-                            <div
-                              className="category-banner"
-                              style={{ height: "220px" }}
-                            >
-                              <div className="category-content">
-                                <div
-                                  className="content-header"
-                                  onClick={() => communityDetails(item)}
-                                >
-                                  <div className="icon-bg">
-                                    <img
-                                      src={item.image_url}
-                                      style={{ borderRadius: "4.8px" }}
-                                      alt={item.name}
-                                      width={48}
-                                      height={48}
-                                      className="icon-image"
-                                    />
-                                  </div>
-                                  <div
-                                    className="category-text"
-                                    style={{ maxWidth: "70%" }}
-                                  >
-                                    <h6>{item.name}</h6>
-                                  </div>
+            <div className="content-wrap">
+              <div className="mt-4 content-card-display">
+                {communityList.length > 0 && communityList.map((item, index) => (
+                  <div
+                    className="community-category-below community-category-mobile"
+                    style={{
+                      marginTop: "-1rem",
+                      height: "280px",
+                      paddingRight: "0px",
+                      flex: "0 0 calc(50%  - 20px)",
+                    }}
+                  >
+                    <div className="category-box">
+                      <div
+                        className="category-banner-wrapper"
+                        id="categoryWrapper"
+                      >
+                        <div className="category-banner-block">
+                          <div
+                            className="category-banner"
+                            style={{ height: "220px" }}
+                          >
+                            <div className="category-content">
+                              <div
+                                className="content-header"
+                                onClick={() => communityDetails(item)}
+                              >
+                                <div className="icon-bg">
+                                  <img
+                                    src={item.image_url}
+                                    style={{ borderRadius: "4.8px" }}
+                                    alt={item.name}
+                                    width={48}
+                                    height={48}
+                                    className="icon-image"
+                                  />
                                 </div>
                                 <div
-                                  className="card-body"
-                                  style={{ paddingTop: "12px" }}
-                                  onClick={() => communityDetails(item)}
+                                  className="category-text"
+                                  style={{ maxWidth: "70%" }}
                                 >
-                                  <p class="card-description">
-                                    {item.description}
-                                  </p>
-                                  <div className="content-x">
-                                    <div className="user-icon">
-                                      <p>
-                                        <EyeOutlined
-                                          style={{
-                                            fontSize: "16px",
-                                            verticalAlign: "0.04em",
-                                          }}
-                                        />{" "}
-                                        Answers :{" "}
-                                        {item?.__meta__?.total_post_reply}
-                                      </p>
-                                    </div>
-                                    <div className="query-icon">
-                                      <p>
-                                        <MessageOutlined
-                                          style={{
-                                            fontSize: "16px",
-                                            verticalAlign: "0.04em",
-                                          }}
-                                        />{" "}
-                                        Queries : {item?.__meta__?.total_posts}
-                                      </p>
-                                    </div>
+                                  <h6>{item.name}</h6>
+                                </div>
+                              </div>
+                              <div
+                                className="card-body"
+                                style={{ paddingTop: "12px" }}
+                                onClick={() => communityDetails(item)}
+                              >
+                                <p class="card-description">
+                                  {item.description}
+                                </p>
+                                <div className="content-x">
+                                  <div className="user-icon">
+                                    <p>
+                                      <EyeOutlined
+                                        style={{
+                                          fontSize: "16px",
+                                          verticalAlign: "0.04em",
+                                        }}
+                                      />{" "}
+                                      Answers :{" "}
+                                      {item?.__meta__?.total_post_reply}
+                                    </p>
+                                  </div>
+                                  <div className="query-icon">
+                                    <p>
+                                      <MessageOutlined
+                                        style={{
+                                          fontSize: "16px",
+                                          verticalAlign: "0.04em",
+                                        }}
+                                      />{" "}
+                                      Queries : {item?.__meta__?.total_posts}
+                                    </p>
                                   </div>
                                 </div>
                               </div>
@@ -458,8 +467,9 @@ const Community = ({ router }) => {
                         </div>
                       </div>
                     </div>
-                  ))}
-                  {/* {!isSearchActive && !searchQuery && (
+                  </div>
+                ))}
+                {/* {!isSearchActive && !searchQuery && (
                     <div className="mt-5" style={{ width: "100%" }}>
                       {communityFeature?.length > 0 &&
                         Math.ceil(total / itemsPerPage) > 1 && (
@@ -471,8 +481,8 @@ const Community = ({ router }) => {
                         )}
                     </div>
                   )} */}
-                </div>
               </div>
+            </div>
           </div>
           <br></br>
           <div className="mt-5" style={{ width: "100%" }}>
@@ -485,7 +495,7 @@ const Community = ({ router }) => {
             )}
           </div>
         </Container>
-      </section>
+      </section >
     </>
   );
 };
