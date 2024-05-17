@@ -19,6 +19,7 @@ import { isMobile, isBrowser } from "react-device-detect";
 import myImageLoader from "../../components/imageLoader";
 import Image from "next/future/image";
 import SearchInput from "../../components/form/searchInput";
+const sorting_icon = "../../new_images/sorting_icon.svg";
 
 const Community = ({ router }) => {
   const { value } = Router.query;
@@ -34,6 +35,7 @@ const Community = ({ router }) => {
   const [searchQuery, setSearchQuery] = useState(value);
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [responseType, setResponseType] = useState(null);
+  const [sortByOrder, setSortByOrder] = useState(false);
 
   useEffect(() => {
     getAllPosts(searchQuery, currentPage, sortBy, orderDirection);
@@ -212,7 +214,12 @@ const Community = ({ router }) => {
               </h4>
             </div>
           </div>
-          <div>
+          <div style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center"
+          }}>
             <h4 style={{
               marginLeft: "9px",
               fontSize: "large",
@@ -221,6 +228,50 @@ const Community = ({ router }) => {
             }}>
               {getBreadcrumbText()}
             </h4>
+            {
+              isMobile && !isBrowser &&
+              <Image
+                onClick={() => setSortByOrder(!sortByOrder)}
+                style={{
+                  borderRadius: "2px",
+                  cursor: "pointer",
+                  display: "none",
+                }}
+                width={44}
+                height={44}
+                preview={false}
+                src={sorting_icon}
+                alt="profile"
+                className="shorting_icon"
+              />
+            }
+
+            <Modal
+              visible={sortByOrder}
+              footer={null}
+              onCancel={() => {
+                setSortByOrder(false);
+              }}
+              maskClosable={false}
+            >
+              <div className="sorting shorting_icon">
+                <label className="sortby" htmlFor="sortDropdown">
+                  Sort By:{" "}
+                </label>
+                <select
+                  id="sortDropdown"
+                  style={{ border: "none", background: "transparent" }}
+                  value={sortBy}
+                  onChange={handleSort}
+                >
+                  {sortOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </Modal>
           </div>
           <div className="mt-3 search-bar-community">
             <SearchInput
@@ -229,7 +280,7 @@ const Community = ({ router }) => {
               maxLength={60}
               onSearch={(value) => handleSearch(value)}
             />
-            {!isMobile  && isBrowser &&
+            {!isMobile && isBrowser &&
               <div className="sorting-community sorting-display">
                 <label className="sortby" htmlFor="sortDropdown">
                   Sort By:{" "}
