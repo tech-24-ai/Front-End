@@ -36,6 +36,7 @@ const Community = ({ router }) => {
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [responseType, setResponseType] = useState(null);
   const [sortByOrder, setSortByOrder] = useState(false);
+  const [noDataFound, setNoDataFound] = useState(false);
 
   useEffect(() => {
     getAllPosts(searchQuery, currentPage, sortBy, orderDirection);
@@ -85,6 +86,15 @@ const Community = ({ router }) => {
 
       setResponseType(data?.data?.response_type);
       setTotal(data.data?.lastPage);
+
+      if (
+        !data?.data?.data ||
+        (data.data.data.length === 0)
+      ) {
+        setNoDataFound(true);
+      } else {
+        setNoDataFound(false);
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -175,7 +185,7 @@ const Community = ({ router }) => {
     <>
       <section className="query-section mt-6 search-community-section community-tab-container questions-tab-container community-detail-wrapper">
         <Container>
-          <div className="row" style={{ paddingTop: "38px" }}>
+          <div className="row" style={{ paddingTop: "10px" }}>
             <div className="col-md-12">
               <h4 className="mt-1 mb-3">
                 <span
@@ -190,7 +200,7 @@ const Community = ({ router }) => {
                 >
                   Community <RightOutlined style={{ verticalAlign: "0" }} />
                 </span>{" "}
-                <span
+                {/* <span
                   style={{
                     color: "#B0B8BF",
                     fontFamily: "Inter",
@@ -199,7 +209,7 @@ const Community = ({ router }) => {
                   }}
                 >
                   Search Result <RightOutlined style={{ verticalAlign: "0" }} />
-                </span>{" "}
+                </span>{" "} */}
                 <span
                   style={{
                     color: "#0074D9",
@@ -208,7 +218,7 @@ const Community = ({ router }) => {
                     cursor: "pointer",
                   }}
                 >
-                  {getBreadcrumbText()}
+                 Search Result  ( {getBreadcrumbText()} )
                 </span>
               </h4>
             </div>
@@ -303,7 +313,11 @@ const Community = ({ router }) => {
               </div>
             }
           </div>
-
+          {noDataFound ? (
+            <div className="no-data-found">
+              <h4 style={{ textAlign: "center", padding: "25px", color: "#afafaf"}}>No data found</h4>
+            </div>
+          ) : (
           <div className="cards-container">
 
             {communityFeature.length > 0 && communityFeature?.map((data) => (
@@ -534,6 +548,7 @@ const Community = ({ router }) => {
               </div>
             </div>
           </div>
+          )}
           <br></br>
           <div className="mt-5" style={{ width: "100%" }}>
             {communityFeature?.length > 0 && total > 1 && (

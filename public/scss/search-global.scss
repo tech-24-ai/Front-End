@@ -9,7 +9,15 @@
   .latest-research {
     margin-left: 20px;
   }
+  .no-data-found{
+    h4{
 
+      text-align: center;
+      font-size: larger;
+      color: $gray;
+      padding: 25px;
+    }
+  }
   .sorting {
     padding: 10px;
     border: 1px solid #d9dfe9;
