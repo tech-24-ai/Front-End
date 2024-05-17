@@ -1,4 +1,4 @@
-import React, { Component, Fragment,useState } from "react";
+import React, { Component, Fragment, useState } from "react";
 import { Container, Col, Row } from "reactstrap";
 import { Icon } from "react-icons-kit";
 import { socialTwitter } from "react-icons-kit/ionicons/socialTwitter";
@@ -26,14 +26,14 @@ import sports_logo from "../../public/new_images/sports_logo.svg";
 import { checkDeviceTyepe } from "../../utils/cookie";
 
 const Footer = (props) => {
-
-  
   const [screenSize, getDimension] = useState({
     dynamicWidth: window.innerWidth,
     dynamicHeight: window.innerHeight,
   });
 
-  const {isMobile,isTablet,isBrowser} = checkDeviceTyepe(screenSize.dynamicWidth);
+  const { isMobile, isTablet, isBrowser } = checkDeviceTyepe(
+    screenSize.dynamicWidth
+  );
 
   const setDimension = () => {
     getDimension({
@@ -41,14 +41,12 @@ const Footer = (props) => {
       dynamicHeight: window.innerHeight,
     });
   };
-  
+
   useEffect(() => {
     window.addEventListener("resize", setDimension);
     return () => {
       window.removeEventListener("resize", setDimension);
     };
-
-   
   }, [screenSize]);
 
   return (
@@ -90,8 +88,8 @@ const Footer = (props) => {
                   <Link href="/it-robo">AI-Based Robo Advisor</Link>
                   <Link href="/consultant">Talk to a Consultant</Link>
                   <Link href="/d/tools_calculators/calculators">
-                  Tools & Calculator
-                </Link>
+                    Tools & Calculator
+                  </Link>
                 </div>
                 <div className="link-wrapper">
                   <a>Help</a>
@@ -112,8 +110,8 @@ const Footer = (props) => {
               <Col md={12}>
                 <div className="social-wrapper">
                   <div className="copy-right">
-                    © {new Date().getFullYear()} {themeConfig.appName}. All
-                    rights reserved
+                    © Copyright {new Date().getFullYear()} {themeConfig.appName}
+                    . All rights reserved
                   </div>
                   <div className="social-link">
                     <a
@@ -239,8 +237,8 @@ const Footer = (props) => {
             </div>
             <div class="text-image-container">
               <p>
-                © {new Date().getFullYear()} {themeConfig.appName} All rights
-                reserved
+                © Copyright {new Date().getFullYear()} {themeConfig.appName} All
+                rights reserved
               </p>
               <div className="social-media">
                 <a
@@ -309,7 +307,7 @@ const Footer = (props) => {
         </footer>
       )}
 
-      {screenSize.dynamicWidth <= 1440 && screenSize.dynamicWidth > 767  && (
+      {screenSize.dynamicWidth <= 1440 && screenSize.dynamicWidth > 767 && (
         <footer className="footer-mobile">
           <div class="footer-container">
             <div class="logo-container">
@@ -343,17 +341,17 @@ const Footer = (props) => {
                 </Link>
               </div>
               <div class="info">
-              <h4>Help</h4>
-              <Link href="/terms_and_conditions">Terms and Conditions</Link>
-              <Link href="/privacy_policy">Privacy Policy</Link>
-              <Link href="/contact-us">Contact Us</Link>
+                <h4>Help</h4>
+                <Link href="/terms_and_conditions">Terms and Conditions</Link>
+                <Link href="/privacy_policy">Privacy Policy</Link>
+                <Link href="/contact-us">Contact Us</Link>
               </div>
             </div>
-            
+
             <div class="text-image-container">
               <p>
-                © {new Date().getFullYear()} {themeConfig.appName} All rights
-                reserved
+                © Copyright {new Date().getFullYear()} {themeConfig.appName} All
+                rights reserved
               </p>
               <div className="social-media">
                 <a
