@@ -8,21 +8,14 @@ import Router, { withRouter } from "next/router";
 import { connect } from "react-redux";
 import LatestResearch from "../../components/marketResearch/LatestResearch";
 import SearchInput from "../../components/form/searchInput";
-function MarketResearch({
-  market_research,
-  getAllCrud,
-  categories,
-  all_research,
-  router,
-}) {
+function MarketResearch({ getAllCrud, categories, all_research, router }) {
   const marketBannerImage = "../../images/market-research.jpg";
   useEffect(() => {
-    getAllCrud("market_research", "market_research", {
+    getAllCrud("all_research", "market_research", {
       orderBy: "created_at",
       orderDirection: "desc",
       pageSize: 5,
     });
-    getAllCrud("all_research", "market_research",{});
     getAllCrud("categories", "research_categories", {
       orderBy: "total_research",
     });
@@ -53,7 +46,7 @@ function MarketResearch({
               Gain insights on technology, simplify IT planning and operations.
               <br />
               <br />
-             Try it now. It's free!
+              Try it now. It's free!
             </p>
             <div className="mt-4" style={styles.inputGroup}>
               <div className="search-box">
@@ -62,7 +55,6 @@ function MarketResearch({
                   placeholder="Search anything"
                   onSearch={(value) => handleSearch(value)}
                   maxLength={60}
-                  
                 />
               </div>
             </div>
@@ -74,9 +66,8 @@ function MarketResearch({
 
       <LatestResearch
         titleBorder={true}
-        title='Recently <span class="title bg">Added</span>'
-        data={market_research}
-        viewMore={false}
+        title='All <span class="title bg">Research</span>'
+        data={all_research}
       />
 
       <Container>
@@ -105,12 +96,6 @@ function MarketResearch({
           </div>
         </div>
       </Container>
-
-      <LatestResearch
-        titleBorder={true}
-        title='Other <span class="title bg">Research</span>'
-        data={all_research}
-      />
     </section>
   );
 }
@@ -170,10 +155,9 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { market_research, categories, all_research } = state;
+  const { categories, all_research } = state;
 
   return {
-    market_research,
     all_research,
     categories,
   };
