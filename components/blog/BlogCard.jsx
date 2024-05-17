@@ -34,7 +34,11 @@ const BlogCard = ({ key, data, redirectUrl = null }) => {
                     {/* <div className="research-category">{data.category.name}</div> */}
                 </div>
                 <div style={{ padding: "0px" }} className="content-sections">
-                    <p class="category bg ">{data.blog_topic_name}</p>
+                    <p class="category bg " style={{
+                        background: "#cce3f7",
+                        border: "1px solid #0074d9",
+                        color: "#0074d9"
+                    }} >{data.blog_topic_name}</p>
                     <p className="research-heading">{data.name}</p>
                     <p className="research-detail">{data.details}</p>
                     <div className="date-section">
