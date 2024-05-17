@@ -27,46 +27,52 @@ const BlogComponent = ({ getAllCrud, blogs }) => {
     return (
         <Container>
             <div className="latest-blog hover">
-                <div className="blog-section" style={{display: "flex", flexWrap: "wrap"}}>
-                        {blogs?.slice(0, 9).map((data, index) => (
+                <div className="blog-section" style={{ display: "flex", flexWrap: "wrap" }}>
+                    {blogs?.slice(0, 9).map((data, index) => (
+                        <div
+                            onClick={() => Router.push(`/blogs/${data.slug}`)}
+                            onMouseOver={() => setShowHoverClass(index)}
+                            onMouseOut={() => setShowHoverClass(null)}
+                            className={`blog-list ${showHoverClass === index ? "showHoverClass" : ""
+                                }`}
+                            style={{ width: "100%" }}
+                        >
                             <div
-                                onClick={() => Router.push(`/blogs/${data.slug}`)}
-                                onMouseOver={() => setShowHoverClass(index)}
-                                onMouseOut={() => setShowHoverClass(null)}
-                                className={`blog-list ${showHoverClass === index ? "showHoverClass" : ""
-                                    }`}
-                                style={{width: "100%"}}
+                                className="blog-card"
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    height: "100%",
+                                    justifyContent: "space-between",
+                                }}
                             >
-                                <div
-                                    className="blog-card"
-                                    style={{
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        height: "100%",
-                                        justifyContent: "space-between",
-                                    }}
-                                >
-                                    <div>
-                                        <Image
-                                            src={data.image}
-                                            preview={false}
-                                            alt=""
-                                            placeholder="blog banner"
-                                            className="latest-blog-list-img"
-                                        />
-                                        <p className="category bg">{data.blog_topic_name}</p>
-                                        <p className="blog-heading">{data.name}</p>
-                                        <p className="blog-detail">{data.details}</p>
+                                <div>
+                                    <Image
+                                        src={data.image}
+                                        preview={false}
+                                        alt=""
+                                        placeholder="blog banner"
+                                        className="latest-blog-list-img"
+                                    />
+                                    <p className="category"
+                                        // style={{
+                                        //     background: "rgba(0, 116, 217, .2)",
+                                        //     color: "#0074d9"
+                                        // }}
+                                        >
+                                            {data.blog_topic_name}</p>
+                                    <p className="blog-heading">{data.name}</p>
+                                    <p className="blog-detail">{data.details}</p>
+                                </div>
+                                <div className="date-section">
+                                    <div className="date">
+                                        {moment(data.created_at).format("LL")}
                                     </div>
-                                    <div className="date-section">
-                                        <div className="date">
-                                            {moment(data.created_at).format("LL")}
-                                        </div>
-                                      
-                                    </div>
+
                                 </div>
                             </div>
-                        ))}
+                        </div>
+                    ))}
                 </div>
             </div>
         </Container>

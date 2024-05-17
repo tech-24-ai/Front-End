@@ -280,9 +280,11 @@ function Header(props) {
                           |
                         </NavItem>
 
-                        {/* <NavItem>
+                        <NavItem>
+                        <Link href="/search-global" style={{cursor: "pointer"}}>
                           <img src="/new_images/search.svg" alt="search" />
-                        </NavItem> */}
+                          </Link>
+                        </NavItem>
 
                         {isloggedIn && (
                           <NavItem style={{ margin: 0 }}>
@@ -342,9 +344,11 @@ function Header(props) {
             )}
             {(screenSize.dynamicWidth < 1000) && (
                 <div style={{ float: "right", display: "flex" }}>
-                {/* <NavItem>
-                  <img src="/new_images/search.svg" alt="search" />
-                </NavItem> */}
+                <NavItem>
+                  <Link href="/search-global" style={{ cursor: "pointer" }}>
+                    <img src="/new_images/search.svg" alt="search" />
+                  </Link>
+                </NavItem>
 
                 {isloggedIn && (
                   <NavItem style={{ margin: 0 }}>

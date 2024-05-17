@@ -227,7 +227,11 @@ function Blogs({ router }) {
                             e.target.style.transform = "scale(1)";
                           }}
                         />
-                        <p className="category bg">{post.blog_topic_name}</p>
+                        <p className="category bg" style={{
+                          background: "#cce3f7",
+                          border: "1px solid #0074d9",
+                          color: "#0074d9"
+                        }}>{post.blog_topic_name}</p>
                         <p className="blog-heading">{post.name}</p>
                         <p className="blog-detail">{post.details}</p>
                       </div>
