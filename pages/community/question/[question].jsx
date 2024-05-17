@@ -31,6 +31,8 @@ import dynamic from "next/dynamic";
 import Router, { useRouter } from "next/router";
 import myImageLoader from "../../../components/imageLoader";
 import profile_img from "../../../public/new_images/profile.svg";
+import hide_icon from "../../../public/new_images/hide.svg";
+import show_icon from "../../../public/images/input/show.svg";
 
 const ReactQuill = dynamic(
   () => {
@@ -134,8 +136,6 @@ const CommunityQuestionDetail = ({
       ._create("community/join", { community_id: communityData?.id })
       .then(() => window.location.reload());
   };
-
-  console.log('isReplayModalOpen?.details', isReplayModalOpen?.details);
 
   const handleOk = (parent_id, community_post_id, replyText, isReply) => {
     if (replyText == undefined || replyText == null || replyText.trim() == "") {
@@ -771,7 +771,9 @@ const CommunityQuestionDetail = ({
                                 Reply
                               </div>
                             </div>
-                            {answer?.comments && answer?.comments.length > 0 ? (
+                            {answer?.comments &&
+                            answer?.comments.length > 0 &&
+                            !isMobile ? (
                               <div
                                 style={{
                                   border: "1px solid #D9DFE9",
@@ -800,7 +802,44 @@ const CommunityQuestionDetail = ({
                                   : "View Replies"}
                               </div>
                             ) : (
-                              <></>
+                              <>
+                                {answer?.comments &&
+                                  answer?.comments.length > 0 && (
+                                    <div
+                                      style={{
+                                        border: "1px solid #D9DFE9",
+                                        padding: "5px 12px",
+                                        borderRadius: "4px",
+                                        backgroundColor: "#D9DFE9",
+                                        cursor: "pointer",
+                                        marginLeft: "6px",
+                                      }}
+                                      onClick={() =>
+                                        setIsShowReplies(
+                                          isShowReplies == answer?.id
+                                            ? null
+                                            : answer?.id
+                                        )
+                                      }
+                                    >
+                                      <Image
+                                        loader={myImageLoader}
+                                        style={{
+                                          borderRadius: "5px",
+                                        }}
+                                        width={16}
+                                        height={16}
+                                        preview="false"
+                                        src={
+                                          isShowReplies == answer?.id
+                                            ? hide_icon
+                                            : show_icon
+                                        }
+                                        alt="eye-icon"
+                                      />
+                                    </div>
+                                  )}
+                              </>
                             )}
                           </div>
                           <div className="right-side-section">
