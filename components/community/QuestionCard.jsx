@@ -53,11 +53,11 @@ const QuestionCard = ({ data, key }) => {
           }}
         ></p>
         <div
-          className="question-tag-wrapper"
+          className="question-tag-wrapper mt-2 mb-2"
           style={{
             display: "flex",
             flexDirection: "row",
-            minHeight: "3.1rem",
+            minHeight: "2.1rem",
           }}
         >
           {data.postTags.map((tag, index) => (
