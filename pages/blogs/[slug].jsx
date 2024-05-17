@@ -107,20 +107,22 @@ class Blog extends Component {
   // saveToLibrary = (id) => {
   //   this.props.createCrud("save_to_library", "blogs/save", { id });
   // };
-  saveToLibrary = async (id) => {
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    try {
-      await this.props.createCrud("save_to_library", "blogs/save", { id });
-      this.setState({
-        modalMessage: "Blog saved successfully!",
-        showModal: true,
-      });
-    } catch (error) {
-      console.error("Error saving blog:", error);
-      this.setState({
-        modalMessage: "Failed to save blog. Please try again later.",
-        showModal: true,
-      });
+  saveToLibrary = async ({ id, is_saved_blog }) => {
+    if (this.props.authentication.loggedIn && is_saved_blog == null) {
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      try {
+        await this.props.createCrud("save_to_library", "blogs/save", { id });
+        this.setState({
+          modalMessage: "Blog saved successfully!",
+          showModal: true,
+        });
+      } catch (error) {
+        console.error("Error saving blog:", error);
+        this.setState({
+          modalMessage: "Failed to save blog. Please try again later.",
+          showModal: true,
+        });
+      }
     }
   };
 
@@ -276,18 +278,16 @@ class Blog extends Component {
                               <ShareAltOutlined /> Share
                             </div>
                           </ShareSocialMedia>
-                          {authentication.loggedIn &&
-                            blog?.is_saved_blog == null && (
-                              <Fragment>
-                                <div className="custom-divider"></div>
-                                <div
-                                  className="save-btn"
-                                  onClick={() => this.saveToLibrary(blog?.id)}
-                                >
-                                  <BookmarkIcon height={15} width={12} /> Save
-                                </div>
-                              </Fragment>
-                            )}
+                          <Fragment>
+                            <div className="custom-divider"></div>
+                            <div
+                              className="save-btn"
+                              onClick={() => this.saveToLibrary(blog)}
+                            >
+                              <BookmarkIcon height={15} width={12} />{" "}
+                              {blog?.is_saved_blog ? "Saved" : "Save"}
+                            </div>
+                          </Fragment>
                           <Modal
                             cancelButtonProps={{ style: { display: "none" } }}
                             title="Save Blog"
