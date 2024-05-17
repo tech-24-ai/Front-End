@@ -161,11 +161,11 @@ const Community = ({ router }) => {
   ];
   const getBreadcrumbText = () => {
     if (responseType === 1) {
-      return "Questions";
+      return "Question & Answers";
     } else if (responseType === 2) {
-      return "Community";
+      return "Discussion Group";
     } else if (responseType === 3) {
-      return "News and Announcements";
+      return "News";
     } else {
       return "Result data";
     }
