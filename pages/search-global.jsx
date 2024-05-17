@@ -25,6 +25,7 @@ const SearchList = ({ router }) => {
     const [researchData, setResearchData] = useState([]);
     const [communityData, setCommunityData] = useState([]);
     const [blogsData, setBlogsData] = useState([]);
+    const [total, setTotal] = useState(0);
 
 
     const [sortBy, setSortBy] = useState("id_desc");
@@ -127,7 +128,7 @@ const SearchList = ({ router }) => {
     const fetchData = (categoryType) => {
         const sortData = sortBy?.split("_");
         let params = {
-            orderBy: sortData[0],
+            orderBy: 'created_at',
             orderDirection: sortData[1] ?? "desc",
             page: page + 1,
             pageSize: itemsPerPage,
@@ -140,6 +141,7 @@ const SearchList = ({ router }) => {
                 setResearchData(result?.data?.data);
                 setCommunityData([]);
                 setBlogsData([]);
+                setTotal(result?.data?.total);
                 const totalPage = Math.ceil(result?.data?.total / result?.data?.perPage);
                 setPageCount(isNaN(totalPage) ? 0 : totalPage);
             });
@@ -148,6 +150,7 @@ const SearchList = ({ router }) => {
                 setCommunityData(result?.data?.data);
                 setBlogsData([]);
                 setResearchData([]);
+                setTotal(result?.data?.total);
                 const totalPage = Math.ceil(result?.data?.total / result?.data?.perPage);
                 setPageCount(isNaN(totalPage) ? 0 : totalPage);
             });
@@ -156,6 +159,7 @@ const SearchList = ({ router }) => {
                 setBlogsData(result?.data?.data);
                 setCommunityData([]);
                 setResearchData([]);
+                setTotal(result?.data?.total);
                 const totalPage = Math.ceil(result?.data?.total / result?.data?.perPage);
                 setPageCount(isNaN(totalPage) ? 0 : totalPage);
             });
@@ -211,7 +215,7 @@ const SearchList = ({ router }) => {
                     </div>
                     <div className="content-wrap">
                         <div className="result-sort">
-                            <div className="results">Results: {researchData?.length || communityData?.length || blogsData?.length}</div>
+                            <div className="results">Results: {total}</div>
                             <div className="sorting mobile-display-n">
                                 <label className="sortby" htmlFor="sortDropdown">
                                     Sort By:{" "}
