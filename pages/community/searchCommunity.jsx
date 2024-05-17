@@ -15,7 +15,7 @@ import { connect } from "react-redux";
 import moment from "moment";
 import { Card, Input, Select, Modal, Label } from "antd";
 import CustomPagination from "../../components/pagination";
-import { isMobile } from "react-device-detect";
+import { isMobile, isBrowser } from "react-device-detect";
 import myImageLoader from "../../components/imageLoader";
 import Image from "next/future/image";
 import SearchInput from "../../components/form/searchInput";
@@ -33,6 +33,7 @@ const Community = ({ router }) => {
 
   const [searchQuery, setSearchQuery] = useState(value);
   const [isSearchActive, setIsSearchActive] = useState(false);
+  const [responseType, setResponseType] = useState(null);
 
   useEffect(() => {
     getAllPosts(searchQuery, currentPage, sortBy, orderDirection);
@@ -80,7 +81,8 @@ const Community = ({ router }) => {
         setCommunityFeature([]);
         setCommunityList([]);
       }
-
+      
+      setResponseType(data?.data?.response_type);
       setTotal(data.data?.lastPage);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -88,17 +90,6 @@ const Community = ({ router }) => {
   };
 
   //Filter
-  // const handleSearch = (searchText) => {
-  //   setSearchQuery(searchText);
-  //   setCurrentPage(0);
-    
-  //   if (searchText.trim() === "") {
-  //     Router.push("/community/searchCommunity");
-  //   } else {
-  //     Router.push(`/community/searchCommunity?value=${searchText}`);
-  //   }
-  //   getAllPosts(searchText, 0, sortBy, orderDirection);
-  // };
   const handleSearch = (searchText) => {
 
     const filteredText = searchText.trim().slice(0, 60); 
@@ -128,10 +119,7 @@ const Community = ({ router }) => {
       setOrderDirection("ASC");
     }
     getAllPosts(searchQuery, currentPage, e.target.value, orderDirection);
-  };
- 
-
-
+  }; 
 
   const handleAllCommunity = () => {
     Router.push("/community");
@@ -171,7 +159,17 @@ const Community = ({ router }) => {
       label: "Oldest"
     }
   ];
-
+  const getBreadcrumbText = () => {
+    if (responseType === 1) {
+      return "Questions";
+    } else if (responseType === 2) {
+      return "Community";
+    } else if (responseType === 3) {
+      return "News and Announcements";
+    } else {
+      return "Result data";
+    }
+  };
   return (
     <>
       <section className="query-section mt-6 search-community-section community-tab-container questions-tab-container community-detail-wrapper">
@@ -193,13 +191,23 @@ const Community = ({ router }) => {
                 </span>{" "}
                 <span
                   style={{
+                    color: "#B0B8BF",
+                    fontFamily: "Inter",
+                    fontSize: "14px",
+                    cursor: "pointer",
+                  }}
+                >
+                  Search Result <RightOutlined style={{ verticalAlign: "0" }} />
+                </span>{" "}
+                <span
+                  style={{
                     color: "#0074D9",
                     fontFamily: "Inter",
                     fontSize: "14px",
                     cursor: "pointer",
                   }}
                 >
-                  Search Result
+                  {getBreadcrumbText()}
                 </span>
               </h4>
             </div>
@@ -211,20 +219,21 @@ const Community = ({ router }) => {
               maxLength={60}
               onSearch={(value) => handleSearch(value)}
             />
+            {isBrowser &&
             <div className="sorting-community sorting-display">
               <label className="sortby" htmlFor="sortDropdown">
                 Sort By:{" "}
               </label>
               <select
                 id="sortDropdown"
-                style={{ border: "none", background: "transparent" }}
+                style={{ border: "none", background: "transparent", marginBottom: "0.6rem" }}
                 value={sortBy}
                 onChange={handleSort}
               >
                 {sortOptions.map(({ value, label }) => (
                   <option
                     className="sortby"
-                    style={{ color: "#001622" }}
+                    style={{ color: "#001622", border: "none" }}
                     value={value}
                   >
                     {label}
@@ -232,6 +241,7 @@ const Community = ({ router }) => {
                 ))}
               </select>
             </div>
+            }
           </div>
 
           <div className="cards-container">
