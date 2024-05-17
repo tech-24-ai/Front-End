@@ -445,8 +445,6 @@ const QuestionTab = ({
     }
   });
 
-  console.log("previewURL", previewURL);
-
   const handleRemove = (file) => {
     setUrl((prevFileList) => {
       const newFileList = prevFileList.filter(
