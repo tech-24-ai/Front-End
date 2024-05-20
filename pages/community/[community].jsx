@@ -414,6 +414,15 @@ const CommunityDetail = ({
     data.id && previewURL.push(data);
   });
 
+  const handleRemove = (file) => {
+    setUrl((prevFileList) => {
+      const newFileList = prevFileList.filter(
+        (item) => item.name !== file.name
+      );
+      return newFileList;
+    });
+  };
+
   const items = [
     {
       key: "1",
@@ -618,6 +627,7 @@ const CommunityDetail = ({
                         beforeUpload={beforeUpload}
                         maxCount={1}
                         accept=".png,.jpg,.jpeg,.svg,.mp4,.mov,.pdf"
+                        onRemove={handleRemove}
                       >
                         <button
                           style={{
