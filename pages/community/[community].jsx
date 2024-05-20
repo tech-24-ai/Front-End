@@ -152,7 +152,7 @@ const CommunityDetail = ({
   };
 
   useEffect(() => {
-    getAllCrud("visitorprofile", "visitorprofile");
+    // getAllCrud("visitorprofile", "visitorprofile");
     fetchCommunityData();
   }, [updateCom, router.query]);
 

@@ -111,10 +111,12 @@ function Header(props) {
     // window.location.replace("/login");
   }
   useEffect(() => {
-    crudService._getAll("visitorprofile").then((data) => {
-      setProfileData(data?.data);
-    });
-  }, []);
+    if(isloggedIn){
+      crudService._getAll("visitorprofile").then((data) => {
+        setProfileData(data?.data);
+      });
+    }
+  }, [isloggedIn]);
   return (
     <header
       className={`header-block ${isMainHeader ? "main-header" : "header1"} ${
