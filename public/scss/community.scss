@@ -458,15 +458,22 @@
   // .page-banner .banner-bg .banner-container .banner-title-container .newTitlefortab
   //   font-size: ;;
   // }
-  .community-listing-page .banner-head .community-stats .stat-container:not(:last-child)::after{
-    right: -15px!important;
+  .community-listing-page
+    .banner-head
+    .community-stats
+    .stat-container:not(:last-child)::after {
+    right: -15px !important;
   }
-  
-  .page-banner .banner-bg .banner-container .banner-title-container .newtabTitle{
-    width: 70%!important;
+
+  .page-banner
+    .banner-bg
+    .banner-container
+    .banner-title-container
+    .newtabTitle {
+    width: 70% !important;
   }
   .community-section {
-    div.new-custom-search-input{
+    div.new-custom-search-input {
       // width: 70%!important;
     }
     .page-banner {
@@ -495,20 +502,19 @@
         .banner-head {
           width: 100% !important;
         }
-        .community-stats{
-           width: 60%!important;
+        .community-stats {
+          width: 60% !important;
         }
-        .new-custom-search-input{
-           width: 65%!important;
-
+        .new-custom-search-input {
+          width: 65% !important;
         }
       }
     }
   }
 
   .banner-head {
-    .communityStats{
-      width: 65%!important;
+    .communityStats {
+      width: 65% !important;
     }
     .community-stats {
       display: flex;
@@ -785,10 +791,13 @@
 }
 
 @media (max-width: 767px) {
-  .community-listing-page .banner-head .community-stats .stat-container:not(:last-child)::after{
-    right: -5px!important;
+  .community-listing-page
+    .banner-head
+    .community-stats
+    .stat-container:not(:last-child)::after {
+    right: -5px !important;
   }
-  
+
   .community-section {
     .page-banner {
       .container,
@@ -810,24 +819,27 @@
       }
     }
   }
-  .page-banner .banner-bg .banner-container .banner-title-container .newtabTitle{
-    width: 100%!important;
+  .page-banner
+    .banner-bg
+    .banner-container
+    .banner-title-container
+    .newtabTitle {
+    width: 100% !important;
   }
   .community-section {
     .banner-container {
       height: 386px !important;
-      align-items: flex-end!important;
+      align-items: flex-end !important;
       .banner-title-container {
         width: 100%;
         .banner-head {
           width: 100% !important;
         }
-        .community-stats{
-          width: 110%!important;
+        .community-stats {
+          width: 110% !important;
         }
-        .new-custom-search-input{
-          width: 100%!important;
-
+        .new-custom-search-input {
+          width: 100% !important;
         }
       }
     }
@@ -877,6 +889,11 @@
   }
 }
 
-div p span p img, .ql-editor p img{
+div p span p img,
+.ql-editor p img {
   width: 80px !important;
+}
+
+.ant-upload-list-item-actions a {
+  display: none;
 }
