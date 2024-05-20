@@ -360,17 +360,38 @@ class Blog extends Component {
                                     {blogs.details}{" "}
                                   </p>
                                 </div>
-                                <div className="date-section">
+                                <div className="date-section" style={{flexDirection: 'column', justifyContent: "flex-start", alignItems: "flex-start"}}>
+                                  <div
+                                    className="time"
+                                    style={{
+                                      fontWeight: 400,
+                                      fontSize: "17px",
+                                      color: "#001622",
+                                    }}
+                                  >
+                                    {blogs?.author}
+                                  </div>
+                                  <div style={{ display: "flex", alignItems: "center" }}>
+                                    <div className="date">
+                                      {moment(blogs.created_at).format("LL")}
+                                    </div>
+                                    <div className="custom-divider"></div>
+                                    <div className="time">
+                                      {wrappReadMinute(blogs?.read_time)}
+                                    </div>
+                                  </div>
+                                </div>
+                                {/* <div className="date-section">
                                   <div className="date">
                                     {moment(blogs.created_at).format("LL")}
                                   </div>
-                                  {/* <div className="custom-divider"></div> */}
+                                  
                                   <div className="time">
                                     {wrappReadMinute(blogs?.read_time)}
                                   </div>
-                                  {/* <div className="custom-divider"></div> */}
+                                 
                                   <div className="time">{blogs?.author}</div>
-                                </div>
+                                </div> */}
                               </div>
                             </div>
                           </Link>

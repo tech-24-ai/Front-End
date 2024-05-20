@@ -33,20 +33,6 @@ function Blogs({ router }) {
 
   const [sortByOrder, setSortByOrder] = useState(false);
 
-  // const fetchData = async () => {
-  //   try {
-  //     const data = await crudService._getAll("blogs", { search: value, page: currentPage, pageSize: pageSize });
-  //     setPosts(data.data);
-  //     setTotalItems(data.totalItems);
-  //     console.log("data", data);
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   fetchData();
-  // }, [value, currentPage, pageSize]);
-
   useEffect(() => {
     fetchBlogData();
   }, [page, value, sortBy]);
@@ -110,10 +96,6 @@ function Blogs({ router }) {
               </div>
             </div>
           }
-          //   backgroundImage={marketBannerImage}
-          //   // height={isBrowser ? 386 : 386}
-          //  backgroundStyle={{ height: "386px" }}
-
           backgroundImage={blogBannerImage}
           // image={""}
           height={isBrowser ? 386 : 220}
@@ -235,16 +217,7 @@ function Blogs({ router }) {
                         <p className="blog-heading">{post.name}</p>
                         <p className="blog-detail">{post.details}</p>
                       </div>
-                      <div
-                        className="date-section"
-                        style={
-                          {
-                            // display: "flex",
-                            // justifyContent: "space-between",
-                            // width: "100%",
-                          }
-                        }
-                      >
+                      <div className="date-section">
                         <div
                           className="time"
                           style={{
