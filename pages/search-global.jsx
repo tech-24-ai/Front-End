@@ -83,7 +83,12 @@ const SearchList = ({ router }) => {
     };
     const handleReset = () => {
         sessionStorage.removeItem("research_filter_category_id");
-        setFilteredData({});
+        setSearchQuery("");
+        setFilteredData({ category_type: "market_research" });
+        setResearchData([]);
+        setCommunityData([]);
+        setBlogsData([]);
+        setPage(0);
     };
 
     const research_filter_category_id = sessionStorage.getItem(
