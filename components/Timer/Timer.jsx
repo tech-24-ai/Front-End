@@ -13,7 +13,7 @@ import RightArrow from "../../public/images/input/rightarrow.svg";
 import { alignCenter } from "react-icons-kit/fa";
 import Link from "next/link";
 
-let timeoutTime = 1000 * 60 * 1500000;
+let timeoutTime = 1000 * 60 * 15000;
 // let timeoutTime = 60 * 2;
 function Timer({ isloggedIn, showLoginPopup, popupMsg, toggleLoginPopup }) {
   const { message, BtnText, isVideo, videoLink } = popupMsg;
@@ -24,16 +24,16 @@ function Timer({ isloggedIn, showLoginPopup, popupMsg, toggleLoginPopup }) {
     if (sessionStorage.getItem("time")) {
       let timeUsed = new Date() - new Date(sessionStorage.getItem("time"));
       time = timeoutTime - timeUsed;
-    } else {
+     } else {
       sessionStorage.setItem("time", new Date().toISOString());
       time = timeoutTime;
     }
     if (!isloggedIn) {
       toggleLoginPopup(false);
 
-      setTimeout(() => {
-        toggleLoginPopup(true);
-      }, time);
+      // setTimeout(() => {
+      //   toggleLoginPopup(true);
+      // }, time);
     }
   }, []);
 
