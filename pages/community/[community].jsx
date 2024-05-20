@@ -659,7 +659,7 @@ const CommunityDetail = ({
                           className="ask-question-tag"
                           mode="multiple"
                           style={{
-                            width: isMobile ? "100%" : "470px",
+                            width: "100%",
                             borderRadius: "2px",
                             border: "1px solid #D9DFE9",
                             padding: "12px 0",

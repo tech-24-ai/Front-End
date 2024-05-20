@@ -827,7 +827,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       }
                       className="btn"
                       style={{
-                        width: isMobile ? "100%" : "470px",
+                        width: "100%",
                         background: "#0074D9",
                         borderRadius: "2px",
                         padding: "12px 16px",

@@ -1547,6 +1547,8 @@
     height: 46px!important;
     padding: 5px 11px!important;
     margin-top: 7px!important;
+    display: flex;
+    align-items: center;
   }
   .ant-select-arrow {
     top: 57%!important;
@@ -2323,7 +2325,8 @@
     top: 0;
     left: 41px!important;
     width: 18px;
-    height: 162%!important;
+    // height: 162%!important;
+    height: 158%!important;
 }
 .ant-slider-vertical .ant-slider-handle {
   margin-top: -6px;
@@ -2358,7 +2361,8 @@
 }
 .ant-slider-vertical .ant-slider-rail {
   width: 16px!important;
-  height: 200%!important;
+  // height: 200%!important;
+  height: 164%!important;
   left: 20px;
   border-radius: 10%;
 }

@@ -1198,7 +1198,9 @@ const CommunityQuestionDetail = ({
                             />
                           </div>
                         </Form.Item>
-
+                        <br />
+                        <br />
+                        <br />
                         <div
                           onClick={(e) =>
                             handleOk(
@@ -1210,7 +1212,7 @@ const CommunityQuestionDetail = ({
                           }
                           className="btn"
                           style={{
-                            width: isMobile ? "100%" : "470px",
+                            width: "100%",
                             background: "#0074D9",
                             borderRadius: "2px",
                             padding: "12px 16px",
@@ -1218,7 +1220,6 @@ const CommunityQuestionDetail = ({
                             fontWeight: 500,
                             fontFamily: "Inter",
                             fontSize: "18px",
-                            marginTop: "2.5rem",
                           }}
                         >
                           Submit
@@ -1309,7 +1310,7 @@ const CommunityQuestionDetail = ({
                           }
                           className="btn"
                           style={{
-                            width: isMobile ? "100%" : "470px",
+                            width: "100%",
                             background: "#0074D9",
                             borderRadius: "2px",
                             padding: "12px 16px",

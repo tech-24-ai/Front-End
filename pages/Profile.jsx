@@ -813,7 +813,7 @@ const Profile = ({
                     />
                   </div>
                 </div>
-                ,{/* mountNode, */}
+                {/* ,mountNode, */}
               </div>
               <div className="level-calculation" style={{ marginTop: "60px" }}>
                 <div>
@@ -1260,6 +1260,7 @@ const Profile = ({
             visible={isModalOpen}
             onOk={handleOk}
             onCancel={handleCancel}
+            maskClosable={false}
             footer={[
               <div onClick={updateProfile} className="profile-modal-button">
                 Save
@@ -1489,6 +1490,7 @@ const Profile = ({
         visible={isSignOutModalOpen}
         onOk={handleSignOutOk}
         onCancel={handleSignOutCancel}
+        maskClosable={false}
         footer={[
           <div onClick={handleSignOutCancel} className="sign-out-modal-button">
             Cancel
