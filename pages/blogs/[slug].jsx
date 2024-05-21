@@ -13,7 +13,7 @@ const { CheckableTag } = Tag;
 import { connect } from "react-redux";
 import { withRouter } from "next/router";
 import { Container, Row, Col, FormGroup, Label, Input, Card } from "reactstrap";
-import { crudActions } from "../../_actions";
+import { crudActions,userActions } from "../../_actions";
 import Link from "next/dist/client/link";
 import { Modal } from "antd";
 
@@ -123,6 +123,8 @@ class Blog extends Component {
           showModal: true,
         });
       }
+    } else {
+      this.props.toggleLoginPopup(true);
     }
   };
 
@@ -448,6 +450,8 @@ const mapStateToProps = (state) => {
 const actionCreators = {
   getCrud: crudActions._getAll,
   createCrud: crudActions._create,
+  toggleLoginPopup: userActions.toggleLoginPopup,
+
 };
 
 export default withRouter(connect(mapStateToProps, actionCreators)(Blog));

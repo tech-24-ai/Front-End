@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { crudActions } from "../../_actions";
+import { crudActions,userActions } from "../../_actions";
 import { connect } from "react-redux";
 import { withRouter, useRouter } from "next/router";
 import { Container, Button, Pagination } from "reactstrap";
@@ -58,6 +58,8 @@ function Detail({
   const saveToLibrary = ({ id, is_saved_document }) => {
     if (loggedIn && is_saved_document == null) {
       createCrud("save_to_library", "market_research/save", { id });
+    }else {
+      this.props.toggleLoginPopup(true);
     }
   };
 
@@ -221,6 +223,7 @@ const actionCreators = {
   getAllCrud: crudActions._getAll,
   createCrud: crudActions._create,
   downloadDocument: crudActions._download,
+  toggleLoginPopup: userActions.toggleLoginPopup,
 };
 
 export default withRouter(connect(mapStateToProps, actionCreators)(Detail));
