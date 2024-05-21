@@ -3738,3 +3738,29 @@ export const FilterIcon = (props) => {
     </span>
   );
 };
+export const ReplyIcon = (props) => {
+  return (
+    <span
+      role="img"
+      aria-label="bookmark-icon"
+      className="anticon anticon-bookmark-icon"
+    >
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}
+      >
+        <path
+          d="M6.6662 6.14328V3.28613L1.95215 8.00016L6.6662 12.7142V9.49296M6.6662 6.14885C7.095 6.05155 7.54127 6.00017 7.99954 6.00017C11.3133 6.00017 13.9995 8.68649 13.9995 12.0002C13.9995 12.5785 13.9177 13.1377 13.765 13.6668C13.0428 11.164 10.7349 9.33349 7.99954 9.33349C7.54127 9.33349 7.095 9.38489 6.6662 9.48216"
+          stroke="#54616C"
+          stroke-width="1.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </span>
+  );
+};

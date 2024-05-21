@@ -52,7 +52,7 @@ const ReactQuill = dynamic(
 import { isMobile } from "react-device-detect";
 
 import ShareSocialMedia from "../../../components/shareSocial";
-import { FlageIcon } from "../../../components/icons";
+import { FlageIcon, ReplyIcon } from "../../../components/icons";
 import ReportAbuseModal from "../../../components/community/ReportAbuseModal";
 import { calculateDateTime } from "../../../_global";
 import { Fragment } from "react";
@@ -105,7 +105,6 @@ const CommunityQuestionDetail = ({
   const [reportModalVisible, setReportModalVisible] = useState("");
 
   const [reportTypes, setReportTypes] = useState([]);
-  const [visibleComment, setVisibleComments] = useState([1]);
 
   const modules = {
     toolbar: [
@@ -339,7 +338,7 @@ const CommunityQuestionDetail = ({
     return tree;
   };
 
-  const prepareCommentData = (comments) => {
+  const prepareCommentData = (comments, commentLevel = 1) => {
     const data = comments.map(
       ({
         comments,
@@ -357,13 +356,16 @@ const CommunityQuestionDetail = ({
           community_post_id,
           title: description,
           key: id,
-          children: comments?.length ? prepareCommentData(comments) : [],
+          children: comments?.length
+            ? prepareCommentData(comments, commentLevel + 1)
+            : [],
           created_at,
           parent_id,
           updated_at,
           visitor,
           description,
           total_comments: __meta__?.total_comments ?? 0,
+          commentLevel,
         };
       }
     );
@@ -388,12 +390,11 @@ const CommunityQuestionDetail = ({
                 marginBottom: "10px",
               }}
             >
-              <div
-                style={{
-                  paddingLeft: "0.5rem",
-                }}
-              >
-                <div className="cards-header">
+              <div>
+                <div
+                  className="cards-header"
+                  style={{ alignItems: "flex-start" }}
+                >
                   <div>
                     <div className="img">
                       <Image
@@ -409,10 +410,10 @@ const CommunityQuestionDetail = ({
                     <div
                       className="profile"
                       style={{
-                        flexDirection: "row",
-                        alignItems: "center",
+                        flexDirection: "column",
+                        // alignItems: "center",
                         fontFamily: "Inter",
-                        marginTop: "-0.5rem",
+                        // marginTop: "-0.5rem",
                       }}
                     >
                       <h5 className="questions_font_14px">
@@ -425,10 +426,10 @@ const CommunityQuestionDetail = ({
                           fontFamily: "",
                         }}
                       >
-                        <div
+                        {/* <div
                           className="custom-border"
                           style={{ margin: "0 5px", height: "8px" }}
-                        ></div>
+                        ></div> */}
 
                         {calculateDateTime(comment?.created_at)}
                       </p>
@@ -437,29 +438,19 @@ const CommunityQuestionDetail = ({
 
                   <div className="follow">
                     <div className="right-side-section">
-                      <div
-                        className="reply-btn"
-                        onClick={() =>
-                          setIsReplayModalOpen({
-                            isReplayModelOpen: true,
-                            details: { ...comment, parent_id: comment.id },
-                          })
-                        }
-                      >
-                        <Image
-                          loader={myImageLoader}
-                          style={{
-                            borderRadius: "5px",
-                            cursor: "pointer",
-                          }}
-                          width={16}
-                          height={16}
-                          preview="false"
-                          src={reply_icon}
-                          alt="reply-icon"
-                        />
-                        <span className="btn-title">Reply</span>
-                      </div>
+                      {comment.commentLevel < 5 && (
+                        <div
+                          className="reply-btn"
+                          onClick={() =>
+                            setIsReplayModalOpen({
+                              isReplayModelOpen: true,
+                              details: { ...comment, parent_id: comment.id },
+                            })
+                          }
+                        >
+                          <ReplyIcon /> <span className="btn-title">Reply</span>
+                        </div>
+                      )}
                       <ShareSocialMedia
                         link={window.location.href}
                         title={communityQuestionDetail?.title}
