@@ -443,9 +443,33 @@
   }
 
   .share-btn,
+  .reply-btn,
   .report-btn {
     margin-right: 1rem;
   }
+}
+
+.community-comments-wrapper {
+  margin-top: 1rem;
+  .ant-tree .ant-tree-list {
+    .ant-tree-treenode {
+      // width: 100%;
+      .ant-tree-node-content-wrapper {
+        // width: 100%;
+        // border: 1px solid gray;
+        // border-radius: 8px;
+      }
+    }
+  }
+}
+
+.expand-btn {
+  position: relative;
+  top: -103px;
+  left: -23px;
+  z-index: 1;
+  // font-size: 1rem;
+  background-color: #ffffff;
 }
 
 @media (min-width: 576px) {

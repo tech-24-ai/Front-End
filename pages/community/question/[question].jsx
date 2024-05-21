@@ -19,8 +19,16 @@ import {
   Button,
   Modal,
   Label,
+  Tree,
+  Divider,
 } from "antd";
-import { RightOutlined, ShareAltOutlined } from "@ant-design/icons";
+import {
+  RightOutlined,
+  ShareAltOutlined,
+  PlusCircleOutlined,
+  MinusCircleOutlined,
+  PlusSquareOutlined,
+} from "@ant-design/icons";
 import shorting_icon from "../../../public/new_images/sorting_icon.svg";
 import view_icon from "../../../public/new_images/view_icon.svg";
 import reply_icon from "../../../public/new_images/reply_icon.svg";
@@ -47,6 +55,7 @@ import ShareSocialMedia from "../../../components/shareSocial";
 import { FlageIcon } from "../../../components/icons";
 import ReportAbuseModal from "../../../components/community/ReportAbuseModal";
 import { calculateDateTime } from "../../../_global";
+import { Fragment } from "react";
 
 const SubmitButton = ({ form, children }) => {
   const [submittable, setSubmittable] = React.useState(false);
@@ -96,6 +105,7 @@ const CommunityQuestionDetail = ({
   const [reportModalVisible, setReportModalVisible] = useState("");
 
   const [reportTypes, setReportTypes] = useState([]);
+  const [visibleComment, setVisibleComments] = useState([1]);
 
   const modules = {
     toolbar: [
@@ -291,6 +301,230 @@ const CommunityQuestionDetail = ({
       id,
       name,
       `communitypost/download_attachment?attachment_id=${id}`
+    );
+  };
+
+  const fetchComments = (commentId) => {
+    crudService
+      ._getAll(`communitypostreply/comments?&parent_id=${commentId}`)
+      .then((data) => {
+        const treeData = bindComments(communityAnswers, commentId, data?.data);
+        setCommunityAnswers(treeData);
+      });
+  };
+
+  const bindComments = (tree, commentId, newComments) => {
+    if (tree.id === commentId) {
+      tree.comments = newComments;
+
+      return tree;
+    }
+
+    const updatedComments = tree.comments?.map((comment) =>
+      bindComments(comment, commentId, newComments)
+    );
+
+    if (updatedComments) {
+      return { ...tree, comments: updatedComments };
+    }
+
+    if (Array.isArray(tree)) {
+      const updatedList = tree?.map((comment) =>
+        bindComments(comment, commentId, newComments)
+      );
+
+      return updatedList;
+    }
+
+    return tree;
+  };
+
+  const prepareCommentData = (comments) => {
+    const data = comments.map(
+      ({
+        comments,
+        created_at,
+        description,
+        id,
+        parent_id,
+        updated_at,
+        visitor,
+        __meta__,
+        community_post_id,
+      }) => {
+        return {
+          id,
+          community_post_id,
+          title: description,
+          key: id,
+          children: comments?.length ? prepareCommentData(comments) : [],
+          created_at,
+          parent_id,
+          updated_at,
+          visitor,
+          description,
+          total_comments: __meta__?.total_comments ?? 0,
+        };
+      }
+    );
+
+    return data;
+  };
+
+  const renderComments = (commentData) => {
+    const treeData = prepareCommentData(commentData);
+    return (
+      <Tree
+        showLine={{ showLeafIcon: false }}
+        selectable={false}
+        autoExpandParent={true}
+        blockNode={true}
+        treeData={treeData}
+        titleRender={(comment) => {
+          return (
+            <div
+              className="comment-wrapper"
+              style={{
+                marginBottom: "10px",
+              }}
+            >
+              <div
+                style={{
+                  paddingLeft: "0.5rem",
+                }}
+              >
+                <div className="cards-header">
+                  <div>
+                    <div className="img">
+                      <Image
+                        style={{ borderRadius: "5px", zIndex: "1" }}
+                        width={50}
+                        height={50}
+                        preview="false"
+                        src={comment?.visitor?.profile_pic_url || profile_img}
+                        alt="profile"
+                      />
+                      {/* <span className="label-counter">18</span> */}
+                    </div>
+                    <div
+                      className="profile"
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        fontFamily: "Inter",
+                        marginTop: "-0.5rem",
+                      }}
+                    >
+                      <h5 className="questions_font_14px">
+                        {comment?.visitor?.name}
+                      </h5>
+                      <p
+                        style={{
+                          margin: 0,
+                          alignItems: "center",
+                          fontFamily: "",
+                        }}
+                      >
+                        <div
+                          className="custom-border"
+                          style={{ margin: "0 5px", height: "8px" }}
+                        ></div>
+
+                        {calculateDateTime(comment?.created_at)}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="follow">
+                    <div className="right-side-section">
+                      <div
+                        className="reply-btn"
+                        onClick={() =>
+                          setIsReplayModalOpen({
+                            isReplayModelOpen: true,
+                            details: { ...comment, parent_id: comment.id },
+                          })
+                        }
+                      >
+                        <Image
+                          loader={myImageLoader}
+                          style={{
+                            borderRadius: "5px",
+                            cursor: "pointer",
+                          }}
+                          width={16}
+                          height={16}
+                          preview="false"
+                          src={reply_icon}
+                          alt="reply-icon"
+                        />
+                        <span className="btn-title">Reply</span>
+                      </div>
+                      <ShareSocialMedia
+                        link={window.location.href}
+                        title={communityQuestionDetail?.title}
+                      >
+                        <div className="share-btn">
+                          <ShareAltOutlined />{" "}
+                          <span className="btn-title">Share</span>
+                        </div>
+                      </ShareSocialMedia>
+                      <div
+                        className="report-btn"
+                        onClick={() => setReportModalVisible("comment")}
+                      >
+                        <FlageIcon />
+                        <span className="btn-title">Report</span>
+                      </div>
+                      {reportModalVisible === "comment" && (
+                        <ReportAbuseModal
+                          reportTypes={reportTypes}
+                          isModalOpen={reportModalVisible === "comment"}
+                          closeModel={() => setReportModalVisible("")}
+                          data={{
+                            ...comment,
+                            community_id: communityData?.id,
+                          }}
+                          reportFor="comment"
+                          heading="Report this Comment"
+                        />
+                      )}
+                    </div>
+                    {/* <EyeOutlined
+                        title="view comments"
+                        onClick={() => viewComments(comment)}
+                      /> */}
+                  </div>
+                </div>
+                <p
+                  className="para"
+                  style={{
+                    fontFamily: "Inter",
+                  }}
+                >
+                  <span
+                    className="questions_font_12px"
+                    dangerouslySetInnerHTML={{
+                      __html: comment?.title,
+                    }}
+                  ></span>
+                </p>
+              </div>
+              {comment?.total_comments > 0 && !comment?.children.length && (
+                <PlusSquareOutlined
+                  className="expand-btn"
+                  onClick={() => fetchComments(comment.key)}
+                />
+              )}
+              {comment.comments?.length > 0 && (
+                <div style={{ padding: "0 1rem" }}>
+                  {renderComments(comment.comments)}
+                </div>
+              )}
+            </div>
+          );
+        }}
+      />
     );
   };
 
@@ -925,169 +1159,12 @@ const CommunityQuestionDetail = ({
                         </div>
                       )}
 
-                      {answer?.comments.length > 0 &&
-                        isShowReplies == answer?.id &&
-                        answer?.comments.map((comment) => (
-                          <>
-                            <hr className="dotted" />
-                            <div className="cards-header">
-                              <div>
-                                <div className="img">
-                                  <Image
-                                    style={{ borderRadius: "5px", zIndex: "1" }}
-                                    width={50}
-                                    height={50}
-                                    preview="false"
-                                    src={
-                                      comment?.visitor?.profile_pic_url ||
-                                      profile_img
-                                    }
-                                    alt="profile"
-                                  />
-                                  {/* <span className="label-counter">18</span> */}
-                                </div>
-                                <div
-                                  className="profile"
-                                  style={{
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                    fontFamily: "Inter",
-                                    marginTop: "-0.5rem",
-                                  }}
-                                >
-                                  <h5 className="questions_font_14px">
-                                    {comment?.visitor?.name}
-                                  </h5>
-                                  <p
-                                    style={{
-                                      margin: 0,
-                                      alignItems: "center",
-                                      fontFamily: "",
-                                    }}
-                                  >
-                                    <div
-                                      className="custom-border"
-                                      style={{ margin: "0 5px", height: "8px" }}
-                                    ></div>
+                      {answer?.comments?.length > 0 && <Divider />}
 
-                                    {calculateDateTime(comment?.created_at)}
-                                  </p>
-                                </div>
-                              </div>
-
-                              <div className="follow">
-                                <div className="right-side-section">
-                                  <ShareSocialMedia
-                                    link={window.location.href}
-                                    title={communityQuestionDetail?.title}
-                                  >
-                                    <div className="share-btn">
-                                      <ShareAltOutlined />{" "}
-                                      <span className="btn-title">Share</span>
-                                    </div>
-                                  </ShareSocialMedia>
-                                  <div
-                                    className="report-btn"
-                                    onClick={() =>
-                                      setReportModalVisible("comment")
-                                    }
-                                  >
-                                    <FlageIcon />
-                                    <span className="btn-title">Report</span>
-                                  </div>
-                                  {reportModalVisible === "comment" && (
-                                    <ReportAbuseModal
-                                      reportTypes={reportTypes}
-                                      isModalOpen={
-                                        reportModalVisible === "comment"
-                                      }
-                                      closeModel={() =>
-                                        setReportModalVisible("")
-                                      }
-                                      data={{
-                                        ...comment,
-                                        community_id: communityData?.id,
-                                      }}
-                                      reportFor="comment"
-                                      heading="Report this Comment"
-                                    />
-                                  )}
-                                </div>
-                                {/* <p className="button">Follow</p> */}
-                                {
-                                  <EyeOutlined
-                                    title="view comments"
-                                    onClick={() => viewComments(comment)}
-                                  />
-                                }
-                                {/* <div className="img">
-                              <Image
-                                loader={myImageLoader}
-                                style={{
-                                  borderRadius: "2px",
-                                  cursor: "pointer",
-                                }}
-                                width={32}
-                                height={32}
-                                preview="false"
-                                src={three_dot_icon}
-                                alt="profile"
-                              />
-                            </div> */}
-                              </div>
-                            </div>
-                            <p
-                              className="para"
-                              style={{
-                                fontFamily: "Inter",
-                              }}
-                            >
-                              <span
-                                className="questions_font_12px"
-                                dangerouslySetInnerHTML={{
-                                  __html: comment?.description,
-                                }}
-                              ></span>
-                            </p>
-                          </>
-                        ))}
-                      <div>
-                        {answer?.comments?.length > 2 &&
-                          isShowReplies == answer?.id && (
-                            <div
-                              style={{
-                                border: "1px solid #D9DFE9",
-                                padding: "8px 12px",
-                                borderRadius: "4px",
-                                backgroundColor: "#F2F4F7",
-                                fontSize: isMobile ? "12px" : "14px",
-                                fontWeight: 500,
-                                width: "105px",
-                                fontFamily: "Inter",
-                                color: "#54616C",
-                                marginLeft: isMobile ? "6px" : "10px",
-                                color: "#0074D9",
-                                cursor: "pointer",
-                              }}
-                              onClick={() => {
-                                sessionStorage.setItem(
-                                  "community_question_id",
-                                  communityQuestionDetail?.url_slug
-                                );
-                                sessionStorage.setItem(
-                                  "community_parent_id",
-                                  answer?.id
-                                );
-                                sessionStorage.setItem(
-                                  "community_post_details",
-                                  JSON.stringify(answer)
-                                );
-                                Router.push("question/comments");
-                              }}
-                            >
-                              View More
-                            </div>
-                          )}
+                      <div className="community-comments-wrapper">
+                        {answer?.comments?.length > 0 &&
+                          isShowReplies == answer?.id &&
+                          renderComments(answer?.comments)}
                       </div>
                     </Card>
                   ))}
