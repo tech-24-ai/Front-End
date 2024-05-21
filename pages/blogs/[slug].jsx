@@ -221,7 +221,10 @@ class Blog extends Component {
                         }}
                       />
                       <div className="card-heading">
+                        
+                        <Link href={`/blogs/category/${blog.blog_topic?.name.trim().toLowerCase()}`}>
                         {blog.blog_topic?.name}
+                          </Link>
                       </div>
 
                       <div className="inner-text-container">
@@ -230,7 +233,13 @@ class Blog extends Component {
                         </div>
 
                         {blog?.author && (
-                          <div className="time">by {blog?.author}</div>
+                          <div className="time">by <Link
+                          href={`/blogs/author/${blog?.author
+                            .trim()
+                            .toLowerCase()}`}
+                        >
+                          {blog?.author}
+                        </Link></div>
                         )}
                         <div className="date-section">
                           <ClockCircleOutlined />
@@ -245,12 +254,7 @@ class Blog extends Component {
 
                         <br />
                         <div>
-                          {/* <p>{editorData}</p> */}
-                          {/* <div
-                        dangerouslySetInnerHTML={{
-                          __html: editorData ,
-                        }}
-                      /> */}
+                        
                           <div
                             dangerouslySetInnerHTML={{
                               __html: editorData,
@@ -264,15 +268,13 @@ class Blog extends Component {
                         <br />
                         <div className="blog-tags-container">
                           {splitBlogTags(blog.details).map((tag) => (
-                            <div className="blog-tags">{tag}</div>
+                            <div className="blog-tags"><Link href={`/blogs/tags/${tag.trim().replace("#","").toLowerCase()}`}>{tag}</Link></div>
                           ))}
                         </div>
                         <br />
 
                         <div className="social-section">
-                          {/* <div className="like">1.1K</div>
-                          <div className="custom-divider"></div> */}
-                          <ShareSocialMedia
+                            <ShareSocialMedia
                             link={window.location.href}
                             title={blog?.name}
                           >

@@ -2,49 +2,38 @@ import React, { useState, useEffect } from "react";
 import { withRouter } from "next/router";
 import Link from "next/link";
 import { Container } from "reactstrap";
-import { crudService } from "../../_services";
+import { crudService } from "../../../_services";
 import moment from "moment";
-import { Pagination, TreeSelect } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
 import { Image, Modal } from "antd";
-import PageBanner from "../../components/card/pageBanner";
+import PageBanner from "../../../components/card/pageBanner";
 import { isMobile, isBrowser } from "react-device-detect";
-import CustomPagination from "../../components/pagination";
-import SearchInput from "../../components/form/searchInput";
-import { wrappReadMinute } from "../../_global";
-import myImageLoader from "../../components/imageLoader";
-const shorting_icon = "../../new_images/sorting_icon.svg";
-// import ReactPaginate from "react-paginate-next";
-const blogBannerImage = "../../images/blog_banner.jpg";
+import CustomPagination from "../../../components/pagination";
+import SearchInput from "../../../components/form/searchInput";
+import { wrappReadMinute } from "../../../_global";
+const shorting_icon = "../../../new_images/sorting_icon.svg";
+const blogBannerImage = "../../../images/blog_banner.jpg";
 
 function Blogs({ router }) {
   const [posts, setPosts] = useState([]);
   const [value, setValue] = useState("");
-  const [isActive, setIsActive] = useState("All");
-  const [isHover, setIsHover] = useState("All");
-  const [currentPage, setCurrentPage] = useState(4);
-  // const [pageSize] = useState(21);
   const [totalItems, setTotalItems] = useState(0);
 
   const itemsPerPage = 12;
   const [page, setPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
   const [sortBy, setSortBy] = useState("desc");
-
+  const slugQuery = router.query;
   const [sortByOrder, setSortByOrder] = useState(false);
-
-  useEffect(() => {
-    fetchBlogData();
-  }, [page, value, sortBy]);
-
-  const fetchBlogData = () => {
-    crudService
+   useEffect(() => {
+    if (slugQuery.tags) {
+      crudService
       ._getAll("blogs", {
         page: page + 1,
         pageSize: itemsPerPage,
         search: value,
         orderBy: "blogs.created_at",
         orderPos: sortBy,
+        tags:slugQuery.tags
       })
       .then((result) => {
         setPosts(result?.data);
@@ -53,7 +42,8 @@ function Blogs({ router }) {
 
         setPageCount(isNaN(totalPage) ? 0 : totalPage);
       });
-  };
+    }
+  }, [ slugQuery,page, value, sortBy]);
 
   const handleSort = (e) => {
     setSortBy(e.target.value);
@@ -70,11 +60,11 @@ function Blogs({ router }) {
     },
   ];
 
+  
   const splitBlogTags = (data) => {
     let tags = data.split(",");
     return tags;
   };
-
   return (
     <>
       <section className="blogs-section">
@@ -187,7 +177,7 @@ function Blogs({ router }) {
           {posts?.data && posts?.data?.length > 0 ? (
             <div className="second-div ">
               {posts?.data?.map((post, key) => (
-                <Link href={`blogs/${post.slug}`} key={key}>
+                <Link href={`/blogs/${post.slug}`} key={key}>
                   <div className="blog-list">
                     <div
                       className="blog-card"
@@ -214,37 +204,20 @@ function Blogs({ router }) {
                             e.target.style.transform = "scale(1)";
                           }}
                         />
-                        <p
-                          className="category bg"
-                          style={{
-                            background: "#cce3f7",
-                            border: "1px solid #0074d9",
-                            color: "#0074d9",
-                          }}
-                        >
-                          <Link
-                            href={`/blogs/category/${post.blog_topic_name
-                              .trim()
-                              .toLowerCase()}`}
-                          >
-                            {post.blog_topic_name}
-                          </Link>
-                        </p>
+                        <p className="category bg" style={{
+                          background: "#cce3f7",
+                          border: "1px solid #0074d9",
+                          color: "#0074d9"
+                        }}><Link href={`/blogs/category/${post.blog_topic_name.trim().toLowerCase()}`}>{post.blog_topic_name}</Link></p>
                         <p className="blog-heading">{post.name}</p>
                         <p className="blog-tags-container">
                           {splitBlogTags(post.details).map((tag) => (
                             <div className="blog-tags">
-                              <Link
-                                href={`/blogs/tags/${tag
-                                  .trim()
-                                  .replace("#", "")
-                                  .toLowerCase()}`}
-                              >
+                              <Link href={`/blogs/tags/${tag.trim().replace("#","").toLowerCase()}`}>
                                 {tag}
-                              </Link>
+                                </Link>
                             </div>
-                          ))}
-                        </p>
+                          ))}</p>
                       </div>
                       <div className="date-section">
                         <div
@@ -255,7 +228,7 @@ function Blogs({ router }) {
                             color: "#001622",
                           }}
                         >
-                          <Link
+                         <Link
                             href={`/blogs/author/${post?.author
                               .trim()
                               .toLowerCase()}`}
