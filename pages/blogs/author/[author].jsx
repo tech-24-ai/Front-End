@@ -25,7 +25,7 @@ function Blogs({ router }) {
   const slugQuery = router.query;
   const [sortByOrder, setSortByOrder] = useState(false);
    useEffect(() => {
-    if (slugQuery.tags) {
+    if (slugQuery.author) {
       crudService
       ._getAll("blogs", {
         page: page + 1,
@@ -33,7 +33,7 @@ function Blogs({ router }) {
         search: value,
         orderBy: "blogs.created_at",
         orderPos: sortBy,
-        tags:slugQuery.tags
+        author:slugQuery.author
       })
       .then((result) => {
         setPosts(result?.data);
