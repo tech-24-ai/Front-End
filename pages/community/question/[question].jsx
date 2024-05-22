@@ -563,19 +563,6 @@ const CommunityQuestionDetail = ({
                       /> */}
                 </div>
               </div>
-
-              {/* comment.comments?.length > 0 && (
-                <div
-                  className="comment-child"
-                  style={{
-                    padding: "0 1rem",
-                    border: "1px solid red",
-                    marginLeft: "1rem",
-                  }}
-                >
-                  {renderComments(comment.comments)}
-                </div>
-              ) */}
             </div>
           );
         }}
@@ -1054,54 +1041,6 @@ const CommunityQuestionDetail = ({
                           <div
                             style={{ display: "flex", alignItems: "center" }}
                           >
-                            <div
-                              onClick={() => {
-                                !isloggedIn.loggedIn
-                                  ? toggleLoginPopup(true)
-                                  : setIsReplayModalOpen({
-                                      isReplayModelOpen: true,
-                                      details: answer,
-                                    });
-                              }}
-                              style={{
-                                border: "1px solid #D9DFE9",
-                                padding: "8px 12px",
-                                borderRadius: "4px",
-                                backgroundColor: "#D9DFE9",
-                                display: "flex",
-                                width: "7rem",
-                                cursor: "pointer",
-                                alignItems: "center",
-                                justifyContent: "center",
-                              }}
-                              className="hide_replies"
-                            >
-                              <Image
-                                loader={myImageLoader}
-                                style={{
-                                  borderRadius: "5px",
-                                  cursor: "pointer",
-                                }}
-                                width={16}
-                                height={16}
-                                preview="false"
-                                src={reply_icon}
-                                alt="reply-icon"
-                              />
-
-                              <div
-                                style={{
-                                  fontSize: "14px",
-                                  fontWeight: 500,
-                                  fontFamily: "Inter",
-                                  color: "#54616C",
-                                  marginLeft: "5px",
-                                }}
-                                className="replies"
-                              >
-                                Reply
-                              </div>
-                            </div>
                             {answer?.comments &&
                             answer?.comments.length > 0 &&
                             !isMobile ? (
@@ -1115,7 +1054,6 @@ const CommunityQuestionDetail = ({
                                   fontWeight: 500,
                                   fontFamily: "Inter",
                                   color: "#54616C",
-                                  marginLeft: isMobile ? "6px" : "10px",
                                   color: "#0074D9",
                                   cursor: "pointer",
                                 }}
@@ -1174,6 +1112,20 @@ const CommunityQuestionDetail = ({
                             )}
                           </div>
                           <div className="right-side-section">
+                            <div
+                              className="reply-btn"
+                              onClick={() => {
+                                !isloggedIn.loggedIn
+                                  ? toggleLoginPopup(true)
+                                  : setIsReplayModalOpen({
+                                      isReplayModelOpen: true,
+                                      details: answer,
+                                    });
+                              }}
+                            >
+                              <ReplyIcon />{" "}
+                              <span className="btn-title">Reply</span>
+                            </div>
                             <ShareSocialMedia
                               link={window.location.href}
                               title={communityQuestionDetail?.title}
