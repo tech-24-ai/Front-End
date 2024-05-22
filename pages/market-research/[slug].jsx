@@ -19,6 +19,7 @@ function Detail({
   downloadDocument,
   createCrud,
   authentication,
+  toggleLoginPopup
 }) {
   const slug = router.query.slug;
   const { loggedIn } = authentication;
@@ -59,7 +60,7 @@ function Detail({
     if (loggedIn && is_saved_document == null) {
       createCrud("save_to_library", "market_research/save", { id });
     }else {
-      this.props.toggleLoginPopup(true);
+      toggleLoginPopup(true);
     }
   };
 

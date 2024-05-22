@@ -82,7 +82,7 @@ function MarketResearch({ getAllCrud, categories, all_research, router }) {
             {categories?.map((data) => (
               <div
                 className="custom-grid-item hover"
-                onClick={() => {
+                  onClick={() => {
                   handleRedirect(data.id);
                 }}
               >

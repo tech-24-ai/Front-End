@@ -96,6 +96,8 @@ const Community = ({ community, getAllCrud, router }) => {
     fetchTrendingQuestions();
   }, []);
 
+  
+
   useEffect(() => {
     const searchPosts = async () => {
       try {
@@ -279,7 +281,7 @@ const Community = ({ community, getAllCrud, router }) => {
                   color: "#54616C",
                 }}
               >
-                Trending
+                Trending 
               </span>{" "}
               <span
                 style={{

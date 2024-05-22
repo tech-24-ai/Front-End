@@ -126,7 +126,7 @@ function Header(props) {
       <Container>
         <Row className="align-items-center">
           <Col md={3} className="left-block">
-            {(screenSize.dynamicWidth >= 1000) && (
+            {(screenSize.dynamicWidth >= 1180) && (
               <div className="logo-content-block">
                 <div className="logo-wrapper">
                   <Link href="/" style={{ marginTop: "-10px", width: "125px" }}>
@@ -145,7 +145,7 @@ function Header(props) {
                 </div>
               </div>
             )}
-            {(screenSize.dynamicWidth < 1000) && (
+            {(screenSize.dynamicWidth < 1180) && (
               <>
                <Drawer
                   isloggedIn={isloggedIn}
@@ -170,7 +170,7 @@ function Header(props) {
             )}
           </Col>
           <Col md={9} className="right-block">
-            {(screenSize.dynamicWidth >= 1000) && (
+            {(screenSize.dynamicWidth >= 1180) && (
               <div className="main-menu-wrapper">
                 <Navbar expand="md" className="p-0">
                   <NavbarToggler onClick={toggleNavbar} className="mr-2" />
@@ -344,7 +344,7 @@ function Header(props) {
                 </Navbar>
               </div>
             )}
-            {(screenSize.dynamicWidth < 1000) && (
+            {(screenSize.dynamicWidth < 1180) && (
                 <div style={{ float: "right", display: "flex" }}>
                 <NavItem>
                   <Link href="/search-global" style={{ cursor: "pointer" }}>

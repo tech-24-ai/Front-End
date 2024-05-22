@@ -297,7 +297,7 @@
 //   connect(mapStateToProps, actionCreators)(TrendingQuestion)
 // );
 
-import React, { Fragment, useRef } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import Router, { useRouter, withRouter } from "next/router";
 import { connect } from "react-redux";
 import { Container, Button } from "reactstrap";
@@ -312,6 +312,13 @@ import NewsAnnouncmentCard from "./NewsAnnouncmentCard";
 
 const NewsAnnouncementsData = ({ allnewsAnnouncementsData }) => {
   const slider = useRef(null);
+
+  const [activeSlide, setActiveSlide] = useState(0); // State to track the active slide index
+  // const sliderRef = useRef(null); // Ref for Slider component
+
+  const handleAfterChange = (currentSlide) => {
+    setActiveSlide(currentSlide); // Update active slide index
+  };
 
   return (
     <Container style={{ padding: "0" }}>
@@ -377,9 +384,25 @@ const NewsAnnouncementsData = ({ allnewsAnnouncementsData }) => {
               ]}
               appendDots={(dots) => (
                 <div>
-                  <ul> {dots} </ul>
+                   <ul>
+                      {dots.map((dot, index) => {
+                    const classNames = ['slick-dot']; // Add any additional classes here
+                    
+                    // Add 'slick-active' class if the index matches the activeSlide
+                    if (index === activeSlide) {
+                      classNames.push('slick-active');
+                    }
+
+                    return React.cloneElement(dot, {
+                      className: classNames.join(' '),
+                      onClick: () => slider.current.slickGoTo(index),
+                    });
+                  })}
+                </ul>
                 </div>
               )}
+              afterChange={handleAfterChange}
+              initialSlide={activeSlide} // Set initial slide index
             >
               {allnewsAnnouncementsData?.slice(0, 5).map((data, index) => (
                 <NewsAnnouncmentCard data={data} key={index} />

@@ -297,7 +297,7 @@
 //   connect(mapStateToProps, actionCreators)(TrendingQuestion)
 // );
 
-import React, { Fragment, useRef } from "react";
+import React, { Fragment, useRef , useEffect, useState} from "react";
 import Router, { useRouter, withRouter } from "next/router";
 import { connect } from "react-redux";
 import { Container, Button } from "reactstrap";
@@ -311,15 +311,21 @@ import "slick-carousel/slick/slick-theme.css";
 import QuestionCard from "./QuestionCard";
 
 const TrendingQuestion = ({ trendingQuestions }) => {
-  const slider = useRef(null);
+   const sliderRef = useRef(null);
 
+  const [activeSlide, setActiveSlide] = useState(0); // State to track the active slide index
+  // const sliderRef = useRef(null); // Ref for Slider component
+
+  const handleAfterChange = (currentSlide) => {
+    setActiveSlide(currentSlide); // Update active slide index
+  };
   return (
     <Container style={{ padding: "0" }}>
       <div className="trending-category-below">
         <div className="category-box">
           <div className="category-banner-wrapper" id="categoryWrapper">
             <div
-              onClick={() => slider.current?.slickPrev()}
+              onClick={() => sliderRef.current?.slickPrev()}
               className="view-more-arrow previous-arrow"
               style={{
                 left: "-20px",
@@ -335,7 +341,7 @@ const TrendingQuestion = ({ trendingQuestions }) => {
               />
             </div>
             <div
-              onClick={() => slider.current?.slickNext()}
+              onClick={() => sliderRef.current?.slickNext()}
               className="view-more-arrow next-arrow"
               style={{
                 right: "-19px",
@@ -350,41 +356,59 @@ const TrendingQuestion = ({ trendingQuestions }) => {
                 }}
               />
             </div>
+           
             <Slider
-              ref={slider}
-              speed={500}
-              slidesToScroll={1}
-              slidesToShow={3}
-              arrows={false}
-              responsive={[
-                {
-                  breakpoint: 1440,
-                  settings: {
-                    slidesToShow: 2,
-                    dots: false,
-                  },
+            //  initialSlide={0}
+            ref={sliderRef}
+            speed={500}
+            slidesToScroll={1}
+            slidesToShow={3}
+            arrows={false}
+            responsive={[
+              {
+                breakpoint: 1440,
+                settings: {
+                  slidesToShow: 2,
+                  dots: false,
                 },
+              },
+              {
+                breakpoint: 767,
+                settings: {
+                  slidesToShow: 1,
+                  dots: true,
+                },
+              },
+            ]}
+            const appendDots={(dots,index) => (
+              <div>
+                <ul>
+                {dots.map((dot, index) => {
+              const classNames = ['slick-dot']; // Add any additional classes here
+              
+              // Add 'slick-active' class if the index matches the activeSlide
+              if (index === activeSlide) {
+                classNames.push('slick-active');
+              }
 
-                {
-                  breakpoint: 767,
-                  
-                  settings: {
-                    slidesToShow: 1,
-                    dots: true,
-                    initialSlide: 0
-                  },
-                },
-              ]}
-              appendDots={(dots) => (
-                <div>
-                  <ul> {dots} </ul>
-                </div>
-              )}
-            >
-              {trendingQuestions?.slice(0, 5).map((data, index) => (
-                <QuestionCard data={data} key={index} />
-              ))}
-            </Slider>
+              return React.cloneElement(dot, {
+                className: classNames.join(' '),
+                onClick: () => sliderRef.current.slickGoTo(index),
+              });
+            })}
+                </ul>
+
+                {/* <ul> {dots} </ul> */}
+              </div>
+            )}
+            afterChange={handleAfterChange}
+            initialSlide={activeSlide} // Set initial slide index
+          >
+            {trendingQuestions?.slice(0, 5).map((data, index) => (
+              <QuestionCard data={data} key={index} />
+            ))}
+          </Slider>
+  
           </div>
         </div>
       </div>
