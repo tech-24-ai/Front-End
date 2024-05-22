@@ -26,6 +26,7 @@ import {
   Label,
   Tree,
   Divider,
+  Avatar,
 } from "antd";
 import {
   RightOutlined,
@@ -373,6 +374,7 @@ const CommunityQuestionDetail = ({
   };
 
   const prepareCommentData = (comments, commentLevel = 1) => {
+    console.log("comments", comments);
     const data = comments.map(
       ({
         comments,
@@ -409,186 +411,85 @@ const CommunityQuestionDetail = ({
     return data;
   };
 
-  const getExpandedKeys = (data) => {
-    let keys = [];
+  const [expandedKeys, setExpandedKeys] = useState([]);
+
+  const extractExpandedKeys = (data) => {
+    let keys = [...expandedKeys];
 
     const traverse = (nodes) => {
       nodes.forEach((node) => {
         if (node.children && node.children.length > 0) {
-          keys.push(node.key);
+          if (!keys.includes(node.key)) {
+            keys.push(node.key);
+          }
           traverse(node.children);
         }
       });
     };
 
     traverse(data);
+    console.log(keys);
+    setExpandedKeys(keys);
+  };
 
-    return keys;
+  const onExpand = (expandedKeysValue, { expanded }) => {
+    console.log(`onExpand-${expanded}`, expandedKeysValue);
+    setExpandedKeys(expandedKeysValue);
   };
 
   const renderComments = (commentData) => {
     const treeData = prepareCommentData(commentData);
-    const defaultExpandedKeys = getExpandedKeys(treeData);
+    // extractExpandedKeys(treeData);
 
     return (
       <Tree
         showLine={{ showLeafIcon: false }}
         selectable={false}
-        expandedKeys={defaultExpandedKeys}
+        // expandedKeys={defaultExpandedKeys}
+        expandedKeys={expandedKeys}
         blockNode={true}
         treeData={treeData}
+        onExpand={onExpand}
+        autoExpandParent={false}
         titleRender={(comment) => {
           return (
             <div className="comment-wrapper">
               <div>
                 <div
-                  className="cards-header"
+                  className="header-wrapper"
                   style={{ alignItems: "flex-start" }}
                 >
-                  <div>
-                    <div className="img">
-                      <Image
-                        style={{ borderRadius: "5px", zIndex: "1" }}
-                        width={50}
-                        height={50}
-                        preview="false"
+                  {comment?.total_comments > 0 && !comment?.children.length && (
+                    <PlusSquareOutlined
+                      className="expand-btn"
+                      onClick={() => fetchComments(comment.key)}
+                    />
+                  )}
+                  <Avatar
+                    shape="square"
+                    size="default"
+                    src={
+                      <img
                         src={comment?.visitor?.profile_pic_url || profile_img}
                         alt="profile"
                       />
-                      {/* <span className="label-counter">18</span> */}
-                    </div>
-                    <div
-                      className="profile"
-                      style={{
-                        flexDirection: "column",
-                        // alignItems: "center",
-                        fontFamily: "Inter",
-                        // marginTop: "-0.5rem",
-                      }}
-                    >
-                      <h5 className="questions_font_14px">
-                        {comment?.visitor?.name}
-                      </h5>
+                    }
+                  />
+                  <div className="profile">
+                    <p className="name">{comment?.visitor?.name}</p>
+                    <div className="time-wrapper">
+                      <div className="custom-divider"></div>
                       <p
                         style={{
                           margin: 0,
                           alignItems: "center",
-                          fontFamily: "",
+                          fontFamily: "Inter",
+                          fontSize: "0.7rem",
                         }}
                       >
-                        {/* <div
-                          className="custom-border"
-                          style={{ margin: "0 5px", height: "8px" }}
-                        ></div> */}
-
                         {calculateDateTime(comment?.created_at)}
                       </p>
                     </div>
-                  </div>
-
-                  <div className="follow">
-                    <div className="right-side-section">
-                      {/* <div
-                        className="reply-btn"
-                        onClick={() => {
-                          !isloggedIn.loggedIn
-                            ? toggleLoginPopup(true)
-                            : setIsReplayModalOpen({
-                                isReplayModelOpen: true,
-                                details: { ...comment, parent_id: comment.id },
-                              });
-                        }}
-                      >
-                        <Image
-                          loader={myImageLoader}
-                          style={{
-                            borderRadius: "5px",
-                            cursor: "pointer",
-                          }}
-                          width={16}
-                          height={16}
-                          preview="false"
-                          src={reply_icon}
-                          alt="reply-icon"
-                        />
-                        <span className="btn-title">Reply</span>
-                      </div> */}
-                      {comment?.isEditable == 1 && (
-                        <div
-                          className="share-btn"
-                          onClick={(e) => {
-                            setIsReplayModalOpen({
-                              isReplayModelOpen: true,
-                            });
-                            setCommentEditable(comment?.id);
-                            setAnswerEditable(comment?.community_post_id);
-                            // setAnswerEditable(null);
-                            setReplyResponse(comment?.description);
-                          }}
-                        >
-                          <EditOutlined />
-                          <span className="btn-title">Edit</span>
-                        </div>
-                      )}
-                      {comment.commentLevel < 5 && (
-                        <div
-                          className="reply-btn"
-                          onClick={() => {
-                            !isloggedIn.loggedIn
-                              ? toggleLoginPopup(true)
-                              : setIsReplayModalOpen({
-                                  isReplayModelOpen: true,
-                                  details: {
-                                    ...comment,
-                                    parent_id: comment.id,
-                                  },
-                                });
-                            setCommentEditable(null);
-                            setAnswerEditable(null);
-                            setReplyResponse("");
-                          }}
-                        >
-                          <ReplyIcon /> <span className="btn-title">Reply</span>
-                        </div>
-                      )}
-                      <ShareSocialMedia
-                        link={window.location.href}
-                        title={communityQuestionDetail?.title}
-                      >
-                        <div className="share-btn">
-                          <ShareAltOutlined />{" "}
-                          <span className="btn-title">Share</span>
-                        </div>
-                      </ShareSocialMedia>
-                      <div
-                        className="report-btn"
-                        onClick={() => {
-                          !isloggedIn.loggedIn
-                            ? toggleLoginPopup(true)
-                            : setReportModalVisible("comment");
-                        }}
-                      >
-                        <FlageIcon />
-                        <span className="btn-title">Report</span>
-                      </div>
-                      {reportModalVisible === "comment" && (
-                        <ReportAbuseModal
-                          reportTypes={reportTypes}
-                          isModalOpen={reportModalVisible === "comment"}
-                          closeModel={() => setReportModalVisible("")}
-                          data={{
-                            ...comment,
-                            community_id: communityData?.id,
-                          }}
-                          reportFor="comment"
-                          heading="Report this Comment"
-                        />
-                      )}
-                    </div>
-                    {/* <EyeOutlined
-                        title="view comments"
-                        onClick={() => viewComments(comment)}
-                      /> */}
                   </div>
                 </div>
                 <p
@@ -596,26 +497,103 @@ const CommunityQuestionDetail = ({
                   style={{
                     fontFamily: "Inter",
                   }}
-                >
-                  <span
-                    className="questions_font_12px"
-                    dangerouslySetInnerHTML={{
-                      __html: comment?.title,
-                    }}
-                  ></span>
-                </p>
+                  dangerouslySetInnerHTML={{
+                    __html: comment?.title,
+                  }}
+                ></p>
+                <div className="follow">
+                  <div className="right-side-section">
+                    {comment?.isEditable == 1 && (
+                      <div
+                        className="share-btn"
+                        onClick={(e) => {
+                          setIsReplayModalOpen({
+                            isReplayModelOpen: true,
+                          });
+                          setCommentEditable(comment?.id);
+                          setAnswerEditable(comment?.community_post_id);
+                          // setAnswerEditable(null);
+                          setReplyResponse(comment?.description);
+                        }}
+                      >
+                        <EditOutlined />
+                        <span className="btn-title">Edit</span>
+                      </div>
+                    )}
+                    {comment.commentLevel < 5 && (
+                      <div
+                        className="reply-btn"
+                        onClick={() => {
+                          !isloggedIn.loggedIn
+                            ? toggleLoginPopup(true)
+                            : setIsReplayModalOpen({
+                                isReplayModelOpen: true,
+                                details: {
+                                  ...comment,
+                                  parent_id: comment.id,
+                                },
+                              });
+                          setCommentEditable(null);
+                          setAnswerEditable(null);
+                          setReplyResponse("");
+                        }}
+                      >
+                        <ReplyIcon /> <span className="btn-title">Reply</span>
+                      </div>
+                    )}
+                    <ShareSocialMedia
+                      link={window.location.href}
+                      title={communityQuestionDetail?.title}
+                    >
+                      <div className="share-btn">
+                        <ShareAltOutlined />{" "}
+                        <span className="btn-title">Share</span>
+                      </div>
+                    </ShareSocialMedia>
+                    <div
+                      className="report-btn"
+                      onClick={() => {
+                        !isloggedIn.loggedIn
+                          ? toggleLoginPopup(true)
+                          : setReportModalVisible("comment");
+                      }}
+                    >
+                      <FlageIcon />
+                      <span className="btn-title">Report</span>
+                    </div>
+                    {reportModalVisible === "comment" && (
+                      <ReportAbuseModal
+                        reportTypes={reportTypes}
+                        isModalOpen={reportModalVisible === "comment"}
+                        closeModel={() => setReportModalVisible("")}
+                        data={{
+                          ...comment,
+                          community_id: communityData?.id,
+                        }}
+                        reportFor="comment"
+                        heading="Report this Comment"
+                      />
+                    )}
+                  </div>
+                  {/* <EyeOutlined
+                        title="view comments"
+                        onClick={() => viewComments(comment)}
+                      /> */}
+                </div>
               </div>
-              {comment?.total_comments > 0 && !comment?.children.length && (
-                <PlusSquareOutlined
-                  className="expand-btn"
-                  onClick={() => fetchComments(comment.key)}
-                />
-              )}
-              {comment.comments?.length > 0 && (
-                <div style={{ padding: "0 1rem" }}>
+
+              {/* comment.comments?.length > 0 && (
+                <div
+                  className="comment-child"
+                  style={{
+                    padding: "0 1rem",
+                    border: "1px solid red",
+                    marginLeft: "1rem",
+                  }}
+                >
                   {renderComments(comment.comments)}
                 </div>
-              )}
+              ) */}
             </div>
           );
         }}
