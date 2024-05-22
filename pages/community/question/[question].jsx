@@ -469,7 +469,7 @@ const CommunityQuestionDetail = ({
 
                   <div className="follow">
                     <div className="right-side-section">
-                      <div
+                      {/* <div
                         className="reply-btn"
                         onClick={() => {
                           !isloggedIn.loggedIn
@@ -493,16 +493,21 @@ const CommunityQuestionDetail = ({
                           alt="reply-icon"
                         />
                         <span className="btn-title">Reply</span>
-                      </div>
+                      </div> */}
                       {comment.commentLevel < 5 && (
                         <div
                           className="reply-btn"
-                          onClick={() =>
-                            setIsReplayModalOpen({
-                              isReplayModelOpen: true,
-                              details: { ...comment, parent_id: comment.id },
-                            })
-                          }
+                          onClick={() => {
+                            !isloggedIn.loggedIn
+                              ? toggleLoginPopup(true)
+                              : setIsReplayModalOpen({
+                                  isReplayModelOpen: true,
+                                  details: {
+                                    ...comment,
+                                    parent_id: comment.id,
+                                  },
+                                });
+                          }}
                         >
                           <ReplyIcon /> <span className="btn-title">Reply</span>
                         </div>
