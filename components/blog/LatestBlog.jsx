@@ -23,6 +23,11 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
     });
   }, []);
 
+  const splitBlogTags = (data) => {
+    let tags = data.split(",");
+    return tags;
+  };
+
   return (
     <Container>
       <div className="latest-blog hover">
@@ -97,11 +102,14 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
             )}
           >
             {blogs?.slice(0, 3).map((data, index) => (
-              // <Link href={`/blogs/${data.slug}`} key={index}>
+              <Link href={`/blogs/${data.slug}`} key={index}>
               <div
-                onClick={() => Router.push(`/blogs/${data.slug}`)}
+                // onClick={() => Router.push(`/blogs/${data.slug}`)}
                 onMouseOver={() => setShowHoverClass(index)}
                 onMouseOut={() => setShowHoverClass(null)}
+                style={{
+                  width: "100%"
+                }}
                 className={`blog-list ${
                   showHoverClass === index ? "showHoverClass" : ""
                 }`}
@@ -125,9 +133,20 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
                       placeholder="blog banner"
                       className="latest-blog-list-img"
                     />
-                    <p className="category bg">{data.blog_topic_name}</p>
+                    <p className="category bg">
+                    <Link href={`/blogs/category/${data.blog_topic_name.trim()}`}>
+                        {data?.blog_topic_name}
+                          </Link>
+                          </p>
                     <p className="blog-heading">{data.name}</p>
-                    <p className="blog-detail">{data.details}</p>
+                    <p className="blog-tags-container">
+                          {splitBlogTags(data?.details).map((tag) => (
+                            <div className="blog-tags">
+                              <Link href={`/blogs/tags/${tag.trim().replace("#","")}`}>
+                                {tag}
+                                </Link>
+                            </div>
+                          ))}</p>
                   </div>
                   <div className="date-section">
                     <div className="date">
@@ -138,11 +157,18 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
                       {wrappReadMinute(data?.read_time)}
                     </div>
                     <div className="custom-divider"></div>
-                    <div className="time">{data?.author}</div>
+                    <div className="time">
+                      <Link
+                          href={`/blogs/author/${data?.author
+                            .trim()}`}
+                        >
+                          {data?.author}
+                        </Link>
+                      </div>
                   </div>
                 </div>
               </div>
-              // </Link>
+              </Link>
             ))}
           </Slider>
         </div>
