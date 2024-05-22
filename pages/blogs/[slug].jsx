@@ -13,7 +13,7 @@ const { CheckableTag } = Tag;
 import { connect } from "react-redux";
 import { withRouter } from "next/router";
 import { Container, Row, Col, FormGroup, Label, Input, Card } from "reactstrap";
-import { crudActions,userActions } from "../../_actions";
+import { crudActions, userActions } from "../../_actions";
 import Link from "next/dist/client/link";
 import { Modal } from "antd";
 
@@ -221,10 +221,10 @@ class Blog extends Component {
                         }}
                       />
                       <div className="card-heading">
-                        
+
                         <Link href={`/blogs/category/${blog.blog_topic?.name.trim()}`}>
-                        {blog.blog_topic?.name}
-                          </Link>
+                          {blog.blog_topic?.name}
+                        </Link>
                       </div>
 
                       <div className="inner-text-container">
@@ -234,11 +234,11 @@ class Blog extends Component {
 
                         {blog?.author && (
                           <div className="time">by <Link
-                          href={`/blogs/author/${blog?.author
-                            .trim()}`}
-                        >
-                          {blog?.author}
-                        </Link></div>
+                            href={`/blogs/author/${blog?.author
+                              .trim()}`}
+                          >
+                            {blog?.author}
+                          </Link></div>
                         )}
                         <div className="date-section">
                           <ClockCircleOutlined />
@@ -253,7 +253,7 @@ class Blog extends Component {
 
                         <br />
                         <div>
-                        
+
                           <div
                             dangerouslySetInnerHTML={{
                               __html: editorData,
@@ -266,14 +266,23 @@ class Blog extends Component {
                         </div>
                         <br />
                         <div className="blog-tags-container">
+
                           {splitBlogTags(blog.details).map((tag) => (
-                            <div className="blog-tags"><Link href={`/blogs/tags/${tag.trim().replace("#","")}`}>{tag}</Link></div>
+                            <div className="blog-tags">
+                              <Link
+                                href={`/blogs/tags/${tag
+                                  .trim()
+                                  .replace("#", "")}`}
+                              >
+                                {tag}
+                              </Link>
+                            </div>
                           ))}
                         </div>
                         <br />
 
                         <div className="social-section">
-                            <ShareSocialMedia
+                          <ShareSocialMedia
                             link={window.location.href}
                             title={blog?.name}
                           >
@@ -322,8 +331,8 @@ class Blog extends Component {
                     <div className="second-div">
                       {/* {limitedData.map((item, index) => ( */}
                       {limitedData &&
-                        limitedData.map((blogs) => (
-                          <Link href={`/blogs/${blogs.slug}`}>
+                        limitedData.map((blogs, key) => (
+                          <Link href={`/blogs/${blogs.slug}`} key={key}>
                             <div className="col-md-12 blog-list hover">
                               <div
                                 className="blog-card"
@@ -353,17 +362,27 @@ class Blog extends Component {
                                     }}
                                   />
                                   <p className="card-heading">
-                                    {blogs.blog_topic.name}
+                                    <Link href={`/blogs/category/${blog.blog_topic?.name.trim()}`}>
+                                      {blog.blog_topic?.name}
+                                    </Link>
                                   </p>
 
                                   <p className="blogs-card-body">
                                     {blogs.name}
                                   </p>
                                   <p className="blog-detail">
-                                    {blogs.details}{" "}
+                                    {splitBlogTags(blog.details).map((tag) => (
+                                      <Link
+                                        href={`/blogs/tags/${tag
+                                          .trim()
+                                          .replace("#", "")}`}
+                                      >
+                                        {tag}
+                                      </Link>
+                                    ))}
                                   </p>
                                 </div>
-                                <div className="date-section" style={{flexDirection: 'column', justifyContent: "flex-start", alignItems: "flex-start"}}>
+                                <div className="date-section" style={{ flexDirection: 'column', justifyContent: "flex-start", alignItems: "flex-start" }}>
                                   <div
                                     className="time"
                                     style={{
@@ -372,7 +391,12 @@ class Blog extends Component {
                                       color: "#001622",
                                     }}
                                   >
-                                    {blogs?.author}
+                                    <Link
+                                      href={`/blogs/author/${blogs?.author
+                                        .trim()}`}
+                                    >
+                                      {blogs?.author}
+                                    </Link>
                                   </div>
                                   <div style={{ display: "flex", alignItems: "center" }}>
                                     <div className="date">
