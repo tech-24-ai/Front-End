@@ -345,6 +345,9 @@ const CommunityQuestionDetail = ({
         const treeData = bindComments(communityAnswers, commentId, data?.data);
         setCommunityAnswers(treeData);
       });
+    if (!expandedKeys.includes(commentId)) {
+      setExpandedKeys((preState) => [...preState, commentId]);
+    }
   };
 
   const bindComments = (tree, commentId, newComments) => {
@@ -374,7 +377,6 @@ const CommunityQuestionDetail = ({
   };
 
   const prepareCommentData = (comments, commentLevel = 1) => {
-    console.log("comments", comments);
     const data = comments.map(
       ({
         comments,
@@ -413,39 +415,17 @@ const CommunityQuestionDetail = ({
 
   const [expandedKeys, setExpandedKeys] = useState([]);
 
-  const extractExpandedKeys = (data) => {
-    let keys = [...expandedKeys];
-
-    const traverse = (nodes) => {
-      nodes.forEach((node) => {
-        if (node.children && node.children.length > 0) {
-          if (!keys.includes(node.key)) {
-            keys.push(node.key);
-          }
-          traverse(node.children);
-        }
-      });
-    };
-
-    traverse(data);
-    console.log(keys);
-    setExpandedKeys(keys);
-  };
-
   const onExpand = (expandedKeysValue, { expanded }) => {
-    console.log(`onExpand-${expanded}`, expandedKeysValue);
     setExpandedKeys(expandedKeysValue);
   };
 
   const renderComments = (commentData) => {
     const treeData = prepareCommentData(commentData);
-    // extractExpandedKeys(treeData);
 
     return (
       <Tree
         showLine={{ showLeafIcon: false }}
         selectable={false}
-        // expandedKeys={defaultExpandedKeys}
         expandedKeys={expandedKeys}
         blockNode={true}
         treeData={treeData}
