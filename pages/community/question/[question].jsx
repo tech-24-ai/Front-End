@@ -404,23 +404,37 @@ const CommunityQuestionDetail = ({
     return data;
   };
 
+  const getExpandedKeys = (data) => {
+    let keys = [];
+
+    const traverse = (nodes) => {
+      nodes.forEach((node) => {
+        if (node.children && node.children.length > 0) {
+          keys.push(node.key);
+          traverse(node.children);
+        }
+      });
+    };
+
+    traverse(data);
+
+    return keys;
+  };
+
   const renderComments = (commentData) => {
     const treeData = prepareCommentData(commentData);
+    const defaultExpandedKeys = getExpandedKeys(treeData);
+
     return (
       <Tree
         showLine={{ showLeafIcon: false }}
         selectable={false}
-        autoExpandParent={true}
+        expandedKeys={defaultExpandedKeys}
         blockNode={true}
         treeData={treeData}
         titleRender={(comment) => {
           return (
-            <div
-              className="comment-wrapper"
-              style={{
-                marginBottom: "10px",
-              }}
-            >
+            <div className="comment-wrapper">
               <div>
                 <div
                   className="cards-header"

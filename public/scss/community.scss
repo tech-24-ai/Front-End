@@ -448,11 +448,8 @@
   margin-top: 1rem;
   .ant-tree .ant-tree-list {
     .ant-tree-treenode {
-      // width: 100%;
       .ant-tree-node-content-wrapper {
-        // width: 100%;
-        // border: 1px solid gray;
-        // border-radius: 8px;
+        cursor: auto;
       }
     }
   }
@@ -460,9 +457,11 @@
 
 .expand-btn {
   position: relative;
-  top: -103px;
+  top: -97px;
   left: -23px;
   z-index: 1;
+  margin-bottom: -1rem;
+  display: table !important;
   // font-size: 1rem;
   background-color: #ffffff;
 }
