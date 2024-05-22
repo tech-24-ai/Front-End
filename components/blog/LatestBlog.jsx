@@ -121,6 +121,7 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
                     flexDirection: "column",
                     height: "100%",
                     justifyContent: "space-between",
+                    minHeight: "495px"
                   }}
                 >
                   <div>
@@ -148,6 +149,34 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
                             </div>
                           ))}</p>
                   </div>
+                    <div className="date-section" style={{display: 'block'}}>
+                      <div
+                        className="time"
+                        style={{
+                          fontWeight: 400,
+                          fontSize: "17px",
+                          color: "#001622",
+                        }}
+                      >
+                        <Link
+                          href={`/blogs/author/${data?.author
+                            .trim()}`}
+                        >
+                          {data?.author}
+                        </Link>
+                      </div>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <div className="date">
+                          {moment(data.created_at).format("LL")}
+                        </div>
+                        <div className="custom-divider"></div>
+                        <div className="time">
+                          {wrappReadMinute(data?.read_time)}
+                        </div>
+                        {/* <div className="custom-divider"></div> */}
+                      </div>
+                    </div>
+{/* 
                   <div className="date-section">
                     <div className="date">
                       {moment(data.created_at).format("LL")}
@@ -165,7 +194,8 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
                           {data?.author}
                         </Link>
                       </div>
-                  </div>
+                  </div> */}
+
                 </div>
               </div>
               </Link>
