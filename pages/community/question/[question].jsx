@@ -1262,7 +1262,8 @@ const CommunityQuestionDetail = ({
                         </div>
                       )}
 
-                      {answer?.comments?.length > 0 && <Divider />}
+                      {answer?.comments?.length > 0 &&
+                        isShowReplies == answer?.id && <Divider />}
 
                       <div className="community-comments-wrapper">
                         {answer?.comments?.length > 0 &&
