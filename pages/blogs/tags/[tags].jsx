@@ -102,7 +102,7 @@ function Blogs({ router }) {
               color: "#005dd4",
             }}
           >
-            Blogs
+            {`Blogs (filtered with Tag: ${slugQuery.tags})`}
           </h4>
           <div
             className="result-sort"
