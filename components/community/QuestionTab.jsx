@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Container } from "reactstrap";
 import myImageLoader from "../../components/imageLoader";
 import { RightOutlined } from "@ant-design/icons";
-import { crudActions, alertActions, loaderActions } from "../../_actions";
+import {
+  crudActions,
+  alertActions,
+  loaderActions,
+  userActions,
+} from "../../_actions";
 import { connect } from "react-redux";
 import moment from "moment";
 import { crudService } from "../../_services";
@@ -18,10 +23,9 @@ import {
   Modal,
   Label,
 } from "antd";
-import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
+import { PlusOutlined, SearchOutlined, EditOutlined } from "@ant-design/icons";
 import shorting_icon from "../../public/new_images/sorting_icon.svg";
 import profile_img from "../../public/new_images/profile.svg";
-import edit_icon from "../../public/new_images/edit.png";
 
 import "draft-js/dist/Draft.css";
 import "react-quill/dist/quill.snow.css";
@@ -53,6 +57,8 @@ const QuestionTab = ({
   showLoader,
   hideLoader,
   downloadDocument,
+  isloggedIn,
+  toggleLoginPopup,
 }) => {
   const router = useRouter();
   const { community } = router.query;
@@ -130,7 +136,11 @@ const QuestionTab = ({
   }
 
   const showModal = () => {
-    setIsModalOpen(true);
+    if (!isloggedIn.loggedIn) {
+      toggleLoginPopup(true);
+    } else {
+      setIsModalOpen(true);
+    }
   };
 
   const handleCancel = () => {
@@ -426,11 +436,15 @@ const QuestionTab = ({
 
   const handleDocumentDownload = (item) => {
     const { id, name } = item;
-    downloadDocument(
-      id,
-      name,
-      `communitypost/download_attachment?attachment_id=${id}`
-    );
+    if (!isloggedIn.loggedIn) {
+      toggleLoginPopup(true);
+    } else {
+      downloadDocument(
+        id,
+        name,
+        `communitypost/download_attachment?attachment_id=${id}`
+      );
+    }
   };
 
   const fetchTags = () => {
@@ -609,6 +623,7 @@ const QuestionTab = ({
               </div>
               {data?.isQuestionEditable == 1 && (
                 <div
+                  className="share-btn"
                   onClick={(e) => {
                     e.stopPropagation();
                     setIsModalOpen(true);
@@ -620,16 +635,8 @@ const QuestionTab = ({
                     setUrl(data?.attachments);
                   }}
                 >
-                  <Image
-                    loader={myImageLoader}
-                    style={{ borderRadius: "2px", cursor: "pointer" }}
-                    width={25}
-                    height={25}
-                    preview="false"
-                    src={edit_icon}
-                    alt="profile"
-                    className="edit_icon"
-                  />
+                  <EditOutlined />
+                  <span className="btn-title">Edit</span>
                 </div>
               )}
 
@@ -950,9 +957,10 @@ const QuestionTab = ({
 };
 
 const mapStateToProps = (state) => {
-  const { communitypost } = state;
+  const { communitypost, authentication } = state;
   return {
     communitypost,
+    isloggedIn: authentication,
   };
 };
 
@@ -964,6 +972,7 @@ const actionCreators = {
   showLoader: loaderActions.show,
   hideLoader: loaderActions.hide,
   downloadDocument: crudActions._download,
+  toggleLoginPopup: userActions.toggleLoginPopup,
 };
 
 export default connect(mapStateToProps, actionCreators)(QuestionTab);

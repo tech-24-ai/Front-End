@@ -3,7 +3,12 @@ import Image from "next/future/image";
 import { Container } from "reactstrap";
 import myImageLoader from "../../components/imageLoader";
 import { RightOutlined } from "@ant-design/icons";
-import { crudActions, alertActions, loaderActions } from "../../_actions";
+import {
+  crudActions,
+  alertActions,
+  loaderActions,
+  userActions,
+} from "../../_actions";
 import { connect } from "react-redux";
 import moment from "moment";
 import { crudService } from "../../_services";
@@ -40,35 +45,14 @@ import QuestionTab from "../../components/community/QuestionTab";
 import profile_img from "../../public/new_images/profile.svg";
 import { calculateDateTime } from "../../_global";
 
-const SubmitButton = ({ form, children }) => {
-  const [submittable, setSubmittable] = React.useState(false);
-
-  useEffect(() => {
-    getAllCrud("communitypost", "communitypost");
-  }, [updateCom]);
-  // Watch all values
-  const values = Form.useWatch([], form);
-  React.useEffect(() => {
-    form
-      .validateFields({
-        validateOnly: true,
-      })
-      .then(() => setSubmittable(true))
-      .catch(() => setSubmittable(false));
-  }, [form, values]);
-  return (
-    <Button type="primary" htmlType="submit" disabled={!submittable}>
-      {children}
-    </Button>
-  );
-};
-
 const CommunityDetail = ({
   getAllCrud,
   showAlert,
   success,
   showLoader,
   hideLoader,
+  isloggedIn,
+  toggleLoginPopup,
 }) => {
   const router = useRouter();
   const [description, setDescription] = useState("");
@@ -135,7 +119,11 @@ const CommunityDetail = ({
   }
 
   const showModal = () => {
-    setIsModalOpen(true);
+    if (!isloggedIn.loggedIn) {
+      toggleLoginPopup(true);
+    } else {
+      setIsModalOpen(true);
+    }
   };
 
   const handleCancel = () => {
@@ -848,9 +836,10 @@ const CommunityDetail = ({
 };
 
 const mapStateToProps = (state) => {
-  const { communitypost } = state;
+  const { communitypost, authentication } = state;
   return {
     communitypost,
+    isloggedIn: authentication,
   };
 };
 
@@ -861,6 +850,7 @@ const actionCreators = {
   success: alertActions.success,
   showLoader: loaderActions.show,
   hideLoader: loaderActions.hide,
+  toggleLoginPopup: userActions.toggleLoginPopup,
 };
 
 export default connect(mapStateToProps, actionCreators)(CommunityDetail);

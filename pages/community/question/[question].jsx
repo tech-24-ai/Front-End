@@ -3,7 +3,12 @@ import Image from "next/future/image";
 import { Container } from "reactstrap";
 
 import like_button from "../../../public/new_images/like_button.svg";
-import { alertActions, crudActions, loaderActions } from "../../../_actions";
+import {
+  alertActions,
+  crudActions,
+  loaderActions,
+  userActions,
+} from "../../../_actions";
 import { connect } from "react-redux";
 import moment from "moment";
 import { EyeOutlined } from "@ant-design/icons";
@@ -28,6 +33,7 @@ import {
   PlusCircleOutlined,
   MinusCircleOutlined,
   PlusSquareOutlined,
+  EditOutlined,
 } from "@ant-design/icons";
 import shorting_icon from "../../../public/new_images/sorting_icon.svg";
 import view_icon from "../../../public/new_images/view_icon.svg";
@@ -57,28 +63,6 @@ import ReportAbuseModal from "../../../components/community/ReportAbuseModal";
 import { calculateDateTime } from "../../../_global";
 import { Fragment } from "react";
 
-const SubmitButton = ({ form, children }) => {
-  const [submittable, setSubmittable] = React.useState(false);
-
-  useEffect(() => {
-    getAllCrud("communitypost", "communitypost");
-  }, [updateCom]);
-  // Watch all values
-  const values = Form.useWatch([], form);
-  React.useEffect(() => {
-    form
-      .validateFields({
-        validateOnly: true,
-      })
-      .then(() => setSubmittable(true))
-      .catch(() => setSubmittable(false));
-  }, [form, values]);
-  return (
-    <Button type="primary" htmlType="submit" disabled={!submittable}>
-      {children}
-    </Button>
-  );
-};
 const CommunityQuestionDetail = ({
   getAllCrud,
   success,
@@ -86,6 +70,8 @@ const CommunityQuestionDetail = ({
   downloadDocument,
   showLoader,
   hideLoader,
+  isloggedIn,
+  toggleLoginPopup,
 }) => {
   const router = useRouter();
   const slugQuery = router.query;
@@ -101,6 +87,7 @@ const CommunityQuestionDetail = ({
     details: {},
   });
   const [communityAnswers, setCommunityAnswers] = useState();
+  const [answerEditable, setAnswerEditable] = useState(null);
 
   const [reportModalVisible, setReportModalVisible] = useState("");
 
@@ -190,60 +177,100 @@ const CommunityQuestionDetail = ({
     showLoader();
     setIsModalOpen(false);
     setIsReplayModalOpen({ isReplayModelOpen: false, details: {} });
-    crudService
-      ._create("communitypostreply", postData)
-      .then((response) => {
-        hideLoader();
-        if (response.status === 200) {
-          isReply
-            ? setIsReplayModalOpen({ isReplayModelOpen: false, details: {} })
-            : setIsModalOpen(false);
-          !isReply ? setDescription("") : setReplyResponse("");
-          setUpdateCom(true);
-          isReply
-            ? success(
-                "Your reply is being reviewed and will be shown after approval."
-              )
-            : success(
-                "Your answer is being reviewed and will be shown after approval."
-              );
-        }
-      })
-      .catch(() => {
-        hideLoader();
-      });
+    if (answerEditable) {
+      // update the question's answer
+      showLoader();
+      crudService
+        ._update("communitypostreply", answerEditable, {
+          community_post_id: answerEditable,
+          description,
+        })
+        .then((response) => {
+          hideLoader();
+          setAnswerEditable(null);
+          if (response.status === 200) {
+            isReply
+              ? setIsReplayModalOpen({ isReplayModelOpen: false, details: {} })
+              : setIsModalOpen(false);
+            !isReply ? setDescription("") : setReplyResponse("");
+            setUpdateCom(true);
+            isReply
+              ? success(
+                  "Your reply is being reviewed and will be shown after approval."
+                )
+              : success(
+                  "Your answer is being reviewed and will be shown after approval."
+                );
+          }
+        })
+        .catch(() => {
+          hideLoader();
+          setAnswerEditable(null);
+        });
+    } else {
+      crudService
+        ._create("communitypostreply", postData)
+        .then((response) => {
+          hideLoader();
+          if (response.status === 200) {
+            isReply
+              ? setIsReplayModalOpen({ isReplayModelOpen: false, details: {} })
+              : setIsModalOpen(false);
+            !isReply ? setDescription("") : setReplyResponse("");
+            setUpdateCom(true);
+            isReply
+              ? success(
+                  "Your reply is being reviewed and will be shown after approval."
+                )
+              : success(
+                  "Your answer is being reviewed and will be shown after approval."
+                );
+          }
+        })
+        .catch(() => {
+          hideLoader();
+        });
+    }
   };
 
   const voteCommunity = (data, type) => {
-    showLoader();
-    crudService
-      ._create("communitypost/vote", {
-        community_post_id: data?.id,
-        vote_type: type,
-      })
-      .then((data) => {
-        hideLoader();
-        data.status == 200 && setUpdateCom(true);
-      })
-      .catch(() => {
-        hideLoader();
-      });
+    if (!isloggedIn.loggedIn) {
+      toggleLoginPopup(true);
+    } else {
+      showLoader();
+      crudService
+        ._create("communitypost/vote", {
+          community_post_id: data?.id,
+          vote_type: type,
+        })
+        .then((data) => {
+          hideLoader();
+          data.status == 200 && setUpdateCom(true);
+        })
+        .catch(() => {
+          hideLoader();
+        });
+    }
   };
 
   const voteCommunityPostReplies = (data, type) => {
-    showLoader();
-    crudService
-      ._create("communitypostreply/vote", {
-        community_post_reply_id: data?.id,
-        vote_type: type,
-      })
-      .then((data) => {
-        hideLoader();
-        data.status == 200 && setUpdateCom(true);
-      })
-      .catch(() => {
-        hideLoader();
-      });
+    if (!isloggedIn.loggedIn) {
+      toggleLoginPopup(true);
+    } else {
+      showLoader();
+      crudService
+        ._create("communitypostreply/vote", {
+          community_post_reply_id: data?.id,
+          vote_type: type,
+        })
+        .then((data) => {
+          hideLoader();
+          data.status == 200 && setUpdateCom(true);
+        })
+        .catch(() => {
+          hideLoader();
+        });
+    }
   };
 
   useEffect(() => {
@@ -297,11 +324,15 @@ const CommunityQuestionDetail = ({
 
   const handleDocumentDownload = (item) => {
     const { id, name } = item;
-    downloadDocument(
-      id,
-      name,
-      `communitypost/download_attachment?attachment_id=${id}`
-    );
+    if (!isloggedIn.loggedIn) {
+      toggleLoginPopup(true);
+    } else {
+      downloadDocument(
+        id,
+        name,
+        `communitypost/download_attachment?attachment_id=${id}`
+      );
+    }
   };
 
   const fetchComments = (commentId) => {
@@ -439,12 +470,14 @@ const CommunityQuestionDetail = ({
                     <div className="right-side-section">
                       <div
                         className="reply-btn"
-                        onClick={() =>
-                          setIsReplayModalOpen({
-                            isReplayModelOpen: true,
-                            details: { ...comment, parent_id: comment.id },
-                          })
-                        }
+                        onClick={() => {
+                          !isloggedIn.loggedIn
+                            ? toggleLoginPopup(true)
+                            : setIsReplayModalOpen({
+                                isReplayModelOpen: true,
+                                details: { ...comment, parent_id: comment.id },
+                              });
+                        }}
                       >
                         <Image
                           loader={myImageLoader}
@@ -471,7 +504,11 @@ const CommunityQuestionDetail = ({
                       </ShareSocialMedia>
                       <div
                         className="report-btn"
-                        onClick={() => setReportModalVisible("comment")}
+                        onClick={() => {
+                          !isloggedIn.loggedIn
+                            ? toggleLoginPopup(true)
+                            : setReportModalVisible("comment");
+                        }}
                       >
                         <FlageIcon />
                         <span className="btn-title">Report</span>
@@ -734,7 +771,11 @@ const CommunityQuestionDetail = ({
                       </ShareSocialMedia>
                       <div
                         className="report-btn"
-                        onClick={() => setReportModalVisible("question")}
+                        onClick={() => {
+                          !isloggedIn.loggedIn
+                            ? toggleLoginPopup(true)
+                            : setReportModalVisible("question");
+                        }}
                       >
                         <FlageIcon />
                         <span className="btn-title">Report</span>
@@ -838,7 +879,11 @@ const CommunityQuestionDetail = ({
                         cursor: "pointer",
                       }}
                       className="questions_font_12px"
-                      onClick={() => setIsModalOpen(true)}
+                      onClick={() => {
+                        !isloggedIn.loggedIn
+                          ? toggleLoginPopup(true)
+                          : setIsModalOpen(true);
+                      }}
                     >
                       Answer this Question
                     </div>
@@ -863,7 +908,7 @@ const CommunityQuestionDetail = ({
                       }}
                     >
                       <div className="cards-header">
-                        <div>
+                        <div style={{ width: "100%" }}>
                           <div className="img">
                             <Image
                               style={{ borderRadius: "5px", zIndex: "1" }}
@@ -879,10 +924,29 @@ const CommunityQuestionDetail = ({
                           </div>
                           <div
                             className="profile"
-                            style={{ flexDirection: "column" }}
+                            style={{
+                              width: "100%",
+                              flexDirection: "unset",
+                              justifyContent: "space-between",
+                            }}
                           >
-                            <h5>{answer?.visitor?.name}</h5>
-                            <p>{calculateDateTime(answer?.created_at)}</p>
+                            <div style={{ flexDirection: "column" }}>
+                              <h5>{answer?.visitor?.name}</h5>
+                              <p>{calculateDateTime(answer?.created_at)}</p>
+                            </div>
+                            {answer?.isEditable == 1 && (
+                              <div
+                                className="share-btn"
+                                onClick={(e) => {
+                                  setIsModalOpen(true);
+                                  setAnswerEditable(answer?.id);
+                                  setDescription(answer?.description);
+                                }}
+                              >
+                                <EditOutlined />
+                                <span className="btn-title">Edit</span>
+                              </div>
+                            )}
                           </div>
                           {answer?.is_correct_answer == 1 && (
                             <>
@@ -914,20 +978,20 @@ const CommunityQuestionDetail = ({
                           )}
                         </div>
 
-                        <div className="follow">
-                          {/* <p className="button">Follow</p> */}
+                        {/* <div className="follow">
+                          <p className="button">Follow</p>
                           <div className="img">
-                            {/* <Image
-                      loader={myImageLoader}
-                      style={{ borderRadius: "2px", cursor: "pointer" }}
-                      width={32}
-                      height={32}
-                      preview="false"
-                      src={three_dot_icon}
-                      alt="profile"
-                    /> */}
+                            <Image
+                              loader={myImageLoader}
+                              style={{ borderRadius: "2px", cursor: "pointer" }}
+                              width={32}
+                              height={32}
+                              preview="false"
+                              src={three_dot_icon}
+                              alt="profile"
+                            />
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                       <p className="para questions_font_14px">
                         <span
@@ -971,12 +1035,14 @@ const CommunityQuestionDetail = ({
                             style={{ display: "flex", alignItems: "center" }}
                           >
                             <div
-                              onClick={() =>
-                                setIsReplayModalOpen({
-                                  isReplayModelOpen: true,
-                                  details: answer,
-                                })
-                              }
+                              onClick={() => {
+                                !isloggedIn.loggedIn
+                                  ? toggleLoginPopup(true)
+                                  : setIsReplayModalOpen({
+                                      isReplayModelOpen: true,
+                                      details: answer,
+                                    });
+                              }}
                               style={{
                                 border: "1px solid #D9DFE9",
                                 padding: "8px 12px",
@@ -1099,7 +1165,11 @@ const CommunityQuestionDetail = ({
                             </ShareSocialMedia>
                             <div
                               className="report-btn"
-                              onClick={() => setReportModalVisible("answer")}
+                              onClick={() => {
+                                !isloggedIn.loggedIn
+                                  ? toggleLoginPopup(true)
+                                  : setReportModalVisible("answer");
+                              }}
                             >
                               <FlageIcon />
                               <span className="btn-title">Report</span>
@@ -1299,7 +1369,7 @@ const CommunityQuestionDetail = ({
                             fontSize: "18px",
                           }}
                         >
-                          Submit
+                          {answerEditable ? "Update" : "Submit"}
                         </div>
                       </Form>
                     </Modal>
@@ -1373,7 +1443,9 @@ const CommunityQuestionDetail = ({
                             />
                           </div>
                         </Form.Item>
-
+                        <br />
+                        <br />
+                        <br />
                         <div
                           onClick={() =>
                             handleOk(
@@ -1395,7 +1467,6 @@ const CommunityQuestionDetail = ({
                             fontWeight: 500,
                             fontFamily: "Inter",
                             fontSize: "18px",
-                            marginTop: "2.5rem",
                           }}
                         >
                           Submit
@@ -1532,9 +1603,10 @@ const CommunityQuestionDetail = ({
 };
 
 const mapStateToProps = (state) => {
-  const { communitypost } = state;
+  const { communitypost, authentication } = state;
   return {
     communitypost,
+    isloggedIn: authentication,
   };
 };
 
@@ -1546,6 +1618,7 @@ const actionCreators = {
   showLoader: loaderActions.show,
   hideLoader: loaderActions.hide,
   downloadDocument: crudActions._download,
+  toggleLoginPopup: userActions.toggleLoginPopup,
 };
 
 export default connect(

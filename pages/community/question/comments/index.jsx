@@ -7,7 +7,7 @@ import three_dot_icon from "../../../../public/new_images/3dots.svg";
 import message_icon from "../../../../public/new_images/message_icon.svg";
 import like_button from "../../../../public/new_images/like_button.svg";
 import dislike_button from "../../../../public/new_images/dislike_button.svg";
-import { alertActions, crudActions } from "../../../../_actions";
+import { alertActions, crudActions, loaderActions } from "../../../../_actions";
 import { connect } from "react-redux";
 import moment from "moment";
 import { EyeOutlined } from "@ant-design/icons";
@@ -25,7 +25,7 @@ import {
   Modal,
   Label,
 } from "antd";
-import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
+import { PlusOutlined, SearchOutlined, EditOutlined } from "@ant-design/icons";
 import shorting_icon from "../../../../public/new_images/sorting_icon.svg";
 import view_icon from "../../../../public/new_images/view_icon.svg";
 import reply_icon from "../../../../public/new_images/reply_icon.svg";
@@ -46,29 +46,14 @@ import { isMobile } from "react-device-detect";
 import ReportAbuseModal from "../../../../components/community/ReportAbuseModal";
 import { FlageIcon } from "../../../../components/icons";
 import { calculateDateTime } from "../../../../_global";
-const SubmitButton = ({ form, children }) => {
-  const [submittable, setSubmittable] = React.useState(false);
 
-  useEffect(() => {
-    getAllCrud("communitypost", "communitypost");
-  }, [updateCom]);
-  // Watch all values
-  const values = Form.useWatch([], form);
-  React.useEffect(() => {
-    form
-      .validateFields({
-        validateOnly: true,
-      })
-      .then(() => setSubmittable(true))
-      .catch(() => setSubmittable(false));
-  }, [form, values]);
-  return (
-    <Button type="primary" htmlType="submit" disabled={!submittable}>
-      {children}
-    </Button>
-  );
-};
-const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
+const CommunityQuestionDetail = ({
+  getAllCrud,
+  success,
+  showAlert,
+  showLoader,
+  hideLoader,
+}) => {
   const router = useRouter();
   const slugQuery = router.query;
   const [communityQuestionDetail, setCommunityQuestionDetail] = useState();
@@ -84,6 +69,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
     details: {},
   });
   const [communityAnswers, setCommunityAnswers] = useState();
+  const [commentEditable, setCommentEditable] = useState(null);
 
   const modules = {
     toolbar: [
@@ -157,20 +143,58 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
       description: replyText,
     };
 
-    crudService._create("communitypostreply", postData).then((response) => {
-      if (response.status === 200) {
-        setIsReplayModalOpen({ isReplayModelOpen: false, details: {} });
-        setReplyResponse("");
-        setUpdateCom(true);
-        isReply
-          ? success(
-              "Your reply is being reviewed and will be shown after approval."
-            )
-          : success(
-              "Your answer is being reviewed and will be shown after approval."
-            );
-      }
-    });
+    setIsReplayModalOpen({ isReplayModelOpen: false, details: {} });
+
+    if (commentEditable) {
+      showLoader();
+      crudService
+        ._update("communitypostreply", commentEditable, {
+          parent_id: commentEditable,
+          community_post_id: communityAnswer?.community_post_id,
+          description: replyText,
+        })
+        .then((response) => {
+          hideLoader();
+          if (response.status === 200) {
+            setIsReplayModalOpen({ isReplayModelOpen: false, details: {} });
+            setReplyResponse("");
+            setUpdateCom(true);
+            setCommentEditable(null);
+            isReply
+              ? success(
+                  "Your reply is being reviewed and will be shown after approval."
+                )
+              : success(
+                  "Your answer is being reviewed and will be shown after approval."
+                );
+          }
+        })
+        .catch(() => {
+          hideLoader();
+        });
+    } else {
+      showLoader();
+      crudService
+        ._create("communitypostreply", postData)
+        .then((response) => {
+          hideLoader();
+          if (response.status === 200) {
+            setIsReplayModalOpen({ isReplayModelOpen: false, details: {} });
+            setReplyResponse("");
+            setUpdateCom(true);
+            isReply
+              ? success(
+                  "Your reply is being reviewed and will be shown after approval."
+                )
+              : success(
+                  "Your answer is being reviewed and will be shown after approval."
+                );
+          }
+        })
+        .catch(() => {
+          hideLoader();
+        });
+    }
   };
 
   const voteCommunity = (data, type) => {
@@ -185,13 +209,18 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
   };
 
   const voteCommunityPostReplies = (data, type) => {
+    showLoader();
     crudService
       ._create("communitypostreply/vote", {
         community_post_reply_id: data?.id,
         vote_type: type,
       })
       .then((data) => {
+        hideLoader();
         data.status == 200 && setUpdateCom(true);
+      })
+      .catch(() => {
+        hideLoader();
       });
   };
 
@@ -355,6 +384,20 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       <FlageIcon />
                       <span className="btn-title">Report</span>
                     </div>
+                    <div
+                      className="report-btn"
+                      onClick={() => {
+                        setIsReplayModalOpen({
+                          isReplayModelOpen: true,
+                          details: communityAnswer,
+                        });
+                        setCommentEditable(communityAnswer?.parent_id);
+                        setReplyResponse(communityAnswer?.description);
+                      }}
+                    >
+                      <EditOutlined />
+                      <span className="btn-title">Edit</span>
+                    </div>
                     {reportModalVisible === "comment" && (
                       <ReportAbuseModal
                         reportTypes={reportTypes}
@@ -431,12 +474,14 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                     cursor: "pointer",
                   }}
                   className="questions_font_12px"
-                  onClick={() =>
+                  onClick={() => {
                     setIsReplayModalOpen({
                       isReplayModelOpen: true,
                       details: communityAnswer,
-                    })
-                  }
+                    });
+                    setCommentEditable(null);
+                    setReplyResponse("");
+                  }}
                 >
                   Add Comments
                 </div>
@@ -762,7 +807,7 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       cursor: "pointer",
                     }}
                   >
-                    Reply
+                    {commentEditable ? "Question" : "Reply"}
                   </span>
                   <div className="mt-2 mb-3">
                     <span
@@ -776,7 +821,9 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                       {" "}
                       <span
                         dangerouslySetInnerHTML={{
-                          __html: isReplayModalOpen?.details?.description,
+                          __html: commentEditable
+                            ? communityAnswer?.communityPost?.title
+                            : isReplayModalOpen?.details?.description,
                         }}
                       ></span>
                     </span>
@@ -815,7 +862,9 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                         />
                       </div>
                     </Form.Item>
-
+                    <br />
+                    <br />
+                    <br />
                     <div
                       onClick={() =>
                         handleOk(
@@ -835,10 +884,9 @@ const CommunityQuestionDetail = ({ getAllCrud, success, showAlert }) => {
                         fontWeight: 500,
                         fontFamily: "Inter",
                         fontSize: "18px",
-                        marginTop: "2.5rem",
                       }}
                     >
-                      Submit
+                      {commentEditable ? "Update" : "Submit"}
                     </div>
                   </Form>
                 </Modal>
@@ -930,6 +978,8 @@ const actionCreators = {
   createCrud: crudActions._create,
   success: alertActions.success,
   showAlert: alertActions.warning,
+  showLoader: loaderActions.show,
+  hideLoader: loaderActions.hide,
 };
 
 export default connect(
