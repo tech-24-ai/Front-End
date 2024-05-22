@@ -2371,7 +2371,9 @@
   margin: left 12px !important;
   padding: 95px!important;
   display: inline-block!important;
-
+  .ant-slider-step{
+    display: none;
+  }
  }
  .verticalSliderfirst{
   // position: unset!important;

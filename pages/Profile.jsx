@@ -457,7 +457,7 @@ const Profile = ({
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768); // Change breakpoint as needed
+      setIsMobile(window.innerWidth <= 767); // Change breakpoint as needed
     };
 
     // Initial check on mount
@@ -763,6 +763,23 @@ const Profile = ({
       height: 300,
       marginLeft: 70,
     };
+    const getMobileStyle = (currentValue) => {
+      if (currentValue < 150) {
+        return { bottom: '-62%', transform: 'translateY(50%)', backgroundColor: "rgb(0, 116, 217)" };
+      } else if (currentValue >= 150 && currentValue < 300) {
+        return { bottom: '-35%', backgroundColor: "rgb(0, 116, 217)" };
+      } else if (currentValue >= 300 && currentValue < 500) {
+        return { bottom: '-9%', backgroundColor: "rgb(0, 116, 217)" };
+      } else if (currentValue >= 500 && currentValue < 1000) {
+        return { bottom: '17%', backgroundColor: "rgb(0, 116, 217)" };
+      } else if (currentValue >= 1000 && currentValue < 2000) {
+        return { bottom: '45%', backgroundColor: "rgb(0, 116, 217)" };
+      } else if (currentValue >= 2000 && currentValue < 5000) {
+        return { bottom: '70%', backgroundColor: "rgb(0, 116, 217)" };
+      } else {
+        return { bottom: '96%', backgroundColor: "rgb(0, 116, 217)" };
+      }
+    };
 
     return (
       <div>
@@ -778,7 +795,7 @@ const Profile = ({
                 }
               }
             >
-              <p className="sliderTitle">
+              <p className="sliderTitle" style={{paddingLeft: "16px"}}>
                 Starter since {visitor_profile_levels?.[0]?.joined_at}
               </p>
               <div className="">
@@ -792,23 +809,27 @@ const Profile = ({
                       marks={topMarks}
                       disabled={true}
                       step={null}
-                      trackStyle={{ backgroundColor: "#0074D9", height: "8px" }}
+                      trackStyle={{ 
+                      display: "none"
+                        // backgroundColor: "#0074D9", height: "8px" 
+                      }}
                       railStyle={{ backgroundColor: "#EBEBF0", height: "8px" }}
                       defaultValue={currentValue}
                       style={{ left: "-45px", top: "0px" }}
+                      handleStyle={getMobileStyle(currentValue)}
                     />
                     {/* <Slider vertical range marks={Marks} defaultValue={[100]} /> */}
                     <Slider
                       handleStyle={{ display: "none" }}
                       trackStyle={{ display: "none" }}
                       railStyle={{ display: "none" }}
-                      step={null}
+                      step={{display: "none"}}
                       disabled={true}
                       className="verticalSlidertwo"
                       vertical
                       marks={bottomMarks}
                       defaultValue={currentValue}
-                      style={{ marginLeft: "150px", top: "-340px" }}
+                      style={{ marginLeft: "185px", top: "-340px" }}
                       onChange={(value) => console.log(value)}
                     />
                   </div>
