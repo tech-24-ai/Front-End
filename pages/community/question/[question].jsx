@@ -90,6 +90,7 @@ const CommunityQuestionDetail = ({
   const [communityAnswers, setCommunityAnswers] = useState();
   const [answerEditable, setAnswerEditable] = useState(null);
   const [commentEditable, setCommentEditable] = useState(null);
+  const [commentPostId, setCommentPostId] = useState(null);
   const [reportModalVisible, setReportModalVisible] = useState("");
 
   const [reportTypes, setReportTypes] = useState([]);
@@ -183,7 +184,7 @@ const CommunityQuestionDetail = ({
       crudService
         ._update("communitypostreply", answerEditable || commentEditable, {
           // parent_id: commentEditable, not required can have that later
-          community_post_id: answerEditable,
+          community_post_id: answerEditable || commentPostId,
           description: replyText,
         })
         .then((response) => {
@@ -491,8 +492,8 @@ const CommunityQuestionDetail = ({
                             isReplayModelOpen: true,
                           });
                           setCommentEditable(comment?.id);
-                          setAnswerEditable(comment?.community_post_id);
-                          // setAnswerEditable(null);
+                          setCommentPostId(comment?.community_post_id);
+                          setAnswerEditable(null);
                           setReplyResponse(comment?.description);
                         }}
                       >
@@ -515,6 +516,7 @@ const CommunityQuestionDetail = ({
                               });
                           setCommentEditable(null);
                           setAnswerEditable(null);
+                          setCommentPostId(null);
                           setReplyResponse("");
                         }}
                       >
@@ -957,6 +959,7 @@ const CommunityQuestionDetail = ({
                                   setIsModalOpen(true);
                                   setAnswerEditable(answer?.id);
                                   setCommentEditable(null);
+                                  setCommentPostId(null);
                                   setDescription(answer?.description);
                                 }}
                               >
