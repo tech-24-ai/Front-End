@@ -88,7 +88,7 @@ const CommunityQuestionDetail = ({
   });
   const [communityAnswers, setCommunityAnswers] = useState();
   const [answerEditable, setAnswerEditable] = useState(null);
-
+  const [commentEditable, setCommentEditable] = useState(null);
   const [reportModalVisible, setReportModalVisible] = useState("");
 
   const [reportTypes, setReportTypes] = useState([]);
@@ -176,17 +176,19 @@ const CommunityQuestionDetail = ({
     showLoader();
     setIsModalOpen(false);
     setIsReplayModalOpen({ isReplayModelOpen: false, details: {} });
-    if (answerEditable) {
+    if (answerEditable || commentEditable) {
       // update the question's answer
       showLoader();
       crudService
-        ._update("communitypostreply", answerEditable, {
+        ._update("communitypostreply", answerEditable || commentEditable, {
+          // parent_id: commentEditable, not required can have that later
           community_post_id: answerEditable,
-          description,
+          description: replyText,
         })
         .then((response) => {
           hideLoader();
           setAnswerEditable(null);
+          setCommentEditable(null);
           if (response.status === 200) {
             isReply
               ? setIsReplayModalOpen({ isReplayModelOpen: false, details: {} })
@@ -205,6 +207,7 @@ const CommunityQuestionDetail = ({
         .catch(() => {
           hideLoader();
           setAnswerEditable(null);
+          setCommentEditable(null);
         });
     } else {
       crudService
@@ -381,10 +384,12 @@ const CommunityQuestionDetail = ({
         visitor,
         __meta__,
         community_post_id,
+        isEditable,
       }) => {
         return {
           id,
           community_post_id,
+          isEditable,
           title: description,
           key: id,
           children: comments?.length
@@ -508,6 +513,23 @@ const CommunityQuestionDetail = ({
                         />
                         <span className="btn-title">Reply</span>
                       </div> */}
+                      {comment?.isEditable == 1 && (
+                        <div
+                          className="share-btn"
+                          onClick={(e) => {
+                            setIsReplayModalOpen({
+                              isReplayModelOpen: true,
+                            });
+                            setCommentEditable(comment?.id);
+                            setAnswerEditable(comment?.community_post_id);
+                            // setAnswerEditable(null);
+                            setReplyResponse(comment?.description);
+                          }}
+                        >
+                          <EditOutlined />
+                          <span className="btn-title">Edit</span>
+                        </div>
+                      )}
                       {comment.commentLevel < 5 && (
                         <div
                           className="reply-btn"
@@ -521,6 +543,9 @@ const CommunityQuestionDetail = ({
                                     parent_id: comment.id,
                                   },
                                 });
+                            setCommentEditable(null);
+                            setAnswerEditable(null);
+                            setReplyResponse("");
                           }}
                         >
                           <ReplyIcon /> <span className="btn-title">Reply</span>
@@ -973,6 +998,7 @@ const CommunityQuestionDetail = ({
                                 onClick={(e) => {
                                   setIsModalOpen(true);
                                   setAnswerEditable(answer?.id);
+                                  setCommentEditable(null);
                                   setDescription(answer?.description);
                                 }}
                               >
@@ -1503,7 +1529,7 @@ const CommunityQuestionDetail = ({
                             fontSize: "18px",
                           }}
                         >
-                          Submit
+                          {commentEditable ? "Update" : "Submit"}
                         </div>
                       </Form>
                     </Modal>
