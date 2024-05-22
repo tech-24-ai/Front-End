@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Image } from "antd";
 import moment from "moment";
 import Router from "next/router";
+import Link from "next/link";
 
 const ResearchCard = ({ key, data, redirectUrl = null }) => {
   const [showHoverClass, setShowHoverClass] = useState(null);
@@ -9,6 +10,13 @@ const ResearchCard = ({ key, data, redirectUrl = null }) => {
   const handleRedirect = () => {
     if (redirectUrl) {
       Router.push(redirectUrl);
+    }
+  };
+
+  const handleClick = (e) => {
+    if (data?.category?.name) {
+      e.stopPropagation();
+      Router.push("/market-research/category/" + data?.category?.name);
     }
   };
 
@@ -32,7 +40,7 @@ const ResearchCard = ({ key, data, redirectUrl = null }) => {
             alt=""
             placeholder="research banner"
           />
-          <div className="research-category">{data.category.name}</div>
+          <div className="research-category" onClick={(e) => handleClick(e)}>{data.category.name}</div>
         </div>
         <div style={{ padding: "20px" }} className="content-sections">
           <p className="research-heading">{data.name}</p>

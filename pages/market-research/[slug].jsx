@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { crudActions,userActions } from "../../_actions";
 import { connect } from "react-redux";
-import { withRouter, useRouter } from "next/router";
+import Router, { withRouter } from "next/router";
 import { Container, Button, Pagination } from "reactstrap";
 import ResearchCard from "../../components/marketResearch/ResearchCard";
 import moment from "moment";
@@ -12,6 +12,7 @@ import BodyBackgroundColor from "../../components/style/bodyBackgroundColor";
 import { BookmarkIcon } from "../../components/icons";
 
 import ShareSocialMedia from "../../components/shareSocial";
+import Link from "next/link";
 function Detail({
   getAllCrud,
   research_detail,
@@ -64,6 +65,25 @@ function Detail({
     }
   };
 
+  
+  const handleCategoryClick = () => {
+    if (research_detail?.category?.name) {
+      Router.push("/market-research/category/" + research_detail?.category?.name);
+    }
+  };
+
+  const handleTagClick = (tagName) => {
+    if (tagName) {
+      Router.push("/market-research/tags/" + tagName);
+    }
+  };
+
+  const handleTopicClick = () => {
+    if (research_detail?.category?.name) {
+      Router.push("/market-research/topic/" + research_detail?.researchTopic?.title);
+    }
+  };
+
   return (
     <section className="latest-research research-detail-section">
       <Container className="research-section">
@@ -76,9 +96,9 @@ function Detail({
         />
         <br />
         <div className="research-detail-heading">
-          <h5 className="research-title research-category-name">
+          <h5 className="research-title research-category-name hover">
             {"Category : "}
-            {research_detail?.category?.name}
+            <span onClick={() => handleCategoryClick()}>{research_detail?.category?.name}</span>
           </h5>
           <h5 className="research-title">{research_detail?.name}</h5>
           <div className="date-section">
@@ -110,9 +130,9 @@ function Detail({
               </div>
             </Fragment>
           </div>
-          <p className="date-section">
+          <p className="date-section hover">
             {"Research Topic : "}
-            {research_detail?.researchTopic?.title}
+            <span onClick={() => handleTopicClick()}>{research_detail?.researchTopic?.title}</span>
           </p>
         </div>
         {isMobile == false && (
@@ -121,7 +141,7 @@ function Detail({
               <div className="research-content-section">
                 <div className="research-tags-container">
                   {research_detail?.documentTags.map((tag) => (
-                    <div className="research-tags">{tag.name}</div>
+                    <div className="research-tags hover"><Link key={tag.name} href={`/market-research/tags/${tag.name}`}>{`#${tag.name}`}</Link></div>
                   ))}
                 </div>
                 <br />
