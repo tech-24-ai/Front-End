@@ -96,14 +96,22 @@ function Blogs({ router }) {
           height={isBrowser ? 386 : 220}
         />
         <Container className="blog-container">
-          <h4
+          <div style={{
+            display:"flex"
+          }}>
+            <h4
             className="blogTitle"
             style={{
               color: "#005dd4",
             }}
           >
-            {`Blogs (Filtered with Author : ${slugQuery.author})`}
+            {`Blogs`}
           </h4>
+          <span style={{
+              color: "#005dd4",
+              padding: 5
+            }}>{`(Filtered with Author : ${slugQuery.author})`}</span>
+          </div>
           <div
             className="result-sort"
             style={{
@@ -208,12 +216,12 @@ function Blogs({ router }) {
                           background: "#cce3f7",
                           border: "1px solid #0074d9",
                           color: "#0074d9"
-                        }}><Link href={`/blogs/category/${post.blog_topic_name.trim().toLowerCase()}`}>{post.blog_topic_name}</Link></p>
+                        }}><Link href={`/blogs/category/${post.blog_topic_name.trim()}`}>{post.blog_topic_name}</Link></p>
                         <p className="blog-heading">{post.name}</p>
                         <p className="blog-tags-container">
                           {splitBlogTags(post.details).map((tag) => (
                             <div className="blog-tags">
-                              <Link href={`/blogs/tags/${tag.trim().replace("#","").toLowerCase()}`}>
+                              <Link href={`/blogs/tags/${tag.trim().replace("#","")}`}>
                                 {tag}
                                 </Link>
                             </div>

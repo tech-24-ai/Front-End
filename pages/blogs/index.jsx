@@ -224,8 +224,7 @@ function Blogs({ router }) {
                         >
                           <Link
                             href={`/blogs/category/${post.blog_topic_name
-                              .trim()
-                              .toLowerCase()}`}
+                              .trim()}`}
                           >
                             {post.blog_topic_name}
                           </Link>
@@ -237,8 +236,7 @@ function Blogs({ router }) {
                               <Link
                                 href={`/blogs/tags/${tag
                                   .trim()
-                                  .replace("#", "")
-                                  .toLowerCase()}`}
+                                  .replace("#", "")}`}
                               >
                                 {tag}
                               </Link>
@@ -257,8 +255,7 @@ function Blogs({ router }) {
                         >
                           <Link
                             href={`/blogs/author/${post?.author
-                              .trim()
-                              .toLowerCase()}`}
+                              .trim()}`}
                           >
                             {post?.author}
                           </Link>

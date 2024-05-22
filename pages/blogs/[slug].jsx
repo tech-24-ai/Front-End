@@ -222,7 +222,7 @@ class Blog extends Component {
                       />
                       <div className="card-heading">
                         
-                        <Link href={`/blogs/category/${blog.blog_topic?.name.trim().toLowerCase()}`}>
+                        <Link href={`/blogs/category/${blog.blog_topic?.name.trim()}`}>
                         {blog.blog_topic?.name}
                           </Link>
                       </div>
@@ -235,8 +235,7 @@ class Blog extends Component {
                         {blog?.author && (
                           <div className="time">by <Link
                           href={`/blogs/author/${blog?.author
-                            .trim()
-                            .toLowerCase()}`}
+                            .trim()}`}
                         >
                           {blog?.author}
                         </Link></div>
@@ -268,7 +267,7 @@ class Blog extends Component {
                         <br />
                         <div className="blog-tags-container">
                           {splitBlogTags(blog.details).map((tag) => (
-                            <div className="blog-tags"><Link href={`/blogs/tags/${tag.trim().replace("#","").toLowerCase()}`}>{tag}</Link></div>
+                            <div className="blog-tags"><Link href={`/blogs/tags/${tag.trim().replace("#","")}`}>{tag}</Link></div>
                           ))}
                         </div>
                         <br />

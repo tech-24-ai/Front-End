@@ -96,14 +96,23 @@ function Blogs({ router }) {
           height={isBrowser ? 386 : 220}
         />
         <Container className="blog-container">
+          <div style={{
+            display: "flex"
+          }}>
           <h4
             className="blogTitle"
             style={{
               color: "#005dd4",
             }}
           >
-             {`Blogs (Filtered with Category : ${slugQuery.category})`}
+             {`Blogs`}
+       
           </h4>
+          <span style={{
+              color: "#005dd4",
+              padding: 5
+            }}>{`(Filtered with Category : ${slugQuery.category})`}</span>
+          </div>
           <div
             className="result-sort"
             style={{
@@ -213,7 +222,7 @@ function Blogs({ router }) {
                         <p className="blog-tags-container">
                           {splitBlogTags(post.details).map((tag) => (
                             <div className="blog-tags">
-                              <Link href={`/blogs/tags/${tag.trim().replace("#","").toLowerCase()}`}>
+                              <Link href={`/blogs/tags/${tag.trim().replace("#","")}`}>
                                 {tag}
                                 </Link>
                             </div>
@@ -230,8 +239,7 @@ function Blogs({ router }) {
                         >
                           <Link
                             href={`/blogs/author/${post?.author
-                              .trim()
-                              .toLowerCase()}`}
+                              .trim()}`}
                           >
                             {post?.author}
                           </Link>
