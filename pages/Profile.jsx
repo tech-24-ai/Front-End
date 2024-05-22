@@ -798,9 +798,9 @@ const Profile = ({
               <p className="sliderTitle" style={{paddingLeft: "16px"}}>
                 Starter since {visitor_profile_levels?.[0]?.joined_at}
               </p>
-              <div className="">
+              <div className="sliderAligner" style={{position: 'relative', left: "25%"}}>
                 {/* ReactDOM.render( */}
-                <div style={{ marginLeft: "50px", height: "500px" }}>
+                <div style={{ height: "500px" }}>
                   <div style={style}>
                     <Slider
                       // className="slider-one"
