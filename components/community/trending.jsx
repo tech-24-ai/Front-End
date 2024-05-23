@@ -311,14 +311,25 @@ import "slick-carousel/slick/slick-theme.css";
 import QuestionCard from "./QuestionCard";
 
 const TrendingQuestion = ({ trendingQuestions }) => {
-   const sliderRef = useRef(null);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [isInitialized, setIsInitialized] = useState(false);
+  const slider = useRef(null);
 
-  const [activeSlide, setActiveSlide] = useState(0); // State to track the active slide index
-  // const sliderRef = useRef(null); // Ref for Slider component
+  useEffect(() => {
+    if (!isInitialized) {
+      setTimeout(() => {
+        setIsInitialized(true);
+        if (slider.current) {
+          slider.current.slickGoTo(activeSlide);
+        }
+      }, 100);
+    }
+  }, [isInitialized, activeSlide]);
 
   const handleAfterChange = (currentSlide) => {
-    setActiveSlide(currentSlide); // Update active slide index
+    setActiveSlide(currentSlide);
   };
+
   return (
     <Container style={{ padding: "0" }}>
       <div className="trending-category-below">
@@ -359,11 +370,12 @@ const TrendingQuestion = ({ trendingQuestions }) => {
            
             <Slider
             //  initialSlide={0}
-            ref={sliderRef}
-            speed={500}
-            slidesToScroll={1}
-            slidesToShow={3}
-            arrows={false}
+            ref={slider}
+              speed={500}
+              slidesToScroll={1}
+              slidesToShow={3}
+              arrows={false}
+             
             responsive={[
               {
                 breakpoint: 1440,
@@ -380,29 +392,26 @@ const TrendingQuestion = ({ trendingQuestions }) => {
                 },
               },
             ]}
-            const appendDots={(dots,index) => (
-              <div>
-                <ul>
+           
+          
+            appendDots={(dots) => (
+              <ul>
                 {dots.map((dot, index) => {
-              const classNames = ['slick-dot']; // Add any additional classes here
-              
-              // Add 'slick-active' class if the index matches the activeSlide
-              if (index === activeSlide) {
-                classNames.push('slick-active');
-              }
+                      const classNames = ["slick-dot"];
 
-              return React.cloneElement(dot, {
-                className: classNames.join(' '),
-                onClick: () => sliderRef.current.slickGoTo(index),
-              });
-            })}
-                </ul>
+                      if (index === activeSlide) {
+                        classNames.push("slick-active");
+                      }
 
-                {/* <ul> {dots} </ul> */}
-              </div>
+                      return React.cloneElement(dot, {
+                        className: classNames.join(" "),
+                        onClick: () => slider.current.slickGoTo(index),
+                      });
+                    })}
+              </ul>
             )}
             afterChange={handleAfterChange}
-            initialSlide={activeSlide} // Set initial slide index
+            initialSlide={0}
           >
             {trendingQuestions?.slice(0, 5).map((data, index) => (
               <QuestionCard data={data} key={index} />

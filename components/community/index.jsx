@@ -33,11 +33,22 @@ const CommunityCategory_former = ({ data, isloggedIn, toggleLoginPopup }) => {
   const swiperRef = useRef(null);
   const counter = 7;
 
-  const [activeSlide, setActiveSlide] = useState(0); // State to track the active slide index
-  // const slider = useRef(null); // Ref for Slider component
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  useEffect(() => {
+    if (!isInitialized) {
+      setTimeout(() => {
+        setIsInitialized(true);
+        if (slider.current) {
+          slider.current.slickGoTo(activeSlide);
+        }
+      }, 100);
+    }
+  }, [isInitialized, activeSlide]);
 
   const handleAfterChange = (currentSlide) => {
-    setActiveSlide(currentSlide); // Update active slide index
+    setActiveSlide(currentSlide);
   };
 
   useEffect(() => {
@@ -186,24 +197,23 @@ const CommunityCategory_former = ({ data, isloggedIn, toggleLoginPopup }) => {
               appendDots={(dots, index) => (
                 <div>
                    <ul>
-                      {dots.map((dot, index) => {
-                    const classNames = ['slick-dot']; // Add any additional classes here
-                    
-                    // Add 'slick-active' class if the index matches the activeSlide
-                    if (index === activeSlide) {
-                      classNames.push('slick-active');
-                    }
+                {dots.map((dot, index) => {
+                      const classNames = ["slick-dot"];
 
-                    return React.cloneElement(dot, {
-                      className: classNames.join(' '),
-                      onClick: () => slider.current.slickGoTo(index),
-                    });
-                  })}
-                </ul>
+                      if (index === activeSlide) {
+                        classNames.push("slick-active");
+                      }
+
+                      return React.cloneElement(dot, {
+                        className: classNames.join(" "),
+                        onClick: () => slider.current.slickGoTo(index),
+                      });
+                    })}
+              </ul>
                 </div>
               )}
               afterChange={handleAfterChange}
-              initialSlide={activeSlide} // Set initial slide index
+            initialSlide={0}
             >
               {data?.map((data, index) => (
                 <CommunityCard data={data} key={index} />
