@@ -44,6 +44,7 @@ import { isMobile } from "react-device-detect";
 import QuestionTab from "../../components/community/QuestionTab";
 import profile_img from "../../public/new_images/profile.svg";
 import { calculateDateTime } from "../../_global";
+import NoContent from "../../components/notFound/noContent";
 
 const CommunityDetail = ({
   getAllCrud,
@@ -344,17 +345,7 @@ const CommunityDetail = ({
               </li>
             ))
           ) : (
-            <p
-              style={{
-                fontWeight: "400",
-                fontSize: "14px",
-                color: "#54616C",
-                textAlign: "center",
-                padding: "10px",
-              }}
-            >
-              No Data Available
-            </p>
+            <NoContent />
           )}
         </ul>
       </div>

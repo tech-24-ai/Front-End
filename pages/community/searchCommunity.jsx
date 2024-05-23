@@ -20,6 +20,7 @@ import myImageLoader from "../../components/imageLoader";
 import Image from "next/future/image";
 import SearchInput from "../../components/form/searchInput";
 import { calculateDateTime } from "../../_global";
+import NotFound from "../../components/notFound";
 const sorting_icon = "../../new_images/sorting_icon.svg";
 
 const Community = ({ router }) => {
@@ -301,17 +302,18 @@ const Community = ({ router }) => {
             )}
           </div>
           {noDataFound ? (
-            <div className="no-data-found">
-              <h4
-                style={{
-                  textAlign: "center",
-                  padding: "25px",
-                  color: "#afafaf",
-                }}
-              >
-                No data found
-              </h4>
-            </div>
+            // <div className="no-data-found">
+            //   <h4
+            //     style={{
+            //       textAlign: "center",
+            //       padding: "25px",
+            //       color: "#afafaf",
+            //     }}
+            //   >
+            //     No data found
+            //   </h4>
+            // </div>
+            <NotFound />
           ) : (
             <div className="cards-container">
               {communityFeature.length > 0 &&

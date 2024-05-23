@@ -17,6 +17,7 @@ import ReactPaginate from "react-paginate-next";
 import CommunityCategory from "../../components/community/index";
 import CustomPagination from "../../components/pagination";
 import SearchInput from "../../components/form/searchInput";
+import NotFound from "../../components/notFound";
 
 
 const Community = ({ router }) => {
@@ -54,7 +55,7 @@ const Community = ({ router }) => {
       console.error("Error fetching data:", error);
     }
   };
- 
+
 
   //Filter
   const handleSearch = () => {
@@ -81,7 +82,7 @@ const Community = ({ router }) => {
     query: "",
     tag: "",
   });
- 
+
   const communityDetails = (data) => {
     Router.push(data?.url_slug);
   };
@@ -91,7 +92,7 @@ const Community = ({ router }) => {
       ._create("community/join", { community_id })
       .then(() => window.location.reload());
   };
- 
+
 
   const accordionItemStyle = {
     borderBottom: "1px solid #ccc",
@@ -160,7 +161,7 @@ const Community = ({ router }) => {
                     fontSize: "14px",
                   }}
                 >
-                  All Discussion Groups 
+                  All Discussion Groups
                 </span>
               </h4>
             </div>
@@ -259,86 +260,87 @@ const Community = ({ router }) => {
                 </div>
               </div>
               <div className="mt-4 content-card-display">
-                {communityFeature.map((item, index) => (
-                  <div
-                    className="community-category-below community-category-mobile"
-                    style={{
-                      marginTop: "-1rem",
-                      height: "280px",
-                      paddingRight: "0px",
-                      flex: "0 0 calc(50%  - 20px)",
-                    }}
-                  >
-                    <div className="category-box">
-                      <div
-                        className="category-banner-wrapper"
-                        id="categoryWrapper"
-                      >
-                        <div className="category-banner-block">
-                          <div
-                            className="category-banner"
-                            style={{ height: "220px" }}
-                          >
-                            <div className="category-content">
-                              <div
-                                className="content-header"
-                                onClick={() => communityDetails(item)}
-                              >
-                                <div className="icon-bg">
-                                  <img
-                                    src={item.image_url}
-                                    style={{ borderRadius: "4.8px" }}
-                                    alt={item.name}
-                                    width={48}
-                                    height={48}
-                                    className="icon-image"
-                                  />
+                {communityFeature && communityFeature?.length > 0 ? (
+                  communityFeature.map((item, index) => (
+                    <div
+                      className="community-category-below community-category-mobile"
+                      style={{
+                        marginTop: "-1rem",
+                        height: "280px",
+                        paddingRight: "0px",
+                        flex: "0 0 calc(50%  - 20px)",
+                      }}
+                    >
+                      <div className="category-box">
+                        <div
+                          className="category-banner-wrapper"
+                          id="categoryWrapper"
+                        >
+                          <div className="category-banner-block">
+                            <div
+                              className="category-banner"
+                              style={{ height: "220px" }}
+                            >
+                              <div className="category-content">
+                                <div
+                                  className="content-header"
+                                  onClick={() => communityDetails(item)}
+                                >
+                                  <div className="icon-bg">
+                                    <img
+                                      src={item.image_url}
+                                      style={{ borderRadius: "4.8px" }}
+                                      alt={item.name}
+                                      width={48}
+                                      height={48}
+                                      className="icon-image"
+                                    />
+                                  </div>
+                                  <div
+                                    className="category-text"
+                                    style={{ maxWidth: "70%" }}
+                                  >
+                                    <h6>{item.name}</h6>
+                                  </div>
                                 </div>
                                 <div
-                                  className="category-text"
-                                  style={{ maxWidth: "70%" }}
+                                  className="card-body"
+                                  style={{ paddingTop: "12px" }}
+                                  onClick={() => communityDetails(item)}
                                 >
-                                  <h6>{item.name}</h6>
-                                </div>
-                              </div>
-                              <div
-                                className="card-body"
-                                style={{ paddingTop: "12px" }}
-                                onClick={() => communityDetails(item)}
-                              >
-                                <p class="card-description">
-                                  {item.description}
-                                </p>
-                                <div className="content-x">
-                                  <div className="user-icon">
-                                    <p>
-                                      <EyeOutlined
-                                        style={{
-                                          fontSize: "16px",
-                                          verticalAlign: "0.04em",
-                                        }}
-                                      />{" "}
-                                      Answers :{" "}
-                                      {item?.__meta__?.total_post_reply}
-                                    </p>
-                                  </div>
-                                  <div className="query-icon">
-                                    <p>
-                                      <MessageOutlined
-                                        style={{
-                                          fontSize: "16px",
-                                          verticalAlign: "0.04em",
-                                        }}
-                                      />{" "}
-                                      Queries : {item?.__meta__?.total_posts}
-                                    </p>
+                                  <p class="card-description">
+                                    {item.description}
+                                  </p>
+                                  <div className="content-x">
+                                    <div className="user-icon">
+                                      <p>
+                                        <EyeOutlined
+                                          style={{
+                                            fontSize: "16px",
+                                            verticalAlign: "0.04em",
+                                          }}
+                                        />{" "}
+                                        Answers :{" "}
+                                        {item?.__meta__?.total_post_reply}
+                                      </p>
+                                    </div>
+                                    <div className="query-icon">
+                                      <p>
+                                        <MessageOutlined
+                                          style={{
+                                            fontSize: "16px",
+                                            verticalAlign: "0.04em",
+                                          }}
+                                        />{" "}
+                                        Queries : {item?.__meta__?.total_posts}
+                                      </p>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                              {/* <hr class="dotted-hr"></hr> */}
-                              {/* <hr className="dashed" /> */}
+                                {/* <hr class="dotted-hr"></hr> */}
+                                {/* <hr className="dashed" /> */}
 
-                              {/* <div className="learn-more-box-ac">
+                                {/* <div className="learn-more-box-ac">
                                                                 {item.communityMember.length === 0 ? (
                                                                     <Button className="btn-box"
                                                                         onClick={() => joinCommunity(item.id)}
@@ -358,13 +360,16 @@ const Community = ({ router }) => {
                                                                     </p>
                                                                 )}
                                                             </div> */}
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                ) : (
+                  <NotFound />
+                )}
               </div>
             </div>
           </div>

@@ -13,6 +13,7 @@ import CustomPagination from "../../components/pagination";
 import SearchInput from "../../components/form/searchInput";
 import { wrappReadMinute } from "../../_global";
 import myImageLoader from "../../components/imageLoader";
+import NotFound from "../../components/notFound";
 const shorting_icon = "../../new_images/sorting_icon.svg";
 // import ReactPaginate from "react-paginate-next";
 const blogBannerImage = "../../images/blog_banner.jpg";
@@ -281,19 +282,7 @@ function Blogs({ router }) {
               ))}
             </div>
           ) : (
-            <p
-              style={{
-                fontWeight: "400",
-                fontSize: "14px",
-                color: "#54616C",
-                textAlign: "center",
-                padding: "10px",
-                width: "100%",
-                textAlign: "center",
-              }}
-            >
-              No Data Available
-            </p>
+            <NotFound />
           )}
 
           <br></br>

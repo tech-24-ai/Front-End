@@ -19,6 +19,7 @@ import BlogComponent from "../components/blog/BlogComponent";
 import LatestBlog from "../components/blog/LatestBlog";
 import CommunityCard from "../components/community/CommunityCard";
 import BlogCard from "../components/blog/BlogCard";
+import NotFound from "../components/notFound";
 
 const SearchList = ({ router }) => {
     const { q } = Router.query;
@@ -61,7 +62,7 @@ const SearchList = ({ router }) => {
         };
     }, [screenSize]);
 
- 
+
     const categoryTypeOptions = [
         {
             value: "market_research",
@@ -76,7 +77,7 @@ const SearchList = ({ router }) => {
             label: "Blogs",
         },
     ];
-    
+
 
     const handleOptionChange = ({ name, value }) => {
         setFilteredData((prevState) => ({ ...prevState, [name]: value }));
@@ -103,7 +104,7 @@ const SearchList = ({ router }) => {
             options: categoryTypeOptions,
             value: filteredData["category_type"],
         }
-       
+
     ];
 
     useEffect(() => {
@@ -190,7 +191,7 @@ const SearchList = ({ router }) => {
         fetchData(filteredData["category_type"]);
     }, [page, searchQuery, filteredData, sortBy, filteredData["category_type"]]);
 
-  
+
     return (
         <section className="search-list-section mt-4">
             <Container>
@@ -253,33 +254,36 @@ const SearchList = ({ router }) => {
                             </div>
                         </div>
                         <div className="mt-3 content-card-display content-card-mobile latest-research">
-                            <div className="research-section">
-                               
-                                {(filteredData["category_type"] === "market_research" && researchData) &&
-                                    researchData.map((item, index) => (
-                                        <ResearchCard
-                                            data={item}
-                                            key={index}
-                                            redirectUrl={`/market-research/${item.seo_url_slug}`}
-                                        />
-                                    ))}
-                                {(filteredData["category_type"] === "community" && communityData) &&
-                                    communityData.map((item, index) => (
-                                        <CommunityCard
-                                            data={item}
-                                            key={index}
-                                            redirectUrl={`/community/${item.url_slug}`}
-                                        />
-                                    ))}
-                                {(filteredData["category_type"] === "blogs" && blogsData && blogsData?.length > 0) &&
-                                    blogsData.map((item, index) => (
-                                        <BlogCard
-                                            data={item}
-                                            key={index}
-                                            redirectUrl={`/blogs/${item.slug}`}
-                                        />
-                                    ))}
-                            </div>
+
+                            {blogsData?.length > 0 || communityData?.length > 0 || researchData?.length > 0 ? (
+                                <div className="research-section">
+                                    {(filteredData["category_type"] === "market_research" && researchData) &&
+                                        researchData.map((item, index) => (
+                                            <ResearchCard
+                                                data={item}
+                                                key={index}
+                                                redirectUrl={`/market-research/${item.seo_url_slug}`}
+                                            />
+                                        ))}
+                                    {(filteredData["category_type"] === "community" && communityData) &&
+                                        communityData.map((item, index) => (
+                                            <CommunityCard
+                                                data={item}
+                                                key={index}
+                                                redirectUrl={`/community/${item.url_slug}`}
+                                            />
+                                        ))}
+                                    {(filteredData["category_type"] === "blogs" && blogsData && blogsData?.length > 0) &&
+                                        blogsData.map((item, index) => (
+                                            <BlogCard
+                                                data={item}
+                                                key={index}
+                                                redirectUrl={`/blogs/${item.slug}`}
+                                            />
+                                        ))}
+                                </div>
+                            ) :
+                                (<NotFound />)}
                             <div className="mt-5" style={{ width: "100%" }}>
                                 {researchData?.length > 0 || blogsData?.length > 0 && pageCount > 1 && (
                                     <CustomPagination

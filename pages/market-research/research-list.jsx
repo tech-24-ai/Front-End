@@ -15,6 +15,7 @@ import CustomPagination from "../../components/pagination";
 import FilterOptionContainer from "../../components/marketResearch/FilterOptionContainer";
 //import { isMobile } from "react-device-detect";
 import { checkDeviceTyepe } from "../../utils/cookie";
+import NotFound from "../../components/notFound";
 
 const ResearchList = ({ router }) => {
   const { q } = Router.query;
@@ -279,6 +280,7 @@ const ResearchList = ({ router }) => {
               </div>
             </div>
             <div className="mt-3 content-card-display content-card-mobile latest-research ">
+              {researchData?.length > 0 ? (
               <div className="research-section">
                 {researchData?.map((item, index) => (
                   <ResearchCard
@@ -286,8 +288,11 @@ const ResearchList = ({ router }) => {
                     key={index}
                     redirectUrl={`/market-research/${item.seo_url_slug}`}
                   />
-                ))}
+                ))} 
               </div>
+              ) : (
+                <NotFound />
+              )}
               <div className="mt-5" style={{ width: "100%" }}>
                 {researchData?.length > 0 && pageCount > 1 && (
                   <CustomPagination

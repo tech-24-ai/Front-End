@@ -46,6 +46,7 @@ import { isMobile } from "react-device-detect";
 import SearchInput from "../form/searchInput";
 import Image from "next/future/image";
 import { calculateDateTime } from "../../_global";
+import NotFound from "../notFound";
 
 const QuestionTab = ({
   getAllCrud,
@@ -574,7 +575,7 @@ const QuestionTab = ({
       )}
 
       <div className="cards-container">
-        {communityDetails?.data?.map((data) => (
+        {communityDetails?.data?.length > 0 ? ( communityDetails?.data?.map((data) => (
           <Card
             bordered={true}
             style={{
@@ -744,7 +745,7 @@ const QuestionTab = ({
                 </div>
               </div> */}
           </Card>
-        ))}
+        ))) : <NotFound />}
       </div>
       <br></br>
       <div className="mt-5" style={{ width: "100%" }}>
