@@ -1,6 +1,12 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useMemo, Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 import { RightOutlined } from "@ant-design/icons";
+
+import
+{ Tooltip }
+from
+"antd"
+;
 import {
   Tabs,
   Card,
@@ -27,6 +33,7 @@ import {
   DownOutlined,
   SortAscendingOutlined,
   SortDescendingOutlined,
+  InfoCircleOutlined,
 } from "@ant-design/icons";
 import {
   SearchOutlined,
@@ -781,6 +788,22 @@ const Profile = ({
       }
     };
 
+    const [arrow, setArrow] = useState('Show');
+
+    const mergedArrow = useMemo(() => {
+    if (arrow === 'Hide') {
+    return false;
+    }
+
+    if (arrow === 'Show') {
+    return true;
+    }
+
+    return {
+    pointAtCenter: true,
+    };
+    }, [arrow]);
+
     return (
       <div>
         {/* Content for mobile view */}
@@ -836,54 +859,41 @@ const Profile = ({
                 </div>
                 {/* ,mountNode, */}
               </div>
-              <div className="level-calculation" style={{ marginTop: "60px" }}>
+              <div className="level-calculation">
                 <div>
-                  <p>
-                    {visitor_profile_levels?.[0]?.total_points_earned}
-                    <span>Points</span>
-                  </p>
+                <Tooltip className="levelToolTop" placement="top"  title={
+                      <div>
+                        <div className="text-center">
+                        <span>
+                          You earn points for various activities: 1 point for submitting
+                          a question, 1 point for each upvote, 2 points for providing an
+                          answer, and 3 points if your answer is marked as correct.
+                        </span>
+                        <br />
+                        <span>
+                          Once your total points surpass the limit of your current
+                          level, you will be promoted to the next level. For instance,
+                          reaching 150 points will advance you to Level 1 (New Bee).
+                        </span>
+                      </div>
+                      </div>
+                    } 
+                    arrow
+                    overlayStyle={{ maxWidth: "35vw" }} // Set maximum width as 80% of viewport width
+                    
+                    >
+                        <p>  {visitor_profile_levels?.[0]?.total_points_earned} </p><span className="ml-2" style={{fontSize:"18px",fontWeight:"800px",marginTop:"42px"}}>Points</span> <span className="ml-2" style={{fontSize:"20px",marginTop:"45px"}}><InfoCircleOutlined /></span>
+                      </Tooltip>
                 </div>
-                {/* <div>
-                <h6>
-                      Submit Question = {visitor_profile_levels?.[0]?.submit_que_point_info}{" "}
-                      point
-                    </h6>
-                    <div className="custom-border"></div>
-                    <h6>
-                      Upvote = {visitor_profile_levels?.[0]?.upvote_point_info}{" "}
-                      point
-                    </h6>
-                    <div className="custom-border"></div>
-                    <h6>
-                      Answer = {visitor_profile_levels?.[0]?.answer_point_info}{" "}
-                      point
-                    </h6>
-                   
-                    <div className="custom-border"></div>
-                    <h6>
-                      Correct Answer = {visitor_profile_levels?.[0]?.correct_answer_point_info}{" "}
-                      point
-                    </h6>
-                </div> */}
+               
               </div>
-              <div className="text-center">
-                <span>
-                  You earn points for various activities: 1 point for submitting
-                  a question, 1 point for each upvote, 2 points for providing an
-                  answer, and 3 points if your answer is marked as correct.
-                </span>
-                <br />
-                <span>
-                  Once your total points surpass the limit of your current
-                  level, you will be promoted to the next level. For instance,
-                  reaching 150 points will advance you to Level 1 (New Bee).
-                </span>
-              </div>
+            
             </Card>
           </div>
         )}
 
         {/* Content for desktop view */}
+        
         {!isMobile && (
           <div className="desktop-view">
             <div className="levels-tab-container">
@@ -930,49 +940,36 @@ const Profile = ({
                   />
                 </div>
                 <div className="level-calculation">
-                  <div>
-                    <p>
-                      {visitor_profile_levels?.[0]?.total_points_earned}
-                      <span>Points</span>
-                    </p>
-                  </div>
-                  {/* <div>
-                  <h6>
-                      Submit Question = {visitor_profile_levels?.[0]?.submit_que_point_info}{" "}
-                      point
-                    </h6>
-                    <div className="custom-border"></div>
-                    <h6>
-                      Upvote = {visitor_profile_levels?.[0]?.upvote_point_info}{" "}
-                      point
-                    </h6>
-                    <div className="custom-border"></div>
-                    <h6>
-                      Answer = {visitor_profile_levels?.[0]?.answer_point_info}{" "}
-                      point
-                    </h6>
+                  <div >
+                  
                    
-                    <div className="custom-border"></div>
-                    <h6>
-                      Correct Answer = {visitor_profile_levels?.[0]?.correct_answer_point_info}{" "}
-                      point
-                    </h6>
-                  </div> */}
+                    <Tooltip className="levelToolTop" placement="top"  title={
+                      <div>
+                        <div className="text-center">
+                        <span>
+                          You earn points for various activities: 1 point for submitting
+                          a question, 1 point for each upvote, 2 points for providing an
+                          answer, and 3 points if your answer is marked as correct.
+                        </span>
+                        <br />
+                        <span>
+                          Once your total points surpass the limit of your current
+                          level, you will be promoted to the next level. For instance,
+                          reaching 150 points will advance you to Level 1 (New Bee).
+                        </span>
+                      </div>
+                      </div>
+                    } 
+                    arrow
+                    overlayStyle={{ maxWidth: "35vw" }} // Set maximum width as 80% of viewport width
+                    
+                    >
+                        <p>  {visitor_profile_levels?.[0]?.total_points_earned} </p><span className="ml-2" style={{fontSize:"18px",fontWeight:"800px",marginTop:"42px"}}>Points</span> <span className="ml-2" style={{fontSize:"20px",marginTop:"45px"}}><InfoCircleOutlined /></span>
+                      </Tooltip>
+                  </div>
+                
                 </div>
-                <div className="text-center">
-                  <span>
-                    You earn points for various activities: 1 point for
-                    submitting a question, 1 point for each upvote, 2 points for
-                    providing an answer, and 3 points if your answer is marked
-                    as correct.
-                  </span>
-                  <br />
-                  <span>
-                    Once your total points surpass the limit of your current
-                    level, you will be promoted to the next level. For instance,
-                    reaching 150 points will advance you to Level 1 (New Bee).
-                  </span>
-                </div>
+              
               </Card>
             </div>
           </div>
