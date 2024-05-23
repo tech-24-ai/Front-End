@@ -3,7 +3,7 @@ import { NotFoundIcon } from "../icons";
 
 const NotFound = ({ children }) => {
   return (
-    <div className="no-result-found-section" style={{ margin: "0 auto" }}>
+    <div className="no-result-found-section" style={{ margin: "20px auto" }}>
       <NotFoundIcon />
       <h5 className="title">No result found</h5>
       {/* <p className="message">We can't find any item matching your search</p> */}
