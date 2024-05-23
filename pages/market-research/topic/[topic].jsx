@@ -239,10 +239,16 @@ const CategoryResearchList = ({ router }) => {
           </div>
           <div className="content-wrap">
             <div className="result-sort">
-              <div className="results">Results <span style={{
-              fontSize:14,
-              padding: 5
-            }}>{`(Filtered with Topic : ${slugQuery.topic})`}</span>: {researchData?.length}</div>
+              <div className="results">
+                Results{" "}
+                <span
+                  style={{
+                    fontSize: 14,
+                    padding: 5,
+                  }}
+                >{`(Filtered with Topic : ${slugQuery.topic})`} : {researchData?.length}</span>
+                
+              </div>
               <div className="sorting mobile-display-n">
                 <label className="sortby" htmlFor="sortDropdown">
                   Sort By:{" "}

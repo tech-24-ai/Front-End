@@ -96,9 +96,12 @@ function Detail({
         />
         <br />
         <div className="research-detail-heading">
-          <h5 className="research-title research-category-name hover">
+          <h5
+            className="research-title research-category-name hover"
+            onClick={() => handleCategoryClick()}
+          >
             {"Category : "}
-            <span onClick={() => handleCategoryClick()}>{research_detail?.category?.name}</span>
+            <span>{research_detail?.category?.name}</span>
           </h5>
           <h5 className="research-title">{research_detail?.name}</h5>
           <div className="date-section">
@@ -130,9 +133,9 @@ function Detail({
               </div>
             </Fragment>
           </div>
-          <p className="date-section hover">
+          <p className="date-section hover" onClick={() => handleTopicClick()}>
             {"Research Topic : "}
-            <span onClick={() => handleTopicClick()}>{research_detail?.researchTopic?.title}</span>
+            <span>{research_detail?.researchTopic?.title}</span>
           </p>
         </div>
         {isMobile == false && (
@@ -141,7 +144,14 @@ function Detail({
               <div className="research-content-section">
                 <div className="research-tags-container">
                   {research_detail?.documentTags.map((tag) => (
-                    <div className="research-tags hover"><Link key={tag.name} href={`/market-research/tags/${tag.name}`}>{`#${tag.name}`}</Link></div>
+                    <Link
+                      key={tag.name}
+                      href={`/market-research/tags/${tag.name}`}
+                    >
+                      <div className="research-tags hover" style={{
+                        color:"#0074d9"
+                      }}>{`#${tag.name}`}</div>
+                    </Link>
                   ))}
                 </div>
                 <br />

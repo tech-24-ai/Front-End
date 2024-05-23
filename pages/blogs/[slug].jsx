@@ -220,12 +220,14 @@ class Blog extends Component {
                           borderTopLeftRadius: "10px",
                         }}
                       />
-                      <div className="card-heading">
 
-                        <Link href={`/blogs/category/${blog.blog_topic?.name.trim()}`}>
+                      <Link
+                        href={`/blogs/category/${blog.blog_topic?.name.trim()}`}
+                      >
+                        <div className="card-heading hover">
                           {blog.blog_topic?.name}
-                        </Link>
-                      </div>
+                        </div>
+                      </Link>
 
                       <div className="inner-text-container">
                         <div>
@@ -233,12 +235,18 @@ class Blog extends Component {
                         </div>
 
                         {blog?.author && (
-                          <div className="time">by <Link
-                            href={`/blogs/author/${blog?.author
-                              .trim()}`}
-                          >
-                            {blog?.author}
-                          </Link></div>
+                          <Link href={`/blogs/author/${blog?.author.trim()}`}>
+                            <div className="time hover">
+                              by{" "}
+                              <span
+                                style={{
+                                  color: "#0074d9",
+                                }}
+                              >
+                                {blog?.author}
+                              </span>
+                            </div>
+                          </Link>
                         )}
                         <div className="date-section">
                           <ClockCircleOutlined />
@@ -253,7 +261,6 @@ class Blog extends Component {
 
                         <br />
                         <div>
-
                           <div
                             dangerouslySetInnerHTML={{
                               __html: editorData,
@@ -266,9 +273,8 @@ class Blog extends Component {
                         </div>
                         <br />
                         <div className="blog-tags-container">
-
                           {splitBlogTags(blog.details).map((tag) => (
-                            <div className="blog-tags">
+                            <div className="blog-tags hover">
                               <Link
                                 href={`/blogs/tags/${tag
                                   .trim()
@@ -361,44 +367,61 @@ class Blog extends Component {
                                       e.target.style.transform = "scale(1)"; // Zoom out on mouse out
                                     }}
                                   />
-                                  <p className="card-heading">
-                                    <Link href={`/blogs/category/${blog.blog_topic?.name.trim()}`}>
-                                      {blog.blog_topic?.name}
-                                    </Link>
-                                  </p>
+
+                                  <Link
+                                    href={`/blogs/category/${blogs.blog_topic?.name.trim()}`}
+                                  >
+                                    <p className="card-heading">
+                                      {blogs.blog_topic?.name}
+                                    </p>
+                                  </Link>
 
                                   <p className="blogs-card-body">
                                     {blogs.name}
                                   </p>
-                                  <p className="blog-detail">
-                                    {splitBlogTags(blog.details).map((tag) => (
+                                  <p className="blog-tags-container">
+                                    {splitBlogTags(blogs.details).map((tag) => (
                                       <Link
                                         href={`/blogs/tags/${tag
                                           .trim()
                                           .replace("#", "")}`}
                                       >
-                                        {tag}
+                                       <div className="blog-tags hover" style={{
+                                        color: "#0074d9",
+                                       }}> {tag}</div>
                                       </Link>
                                     ))}
                                   </p>
                                 </div>
-                                <div className="date-section" style={{ flexDirection: 'column', justifyContent: "flex-start", alignItems: "flex-start" }}>
-                                  <div
-                                    className="time"
-                                    style={{
-                                      fontWeight: 400,
-                                      fontSize: "17px",
-                                      color: "#001622",
-                                    }}
+                                <div
+                                  className="date-section"
+                                  style={{
+                                    flexDirection: "column",
+                                    justifyContent: "flex-start",
+                                    alignItems: "flex-start",
+                                  }}
+                                >
+                                  <Link
+                                    href={`/blogs/author/${blogs?.author.trim()}`}
                                   >
-                                    <Link
-                                      href={`/blogs/author/${blogs?.author
-                                        .trim()}`}
+                                    <div
+                                      className="time"
+                                      style={{
+                                        fontWeight: 400,
+                                        fontSize: "17px",
+                                        color: "#0074d9",
+                                      }}
                                     >
                                       {blogs?.author}
-                                    </Link>
-                                  </div>
-                                  <div style={{ display: "flex", alignItems: "center" }}>
+                                    </div>
+                                  </Link>
+
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      alignItems: "center",
+                                    }}
+                                  >
                                     <div className="date">
                                       {moment(blogs.created_at).format("LL")}
                                     </div>
@@ -408,17 +431,6 @@ class Blog extends Component {
                                     </div>
                                   </div>
                                 </div>
-                                {/* <div className="date-section">
-                                  <div className="date">
-                                    {moment(blogs.created_at).format("LL")}
-                                  </div>
-                                  
-                                  <div className="time">
-                                    {wrappReadMinute(blogs?.read_time)}
-                                  </div>
-                                 
-                                  <div className="time">{blogs?.author}</div>
-                                </div> */}
                               </div>
                             </div>
                           </Link>

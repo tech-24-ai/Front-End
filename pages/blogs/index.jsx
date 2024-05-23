@@ -214,52 +214,56 @@ function Blogs({ router }) {
                             e.target.style.transform = "scale(1)";
                           }}
                         />
-                        <p
-                          className="category bg"
-                          style={{
-                            background: "#cce3f7",
-                            border: "1px solid #0074d9",
-                            color: "#0074d9",
-                          }}
+
+                        <Link
+                          href={`/blogs/category/${post.blog_topic_name.trim()}`}
                         >
-                          <Link
-                            href={`/blogs/category/${post.blog_topic_name
-                              .trim()}`}
+                          <p
+                            className="category bg"
+                            style={{
+                              background: "#cce3f7",
+                              border: "1px solid #0074d9",
+                              color: "#0074d9",
+                            }}
                           >
                             {post.blog_topic_name}
-                          </Link>
-                        </p>
+                          </p>
+                        </Link>
+
                         <p className="blog-heading">{post.name}</p>
                         <p className="blog-tags-container">
                           {splitBlogTags(post.details).map((tag) => (
-                            <div className="blog-tags">
-                              <Link
-                                href={`/blogs/tags/${tag
-                                  .trim()
-                                  .replace("#", "")}`}
+                            <Link
+                              href={`/blogs/tags/${tag
+                                .trim()
+                                .replace("#", "")}`}
+                            >
+                              <div
+                                className="blog-tags"
+                                style={{
+                                  color: "#0074d9",
+                                }}
                               >
                                 {tag}
-                              </Link>
-                            </div>
+                              </div>
+                            </Link>
                           ))}
                         </p>
                       </div>
                       <div className="date-section">
-                        <div
-                          className="time"
-                          style={{
-                            fontWeight: 400,
-                            fontSize: "17px",
-                            color: "#001622",
-                          }}
-                        >
-                          <Link
-                            href={`/blogs/author/${post?.author
-                              .trim()}`}
+                        <Link href={`/blogs/author/${post?.author.trim()}`}>
+                          <div
+                            className="time"
+                            style={{
+                              fontWeight: 400,
+                              fontSize: "17px",
+                              color: "#0074d9",
+                            }}
                           >
                             {post?.author}
-                          </Link>
-                        </div>
+                          </div>
+                        </Link>
+
                         <div style={{ display: "flex", alignItems: "center" }}>
                           <div className="date">
                             {moment(post.created_at).format("LL")}

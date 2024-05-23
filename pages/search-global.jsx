@@ -69,7 +69,7 @@ const SearchList = ({ router }) => {
         },
         {
             value: "community",
-            label: "Community",
+            label: "Discussion Groups",
         },
         {
             value: "blogs",
