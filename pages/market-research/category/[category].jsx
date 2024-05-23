@@ -240,7 +240,7 @@ const CategoryResearchList = ({ router }) => {
           <div className="content-wrap">
             <div className="result-sort">
               <div className="results">Results<span style={{
-              fontSize:14,
+              fontSize:13,
               padding: 5
             }}>{`(Filtered with Category : ${slugQuery.category})`}: {researchData?.length}</span></div>
               <div className="sorting mobile-display-n">

@@ -134,8 +134,8 @@ function Detail({
             </Fragment>
           </div>
           <p className="date-section hover" onClick={() => handleTopicClick()}>
-            {"Research Topic : "}
-            <span>{research_detail?.researchTopic?.title}</span>
+            {`Research Topic : ${research_detail?.researchTopic?.title}`}
+            
           </p>
         </div>
         {isMobile == false && (
