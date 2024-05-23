@@ -103,68 +103,71 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
           >
             {blogs?.slice(0, 3).map((data, index) => (
               <Link href={`/blogs/${data.slug}`} key={index}>
-              <div
-                // onClick={() => Router.push(`/blogs/${data.slug}`)}
-                onMouseOver={() => setShowHoverClass(index)}
-                onMouseOut={() => setShowHoverClass(null)}
-                style={{
-                  width: "100%"
-                }}
-                className={`blog-list ${
-                  showHoverClass === index ? "showHoverClass" : ""
-                }`}
-              >
                 <div
-                  className="blog-card"
+                  // onClick={() => Router.push(`/blogs/${data.slug}`)}
+                  onMouseOver={() => setShowHoverClass(index)}
+                  onMouseOut={() => setShowHoverClass(null)}
                   style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    height: "100%",
-                    justifyContent: "space-between",
-                    minHeight: "495px"
+                    width: "100%",
                   }}
+                  className={`blog-list ${
+                    showHoverClass === index ? "showHoverClass" : ""
+                  }`}
                 >
-                  <div>
-                    <Image
-                      // width={350}
-                      // height={210}
-                      src={data.image}
-                      preview={false}
-                      alt=""
-                      placeholder="blog banner"
-                      className="latest-blog-list-img"
-                    />
-                    <p className="category bg">
-                    <Link href={`/blogs/category/${data.blog_topic_name.trim()}`}>
-                        {data?.blog_topic_name}
-                          </Link>
-                          </p>
-                    <p className="blog-heading">{data.name}</p>
-                    <p className="blog-tags-container">
-                          {splitBlogTags(data?.details).map((tag) => (
-                            <div className="blog-tags">
-                              <Link href={`/blogs/tags/${tag.trim().replace("#","")}`}>
-                                {tag}
-                                </Link>
-                            </div>
-                          ))}</p>
-                  </div>
-                    <div className="date-section" style={{display: 'block'}}>
-                      <div
-                        className="time"
-                        style={{
-                          fontWeight: 400,
-                          fontSize: "17px",
-                          color: "#001622",
-                        }}
+                  <div
+                    className="blog-card"
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      height: "100%",
+                      justifyContent: "space-between",
+                      minHeight: "495px",
+                    }}
+                  >
+                    <div>
+                      <Image
+                        // width={350}
+                        // height={210}
+                        src={data.image}
+                        preview={false}
+                        alt=""
+                        placeholder="blog banner"
+                        className="latest-blog-list-img"
+                      />
+
+                      <Link
+                        href={`/blogs/category/${data.blog_topic_name.trim()}`}
                       >
-                        <Link
-                          href={`/blogs/author/${data?.author
-                            .trim()}`}
+                        <p className="category bg">{data?.blog_topic_name}</p>
+                      </Link>
+
+                      <p className="blog-heading">{data.name}</p>
+                      <p className="blog-tags-container">
+                        {splitBlogTags(data?.details).map((tag) => (
+                          <Link
+                            href={`/blogs/tags/${tag.trim().replace("#", "")}`}
+                          >
+                            <div className="blog-tags" style={{
+                              color: "#0074d9",
+                            }}>{tag}</div>
+                          </Link>
+                        ))}
+                      </p>
+                    </div>
+                    <div className="date-section" style={{ display: "block" }}>
+                      <Link href={`/blogs/author/${data?.author.trim()}`}>
+                        <div
+                          className="time"
+                          style={{
+                            fontWeight: 400,
+                            fontSize: "17px",
+                            color: "#0074d9",
+                          }}
                         >
                           {data?.author}
-                        </Link>
-                      </div>
+                        </div>
+                      </Link>
+
                       <div style={{ display: "flex", alignItems: "center" }}>
                         <div className="date">
                           {moment(data.created_at).format("LL")}
@@ -176,7 +179,7 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
                         {/* <div className="custom-divider"></div> */}
                       </div>
                     </div>
-{/* 
+                    {/* 
                   <div className="date-section">
                     <div className="date">
                       {moment(data.created_at).format("LL")}
@@ -195,9 +198,8 @@ const LatestBlog = ({ getAllCrud, blogs }) => {
                         </Link>
                       </div>
                   </div> */}
-
+                  </div>
                 </div>
-              </div>
               </Link>
             ))}
           </Slider>
