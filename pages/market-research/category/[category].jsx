@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { withRouter } from "next/router";
+import Router, { withRouter } from "next/router";
 import { Container, Button, Pagination } from "reactstrap";
 import { crudService } from "../../../_services";
 import SearchInput from "../../../components/form/searchInput";
@@ -59,10 +59,18 @@ const CategoryResearchList = ({ router }) => {
     // category filter
     crudService._getAll("research_categories", {}).then(({ data }) => {
       if (data) {
-        const options = data.map((option) => ({
-          value: option.id,
-          label: option.name,
-        }));
+        const options = data.map((option) => {
+          if (option.name == slugQuery.category) {
+            setFilteredData((prevState) => ({
+              ...prevState,
+              category: [option.id],
+            }));
+          }
+          return {
+            value: option.id,
+            label: option.name,
+          };
+        });
         setCategoryOptions(options);
       }
     });
@@ -99,19 +107,15 @@ const CategoryResearchList = ({ router }) => {
     });
   }, []);
 
-
-
   const handleOptionChange = ({ name, value }) => {
     setFilteredData((prevState) => ({ ...prevState, [name]: value }));
   };
   const handleReset = () => {
+    // redirect to research list
+    Router.push("/market-research/research-list");
     sessionStorage.removeItem("research_filter_category_id");
     setFilteredData({});
   };
-
-  const research_filter_category_id = sessionStorage.getItem(
-    "research_filter_category_id"
-  );
 
   let filterData = [
     {
@@ -148,15 +152,6 @@ const CategoryResearchList = ({ router }) => {
     },
   ];
 
-  useEffect(() => {
-    if (research_filter_category_id) {
-      setFilteredData((prevState) => ({
-        ...prevState,
-        category: [Number(research_filter_category_id)],
-      }));
-    }
-  }, [research_filter_category_id]);
-
   const sortOptions = [
     {
       value: "id_desc",
@@ -173,33 +168,27 @@ const CategoryResearchList = ({ router }) => {
   };
 
   useEffect(() => {
-   if(slugQuery && slugQuery.category){
-    const sortData = sortBy?.split("_");
-    let params = {
-      orderBy: sortData[0],
-      orderDirection: sortData[1] ?? "desc",
-      page: page + 1,
-      pageSize: itemsPerPage,
-      search: "",
-      category_txt: slugQuery.category,
-      ...filteredData,
-    };
-
-    if (research_filter_category_id) {
-      params = {
-        category: [Number(research_filter_category_id)],
-        ...params,
+    if (slugQuery && slugQuery.category) {
+      const sortData = sortBy?.split("_");
+      let params = {
+        orderBy: sortData[0],
+        orderDirection: sortData[1] ?? "desc",
+        page: page + 1,
+        pageSize: itemsPerPage,
+        search: "",
+        category_txt: slugQuery.category,
+        ...filteredData,
       };
+
+      crudService._getAll("market_research", params).then((result) => {
+        setResearchData(result?.data?.data);
+        const totalPage = Math.ceil(
+          result?.data?.total / result?.data?.perPage
+        );
+        setPageCount(isNaN(totalPage) ? 0 : totalPage);
+      });
     }
-    crudService._getAll("market_research", params).then((result) => {
-      setResearchData(result?.data?.data);
-      const totalPage = Math.ceil(result?.data?.total / result?.data?.perPage);
-      setPageCount(isNaN(totalPage) ? 0 : totalPage);
-    });
-   }
-
   }, [page, searchQuery, filteredData, sortBy]);
-
 
   return (
     <section className="research-list-section mt-4">
@@ -239,10 +228,18 @@ const CategoryResearchList = ({ router }) => {
           </div>
           <div className="content-wrap">
             <div className="result-sort">
-              <div className="results">Results<span style={{
-              fontSize:13,
-              padding: 5
-            }}>{`(Filtered with Category : ${slugQuery.category})`}: {researchData?.length}</span></div>
+              <div className="results">
+                Results
+                <span
+                  style={{
+                    fontSize: 13,
+                    padding: 5,
+                  }}
+                >
+                  {`(Filtered with Category : ${slugQuery.category})`}:{" "}
+                  {researchData?.length}
+                </span>
+              </div>
               <div className="sorting mobile-display-n">
                 <label className="sortby" htmlFor="sortDropdown">
                   Sort By:{" "}
