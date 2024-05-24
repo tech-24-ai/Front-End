@@ -150,10 +150,9 @@ class Categories extends React.PureComponent {
       {
         title: <Fragment>Talk to a Robo-Advisor</Fragment>,
         description: [
-          "Find the right software, hardware or service",
-          "Troubleshoot problems",
-          "Reduce costs",
-          "Get best practice guidance",
+          `Personalized Recommendations & Troubleshooting Made Easy!
+          <br>
+          Answer a few questions, get tailored product suggestions and IT issue fixes instantly.`,
         ],
         icon: <RoboAdvisor />,
         urlTarge: "/it-robo",
@@ -161,9 +160,9 @@ class Categories extends React.PureComponent {
       {
         title: "Talk to a consultant",
         description: [
-          "Engage with a consultant over a video conference.",
-          "Pay per minute.",
-          "Discuss strategy, technology and costs.",
+          `Tailored Tech Solutions, Just a Click Away!
+          <br>
+        Access our network of tech experts for personalized advice and guidance.`,
         ],
 
         icon: <Consultant />,
@@ -182,10 +181,9 @@ class Categories extends React.PureComponent {
       {
         title: "Access Free Research",
         description: [
-          "In-depth product comparison reports.",
-          "Top Use cases",
-          "Calculators",
-          "Tools and more",
+          `Unlock Market Trends, Product Comparisons, and Best Practices.
+          <br>
+          Your go-to source for free market research, tools, and templates.`,
         ],
         icon: <ResearchTool />,
 
@@ -224,7 +222,10 @@ class Categories extends React.PureComponent {
             {categoryList.map((data, i) => (
               <div className="category-card">
                 <h5 className="title">{data.title}</h5>
-                <p className="description">{data.description}</p>
+                <p
+                  className="description"
+                  dangerouslySetInnerHTML={{ __html: data.description[0] }}
+                ></p>
                 <a href={data.urlTarge} className="learn-more-btn">
                   Learn More
                 </a>
