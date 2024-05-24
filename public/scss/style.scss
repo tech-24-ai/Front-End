@@ -2326,7 +2326,8 @@ div.message-box-card {
   }
 }
 
-.custom-filter {
+.custom-filter,
+.custom-sort-modal {
   .ant-modal-title {
     font-size: 1.25rem;
     line-height: 1.875;
@@ -2377,6 +2378,38 @@ div.message-box-card {
 
 .dot-separator {
   content: ".";
+}
+
+// desktop
+
+@media (min-width: 1441px) {
+  .custom-sorting {
+    .ant-image {
+      border-radius: 2px;
+      cursor: pointer;
+      display: none;
+    }
+
+    .sorting {
+      background: #ffffff;
+      border: 1px solid #e2e7ee;
+      padding: 14px 10px;
+      border-radius: 8px;
+      display: inline-flex;
+      text-wrap: nowrap;
+    }
+    .sortby {
+      font-family: "Inter";
+      font-size: 14px;
+      font-weight: 500;
+      color: #54616c;
+      margin: 0;
+    }
+    select {
+      color: #001622;
+      padding: 0 5px;
+    }
+  }
 }
 
 // tablet and mobile

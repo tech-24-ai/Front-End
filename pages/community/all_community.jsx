@@ -18,7 +18,7 @@ import CommunityCategory from "../../components/community/index";
 import CustomPagination from "../../components/pagination";
 import SearchInput from "../../components/form/searchInput";
 import NotFound from "../../components/notFound";
-
+import CustomSort from "../../components/sort/indext";
 
 const Community = ({ router }) => {
   const { q } = Router.query;
@@ -46,7 +46,7 @@ const Community = ({ router }) => {
         search: searchQuery,
         page: currentPage + 1,
         pageSize: itemsPerPage,
-        orderBy: "created_at",
+        orderBy: "updated_at",
         orderDirection: sortBy,
       });
       setCommunityFeature(data.data?.data);
@@ -55,7 +55,6 @@ const Community = ({ router }) => {
       console.error("Error fetching data:", error);
     }
   };
-
 
   //Filter
   const handleSearch = () => {
@@ -92,7 +91,6 @@ const Community = ({ router }) => {
       ._create("community/join", { community_id })
       .then(() => window.location.reload());
   };
-
 
   const accordionItemStyle = {
     borderBottom: "1px solid #ccc",
@@ -237,27 +235,11 @@ const Community = ({ router }) => {
             <div className="content-wrap">
               <div className="result-sort">
                 <div className="results">Results: {total}</div>
-                <div className="sorting-display">
-                  <label className="sortby" htmlFor="sortDropdown">
-                    Sort By:{" "}
-                  </label>
-                  <select
-                    id="sortDropdown"
-                    style={{ border: "none", background: "transparent" }}
-                    value={sortBy}
-                    onChange={handleSort}
-                  >
-                    {sortOptions.map(({ value, label }) => (
-                      <option
-                        className="sortby"
-                        style={{ color: "#001622" }}
-                        value={value}
-                      >
-                        {label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                <CustomSort
+                  options={sortOptions}
+                  value={sortBy}
+                  onOptinChange={handleSort}
+                />
               </div>
               <div className="mt-4 content-card-display">
                 {communityFeature && communityFeature?.length > 0 ? (

@@ -14,6 +14,7 @@ import SearchInput from "../../components/form/searchInput";
 import { wrappReadMinute } from "../../_global";
 import myImageLoader from "../../components/imageLoader";
 import NotFound from "../../components/notFound";
+import CustomSort from "../../components/sort/indext";
 const shorting_icon = "../../new_images/sorting_icon.svg";
 // import ReactPaginate from "react-paginate-next";
 const blogBannerImage = "../../images/blog_banner.jpg";
@@ -32,8 +33,6 @@ function Blogs({ router }) {
   const [pageCount, setPageCount] = useState(0);
   const [sortBy, setSortBy] = useState("desc");
 
-  const [sortByOrder, setSortByOrder] = useState(false);
-
   useEffect(() => {
     fetchBlogData();
   }, [page, value, sortBy]);
@@ -44,7 +43,7 @@ function Blogs({ router }) {
         page: page + 1,
         pageSize: itemsPerPage,
         search: value,
-        orderBy: "blogs.created_at",
+        orderBy: "blogs.updated_at",
         orderPos: sortBy,
       })
       .then((result) => {
@@ -122,68 +121,11 @@ function Blogs({ router }) {
             }}
           >
             <div className="results">Results: {totalItems}</div>
-            <Image
-              onClick={() => setSortByOrder(!sortByOrder)}
-              style={{
-                borderRadius: "2px",
-                cursor: "pointer",
-                display: "none",
-              }}
-              width={44}
-              height={44}
-              preview={false}
-              src={shorting_icon}
-              alt="profile"
-              className="shorting_icon"
+            <CustomSort
+              onOptinChange={handleSort}
+              value={sortBy}
+              options={sortOptions}
             />
-
-            <Modal
-              visible={sortByOrder}
-              footer={null}
-              onCancel={() => {
-                setSortByOrder(false);
-              }}
-              maskClosable={false}
-            >
-              <div className="sorting shorting_icon">
-                <label className="sortby" htmlFor="sortDropdown">
-                  Sort By:{" "}
-                </label>
-                <select
-                  id="sortDropdown"
-                  style={{ border: "none", background: "transparent" }}
-                  value={sortBy}
-                  onChange={handleSort}
-                >
-                  {sortOptions.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </Modal>
-            <div className="sorting mobile-display-n">
-              <label className="sortby" htmlFor="sortDropdown">
-                Sort By:{" "}
-              </label>
-              <select
-                id="sortDropdown"
-                style={{ border: "none", background: "transparent" }}
-                value={sortBy}
-                onChange={handleSort}
-              >
-                {sortOptions.map(({ value, label }) => (
-                  <option
-                    className="sortby"
-                    style={{ color: "#001622" }}
-                    value={value}
-                  >
-                    {label}
-                  </option>
-                ))}
-              </select>
-            </div>
           </div>
           {posts?.data && posts?.data?.length > 0 ? (
             <div className="second-div ">

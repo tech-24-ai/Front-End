@@ -25,7 +25,7 @@ const ResearchList = ({ router }) => {
   const [tagOptions, setTagOptions] = useState([]);
   const [typeOptions, setTypeOptions] = useState([]);
 
-  const [sortBy, setSortBy] = useState("id_desc");
+  const [sortBy, setSortBy] = useState("desc");
   const itemsPerPage = 10;
 
   const [page, setPage] = useState(0);
@@ -171,11 +171,11 @@ const ResearchList = ({ router }) => {
 
   const sortOptions = [
     {
-      value: "id_desc",
+      value: "desc",
       label: "Most Recent",
     },
     {
-      value: "id_asc",
+      value: "asc",
       label: "Most Older",
     },
   ];
@@ -195,10 +195,9 @@ const ResearchList = ({ router }) => {
   }, [page, searchQuery, filteredData, sortBy]);
 
   const fetchData = () => {
-    const sortData = sortBy?.split("_");
     let params = {
-      orderBy: sortData[0],
-      orderDirection: sortData[1] ?? "desc",
+      orderBy: "updated_at",
+      orderDirection: sortBy,
       page: page + 1,
       pageSize: itemsPerPage,
       search: searchQuery,
@@ -281,15 +280,15 @@ const ResearchList = ({ router }) => {
             </div>
             <div className="mt-3 content-card-display content-card-mobile latest-research ">
               {researchData?.length > 0 ? (
-              <div className="research-section">
-                {researchData?.map((item, index) => (
-                  <ResearchCard
-                    data={item}
-                    key={index}
-                    redirectUrl={`/market-research/${item.seo_url_slug}`}
-                  />
-                ))} 
-              </div>
+                <div className="research-section">
+                  {researchData?.map((item, index) => (
+                    <ResearchCard
+                      data={item}
+                      key={index}
+                      redirectUrl={`/market-research/${item.seo_url_slug}`}
+                    />
+                  ))}
+                </div>
               ) : (
                 <NotFound />
               )}

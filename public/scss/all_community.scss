@@ -147,18 +147,7 @@
     font-weight: 500;
     color: #54616c;
   }
-  .sorting {
-    background: #ffffff;
-    border: 1px solid #e2e7ee;
-    padding: 12px 10px 2px;
-    border-radius: 2px;
-  }
-  .sortby {
-    font-family: "Inter";
-    font-size: 14px;
-    font-weight: 500;
-    color: #54616c;
-  }
+
   .heading {
     font-weight: 600;
     font-size: 48px;
@@ -677,7 +666,7 @@
     display: flex !important;
     flex-wrap: wrap !important;
     justify-content: space-between !important;
-    
+
     .community-category-below .category-box {
       position: relative;
       height: 250px;

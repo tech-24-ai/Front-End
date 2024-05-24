@@ -10,6 +10,7 @@ import { isMobile, isBrowser } from "react-device-detect";
 import CustomPagination from "../../../components/pagination";
 import SearchInput from "../../../components/form/searchInput";
 import { wrappReadMinute } from "../../../_global";
+import CustomSort from "../../../components/sort/indext";
 const shorting_icon = "../../../new_images/sorting_icon.svg";
 const blogBannerImage = "../../../images/blog_banner.jpg";
 
@@ -23,27 +24,28 @@ function Blogs({ router }) {
   const [pageCount, setPageCount] = useState(0);
   const [sortBy, setSortBy] = useState("desc");
   const slugQuery = router.query;
-  const [sortByOrder, setSortByOrder] = useState(false);
-   useEffect(() => {
+  useEffect(() => {
     if (slugQuery.author) {
       crudService
-      ._getAll("blogs", {
-        page: page + 1,
-        pageSize: itemsPerPage,
-        search: value,
-        orderBy: "blogs.created_at",
-        orderPos: sortBy,
-        author:slugQuery.author
-      })
-      .then((result) => {
-        setPosts(result?.data);
-        setTotalItems(result?.data.total);
-        const totalPage = Math.ceil(result?.data.total / result?.data.perPage);
+        ._getAll("blogs", {
+          page: page + 1,
+          pageSize: itemsPerPage,
+          search: value,
+          orderBy: "blogs.created_at",
+          orderPos: sortBy,
+          author: slugQuery.author,
+        })
+        .then((result) => {
+          setPosts(result?.data);
+          setTotalItems(result?.data.total);
+          const totalPage = Math.ceil(
+            result?.data.total / result?.data.perPage
+          );
 
-        setPageCount(isNaN(totalPage) ? 0 : totalPage);
-      });
+          setPageCount(isNaN(totalPage) ? 0 : totalPage);
+        });
     }
-  }, [ slugQuery,page, value, sortBy]);
+  }, [slugQuery, page, value, sortBy]);
 
   const handleSort = (e) => {
     setSortBy(e.target.value);
@@ -60,7 +62,6 @@ function Blogs({ router }) {
     },
   ];
 
-  
   const splitBlogTags = (data) => {
     let tags = data.split(",");
     return tags;
@@ -123,68 +124,11 @@ function Blogs({ router }) {
             }}
           >
             <div className="results">Results: {totalItems}</div>
-            <Image
-              onClick={() => setSortByOrder(!sortByOrder)}
-              style={{
-                borderRadius: "2px",
-                cursor: "pointer",
-                display: "none",
-              }}
-              width={44}
-              height={44}
-              preview={false}
-              src={shorting_icon}
-              alt="profile"
-              className="shorting_icon"
+            <CustomSort
+              options={sortOptions}
+              value={sortBy}
+              onOptinChange={handleSort}
             />
-
-            <Modal
-              visible={sortByOrder}
-              footer={null}
-              onCancel={() => {
-                setSortByOrder(false);
-              }}
-              maskClosable={false}
-            >
-              <div className="sorting shorting_icon">
-                <label className="sortby" htmlFor="sortDropdown">
-                  Sort By:{" "}
-                </label>
-                <select
-                  id="sortDropdown"
-                  style={{ border: "none", background: "transparent" }}
-                  value={sortBy}
-                  onChange={handleSort}
-                >
-                  {sortOptions.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </Modal>
-            <div className="sorting mobile-display-n">
-              <label className="sortby" htmlFor="sortDropdown">
-                Sort By:{" "}
-              </label>
-              <select
-                id="sortDropdown"
-                style={{ border: "none", background: "transparent" }}
-                value={sortBy}
-                onChange={handleSort}
-              >
-                {sortOptions.map(({ value, label }) => (
-                  <option
-                    className="sortby"
-                    style={{ color: "#001622" }}
-                    value={value}
-                  >
-                    {label}
-                  </option>
-                ))}
-              </select>
-            </div>
           </div>
           {posts?.data && posts?.data?.length > 0 ? (
             <div className="second-div ">
@@ -238,9 +182,14 @@ function Blogs({ router }) {
                                 .trim()
                                 .replace("#", "")}`}
                             >
-                              <div className="blog-tags" style={{
-                                color: "#0074d9",
-                              }}>{tag}</div>
+                              <div
+                                className="blog-tags"
+                                style={{
+                                  color: "#0074d9",
+                                }}
+                              >
+                                {tag}
+                              </div>
                             </Link>
                           ))}
                         </p>

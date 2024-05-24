@@ -319,25 +319,6 @@
     border-radius: 4px;
     width: calc(2rem + 8px);
   }
-
-  .sorting {
-    padding: 10px;
-    border: 1px solid #d9dfe9;
-    border-radius: 2px;
-
-    .sortby {
-      margin-bottom: 0;
-      font-weight: 500;
-      font-size: 0.875rem;
-      line-height: 20px;
-      color: #54616c;
-    }
-
-    select {
-      color: #001622;
-      padding: 0 5px;
-    }
-  }
 }
 
 .latest-blog {
@@ -580,13 +561,13 @@
     }
     .page-banner .banner-bg .banner-container {
       padding: 2rem 0;
-//       display: flex;
-//       align-items: flex-end;
-//       padding-bottom: 0.2rem !important;
-//       justify-content: center;
-//       padding-left: 0.5rem !important;
-//       padding-right: 0.5rem !important;
-// height: 100%;
+      //       display: flex;
+      //       align-items: flex-end;
+      //       padding-bottom: 0.2rem !important;
+      //       justify-content: center;
+      //       padding-left: 0.5rem !important;
+      //       padding-right: 0.5rem !important;
+      // height: 100%;
       .banner-image-container {
         display: none;
       }

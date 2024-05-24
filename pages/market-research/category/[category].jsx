@@ -14,7 +14,6 @@ import FilterOptionContainer from "../../../components/marketResearch/FilterOpti
 import { checkDeviceTyepe } from "../../../utils/cookie";
 
 const CategoryResearchList = ({ router }) => {
-  // const { q } = Router.query;
   const slugQuery = router.query;
   const [researchData, setResearchData] = useState([]);
   const [categoryOptions, setCategoryOptions] = useState([]);
@@ -22,7 +21,7 @@ const CategoryResearchList = ({ router }) => {
   const [tagOptions, setTagOptions] = useState([]);
   const [typeOptions, setTypeOptions] = useState([]);
 
-  const [sortBy, setSortBy] = useState("id_desc");
+  const [sortBy, setSortBy] = useState("desc");
   const itemsPerPage = 10;
 
   const [page, setPage] = useState(0);
@@ -154,11 +153,11 @@ const CategoryResearchList = ({ router }) => {
 
   const sortOptions = [
     {
-      value: "id_desc",
+      value: "desc",
       label: "Most Recent",
     },
     {
-      value: "id_asc",
+      value: "asc",
       label: "Most Older",
     },
   ];
@@ -169,10 +168,9 @@ const CategoryResearchList = ({ router }) => {
 
   useEffect(() => {
     if (slugQuery && slugQuery.category) {
-      const sortData = sortBy?.split("_");
       let params = {
-        orderBy: sortData[0],
-        orderDirection: sortData[1] ?? "desc",
+        orderBy: "updated_at",
+        orderDirection: sortBy,
         page: page + 1,
         pageSize: itemsPerPage,
         search: "",

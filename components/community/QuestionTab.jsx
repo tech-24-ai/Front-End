@@ -47,6 +47,7 @@ import SearchInput from "../form/searchInput";
 import Image from "next/future/image";
 import { calculateDateTime } from "../../_global";
 import NotFound from "../notFound";
+import CustomSort from "../sort/indext";
 
 const QuestionTab = ({
   getAllCrud,
@@ -487,7 +488,6 @@ const QuestionTab = ({
         <div className="search-container">
           <SearchInput
             placeholder="Search anything"
-            parentProps={{ style: { width: isMobile ? "84%" : "74%" } }}
             defaultValue={headerSearch}
             onSearch={(value) => {
               setHeaderSearch(value);
@@ -495,62 +495,12 @@ const QuestionTab = ({
             }}
           />
 
-          <Image
-            onClick={() => setSortByOrder(!sortByOrder)}
-            loader={myImageLoader}
-            style={{ borderRadius: "2px", cursor: "pointer", display: "none" }}
-            width={44}
-            height={44}
-            preview="false"
-            src={shorting_icon}
-            alt="profile"
-            className="shorting_icon"
+          <CustomSort
+            options={options}
+            value={sortBy}
+            onOptinChange={handleSort}
+            imgProps={{ height: 50, width: 50 }}
           />
-
-          <Modal
-            visible={sortByOrder}
-            footer={null}
-            onCancel={() => {
-              setSortByOrder(false);
-            }}
-            maskClosable={false}
-          >
-            <div className="sorting shorting_icon">
-              <label className="sortby" htmlFor="sortDropdown">
-                Sort By:{" "}
-              </label>
-              <select
-                id="sortDropdown"
-                style={{ border: "none", background: "transparent" }}
-                value={sortBy}
-                onChange={handleSort}
-              >
-                {options.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </Modal>
-
-          <div className="sorting mobile-display-n d-none community_filter_section">
-            <label className="sortby" htmlFor="sortDropdown">
-              Sort By:{" "}
-            </label>
-            <select
-              id="sortDropdown"
-              style={{ border: "none", background: "transparent" }}
-              value={sortBy}
-              onChange={handleSort}
-            >
-              {options.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
         </div>
       )}
       {selectedIndex == "1" && askQuestion && (
@@ -575,73 +525,74 @@ const QuestionTab = ({
       )}
 
       <div className="cards-container">
-        {communityDetails?.data?.length > 0 ? ( communityDetails?.data?.map((data) => (
-          <Card
-            bordered={true}
-            style={{
-              width: "100%",
-              height: "fit-content",
-              marginTop: "1rem",
-              cursor: "pointer",
-            }}
-            onClick={(e) => {
-              e.stopPropagation();
-              gotoQuestionDetail(data?.url_slug);
-            }}
-          >
-            <div className="cards-header">
-              <div>
-                <div className="img">
-                  <Image
-                    loader={myImageLoader}
-                    style={{ borderRadius: "5px", zIndex: "1" }}
-                    width={50}
-                    height={50}
-                    preview="false"
-                    src={data?.visitor?.profile_pic_url || profile_img}
-                    alt="profile"
-                  />
-                  {/* <span className="label-counter">18</span> */}
+        {communityDetails?.data?.length > 0 ? (
+          communityDetails?.data?.map((data) => (
+            <Card
+              bordered={true}
+              style={{
+                width: "100%",
+                height: "fit-content",
+                marginTop: "1rem",
+                cursor: "pointer",
+              }}
+              onClick={(e) => {
+                e.stopPropagation();
+                gotoQuestionDetail(data?.url_slug);
+              }}
+            >
+              <div className="cards-header">
+                <div>
+                  <div className="img">
+                    <Image
+                      loader={myImageLoader}
+                      style={{ borderRadius: "5px", zIndex: "1" }}
+                      width={50}
+                      height={50}
+                      preview="false"
+                      src={data?.visitor?.profile_pic_url || profile_img}
+                      alt="profile"
+                    />
+                    {/* <span className="label-counter">18</span> */}
+                  </div>
+                  <div
+                    className="profile"
+                    style={{
+                      fontFamily: "Inter",
+                      width: "95%",
+                    }}
+                  >
+                    <h5>{data?.title}</h5>
+                    <p>
+                      {!isMobile && (
+                        <>
+                          {data?.visitor?.name}{" "}
+                          <div className="custom-border"></div>
+                        </>
+                      )}
+                      {calculateDateTime(data?.created_at)}
+                    </p>
+                  </div>
                 </div>
-                <div
-                  className="profile"
-                  style={{
-                    fontFamily: "Inter",
-                    width: "95%",
-                  }}
-                >
-                  <h5>{data?.title}</h5>
-                  <p>
-                    {!isMobile && (
-                      <>
-                        {data?.visitor?.name}{" "}
-                        <div className="custom-border"></div>
-                      </>
-                    )}
-                    {calculateDateTime(data?.created_at)}
-                  </p>
-                </div>
-              </div>
-              {data?.isQuestionEditable == 1 && (
-                <div
-                  className="share-btn"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setIsModalOpen(true);
-                    setDescription(data?.description);
-                    setTitle(data?.title);
-                    setTag(data?.postTags?.map((e) => e.id));
-                    setQuestionEditable(data?.id);
-                    setCommunityId(data?.community_id);
-                    setUrl(data?.attachments);
-                  }}
-                >
-                  <EditOutlined />
-                  <span className="btn-title">Edit</span>
-                </div>
-              )}
+                {data?.isQuestionEditable == 1 && (
+                  <div
+                    className="share-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsModalOpen(true);
+                      setDescription(data?.description);
+                      setTitle(data?.title);
+                      setTag(data?.postTags?.map((e) => e.id));
+                      setQuestionEditable(data?.id);
+                      setCommunityId(data?.community_id);
+                      setUrl(data?.attachments);
+                    }}
+                  >
+                    <EditOutlined />
+                    <span className="btn-title">Edit</span>
+                  </div>
+                )}
 
-              {/* <div className="follow">
+                {/* <div className="follow">
                 <p className="button">Follow</p>
                 <div className="img">
                   <Image
@@ -655,49 +606,51 @@ const QuestionTab = ({
                     />
                 </div>
               </div> */}
-            </div>
-            <p
-              className="para questions_font_14px"
-              style={{
-                fontFamily: "Inter",
-              }}
-            >
-              <span
-                dangerouslySetInnerHTML={{ __html: data?.description }}
-              ></span>
-            </p>
-            <div className="chips">
-              {data?.attachments?.map((item) => (
-                <div
-                  style={{ fontFamily: "Inter", cursor: "pointer" }}
-                  className="questions_font_10px"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleDocumentDownload(item);
-                  }}
-                >
-                  {item?.name || "Attachment"}
-                </div>
-              ))}
-            </div>
-            <div className="chips">
-              {data?.postTags?.map((tag) => (
-                <div
-                  style={{ fontFamily: "Inter", backgroundColor: "unset" }}
-                  className="questions_font_10px"
-                >
-                  {tag?.name}
-                </div>
-              ))}
-            </div>
-            <div className="chips" style={{ fontFamily: "Inter" }}>
-              <p className="questions_font_12px">
-                {data?.__meta__?.total_post_replies} answers
+              </div>
+              <p
+                className="para questions_font_14px"
+                style={{
+                  fontFamily: "Inter",
+                }}
+              >
+                <span
+                  dangerouslySetInnerHTML={{ __html: data?.description }}
+                ></span>
               </p>
-              <h6 className="custom-border"></h6>
-              <p className="questions_font_12px">{data?.views_counter} views</p>
-            </div>
-            {/* <div className="like-footer">
+              <div className="chips">
+                {data?.attachments?.map((item) => (
+                  <div
+                    style={{ fontFamily: "Inter", cursor: "pointer" }}
+                    className="questions_font_10px"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDocumentDownload(item);
+                    }}
+                  >
+                    {item?.name || "Attachment"}
+                  </div>
+                ))}
+              </div>
+              <div className="chips">
+                {data?.postTags?.map((tag) => (
+                  <div
+                    style={{ fontFamily: "Inter", backgroundColor: "unset" }}
+                    className="questions_font_10px"
+                  >
+                    {tag?.name}
+                  </div>
+                ))}
+              </div>
+              <div className="chips" style={{ fontFamily: "Inter" }}>
+                <p className="questions_font_12px">
+                  {data?.__meta__?.total_post_replies} answers
+                </p>
+                <h6 className="custom-border"></h6>
+                <p className="questions_font_12px">
+                  {data?.views_counter} views
+                </p>
+              </div>
+              {/* <div className="like-footer">
                 <div className="ans">
                   <Image
                     loader={myImageLoader}
@@ -744,8 +697,11 @@ const QuestionTab = ({
                   </div>
                 </div>
               </div> */}
-          </Card>
-        ))) : <NotFound />}
+            </Card>
+          ))
+        ) : (
+          <NotFound />
+        )}
       </div>
       <br></br>
       <div className="mt-5" style={{ width: "100%" }}>
