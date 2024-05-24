@@ -13,8 +13,8 @@ import RightArrow from "../../public/images/input/rightarrow.svg";
 import { alignCenter } from "react-icons-kit/fa";
 import Link from "next/link";
 
-let timeoutTime = 1000 * 60 * 15000;
-// let timeoutTime = 60 * 2;
+ let timeoutTime = 1000 * 60 * 15000;
+//  let timeoutTime = 60 * 2;
 function Timer({ isloggedIn, showLoginPopup, popupMsg, toggleLoginPopup }) {
   const { message, BtnText, isVideo, videoLink } = popupMsg;
   let time = null;
@@ -170,8 +170,10 @@ function Timer({ isloggedIn, showLoginPopup, popupMsg, toggleLoginPopup }) {
                     </Button>
                   </ButtonGroup>
                 </div>
+                <a href="/login" className="float-right"><p>Alreday Sign-In ?</p></a> 
+                
                 <div className="footer-section">
-                  <div>By creating an account, you agree to our</div>
+                  <div className="mt-5">By creating an account, you agree to our</div>
                   <div>
                     <Link href="/terms_and_conditions">Terms & Conditions</Link>
                     <span style={{ padding: "0 5px" }}>and</span>
