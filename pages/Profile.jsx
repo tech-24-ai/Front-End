@@ -788,6 +788,16 @@ const Profile = ({
       }
     };
 
+    const [visible, setVisible] = useState(false);
+
+  const handleVisibleChange = (visible) => {
+    setVisible(visible);
+  };
+
+  const isTouchDevice = ('ontouchstart' in document.documentElement);
+
+  const trigger = isTouchDevice ? ['click'] : ['hover'];
+
     const [arrow, setArrow] = useState('Show');
 
     const mergedArrow = useMemo(() => {
@@ -861,29 +871,39 @@ const Profile = ({
               </div>
               <div className="level-calculation">
                 <div>
-                <Tooltip className="levelToolTop" placement="top"  title={
+                <Tooltip
+                    placement="top"
+                    title={
                       <div>
-                        <div className="text-center">
-                        <span>
-                          You earn points for various activities: 1 point for submitting
-                          a question, 1 point for each upvote, 2 points for providing an
-                          answer, and 3 points if your answer is marked as correct.
-                        </span>
-                        <br />
-                        <span>
-                          Once your total points surpass the limit of your current
-                          level, you will be promoted to the next level. For instance,
-                          reaching 150 points will advance you to Level 1 (New Bee).
-                        </span>
-                      </div>
-                      </div>
-                    } 
+                      <div className="text-center">
+                      <span>
+                        You earn points for various activities: 1 point for submitting
+                        a question, 1 point for each upvote, 2 points for providing an
+                        answer, and 3 points if your answer is marked as correct.
+                      </span>
+                      <br />
+                      <span>
+                        Once your total points surpass the limit of your current
+                        level, you will be promoted to the next level. For instance,
+                        reaching 150 points will advance you to Level 1 (New Bee).
+                      </span>
+                    </div>
+                    </div>
+                    }
                     arrow
-                    overlayStyle={{ maxWidth: "35vw" }} // Set maximum width as 80% of viewport width
-                    
-                    >
-                        <p>  {visitor_profile_levels?.[0]?.total_points_earned} </p><span className="ml-2" style={{fontSize:"18px",fontWeight:"800px",marginTop:"42px"}}>Points</span> <span className="ml-2" style={{fontSize:"20px",marginTop:"45px"}}><InfoCircleOutlined /></span>
-                      </Tooltip>
+                    trigger={trigger}
+                    visible={visible}
+                    onVisibleChange={handleVisibleChange}
+                    overlayStyle={{ maxWidth: "70vw", }} // Set maximum width as 80% of viewport width
+                  >
+                        <p >  {visitor_profile_levels?.[0]?.total_points_earned} </p><span className="ml-2" style={{fontSize:"20px",fontWeight:"800px"}}>Points</span> 
+                       
+                    <Button style={{border:"1px solid white"}} className="">
+                      <span style={{fontSize:"22px"}}><InfoCircleOutlined /></span>
+                    </Button>
+                            {/* <p>  {visitor_profile_levels?.[0]?.total_points_earned} </p><span className="ml-2" style={{fontSize:"18px",fontWeight:"800px",marginTop:"42px"}}>Points</span> <span className="ml-2" style={{fontSize:"20px",marginTop:"45px"}}><InfoCircleOutlined /></span> */}
+
+                  </Tooltip>
                 </div>
                
               </div>
@@ -940,10 +960,10 @@ const Profile = ({
                   />
                 </div>
                 <div className="level-calculation">
-                  <div >
+                  <div className="levelToolTop">
                   
                    
-                    <Tooltip className="levelToolTop" placement="top"  title={
+                    <Tooltip  placement="top"  title={
                       <div>
                         <div className="text-center">
                         <span>
@@ -961,10 +981,12 @@ const Profile = ({
                       </div>
                     } 
                     arrow
-                    overlayStyle={{ maxWidth: "35vw" }} // Set maximum width as 80% of viewport width
+                    overlayStyle={{ maxWidth: "35vw", }} // Set maximum width as 80% of viewport width
                     
                     >
-                        <p>  {visitor_profile_levels?.[0]?.total_points_earned} </p><span className="ml-2" style={{fontSize:"18px",fontWeight:"800px",marginTop:"42px"}}>Points</span> <span className="ml-2" style={{fontSize:"20px",marginTop:"45px"}}><InfoCircleOutlined /></span>
+                            {/* <p>  {visitor_profile_levels?.[0]?.total_points_earned} </p><span className="ml-2" style={{fontSize:"18px",fontWeight:"800px",marginTop:"42px"}}>Points</span> <span className="ml-2" style={{fontSize:"20px",marginTop:"45px"}}><InfoCircleOutlined /></span> */}
+
+                        <p>  {visitor_profile_levels?.[0]?.total_points_earned} </p><span className="ml-2" style={{fontSize:"18px",fontWeight:"800px",}}>Points</span> <span className="ml-2 mt-1" style={{fontSize:"20px",}}><InfoCircleOutlined /></span>
                       </Tooltip>
                   </div>
                 
