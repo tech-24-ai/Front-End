@@ -2,11 +2,7 @@ import React, { useMemo, Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 import { RightOutlined } from "@ant-design/icons";
 
-import
-{ Tooltip }
-from
-"antd"
-;
+import { Tooltip } from "antd";
 import {
   Tabs,
   Card,
@@ -70,7 +66,6 @@ const Profile = ({
   const [value, setValue] = useState();
   const [visitorActivity, setvisitorActivity] = useState([]);
   const [sortByOrder, setSortByOrder] = useState(false);
-  const [countryId, setCountryId] = useState(visitorprofile?.country?.id);
   const [countryList, setCountryList] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState({
     label: visitorprofile?.country?.name,
@@ -452,7 +447,7 @@ const Profile = ({
         company: updateProfileData.company,
         city_district: updateProfileData.city_district,
         job_title: updateProfileData.designation,
-        country: countryId,
+        country: selectedCountry.value,
       })
       .then((data) => {
         data.status == 200 && setUpdateCom(true);
@@ -494,7 +489,7 @@ const Profile = ({
     },
   };
 
-  // console.log("updateProfileData",updateProfileData);
+  // console.log("updateProfileData", updateProfileData);
 
   const Tab1 = () => {
     let visitorname = visitorprofile?.name;
@@ -772,46 +767,50 @@ const Profile = ({
     };
     const getMobileStyle = (currentValue) => {
       if (currentValue < 150) {
-        return { bottom: '-62%', transform: 'translateY(50%)', backgroundColor: "rgb(0, 116, 217)" };
+        return {
+          bottom: "-62%",
+          transform: "translateY(50%)",
+          backgroundColor: "rgb(0, 116, 217)",
+        };
       } else if (currentValue >= 150 && currentValue < 300) {
-        return { bottom: '-35%', backgroundColor: "rgb(0, 116, 217)" };
+        return { bottom: "-35%", backgroundColor: "rgb(0, 116, 217)" };
       } else if (currentValue >= 300 && currentValue < 500) {
-        return { bottom: '-9%', backgroundColor: "rgb(0, 116, 217)" };
+        return { bottom: "-9%", backgroundColor: "rgb(0, 116, 217)" };
       } else if (currentValue >= 500 && currentValue < 1000) {
-        return { bottom: '17%', backgroundColor: "rgb(0, 116, 217)" };
+        return { bottom: "17%", backgroundColor: "rgb(0, 116, 217)" };
       } else if (currentValue >= 1000 && currentValue < 2000) {
-        return { bottom: '45%', backgroundColor: "rgb(0, 116, 217)" };
+        return { bottom: "45%", backgroundColor: "rgb(0, 116, 217)" };
       } else if (currentValue >= 2000 && currentValue < 5000) {
-        return { bottom: '70%', backgroundColor: "rgb(0, 116, 217)" };
+        return { bottom: "70%", backgroundColor: "rgb(0, 116, 217)" };
       } else {
-        return { bottom: '96%', backgroundColor: "rgb(0, 116, 217)" };
+        return { bottom: "96%", backgroundColor: "rgb(0, 116, 217)" };
       }
     };
 
     const [visible, setVisible] = useState(false);
 
-  const handleVisibleChange = (visible) => {
-    setVisible(visible);
-  };
+    const handleVisibleChange = (visible) => {
+      setVisible(visible);
+    };
 
-  const isTouchDevice = ('ontouchstart' in document.documentElement);
+    const isTouchDevice = "ontouchstart" in document.documentElement;
 
-  const trigger = isTouchDevice ? ['click'] : ['hover'];
+    const trigger = isTouchDevice ? ["click"] : ["hover"];
 
-    const [arrow, setArrow] = useState('Show');
+    const [arrow, setArrow] = useState("Show");
 
     const mergedArrow = useMemo(() => {
-    if (arrow === 'Hide') {
-    return false;
-    }
+      if (arrow === "Hide") {
+        return false;
+      }
 
-    if (arrow === 'Show') {
-    return true;
-    }
+      if (arrow === "Show") {
+        return true;
+      }
 
-    return {
-    pointAtCenter: true,
-    };
+      return {
+        pointAtCenter: true,
+      };
     }, [arrow]);
 
     return (
@@ -828,10 +827,13 @@ const Profile = ({
                 }
               }
             >
-              <p className="sliderTitle" style={{paddingLeft: "16px"}}>
+              <p className="sliderTitle" style={{ paddingLeft: "16px" }}>
                 Starter since {visitor_profile_levels?.[0]?.joined_at}
               </p>
-              <div className="sliderAligner" style={{position: 'relative', left: "25%"}}>
+              <div
+                className="sliderAligner"
+                style={{ position: "relative", left: "25%" }}
+              >
                 {/* ReactDOM.render( */}
                 <div style={{ height: "500px" }}>
                   <div style={style}>
@@ -842,9 +844,9 @@ const Profile = ({
                       marks={topMarks}
                       disabled={true}
                       step={null}
-                      trackStyle={{ 
-                      display: "none"
-                        // backgroundColor: "#0074D9", height: "8px" 
+                      trackStyle={{
+                        display: "none",
+                        // backgroundColor: "#0074D9", height: "8px"
                       }}
                       railStyle={{ backgroundColor: "#EBEBF0", height: "8px" }}
                       defaultValue={currentValue}
@@ -856,7 +858,7 @@ const Profile = ({
                       handleStyle={{ display: "none" }}
                       trackStyle={{ display: "none" }}
                       railStyle={{ display: "none" }}
-                      step={{display: "none"}}
+                      step={{ display: "none" }}
                       disabled={true}
                       className="verticalSlidertwo"
                       vertical
@@ -871,49 +873,56 @@ const Profile = ({
               </div>
               <div className="level-calculation">
                 <div>
-                <Tooltip
+                  <Tooltip
                     placement="top"
                     title={
                       <div>
-                      <div className="text-center">
-                      <span>
-                        You earn points for various activities: 1 point for submitting
-                        a question, 1 point for each upvote, 2 points for providing an
-                        answer, and 3 points if your answer is marked as correct.
-                      </span>
-                      <br />
-                      <span>
-                        Once your total points surpass the limit of your current
-                        level, you will be promoted to the next level. For instance,
-                        reaching 150 points will advance you to Level 1 (New Bee).
-                      </span>
-                    </div>
-                    </div>
+                        <div className="text-center">
+                          <span>
+                            You earn points for various activities: 1 point for
+                            submitting a question, 1 point for each upvote, 2
+                            points for providing an answer, and 3 points if your
+                            answer is marked as correct.
+                          </span>
+                          <br />
+                          <span>
+                            Once your total points surpass the limit of your
+                            current level, you will be promoted to the next
+                            level. For instance, reaching 150 points will
+                            advance you to Level 1 (New Bee).
+                          </span>
+                        </div>
+                      </div>
                     }
                     arrow
                     trigger={trigger}
                     visible={visible}
                     onVisibleChange={handleVisibleChange}
-                    overlayStyle={{ maxWidth: "70vw", }} // Set maximum width as 80% of viewport width
+                    overlayStyle={{ maxWidth: "70vw" }} // Set maximum width as 80% of viewport width
                   >
-                        <p >  {visitor_profile_levels?.[0]?.total_points_earned} </p><span className="ml-2" style={{fontSize:"20px",fontWeight:"800px"}}>Points</span> 
-                       
-                    <Button style={{border:"1px solid white"}} className="">
-                      <span style={{fontSize:"22px"}}><InfoCircleOutlined /></span>
-                    </Button>
-                            {/* <p>  {visitor_profile_levels?.[0]?.total_points_earned} </p><span className="ml-2" style={{fontSize:"18px",fontWeight:"800px",marginTop:"42px"}}>Points</span> <span className="ml-2" style={{fontSize:"20px",marginTop:"45px"}}><InfoCircleOutlined /></span> */}
+                    <p> {visitor_profile_levels?.[0]?.total_points_earned} </p>
+                    <span
+                      className="ml-2"
+                      style={{ fontSize: "20px", fontWeight: "800px" }}
+                    >
+                      Points
+                    </span>
 
+                    <Button style={{ border: "1px solid white" }} className="">
+                      <span style={{ fontSize: "22px" }}>
+                        <InfoCircleOutlined />
+                      </span>
+                    </Button>
+                    {/* <p>  {visitor_profile_levels?.[0]?.total_points_earned} </p><span className="ml-2" style={{fontSize:"18px",fontWeight:"800px",marginTop:"42px"}}>Points</span> <span className="ml-2" style={{fontSize:"20px",marginTop:"45px"}}><InfoCircleOutlined /></span> */}
                   </Tooltip>
                 </div>
-               
               </div>
-            
             </Card>
           </div>
         )}
 
         {/* Content for desktop view */}
-        
+
         {!isMobile && (
           <div className="desktop-view">
             <div className="levels-tab-container">
@@ -961,37 +970,47 @@ const Profile = ({
                 </div>
                 <div className="level-calculation">
                   <div className="levelToolTop">
-                  
-                   
-                    <Tooltip  placement="top"  title={
-                      <div>
-                        <div className="text-center">
-                        <span>
-                          You earn points for various activities: 1 point for submitting
-                          a question, 1 point for each upvote, 2 points for providing an
-                          answer, and 3 points if your answer is marked as correct.
-                        </span>
-                        <br />
-                        <span>
-                          Once your total points surpass the limit of your current
-                          level, you will be promoted to the next level. For instance,
-                          reaching 150 points will advance you to Level 1 (New Bee).
-                        </span>
-                      </div>
-                      </div>
-                    } 
-                    arrow
-                    overlayStyle={{ maxWidth: "35vw", }} // Set maximum width as 80% of viewport width
-                    
+                    <Tooltip
+                      placement="top"
+                      title={
+                        <div>
+                          <div className="text-center">
+                            <span>
+                              You earn points for various activities: 1 point
+                              for submitting a question, 1 point for each
+                              upvote, 2 points for providing an answer, and 3
+                              points if your answer is marked as correct.
+                            </span>
+                            <br />
+                            <span>
+                              Once your total points surpass the limit of your
+                              current level, you will be promoted to the next
+                              level. For instance, reaching 150 points will
+                              advance you to Level 1 (New Bee).
+                            </span>
+                          </div>
+                        </div>
+                      }
+                      arrow
+                      overlayStyle={{ maxWidth: "35vw" }} // Set maximum width as 80% of viewport width
                     >
-                            {/* <p>  {visitor_profile_levels?.[0]?.total_points_earned} </p><span className="ml-2" style={{fontSize:"18px",fontWeight:"800px",marginTop:"42px"}}>Points</span> <span className="ml-2" style={{fontSize:"20px",marginTop:"45px"}}><InfoCircleOutlined /></span> */}
-
-                        <p>  {visitor_profile_levels?.[0]?.total_points_earned} </p><span className="ml-2" style={{fontSize:"18px",fontWeight:"800px",}}>Points</span> <span className="ml-2 mt-1" style={{fontSize:"20px",}}><InfoCircleOutlined /></span>
-                      </Tooltip>
+                      {/* <p>  {visitor_profile_levels?.[0]?.total_points_earned} </p><span className="ml-2" style={{fontSize:"18px",fontWeight:"800px",marginTop:"42px"}}>Points</span> <span className="ml-2" style={{fontSize:"20px",marginTop:"45px"}}><InfoCircleOutlined /></span> */}
+                      <p>
+                        {" "}
+                        {visitor_profile_levels?.[0]?.total_points_earned}{" "}
+                      </p>
+                      <span
+                        className="ml-2"
+                        style={{ fontSize: "18px", fontWeight: "800px" }}
+                      >
+                        Points
+                      </span>{" "}
+                      <span className="ml-2 mt-1" style={{ fontSize: "20px" }}>
+                        <InfoCircleOutlined />
+                      </span>
+                    </Tooltip>
                   </div>
-                
                 </div>
-              
               </Card>
             </div>
           </div>
@@ -1441,8 +1460,11 @@ const Profile = ({
                       value={selectedCountry}
                       isSearchable={true}
                       name="country"
+                      labelInValue
                       options={countryList}
-                      onChange={(e) => setCountryId(e)}
+                      onChange={({ label, value }) =>
+                        setSelectedCountry({ label, value })
+                      }
                       // onChange={(e) => {
                       //   const { name, value } = e.target;
                       //   setUpdateProfileData((prev) => ({
