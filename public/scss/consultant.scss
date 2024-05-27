@@ -7,6 +7,8 @@
   //   padding-right: 2.5rem;
   // }
 
+
+
   .banner-container {
     display: flex;
     flex-direction: column;
@@ -1149,6 +1151,11 @@
 }
 
 .top-consultant {
+    /* Bottom right text */
+    .bottom-right {
+  //  display: none;
+    }
+
   p {
     padding: 0;
     margin: 0;
@@ -1345,6 +1352,28 @@
   .view-more-icon {
     display: none !important;
   }
+.overlay {
+  position: absolute;
+
+  width: 100%;
+  // background: rgba(0, 0, 0, 0.5);
+  color: white;
+   padding: 15px;
+  bottom: 60px;
+}
+
+.overlay h3 {
+  margin-bottom: 5px;
+  color: white;
+}
+
+.overlay p {
+  margin: 0px;
+  width: 350px;
+  font-size: 18px;
+}
+
+}
 }
 
 //Tablet

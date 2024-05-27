@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Container } from "reactstrap";
 import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import Link from "next/link";
@@ -6,8 +6,11 @@ import { crudActions } from "../../_actions";
 import { connect } from "react-redux";
 import { Image } from "antd";
 import Router, { withRouter } from "next/router";
+import { isMobile } from "react-device-detect";
+import { useMediaQuery } from 'react-responsive';
 import Slider from "react-slick";
 const TopConsultant = ({ getAllCrud, consultants, authentication }) => {
+  const isMobile = window.innerWidth <= 767 ;
   const { loggedIn } = authentication;
   const slider = useRef();
   useEffect(() => {
@@ -23,6 +26,8 @@ const TopConsultant = ({ getAllCrud, consultants, authentication }) => {
     return false;
   }
 
+ 
+  
   const goToProfilePage = (id) => {
     if (loggedIn) {
       sessionStorage.setItem("consultantID", id);
@@ -35,7 +40,7 @@ const TopConsultant = ({ getAllCrud, consultants, authentication }) => {
       <div className="top-consultant">
         <div className="title-section">
           <p className="title">
-            Top <span className="title bg">Consultants</span>
+            Top  <span className="title bg">Consultants</span>
           </p>
           <Link href="consultant">
             <p className="view-more">View more</p>
@@ -104,6 +109,7 @@ const TopConsultant = ({ getAllCrud, consultants, authentication }) => {
             )}
           >
             {consultants?.slice(0, 3).map((data) => (
+              
               <div className="consultant-list">
                 <div
                   className="consultant-card hover"
@@ -111,15 +117,54 @@ const TopConsultant = ({ getAllCrud, consultants, authentication }) => {
                     goToProfilePage(data.id);
                   }}
                 >
-                  <Image
+                  
+             {/* Render image with additional data for mobile */}
+             {isMobile && (
+                <>
+               <div className="image-container">
+                <Image
+                  preview={false}
+                  src={data.image ?? "https://example.com/mobile-image.jpg"}
+                  alt="consultant profile"
+                  placeholder="consultant profile"
+                />
+                <div className="overlay">
+                  <h3>{data.first_name}</h3>
+                  <p>
+                    {data.rates?.reduce((rows, item, index, array) => {
+                      if (index % 2 === 0) {
+                        rows.push([]);
+                      }
+                      rows[rows.length - 1].push(
+                        <React.Fragment key={item.id}>
+                          {item.skill.split(',')[0]}
+                          {index !== array.length - 1 && ' | '}
+                        </React.Fragment>
+                      );
+                      return rows;
+                    }, []).map((row, index) => (
+                      <span key={index}>
+                        {row}
+                        {index !== data.rates.length - 1 && <br />} {/* Add line break between rows */}
+                      </span>
+                    ))}
+                  </p>
+                </div>
+              </div>
+                </>
+            )}   
+              
+            {!isMobile && (
+                <Image
                     preview={false}
-                    src={
-                      data.image ??
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSegdLPBUw9F-YVGoqjyYcgSA8VQOfyF4aFTg&usqp=CAU"
-                    }
+                    src={data.image ?? "https://example.com/desktop-image.jpg"}
                     alt="consultant profile"
                     placeholder="consultant profile"
-                  />
+                />
+            )}
+
+           
+                      
                 </div>
               </div>
             ))}
