@@ -193,6 +193,8 @@ const Profile = ({
         setPageCount(isNaN(totalPage) ? 0 : totalPage);
       });
   }, [page]);
+  //all tab profile lvl
+  const currentProLevel = visitorcommunityprofile?.data[0]?.total_points_earned < 150 ? "0" : visitorcommunityprofile?.data[0]?.current_level;
 
   // tab5 data
   const handleCardClick = (data) => {
@@ -1237,12 +1239,15 @@ const Profile = ({
                 alt="profile"
               />
               <p className="profile-badge">
-                {visitorcommunityprofile?.data[0]?.current_level}
+                {currentProLevel}
+                {/* {visitorcommunityprofile?.data[0]?.current_level} */}
               </p>
 
               <div className="level">
-                Level : {visitorcommunityprofile?.data[0]?.current_level}{" "}
-                {visitorcommunityprofile?.data[0]?.current_badge
+                Level : 
+                {currentProLevel}{" "}
+                {/* {visitorcommunityprofile?.data[0]?.current_level}{" "} */}
+                {visitorcommunityprofile?.data[0]?.current_badge && visitorcommunityprofile?.data[0]?.total_points_earned >= 150
                   ? `: ${visitorcommunityprofile?.data[0]?.current_badge}`
                   : ""}
               </div>
