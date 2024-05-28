@@ -8,13 +8,13 @@ import RightLinArrow from "../../public/images/linkedin/arrow.png";
 import { linkedinConstants } from "../../_constants";
 import { Button, ButtonGroup } from "reactstrap";
 import { isBrowser, isMobile } from "react-device-detect";
-import LogoNew from "../../public/images/header/Group 3194_Purple.png";
+import LogoNew from "../../public/images/header/tech24-footer.png";
 import RightArrow from "../../public/images/input/rightarrow.svg";
 import { alignCenter } from "react-icons-kit/fa";
 import Link from "next/link";
 
-  let timeoutTime = 1000 * 60 * 15000;
-  // let timeoutTime = 60 * 2;
+let timeoutTime = 1000 * 60 * 15000;
+// let timeoutTime = 60 * 2;
 function Timer({ isloggedIn, showLoginPopup, popupMsg, toggleLoginPopup }) {
   const { message, BtnText, isVideo, videoLink } = popupMsg;
   let time = null;
@@ -24,7 +24,7 @@ function Timer({ isloggedIn, showLoginPopup, popupMsg, toggleLoginPopup }) {
     if (sessionStorage.getItem("time")) {
       let timeUsed = new Date() - new Date(sessionStorage.getItem("time"));
       time = timeoutTime - timeUsed;
-     } else {
+    } else {
       sessionStorage.setItem("time", new Date().toISOString());
       time = timeoutTime;
     }
@@ -170,10 +170,14 @@ function Timer({ isloggedIn, showLoginPopup, popupMsg, toggleLoginPopup }) {
                     </Button>
                   </ButtonGroup>
                 </div>
-                <a  onClick={redirectLogin} className="float-right">Alreday Sign-In ?</a>
-                
+                <a onClick={redirectLogin} className="float-right">
+                  Alreday Sign-In ?
+                </a>
+
                 <div className="footer-section">
-                  <div className="mt-5">By creating an account, you agree to our</div>
+                  <div className="mt-5">
+                    By creating an account, you agree to our
+                  </div>
                   <div>
                     <Link href="/terms_and_conditions">Terms & Conditions</Link>
                     <span style={{ padding: "0 5px" }}>and</span>

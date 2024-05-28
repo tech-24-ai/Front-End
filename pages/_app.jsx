@@ -19,8 +19,6 @@ import LoaderComponent from "../components/loader";
 import { PersistGate } from "redux-persist/integration/react";
 import Timer from "../components/Timer/Timer";
 import Cookies from "../components/cookies/";
-// import favicon from "../public/images/header/favicon-96x96.png";
-// import appleIcon from "../public/images/header/apple-icon-57x57.png";
 import favicon from "../public/images/header/favicon-32x32.png";
 import appleIcon from "../public/images/header/apple-touch-icon.png";
 import themeConfig from "../config/themeConfig";
@@ -75,10 +73,13 @@ class MyApp extends App {
             <link rel="apple-touch-icon" href={appleIcon.src} />
             <link rel="shortcut icon" type="image/png" href={favicon.src} />
             <link
-            href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
-            rel="stylesheet"
-          />
-          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"></link>
+              href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+              rel="stylesheet"
+            />
+            <link
+              href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+              rel="stylesheet"
+            ></link>
           </Head>
           <Timer />
           <Cookies />

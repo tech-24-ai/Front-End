@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useCookieConsent } from "@use-cookie-consent/core";
-import LogoNew from "../../public/images/header/Group 3194.png";
+import LogoNew from "../../public/images/header/tech24-footer.png";
 import { cookiesActions } from "../../_actions";
 import { crudService } from "../../_services";
 import { connect } from "react-redux";
@@ -1352,7 +1352,7 @@ const cookies = ({ cookies, showCookieBox, hideCookieBox }) => {
                 target="_blank"
                 rel="noopener"
                 href="https://www.cookieyes.com/product/cookie-consent"
-                style={{ marginLeft: "2px" }}
+                style={{ marginLeft: "2px", display: "inline-flex" }}
               >
                 <img
                   src={LogoNew.src}

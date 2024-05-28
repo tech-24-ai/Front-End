@@ -11,8 +11,6 @@ import { crudService } from "../../_services";
 import { userActions } from "../../_actions";
 import ArrowDown from "../../public/images/category/arrowdown.svg";
 import ArrowUp from "../../public/images/category/arrowup.svg";
-import centerLogo from "../../public/images/header/Group 594.png";
-import moreIcon from "../../public/images/header/Group 550.png";
 import { Col, Row, FormGroup } from "reactstrap";
 import { TreeSelect } from "antd";
 import Image from "next/image";

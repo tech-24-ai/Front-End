@@ -12,7 +12,6 @@ import Link from "next/link";
 import SearchModule from "../searchModule";
 // import CategoryList from "../../components/categories/list";
 import MobileLogo from "../../public/new_images/tech24_header_logo_white.svg";
-import MobileLogoNew from "../../public/new_images/logo-white.png";
 import Close from "../../public/images/header/close.svg";
 import { useRouter } from "next/router";
 import { BrowserView, MobileView } from "react-device-detect";

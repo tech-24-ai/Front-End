@@ -17,7 +17,7 @@ import { connect } from "react-redux";
 import { crudActions } from "../../_actions";
 // import SearchModule from "../../components/searchModule";
 // import CategoryList from "../../components/categories/list";
-import LogoNew from "../../public/images/header/Group 3194.png";
+import LogoNew from "../../public/images/header/tech24-footer.png";
 import MobileLogo from "../../public/images/header/mobilelogo.svg";
 import HomeLogo from "../../public/images/header/home.svg";
 import Close from "../../public/images/header/close.svg";
