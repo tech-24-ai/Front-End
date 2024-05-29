@@ -247,26 +247,21 @@ class DocumentList extends React.PureComponent {
           <div className="site-title site-market">
             <div style={{ display: "flex" }}>
               <h5 style={{ display: "flex" }}>
-                <Link href={{ pathname: "/market-research" }}>
+                {/* <Link href={{ pathname: "/market-research" }}>
                   <a style={{ display: "flex" }}>
                     <div className="mr-span">Market Research</div>
                     <div style={{ margin: "0px 4px", color: "#70798b" }}>
                       {">"}
                     </div>
                   </a>
-                </Link>
+                </Link> 
                 <Link href={{ pathname: "/d" }}>
                   <a>
-                    <div className="mr-respan">{this.categories[category]}</div>
                   </a>
-                </Link>
+                  </Link>*/}
+                <div className="mr-respan">{this.categories[category]}</div>
               </h5>
             </div>
-            <Link href={"/donations"}>
-              <div className="custom-btn with-bg">
-                Donate to Keep Research Free!
-              </div>
-            </Link>
           </div>
           <BrowserView>
             {!documentSlug && (
