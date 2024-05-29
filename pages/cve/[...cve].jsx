@@ -37,7 +37,6 @@ const index = ({ showLoader, hideLoader }) => {
 
   useEffect(async () => {
     const { asPath, back, query } = router;
-    console.log("query", query);
     if (query && query.cve.length) {
       showLoader();
       await axios
@@ -137,16 +136,14 @@ const index = ({ showLoader, hideLoader }) => {
             <Link href={{ pathname: "/cves" }}>
               <a style={{ display: "flex" }}>
                 <div className="mr-span">Vulnerabilities</div>
-                <div style={{ margin: "0px 4px", color: "#70798b" }}>
-                  {">"}
-                </div>
+                <div style={{ margin: "0px 4px", color: "#70798b" }}>{">"}</div>
               </a>
             </Link>
-           {data && (
+            {data && (
               <a>
                 <div className="mr-respan">{data.name}</div>
               </a>
-           )}
+            )}
           </h5>
         </div>
         {errorMsg && (
@@ -260,7 +257,10 @@ const index = ({ showLoader, hideLoader }) => {
                                     <a
                                       rel="noopener noreferrer"
                                       target="_blank"
-                                      href="javascript:"
+                                      href="#"
+                                      onClick={(event) =>
+                                        event.preventDefault()
+                                      }
                                     >
                                       {cpe.criteria}
                                     </a>

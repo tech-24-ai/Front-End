@@ -66,22 +66,6 @@ const Community = ({ router }) => {
     getAllPosts();
   };
 
-  let arrData = [];
-  communityFeature?.map((item) => {
-    const random = Math.random().toString(36).substring(2, 6);
-    const data = {
-      id: random,
-      value: item.name,
-      title: item.name,
-    };
-    arrData.push(data);
-  });
-
-  const [formData, setFormData] = useState({
-    query: "",
-    tag: "",
-  });
-
   const communityDetails = (data) => {
     Router.push(data?.url_slug);
   };
@@ -92,28 +76,6 @@ const Community = ({ router }) => {
       .then(() => window.location.reload());
   };
 
-  const accordionItemStyle = {
-    borderBottom: "1px solid #ccc",
-    // marginBottom: "10px",
-  };
-
-  const accordionTitleStyle = {
-    backgroundColor: "#f2f4f7",
-    border: "none",
-    cursor: "pointer",
-    padding: "10px",
-    width: "100%",
-    textAlign: "left",
-    outline: "none",
-  };
-
-  const activeAccordionTitleStyle = {
-    backgroundColor: "#f2f4f7",
-  };
-
-  const accordionContentStyle = {
-    padding: "10px",
-  };
   const handleSort = (e) => {
     setSortBy(e.target.value);
   };
@@ -177,61 +139,6 @@ const Community = ({ router }) => {
             style={{ display: "flex", justifyContent: "space-between" }}
             className="mt-5"
           >
-            {/* <div className="mobile-display-n" style={{ width: "24%" }}>
-                <div className="accordion-container">
-                  {accordionData.map((item, index) => (
-                    <div
-                      className="accordion-item"
-                      key={index}
-                      style={{
-                        accordionItemStyle,
-                        ...(item.title === "FILTERS"
-                          ? { background: "#f2f4f7" }
-                          : { borderBottom: "1px solid #ccc" }),
-                        ...(item.title === "Research Tags"
-                          ? { borderBottom: "none" }
-                          : { borderBottom: "1px solid #ccc" }),
-                      }}
-                    >
-                      <button
-                        className="accordion-title"
-                        style={{
-                          ...accordionTitleStyle,
-                          ...(item.title === "FILTERS"
-                            ? {
-                                background: "#f2f4f7",
-                                color: "#001622",
-                                fontFamily: "Inter",
-                                fontSize: "16px",
-                                fontWeight: "600",
-                              }
-                            : { background: "#fafafc" }),
-                          ...(activeIndex === index
-                            ? activeAccordionTitleStyle
-                            : {}),
-                        }}
-                        onClick={() => toggleAccordion(index)}
-                        aria-expanded={activeIndex === index ? "true" : "false"}
-                      >
-                        {item.title}
-                        {item.title !== "FILTERS" && (
-                          <span style={{ float: "right", color: "#0074D9" }}>
-                            {activeIndex === index ? "-" : "+"}
-                          </span>
-                        )}
-                      </button>
-                      {activeIndex === index && (
-                        <div
-                          className="accordion-content"
-                          style={accordionContentStyle}
-                        >
-                          {item.content}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div> */}
             <div className="content-wrap">
               <div className="result-sort">
                 <div className="results">Results: {total}</div>

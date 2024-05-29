@@ -11,7 +11,7 @@ import React from "react";
 import { TreeSelect } from "antd";
 
 const unProtectedRoutes = ["/community", "/community/[detail]"];
-import {isBrowser } from "react-device-detect";
+import { isBrowser } from "react-device-detect";
 import Router, { withRouter } from "next/router";
 
 import CommunityCategory from "../../components/community/index";
@@ -29,7 +29,7 @@ const Community = ({ community, getAllCrud, router }) => {
   const [isHover, setIsHover] = useState("All");
   const [communityFeature, setCommunityFeature] = useState([]);
   const [value, setValue] = useState();
-  
+
   const [allnewsAnnouncementsData, setallnewsAnnouncementsData] = useState([]);
   const [allCommunityFeature, setAllCommunityFeature] = useState([]);
   const [topRatedCommunityFeature, setTopRatedCommunityFeature] = useState([]);
@@ -39,7 +39,9 @@ const Community = ({ community, getAllCrud, router }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const allCommunityData = await crudService._getAll("community?orderBy=created_at&orderDirection=desc");
+        const allCommunityData = await crudService._getAll(
+          "community?orderBy=created_at&orderDirection=desc"
+        );
         setAllCommunityFeature(allCommunityData.data);
         const topRatedCommunityData = await crudService._getAll(
           "community?page=1&pageSize=5&orderBy=top_rated"
@@ -53,18 +55,18 @@ const Community = ({ community, getAllCrud, router }) => {
     fetchData();
   }, []);
 
-
   useEffect(() => {
     const newsfetchData = async () => {
       try {
-        const allnewsAnnouncementsData = await crudService._getAll("get_news_announcements/latest?pageSize=5&orderBy=created_at&orderDirection=desc");
+        const allnewsAnnouncementsData = await crudService._getAll(
+          "get_news_announcements/latest?pageSize=5&orderBy=created_at&orderDirection=desc"
+        );
         setallnewsAnnouncementsData(allnewsAnnouncementsData.data);
-        
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-    
+
     newsfetchData();
   }, []);
 
@@ -96,8 +98,6 @@ const Community = ({ community, getAllCrud, router }) => {
     fetchTrendingQuestions();
   }, []);
 
-  
-
   useEffect(() => {
     const searchPosts = async () => {
       try {
@@ -119,18 +119,6 @@ const Community = ({ community, getAllCrud, router }) => {
   const handleViewAll = () => {
     Router.push("/community/all_community");
   };
-
-  let arrData = [];
-
-  communityFeature?.map((item) => {
-    const random = Math.random().toString(36).substring(2, 6);
-    const data = {
-      id: random,
-      value: item.name,
-      title: item.name,
-    };
-    arrData.push(data);
-  });
 
   const handleSearch = (searchValue) => {
     Router.push({
@@ -157,11 +145,12 @@ const Community = ({ community, getAllCrud, router }) => {
       <PageBanner
         titleNode={
           <div className="banner-head">
-           
-            <h4 className="newtabTitle newTitlefortab">Welcome to the Tech 24 Community</h4>
+            <h4 className="newtabTitle newTitlefortab">
+              Welcome to the Tech 24 Community
+            </h4>
             <p className="sub-title">
-            Get answer form our community of Experts
-              </p>
+              Get answer form our community of Experts
+            </p>
             {stats && (
               <div className="community-stats communityStats">
                 <div className="stat-container">
@@ -184,74 +173,74 @@ const Community = ({ community, getAllCrud, router }) => {
                 className="bg searchCommunity"
                 maxLength={60}
                 onSearch={(value) => handleSearch(value)}
-                
               />
             </div>
           </div>
         }
         backgroundImage={marketBannerImage}
         // height={isBrowser ? 386 : 220}
-         backgroundStyle={{ height: "386px" }}
+        backgroundStyle={{ height: "386px" }}
         // image={isMobile ? "" : CommunityImage}
       />
 
       <Container>
-      <div className="all-community">
-          
-       
-        </div>
+        <div className="all-community"></div>
         <div className="top-rated">
           <div>
-            <h4 className="mb-4 d-flex justify-content-between" style={{marginTop:"90px"}}>
-            <div style={{
-              display:'flex'
-            }}>
-            <div 
-                style={{
-                  width: "4px",
-                  display:'inline-block',
-                  height: "32px",
-                  borderRadius: "0px 4px 4px 0px",
-                  backgroundColor: "#0074D9",
-                }}
-              ></div>
-              <span
-                style={{
-                  marginLeft: "1rem",
-                  fontWeight: 400,
-                  fontSize: "24px",
-                  color: "#54616C",
-                }}
-              >
-                Most Active
-              </span>{" "}
-              <span
-                style={{
-                  fontWeight: 500,
-                  fontSize: "24px",
-                  color: "#0074D9",
-                  marginLeft: "10px",
-                }}
-              >
-                Discussion Groups
-              </span> 
-            </div>
-              <div className="float-right justify-content-between align-self-center">
-           
             <h4
-              style={{
-                fontWeight: 400,
-                fontSize: "16px",
-                color: "#0074D9",
-                textDecoration: "underline",
-                cursor: "pointer",
-                alignContent: "center",
-              }}
-              onClick={handleViewAll}
+              className="mb-4 d-flex justify-content-between"
+              style={{ marginTop: "90px" }}
             >
-              View all
-            </h4>
-          </div>
+              <div
+                style={{
+                  display: "flex",
+                }}
+              >
+                <div
+                  style={{
+                    width: "4px",
+                    display: "inline-block",
+                    height: "32px",
+                    borderRadius: "0px 4px 4px 0px",
+                    backgroundColor: "#0074D9",
+                  }}
+                ></div>
+                <span
+                  style={{
+                    marginLeft: "1rem",
+                    fontWeight: 400,
+                    fontSize: "24px",
+                    color: "#54616C",
+                  }}
+                >
+                  Most Active
+                </span>{" "}
+                <span
+                  style={{
+                    fontWeight: 500,
+                    fontSize: "24px",
+                    color: "#0074D9",
+                    marginLeft: "10px",
+                  }}
+                >
+                  Discussion Groups
+                </span>
+              </div>
+              <div className="float-right justify-content-between align-self-center">
+                <h4
+                  style={{
+                    fontWeight: 400,
+                    fontSize: "16px",
+                    color: "#0074D9",
+                    textDecoration: "underline",
+                    cursor: "pointer",
+                    alignContent: "center",
+                  }}
+                  onClick={handleViewAll}
+                >
+                  View all
+                </h4>
+              </div>
             </h4>
           </div>
           <div
@@ -281,7 +270,7 @@ const Community = ({ community, getAllCrud, router }) => {
                   color: "#54616C",
                 }}
               >
-                Trending 
+                Trending
               </span>{" "}
               <span
                 style={{
@@ -319,7 +308,7 @@ const Community = ({ community, getAllCrud, router }) => {
                   color: "#54616C",
                 }}
               >
-                Latest  
+                Latest
               </span>{" "}
               <span
                 style={{
@@ -334,7 +323,9 @@ const Community = ({ community, getAllCrud, router }) => {
             </h4>
           </div>
           <div className="community-category-container">
-            <NewsAnnouncementsData allnewsAnnouncementsData={allnewsAnnouncementsData} />
+            <NewsAnnouncementsData
+              allnewsAnnouncementsData={allnewsAnnouncementsData}
+            />
           </div>
         </div>
       </Container>
@@ -402,7 +393,7 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { community,get_news_announcements } = state;
+  const { community, get_news_announcements } = state;
   return {
     community,
     get_news_announcements,

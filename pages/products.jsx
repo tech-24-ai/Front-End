@@ -120,7 +120,8 @@ class Products extends React.PureComponent {
     });
   };
 
-  onProductClick = (data) => {
+  onProductClick = (event, data) => {
+    event.preventDefault();
     crudService._get(`products/click`, data.id).then((response) => {});
     window.open(data.link);
   };
@@ -176,8 +177,8 @@ class Products extends React.PureComponent {
         formatter: (cell, row) => {
           return (
             <a
-              href="javascript:void(0);"
-              onClick={() => this.onProductClick(row)}
+              href="#"
+              onClick={(event) => this.onProductClick(event, row)}
             >
               {row.name}
             </a>
@@ -361,8 +362,10 @@ class Products extends React.PureComponent {
                                   </div>
                                   <div className="col">
                                     <a
-                                      href="javascript:void(0);"
-                                      onClick={() => this.onProductClick(row)}
+                                      href="#"
+                                      onClick={(event) =>
+                                        this.onProductClick(event, row)
+                                      }
                                     >
                                       {row.name}
                                     </a>
@@ -467,8 +470,10 @@ class Products extends React.PureComponent {
                             <div className="reportTableMV-col">
                               <div className="mb-2">
                                 <a
-                                  href="javascript:void(0);"
-                                  onClick={() => this.onProductClick(row)}
+                                  href="#"
+                                  onClick={(event) =>
+                                    this.onProductClick(event, row)
+                                  }
                                 >
                                   {row.name}
                                 </a>
