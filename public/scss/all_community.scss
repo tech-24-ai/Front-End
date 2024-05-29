@@ -56,8 +56,8 @@
     left: 16px;
 
     .btn-box {
-      color: #0074d9;
-      border: 1.5px solid #0074d9;
+      color: $themeSecondary;
+      border: 1.5px solid $themeSecondary;
       width: 100%;
       font-size: 18px;
       padding: 6px;
@@ -68,7 +68,7 @@
   }
   .btn-box:hover,
   .btn-box:focus {
-    background-color: #0074d9;
+    background-color: $themeSecondary;
     color: #fff;
     width: 100%;
     font-size: 18px;

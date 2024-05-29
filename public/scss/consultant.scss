@@ -7,8 +7,6 @@
   //   padding-right: 2.5rem;
   // }
 
-
-
   .banner-container {
     display: flex;
     flex-direction: column;
@@ -1156,7 +1154,7 @@
     // display: inline-block;
     overflow: hidden; /* Ensure the overlay content doesn't overflow */
   }
-  
+
   .overlay {
     position: absolute;
     bottom: -100%; /* Initially position the overlay below the image */
@@ -1167,18 +1165,21 @@
     padding: 10px;
     transition: bottom 0.5s ease; /* Apply transition for sliding in */
   }
-  
+
   .image-containerRecord:hover .overlay {
     bottom: 5px;
     color: white;
     font-size: 18px;
     padding: 0px;
-     font-weight : 400px;
+    font-weight: 400px;
     // background: linear-gradient(white, grey, grey, black);
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.922) 100%);
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(0, 0, 0, 0.922) 100%
+    );
     //  opacity: 0.7;
     height: 300px;
-   
   }
 
   // .image-containerRecord:hover .imageHover{
@@ -1192,20 +1193,16 @@
     font-weight: 300;
     font-size: 25px;
     // left: 30px;
-    
   }
-   
+
   .image-containerRecord:hover .overlay h3 {
     margin-top: 120px;
     bottom: 5px; /* Move the overlay to the bottom when hovering */
-    color: white!important;
+    color: white !important;
     font-size: 35px;
     // left: 30px;
     // margin-bottom: 20px;
   }
-  
-  
-
 
   p {
     padding: 0;
@@ -1249,46 +1246,6 @@
     .slick-slider .slick-list .slick-track {
       gap: 1rem;
       display: flex;
-    }
-    .slick-slider {
-      .slick-next {
-        right: 10px !important;
-      }
-      .slick-prev {
-        left: -5px !important;
-        z-index: 1;
-      }
-      .slick-next::before {
-        color: #0074d9;
-        font-size: 35px;
-        opacity: 1 !important;
-      }
-      .slick-prev::before {
-        color: #0074d9;
-        opacity: 1 !important;
-        font-size: 35px;
-      }
-      .slick-dots {
-        margin-top: 1rem;
-        bottom: -3rem;
-      }
-
-      .slick-dots li button:before {
-        color: #0074d9;
-        font-size: 12px;
-        margin-top: -3px;
-        opacity: 1;
-        &.slick-active {
-          content: "";
-        }
-      }
-
-      .slick-dots li.slick-active {
-        width: 2rem;
-        height: 0.75rem;
-        border-radius: 1000px;
-        background-color: #0074d9;
-      }
     }
 
     .consultant-list {
@@ -1404,79 +1361,73 @@
     display: none !important;
   }
 
+  .overlayMobile {
+    position: absolute;
 
-.overlayMobile {
-  position: absolute;
+    width: 100%;
+    // background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 15px;
+    bottom: 10px;
+    left: 5px;
+  }
 
-  width: 100%;
-  // background: rgba(0, 0, 0, 0.5);
-  color: white;
-   padding: 15px;
-  bottom: 10px;
-  left: 5px;
+  .image-containerRecord .imageHoverMobile {
+    // background: linear-gradient(to bottom, rgba(26, 25, 25, 0.952) 0%, rgb(17, 17, 18) 100%);
+    filter: brightness(50%);
+  }
+
+  // .image-containerRecord {
+  //   position: relative;
+  // }
+
+  // .image-overlay {
+  //   position: relative;
+  // }
+
+  // .image-overlay::before {
+  //   content: '';
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   width: 100%;
+  //   height: 100%;
+  //   background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%);
+  //   z-index: 1;
+  // }
+
+  // .overlayMobile {
+  //   position: absolute;
+  //   bottom: 0;
+  //   left: 0;
+  //   right: 0;
+  //   padding: 20px;
+  //   color: white;
+  //   z-index: 2;
+  // }
+
+  /* Adjust z-index values as needed */
+
+  // .imageHover:hover .overlay {
+  //   opacity: 1; /* Change the opacity of the overlay to make it visible on hover */
+  // }
+
+  // .imageHover:hover::after {
+  //   opacity: 0.7; /* Change the opacity to make the gradient visible on hover */
+  // }
+
+  .overlayMobile h3 {
+    margin-bottom: 5px;
+    color: white;
+    font-size: 30px;
+  }
+
+  .overlayMobile p {
+    margin: 10px 0px;
+    width: 350px;
+    font-size: 22px;
+  }
 }
-
-.image-containerRecord .imageHoverMobile{
-  // background: linear-gradient(to bottom, rgba(26, 25, 25, 0.952) 0%, rgb(17, 17, 18) 100%);
-  filter: brightness(50%);
-}
-
-// .image-containerRecord {
-//   position: relative;
-// }
-
-// .image-overlay {
-//   position: relative;
-// }
-
-// .image-overlay::before {
-//   content: '';
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100%;
-//   background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%);
-//   z-index: 1;
-// }
-
-// .overlayMobile {
-//   position: absolute;
-//   bottom: 0;
-//   left: 0;
-//   right: 0;
-//   padding: 20px;
-//   color: white;
-//   z-index: 2;
-// }
-
-/* Adjust z-index values as needed */
-
-
-
-// .imageHover:hover .overlay {
-//   opacity: 1; /* Change the opacity of the overlay to make it visible on hover */
-// }
-
-// .imageHover:hover::after {
-//   opacity: 0.7; /* Change the opacity to make the gradient visible on hover */
-// }
-
-
-.overlayMobile h3 {
-  margin-bottom: 5px;
-  color: white;
-  font-size: 30px;
-}
-
-.overlayMobile p {
-  margin: 10px 0px;
-  width: 350px;
-  font-size: 22px;
-}
-
-}
-
 
 //Tablet
 @media (min-width: 768px) and (max-width: 1440px) {
@@ -2611,7 +2562,6 @@
     }
   }
 }
-
 
 // .image-containerRecord:hover .overlay {
 //   bottom: 5px;

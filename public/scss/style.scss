@@ -2090,7 +2090,7 @@ div.message-box-card {
             padding: 10px;
 
             span.anticon {
-              color: #0074d9;
+              color: $themeSecondary;
             }
 
             .panel-header {
@@ -2131,7 +2131,7 @@ div.message-box-card {
 .custom-breadcrumb {
   font-family: Inter;
   .ant-breadcrumb-link {
-    color: #0074d9;
+    color: $themeSecondary;
     font-weight: 500;
     font-size: 14px;
     line-height: 20px;
@@ -2378,6 +2378,20 @@ div.message-box-card {
 
 .dot-separator {
   content: ".";
+}
+
+//
+.ant-tabs {
+  .ant-tabs-nav-list {
+    .ant-tabs-tab {
+      .ant-tabs-tab-btn {
+        color: $themeSecondary;
+      }
+    }
+    .ant-tabs-ink-bar {
+      background-color: $themeSecondary;
+    }
+  }
 }
 
 // desktop
