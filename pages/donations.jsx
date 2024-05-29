@@ -20,7 +20,7 @@ import { crudService } from "../_services";
 import ConnectRadioBox from "../components/form/connectRadio";
 import myImageLoader from "../components/imageLoader";
 import donationIcon from "../public/new_images/donationIcon.svg";
-import Image from "next/image";
+import Image from "next/future/image";
 
 function donations({ getAllCrud, showLoader, hideLoader, success }) {
   const [inputValue, setInputValue] = useState({
@@ -79,7 +79,6 @@ function donations({ getAllCrud, showLoader, hideLoader, success }) {
           loader={myImageLoader}
           src={donationIcon}
           alt=""
-          layout="raw"
           width={35}
           height={35}
           style={{ objectFit: "contain" }}

@@ -16,6 +16,10 @@
         width: 100px;
         label {
           height: 50px;
+
+          &.labelChecked {
+            color: #fff;
+          }
         }
       }
       .form-group:first-child {
