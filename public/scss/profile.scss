@@ -1,6 +1,6 @@
 .bottomMarks {
-  background-color: #0074d9;
-  color: #0074d9;
+  background-color: $themeSecondary;
+  color: $themeSecondary;
 }
 .levelToolTop {
   left: 450px !important;
@@ -1373,12 +1373,12 @@
     font-weight: 500;
     .level {
       margin-top: 1rem;
-      color: #0074d9;
+      color: $themeSecondary;
     }
     div {
       color: #b0b8bf;
       span {
-        color: #0074d9;
+        color: $themeSecondary;
       }
     }
     .profile-badge {
@@ -1393,7 +1393,7 @@
       // right: 102px;
       top: 85px;
       border: 1.5px solid #ffffff;
-      background-color: #0074d9;
+      background-color: $themeSecondary;
       font-weight: 500;
       font-size: 16px;
       line-height: 24px;
@@ -1580,7 +1580,7 @@
   cursor: pointer;
 }
 .ant-modal-footer .profile-modal-button:hover {
-  background-color: #0074d9;
+  background-color: $themeSecondary;
 }
 // sign out modal
 .sign-out-container {
@@ -1607,7 +1607,7 @@
     color: #ffffff;
   }
   .ant-modal-footer .sign-out-modal-button:hover {
-    background-color: #0074d9;
+    background-color: $themeSecondary;
   }
 }
 
@@ -1628,11 +1628,11 @@
     }
     .add {
       width: fit-content !important;
-      color: #0074d9;
+      color: $themeSecondary;
       font-size: 14px;
       font-weight: 500;
       cursor: pointer;
-      border-bottom: 1px solid #0074d9;
+      border-bottom: 1px solid $themeSecondary;
       line-height: 20px;
       float: right;
     }
@@ -1685,7 +1685,7 @@
         color: #fff;
         font-size: 12px;
         padding: 0px 4px;
-        background: #0074d9;
+        background: $themeSecondary;
         border-radius: 50%;
       }
       h6 {
@@ -1765,7 +1765,7 @@
       border: none;
       font-weight: 500;
       font-size: 32px;
-      color: #0074d9;
+      color: $themeSecondary;
       margin-right: 10px;
       line-height: 20px;
       margin-bottom: 0;
@@ -1776,7 +1776,7 @@
       padding: 0 5px;
       cursor: pointer;
       svg {
-        color: #0074d9;
+        color: $themeSecondary;
       }
     }
     .profile-badge {
@@ -1791,7 +1791,7 @@
       left: 53px;
       top: 54px;
       border: 1.5px solid #ffffff;
-      background-color: #0074d9;
+      background-color: $themeSecondary;
       font-weight: 500 !important;
       font-size: 12px !important;
       line-height: 20px;
@@ -1826,7 +1826,7 @@
       margin-left: 10px;
       font-weight: 500;
       font-size: 14px;
-      color: #0074d9;
+      color: $themeSecondary;
       cursor: pointer;
     }
     .custom-border {
@@ -1914,7 +1914,7 @@
       height: 16.48px;
       line-height: 8px;
       top: -5px;
-      background-color: "#0074D9";
+      background-color: $themeSecondary;
     }
     .slider-one .ant-slider-dot {
       display: none;
@@ -1938,7 +1938,7 @@
       p {
         font-weight: 500;
         font-size: 20px;
-        color: #0074d9;
+        color: $themeSecondary;
         // margin-top: 2.5rem;
         margin-bottom: unset;
         span {
@@ -2031,7 +2031,7 @@
     right: auto;
     top: 79px;
     border: 1.5px solid #ffffff;
-    background-color: #0074d9;
+    background-color: $themeSecondary;
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
@@ -2225,7 +2225,7 @@
     right: auto;
     top: 78px;
     border: 1.5px solid #ffffff;
-    background-color: #0074d9;
+    background-color: $themeSecondary;
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
@@ -2363,7 +2363,7 @@
     right: auto;
     top: 76px;
     border: 1.5px solid #ffffff;
-    background-color: #0074d9;
+    background-color: $themeSecondary;
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;

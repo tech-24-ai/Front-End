@@ -39,7 +39,7 @@
             display: -webkit-box;
             -webkit-line-clamp: 1;
             -webkit-box-orient: vertical;
-            overflow:hidden;
+            overflow: hidden;
           }
           p {
             margin-bottom: 0;
@@ -61,7 +61,7 @@
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
-            overflow:hidden;
+            overflow: hidden;
           }
           p {
             margin-bottom: 0;
@@ -164,53 +164,12 @@
     }
   }
 
-  .category-banner-wrapper{
+  .category-banner-wrapper {
     .slick-slider .slick-list .slick-track {
       gap: 1rem;
       display: flex;
     }
-    .slick-slider {
-      .slick-next {
-        right: 10px !important;
-      }
-      .slick-prev {
-        left: -5px !important;
-        z-index: 1;
-      }
-      .slick-next::before {
-        color: #0074d9;
-        font-size: 35px;
-        opacity: 1 !important;
-      }
-      .slick-prev::before {
-        color: #0074d9;
-        opacity: 1 !important;
-        font-size: 35px;
-      }
-      .slick-dots {
-        margin-top: 1rem;
-        bottom: -3rem;
-      }
-  
-      .slick-dots li button:before {
-        color: #0074d9;
-        font-size: 12px;
-        margin-top: -3px;
-        opacity: 1;
-        &.slick-active {
-          content: "";
-        }
-      }
-  
-      .slick-dots li.slick-active {
-        width: 2rem;
-        height: 0.75rem;
-        border-radius: 1000px;
-        background-color: #0074d9;
-      }
-    }
   }
-  
 }
 
 .trending-question {

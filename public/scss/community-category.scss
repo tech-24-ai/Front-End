@@ -2,7 +2,7 @@
   width: 100%;
   // margin-bottom: 4rem;
   // height: 350px;
-     height: 250px; 
+  height: 250px;
 
   .container {
     padding-left: 100px;
@@ -163,10 +163,10 @@
           align-items: flex-start;
           width: 100%;
           display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
         }
-      
+
         .content-structure {
           width: 100%;
           height: 184px;
@@ -175,18 +175,18 @@
           flex-direction: column;
           position: relative;
         }
-         .card-description {
-            // font-weight: 600;
-            font-family: "Inter";
-            font-size: 14px;
-            height: 60px;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            font-weight: 400;
-            color: #54616c;
-          }
+        .card-description {
+          // font-weight: 600;
+          font-family: "Inter";
+          font-size: 14px;
+          height: 60px;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          font-weight: 400;
+          color: #54616c;
+        }
         .content-structure > div {
           margin-bottom: 14px;
         }
@@ -225,8 +225,8 @@
           transition: all 0.4s ease-out;
 
           .btn-box {
-            color: #0074d9;
-            border: 1.5px solid #0074d9;
+            color: $themeSecondary;
+            border: 1.5px solid $themeSecondary;
             width: 100%;
             font-size: 18px;
             padding: 6px;
@@ -238,13 +238,13 @@
         }
         .btn-box:hover,
         .btn-box:focus {
-          background-color: #0074d9;
+          background-color: $themeSecondary;
           color: #fff;
           width: 100%;
           font-size: 18px;
           padding: 6px;
         }
-        
+
         //16-04-above
         .category-img {
           // display: table-cell;
@@ -282,7 +282,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #0074d9;
+            background-color: $themeSecondary;
             width: 40px;
             height: 40px;
             border-radius: 12px;
@@ -339,7 +339,7 @@
               color: #001622;
             }
           }
-        
+
           view-more-icon .custom-icon {
             width: 70px;
             min-width: 70px;
@@ -426,7 +426,6 @@
                 > ul {
                   padding: 12px 10px;
                 }
-
               }
 
               .category-content {

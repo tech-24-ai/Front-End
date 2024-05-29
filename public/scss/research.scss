@@ -43,7 +43,7 @@
       // color: $textBlack;
       text-transform: uppercase;
       width: max-content;
-      color: #0074d9;
+      color: $themeSecondary;
       padding: 8px 10px;
       border: 1px solid #005dd4;
       border-radius: 5px;
@@ -181,46 +181,7 @@
       gap: 1rem;
       display: flex;
     }
-    .slick-slider {
-      .slick-next {
-        right: 10px !important;
-      }
-      .slick-prev {
-        left: -5px !important;
-        z-index: 1;
-      }
-      .slick-next::before {
-        color: #0074d9;
-        opacity: 1 !important;
-        font-size: 35px;
-      }
-      .slick-prev::before {
-        color: #0074d9;
-        opacity: 1 !important;
-        font-size: 35px;
-      }
-      .slick-dots {
-        margin-top: 1rem;
-        bottom: -3rem;
-      }
 
-      .slick-dots li button:before {
-        color: #0074d9;
-        font-size: 12px;
-        margin-top: -3px;
-        opacity: 1;
-        &.slick-active {
-          content: "";
-        }
-      }
-
-      .slick-dots li.slick-active {
-        width: 2rem;
-        height: 0.75rem;
-        border-radius: 1000px;
-        background-color: #0074d9;
-      }
-    }
     color: #00192f;
     position: relative;
     .research-list,
@@ -426,7 +387,7 @@
       font-weight: 500;
       font-size: 2.5em;
       line-height: 48px;
-      color: #0074d9;
+      color: $themeSecondary;
       padding-top: 24px;
     }
 
