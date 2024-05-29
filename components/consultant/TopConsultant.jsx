@@ -121,15 +121,19 @@ const TopConsultant = ({ getAllCrud, consultants, authentication }) => {
              {/* Render image with additional data for mobile */}
              {isMobile && (
                 <>
-               <div className="image-container">
+               <div className="image-containerRecord">
+               
                 <Image
                   preview={false}
                   src={data.image ?? "https://example.com/mobile-image.jpg"}
                   alt="consultant profile"
                   placeholder="consultant profile"
+                  className="imageHoverMobile"
                 />
-                <div className="overlay">
-                  <h3>{data.first_name}</h3>
+                
+               
+                <div className="overlayMobile" >
+                  <h3 >{data.first_name}</h3>
                   <p>
                     {data.rates?.reduce((rows, item, index, array) => {
                       if (index % 2 === 0) {
@@ -155,12 +159,42 @@ const TopConsultant = ({ getAllCrud, consultants, authentication }) => {
             )}   
               
             {!isMobile && (
-                <Image
-                    preview={false}
-                    src={data.image ?? "https://example.com/desktop-image.jpg"}
-                    alt="consultant profile"
-                    placeholder="consultant profile"
-                />
+                  <>
+                  <div className="image-containerRecord">
+                  <div className="imageHover">
+                   <Image
+                     preview={false}
+                     src={data.image ?? "https://example.com/mobile-image.jpg"}
+                     alt="consultant profile"
+                     placeholder="consultant profile"
+                     className="imageHover"
+                   />
+                   </div>
+                   <div className="overlay">
+                     <h3 className="ml-3">{data.first_name}</h3>
+                     <p className="ml-3">
+                       {data.rates?.reduce((rows, item, index, array) => {
+                         if (index % 2 === 0) {
+                           rows.push([]);
+                         }
+                         rows[rows.length - 1].push(
+                           <React.Fragment key={item.id}>
+                             {item.skill.split(',')[0]}
+                             {index !== array.length - 1 && ' | '}
+                           </React.Fragment>
+                         );
+                         return rows;
+                       }, []).map((row, index) => (
+                         <span key={index}>
+                           {row}
+                           {index !== data.rates.length - 1 && <br />} {/* Add line break between rows */}
+                         </span>
+                       ))}
+                     </p>
+                   </div>
+                 </div>
+                   </>
+                
             )}
 
            

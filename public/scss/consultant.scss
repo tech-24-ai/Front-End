@@ -1151,10 +1151,61 @@
 }
 
 .top-consultant {
-    /* Bottom right text */
-    .bottom-right {
-  //  display: none;
-    }
+  .image-containerRecord {
+    position: relative;
+    // display: inline-block;
+    overflow: hidden; /* Ensure the overlay content doesn't overflow */
+  }
+  
+  .overlay {
+    position: absolute;
+    bottom: -100%; /* Initially position the overlay below the image */
+    left: 0;
+    width: 100%;
+    // background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px;
+    transition: bottom 0.5s ease; /* Apply transition for sliding in */
+  }
+  
+  .image-containerRecord:hover .overlay {
+    bottom: 5px;
+    color: white;
+    font-size: 18px;
+    padding: 0px;
+     font-weight : 400px;
+    // background: linear-gradient(white, grey, grey, black);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.922) 100%);
+    //  opacity: 0.7;
+    height: 300px;
+   
+  }
+
+  // .image-containerRecord:hover .imageHover{
+  //   filter: brightness(50%);
+  //   background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
+  // }
+
+  .overlay p {
+    margin-top: 120px;
+    margin: 15px 0; /* Add margin to create spacing between paragraphs */
+    font-weight: 300;
+    font-size: 25px;
+    // left: 30px;
+    
+  }
+   
+  .image-containerRecord:hover .overlay h3 {
+    margin-top: 120px;
+    bottom: 5px; /* Move the overlay to the bottom when hovering */
+    color: white!important;
+    font-size: 35px;
+    // left: 30px;
+    // margin-bottom: 20px;
+  }
+  
+  
+
 
   p {
     padding: 0;
@@ -1354,25 +1405,74 @@
   }
 
 
-.overlay {
+.overlayMobile {
   position: absolute;
 
   width: 100%;
   // background: rgba(0, 0, 0, 0.5);
   color: white;
    padding: 15px;
-  bottom: 60px;
+  bottom: 10px;
+  left: 5px;
 }
 
-.overlay h3 {
+.image-containerRecord .imageHoverMobile{
+  // background: linear-gradient(to bottom, rgba(26, 25, 25, 0.952) 0%, rgb(17, 17, 18) 100%);
+  filter: brightness(50%);
+}
+
+// .image-containerRecord {
+//   position: relative;
+// }
+
+// .image-overlay {
+//   position: relative;
+// }
+
+// .image-overlay::before {
+//   content: '';
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%);
+//   z-index: 1;
+// }
+
+// .overlayMobile {
+//   position: absolute;
+//   bottom: 0;
+//   left: 0;
+//   right: 0;
+//   padding: 20px;
+//   color: white;
+//   z-index: 2;
+// }
+
+/* Adjust z-index values as needed */
+
+
+
+// .imageHover:hover .overlay {
+//   opacity: 1; /* Change the opacity of the overlay to make it visible on hover */
+// }
+
+// .imageHover:hover::after {
+//   opacity: 0.7; /* Change the opacity to make the gradient visible on hover */
+// }
+
+
+.overlayMobile h3 {
   margin-bottom: 5px;
   color: white;
+  font-size: 30px;
 }
 
-.overlay p {
-  margin: 0px;
+.overlayMobile p {
+  margin: 10px 0px;
   width: 350px;
-  font-size: 18px;
+  font-size: 22px;
 }
 
 }
@@ -2511,6 +2611,19 @@
     }
   }
 }
+
+
+// .image-containerRecord:hover .overlay {
+//   bottom: 5px;
+//   color: white;
+//   font-size: 18px;
+//   padding: 65px;
+//    font-weight : 400px;
+//   // background: linear-gradient(white, grey, grey, black);
+//   background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.922) 100%);
+//   //  opacity: 0.7;
+//   height: 300px;
+// }
 
 // // For Scale 125% (Zoom Level)
 // @media (min-width: 1536px) and (max-width: 1920px) {
