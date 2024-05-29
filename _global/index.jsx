@@ -41,10 +41,14 @@ export const calculateDateTime = (
   //   }).format(date.toDate());
   // };
 
+  const userLocale = navigator.language;
+  // console.log("userLocale", userLocale);
+
   const parsedDate = moment(new Date(apiDate));
   const utcDateTime = parsedDate.utc(true).format();
 
   const currentDate = moment();
+  // console.log("CurrentDate", currentDate.local("ar").format("LLL"));
   // Calculate the difference in days
   const diffDays = currentDate.diff(utcDateTime, "days");
   // console.log("ConvertedDATE", moment(utcDateTime).format(format));

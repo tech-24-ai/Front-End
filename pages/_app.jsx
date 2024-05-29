@@ -19,8 +19,8 @@ import LoaderComponent from "../components/loader";
 import { PersistGate } from "redux-persist/integration/react";
 import Timer from "../components/Timer/Timer";
 import Cookies from "../components/cookies/";
-import favicon from "../public/images/header/favicon-32x32.png";
-import appleIcon from "../public/images/header/apple-touch-icon.png";
+import favicon from "../public/images/header/favicon.svg";
+import appleIcon from "../public/images/header/apple-touch-icon.svg";
 import themeConfig from "../config/themeConfig";
 
 class MyApp extends App {
@@ -65,7 +65,7 @@ class MyApp extends App {
       <Provider store={store}>
         <PersistGate persistor={persistor} loading={null}>
           <Head>
-            <title>{themeConfig.appName} - IT Market Research for All</title>
+            <title>{themeConfig.appName}</title>
             <meta
               name="viewport"
               content="width=device-width, minimum-scale=1.0, maximum-scale=5.0, user-scalable=no"
