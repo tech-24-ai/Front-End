@@ -8,13 +8,11 @@ class ConnectRadioBox extends React.PureComponent {
   };
 
   render() {
-    const { options, label, id, notes, name, value } = this.props;
+    const { options, name, value } = this.props;
     let columnClass = "";
     if (isBrowser) {
       if (!!options && options.length > 4) {
         columnClass = "column-class";
-      } else {
-        columnClass = "";
       }
     }
     return (
@@ -25,29 +23,28 @@ class ConnectRadioBox extends React.PureComponent {
             <QuestionTooltip id={id} title={label} notes={notes} modal={true} />
           </div>
         </Label> */}
-            <div style={{ marginTop: "20px" }}
-            className={`connect-radio-box-wrapper ${columnClass}`}>
-          {options &&
-            options.map((data) => {
-              return (
-                <FormGroup>
-                  <Label
-                    key={data.id}
-                    className={value == data.id ? "labelChecked" : ""}
-                  >
-                    <Input
-                      type="radio"
-                      defaultChecked={value == data.id}
-                      name={name}
-                      onClick={() => {
-                        this.onChange(data);
-                      }}
-                    />
-                    {data.name}
-                  </Label>
-                </FormGroup>
-              );
-            })}
+        <div
+          style={{ marginTop: "20px" }}
+          className={`connect-radio-box-wrapper ${columnClass}`}
+        >
+          {options?.map((data) => {
+            return (
+              <FormGroup>
+                <Label
+                  key={data.id}
+                  className={value == data.id ? "labelChecked" : ""}
+                >
+                  <Input
+                    type="radio"
+                    defaultChecked={value == data.id}
+                    name={name}
+                    onClick={() => this.onChange(data)}
+                  />
+                  {data.name}
+                </Label>
+              </FormGroup>
+            );
+          })}
         </div>
       </React.Fragment>
     );

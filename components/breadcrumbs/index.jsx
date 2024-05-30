@@ -17,7 +17,7 @@ class CustomBreadcrumb extends React.Component {
 
   bindBreadcrumb = async () => {
     const categoryId = sessionStorage.getItem("categoryId");
-    const { updateNote, setMeta } = this.props;
+    const { updateNote } = this.props;
     updateNote("");
     const moduleId = sessionStorage.getItem("moduleId");
     let breadcrumb = [];
@@ -45,7 +45,7 @@ class CustomBreadcrumb extends React.Component {
         sessionStorage.setItem("slugs", JSON.stringify(slugs));
 
         let childrenIds = JSON.parse(sessionStorage.getItem("childrenIds"));
-        if (childrenIds && childrenIds.length) {
+        if (childrenIds?.length) {
           this.findNotes();
         } else {
           const { updateNote, setMeta } = this.props;
@@ -104,7 +104,7 @@ class CustomBreadcrumb extends React.Component {
           };
           crudService._getAll("modules", filterData).then((result) => {
             if (result.data.length) {
-              const { id, name, about } = result.data[0];
+              const { id, name } = result.data[0];
               breadcrumb[index + 2] = {
                 id: id,
                 title: name,
@@ -118,13 +118,13 @@ class CustomBreadcrumb extends React.Component {
 
   componentDidMount() {
     this.bindBreadcrumb();
-    if (this.props && this.props.router) {
+    if (this.props?.router) {
       this.props.router.events.on("routeChangeStart", this.handleRouteChange);
     }
   }
 
   componentWillUnmount() {
-    if (this.props && this.props.router) {
+    if (this.props?.router) {
       this.props.router.events.off("routeChangeStart", this.handleRouteChange);
     }
   }
@@ -132,7 +132,7 @@ class CustomBreadcrumb extends React.Component {
   findNotes() {
     let childrenIds = JSON.parse(sessionStorage.getItem("childrenIds"));
     const { updateNote, setMeta } = this.props;
-    if (childrenIds && childrenIds.length) {
+    if (childrenIds?.length) {
       let element = childrenIds.slice(-1)[0];
       try {
         crudService._get("modules", element).then((result) => {
@@ -173,47 +173,45 @@ class CustomBreadcrumb extends React.Component {
     if (redirectLink == "/d") {
       return (
         <div className="site-title">
-          {breadcrumb &&
-            breadcrumb.map((value, index) => {
-              if (index == 0) {
-                return (
-                  <div key={index} style={{ display: "inline-block" }}>
-                    <h5>{index == 0 ? value.title : ""}</h5>
-                  </div>
-                );
-              }
-            })}
+          {breadcrumb?.map((value, index) => {
+            if (index == 0) {
+              return (
+                <div key={index} style={{ display: "inline-block" }}>
+                  <h5>{index == 0 ? value.title : ""}</h5>
+                </div>
+              );
+            }
+          })}
         </div>
       );
     } else {
       return (
         <div className="site-title">
-          {breadcrumb &&
-            breadcrumb.map((value, index) => {
-              if (index == 0) {
-                return (
-                  <div key={index} style={{ display: "inline-block" }}>
-                    <h5>
-                      <Link href={redirectLink}>
-                        <a>{index == 0 ? value.title : ""}</a>
-                      </Link>
-                    </h5>
-                  </div>
-                );
-              } else {
-                return (
-                  <div key={index} style={{ display: "inline-block" }}>
-                    <h5>
-                      <Link href={redirectLink}>
-                        <a>
-                          <span>{`> ${value.title}`}</span>
-                        </a>
-                      </Link>
-                    </h5>
-                  </div>
-                );
-              }
-            })}
+          {breadcrumb?.map((value, index) => {
+            if (index == 0) {
+              return (
+                <div key={index} style={{ display: "inline-block" }}>
+                  <h5>
+                    <Link href={redirectLink}>
+                      <a>{index == 0 ? value.title : ""}</a>
+                    </Link>
+                  </h5>
+                </div>
+              );
+            } else {
+              return (
+                <div key={index} style={{ display: "inline-block" }}>
+                  <h5>
+                    <Link href={redirectLink}>
+                      <a>
+                        <span>{`> ${value.title}`}</span>
+                      </a>
+                    </Link>
+                  </h5>
+                </div>
+              );
+            }
+          })}
         </div>
       );
     }

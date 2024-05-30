@@ -56,7 +56,7 @@ function _getAll(kind, url, filterData) {
     crudService._getAll(url, filterData).then(
       (result) => {
         dispatch(loaderActions.hide());
-        if ((result.status = 200)) {
+        if (result.status == 200) {
           if (result.data) {
             dispatch(success(result.data));
           }
@@ -185,7 +185,7 @@ function _download(id, extension, customURL) {
     crudService._download(customURL || url).then(
       (result) => {
         dispatch(loaderActions.hide());
-        if ((result.status = 200)) {
+        if (result.status == 200) {
           if (result.data) {
             fileDownload(result.data, `${extension}`);
           }
@@ -223,7 +223,7 @@ function _downloadWithPost(url, id, extension, type = "EUINVOICE") {
     crudService._downloadWithPost(url, body).then(
       (result) => {
         dispatch(loaderActions.hide());
-        if ((result.status = 200)) {
+        if (result.status == 200) {
           if (result.data) {
             fileDownload(result.data, `${extension}`);
           }
@@ -259,7 +259,7 @@ function _playVideo(id) {
     crudService._getAll(url).then(
       (result) => {
         dispatch(loaderActions.hide());
-        if ((result.status = 200)) {
+        if (result.status == 200) {
           if (result.data) {
             dispatch(
               userActions.toggleLoginPopup(true, {
