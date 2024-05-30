@@ -26,15 +26,22 @@ const CommunityCard = ({ data, key }) => {
       data-index={key}
       key={key}
       onClick={() => pageRedirection()}
-      style={{ cursor: "pointer", border: ".5px solid #d9dfe9", borderRadius: "6px", height: "254px", marginTop: "10px" }}
+      style={{
+        cursor: "pointer",
+        border: "0.5px solid #d9dfe9",
+        borderRadius: "6px",
+        height: "254px",
+        marginTop: "10px",
+      }}
     >
-      <div className="community-card-header"
+      <div
+        className="community-card-header"
         style={{
-          display: 'flex',
+          display: "flex",
           justifyContent: "flex-start",
           alignItems: "center",
           height: "80px",
-          background: '#f2f4f7',
+          background: "#f2f4f7",
           borderTopLeftRadius: "6px",
           borderTopLeftRadius: "6px",
         }}
@@ -46,29 +53,37 @@ const CommunityCard = ({ data, key }) => {
           }
           alt={data.name}
           width={64}
-          height={64}
-          style={{ borderRadius: "4.8px", margin: "0px 10px" }}
+          // height="auto"
+          style={{ borderRadius: "4.8px" }}
         />
         <div className="community-title-header">
-          <h5 style={{ marginLeft: "20px" }}>{data?.name}</h5>
+          <h5>{data?.name}</h5>
         </div>
       </div>
       <div className="community-card-material" style={{ padding: "12px" }}>
-        <p className="card-description-texts"
-          style={isMobile ? {
-            display: '-webkit-box',
-            WebkitBoxOrient: 'vertical',
-            WebkitLineClamp: 4,
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            // lineHeight: '18px', 
-            maxHeight: 'calc(1.2em * 3)',
-            minHeight: '114px'
-          } : { minHeight: "114px" }}>
+        <p
+          className="card-description-texts"
+          style={
+            isMobile
+              ? {
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 4,
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  // lineHeight: '18px',
+                  maxHeight: "calc(1.2em * 3)",
+                  minHeight: "114px",
+                }
+              : { minHeight: "114px" }
+          }
+        >
           {data.description}
         </p>
-        <div className="card-review"
-          style={{ fontSize: "14px", fontWeight: "500", color: "#001622" }}>
+        <div
+          className="card-review"
+          style={{ fontSize: "14px", fontWeight: "500", color: "#001622" }}
+        >
           <EyeOutlined style={{ fontSize: "16px", verticalAlign: "0.04em" }} />{" "}
           Answers : {data.__meta__.total_post_reply}
           <span style={{ margin: "0 6px", color: "#dde3ec" }}></span>

@@ -186,63 +186,53 @@ const Community = ({ community, getAllCrud, router }) => {
       <Container>
         <div className="all-community"></div>
         <div className="top-rated">
-          <div>
-            <h4
-              className="mb-4 d-flex justify-content-between"
-              style={{ marginTop: "90px" }}
+          <h4
+            className="mb-4 d-flex justify-content-between"
+            style={{ marginTop: "90px" }}
+          >
+            <div
+              style={{
+                display: "flex",
+              }}
             >
-              <div
-                style={{
-                  display: "flex",
-                }}
-              >
-                <div
-                  style={{
-                    width: "4px",
-                    display: "inline-block",
-                    height: "32px",
-                    borderRadius: "0px 4px 4px 0px",
-                    backgroundColor: "#0074D9",
-                  }}
-                ></div>
+              <span className="side-border-title"></span>
+              <div className="section-title-wrapper">
                 <span
                   style={{
-                    marginLeft: "1rem",
                     fontWeight: 400,
                     fontSize: "24px",
                     color: "#54616C",
                   }}
                 >
                   Most Active
-                </span>{" "}
+                </span>
                 <span
                   style={{
                     fontWeight: 500,
                     fontSize: "24px",
                     color: "#0074D9",
-                    marginLeft: "10px",
                   }}
                 >
                   Discussion Groups
                 </span>
               </div>
-              <div className="float-right justify-content-between align-self-center">
-                <h4
-                  style={{
-                    fontWeight: 400,
-                    fontSize: "16px",
-                    color: "#0074D9",
-                    textDecoration: "underline",
-                    cursor: "pointer",
-                    alignContent: "center",
-                  }}
-                  onClick={handleViewAll}
-                >
-                  View all
-                </h4>
-              </div>
-            </h4>
-          </div>
+            </div>
+            <div className="float-right justify-content-between align-self-center">
+              <h4
+                style={{
+                  fontWeight: 400,
+                  fontSize: "16px",
+                  color: "#0074D9",
+                  textDecoration: "underline",
+                  cursor: "pointer",
+                  alignContent: "center",
+                }}
+                onClick={handleViewAll}
+              >
+                View all
+              </h4>
+            </div>
+          </h4>
           <div
             className="community-category-container"
             style={{ width: "100%" }}
@@ -254,17 +244,9 @@ const Community = ({ community, getAllCrud, router }) => {
         <div className="trending-question">
           <div>
             <h4 className="mt-5 mb-4 d-flex">
-              <div
-                style={{
-                  width: "4px",
-                  height: "32px",
-                  borderRadius: "0px 4px 4px 0px",
-                  backgroundColor: "#0074D9",
-                }}
-              ></div>
+              <span className="side-border-title"></span>
               <span
                 style={{
-                  marginLeft: "1rem",
                   fontWeight: 400,
                   fontSize: "24px",
                   color: "#54616C",
@@ -290,38 +272,29 @@ const Community = ({ community, getAllCrud, router }) => {
         </div>
         {/* new accoupation */}
         <div className="trending-question">
-          <div>
-            <h4 className="mt-5 mb-4 d-flex">
-              <div
-                style={{
-                  width: "4px",
-                  height: "32px",
-                  borderRadius: "0px 4px 4px 0px",
-                  backgroundColor: "#0074D9",
-                }}
-              ></div>
+          <h4 className="mt-5 mb-4 d-flex">
+            <span className="side-border-title"></span>
+            <div className="section-title-wrapper">
               <span
                 style={{
-                  marginLeft: "1rem",
                   fontWeight: 400,
                   fontSize: "24px",
                   color: "#54616C",
                 }}
               >
                 Latest
-              </span>{" "}
+              </span>
               <span
                 style={{
                   fontWeight: 500,
                   fontSize: "24px",
                   color: "#0074D9",
-                  marginLeft: "10px",
                 }}
               >
                 News & Announcements
               </span>
-            </h4>
-          </div>
+            </div>
+          </h4>
           <div className="community-category-container">
             <NewsAnnouncementsData
               allnewsAnnouncementsData={allnewsAnnouncementsData}

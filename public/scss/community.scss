@@ -516,6 +516,17 @@
   background-color: #ffffff;
 }
 
+// tablet and desktop
+@media (min-width: 768px) {
+  .section-title-wrapper {
+    display: flex;
+    flex-direction: row;
+    > span:nth-child(2) {
+      margin-left: 10px;
+    }
+  }
+}
+
 @media (min-width: 576px) {
   .main-content.about-us {
     padding-bottom: 80px !important;
@@ -949,6 +960,13 @@
           }
         }
       }
+    }
+  }
+  .section-title-wrapper {
+    display: flex;
+    flex-direction: column;
+    > span {
+      margin: 0;
     }
   }
 }

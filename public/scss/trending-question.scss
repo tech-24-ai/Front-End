@@ -131,10 +131,19 @@
       border-top-right-radius: 8px;
 
       .community-title-header {
-        font-family: "Poppins";
-        font-size: 20px;
-        line-height: 30px;
-        font-weight: 400;
+        max-width: 80%;
+        h5 {
+          font-family: "Poppins";
+          font-size: 20px;
+          line-height: 30px;
+          font-weight: 400;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          margin-bottom: 0;
+        }
       }
     }
     .community-card-material {
