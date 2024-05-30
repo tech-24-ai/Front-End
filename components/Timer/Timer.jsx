@@ -5,7 +5,6 @@ import { withRouter, useRouter } from "next/router";
 import { userActions } from "../../_actions";
 import LinkedinIcon from "../../public/images/linkedin/linked_icon.png";
 import RightLinArrow from "../../public/images/linkedin/arrow.png";
-import { linkedinConstants } from "../../_constants";
 import { Button, ButtonGroup } from "reactstrap";
 import { isBrowser, isMobile } from "react-device-detect";
 import LogoNew from "../../public/images/header/tech24-footer.png";

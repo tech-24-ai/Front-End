@@ -3187,7 +3187,8 @@ const NewDataCenterCalculator = () => {
             className="site-btn margin"
             style={{
               display: "flex",
-              justifyContent: currentQuestion == 1 ? "end" : "space-between",
+              justifyContent:
+                currentQuestion == 1 ? "flex-end" : "space-between",
             }}
           >
             <Button

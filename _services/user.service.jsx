@@ -1,5 +1,4 @@
 import { apiConfig } from "./config";
-import { linkedinConstants } from "../_constants";
 
 const redirect = (url) => {
   window.location.replace(url);

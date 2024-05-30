@@ -1,5 +1,5 @@
 {
-  "name": "nearyou-itmap-ui",
+  "name": "tech24.ai",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/nearyouitmap/nearyou-itmap-ui.git"
+    "url": "git+ssh://git@github.com:tech-24-ai/Front-End.git"
   },
   "keywords": [],
   "author": "",

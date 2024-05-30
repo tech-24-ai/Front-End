@@ -348,7 +348,7 @@ const createMeeting = ({
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
-                  alignItems: "end",
+                  alignItems: "flex-end",
                   columnGap: "10px",
                 }}
               >

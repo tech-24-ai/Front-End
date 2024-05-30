@@ -9,6 +9,5 @@ export * from "./currentQuestion.constants";
 export * from "./editFlow.constants";
 export * from "./advancedModule.constants";
 export * from "./loader.constants";
-export * from "./linkedin.constants";
 export * from "./config";
 export * from "./cookies.constants";

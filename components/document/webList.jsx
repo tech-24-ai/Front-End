@@ -443,7 +443,7 @@ const WebList = ({
                             <div
                               style={{
                                 display: "flex",
-                                justifyContent: "end",
+                                justifyContent: "flex-end",
                                 fontWeight: price === 0 ? "500" : "600",
                                 minWidth: "7rem",
                                 paddingRight: "1rem",

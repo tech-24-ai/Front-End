@@ -22,7 +22,6 @@ import UserIcon from "../public/images/input/user.svg";
 import loginIcon from "../public/new_images/login-bg.svg";
 import LockIcon from "../public/images/input/lock.svg";
 import { userActions, loaderActions } from "../_actions";
-import { linkedinConstants } from "../_constants";
 import {
   BrowserView,
   MobileView,
@@ -84,18 +83,18 @@ class Login extends React.Component {
         <Container>
           <div className="form-login-container">
             <div className="sign-content">
-              {
-                isMobile == false && <BrowserView className="login-title-tank">
-                <h3>Sign in</h3>
-                <h6>Enter your account details</h6>
-              </BrowserView>
-              }
-              {
-                isMobile == true && <MobileView className="login-title-tank">
-                <h3>Sign in</h3>
-                <h6>Enter your account details</h6>
-              </MobileView>
-              }
+              {isMobile == false && (
+                <BrowserView className="login-title-tank">
+                  <h3>Sign in</h3>
+                  <h6>Enter your account details</h6>
+                </BrowserView>
+              )}
+              {isMobile == true && (
+                <MobileView className="login-title-tank">
+                  <h3>Sign in</h3>
+                  <h6>Enter your account details</h6>
+                </MobileView>
+              )}
               <FormGroup style={{ marginTop: "2rem", position: "relative" }}>
                 <h6>Email</h6>
                 <Input
@@ -203,7 +202,6 @@ class Login extends React.Component {
                 <div className="help-block">Password is required</div>
               )}
 
-
               <div className="signinWrapper">
                 <ButtonGroup vertical style={{ width: "100%" }}>
                   <div
@@ -225,7 +223,7 @@ class Login extends React.Component {
                       justifyContent: "center",
                     }}
                   >
-                    {isMobile ==  false && (
+                    {isMobile == false && (
                       <span style={{ margin: 8 }}>
                         <img className="icon" src={OrIcon.src} />
                       </span>
@@ -245,8 +243,8 @@ class Login extends React.Component {
                       borderRadius: "8px",
                       top: "10px",
                       fontWeight: "600",
-                       background:"black",
-                      color:"white",
+                      background: "black",
+                      color: "white",
                     }}
                   >
                     <span>Sign in with LinkedIn</span>
