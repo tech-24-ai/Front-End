@@ -138,7 +138,7 @@ function Menu(props) {
                       <DropdownItem className="service-link">
                         <Link
                           onClick={openSideMenu}
-                          href="/d/tools_calculators/calculators"
+                          href="/tools-calculator/calculators"
                           style={{ color: "black" }}
                         >
                           Tools & Calculator

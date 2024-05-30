@@ -82,7 +82,7 @@ function index() {
         <h4 className="main-title">or Browse from a Category below</h4>
         <CategoryList />
       </Container>
-{/* 
+      {/* 
       <div className="research-repository-section base-bg">
         <Container className="market-research-body-container">
           <h4 className="title">Explore our Research Repository</h4>
@@ -112,7 +112,7 @@ function index() {
                 iconBGColor=""
                 imageWidth={106}
                 title="Tools & Calculators"
-                pathname="/d/tools_calculators"
+                pathname="/tools-calculator/calculators"
                 text="Calculators for Sizing and Cost Estimation, Tools & More"
               />
             </Space>
@@ -144,7 +144,7 @@ function index() {
                 arrowIcon={true}
                 iconBGColor=""
                 title="Tools & Calculators"
-                pathname="/d/tools_calculators"
+                pathname="/tools-calculator/calculators"
               />
             </Space>
           </MobileView>

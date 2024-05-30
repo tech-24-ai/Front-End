@@ -42,7 +42,9 @@ function Header(props) {
     dynamicHeight: window.innerHeight,
   });
 
-  const {isMobile,isTablet,isBrowser} = checkDeviceTyepe(screenSize.dynamicWidth);
+  const { isMobile, isTablet, isBrowser } = checkDeviceTyepe(
+    screenSize.dynamicWidth
+  );
   const setDimension = () => {
     getDimension({
       dynamicWidth: window.innerWidth,
@@ -62,10 +64,8 @@ function Header(props) {
     return () => {
       window.removeEventListener("resize", setDimension);
     };
-
-   
   }, [screenSize]);
-  
+
   useEffect(() => {
     setTimeout(() => {
       if (isMainHeader) {
@@ -93,7 +93,7 @@ function Header(props) {
     }
   }, [router]);
 
-  console.log('screenSize.dynamicWidth', screenSize.dynamicWidth);
+  console.log("screenSize.dynamicWidth", screenSize.dynamicWidth);
 
   const unProtectedRoutes = [
     "/",
@@ -111,7 +111,7 @@ function Header(props) {
     // window.location.replace("/login");
   }
   useEffect(() => {
-    if(isloggedIn){
+    if (isloggedIn) {
       crudService._getAll("visitorprofile").then((data) => {
         setProfileData(data?.data);
       });
@@ -126,7 +126,7 @@ function Header(props) {
       <Container>
         <Row className="align-items-center">
           <Col md={3} className="left-block">
-            {(screenSize.dynamicWidth >= 1180) && (
+            {screenSize.dynamicWidth >= 1180 && (
               <div className="logo-content-block">
                 <div className="logo-wrapper">
                   <Link href="/" style={{ marginTop: "-10px", width: "125px" }}>
@@ -145,9 +145,9 @@ function Header(props) {
                 </div>
               </div>
             )}
-            {(screenSize.dynamicWidth < 1180) && (
+            {screenSize.dynamicWidth < 1180 && (
               <>
-               <Drawer
+                <Drawer
                   isloggedIn={isloggedIn}
                   openSideMenu={openSideMenu}
                   sideMenu={sideMenu}
@@ -170,173 +170,175 @@ function Header(props) {
             )}
           </Col>
           <Col md={9} className="right-block">
-            {(screenSize.dynamicWidth >= 1180) && (
+            {screenSize.dynamicWidth >= 1180 && (
               <div className="main-menu-wrapper">
                 <Navbar expand="md" className="p-0">
                   <NavbarToggler onClick={toggleNavbar} className="mr-2" />
                   <Collapse isOpen={true} navbar>
-                  <Nav className="navbar-link-wrapper">
-                        {/* <NavItem>
+                    <Nav className="navbar-link-wrapper">
+                      {/* <NavItem>
                           <Link href="/platform">
                             <a>Platform</a>
                           </Link>
                         </NavItem> */}
-                        <NavItem>
-                          <Link href="/market-research">
-                            <a
-                              className={`${
-                                router.pathname.includes("/market-research")
-                                  ? "active-nav-link"
-                                  : ""
-                              }`}
-                            >
-                              Market Research
-                            </a>
-                          </Link>
-                        </NavItem>
-
-                        <UncontrolledDropdown nav inNavbar isOpen={isOpen}>
-                          <DropdownToggle
-                            nav
-                            caret
-                            onMouseOver={() => setIsOpen(true)}
-                            onMouseOut={() => setIsOpen(false)}
+                      <NavItem>
+                        <Link href="/market-research">
+                          <a
+                            className={`${
+                              router.pathname.includes("/market-research")
+                                ? "active-nav-link"
+                                : ""
+                            }`}
                           >
-                            Service
-                          </DropdownToggle>
-                          <DropdownMenu
-                            className="dropdown-service-custom"
-                            onMouseOver={() => setIsOpen(true)}
-                            onMouseOut={() => setIsOpen(false)}
-                            style={{
-                              backgroundColor: "#1F1F1F",
-                            }}
-                          >
-                            <DropdownItem className="service-link">
-                              <Link href="/it-robo">AI-Based Robo Advisor</Link>
-                            </DropdownItem>
-                            <DropdownItem className="service-link">
-                              <Link href="/consultant">
-                                Talk to a Consultant
-                              </Link>
-                            </DropdownItem>
-                            <DropdownItem className="service-link">
-                              <Link href="/d/tools_calculators/calculators">
-                                Tools & Calculator
-                              </Link>
-                            </DropdownItem>
-                          </DropdownMenu>
-                        </UncontrolledDropdown>
+                            Market Research
+                          </a>
+                        </Link>
+                      </NavItem>
 
-                        {/* <NavItem>
+                      <UncontrolledDropdown nav inNavbar isOpen={isOpen}>
+                        <DropdownToggle
+                          nav
+                          caret
+                          onMouseOver={() => setIsOpen(true)}
+                          onMouseOut={() => setIsOpen(false)}
+                        >
+                          Service
+                        </DropdownToggle>
+                        <DropdownMenu
+                          className="dropdown-service-custom"
+                          onMouseOver={() => setIsOpen(true)}
+                          onMouseOut={() => setIsOpen(false)}
+                          style={{
+                            backgroundColor: "#1F1F1F",
+                          }}
+                        >
+                          <DropdownItem className="service-link">
+                            <Link href="/it-robo">AI-Based Robo Advisor</Link>
+                          </DropdownItem>
+                          <DropdownItem className="service-link">
+                            <Link href="/consultant">Talk to a Consultant</Link>
+                          </DropdownItem>
+                          <DropdownItem className="service-link">
+                            <Link href="/tools-calculator/calculators">
+                              Tools & Calculator
+                            </Link>
+                          </DropdownItem>
+                        </DropdownMenu>
+                      </UncontrolledDropdown>
+
+                      {/* <NavItem>
                           <Link href="/pricing">
                             <a>Services</a>
                           </Link>
                         </NavItem> */}
 
-                        <NavItem>
-                          <Link href="/connect">
-                            <a
-                              className={`${
-                                router.pathname.includes("/connect")
-                                  ? "active-nav-link"
-                                  : ""
-                              }`}
-                            >
-                              Contact Us
-                            </a>
-                          </Link>
-                        </NavItem>
+                      <NavItem>
+                        <Link href="/connect">
+                          <a
+                            className={`${
+                              router.pathname.includes("/connect")
+                                ? "active-nav-link"
+                                : ""
+                            }`}
+                          >
+                            Contact Us
+                          </a>
+                        </Link>
+                      </NavItem>
 
-                        <NavItem>
-                          <Link href="/blogs">
-                            <a
-                              className={`${
-                                router.pathname.includes("/blogs")
-                                  ? "active-nav-link"
-                                  : ""
-                              }`}
-                            >
-                              Blogs
-                            </a>
-                          </Link>
-                        </NavItem>
-                        <NavItem>
-                          <Link href="/community">
-                            <a
-                              className={`${
-                                router.pathname.includes("/community")
-                                  ? "active-nav-link"
-                                  : ""
-                              }`}
-                            >
-                              Community
-                            </a>
-                          </Link>
-                        </NavItem>
+                      <NavItem>
+                        <Link href="/blogs">
+                          <a
+                            className={`${
+                              router.pathname.includes("/blogs")
+                                ? "active-nav-link"
+                                : ""
+                            }`}
+                          >
+                            Blogs
+                          </a>
+                        </Link>
+                      </NavItem>
+                      <NavItem>
+                        <Link href="/community">
+                          <a
+                            className={`${
+                              router.pathname.includes("/community")
+                                ? "active-nav-link"
+                                : ""
+                            }`}
+                          >
+                            Community
+                          </a>
+                        </Link>
+                      </NavItem>
 
-                        <NavItem
-                          className="mx-2"
-                          style={{ color: "#54616C", fontSize: "30px" }}
-                        >
-                          |
-                        </NavItem>
+                      <NavItem
+                        className="mx-2"
+                        style={{ color: "#54616C", fontSize: "30px" }}
+                      >
+                        |
+                      </NavItem>
 
-                        <NavItem>
+                      <NavItem>
                         <Link href="/search-global">
-                          <img src="/new_images/search.svg" style={{cursor: "pointer"}} alt="search" />
+                          <img
+                            src="/new_images/search.svg"
+                            style={{ cursor: "pointer" }}
+                            alt="search"
+                          />
+                        </Link>
+                      </NavItem>
+
+                      {isloggedIn && (
+                        <NavItem style={{ margin: 0 }}>
+                          <Link href="/Profile">
+                            {profileData?.profile_pic_url ? (
+                              <img
+                                src={`${profileData?.profile_pic_url}`}
+                                alt="avatar"
+                                style={{
+                                  cursor: "pointer",
+                                  width: "30px",
+                                  height: "30px",
+                                  borderRadius: "50%",
+                                  border: "1px solid #D9DFE9",
+                                }}
+                              />
+                            ) : (
+                              <img
+                                src="/new_images/Avatar.svg"
+                                alt="avatar"
+                                style={{ cursor: "pointer" }}
+                              />
+                            )}
                           </Link>
                         </NavItem>
+                      )}
+                      {!isloggedIn && (
+                        <NavItem>
+                          <Link href="/login">
+                            <Button color="light" className="px-4">
+                              Sign In
+                            </Button>
+                          </Link>
+                        </NavItem>
+                      )}
 
-                        {isloggedIn && (
-                          <NavItem style={{ margin: 0 }}>
-                            <Link href="/Profile">
-                              {profileData?.profile_pic_url ? (
-                                <img
-                                  src={`${profileData?.profile_pic_url}`}
-                                  alt="avatar"
-                                  style={{
-                                    cursor: "pointer",
-                                    width: "30px",
-                                    height: "30px",
-                                    borderRadius: "50%",
-                                    border: "1px solid #D9DFE9",
-                                  }}
-                                />
-                              ) : (
-                                <img
-                                  src="/new_images/Avatar.svg"
-                                  alt="avatar"
-                                  style={{ cursor: "pointer" }}
-                                />
-                              )}
-                            </Link>
-                          </NavItem>
-                        )}
-                        {!isloggedIn && (
-                          <NavItem>
-                            <Link href="/login">
-                              <Button color="light" className="px-4">
-                                Sign In
-                              </Button>
-                            </Link>
-                          </NavItem>
-                        )}
-
-                        {/* <NavItem>
+                      {/* <NavItem>
                           <Link href="/blogs">
                             <a>Blogs</a>
                           </Link>
                         </NavItem>
  */}
-                        {/* {isloggedIn && (
+                      {/* {isloggedIn && (
                          <NavItem>
                             <Link href="/logout">
                               <a>Logout</a>
                             </Link>
                           </NavItem>
                         )} */}
-                      </Nav>
+                    </Nav>
                     {/* <MobileView viewClassName='navbar-link-wrapper'>
                         <Link href="#"><a className="Market-link">Market Intelligence</a></Link>
                       </MobileView> */}
@@ -344,8 +346,8 @@ function Header(props) {
                 </Navbar>
               </div>
             )}
-            {(screenSize.dynamicWidth < 1180) && (
-                <div style={{ float: "right", display: "flex" }}>
+            {screenSize.dynamicWidth < 1180 && (
+              <div style={{ float: "right", display: "flex" }}>
                 <NavItem>
                   <Link href="/search-global" style={{ cursor: "pointer" }}>
                     <img src="/new_images/search.svg" alt="search" />

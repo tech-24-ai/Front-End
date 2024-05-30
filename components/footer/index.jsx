@@ -87,7 +87,7 @@ const Footer = (props) => {
                   <a>Services</a>
                   <Link href="/it-robo">AI-Based Robo Advisor</Link>
                   <Link href="/consultant">Talk to a Consultant</Link>
-                  <Link href="/d/tools_calculators/calculators">
+                  <Link href="/tools-calculator/calculators">
                     Tools & Calculator
                   </Link>
                 </div>
@@ -110,7 +110,7 @@ const Footer = (props) => {
               <Col md={12}>
                 <div className="social-wrapper">
                   <div className="copy-right">
-                  Copyright © {new Date().getFullYear()} {themeConfig.appName}
+                    Copyright © {new Date().getFullYear()} {themeConfig.appName}
                     . All rights reserved
                   </div>
                   <div className="social-link">
@@ -224,7 +224,7 @@ const Footer = (props) => {
                 <h4>Services</h4>
                 <Link href="/it-robo">AI-Based Robo Advisor</Link>
                 <Link href="/consultant">Talk to a Consultant</Link>
-                <Link href="/d/tools_calculators/calculators">
+                <Link href="/tools-calculator/calculators">
                   Tools & Calculator
                 </Link>
               </div>
@@ -237,7 +237,7 @@ const Footer = (props) => {
             </div>
             <div class="text-image-container">
               <p>
-              Copyright © {new Date().getFullYear()} {themeConfig.appName} All
+                Copyright © {new Date().getFullYear()} {themeConfig.appName} All
                 rights reserved
               </p>
               <div className="social-media">
@@ -336,7 +336,7 @@ const Footer = (props) => {
                 <h4>Services</h4>
                 <Link href="/it-robo">AI-Based Robo Advisor</Link>
                 <Link href="/consultant">Talk to a Consultant</Link>
-                <Link href="/d/tools_calculators/calculators">
+                <Link href="/tools-calculator/calculators">
                   Tools & Calculator
                 </Link>
               </div>
@@ -350,7 +350,7 @@ const Footer = (props) => {
 
             <div class="text-image-container">
               <p>
-              Copyright © {new Date().getFullYear()} {themeConfig.appName} All
+                Copyright © {new Date().getFullYear()} {themeConfig.appName} All
                 rights reserved
               </p>
               <div className="social-media">
