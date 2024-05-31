@@ -120,14 +120,12 @@ const CategoryResearchList = ({ router }) => {
     {
       heading: "Research Type",
       name: "document_type",
-      multiple: false,
       options: typeOptions,
       value: filteredData["document_type"],
       multiple: true,
     },
     {
       heading: "Research Category",
-      multiple: false,
       name: "category",
       options: categoryOptions,
       value: filteredData["category"],
@@ -135,7 +133,6 @@ const CategoryResearchList = ({ router }) => {
     },
     {
       heading: "Research Topics",
-      multiple: false,
       name: "topic",
       options: topicOptions,
       value: filteredData["topic"],
@@ -143,7 +140,6 @@ const CategoryResearchList = ({ router }) => {
     },
     {
       heading: "Research Tags",
-      multiple: false,
       name: "tags",
       options: tagOptions,
       value: filteredData["tags"],
