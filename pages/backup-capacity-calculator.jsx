@@ -117,28 +117,22 @@ const BackupCapacityCalculator = () => {
   // main calculation function (onclick function)
   const resultCalculations = () => {
     setFullBackUpFirstState({
-      fullBackupFirst: fullBackUpFirstFunction(fullBackUpFirstData),
+      fullBackupFirst: fullBackUpFirstFunction(),
     });
     setFullBackUpSecondState({
-      fullBackupSecond: fullBackUpSecondFunction(fullBackUpSecondData),
+      fullBackupSecond: fullBackUpSecondFunction(),
     });
     setFullBackUpThirdState({
-      fullBackupThird: fullBackUpThirdFunction(fullBackUpThirdData),
+      fullBackupThird: fullBackUpThirdFunction(),
     });
     setIncrementalBackupFirstState({
-      incrementalBackupFirst: incrementalBackupFirstFunction(
-        incrementalBackupFirstData
-      ),
+      incrementalBackupFirst: incrementalBackupFirstFunction(),
     });
     setIncrementalBackupSecondState({
-      incrementalBackupSecond: incrementalBackupSecondFunction(
-        incrementalBackupSecondData
-      ),
+      incrementalBackupSecond: incrementalBackupSecondFunction(),
     });
     setIncrementalBackupThirdState({
-      incrementalBackupThird: incrementalBackupThirdFunction(
-        incrementalBackupThirdData
-      ),
+      incrementalBackupThird: incrementalBackupThirdFunction(),
     });
 
     if (TBHR <= 0) {

@@ -48,7 +48,7 @@ class ConnectDetail extends React.PureComponent {
   formState = () => {
     let form = {};
     if (connectFormFields) {
-      connectFormFields.map((formField) => {
+      connectFormFields.forEach((formField) => {
         form[formField.name] = formField.value;
       });
     }
@@ -78,7 +78,7 @@ class ConnectDetail extends React.PureComponent {
       newState.contactTypeName = props.contactTypeName;
     }
 
-    connectFormFields.map((formField) => {
+    connectFormFields.forEach((formField) => {
       if (state.form[formField.name]) {
         newState.form[formField.name] = state.form[formField.name];
       } else if (props.organisationName) {
@@ -128,7 +128,7 @@ class ConnectDetail extends React.PureComponent {
     // console.log("contactTypeName", contactTypeName);
     const { connectData } = this.props;
     let errors = {};
-    connectFormFields.map((formField) => {
+    connectFormFields.forEach((formField) => {
       errors[formField.name] = this.validator.message(
         formField.name,
         form[formField.name],

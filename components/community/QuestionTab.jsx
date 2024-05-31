@@ -179,7 +179,7 @@ const QuestionTab = ({
   useEffect(() => {
     let previousFiles = [];
     questionEditable &&
-      url.map((file) => {
+      url.forEach((file) => {
         file.id && file.id != -987654321 ? (
           previousFiles.push({ url: file?.url, name: file?.name })
         ) : (
@@ -460,7 +460,7 @@ const QuestionTab = ({
   }, [questionEditable]);
 
   let previewURL = [];
-  url.map((data) => {
+  url.forEach((data) => {
     data.id && previewURL.push(data);
   });
 

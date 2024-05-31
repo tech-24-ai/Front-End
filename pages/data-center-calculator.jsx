@@ -700,7 +700,7 @@ const NewDataCenterCalculator = () => {
           : stateData.unit;
       if (componentName) {
         if (target.tagName == undefined && target.checked) {
-          Object.keys(stateData).map((key, ind) => {
+          Object.keys(stateData).forEach((key, ind) => {
             if (stateData[key] instanceof Object) {
               newData = {
                 ...newData,
@@ -737,7 +737,7 @@ const NewDataCenterCalculator = () => {
     if (target.tagName == undefined && !target.checked) {
       newData = { ...newData, [target.name]: target.checked };
       if (componentName) {
-        Object.keys(stateData).map((key, ind) => {
+        Object.keys(stateData).forEach((key, ind) => {
           if (stateData[key] instanceof Object) {
             newData = {
               ...newData,
@@ -802,7 +802,7 @@ const NewDataCenterCalculator = () => {
         );
 
         if (stateKeys && stateKeys.length) {
-          stateKeys.map((key) => {
+          stateKeys.forEach((key) => {
             setState((previousState) => ({
               ...previousState,
               [key]: {
@@ -836,7 +836,7 @@ const NewDataCenterCalculator = () => {
     const regionKey = regionConfig[selectedCountry.regionId];
     const componentKey = stateData.componentKey;
     let rangIndex = 0;
-    for (var i = 0; i < stateData.range.length; i++) {
+    for (let i = 0; i < stateData.range.length; i++) {
       if (value <= stateData.range[i]) {
         rangIndex = i;
         break;

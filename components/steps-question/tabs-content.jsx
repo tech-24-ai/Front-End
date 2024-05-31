@@ -138,7 +138,7 @@ class StepQuestionTabContent extends React.Component {
     }
 
     // object already exists code start
-    var index = questionData.findIndex(
+    let index = questionData.findIndex(
       (x) => x.question_id == data.question_id
     );
 
@@ -248,169 +248,165 @@ class StepQuestionTabContent extends React.Component {
   render() {
     const { questions, activeTab, tabsDatas, countries, industries } =
       this.props;
-    if (questions && questions.length) {
+    if (questions?.length) {
       return (
         <React.Fragment>
           <TabContent activeTab={activeTab}>
-            {questions &&
-              questions.map((question, index) => {
-                const isExist = question.options.some(
-                  (element) => element.id == 0
-                );
+            {questions?.map((question, index) => {
+              const isExist = question.options.some(
+                (element) => element.id == 0
+              );
 
-                if (!isExist && question.isNotSure) {
-                  question.options.push({
-                    id: 0,
-                    name: "No Preferences/Not Applicable",
-                    pivot: {
-                      option_id: 0,
-                      question_id: question.id,
-                      sort_order: 0,
-                    },
-                    sub_options: [],
-                  });
-                }
-                // Not Sure Option --> Not required (93), Not Sure (113), Not applicable (159), No preference (191), No preferences (195), Not Sure/Not Applicable (717)
-                const notSureOption = [93, 113, 159, 191, 195, 717];
-                let optionArray = question.options.map((e) => {
-                  if (notSureOption.includes(e.id)) {
-                    return {
-                      ...e,
-                      id: 0,
-                    };
-                  } else {
-                    return e;
-                  }
+              if (!isExist && question.isNotSure) {
+                question.options.push({
+                  id: 0,
+                  name: "No Preferences/Not Applicable",
+                  pivot: {
+                    option_id: 0,
+                    question_id: question.id,
+                    sort_order: 0,
+                  },
+                  sub_options: [],
                 });
-                let tabIndex =
-                  tabsDatas.findIndex((tab) => tab.id == question.id) + 1;
-
-                let checkValueArray = [];
-                let subOptionValueArray = [];
-                let priorityArray = {};
-                let questionData = this.state.form[question.id];
-                if (questionData) {
-                  questionData.map((item) => {
-                    item.subOptions &&
-                      item.subOptions.map((sub) => {
-                        subOptionValueArray.push(sub.value);
-                      });
-
-                    item.priority &&
-                      item.priority.map((p) => {
-                        priorityArray[item.value] = p.value;
-                      });
-                  });
-                  checkValueArray = questionData.map((data) => data.value);
+              }
+              // Not Sure Option --> Not required (93), Not Sure (113), Not applicable (159), No preference (191), No preferences (195), Not Sure/Not Applicable (717)
+              const notSureOption = [93, 113, 159, 191, 195, 717];
+              let optionArray = question.options.map((e) => {
+                if (notSureOption.includes(e.id)) {
+                  return {
+                    ...e,
+                    id: 0,
+                  };
                 }
+                return e;
+              });
+              let tabIndex =
+                tabsDatas.findIndex((tab) => tab.id == question.id) + 1;
 
-                return (
-                  <TabPane tabId={tabIndex} key={question.name}>
-                    <Row>
-                      <Col sm="12">
-                        {question.option_type === "country_select" && (
-                          <div>
-                            <SelectBox
-                              isClearable={true}
-                              options={countries}
-                              label={question.name}
-                              notes={question.notes}
-                              tooltip={question.name}
-                              value={questionData && questionData[0].value}
-                              onChange={this.onChange}
-                              question_id={question.id}
-                              name={question.name}
-                              ref={question.id}
-                              id={question.id}
-                            />
-                          </div>
-                        )}
-                        {question.option_type === "industry_select" && (
-                          <div>
-                            <SelectBox
-                              isClearable={true}
-                              options={industries}
-                              label={question.name}
-                              notes={question.notes}
-                              tooltip={question.name}
-                              value={questionData && questionData[0].value}
-                              onChange={this.onChange}
-                              question_id={question.id}
-                              name={question.name}
-                              id={question.id}
-                            />
-                          </div>
-                        )}
+              let checkValueArray = [];
+              let subOptionValueArray = [];
+              let priorityArray = {};
+              let questionData = this.state.form[question.id];
+              if (questionData) {
+                questionData.map((item) => {
+                  item?.subOptions?.map((sub) => {
+                    subOptionValueArray.push(sub.value);
+                  });
 
-                        {question.option_type === "select" && (
-                          <div>
-                            <SelectBox
-                              isClearable={true}
-                              options={optionArray}
-                              label={question.name}
-                              notes={question.notes}
-                              tooltip={question.name}
-                              value={questionData && questionData[0].value}
-                              onChange={this.onChange}
-                              question_id={question.id}
-                              name={question.name}
-                              id={question.id}
-                            />
-                          </div>
-                        )}
+                  item?.priority?.map((p) => {
+                    priorityArray[item.value] = p.value;
+                  });
+                });
+                checkValueArray = questionData.map((data) => data.value);
+              }
 
-                        {question.option_type === "radiobox" && (
-                          <div>
-                            <RadioBox
-                              options={optionArray}
-                              label={question.name}
-                              notes={question.notes}
-                              value={questionData && questionData[0].value}
-                              onChange={this.onChange}
-                              name={question.name}
-                              id={question.id}
-                            />
-                          </div>
-                        )}
+              return (
+                <TabPane tabId={tabIndex} key={question.name}>
+                  <Row>
+                    <Col sm="12">
+                      {question.option_type === "country_select" && (
+                        <div>
+                          <SelectBox
+                            isClearable={true}
+                            options={countries}
+                            label={question.name}
+                            notes={question.notes}
+                            tooltip={question.name}
+                            value={questionData && questionData[0].value}
+                            onChange={this.onChange}
+                            question_id={question.id}
+                            name={question.name}
+                            ref={question.id}
+                            id={question.id}
+                          />
+                        </div>
+                      )}
+                      {question.option_type === "industry_select" && (
+                        <div>
+                          <SelectBox
+                            isClearable={true}
+                            options={industries}
+                            label={question.name}
+                            notes={question.notes}
+                            tooltip={question.name}
+                            value={questionData && questionData[0].value}
+                            onChange={this.onChange}
+                            question_id={question.id}
+                            name={question.name}
+                            id={question.id}
+                          />
+                        </div>
+                      )}
 
-                        {question.option_type === "checkbox" && (
-                          <div>
-                            <CheckBox
-                              options={optionArray}
-                              label={question.name}
-                              notes={question.notes}
-                              value={checkValueArray}
-                              onChange={this.onChange}
-                              subValue={subOptionValueArray}
-                              onOptionChange={this.onSubOptionChange}
-                              name={question.name}
-                              id={question.id}
-                            />
-                          </div>
-                        )}
+                      {question.option_type === "select" && (
+                        <div>
+                          <SelectBox
+                            isClearable={true}
+                            options={optionArray}
+                            label={question.name}
+                            notes={question.notes}
+                            tooltip={question.name}
+                            value={questionData && questionData[0].value}
+                            onChange={this.onChange}
+                            question_id={question.id}
+                            name={question.name}
+                            id={question.id}
+                          />
+                        </div>
+                      )}
 
-                        {question.option_type === "multi_radiobox" && (
-                          <div>
-                            <MultiRadio
-                              options={optionArray}
-                              label={question.name}
-                              notes={question.notes}
-                              onChange={this.onChange}
-                              onOptionChange={this.onSubOptionChange}
-                              onChangePriority={this.onChangePriority}
-                              value={checkValueArray}
-                              subValue={subOptionValueArray}
-                              priority={priorityArray}
-                              name={question.name}
-                              id={question.id}
-                            />
-                          </div>
-                        )}
-                      </Col>
-                    </Row>
-                  </TabPane>
-                );
-              })}
+                      {question.option_type === "radiobox" && (
+                        <div>
+                          <RadioBox
+                            options={optionArray}
+                            label={question.name}
+                            notes={question.notes}
+                            value={questionData && questionData[0].value}
+                            onChange={this.onChange}
+                            name={question.name}
+                            id={question.id}
+                          />
+                        </div>
+                      )}
+
+                      {question.option_type === "checkbox" && (
+                        <div>
+                          <CheckBox
+                            options={optionArray}
+                            label={question.name}
+                            notes={question.notes}
+                            value={checkValueArray}
+                            onChange={this.onChange}
+                            subValue={subOptionValueArray}
+                            onOptionChange={this.onSubOptionChange}
+                            name={question.name}
+                            id={question.id}
+                          />
+                        </div>
+                      )}
+
+                      {question.option_type === "multi_radiobox" && (
+                        <div>
+                          <MultiRadio
+                            options={optionArray}
+                            label={question.name}
+                            notes={question.notes}
+                            onChange={this.onChange}
+                            onOptionChange={this.onSubOptionChange}
+                            onChangePriority={this.onChangePriority}
+                            value={checkValueArray}
+                            subValue={subOptionValueArray}
+                            priority={priorityArray}
+                            name={question.name}
+                            id={question.id}
+                          />
+                        </div>
+                      )}
+                    </Col>
+                  </Row>
+                </TabPane>
+              );
+            })}
           </TabContent>
         </React.Fragment>
       );
