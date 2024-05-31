@@ -1,17 +1,24 @@
 .market-research-portal-section {
-  .page-banner .banner-bg .banner-container .banner-title-container p.subSecondTitle{
-    margin-top: 10px!important;
-
+  .page-banner
+    .banner-bg
+    .banner-container
+    .banner-title-container
+    p.subSecondTitle {
+    margin-top: 10px !important;
   }
-   .page-banner .banner-bg .banner-container .banner-title-container p.subSecondTitle::last-line::first-letter{
-    color: red!important;
-   }
+  .page-banner
+    .banner-bg
+    .banner-container
+    .banner-title-container
+    p.subSecondTitle::last-line::first-letter {
+    color: red !important;
+  }
+
   .market-research-body-container {
     // margin: 1rem 0;
     margin-top: 3.5rem;
     margin-bottom: 1rem;
   }
- 
 
   .title {
     text-align: center;
@@ -260,7 +267,7 @@ section.latest-research-section {
     .banner-image-container,
     .sub-title {
       // display: none;
-      margin-top: 5px!important;
+      margin-top: 5px !important;
     }
     .title {
       font-size: 18px;
@@ -312,22 +319,21 @@ section.latest-research-section {
 //Tablet
 @media (min-width: 768px) and (max-width: 1440px) {
   .page-banner .banner-bg .banner-container .banner-title-container p {
-    font-size: 12px!important;
+    font-size: 12px !important;
   }
-  .new-custom-search-input{
+  .new-custom-search-input {
     // width: 65%!important;
     width: 100%;
   }
   .market-research-portal-section {
     .banner-image-container,
     .sub-title {
-      margin-top: 10px!important;
+      margin-top: 10px !important;
     }
     .title {
       font-size: 18px;
       font-weight: 600;
     }
-
 
     .research-content {
       display: grid;

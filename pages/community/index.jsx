@@ -334,16 +334,6 @@ const styles = {
     // alignItems: "center",
     // justifyContent: "center",
   },
-  searchContainer: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center", // Center align content horizontally
-    backgroundImage:
-      "url(https://answersstaticfilecdnv2.azureedge.net/static/images/banner.png)",
-    height: "300px",
-  },
-
   input: {
     width: "100%",
     height: "38px",

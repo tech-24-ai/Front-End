@@ -1053,7 +1053,6 @@ const CommunityQuestionDetail = ({
                                   fontSize: "14px",
                                   fontWeight: 500,
                                   fontFamily: "Inter",
-                                  color: "#54616C",
                                   color: "#0074D9",
                                   cursor: "pointer",
                                 }}

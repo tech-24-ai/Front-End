@@ -1,23 +1,22 @@
-
 .connect-portal-section {
   //Connect Detail Page
   .card {
     .header-lable {
-      font-family: "Poppins";
+      font-family: "Poppins", sans-serif;
       font-size: 22px;
       font-weight: 600;
       line-height: 32px;
       letter-spacing: 0px;
     }
     .header-detail {
-      font-family: "Poppins";
+      font-family: "Poppins", sans-serif;
       font-size: 14px;
       font-weight: 400;
       line-height: 21px;
       letter-spacing: 0px;
     }
     .input-lable {
-      font-family: "Poppins";
+      font-family: "Poppins", sans-serif;
       font-size: 16px;
       font-weight: 600;
       line-height: 24px;
@@ -121,7 +120,7 @@
     justify-content: center;
 
     h4 {
-      font-family: "Poppins";
+      font-family: "Poppins", sans-serif;
       font-size: 35px;
       font-weight: 600;
       line-height: 40px;
@@ -180,7 +179,7 @@
       border-radius: 16px;
       display: inline-block;
       vertical-align: middle;
-      font-family: "Poppins";
+      font-family: "Poppins", sans-serif;
       background-color: $gray;
       border-width: 0px;
 
@@ -235,7 +234,7 @@
     width: 500px;
 
     h4 {
-      font-family: "Poppins";
+      font-family: "Poppins", sans-serif;
       font-size: 40px;
       font-weight: 600;
       line-height: 65px;
@@ -243,7 +242,7 @@
       text-align: left;
     }
     p {
-      font-family: "Poppins";
+      font-family: "Poppins", sans-serif;
       font-size: 14px;
       font-weight: 500;
       line-height: 25px;
@@ -258,7 +257,7 @@
       margin-top: 18px;
     }
     .custom-input::placeholder {
-      font-family: "Poppins";
+      font-family: "Poppins", sans-serif;
       font-size: 16px;
       font-weight: 400;
       line-height: 25px;
@@ -273,7 +272,7 @@
       width: 500px;
     }
     .custom-textarea-input::placeholder {
-      font-family: "Poppins";
+      font-family: "Poppins", sans-serif;
       font-size: 16px;
       font-weight: 400;
       line-height: 25px;
@@ -289,7 +288,7 @@
       top: 15px;
       background: $backgroundColor;
       border-radius: 16px;
-      font-family: "Poppins";
+      font-family: "Poppins", sans-serif;
       font-size: 16px;
       font-weight: 500;
       border-width: 0;
@@ -319,7 +318,7 @@
       flex-direction: row;
 
       h4 {
-        font-family: "Poppins";
+        font-family: "Poppins", sans-serif;
         font-size: 25px;
         font-weight: 600;
         line-height: 34px;
@@ -327,7 +326,7 @@
         margin-top: 12px;
       }
       p {
-        font-family: "Poppins";
+        font-family: "Poppins", sans-serif;
         font-size: 14px;
         font-weight: 500;
         line-height: 25px;
@@ -345,7 +344,7 @@
       width: 600px;
       margin-left: 10px;
       h4 {
-        font-family: "Poppins";
+        font-family: "Poppins", sans-serif;
         font-size: 25px;
         font-weight: 600;
         line-height: 34px;
@@ -353,7 +352,7 @@
         margin-top: 12px;
       }
       p {
-        font-family: "Poppins";
+        font-family: "Poppins", sans-serif;
         font-size: 14px;
         font-weight: 500;
         line-height: 14px;
@@ -372,7 +371,6 @@
 }
 
 @media (min-width: 576px) {
- 
   .connect-portal-section.confirm-page {
     .select-category-block {
       form.form-block {
@@ -391,21 +389,21 @@
   .connect-portal-section {
     .card {
       .header-lable {
-        font-family: "Poppins";
+        font-family: "Poppins", sans-serif;
         font-size: 22px;
         font-weight: 600;
         line-height: 32px;
         letter-spacing: 0px;
       }
       .header-detail {
-        font-family: "Poppins";
+        font-family: "Poppins", sans-serif;
         font-size: 14px;
         font-weight: 400;
         line-height: 21px;
         letter-spacing: 0px;
       }
       .input-lable {
-        font-family: "Poppins";
+        font-family: "Poppins", sans-serif;
         font-size: 16px;
         font-weight: 600;
         line-height: 24px;
@@ -487,7 +485,7 @@
       justify-content: center;
 
       h4 {
-        font-family: "Poppins";
+        font-family: "Poppins", sans-serif;
         font-size: 24px;
         font-weight: 600;
         line-height: 28px;
@@ -549,7 +547,7 @@
         border-radius: 16px;
         display: inline-block;
         vertical-align: middle;
-        font-family: "Poppins";
+        font-family: "Poppins", sans-serif;
         background-color: $gray;
         border-width: 0px;
 
@@ -571,10 +569,9 @@
       display: flex;
       flex-direction: column;
       position: relative;
-       top: -50px;
+      top: -50px;
     }
     .mid-right-connect-content {
-      margin-left: 0px;
       margin: 50px 0px;
       width: 90%;
       display: flex;
@@ -602,17 +599,16 @@
       width: 100%;
 
       h4 {
-        font-family: "Poppins";
+        font-family: "Poppins", sans-serif;
         font-size: 40px;
         font-weight: 600;
         line-height: 65px;
         letter-spacing: -2px;
         text-align: left;
-      // margin-top: 250px!important;
-
+        // margin-top: 250px!important;
       }
       p {
-        font-family: "Poppins";
+        font-family: "Poppins", sans-serif;
         font-size: 14px;
         font-weight: 500;
         line-height: 25px;
@@ -628,7 +624,7 @@
         margin-top: 18px;
       }
       .custom-input::placeholder {
-        font-family: "Poppins";
+        font-family: "Poppins", sans-serif;
         font-size: 16px;
         font-weight: 400;
         line-height: 25px;
@@ -644,7 +640,7 @@
         width: 100%;
       }
       .custom-textarea-input::placeholder {
-        font-family: "Poppins";
+        font-family: "Poppins", sans-serif;
         font-size: 16px;
         font-weight: 400;
         line-height: 25px;
@@ -660,7 +656,7 @@
         top: 15px;
         background: $backgroundColor;
         border-radius: 16px;
-        font-family: "Poppins";
+        font-family: "Poppins", sans-serif;
         font-size: 16px;
         font-weight: 500;
         border-width: 0;
@@ -692,7 +688,7 @@
         flex-direction: row;
 
         h4 {
-          font-family: "Poppins";
+          font-family: "Poppins", sans-serif;
           font-size: 25px;
           font-weight: 600;
           line-height: 34px;
@@ -700,7 +696,7 @@
           margin-top: 12px;
         }
         p {
-          font-family: "Poppins";
+          font-family: "Poppins", sans-serif;
           font-size: 14px;
           font-weight: 500;
           line-height: 25px;
@@ -725,7 +721,7 @@
         width: 100%;
         margin-left: 10px;
         h4 {
-          font-family: "Poppins";
+          font-family: "Poppins", sans-serif;
           font-size: 25px;
           font-weight: 600;
           line-height: 34px;
@@ -733,7 +729,7 @@
           margin-top: 12px;
         }
         p {
-          font-family: "Poppins";
+          font-family: "Poppins", sans-serif;
           font-size: 14px;
           font-weight: 500;
           line-height: 14px;
@@ -763,12 +759,16 @@
 @media (min-width: 768px) {
   /* For medium screens and above */
   .mid-left-connect-content {
-    width: calc(50% - 10px); /* Each column takes 50% width with space between them */
+    width: calc(
+      50% - 10px
+    ); /* Each column takes 50% width with space between them */
     margin-right: 20px; /* Space between columns */
   }
 
   .mid-right-connect-content {
-    width: calc(50% - 10px); /* Each column takes 50% width with space between them */
+    width: calc(
+      50% - 10px
+    ); /* Each column takes 50% width with space between them */
   }
 }
 
@@ -779,10 +779,4 @@
     width: 100%; /* Each column takes full width */
     margin-top: 300px;
   }
-
-
-  
 }
-
-
-
