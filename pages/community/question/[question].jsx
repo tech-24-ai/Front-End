@@ -63,6 +63,7 @@ import { FlageIcon, ReplyIcon } from "../../../components/icons";
 import ReportAbuseModal from "../../../components/community/ReportAbuseModal";
 import { calculateDateTime } from "../../../_global";
 import { Fragment } from "react";
+import Link from "next/link";
 
 const CommunityQuestionDetail = ({
   getAllCrud,
@@ -287,9 +288,22 @@ const CommunityQuestionDetail = ({
             setCommunityData(community);
             setCommunityQuestionDetail(postDetails);
           }
+          
         });
     }
   }, [updateCom, slugQuery]);
+
+  // const visitor_id = communityQuestionDetail?.visitor_id;
+
+  // console.log("vv ie",visitor_id);
+
+  const handleClick = () => {
+    const visitor_id = communityQuestionDetail?.visitor_id;
+    history.push({
+        pathname: '/user_profile',
+        state: { visitor_id: visitor_id }
+    });
+};
 
   const getPostReplies = () => {
     const id = communityQuestionDetail?.id;
@@ -653,6 +667,7 @@ const CommunityQuestionDetail = ({
                     marginTop: "1rem",
                   }}
                 >
+                  <Link href="/user_profile" onClick={handleClick}>
                   <div className="cards-header">
                     <div>
                       <div className="img">
@@ -694,6 +709,7 @@ const CommunityQuestionDetail = ({
                       </div>
                     </div>
                   </div>
+                  </Link>
                   <p className="para questions_font_14px">
                     <span
                       style={{

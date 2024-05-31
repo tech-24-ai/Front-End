@@ -367,6 +367,24 @@ const QuestionTab = ({
 
           setPageCount(isNaN(totalPage) ? 0 : totalPage);
         });
+    }else{
+      crudService
+      ._getAll(`visitor_queries_history`, {
+        orderBy: sortBy,
+        orderDirection: "DESC",
+        page: page + 1,
+        pageSize: itemsPerPage,
+        search: headerSearch,
+        visitor_id : 1281
+      })
+      .then((result) => {
+        setCommunityDetails(result?.data);
+        const totalPage = Math.ceil(
+          result?.data.total / result?.data.perPage
+        );
+
+        setPageCount(isNaN(totalPage) ? 0 : totalPage);
+      });
     }
   };
 
