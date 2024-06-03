@@ -293,16 +293,16 @@ const CommunityQuestionDetail = ({
     }
   }, [updateCom, slugQuery]);
 
-  // const visitor_id = communityQuestionDetail?.visitor_id;
-
-  // console.log("vv ie",visitor_id);
 
   const handleClick = () => {
-    const visitor_id = communityQuestionDetail?.visitor_id;
-    history.push({
+   
+    Router.push({
         pathname: '/user_profile',
-        state: { visitor_id: visitor_id }
     });
+    sessionStorage.setItem(
+      "visitor_id",
+      communityQuestionDetail?.visitor_id
+    );
 };
 
   const getPostReplies = () => {
@@ -667,7 +667,7 @@ const CommunityQuestionDetail = ({
                     marginTop: "1rem",
                   }}
                 >
-                  <Link href="/user_profile" onClick={handleClick}>
+                  <a href="/user_profile"  onClick={handleClick}>
                   <div className="cards-header">
                     <div>
                       <div className="img">
@@ -709,7 +709,7 @@ const CommunityQuestionDetail = ({
                       </div>
                     </div>
                   </div>
-                  </Link>
+                  </a>
                   <p className="para questions_font_14px">
                     <span
                       style={{

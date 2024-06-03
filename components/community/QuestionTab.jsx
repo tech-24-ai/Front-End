@@ -375,7 +375,7 @@ const QuestionTab = ({
         page: page + 1,
         pageSize: itemsPerPage,
         search: headerSearch,
-        visitor_id : 1281
+        visitor_id : sessionStorage.getItem("visitor_id")
       })
       .then((result) => {
         setCommunityDetails(result?.data);

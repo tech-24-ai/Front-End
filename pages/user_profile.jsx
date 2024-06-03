@@ -78,20 +78,6 @@ const UserProfile = ({
   const [activeTab, setActiveTab] = useState("1");
   const [isSignOutModalOpen, setIsSignOutModalOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  // const [mode, setMode] = useState('left');
-  // const onChange = (e) => {
-  //   setMode(e.target.value);
-  // };
-
-  const pre_id = location && location.state ? location.state.visitor_id : 'Visitor ID Not Available';
-
-  // if (!id) {
-  //   // Handle the case where id is not available in location.state
-  //   console.error('ID not found in location state');
-  //   return null; // Or render an error message, redirect, or fallback UI
-  // }
-
-  console.log("visitor_id_record", pre_id);
 
   const [updateProfileData, setUpdateProfileData] = useState({
     alternate_email: "",
@@ -149,6 +135,12 @@ const UserProfile = ({
       label: "Most Voted",
     },
   ];
+
+  useEffect(() => { 
+    const visitor_id = sessionStorage.getItem("visitor_id")
+    // console.log("new visitor id", visitor_id)
+
+  },[]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -226,10 +218,6 @@ const UserProfile = ({
       });
   }, [page]);
 
-
-
-
-
   //all tab profile lvl
   const currentProLevel = visitorcommunityprofile?.data[0]?.total_points_earned < 150 ? "0" : visitorcommunityprofile?.data[0]?.current_level;
 
@@ -256,7 +244,7 @@ const UserProfile = ({
         pageSize: itemsPerPage,
         search: searchQuery,
         ...filteredData,
-        visitor_id : 1281,
+        visitor_id : visitorprofile?.id,
 
         // visitor_id : visitorcommunityprofile?.visitor_id,
       })
@@ -392,15 +380,17 @@ const UserProfile = ({
   const handleSignOutCancel = () => {
     setIsSignOutModalOpen(false);
   };
+  
   useEffect(() => {
     getAllCrud("visitorcommunityprofile", "visitorcommunityprofile",{
-      visitor_id : 1281
+      visitor_id : sessionStorage.getItem("visitor_id")
     });
      getAllCrud("visitorprofile", "visitorprofile",{
-      visitor_id : 1281
-     });
+      visitor_id : sessionStorage.getItem("visitor_id")
+     
+         });
     getAllCrud("visitor_queries_history", "visitor_queries_history",{
-      visitor_id : 1281
+      visitor_id : sessionStorage.getItem("visitor_id")
     });
    
   }, [updateCom]);
