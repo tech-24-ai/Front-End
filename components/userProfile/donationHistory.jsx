@@ -9,7 +9,7 @@ import { withRouter } from "next/router";
 import Link from "next/link";
 import ReactPaginate from "react-paginate-next";
 
-const donationHistory = ({ getAllCrud, donations }) => {
+const DonationHistory = ({ getAllCrud, donations }) => {
   const [pageCount, setPageCount] = useState(0);
   const [page, setPage] = useState(0);
 
@@ -165,5 +165,5 @@ const actionCreators = {
 };
 
 export default withRouter(
-  connect(mapStateToProps, actionCreators)(donationHistory)
+  connect(mapStateToProps, actionCreators)(DonationHistory)
 );

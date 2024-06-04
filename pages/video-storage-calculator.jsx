@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { alertActions } from "../_actions";
 import { Container } from "reactstrap";
 
-const videoStorageCalculator = ({ showError }) => {
+const VideoStorageCalculator = ({ showError }) => {
   const [resolutionValue, setResolutionValue] = useState({
     key: 20,
     value: "1080P HD",
@@ -359,5 +359,5 @@ const actionCreators = {
 };
 
 export default withRouter(
-  connect(null, actionCreators)(videoStorageCalculator)
+  connect(null, actionCreators)(VideoStorageCalculator)
 );

@@ -34,7 +34,7 @@
             font-size: 1.125rem;
             line-height: 1.75rem;
             color: #001622;
-            // font-family: "Inter";
+            // font-family: "Inter", sans-serif;;
             margin-bottom: 0;
             display: -webkit-box;
             -webkit-line-clamp: 1;
@@ -44,7 +44,7 @@
           p {
             margin-bottom: 0;
             color: #54616c;
-            font-family: "Inter";
+            font-family: "Inter", sans-serif;
             font-weight: 400;
             font-size: 0.75rem;
             line-height: 1.125rem;
@@ -56,7 +56,7 @@
             font-size: 1.115rem;
             line-height: 1.45rem;
             color: #001622;
-            // font-family: "Inter";
+            // font-family: "Inter", sans-serif;;
             margin-bottom: 0;
             display: -webkit-box;
             -webkit-line-clamp: 2;
@@ -66,7 +66,7 @@
           p {
             margin-bottom: 0;
             color: #54616c;
-            font-family: "Inter";
+            font-family: "Inter", sans-serif;
             font-weight: 400;
             font-size: 0.75rem;
             line-height: 1.125rem;
@@ -78,7 +78,7 @@
         font-weight: 500;
         font-size: 1rem;
         line-height: 1.5rem;
-        font-family: "Inter";
+        font-family: "Inter", sans-serif;
         color: #001622;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -133,7 +133,7 @@
       .community-title-header {
         max-width: 80%;
         h5 {
-          font-family: "Poppins";
+          font-family: "Poppins", sans-serif;
           font-size: 20px;
           line-height: 30px;
           font-weight: 400;
@@ -153,7 +153,7 @@
 
       .card-description-texts {
         font-size: 14px;
-        font-family: "Inter";
+        font-family: "Inter", sans-serif;
         font-weight: 400;
         line-height: 20px;
         overflow: hidden;
@@ -167,7 +167,7 @@
         position: absolute;
         bottom: 12px;
         font-size: 12px;
-        font-family: "Inter";
+        font-family: "Inter", sans-serif;
         line-height: 18px;
       }
     }

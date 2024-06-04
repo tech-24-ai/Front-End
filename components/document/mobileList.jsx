@@ -39,7 +39,7 @@ import DocumentDetails from "./documentDetails";
 import ReactPaginate from "react-paginate-next";
 import { Input } from "antd";
 
-const mobileList = ({
+const MobileList = ({
   getAllCrud,
   playVideo,
   showError,
@@ -623,4 +623,4 @@ const actionCreators = {
   showLoader: loaderActions.show,
 };
 
-export default connect(mapStateToProps, actionCreators)(mobileList);
+export default connect(mapStateToProps, actionCreators)(MobileList);

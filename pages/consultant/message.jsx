@@ -16,7 +16,7 @@ import Router, { withRouter, useRouter } from "next/router";
 import { crudActions, loaderActions, alertActions } from "../../_actions";
 import Link from "next/link";
 
-const message = ({ getAllCrud, postAPI, warning, chat_log }) => {
+const Message = ({ getAllCrud, postAPI, warning, chat_log }) => {
   const [profile, setProfile] = useState(null);
   const [chatConfig, setChatConfig] = useState();
 
@@ -153,7 +153,7 @@ const actionCreators = {
   warning: alertActions.warning,
 };
 
-export default withRouter(connect(mapStateToProps, actionCreators)(message));
+export default withRouter(connect(mapStateToProps, actionCreators)(Message));
 
 const goToMeetingPage = (id) => {
   sessionStorage.setItem("consultantID", id);

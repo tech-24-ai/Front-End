@@ -22,7 +22,7 @@ import myImageLoader from "../components/imageLoader";
 import donationIcon from "../public/new_images/donationIcon.svg";
 import Image from "next/future/image";
 
-function donations({ getAllCrud, showLoader, hideLoader, success }) {
+function Donations({ getAllCrud, showLoader, hideLoader, success }) {
   const [inputValue, setInputValue] = useState({
     id: 100,
     name: "$100",
@@ -225,4 +225,4 @@ const actionCreators = {
   success: alertActions.success,
 };
 
-export default withRouter(connect(mapStateToProps, actionCreators)(donations));
+export default withRouter(connect(mapStateToProps, actionCreators)(Donations));

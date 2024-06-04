@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import BodyBackgroundColor from "../components/style/bodyBackgroundColor";
 import { Container } from "reactstrap";
 
-const serverRackPowerConsumptionCalc = () => {
+const ServerRackPowerConsumptionCalc = () => {
   const [numberRack, setNumberRack] = useState();
   const [serverRack, setServerRack] = useState();
   const [powerSupply, setPowerSupply] = useState();
@@ -142,4 +142,4 @@ const serverRackPowerConsumptionCalc = () => {
   );
 };
 
-export default serverRackPowerConsumptionCalc;
+export default ServerRackPowerConsumptionCalc;

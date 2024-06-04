@@ -17,7 +17,7 @@ import moment from "moment";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-const index = ({ showLoader, hideLoader }) => {
+const Index = ({ showLoader, hideLoader }) => {
   const [data, setData] = useState(null);
   const [activeTab, setActiveTab] = useState("1");
   const [errorMsg, setErrorMsg] = useState("");
@@ -285,4 +285,4 @@ const actionCreators = {
   hideLoader: loaderActions.hide,
 };
 
-export default connect(null, actionCreators)(index);
+export default connect(null, actionCreators)(Index);

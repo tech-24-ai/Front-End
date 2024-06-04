@@ -15,7 +15,7 @@
         width: 10rem;
         position: relative;
         h4 {
-          font-family: "Poppins";
+          font-family: "Poppins", sans-serif;
           font-size: 24px;
           font-weight: 500;
           color: #e0e0e0;
@@ -23,7 +23,7 @@
         p {
           font-size: 16px;
           font-weight: 400;
-          font-family: "Inter";
+          font-family: "Inter", sans-serif;
           color: #b0b8bf;
         }
       }
@@ -476,7 +476,7 @@
     .profile {
       margin-left: 0.5rem;
       display: inline-flex;
-      font-family: "Inter";
+      font-family: "Inter", sans-serif;
       flex-direction: row;
       align-items: center;
       .time-wrapper {
@@ -606,7 +606,7 @@
         width: 7rem !important;
         position: relative;
         h4 {
-          font-family: "Poppins";
+          font-family: "Poppins", sans-serif;
           font-size: 20px;
           font-weight: 500;
           color: #e0e0e0;
@@ -614,7 +614,7 @@
         p {
           font-size: 14px;
           font-weight: 400;
-          font-family: "Inter";
+          font-family: "Inter", sans-serif;
           color: #b0b8bf;
         }
       }

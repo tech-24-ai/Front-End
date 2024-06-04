@@ -22,7 +22,7 @@ import { play } from "react-icons-kit/feather";
 
 import Tooltip from "react-tooltip-lite";
 
-const documentResearchMV = ({
+const DocumentResearchMV = ({
   getAllCrud,
   playVideo,
   showAlert,
@@ -228,4 +228,4 @@ const actionCreators = {
   showAlert: alertActions.warning,
 };
 
-export default connect(mapStateToProps, actionCreators)(documentResearchMV);
+export default connect(mapStateToProps, actionCreators)(DocumentResearchMV);

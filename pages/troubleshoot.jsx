@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 import { LoadingDotIcon } from "../components/icons";
 import themeConfig from "../config/themeConfig";
 
-function troubleshoot({ getAllCrud, showLoader, hideLoader, error }) {
+function Troubleshoot({ getAllCrud, showLoader, hideLoader, error }) {
   const [chatInput, setChatInput] = useState("");
   const [chatMessage, setChatMessage] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -289,5 +289,5 @@ const actionCreators = {
 };
 
 export default withRouter(
-  connect(mapStateToProps, actionCreators)(troubleshoot)
+  connect(mapStateToProps, actionCreators)(Troubleshoot)
 );

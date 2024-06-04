@@ -19,7 +19,7 @@ import NotFound from "../../components/notFound";
 import { LoadingDotIcon } from "../../components/icons";
 import themeConfig from "../../config/themeConfig";
 
-const consultantList = ({ consultants, getAllCrud, authentication }) => {
+const ConsultantList = ({ consultants, getAllCrud, authentication }) => {
   const [page, setPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
 
@@ -203,5 +203,5 @@ const actionCreators = {
 };
 
 export default withRouter(
-  connect(mapStateToProps, actionCreators)(consultantList)
+  connect(mapStateToProps, actionCreators)(ConsultantList)
 );

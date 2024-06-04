@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import BodyBackgroundColor from "../components/style/bodyBackgroundColor";
 import { Button, Container } from "reactstrap";
 
-const bandwidthCalculator = () => {
+const BandwidthCalculator = () => {
   const [TD, setTD] = useState();
   const [RWT, setRWT] = useState();
   const [timeInMin, setTimeInMin] = useState();
@@ -175,4 +175,4 @@ const bandwidthCalculator = () => {
   );
 };
 
-export default bandwidthCalculator;
+export default BandwidthCalculator;

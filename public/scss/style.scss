@@ -671,7 +671,7 @@ input.ant-input.custom-input {
 
       h5 {
         margin-top: 2rem;
-        // font-family: "Inter";
+        // font-family: "Inter", sans-serif;
         font-style: normal;
         font-weight: 600;
         font-size: 24px;
@@ -1145,7 +1145,7 @@ input.ant-input.custom-input {
     border-radius: 16px;
     display: inline-block;
     vertical-align: middle;
-    font-family: "Poppins";
+    font-family: "Poppins", sans-serif;
     background-color: $gray;
     border-width: 0px;
 
@@ -1172,7 +1172,7 @@ input.ant-input.custom-input {
     border-radius: 16px;
     display: inline-block;
     vertical-align: middle;
-    font-family: "Poppins";
+    font-family: "Poppins", sans-serif;
     background-color: $backgroundColor;
     color: $textColor;
     border-width: 0px;
@@ -2129,7 +2129,7 @@ div.message-box-card {
 }
 
 .custom-breadcrumb {
-  font-family: Inter;
+  font-family: "Inter", sans-serif;
   .ant-breadcrumb-link {
     color: $themeSecondary;
     font-weight: 500;
@@ -2278,7 +2278,7 @@ div.message-box-card {
     font-weight: 500;
     line-height: 1.75rem;
     color: #54616c;
-    font-family: "Inter";
+    font-family: "Inter", sans-serif;
   }
 }
 
@@ -2413,7 +2413,7 @@ div.message-box-card {
       text-wrap: nowrap;
     }
     .sortby {
-      font-family: "Inter";
+      font-family: "Inter", sans-serif;
       font-size: 14px;
       font-weight: 500;
       color: #54616c;

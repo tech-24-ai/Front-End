@@ -28,7 +28,7 @@ import Link from "next/link";
 import { isBrowser, isMobile } from "react-device-detect";
 import themeConfig from "../../config/themeConfig";
 
-const createMeeting = ({
+const Payment = ({
   consultant,
   getAllCrud,
   duration,
@@ -620,6 +620,4 @@ const actionCreators = {
   hideLoader: loaderActions.hide,
 };
 
-export default withRouter(
-  connect(mapStateToProps, actionCreators)(createMeeting)
-);
+export default withRouter(connect(mapStateToProps, actionCreators)(Payment));

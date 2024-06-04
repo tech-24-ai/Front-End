@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import BodyBackgroundColor from "../components/style/bodyBackgroundColor";
 import { Container } from "reactstrap";
 
-const fileTransferTimeCalculator = () => {
+const FileTransferTimeCalculator = () => {
   const [fileSize, setFileSize] = useState(10);
   const [transferRate, setTransferRate] = useState(1.544);
   const [DHMS_result, setDHMS_result] = useState();
@@ -374,4 +374,4 @@ const fileTransferTimeCalculator = () => {
   );
 };
 
-export default fileTransferTimeCalculator;
+export default FileTransferTimeCalculator;

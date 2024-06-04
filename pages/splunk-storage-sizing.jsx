@@ -3,7 +3,7 @@ import BodyBackgroundColor from "../components/style/bodyBackgroundColor";
 import { Checkbox, Divider, Slider, Radio, Space, Tooltip } from "antd";
 import { Container, Table, Row, Col } from "reactstrap";
 
-function index() {
+function SplunkStorageSizingCalculator() {
   const [isSizeByEventsChecked, setIsSizeByEventsChecked] = useState(false);
   const [isClusterReplicationChecked, setIsClusterReplicationChecked] =
     useState(true);
@@ -877,7 +877,7 @@ function index() {
   );
 }
 
-export default index;
+export default SplunkStorageSizingCalculator;
 
 const CustomTooltip = ({ title, children }) => {
   if (title == null) {

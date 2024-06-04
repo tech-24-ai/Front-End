@@ -3,7 +3,7 @@ import BodyBackgroundColor from "../components/style/bodyBackgroundColor";
 import { InputNumber, Slider } from "antd";
 import { Button, Row, Col, Container } from "reactstrap";
 
-const downtimeCalculator = () => {
+const DowntimeCalculator = () => {
   //Annual Revenue
   const [r, setR] = useState(1);
   // Duration of Downtime (hours)
@@ -248,4 +248,4 @@ const downtimeCalculator = () => {
   );
 };
 
-export default downtimeCalculator;
+export default DowntimeCalculator;

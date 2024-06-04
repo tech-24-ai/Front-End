@@ -8,7 +8,7 @@ import { Tabs } from "antd";
 import { BrowserView, MobileView, isBrowser } from "react-device-detect";
 import ReactPaginate from "react-paginate-next";
 
-const creditRedeemHistory = ({ credit_redeem_history, getAllCrud }) => {
+const CreditRedeemHistory = ({ credit_redeem_history, getAllCrud }) => {
   const [page, setPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
   useEffect(() => {
@@ -225,5 +225,5 @@ const actionCreators = {
 };
 
 export default withRouter(
-  connect(mapStateToProps, actionCreators)(creditRedeemHistory)
+  connect(mapStateToProps, actionCreators)(CreditRedeemHistory)
 );

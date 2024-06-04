@@ -17,7 +17,7 @@ import { useRouter } from "next/router";
 import BodyBackgroundColor from "../components/style/bodyBackgroundColor";
 import moment from "moment";
 
-const index = ({ showLoader, hideLoader }) => {
+const CVES = ({ showLoader, hideLoader }) => {
   const [data, setData] = useState(null);
   const [resultsPerPage, setResultsPerPage] = useState(10);
   const [startIndex, setStartIndex] = useState(0);
@@ -545,4 +545,4 @@ const actionCreators = {
   hideLoader: loaderActions.hide,
 };
 
-export default connect(null, actionCreators)(index);
+export default connect(null, actionCreators)(CVES);

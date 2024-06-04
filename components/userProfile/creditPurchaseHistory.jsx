@@ -11,7 +11,7 @@ import Link from "next/link";
 import ReactPaginate from "react-paginate-next";
 import { crudService } from "../../_services";
 
-const visitorCreditHistory = ({
+const VisitorCreditHistory = ({
   credit_purchase_history,
   getAllCrud,
   downloadInvoice,
@@ -324,5 +324,5 @@ const actionCreators = {
 };
 
 export default withRouter(
-  connect(mapStateToProps, actionCreators)(visitorCreditHistory)
+  connect(mapStateToProps, actionCreators)(VisitorCreditHistory)
 );

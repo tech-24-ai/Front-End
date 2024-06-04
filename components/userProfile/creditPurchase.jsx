@@ -21,7 +21,7 @@ import { PayPalButton } from "react-paypal-button-v2";
 import ReactPaginate from "react-paginate-next";
 import moment from "moment";
 
-const visitorCredits = ({
+const VisitorCredits = ({
   visitor_credit,
   getAllCrud,
   postAPI,
@@ -529,5 +529,5 @@ const actionCreators = {
 };
 
 export default withRouter(
-  connect(mapStateToProps, actionCreators)(visitorCredits)
+  connect(mapStateToProps, actionCreators)(VisitorCredits)
 );

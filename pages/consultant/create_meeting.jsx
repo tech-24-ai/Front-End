@@ -21,7 +21,7 @@ import { isBrowser, isMobile } from "react-device-detect";
 import momentTimezone from "moment-timezone";
 import themeConfig from "../../config/themeConfig";
 
-const createMeeting = ({
+const CreateMeeting = ({
   consultant,
   getAllCrud,
   duration,
@@ -472,5 +472,5 @@ const actionCreators = {
 };
 
 export default withRouter(
-  connect(mapStateToProps, actionCreators)(createMeeting)
+  connect(mapStateToProps, actionCreators)(CreateMeeting)
 );

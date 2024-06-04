@@ -6,7 +6,7 @@ import { crudService } from "../../_services";
 import { connect } from "react-redux";
 import Link from "next/link";
 
-const cookies = ({ cookies, showCookieBox, hideCookieBox }) => {
+const Cookies = ({ cookies, showCookieBox, hideCookieBox }) => {
   const { consent, acceptAllCookies, declineAllCookies, acceptCookies } =
     useCookieConsent();
 
@@ -1481,4 +1481,4 @@ const actionCreators = {
   hideCookieBox: cookiesActions.hide,
 };
 
-export default connect(mapStateToProps, actionCreators)(cookies);
+export default connect(mapStateToProps, actionCreators)(Cookies);

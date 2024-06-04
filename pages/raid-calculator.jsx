@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import BodyBackgroundColor from "../components/style/bodyBackgroundColor";
 import { useState } from "react";
 import { FormGroup, Label, Input, Container } from "reactstrap";
-const calculator = () => {
+const RaidCalculator = () => {
   const [noOfDisks, setNoOfDisks] = useState(0);
   const [sizeOfDrive, setSizeOfDrive] = useState(0);
   const [visibleDisk, setVisibleDisk] = useState([1]);
@@ -241,4 +241,4 @@ const calculator = () => {
   );
 };
 
-export default calculator;
+export default RaidCalculator;
