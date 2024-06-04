@@ -188,8 +188,7 @@ class ConnectDetail extends React.PureComponent {
                               autoComplete="off"
                               onChange={this.onChange}
                             />
-                            {errors[connectFormField.name] &&
-                              errors[connectFormField.name]}
+                            {errors[connectFormField.name]}
                           </FormGroup>
                         );
                       }
@@ -215,8 +214,7 @@ class ConnectDetail extends React.PureComponent {
                               rows="5"
                               onChange={this.onChange}
                             />
-                            {errors[connectFormField.name] &&
-                              errors[connectFormField.name]}
+                            {errors[connectFormField.name]}
                           </FormGroup>
                         );
                       }
@@ -265,8 +263,7 @@ class ConnectDetail extends React.PureComponent {
                                   );
                                 })}
                             </Input> */}
-                            {errors[connectFormField.name] &&
-                              errors[connectFormField.name]}
+                            {errors[connectFormField.name]}
                           </FormGroup>
                         );
                       }
@@ -296,8 +293,7 @@ class ConnectDetail extends React.PureComponent {
                                 })
                               }
                             />
-                            {errors[connectFormField.name] &&
-                              errors[connectFormField.name]}
+                            {errors[connectFormField.name]}
                           </FormGroup>
                         );
                       }

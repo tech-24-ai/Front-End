@@ -197,7 +197,6 @@
           top: 8px;
           height: 58px;
           width: 92%;
-          top: 8px;
           position: relative;
           margin: 0px auto;
           border-radius: 10px;
@@ -215,7 +214,6 @@
   }
 
   .account-content-btn {
-    margin: 0%;
     position: relative;
     top: 120px;
     margin: 36px auto;
@@ -334,7 +332,6 @@
           text-align: left;
         }
         .content-input {
-          top: 6px;
           height: 58px;
           width: 93%;
           top: 8px;
@@ -362,7 +359,6 @@
         border-radius: 16px;
         display: inline-block;
         vertical-align: middle;
-        font-family: "Poppins", sans-serif;
         background-color: $gray;
         border-width: 0px;
 
@@ -390,7 +386,6 @@
         border-radius: 16px;
         display: inline-block;
         vertical-align: middle;
-        font-family: "Poppins", sans-serif;
         background-color: $backgroundColor;
         color: $textColor;
         border-width: 0px;
@@ -495,7 +490,7 @@
       height: 138px;
       width: 680px;
       border-radius: 16px;
-      width: 680px;
+
       .content-lable {
         margin-left: 24px;
         font-family: "Poppins", sans-serif;
@@ -556,7 +551,6 @@
       width: 680px;
       border-radius: 16px;
       height: 301px;
-      border-radius: 16px;
 
       .content-lable {
         margin-left: 24px;
@@ -611,9 +605,7 @@
           top: 8px;
           position: relative;
           border-radius: 10px;
-          height: 58px;
           width: 304px;
-          border-radius: 10px;
         }
       }
     }
@@ -627,7 +619,6 @@
       height: 189px;
       width: 680px;
       border-radius: 16px;
-      width: 680px;
 
       .form-content {
         display: flex;
@@ -678,7 +669,6 @@
       height: 189px;
       width: 680px;
       border-radius: 16px;
-      width: 680px;
 
       .form-content {
         display: flex;
@@ -729,7 +719,6 @@
       height: 189px;
       width: 680px;
       border-radius: 16px;
-      width: 680px;
 
       .form-content {
         display: flex;
@@ -985,7 +974,6 @@
       .education-block {
         height: 86px;
         width: 632px;
-        border-radius: 10px;
         border: 1px solid #f5f5f5;
         border-radius: 16px;
         position: relative;
@@ -1119,7 +1107,6 @@
       .award-block {
         height: 86px;
         width: 632px;
-        border-radius: 10px;
         border: 1px solid #f5f5f5;
         border-radius: 16px;
         position: relative;
@@ -1180,7 +1167,6 @@
         border-radius: 16px;
         display: inline-block;
         vertical-align: middle;
-        font-family: "Poppins", sans-serif;
         background-color: $gray;
         border-width: 0px;
 
@@ -1208,7 +1194,6 @@
         border-radius: 16px;
         display: inline-block;
         vertical-align: middle;
-        font-family: "Poppins", sans-serif;
         background-color: $backgroundColor;
         color: $textColor;
         border-width: 0px;
@@ -1235,7 +1220,6 @@
         border-radius: 16px;
         display: inline-block;
         vertical-align: middle;
-        font-family: "Poppins", sans-serif;
         background-color: $gray;
         border-width: 0px;
 
@@ -1263,7 +1247,6 @@
         border-radius: 16px;
         display: inline-block;
         vertical-align: middle;
-        font-family: "Poppins", sans-serif;
         background-color: $backgroundColor;
         color: $textColor;
         border-width: 0px;
@@ -1693,7 +1676,7 @@
 
 // tab3
 .questions-tab-container {
-  font-family: "Inter";
+  font-family: "Inter", sans-serif;
   .ant-card-body {
     padding: 20px;
   }
@@ -1957,7 +1940,7 @@
             font-size: 1.125rem;
             line-height: 1.75rem;
             font-weight: 500;
-            font-family: "Inter" serif;
+            font-family: "Inter", sans-serif;
             color: #00192f;
             margin-bottom: 0.5rem;
           }

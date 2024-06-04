@@ -239,7 +239,7 @@ function index() {
       (k) => k != name && k != "total"
     );
     let total = value;
-    keys.map((key) => {
+    keys.forEach((key) => {
       total += dataRetention[key].value;
     });
 

@@ -370,7 +370,7 @@ const consultantDetails = ({
                     ? booking?.transaction?.paypal_transaction_id
                     : `Wallet Payment`}
                 </p>
-                <p>{finalDate && finalDate}</p>
+                <p>{finalDate}</p>
                 <p>
                   {booking?.transaction?.paypal_transaction_id
                     ? "PayPal"

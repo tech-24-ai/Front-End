@@ -97,8 +97,8 @@ const createMeeting = ({
   }, [duration]);
 
   useEffect(() => {
-    const profileData = {};
-    const skills_data = [];
+    let profileData = {};
+    let skills_data = [];
     const lastName = "";
     consultant &&
       consultant.map((data) => {
@@ -170,7 +170,7 @@ const createMeeting = ({
           "available-slots",
           {
             consultant_id: consultantsID,
-            date: bookingDate.value,
+            date: bookingDate?.value,
             duration: selectedDuration,
           },
           showLoader()
@@ -214,9 +214,8 @@ const createMeeting = ({
       return showWarning("Pls select all required fields!");
     }
 
-    const [timeZoneDetail] = time_zone?.filter(
-      (data) => data.id == visitor_time_zone_id
-    );
+    const [timeZoneDetail] =
+      time_zone?.filter((data) => data.id == visitor_time_zone_id) || [];
 
     const [skill] = skills.filter((data) => data.value === selectedSkill);
 

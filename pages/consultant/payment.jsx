@@ -93,20 +93,20 @@ const createMeeting = ({
     transaction["type"] = 2;
 
     (payload["consultant_id"] = consultantsID),
-      (payload["amount_per_hour"] = meetingData.rate),
-      (payload["booking_date"] = meetingData.bookingDate.value),
-      (payload["duration"] = meetingData.duration),
-      (payload["skill"] = meetingData.skill),
+      (payload["amount_per_hour"] = meetingData?.rate),
+      (payload["booking_date"] = meetingData?.bookingDate?.value),
+      (payload["duration"] = meetingData?.duration),
+      (payload["skill"] = meetingData?.skill),
       (payload["is_credit"] = true),
       (payload["remarks"] = "yes"),
       (payload["booking_time"] = number),
       (payload["type"] = "Online"),
-      (payload["sub_amount"] = meetingData.totalPrice),
+      (payload["sub_amount"] = meetingData?.totalPrice),
       (payload["taxes"] = 0),
-      (payload["total_amount"] = meetingData.totalPrice),
+      (payload["total_amount"] = meetingData?.totalPrice),
       (payload["booking_utc_time"] =
         meetingData?.meetingTiming?.booking_utc_time),
-      (payload["visitor_time_zone_id"] = meetingData.timeZone.id),
+      (payload["visitor_time_zone_id"] = meetingData?.timeZone.id),
       crudService
         ._create(url, payload)
         .then((response) => {

@@ -279,7 +279,6 @@ function troubleshoot({ getAllCrud, showLoader, hideLoader, error }) {
 }
 
 const mapStateToProps = (state) => {
-  const {} = state;
   return {};
 };
 const actionCreators = {

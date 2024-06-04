@@ -78,52 +78,38 @@ const fileTransferTimeCalculator = () => {
     switch (rate) {
       case "Mbps":
         return finalValue;
-        break;
 
       case "bps":
         return value / 1000000;
-        break;
 
       case "kbps":
         return value / 1000;
-        break;
 
       case "Gbps":
         return value * 1000;
-        break;
 
       case "Tbps":
         return value * 1000000;
-        break;
 
       case "B/s":
         return value * 0.000008;
-        break;
       case "KB/s":
         return value * 0.008;
-        break;
       case "GB/s":
         return value * 8000;
-        break;
       case "TB/s":
         return value * 8000000;
-        break;
       case "KiB/s":
         return value * 0.008192;
-        break;
       case "MiB/s":
         return value * 8.388608;
-        break;
       case "GiB/s":
         return value * 8589.93459;
-        break;
       case "TiB/s":
         return value * 8796093.02;
-        break;
 
       default:
         return 0;
-        break;
     }
   };
 

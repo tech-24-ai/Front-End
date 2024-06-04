@@ -118,7 +118,7 @@ const serverRackPowerConsumptionCalc = () => {
             <div class="result">
               <div class="result-label">Amps per Server:</div>
               <div class="amps-val">
-                {ampsResult === "NaN" ? "0" : ampsResult}
+                {ampsResult == "NaN" ? "0" : ampsResult}
               </div>
             </div>
             <div class="result">
@@ -126,13 +126,13 @@ const serverRackPowerConsumptionCalc = () => {
                 Total Required Supply per Rack in kW:
               </div>
               <div class="total-required-supply-rack-val">
-                {supplyPerRackResult === "NaN" ? "0" : supplyPerRackResult}
+                {supplyPerRackResult == "NaN" ? "0" : supplyPerRackResult}
               </div>
             </div>
             <div class="result">
               <div class="result-label">Total Required Supply in kW:</div>
               <div class="total-required-supplykw-val">
-                {supplyResult === "NaN" ? "0" : supplyResult}
+                {supplyResult == "NaN" ? "0" : supplyResult}
               </div>
             </div>
           </div>

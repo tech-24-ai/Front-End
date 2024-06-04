@@ -168,7 +168,7 @@ const bandwidthCalculator = () => {
           </div>
         </div>
         <h5 className="result">{`Required Network Bandwidth : ${
-          result === "NaN" ? "0" : result
+          result == "NaN" ? "0" : result
         } Mbps`}</h5>
       </div>
     </Container>

@@ -495,115 +495,115 @@ const mobileList = ({
     </MobileView>
   );
 
-  return (
-    documents &&
-    documents.map((row, index) => {
-      let price = 0;
-      let isFree = true;
+  // return (
+  //   documents &&
+  //   documents.map((row, index) => {
+  //     let price = 0;
+  //     let isFree = true;
 
-      if (
-        activeSubscription &&
-        activeSubscription.plan_id < row.subscription_category
-      ) {
-        isFree = false;
-        if (activeSubscription.plan_id === 1) {
-          if (row.basic_document_special_price > 0) {
-            price = row.basic_document_special_price;
-          } else {
-            price = row.basic_document_price;
-          }
-        } else if (activeSubscription.plan_id === 2) {
-          if (row.advance_document_special_price > 0) {
-            price = row.advance_document_special_price;
-          } else {
-            price = row.advance_document_price;
-          }
-        }
-      }
+  //     if (
+  //       activeSubscription &&
+  //       activeSubscription.plan_id < row.subscription_category
+  //     ) {
+  //       isFree = false;
+  //       if (activeSubscription.plan_id === 1) {
+  //         if (row.basic_document_special_price > 0) {
+  //           price = row.basic_document_special_price;
+  //         } else {
+  //           price = row.basic_document_price;
+  //         }
+  //       } else if (activeSubscription.plan_id === 2) {
+  //         if (row.advance_document_special_price > 0) {
+  //           price = row.advance_document_special_price;
+  //         } else {
+  //           price = row.advance_document_price;
+  //         }
+  //       }
+  //     }
 
-      return (
-        <div>
-          <Card key={index}>
-            <CardBody className="px-2">
-              <Row className="m-0">
-                <Col xs={8} className="p-0">
-                  {row.name}
-                </Col>
-                <Col xs={3} className="p-0 text-center">
-                  {isFree ? "Free" : `$${price}`}
-                </Col>
-                <Col xs={1} className="p-0 text-right">
-                  <div
-                    onClick={() =>
-                      handleDownload({
-                        price,
-                        isFree,
-                        subscription_category: row.subscription_category,
-                        url: row.url,
-                        document_id: row.id,
-                        document_name: row.name,
-                        extension: row.extension,
-                      })
-                    }
-                  >
-                    {isFree ? (
-                      <img
-                        src="images/Group 417@2x.png"
-                        alt=""
-                        style={{ height: "18px", width: "18px" }}
-                      />
-                    ) : (
-                      <img
-                        src="images/Icon feather-lock@2x.png"
-                        alt=""
-                        style={{ height: "18px", width: "18px" }}
-                      />
-                    )}
-                  </div>
-                </Col>
-              </Row>
-            </CardBody>
-          </Card>
+  //     return (
+  //       <div>
+  //         <Card key={index}>
+  //           <CardBody className="px-2">
+  //             <Row className="m-0">
+  //               <Col xs={8} className="p-0">
+  //                 {row.name}
+  //               </Col>
+  //               <Col xs={3} className="p-0 text-center">
+  //                 {isFree ? "Free" : `$${price}`}
+  //               </Col>
+  //               <Col xs={1} className="p-0 text-right">
+  //                 <div
+  //                   onClick={() =>
+  //                     handleDownload({
+  //                       price,
+  //                       isFree,
+  //                       subscription_category: row.subscription_category,
+  //                       url: row.url,
+  //                       document_id: row.id,
+  //                       document_name: row.name,
+  //                       extension: row.extension,
+  //                     })
+  //                   }
+  //                 >
+  //                   {isFree ? (
+  //                     <img
+  //                       src="images/Group 417@2x.png"
+  //                       alt=""
+  //                       style={{ height: "18px", width: "18px" }}
+  //                     />
+  //                   ) : (
+  //                     <img
+  //                       src="images/Icon feather-lock@2x.png"
+  //                       alt=""
+  //                       style={{ height: "18px", width: "18px" }}
+  //                     />
+  //                   )}
+  //                 </div>
+  //               </Col>
+  //             </Row>
+  //           </CardBody>
+  //         </Card>
 
-          <Modal
-            centered
-            isOpen={isPaymentInProcess}
-            toggle={() => setIsPaymentInProcess(false)}
-            className=""
-            backdrop="static"
-            keyboard={false}
-          >
-            <ModalHeader
-              toggle={() => setIsPaymentInProcess(false)}
-              style={{ backgroundColor: "#d1eaff" }}
-            >
-              Plan Subscription
-            </ModalHeader>
-            <ModalBody
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <PurchaseDocument
-                document={document}
-                setIsPaymentInProcess={setIsPaymentInProcess}
-              />
-            </ModalBody>
-            <ModalFooter>
-              <Button
-                color="warning"
-                onClick={() => setIsPaymentInProcess(false)}
-              >
-                Cancel
-              </Button>
-            </ModalFooter>
-          </Modal>
-        </div>
-      );
-    })
-  );
+  //         <Modal
+  //           centered
+  //           isOpen={isPaymentInProcess}
+  //           toggle={() => setIsPaymentInProcess(false)}
+  //           className=""
+  //           backdrop="static"
+  //           keyboard={false}
+  //         >
+  //           <ModalHeader
+  //             toggle={() => setIsPaymentInProcess(false)}
+  //             style={{ backgroundColor: "#d1eaff" }}
+  //           >
+  //             Plan Subscription
+  //           </ModalHeader>
+  //           <ModalBody
+  //             style={{
+  //               display: "flex",
+  //               justifyContent: "center",
+  //               alignItems: "center",
+  //             }}
+  //           >
+  //             <PurchaseDocument
+  //               document={document}
+  //               setIsPaymentInProcess={setIsPaymentInProcess}
+  //             />
+  //           </ModalBody>
+  //           <ModalFooter>
+  //             <Button
+  //               color="warning"
+  //               onClick={() => setIsPaymentInProcess(false)}
+  //             >
+  //               Cancel
+  //             </Button>
+  //           </ModalFooter>
+  //         </Modal>
+  //       </div>
+  //     );
+  //   })
+  // );
 };
 
 const mapStateToProps = ({ authentication, get_subscription, documents }) => {
