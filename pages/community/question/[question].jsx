@@ -65,6 +65,7 @@ import { calculateDateTime } from "../../../_global";
 import { Fragment } from "react";
 import Link from "next/link";
 
+
 const CommunityQuestionDetail = ({
   getAllCrud,
   success,
@@ -74,6 +75,7 @@ const CommunityQuestionDetail = ({
   hideLoader,
   isloggedIn,
   toggleLoginPopup,
+  
 }) => {
   const router = useRouter();
   const slugQuery = router.query;
@@ -295,14 +297,30 @@ const CommunityQuestionDetail = ({
 
 
   const handleClick = () => {
-   
+  
+    const id = communityQuestionDetail?.id;
     Router.push({
         pathname: '/user_profile',
     });
-    sessionStorage.setItem(
-      "visitor_id",
-      communityQuestionDetail?.visitor_id
-    );
+   
+      sessionStorage.setItem(
+        "visitor_id",
+        communityQuestionDetail?.visitor_id
+      );
+
+    };
+
+const handleAnswerClick = (visitorId) => {
+  const { id } = communityQuestionDetail;
+  
+  // Store the clicked visitor ID in sessionStorage
+  sessionStorage.setItem("visitor_id", visitorId);
+
+  // Redirect to user_profile
+  Router.push({
+    pathname: '/user_profile',
+    query: { id: id } // Pass any additional query parameters if needed
+  });
 };
 
   const getPostReplies = () => {
@@ -667,9 +685,10 @@ const CommunityQuestionDetail = ({
                     marginTop: "1rem",
                   }}
                 >
-                  <a href="/user_profile"  onClick={handleClick}>
+                 
                   <div className="cards-header">
                     <div>
+                    <a  onClick={() => handleClick()}>
                       <div className="img">
                         <Image
                           style={{ borderRadius: "5px", zIndex: "1" }}
@@ -684,6 +703,7 @@ const CommunityQuestionDetail = ({
                         />
                         {/* <span className="label-counter">18</span> */}
                       </div>
+                      </a>
                       <div
                         className="profile"
                         style={{
@@ -709,7 +729,7 @@ const CommunityQuestionDetail = ({
                       </div>
                     </div>
                   </div>
-                  </a>
+                  
                   <p className="para questions_font_14px">
                     <span
                       style={{
@@ -767,6 +787,7 @@ const CommunityQuestionDetail = ({
                       }}
                       className="questions_font_12px"
                     >
+                      
                       <Image
                         loader={myImageLoader}
                         style={{ borderRadius: "5px", cursor: "pointer" }}
@@ -776,6 +797,7 @@ const CommunityQuestionDetail = ({
                         src={view_icon}
                         alt="view-icon"
                       />
+                    
                       <span style={{ marginLeft: "5px" }}>
                         {communityQuestionDetail?.views_counter} views
                       </span>
@@ -883,7 +905,7 @@ const CommunityQuestionDetail = ({
                       }}
                       className="questions_font_16px"
                     >
-                      Answers ({communityAnswers?.length})
+                      Answers  ({communityAnswers?.length})
                     </div>
                   </div>
 
@@ -930,6 +952,7 @@ const CommunityQuestionDetail = ({
                     >
                       <div className="cards-header">
                         <div style={{ width: "100%" }}>
+                        <a href="/user_profile"  key={answer.id} onClick={() => handleAnswerClick(answer.visitor_id)}>
                           <div className="img">
                             <Image
                               style={{ borderRadius: "5px", zIndex: "1" }}
@@ -943,6 +966,7 @@ const CommunityQuestionDetail = ({
                             />
                             {/* <span className="label-counter">18</span> */}
                           </div>
+                          </a>
                           <div
                             className="profile"
                             style={{
