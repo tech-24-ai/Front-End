@@ -29,7 +29,7 @@ import Link from "next/link";
 import { isMobile, isBrowser } from "react-device-detect";
 import themeConfig from "../../config/themeConfig";
 
-const consultantDetails = ({
+const ConsultantDetails = ({
   consultant,
   getAllCrud,
   booking_history,
@@ -531,5 +531,5 @@ const actionCreators = {
 };
 
 export default withRouter(
-  connect(mapStateToProps, actionCreators)(consultantDetails)
+  connect(mapStateToProps, actionCreators)(ConsultantDetails)
 );

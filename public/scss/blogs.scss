@@ -478,7 +478,7 @@
 //Mobile
 
 @media (max-width: 767px) {
-  PageBanner .main-content.blogs {
+  .page-banner .main-content.blogs {
     margin-left: 20px;
     min-height: 100vh;
     padding-bottom: 190px !important;
@@ -651,7 +651,7 @@
 }
 
 @media (min-width: 768px) and (max-width: 1440px) {
-  PageBanner .main-content.blogs {
+  .page-banner .main-content.blogs {
     margin-left: 20px;
     min-height: 100vh;
     padding-bottom: 190px !important;

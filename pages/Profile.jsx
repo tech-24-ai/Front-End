@@ -194,7 +194,10 @@ const Profile = ({
       });
   }, [page]);
   //all tab profile lvl
-  const currentProLevel = visitorcommunityprofile?.data[0]?.total_points_earned < 150 ? "0" : visitorcommunityprofile?.data[0]?.current_level;
+  const currentProLevel =
+    visitorcommunityprofile?.data[0]?.total_points_earned < 150
+      ? "0"
+      : visitorcommunityprofile?.data[0]?.current_level;
 
   // tab5 data
   const handleCardClick = (data) => {
@@ -370,7 +373,8 @@ const Profile = ({
     }));
   };
 
-  const handleFileChange = () => {
+  const handleFileChange = (e) => {
+    e.preventDefault();
     setLoading(true);
     if (file) {
       if (file.size / (1024 * 1024) > 100) {
@@ -1244,10 +1248,10 @@ const Profile = ({
               </p>
 
               <div className="level">
-                Level : 
-                {currentProLevel}{" "}
+                Level :{currentProLevel}{" "}
                 {/* {visitorcommunityprofile?.data[0]?.current_level}{" "} */}
-                {visitorcommunityprofile?.data[0]?.current_badge && visitorcommunityprofile?.data[0]?.total_points_earned >= 150
+                {visitorcommunityprofile?.data[0]?.current_badge &&
+                visitorcommunityprofile?.data[0]?.total_points_earned >= 150
                   ? `: ${visitorcommunityprofile?.data[0]?.current_badge}`
                   : ""}
               </div>

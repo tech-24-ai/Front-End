@@ -88,10 +88,9 @@ section.explore-wrapper {
           border: 1px solid #2c2c2c;
           padding: 48px 32px;
           border-radius: 17px;
-          background-color: #1e1e1e;
           height: 270px !important;
           min-height: 270px;
-          background: linear-gradient(#000, #1e1e1e7a); // min-height: 14rem;
+          background: linear-gradient(#000, #1e1e1e); // min-height: 14rem;
           backdrop-filter: blur(10px);
 
           &.slick-current {

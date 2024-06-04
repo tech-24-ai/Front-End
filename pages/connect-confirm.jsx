@@ -38,7 +38,7 @@ class ConnectConfirm extends React.PureComponent {
   formState = () => {
     let form = {};
     if (connectFormFields) {
-      connectFormFields.map((formField) => {
+      connectFormFields.forEach((formField) => {
         form[formField.name] = formField.value;
       });
     }
@@ -74,7 +74,7 @@ class ConnectConfirm extends React.PureComponent {
       newState.contactTypeId = props.contactTypeId;
     }
 
-    connectFormFields.map((formField) => {
+    connectFormFields.forEach((formField) => {
       if (state.form[formField.name]) {
         newState.form[formField.name] = state.form[formField.name];
       } else if (props.formfieldData) {
