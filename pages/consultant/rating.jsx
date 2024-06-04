@@ -15,7 +15,7 @@ import myImageLoader from "../../components/imageLoader";
 import CompletionDateIcon from "../../public/new_images/CompletionDateIcon.svg";
 import { crudService } from "../../_services";
 
-const rating = ({
+const Rating = ({
   getAllCrud,
   reviews,
   showLoader,
@@ -187,7 +187,7 @@ const actionCreators = {
   error: alertActions.error,
 };
 
-export default withRouter(connect(mapStateToProps, actionCreators)(rating));
+export default withRouter(connect(mapStateToProps, actionCreators)(Rating));
 
 const goToMeetingPage = (id) => {
   sessionStorage.setItem("consultantID", id);

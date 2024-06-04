@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar, A11y, FreeMode } from "swiper";
 
-function index({ nodes, ...props }) {
+function CustomSwiper({ nodes, ...props }) {
   const navigationPrevRef = useRef(null);
   const navigationNextRef = useRef(null);
   const swiperRef = useRef(null);
@@ -54,4 +54,4 @@ function index({ nodes, ...props }) {
   );
 }
 
-export default index;
+export default CustomSwiper;

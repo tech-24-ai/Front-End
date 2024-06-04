@@ -180,7 +180,7 @@ const QuestionTab = ({
     let previousFiles = [];
     questionEditable &&
       url.forEach((file) => {
-        file.id && file.id != -987654321 ? (
+        file?.id != -987654321 ? (
           previousFiles.push({ url: file?.url, name: file?.name })
         ) : (
           <></>
@@ -206,7 +206,7 @@ const QuestionTab = ({
     // const finalUrl = [];
     showLoader();
     if (url && url.length > 0) {
-      const index = 0;
+      let index = 0;
       for (index; index < url.length; index++) {
         const details =
           !url[index].id &&
@@ -367,24 +367,24 @@ const QuestionTab = ({
 
           setPageCount(isNaN(totalPage) ? 0 : totalPage);
         });
-    }else{
+    } else {
       crudService
-      ._getAll(`visitor_queries_history`, {
-        orderBy: sortBy,
-        orderDirection: "DESC",
-        page: page + 1,
-        pageSize: itemsPerPage,
-        search: headerSearch,
-        visitor_id : sessionStorage.getItem("visitor_id")
-      })
-      .then((result) => {
-        setCommunityDetails(result?.data);
-        const totalPage = Math.ceil(
-          result?.data.total / result?.data.perPage
-        );
+        ._getAll(`visitor_queries_history`, {
+          orderBy: sortBy,
+          orderDirection: "DESC",
+          page: page + 1,
+          pageSize: itemsPerPage,
+          search: headerSearch,
+          visitor_id: sessionStorage.getItem("visitor_id"),
+        })
+        .then((result) => {
+          setCommunityDetails(result?.data);
+          const totalPage = Math.ceil(
+            result?.data.total / result?.data.perPage
+          );
 
-        setPageCount(isNaN(totalPage) ? 0 : totalPage);
-      });
+          setPageCount(isNaN(totalPage) ? 0 : totalPage);
+        });
     }
   };
 

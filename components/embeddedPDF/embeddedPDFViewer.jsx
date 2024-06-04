@@ -7,7 +7,7 @@ import { zoomPlugin } from "@react-pdf-viewer/zoom";
 import "@react-pdf-viewer/zoom/lib/styles/index.css";
 import { isBrowser, BrowserView, MobileView } from "react-device-detect";
 
-function embeddedPDFViewer({ children, selector, handler, fileUrl, name }) {
+function EmbeddedPDFViewer({ children, selector, handler, fileUrl, name }) {
   const ref = useRef();
   const [mounted, setMounted] = useState(false);
   const zoomPluginInstance = zoomPlugin();
@@ -218,4 +218,4 @@ function embeddedPDFViewer({ children, selector, handler, fileUrl, name }) {
   return mounted ? createPortal(modalBody(), ref.current) : null;
 }
 
-export default embeddedPDFViewer;
+export default EmbeddedPDFViewer;

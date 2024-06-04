@@ -161,7 +161,7 @@ const CommunityDetail = ({
   useEffect(() => {
     let previousFiles = [];
     url.forEach((file) => {
-      file.id && file.id != -987654321 ? (
+      file?.id != -987654321 ? (
         previousFiles.push({ url: file?.url, name: file?.name })
       ) : (
         <></>
@@ -183,7 +183,7 @@ const CommunityDetail = ({
     }
 
     if (url?.length) {
-      const index = 0;
+      let index = 0;
 
       for (index; index < url.length; index++) {
         const details =

@@ -112,8 +112,8 @@ class MultiRadio extends React.PureComponent {
                                 priority[data.id] == list ? "active" : ""
                               }
                               onClick={() => {
-                                this.setPriority(this, data, list),
-                                  this.onChangePriority(this, data, true, list);
+                                this.setPriority(this, data, list);
+                                this.onChangePriority(this, data, true, list);
                               }}
                             >
                               {list}
@@ -131,8 +131,8 @@ class MultiRadio extends React.PureComponent {
                                 priority[data.id] == list ? "active" : ""
                               }
                               onClick={() => {
-                                this.setPriority(this, data, list),
-                                  this.onChangePriority(this, data, true, list);
+                                this.setPriority(this, data, list);
+                                this.onChangePriority(this, data, true, list);
                               }}
                             >
                               {list}

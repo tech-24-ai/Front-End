@@ -27,7 +27,7 @@ import {
   Consultant,
 } from "../icons";
 
-let counter = isMobile ? 7 : 7;
+let counter = 7;
 
 class Categories extends React.PureComponent {
   constructor(props) {
@@ -234,88 +234,88 @@ class Categories extends React.PureComponent {
       </div>
     );
 
-    return (
-      <div className="category-below">
-        <Container style={{ marginTop: "30px" }}>
-          <div className="category-box">
-            <Carousel
-              activeIndex={activeIndex}
-              next={this.next}
-              previous={this.previous}
-              interval={2000}
-              ride="carousel"
-            >
-              {categoryList.map((data, i) => (
-                <CarouselItem key={i}>
-                  <div
-                    className="category-banner-block"
-                    data-index={i}
-                    onClick={() => this.handleGoToPage(data.urlTarge)}
-                    style={{ width: "60%", margin: "0 auto" }}
-                  >
-                    <div
-                      className="category-banner"
-                      style={{
-                        color: "white",
-                        padding: "20px",
-                        borderRadius: "10px",
-                      }}
-                    >
-                      <div className="category-content">
-                        {typeof data.title === "string" ? (
-                          <h6
-                            style={{
-                              fontSize: "18px",
-                              fontWeight: "bold",
-                              marginBottom: "10px",
-                            }}
-                          >
-                            {data.title}
-                          </h6>
-                        ) : (
-                          <h6
-                            style={{
-                              fontSize: "18px",
-                              fontWeight: "bold",
-                              marginBottom: "10px",
-                            }}
-                          >
-                            {data.title}
-                          </h6>
-                        )}
-                        <div className="learn-more-btn">Learn More</div>
-                      </div>
-                      {isBrowser && (
-                        <div className="category-hover">
-                          <div className="category-hover-content">
-                            <div className="custom-icon">
-                              {/* {data.icon} */}
-                            </div>
-                            <div className="category-content">
-                              <h6>{data.title}</h6>
-                            </div>
-                            <ul>
-                              {data.description &&
-                                data.description.map((des, idx) => (
-                                  <li key={idx}>{des}</li>
-                                ))}
-                            </ul>
-                            <a href={data.urlTarge} className="learn-more-btn">
-                              Learn More
-                            </a>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </CarouselItem>
-              ))}
-              <CarouselItem />
-            </Carousel>
-          </div>
-        </Container>
-      </div>
-    );
+    // return (
+    //   <div className="category-below">
+    //     <Container style={{ marginTop: "30px" }}>
+    //       <div className="category-box">
+    //         <Carousel
+    //           activeIndex={activeIndex}
+    //           next={this.next}
+    //           previous={this.previous}
+    //           interval={2000}
+    //           ride="carousel"
+    //         >
+    //           {categoryList.map((data, i) => (
+    //             <CarouselItem key={i}>
+    //               <div
+    //                 className="category-banner-block"
+    //                 data-index={i}
+    //                 onClick={() => this.handleGoToPage(data.urlTarge)}
+    //                 style={{ width: "60%", margin: "0 auto" }}
+    //               >
+    //                 <div
+    //                   className="category-banner"
+    //                   style={{
+    //                     color: "white",
+    //                     padding: "20px",
+    //                     borderRadius: "10px",
+    //                   }}
+    //                 >
+    //                   <div className="category-content">
+    //                     {typeof data.title === "string" ? (
+    //                       <h6
+    //                         style={{
+    //                           fontSize: "18px",
+    //                           fontWeight: "bold",
+    //                           marginBottom: "10px",
+    //                         }}
+    //                       >
+    //                         {data.title}
+    //                       </h6>
+    //                     ) : (
+    //                       <h6
+    //                         style={{
+    //                           fontSize: "18px",
+    //                           fontWeight: "bold",
+    //                           marginBottom: "10px",
+    //                         }}
+    //                       >
+    //                         {data.title}
+    //                       </h6>
+    //                     )}
+    //                     <div className="learn-more-btn">Learn More</div>
+    //                   </div>
+    //                   {isBrowser && (
+    //                     <div className="category-hover">
+    //                       <div className="category-hover-content">
+    //                         <div className="custom-icon">
+    //                           {/* {data.icon} */}
+    //                         </div>
+    //                         <div className="category-content">
+    //                           <h6>{data.title}</h6>
+    //                         </div>
+    //                         <ul>
+    //                           {data.description &&
+    //                             data.description.map((des, idx) => (
+    //                               <li key={idx}>{des}</li>
+    //                             ))}
+    //                         </ul>
+    //                         <a href={data.urlTarge} className="learn-more-btn">
+    //                           Learn More
+    //                         </a>
+    //                       </div>
+    //                     </div>
+    //                   )}
+    //                 </div>
+    //               </div>
+    //             </CarouselItem>
+    //           ))}
+    //           <CarouselItem />
+    //         </Carousel>
+    //       </div>
+    //     </Container>
+    //   </div>
+    // );
   }
 }
 

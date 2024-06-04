@@ -122,7 +122,6 @@
     .blog-heading {
       font-weight: 500;
       font-size: 1.25rem;
-      line-height: 1.5rem;
       font-family: "Inter", sans-serif;
       line-height: 30px;
       min-height: 60px;
@@ -207,7 +206,6 @@
     }
     .blogs-card-body {
       font-family: "Inter", sans-serif;
-      // line-height: 26px;
       min-height: 50px;
       // opacity: 0.8;
       padding: 0px;
@@ -244,7 +242,6 @@
       margin-top: 20px;
     }
     .second-div {
-      display: flex;
       flex-wrap: wrap;
       row-gap: 15px;
       column-gap: 10px;
@@ -303,7 +300,6 @@
   .other-page {
     background: #f2f4f7;
     color: #000;
-    width: 2rem;
     text-align: center;
     padding: 6px 8px;
     border-radius: 4px;
@@ -313,7 +309,6 @@
   .selected-page {
     background: $backgroundColor;
     color: #fff;
-    width: 2rem;
     text-align: center;
     padding: 6px 8px;
     border-radius: 4px;

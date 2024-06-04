@@ -232,7 +232,6 @@ function Blogs({ router }) {
                 fontWeight: "400",
                 fontSize: "14px",
                 color: "#54616C",
-                textAlign: "center",
                 padding: "10px",
                 width: "100%",
                 textAlign: "center",
@@ -280,15 +279,6 @@ const styles = {
   inputGroup: {
     width: "100%",
     marginTop: "-15px",
-  },
-  searchContainer: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center", // Center align content horizontally
-    backgroundImage:
-      "url(https://answersstaticfilecdnv2.azureedge.net/static/images/banner.png)",
-    height: "300px",
   },
 
   input: {

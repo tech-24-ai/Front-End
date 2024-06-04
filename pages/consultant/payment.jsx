@@ -92,35 +92,34 @@ const Payment = ({
     transaction["transcation_status"] = details.status || "COMPLETED";
     transaction["type"] = 2;
 
-    (payload["consultant_id"] = consultantsID),
-      (payload["amount_per_hour"] = meetingData?.rate),
-      (payload["booking_date"] = meetingData?.bookingDate?.value),
-      (payload["duration"] = meetingData?.duration),
-      (payload["skill"] = meetingData?.skill),
-      (payload["is_credit"] = true),
-      (payload["remarks"] = "yes"),
-      (payload["booking_time"] = number),
-      (payload["type"] = "Online"),
-      (payload["sub_amount"] = meetingData?.totalPrice),
-      (payload["taxes"] = 0),
-      (payload["total_amount"] = meetingData?.totalPrice),
-      (payload["booking_utc_time"] =
-        meetingData?.meetingTiming?.booking_utc_time),
-      (payload["visitor_time_zone_id"] = meetingData?.timeZone.id),
-      crudService
-        ._create(url, payload)
-        .then((response) => {
-          setIsLoading(false);
-          setIsPaypalOpen(false);
-          if (response.status === 200) {
-            sessionStorage.setItem("booking_historyID", response.data.data.id);
-            Router.push(`details`);
-            hideLoader();
-          } else {
-            console.log("Something wrong...!");
-          }
-        })
-        .catch((error) => console.log("error", error));
+    payload["consultant_id"] = consultantsID;
+    payload["amount_per_hour"] = meetingData?.rate;
+    payload["booking_date"] = meetingData?.bookingDate?.value;
+    payload["duration"] = meetingData?.duration;
+    payload["skill"] = meetingData?.skill;
+    payload["is_credit"] = true;
+    payload["remarks"] = "yes";
+    payload["booking_time"] = number;
+    payload["type"] = "Online";
+    payload["sub_amount"] = meetingData?.totalPrice;
+    payload["taxes"] = 0;
+    payload["total_amount"] = meetingData?.totalPrice;
+    payload["booking_utc_time"] = meetingData?.meetingTiming?.booking_utc_time;
+    payload["visitor_time_zone_id"] = meetingData?.timeZone.id;
+    crudService
+      ._create(url, payload)
+      .then((response) => {
+        setIsLoading(false);
+        setIsPaypalOpen(false);
+        if (response.status === 200) {
+          sessionStorage.setItem("booking_historyID", response.data.data.id);
+          Router.push(`details`);
+          hideLoader();
+        } else {
+          console.log("Something wrong...!");
+        }
+      })
+      .catch((error) => console.log("error", error));
   };
   const bookingByCredits = (details, data) => {
     showLoader();
@@ -174,22 +173,22 @@ const Payment = ({
     transaction["type"] = 2;
 
     payload["consultant_id"] = consultantsID;
-    payload["amount_per_hour"] = meetingData.rate;
-    payload["booking_date"] = meetingData.bookingDate.value;
-    payload["duration"] = meetingData.duration;
-    payload["skill"] = meetingData.skill;
+    payload["amount_per_hour"] = meetingData?.rate;
+    payload["booking_date"] = meetingData?.bookingDate?.value;
+    payload["duration"] = meetingData?.duration;
+    payload["skill"] = meetingData?.skill;
     payload["is_credit"] = false;
     payload["remarks"] = "";
     payload["booking_time"] = number;
     payload["type"] = "Online";
-    payload["sub_amount"] = meetingData.totalPrice;
+    payload["sub_amount"] = meetingData?.totalPrice;
     payload["taxes"] = 0;
-    payload["total_amount"] = meetingData.totalPrice;
+    payload["total_amount"] = meetingData?.totalPrice;
     payload["paypal_transaction_id"] = data.orderID;
     payload["transaction_details"] = JSON.stringify(details);
     payload["transaction_date"] = date;
     payload["booking_utc_time"] = meetingData?.meetingTiming?.booking_utc_time;
-    payload["visitor_time_zone_id"] = meetingData.timeZone.id;
+    payload["visitor_time_zone_id"] = meetingData?.timeZone?.id;
     crudService
       ._create(url, payload)
       .then((response) => {

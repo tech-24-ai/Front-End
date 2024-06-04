@@ -3,12 +3,12 @@ import { Container } from "reactstrap";
 import Image from "next/future/image";
 import { isMobile } from "react-device-detect";
 
-function pageBanner({
+const PageBanner = ({
   image,
   titleNode,
   backgroundImage = null,
   backgroundStyle = null,
-}) {
+}) => {
   const bannerStyle = {
     backgroundImage: `url(${backgroundImage})`,
     backgroundPosition: "center center",
@@ -74,6 +74,6 @@ function pageBanner({
       </div>
     </div>
   );
-}
+};
 
-export default pageBanner;
+export default PageBanner;

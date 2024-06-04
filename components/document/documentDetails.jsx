@@ -10,7 +10,7 @@ import BodyBackgroundColor from "../../components/style/bodyBackgroundColor";
 import { Image } from "antd";
 import Router from "next/router";
 
-function documentDetails({
+function DocumentDetails({
   documents,
   authentication,
   activeSubscription,
@@ -375,4 +375,4 @@ const actionCreators = {
   toggleLoginPopup: userActions.toggleLoginPopup,
 };
 
-export default connect(mapStateToProps, actionCreators)(documentDetails);
+export default connect(mapStateToProps, actionCreators)(DocumentDetails);

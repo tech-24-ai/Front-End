@@ -8,7 +8,7 @@ import { withRouter } from "next/router";
 import { crudActions, loaderActions, alertActions } from "../../_actions";
 import { crudService } from "../../_services";
 
-const signUpPage = ({
+const SignUpPage = ({
   getAllCrud,
   showLoader,
   hideLoader,
@@ -236,7 +236,6 @@ const signUpPage = ({
 };
 
 const mapStateToProps = (state) => {
-  const {} = state;
   return {};
 };
 const actionCreators = {
@@ -248,4 +247,4 @@ const actionCreators = {
   error: alertActions.error,
 };
 
-export default withRouter(connect(mapStateToProps, actionCreators)(signUpPage));
+export default withRouter(connect(mapStateToProps, actionCreators)(SignUpPage));

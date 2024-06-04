@@ -12,7 +12,12 @@ import { crudService } from "../../_services";
 import { isBrowser, isMobile } from "react-device-detect";
 import Image from "next/future/image";
 
-const profile = ({ consultant, getAllCrud, createCrud, authentication }) => {
+const ConsultantProfile = ({
+  consultant,
+  getAllCrud,
+  createCrud,
+  authentication,
+}) => {
   useEffect(() => {
     if (!authentication.loggedIn) {
       Router.push("/");
@@ -214,15 +219,19 @@ const profile = ({ consultant, getAllCrud, createCrud, authentication }) => {
               <div className="custom-btn outline" onClick={meetingRoute}>
                 Video Call
               </div>
-              <div className="custom-btn outline"
+              <div
+                className="custom-btn outline"
                 onClick={() => goToMessagePage(consultant)}
                 disabled={
                   consultant &&
-                    consultant.chat_history &&
-                    consultant.chat_history.length
+                  consultant.chat_history &&
+                  consultant.chat_history.length
                     ? false
                     : true
-                }>Message</div>
+                }
+              >
+                Message
+              </div>
             </Space>
           </div>
         )}
@@ -432,4 +441,6 @@ const actionCreators = {
   hideLoader: loaderActions.hide,
 };
 
-export default withRouter(connect(mapStateToProps, actionCreators)(profile));
+export default withRouter(
+  connect(mapStateToProps, actionCreators)(ConsultantProfile)
+);

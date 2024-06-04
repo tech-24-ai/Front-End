@@ -484,7 +484,6 @@ const Profile = ({
     marginLeft: 70,
   };
   const marks = {
-    100: "0°C",
     26: "26°C",
     37: "37°C",
     100: {
@@ -731,7 +730,7 @@ const Profile = ({
       const bottomMarks = {};
       const levelCount = visitor_profile_levels?.[0]?.leavels.length;
       const interval = levelCount ? 100 / levelCount : 0;
-      const currentValue = -1;
+      let currentValue = -1;
 
       topMarks[0] = {
         label: "Level 0",
