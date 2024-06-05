@@ -173,7 +173,7 @@
       padding: 40px 0;
     }
     .blogs-card-body {
-      font-family: "Inter";
+      font-family: "Inter", sans-serif;
       // line-height: 26px;
       min-height: 50px;
       // opacity: 0.8;
@@ -278,7 +278,7 @@
     ul {
       margin-left: -15px;
       li {
-        font-family: "Montserrat";
+        font-family: "Montserrat", sans-serif;
         // list-style-type: disc;
         display: flex;
         align-items: center;
@@ -306,7 +306,7 @@
     font-size: 1.125em;
     line-height: 1.75rem;
     font-weight: 500;
-    font-family: "Inter", serif;
+    font-family: "Inter", sans-serif;
     color: $themeSecondary;
 
     .share-btn,

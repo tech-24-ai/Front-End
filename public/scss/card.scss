@@ -149,7 +149,7 @@
   .title {
     h4,
     h6 {
-      font-family: "Poppins";
+      font-family: "Poppins", sans-serif;
       font-size: 64px;
       font-weight: 600;
       line-height: 80px;
@@ -183,7 +183,7 @@
       h4,
       h6 {
         color: $textColor;
-        font-family: "Poppins";
+        font-family: "Poppins", sans-serif;
         font-size: 24px;
         font-weight: 600;
         line-height: 40px;
@@ -281,18 +281,18 @@
         // gap: 2rem 0;
         padding: 0 !important;
         height: 220px;
-         .banner-image-container {
-        display: none !important;
-      }
+        .banner-image-container {
+          display: none !important;
+        }
         .banner-title-container {
           h4,
           h6 {
             font-size: 28px;
           }
-          h2{
+          h2 {
             font-size: 24px !important;
           }
-          p{
+          p {
             font-size: 14px !important;
           }
           // h6 {

@@ -31,7 +31,7 @@ import {
 } from "../icons";
 import Link from "next/link";
 
-let counter = isMobile ? 7 : 7;
+let counter = 7;
 class LegalCategories extends React.PureComponent {
   constructor(props) {
     super(props);

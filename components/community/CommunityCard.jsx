@@ -43,7 +43,7 @@ const CommunityCard = ({ data, key }) => {
           height: "80px",
           background: "#f2f4f7",
           borderTopLeftRadius: "6px",
-          borderTopLeftRadius: "6px",
+          borderTopRightRadius: "6px",
         }}
       >
         <Image

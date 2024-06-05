@@ -42,46 +42,44 @@ class Categories extends React.PureComponent {
 
   render() {
     const { categories } = this.state;
-    if (categories && categories.length) {
+    if (categories?.length) {
       return (
         <div className="category-section">
           <div className="category-box">
             <div className="category-banner-wrapper">
-              {categories &&
-                categories.length &&
-                categories.map((data, i) => (
+              {categories?.map((data, i) => (
+                <div
+                  className="category-banner-block"
+                  key={i}
+                  onClick={() => {
+                    this.goToModules(data);
+                  }}
+                >
                   <div
-                    className="category-banner-block"
-                    key={i}
-                    onClick={() => {
-                      this.goToModules(data);
-                    }}
+                    className={`category-banner ${`color-${i}`}`}
+                    style={{ backgroundColor: data.color }}
                   >
-                    <div
-                      className={`category-banner ${`color-${i}`}`}
-                      style={{ backgroundColor: data.color }}
-                    >
-                      <div className="category-img">
-                        <img src={data.image} className="banner12" />
-                        {/* <img src={Arrow.src} className="arrow-img" /> */}
-                        {isMobile && (
-                          <Image
-                            loader={myImageLoader}
-                            src={Arrow}
-                            className="arrow-img"
-                            alt=""
-                            placeholder="Arrow"
-                            layout="raw"
-                            style={{ objectFit: "contain" }}
-                          />
-                        )}
-                      </div>
-                      <div className="category-content">
-                        <h6>{data.name}</h6>
-                      </div>
+                    <div className="category-img">
+                      <img src={data.image} className="banner12" />
+                      {/* <img src={Arrow.src} className="arrow-img" /> */}
+                      {isMobile && (
+                        <Image
+                          loader={myImageLoader}
+                          src={Arrow}
+                          className="arrow-img"
+                          alt=""
+                          placeholder="Arrow"
+                          layout="raw"
+                          style={{ objectFit: "contain" }}
+                        />
+                      )}
+                    </div>
+                    <div className="category-content">
+                      <h6>{data.name}</h6>
                     </div>
                   </div>
-                ))}
+                </div>
+              ))}
             </div>
           </div>
           {categories && categories.length > 6 && (

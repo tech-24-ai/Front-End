@@ -38,8 +38,8 @@ const HireConsultant = ({ consultant, getAllCrud }) => {
   }, []);
 
   useEffect(() => {
-    const profileData = {};
-    const skills_data = [];
+    let profileData = {};
+    let skills_data = [];
     const lastName = "";
     consultant &&
       consultant.map((data) => {

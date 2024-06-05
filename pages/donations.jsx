@@ -38,23 +38,23 @@ function Donations({ getAllCrud, showLoader, hideLoader, success }) {
     let payload = {};
     let transaction = {};
     transaction["transaction_status"] = details.status || "COMPLETED";
-    //   (payload["paypal_transaction_id"] = data.orderID),
-    (payload["donation_amount"] = inputValue.id),
-      (payload["payment_date"] = date),
-      (payload["transaction_details"] = JSON.stringify(details)),
-      (payload["remark"] = "No"),
-      crudService
-        ._create(url, payload)
-        .then((response) => {
-          setIsPaypalOpen(false);
-          if (response.status === 200) {
-            hideLoader();
-            success("Thanks for donating");
-          } else {
-            console.log("Something wrong...!");
-          }
-        })
-        .catch((error) => console.log("error", error));
+    //   payload["paypal_transaction_id"] = data.orderID
+    payload["donation_amount"] = inputValue.id;
+    payload["payment_date"] = date;
+    payload["transaction_details"] = JSON.stringify(details);
+    payload["remark"] = "No";
+    crudService
+      ._create(url, payload)
+      .then((response) => {
+        setIsPaypalOpen(false);
+        if (response.status === 200) {
+          hideLoader();
+          success("Thanks for donating");
+        } else {
+          console.log("Something wrong...!");
+        }
+      })
+      .catch((error) => console.log("error", error));
   };
   const onSuccessOneTimeCreditPayment = (details, data) => {
     makePayment(details, data);
@@ -215,7 +215,6 @@ function Donations({ getAllCrud, showLoader, hideLoader, success }) {
 }
 
 const mapStateToProps = (state) => {
-  const {} = state;
   return {};
 };
 const actionCreators = {

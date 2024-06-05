@@ -242,7 +242,9 @@ class SearchBox extends React.PureComponent {
                     }
                     showArrow={false}
                     treeNodeFilterProp="title"
-                    treeData={modules?.length && this.renderChildren(modules)}
+                    treeData={
+                      modules?.length > 0 && this.renderChildren(modules)
+                    }
                     onSelect={this.onChange}
                   />
                   <div style={{ marginLeft: "10px", marginTop: "5px" }}>
@@ -304,7 +306,7 @@ class SearchBox extends React.PureComponent {
                   }
                   showArrow={false}
                   treeNodeFilterProp="title"
-                  treeData={modules?.length && this.renderChildren(modules)}
+                  treeData={modules?.length > 0 && this.renderChildren(modules)}
                   onSelect={this.onChange}
                 />
                 <Image

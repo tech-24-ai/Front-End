@@ -134,8 +134,9 @@ class CustomBreadcrumb extends React.Component {
     const { updateNote, setMeta } = this.props;
     if (childrenIds?.length) {
       let element = childrenIds.slice(-1)[0];
-      try {
-        crudService._get("modules", element).then((result) => {
+      crudService
+        ._get("modules", element)
+        .then((result) => {
           if (result.data) {
             if (updateNote) {
               updateNote(result.data.about);
@@ -148,10 +149,10 @@ class CustomBreadcrumb extends React.Component {
               });
             }
           }
+        })
+        .catch((error) => {
+          console.log(error);
         });
-      } catch (error) {
-        console.log(error);
-      }
     }
   }
 

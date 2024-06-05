@@ -44,7 +44,6 @@ const rootReducer = combineReducers({
   get_subscription: crud("get_subscription"),
   subscription_history: crud("subscription_history"),
   purchase_history: crud("purchase_history"),
-  pages: crud("page"),
   blog: crud("blog"),
   blogs: crud("blogs"),
   consultants: crud("consultants"),

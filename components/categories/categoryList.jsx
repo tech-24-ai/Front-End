@@ -18,7 +18,7 @@ import {
   ItInfrastructure,
 } from "../icons";
 
-let counter = isMobile ? 7 : 7;
+let counter = 7;
 class categoryList extends React.PureComponent {
   constructor(props) {
     super(props);

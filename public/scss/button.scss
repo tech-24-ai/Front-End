@@ -188,7 +188,6 @@
 
 // new design button
 .custom-btn {
-  display: inline-block;
   border-radius: 8px;
   // width: 220px;
   // height: 52px;
@@ -259,7 +258,6 @@
 
   &.btn-gray {
     background-color: rgba($backgroundColor, 0.2);
-    color: $blackTwo;
     border-radius: 8px;
     display: flex;
     flex-direction: row;

@@ -100,7 +100,6 @@ export const connectFormFieldsVendor = [
         label: "> 5000",
       },
     ],
-    validation: "required",
   },
 ];
 

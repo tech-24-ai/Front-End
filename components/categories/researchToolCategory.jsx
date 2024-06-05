@@ -15,7 +15,6 @@ import { TreeSelect } from "antd";
 import Image from "next/image";
 import myImageLoader from "../imageLoader";
 
-let counter = isMobile ? 7 : 7;
 class Categories extends React.PureComponent {
   constructor(props) {
     super(props);
