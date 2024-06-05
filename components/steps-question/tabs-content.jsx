@@ -152,7 +152,7 @@ class StepQuestionTabContent extends React.Component {
     if (label.length) {
       if (index === -1) {
         questionData.push(questionDataArray);
-        currentQuestion.push((data.question_id = data.question_id));
+        currentQuestion.push(data.question_id);
       } else {
         questionData[index] = questionDataArray;
       }

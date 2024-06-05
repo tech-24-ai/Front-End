@@ -164,7 +164,7 @@ class SearchBox extends React.PureComponent {
           }
           showArrow={false}
           treeNodeFilterProp="title"
-          treeData={modules && modules.length && this.renderChildren(modules)}
+          treeData={modules.length > 0 && this.renderChildren(modules)}
           onSelect={this.onChange}
         />
         <div className="search-btn icon-container" onClick={this.onSearchEvent}>

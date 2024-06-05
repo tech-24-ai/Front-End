@@ -130,25 +130,25 @@ const Payment = ({
     transaction["transcation_status"] = details.status || "COMPLETED";
     transaction["type"] = 2;
 
-    (payload["purchased_credit"] = purchaseHours),
-      (payload["amount_paid"] = purchaseHours),
-      (payload["paypal_transcation_id"] = data.orderID),
-      (payload["purchase_date"] = date),
-      (payload["transaction_details"] = JSON.stringify(details)),
-      (payload["type"] = "Online"),
-      crudService
-        ._create(url, payload)
-        .then((response) => {
-          setIsLoadingTwo(false);
-          setIsPaypalOpenTwo(false);
-          if (response.status === 200) {
-            window.location.reload();
-            hideLoader();
-          } else {
-            console.log("Something wrong...!");
-          }
-        })
-        .catch((error) => console.log("error", error));
+    payload["purchased_credit"] = purchaseHours;
+    payload["amount_paid"] = purchaseHours;
+    payload["paypal_transcation_id"] = data.orderID;
+    payload["purchase_date"] = date;
+    payload["transaction_details"] = JSON.stringify(details);
+    payload["type"] = "Online";
+    crudService
+      ._create(url, payload)
+      .then((response) => {
+        setIsLoadingTwo(false);
+        setIsPaypalOpenTwo(false);
+        if (response.status === 200) {
+          window.location.reload();
+          hideLoader();
+        } else {
+          console.log("Something wrong...!");
+        }
+      })
+      .catch((error) => console.log("error", error));
   };
 
   const onSuccessOneTimeCreditPayment = (details, data) => {

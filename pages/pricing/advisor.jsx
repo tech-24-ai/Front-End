@@ -8,7 +8,7 @@ import { UserOutlined, SendOutlined } from "@ant-design/icons";
 import ChatCard from "../../components/card/chatCard";
 import Router from "next/router";
 
-function advisor() {
+function Advisor() {
   const [selectData, setSelectData] = useState();
 
   const sendData = () => {
@@ -153,4 +153,4 @@ function advisor() {
   );
 }
 
-export default advisor;
+export default Advisor;

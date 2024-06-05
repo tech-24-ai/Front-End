@@ -40,29 +40,26 @@ const VisitorCredits = ({ visitor_credit, getAllCrud, postAPI }) => {
     transaction["transcation_status"] = details.status || "COMPLETED";
     transaction["type"] = 2;
 
-    console.log("data", data);
-    console.log("details", details);
-
-    (payload["purchased_credit"] = inputCredits),
-      (payload["amount_paid"] = inputCredits),
-      (payload["paypal_transcation_id"] = data.orderID),
-      (payload["purchase_date"] = date),
-      (payload["transaction_details"] = JSON.stringify(details)),
-      (payload["type"] = "Online"),
-      crudService
-        ._create(url, payload)
-        .then((response) => {
-          setIsPaypalOpen(false);
-          setInputCredits(0);
-          if (response.status === 200) {
-            console.log("response", response);
-            getVisitorCredit();
-            getVisitorCredit();
-          } else {
-            console.log("Something wrong...!");
-          }
-        })
-        .catch((error) => console.log("error", error));
+    payload["purchased_credit"] = inputCredits;
+    payload["amount_paid"] = inputCredits;
+    payload["paypal_transcation_id"] = data.orderID;
+    payload["purchase_date"] = date;
+    payload["transaction_details"] = JSON.stringify(details);
+    payload["type"] = "Online";
+    crudService
+      ._create(url, payload)
+      .then((response) => {
+        setIsPaypalOpen(false);
+        setInputCredits(0);
+        if (response.status === 200) {
+          console.log("response", response);
+          getVisitorCredit();
+          getVisitorCredit();
+        } else {
+          console.log("Something wrong...!");
+        }
+      })
+      .catch((error) => console.log("error", error));
   };
 
   const onSuccessOneTimePayment = (details, data) => {

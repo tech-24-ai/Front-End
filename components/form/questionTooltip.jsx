@@ -39,7 +39,7 @@ const QuestionTooltip = ({ title, notes, id, modal }) => {
         onCancel={toggleClick}
         footer={[]}
       >
-        <div dangerouslySetInnerHTML={{ __html: notes && notes }}></div>
+        <div dangerouslySetInnerHTML={{ __html: notes }}></div>
       </Modal>
     </React.Fragment>
   );

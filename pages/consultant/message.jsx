@@ -62,7 +62,7 @@ const Message = ({ getAllCrud, postAPI, warning, chat_log }) => {
   };
 
   const sendMessage = () => {
-    if (!chatConfig && !chatConfig.chat_id) {
+    if (!chatConfig?.chat_id) {
       return warning("Something went wrong!");
     }
     if (message) {

@@ -180,11 +180,9 @@ const QuestionTab = ({
     let previousFiles = [];
     questionEditable &&
       url.forEach((file) => {
-        file?.id != -987654321 ? (
-          previousFiles.push({ url: file?.url, name: file?.name })
-        ) : (
-          <></>
-        );
+        if (file?.id != -987654321) {
+          previousFiles.push({ url: file?.url, name: file?.name });
+        }
       });
 
     setPrevFiles(previousFiles);

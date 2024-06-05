@@ -105,7 +105,7 @@ const ConsultantDetails = ({
   };
 
   useEffect(() => {
-    const profileData = {};
+    let profileData = {};
     const lastName = "";
     if (booking_history && booking_history.length) {
       const { consultant } = booking_history[0];

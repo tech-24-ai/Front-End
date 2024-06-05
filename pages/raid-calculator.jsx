@@ -17,12 +17,12 @@ const RaidCalculator = () => {
     activeDisk == 3 && setResultCalculations((noOfDisks - 1) * sizeOfDrive);
     activeDisk == 4 && setResultCalculations((noOfDisks - 2) * sizeOfDrive);
     // activeDisk % 2 == 0 && noOfDisks >= 4 ? setResultCalculations(noOfDisks * (sizeOfDrive / 2));
-    activeDisk == 5 ? setResultCalculations(noOfDisks * (sizeOfDrive / 2)) : "";
+    activeDisk == 5 && setResultCalculations(noOfDisks * (sizeOfDrive / 2));
     activeDisk == 6 && setResultCalculations((noOfDisks - 2) * sizeOfDrive);
     activeDisk == 7 && setResultCalculations((noOfDisks - 4) * sizeOfDrive);
   }, [sizeOfDrive, noOfDisks, activeDisk]);
 
-  console.log("activeDisk", activeDisk);
+  // console.log("activeDisk", activeDisk);
 
   useEffect(() => {
     setVisibleDisk([1]);

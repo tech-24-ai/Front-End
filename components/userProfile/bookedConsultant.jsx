@@ -13,7 +13,7 @@ import {
 } from "react-device-detect";
 import Swiper from "../../components/swiper/index";
 
-const bookedConsultants = ({ booked_consultants, getAllCrud }) => {
+const BookedConsultants = ({ booked_consultants, getAllCrud }) => {
   useEffect(() => {
     getAllCrud("booked_consultants", "booked_consultants");
   }, []);
@@ -241,5 +241,5 @@ const actionCreators = {
 };
 
 export default withRouter(
-  connect(mapStateToProps, actionCreators)(bookedConsultants)
+  connect(mapStateToProps, actionCreators)(BookedConsultants)
 );

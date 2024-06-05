@@ -147,7 +147,8 @@ class SelectBox extends React.PureComponent {
                         <li
                           key={i}
                           onClick={() => {
-                            this.setLocated(item.label), this.onChange(item);
+                            this.setLocated(item.label);
+                            this.onChange(item);
                           }}
                           className={located === item.label ? "active" : ""}
                         >
