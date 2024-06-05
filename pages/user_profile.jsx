@@ -137,16 +137,17 @@ const UserProfile = ({
     },
   ];
 
-  useEffect(() => { 
-    const visitor_id = sessionStorage.getItem("visitor_id")
+  useEffect(() => {
+    const visitor_id = sessionStorage.getItem("visitor_id");
     // console.log("new visitor id", visitor_id)
-
-  },[]);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const allCommunityData = await crudService._getAll("community?orderBy=created_at&orderDirection=desc");
+        const allCommunityData = await crudService._getAll(
+          "community?orderBy=created_at&orderDirection=desc"
+        );
         setAllCommunityFeature(allCommunityData.data);
         const topRatedCommunityData = await crudService._getAll(
           "community?page=1&pageSize=5&orderBy=top_rated"
@@ -220,7 +221,10 @@ const UserProfile = ({
   }, [page]);
 
   //all tab profile lvl
-  const currentProLevel = visitorcommunityprofile?.data[0]?.total_points_earned < 150 ? "0" : visitorcommunityprofile?.data[0]?.current_level;
+  const currentProLevel =
+    visitorcommunityprofile?.data[0]?.total_points_earned < 150
+      ? "0"
+      : visitorcommunityprofile?.data[0]?.current_level;
 
   // tab5 data
   const handleCardClick = (data) => {
@@ -245,7 +249,7 @@ const UserProfile = ({
         pageSize: itemsPerPage,
         search: searchQuery,
         ...filteredData,
-        visitor_id : visitorprofile?.id,
+        visitor_id: visitorprofile?.id,
 
         // visitor_id : visitorcommunityprofile?.visitor_id,
       })
@@ -275,9 +279,6 @@ const UserProfile = ({
   }, [libraryPage, sortBy, reloadComponent]);
 
   console.log("reloadComponent", reloadComponent);
-
-
-   
 
   const handleSort = (e) => {
     setSortBy(e.target.value);
@@ -368,7 +369,6 @@ const UserProfile = ({
     return false;
   };
 
-
   //SignOut
 
   const handleSignOutOk = () => {
@@ -381,19 +381,17 @@ const UserProfile = ({
   const handleSignOutCancel = () => {
     setIsSignOutModalOpen(false);
   };
-  
+
   useEffect(() => {
-    getAllCrud("visitorcommunityprofile", "visitorcommunityprofile",{
-       visitor_id : sessionStorage.getItem("visitor_id")
+    getAllCrud("visitorcommunityprofile", "visitorcommunityprofile", {
+      visitor_id: sessionStorage.getItem("visitor_id"),
     });
-     getAllCrud("visitorprofile", "visitorprofile",{
-       visitor_id : sessionStorage.getItem("visitor_id")
-     
-         });
-    getAllCrud("visitor_queries_history", "visitor_queries_history",{
-       visitor_id : sessionStorage.getItem("visitor_id")
+    getAllCrud("visitorprofile", "visitorprofile", {
+      visitor_id: sessionStorage.getItem("visitor_id"),
     });
-   
+    getAllCrud("visitor_queries_history", "visitor_queries_history", {
+      visitor_id: sessionStorage.getItem("visitor_id"),
+    });
   }, [updateCom]);
 
   const fetchCountry = () => {
@@ -404,7 +402,6 @@ const UserProfile = ({
     return { value: item.phonecode, label: `+${item.phonecode}` };
   });
 
- 
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -428,7 +425,6 @@ const UserProfile = ({
     marginLeft: 70,
   };
   const marks = {
-    100: "0°C",
     26: "26°C",
     37: "37°C",
     100: {
@@ -442,10 +438,10 @@ const UserProfile = ({
   // console.log("updateProfileData", updateProfileData);
 
   const Tab1 = () => {
-     let visitorname = visitorprofile?.name;
+    let visitorname = visitorprofile?.name;
     // const visitorname = visitorprofile?.data;
 
-    console.log("visitorname",visitorname);
+    console.log("visitorname", visitorname);
     let firstname = "";
     let lastname = "";
 
@@ -458,7 +454,6 @@ const UserProfile = ({
 
     return (
       <div className="profile-tab-container first_tab_Space">
-      
         <div className="input-container ">
           <div>
             <h6>First Name</h6>
@@ -501,31 +496,24 @@ const UserProfile = ({
             <h5>{visitorprofile?.email}</h5>
           </div>
 
-          <div
-        
-          >
-           
-          </div>
+          <div></div>
         </div>
-      
       </div>
     );
   };
 
-  
   const items = [
     {
       key: "1",
       label: "Profile",
       children: <Tab1 />,
     },
-    
+
     {
       key: "3",
       label: "Questions",
       children: <QuestionTab />,
     },
-   
   ];
 
   const onSearch = (value) => {
@@ -565,10 +553,7 @@ const UserProfile = ({
                 width={80}
                 height={80}
                 preview="false"
-                src={
-                  visitorprofile?.profile_pic_url ||
-                  profile_img
-                }
+                src={visitorprofile?.profile_pic_url || profile_img}
                 alt="profile"
               />
               <p className="profile-badge">
@@ -577,10 +562,10 @@ const UserProfile = ({
               </p>
 
               <div className="level">
-                Level : 
-                {currentProLevel}{" "}
+                Level :{currentProLevel}{" "}
                 {/* {visitorcommunityprofile?.data[0]?.current_level}{" "} */}
-                {visitorcommunityprofile?.data[0]?.current_badge && visitorcommunityprofile?.data[0]?.total_points_earned >= 150
+                {visitorcommunityprofile?.data[0]?.current_badge &&
+                visitorcommunityprofile?.data[0]?.total_points_earned >= 150
                   ? `: ${visitorcommunityprofile?.data[0]?.current_badge}`
                   : ""}
               </div>
@@ -658,11 +643,7 @@ const UserProfile = ({
             onOk={handleOk}
             onCancel={handleCancel}
             maskClosable={false}
-            footer={[
-              <div className="profile-modal-button">
-                Save
-              </div>,
-            ]}
+            footer={[<div className="profile-modal-button">Save</div>]}
           >
             <div className="edit-profile-container">
               <div className="profile-header">
@@ -943,4 +924,6 @@ const actionCreators = {
   updateCrud: crudActions._update,
 };
 
-export default withRouter(connect(mapStateToProps, actionCreators)(UserProfile));
+export default withRouter(
+  connect(mapStateToProps, actionCreators)(UserProfile)
+);

@@ -9,7 +9,7 @@ import Router, { withRouter } from "next/router";
 import { connect } from "react-redux";
 import { crudActions } from "../_actions";
 
-function troubleshootSubject({ getAllCrud, chat_gpt }) {
+function TroubleshootSubject({ getAllCrud, chat_gpt }) {
   useEffect(() => {
     getAllCrud("chat_gpt", "openai/chat_gpt");
   }, []);
@@ -75,5 +75,5 @@ const actionCreators = {
 };
 
 export default withRouter(
-  connect(mapStateToProps, actionCreators)(troubleshootSubject)
+  connect(mapStateToProps, actionCreators)(TroubleshootSubject)
 );
