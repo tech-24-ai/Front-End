@@ -46,7 +46,6 @@ import { Timeline, Icon } from "antd";
 import QuestionTab from "../components/community/QuestionTab";
 import shorting_icon from "../public/new_images/sorting_icon.svg";
 import { calculateDateTime } from "../_global";
-// import { useLocation } from 'react-router-dom';
 const UserProfile = ({
   getAllCrud,
   updateCrud,
@@ -64,12 +63,9 @@ const UserProfile = ({
 }) => {
   const { q } = Router.query;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [updateCom, setUpdateCom] = useState(false);
+  const [updateCom] = useState(false);
   const [visitorquerieshistory, setvisitor_queries_history] = useState([]);
-  const [search, setSearch] = useState("");
-  const [value, setValue] = useState();
   const [visitorActivity, setvisitorActivity] = useState([]);
-  const [sortByOrder, setSortByOrder] = useState(false);
   const [countryList, setCountryList] = useState([]);
   const [topRatedCommunityFeature, setTopRatedCommunityFeature] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState({

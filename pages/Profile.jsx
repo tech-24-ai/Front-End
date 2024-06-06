@@ -62,10 +62,7 @@ const Profile = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [updateCom, setUpdateCom] = useState(false);
   const [visitorquerieshistory, setvisitor_queries_history] = useState([]);
-  const [search, setSearch] = useState("");
-  const [value, setValue] = useState();
   const [visitorActivity, setvisitorActivity] = useState([]);
-  const [sortByOrder, setSortByOrder] = useState(false);
   const [countryList, setCountryList] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState({
     label: visitorprofile?.country?.name,
@@ -73,11 +70,6 @@ const Profile = ({
   });
   const [activeTab, setActiveTab] = useState("1");
   const [isSignOutModalOpen, setIsSignOutModalOpen] = useState(false);
-  const [inputValue, setInputValue] = useState("");
-  // const [mode, setMode] = useState('left');
-  // const onChange = (e) => {
-  //   setMode(e.target.value);
-  // };
 
   const [updateProfileData, setUpdateProfileData] = useState({
     alternate_email: "",
@@ -111,34 +103,11 @@ const Profile = ({
 
   const [searchQuery, setSearchQuery] = useState(q);
   const [filteredData, setFilteredData] = useState({});
-  const [mode, setMode] = useState("left");
-  //  const [researchData, setResearchData] = useState([]);
-  const onPageChange = (page) => {
-    setCurrentPage(page);
-  };
-  const options = [
-    {
-      value: "id",
-      label: "Most Recent",
-    },
-    {
-      value: "views_counter",
-      label: "Most Viewed",
-    },
-    {
-      value: "total_post_replies",
-      label: "Most Answers",
-    },
-    {
-      value: "total_helpful",
-      label: "Most Voted",
-    },
-  ];
-  // console.log("countryId",countryId);
+
   useEffect(() => {
     crudService._getAll("countries?orderBy=sort_order&orderPos=ASC", []).then(
       (result) => {
-        if ((result.status = 200)) {
+        if (result.status == 200) {
           if (result.data) {
             let countryData = result.data.map((country) => ({
               label: country.name,
@@ -156,26 +125,6 @@ const Profile = ({
     );
   }, []);
 
-  //  console.log("setSelectedCountry",countryList);
-
-  const [sortType, setSortType] = useState("asc");
-
-  const handleMenuClick = (e) => {
-    if (e.key === "asc" || e.key === "desc") {
-      setSortType(e.key);
-    }
-  };
-
-  const menu = (
-    <Menu onClick={handleMenuClick}>
-      <Menu.Item key="asc" icon={<SortAscendingOutlined />}>
-        Sort Ascending
-      </Menu.Item>
-      <Menu.Item key="desc" icon={<SortDescendingOutlined />}>
-        Sort Descending
-      </Menu.Item>
-    </Menu>
-  );
   //tab 2 data
   useEffect(() => {
     crudService
@@ -309,23 +258,6 @@ const Profile = ({
     }
   };
 
-  //Filter
-  const handleSearch = (searchValue) => {
-    if (searchValue == null) {
-      return false;
-    }
-    const timerId = setTimeout(() => {
-      setSearchQuery(searchValue);
-    }, 1000);
-
-    return () => {
-      clearTimeout(timerId);
-    };
-  };
-
-  const onChange = (key) => {
-    console.log(key);
-  };
   const showEditModal = () => {
     let visitorname = visitorprofile?.name;
     let first_name = "";
@@ -430,16 +362,6 @@ const Profile = ({
   });
 
   const updateProfile = () => {
-    let visitorname = visitorprofile?.name;
-    let first_name = "";
-    let last_name = "";
-
-    if (visitorname) {
-      visitorname = visitorname.split(" ");
-      first_name = visitorname[0];
-      visitorname.splice(0, 1);
-      last_name = visitorname.join(" ");
-    }
     crudService
       ._update("visitorprofile", visitorprofile?.id, {
         alternate_email: updateProfileData.alternate_email,
@@ -552,13 +474,7 @@ const Profile = ({
             <h5>{visitorprofile?.email}</h5>
           </div>
 
-          <div
-          // style={{
-          //   display: !visitorprofile?.mobile && isMobile && "flex",
-          //   justifyContent:
-          //     !visitorprofile?.mobile && isMobile && "space-between",
-          // }}
-          >
+          <div>
             <div>
               <h6>Contact Number</h6>
               <h5>
@@ -658,7 +574,11 @@ const Profile = ({
               </Divider>
 
               {groupedData[date].map((data) => (
-                <Card bordered={true} onClick={() => redirectToPage(data)}>
+                <Card
+                  key={data.id}
+                  bordered={true}
+                  onClick={() => redirectToPage(data)}
+                >
                   <div className="cards-header">
                     <p className="title">{data?.communityPost.title}</p>
                   </div>
@@ -802,36 +722,12 @@ const Profile = ({
 
     const trigger = isTouchDevice ? ["click"] : ["hover"];
 
-    const [arrow, setArrow] = useState("Show");
-
-    const mergedArrow = useMemo(() => {
-      if (arrow === "Hide") {
-        return false;
-      }
-
-      if (arrow === "Show") {
-        return true;
-      }
-
-      return {
-        pointAtCenter: true,
-      };
-    }, [arrow]);
-
     return (
       <div>
         {/* Content for mobile view */}
         {isMobile && (
           <div className="levels-tab-container">
-            <Card
-              bordered={true}
-              style={
-                {
-                  // width: "100%",
-                  // height: "fit-content",
-                }
-              }
-            >
+            <Card bordered={true}>
               <p className="sliderTitle" style={{ paddingLeft: "16px" }}>
                 Starter since {visitor_profile_levels?.[0]?.joined_at}
               </p>
