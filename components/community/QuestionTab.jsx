@@ -191,6 +191,7 @@ const QuestionTab = ({
   const handleOk = async () => {
     showLoader();
     setIsModalOpen(false);
+
     if (!title) {
       showAlert("Please add title");
       return;
@@ -201,111 +202,59 @@ const QuestionTab = ({
       return;
     }
 
-    // const finalUrl = [];
-    showLoader();
-    if (url && url.length > 0) {
-      let index = 0;
-      for (index; index < url.length; index++) {
-        const details =
-          !url[index].id &&
-          (await crudService._upload("uploadmedia", url[index]));
-        prevFiles.push({
-          url: details?.data?.result,
-          name: details?.data?.filename,
-        });
-      }
+    const postData = await preparePostData();
 
-      const postData = {
-        community_id: communityId || communityData?.id,
-        title: title,
-        description: description,
-        tags: tags,
-        url: JSON.stringify(prevFiles),
-      };
+    if (questionEditable) {
       showLoader();
-      if (questionEditable) {
-        showLoader();
-        crudService
-          ._update("communitypost", questionEditable, postData)
-          .then((response) => {
-            hideLoader();
-            if (response.status === 200) {
-              setUpdateCom(true);
-              setIsModalOpen(false);
-              resetForm();
-              fetchData();
-              success(
-                "Your post is being reviewed and will be shown after approval."
-              );
-            }
-          })
-          .catch(() => {
-            hideLoader();
-          });
-      } else {
-        crudService
-          ._create("communitypost", postData)
-          .then((response) => {
-            hideLoader();
-            if (response.status === 200) {
-              setUpdateCom(true);
-              setIsModalOpen(false);
-              resetForm();
-              success(
-                "Your post is being reviewed and will be shown after approval."
-              );
-            }
-          })
-          .catch(() => {
-            hideLoader();
-          });
-      }
+      crudService
+        ._update("communitypost", questionEditable, postData)
+        .then(handleResponse)
+        .catch(hideLoader);
     } else {
-      const postData = {
-        community_id: communityId || communityData?.id,
-        title: title,
-        description: description,
-        tags: tags,
-        url: [],
-      };
-      if (questionEditable) {
-        showLoader();
-        crudService
-          ._update("communitypost", questionEditable, postData)
-          .then((response) => {
-            hideLoader();
-            if (response.status === 200) {
-              setUpdateCom(true);
-              setIsModalOpen(false);
-              resetForm();
-              fetchData();
-              success(
-                "Your post is being reviewed and will be shown after approval."
-              );
-            }
-          })
-          .catch(() => {
-            hideLoader();
-          });
-      } else {
-        showLoader();
-        crudService
-          ._create("communitypost", postData)
-          .then((response) => {
-            hideLoader();
-            if (response.status === 200) {
-              setUpdateCom(true);
-              setIsModalOpen(false);
-              resetForm();
-              success(
-                "Your post is being reviewed and will be shown after approval."
-              );
-            }
-          })
-          .catch(() => {
-            hideLoader();
-          });
-      }
+      showLoader();
+      crudService
+        ._create("communitypost", postData)
+        .then(handleResponse)
+        .catch(hideLoader);
+    }
+  };
+
+  const preparePostData = async () => {
+    const preparedFiles = await prepareFiles();
+    return {
+      community_id: communityId || communityData?.id,
+      title: title,
+      description: description,
+      tags: tags,
+      url: JSON.stringify(preparedFiles),
+    };
+  };
+
+  const prepareFiles = async () => {
+    if (url?.length > 0) {
+      const filePromises = url.map(async (file) => {
+        if (!file.id) {
+          const details = await crudService._upload("uploadmedia", file);
+          return {
+            url: details?.data?.result,
+            name: details?.data?.filename,
+          };
+        }
+      });
+      return await Promise.all(filePromises);
+    } else {
+      return [];
+    }
+  };
+
+  const handleResponse = (response) => {
+    hideLoader();
+    if (response.status === 200) {
+      setUpdateCom(true);
+      setIsModalOpen(false);
+      resetForm();
+      fetchData();
+      success("Your post is being reviewed and will be shown after approval.");
     }
   };
 

@@ -65,7 +65,6 @@ import { calculateDateTime } from "../../../_global";
 import { Fragment } from "react";
 import Link from "next/link";
 
-
 const CommunityQuestionDetail = ({
   getAllCrud,
   success,
@@ -75,7 +74,6 @@ const CommunityQuestionDetail = ({
   hideLoader,
   isloggedIn,
   toggleLoginPopup,
-  
 }) => {
   const router = useRouter();
   const slugQuery = router.query;
@@ -195,18 +193,19 @@ const CommunityQuestionDetail = ({
           setAnswerEditable(null);
           setCommentEditable(null);
           if (response.status === 200) {
-            isReply
-              ? setIsReplayModalOpen({ isReplayModelOpen: false, details: {} })
-              : setIsModalOpen(false);
-            !isReply ? setDescription("") : setReplyResponse("");
-            setUpdateCom(true);
-            isReply
-              ? success(
-                  "Your reply is being reviewed and will be shown after approval."
-                )
-              : success(
-                  "Your answer is being reviewed and will be shown after approval."
-                );
+            if (isReply) {
+              setIsReplayModalOpen({ isReplayModelOpen: false, details: {} });
+              setReplyResponse("");
+              success(
+                "Your reply is being reviewed and will be shown after approval."
+              );
+            } else {
+              setIsModalOpen(false);
+              setDescription("");
+              success(
+                "Your answer is being reviewed and will be shown after approval."
+              );
+            }
           }
         })
         .catch(() => {
@@ -220,18 +219,19 @@ const CommunityQuestionDetail = ({
         .then((response) => {
           hideLoader();
           if (response.status === 200) {
-            isReply
-              ? setIsReplayModalOpen({ isReplayModelOpen: false, details: {} })
-              : setIsModalOpen(false);
-            !isReply ? setDescription("") : setReplyResponse("");
-            setUpdateCom(true);
-            isReply
-              ? success(
-                  "Your reply is being reviewed and will be shown after approval."
-                )
-              : success(
-                  "Your answer is being reviewed and will be shown after approval."
-                );
+            if (isReply) {
+              setIsReplayModalOpen({ isReplayModelOpen: false, details: {} });
+              setReplyResponse("");
+              success(
+                "Your reply is being reviewed and will be shown after approval."
+              );
+            } else {
+              setIsModalOpen(false);
+              setDescription("");
+              success(
+                "Your answer is being reviewed and will be shown after approval."
+              );
+            }
           }
         })
         .catch(() => {
@@ -290,38 +290,31 @@ const CommunityQuestionDetail = ({
             setCommunityData(community);
             setCommunityQuestionDetail(postDetails);
           }
-          
         });
     }
   }, [updateCom, slugQuery]);
 
-
   const handleClick = () => {
-  
     const id = communityQuestionDetail?.id;
     Router.push({
-        pathname: '/user_profile',
+      pathname: "/user_profile",
     });
-   
-      sessionStorage.setItem(
-        "visitor_id",
-        communityQuestionDetail?.visitor_id
-      );
 
-    };
+    sessionStorage.setItem("visitor_id", communityQuestionDetail?.visitor_id);
+  };
 
-const handleAnswerClick = (visitorId) => {
-  const { id } = communityQuestionDetail;
-  
-  // Store the clicked visitor ID in sessionStorage
-  sessionStorage.setItem("visitor_id", visitorId);
+  const handleAnswerClick = (visitorId) => {
+    const { id } = communityQuestionDetail;
 
-  // Redirect to user_profile
-  Router.push({
-    pathname: '/user_profile',
-    query: { id: id } // Pass any additional query parameters if needed
-  });
-};
+    // Store the clicked visitor ID in sessionStorage
+    sessionStorage.setItem("visitor_id", visitorId);
+
+    // Redirect to user_profile
+    Router.push({
+      pathname: "/user_profile",
+      query: { id: id }, // Pass any additional query parameters if needed
+    });
+  };
 
   const getPostReplies = () => {
     const id = communityQuestionDetail?.id;
@@ -685,24 +678,23 @@ const handleAnswerClick = (visitorId) => {
                     marginTop: "1rem",
                   }}
                 >
-                 
                   <div className="cards-header">
                     <div>
-                    <a  onClick={() => handleClick()}>
-                      <div className="img">
-                        <Image
-                          style={{ borderRadius: "5px", zIndex: "1" }}
-                          width={50}
-                          height={50}
-                          preview="false"
-                          src={
-                            communityQuestionDetail?.visitor?.profile_pic_url ||
-                            profile_img
-                          }
-                          alt="profile"
-                        />
-                        {/* <span className="label-counter">18</span> */}
-                      </div>
+                      <a onClick={() => handleClick()}>
+                        <div className="img">
+                          <Image
+                            style={{ borderRadius: "5px", zIndex: "1" }}
+                            width={50}
+                            height={50}
+                            preview="false"
+                            src={
+                              communityQuestionDetail?.visitor
+                                ?.profile_pic_url || profile_img
+                            }
+                            alt="profile"
+                          />
+                          {/* <span className="label-counter">18</span> */}
+                        </div>
                       </a>
                       <div
                         className="profile"
@@ -729,7 +721,7 @@ const handleAnswerClick = (visitorId) => {
                       </div>
                     </div>
                   </div>
-                  
+
                   <p className="para questions_font_14px">
                     <span
                       style={{
@@ -787,7 +779,6 @@ const handleAnswerClick = (visitorId) => {
                       }}
                       className="questions_font_12px"
                     >
-                      
                       <Image
                         loader={myImageLoader}
                         style={{ borderRadius: "5px", cursor: "pointer" }}
@@ -797,7 +788,7 @@ const handleAnswerClick = (visitorId) => {
                         src={view_icon}
                         alt="view-icon"
                       />
-                    
+
                       <span style={{ marginLeft: "5px" }}>
                         {communityQuestionDetail?.views_counter} views
                       </span>
@@ -905,7 +896,7 @@ const handleAnswerClick = (visitorId) => {
                       }}
                       className="questions_font_16px"
                     >
-                      Answers  ({communityAnswers?.length})
+                      Answers ({communityAnswers?.length})
                     </div>
                   </div>
 
@@ -952,20 +943,25 @@ const handleAnswerClick = (visitorId) => {
                     >
                       <div className="cards-header">
                         <div style={{ width: "100%" }}>
-                        <a href="/user_profile"  key={answer.id} onClick={() => handleAnswerClick(answer.visitor_id)}>
-                          <div className="img">
-                            <Image
-                              style={{ borderRadius: "5px", zIndex: "1" }}
-                              width={50}
-                              height={50}
-                              preview="false"
-                              src={
-                                answer?.visitor?.profile_pic_url || profile_img
-                              }
-                              alt="profile"
-                            />
-                            {/* <span className="label-counter">18</span> */}
-                          </div>
+                          <a
+                            href="/user_profile"
+                            key={answer.id}
+                            onClick={() => handleAnswerClick(answer.visitor_id)}
+                          >
+                            <div className="img">
+                              <Image
+                                style={{ borderRadius: "5px", zIndex: "1" }}
+                                width={50}
+                                height={50}
+                                preview="false"
+                                src={
+                                  answer?.visitor?.profile_pic_url ||
+                                  profile_img
+                                }
+                                alt="profile"
+                              />
+                              {/* <span className="label-counter">18</span> */}
+                            </div>
                           </a>
                           <div
                             className="profile"
@@ -1081,9 +1077,7 @@ const handleAnswerClick = (visitorId) => {
                           <div
                             style={{ display: "flex", alignItems: "center" }}
                           >
-                            {answer?.comments &&
-                            answer?.comments.length > 0 &&
-                            !isMobile ? (
+                            {answer?.comments?.length > 0 && !isMobile ? (
                               <div
                                 style={{
                                   border: "1px solid #D9DFE9",
