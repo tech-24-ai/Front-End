@@ -595,6 +595,13 @@ const CommunityQuestionDetail = ({
     );
   };
 
+  const getConditionalValue = (condition, trueValue, falseValue) => {
+    if (condition) {
+      return trueValue;
+    }
+    return falseValue;
+  };
+
   return (
     <>
       {communityData && (
@@ -1093,54 +1100,59 @@ const CommunityQuestionDetail = ({
                                 className="questions_font_12px"
                                 onClick={() =>
                                   setIsShowReplies(
-                                    isShowReplies == answer?.id
-                                      ? null
-                                      : answer?.id
+                                    getConditionalValue(
+                                      isShowReplies == answer?.id,
+                                      null,
+                                      answer?.id
+                                    )
                                   )
                                 }
                               >
-                                {isShowReplies == answer?.id
-                                  ? "Hide Replies"
-                                  : "View Replies"}
+                                {getConditionalValue(
+                                  isShowReplies == answer?.id,
+                                  "Hide Replies",
+                                  "View Replies"
+                                )}
                               </div>
                             ) : (
                               <>
-                                {answer?.comments &&
-                                  answer?.comments.length > 0 && (
-                                    <div
-                                      style={{
-                                        border: "1px solid #D9DFE9",
-                                        padding: "5px 12px",
-                                        borderRadius: "4px",
-                                        backgroundColor: "#D9DFE9",
-                                        cursor: "pointer",
-                                        marginLeft: "6px",
-                                      }}
-                                      onClick={() =>
-                                        setIsShowReplies(
-                                          isShowReplies == answer?.id
-                                            ? null
-                                            : answer?.id
+                                {answer?.comments?.length > 0 && (
+                                  <div
+                                    style={{
+                                      border: "1px solid #D9DFE9",
+                                      padding: "5px 12px",
+                                      borderRadius: "4px",
+                                      backgroundColor: "#D9DFE9",
+                                      cursor: "pointer",
+                                      marginLeft: "6px",
+                                    }}
+                                    onClick={() =>
+                                      setIsShowReplies(
+                                        getConditionalValue(
+                                          isShowReplies == answer?.id,
+                                          null,
+                                          answer?.id
                                         )
-                                      }
-                                    >
-                                      <Image
-                                        loader={myImageLoader}
-                                        style={{
-                                          borderRadius: "5px",
-                                        }}
-                                        width={16}
-                                        height={16}
-                                        preview="false"
-                                        src={
-                                          isShowReplies == answer?.id
-                                            ? hide_icon
-                                            : show_icon
-                                        }
-                                        alt="eye-icon"
-                                      />
-                                    </div>
-                                  )}
+                                      )
+                                    }
+                                  >
+                                    <Image
+                                      loader={myImageLoader}
+                                      style={{
+                                        borderRadius: "5px",
+                                      }}
+                                      width={16}
+                                      height={16}
+                                      preview="false"
+                                      src={getConditionalValue(
+                                        isShowReplies == answer?.id,
+                                        hide_icon,
+                                        show_icon
+                                      )}
+                                      alt="eye-icon"
+                                    />
+                                  </div>
+                                )}
                               </>
                             )}
                           </div>
