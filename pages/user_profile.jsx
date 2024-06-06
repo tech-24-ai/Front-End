@@ -574,7 +574,7 @@ const UserProfile = ({
                 {visitorcommunityprofile?.data[0]?.level_up_text}
               </div>
             </div>
-            <hr />
+            {/* <hr /> */}
             {/* <div className="following-section">
               <div style={{ width: "100%" }}>
                 <p className="head">Contributions</p>
@@ -626,14 +626,7 @@ const UserProfile = ({
               {/* <div onClick={showEditModal} className="button">
                 Edit Profile
               </div> */}
-              <div
-                className="delete-container mt-3"
-                style={{
-                  float: "right",
-                }}
-              >
-                <div onClick={showSignOutModal}>Sign Out</div>
-              </div>
+             
             </div>
           </Card>
           <Modal
