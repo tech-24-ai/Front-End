@@ -207,14 +207,7 @@ const CommunityDetail = ({
           ._create("communitypost", postData)
           .then((response) => {
             hideLoader();
-            if (response.status === 200) {
-              setUpdateCom(true);
-              setIsModalOpen(false);
-              resetForm();
-              success(
-                "Your post is being reviewed and will be shown after approval."
-              );
-            }
+            handleResponse(response);
           })
           .catch(() => {
             hideLoader();
@@ -244,18 +237,21 @@ const CommunityDetail = ({
         ._create("communitypost", postData)
         .then((response) => {
           hideLoader();
-          if (response.status === 200) {
-            setUpdateCom(true);
-            setIsModalOpen(false);
-            resetForm();
-            success(
-              "Your post is being reviewed and will be shown after approval."
-            );
-          }
+          handleResponse(response);
         })
         .catch(() => {
           hideLoader();
         });
+    }
+  };
+
+  const handleResponse = (response) => {
+    hideLoader();
+    if (response.status === 200) {
+      setUpdateCom(true);
+      setIsModalOpen(false);
+      resetForm();
+      success("Your post is being reviewed and will be shown after approval.");
     }
   };
 

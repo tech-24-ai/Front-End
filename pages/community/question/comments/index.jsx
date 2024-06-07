@@ -155,19 +155,7 @@ const CommunityQuestionDetail = ({
         })
         .then((response) => {
           hideLoader();
-          if (response.status === 200) {
-            setIsReplayModalOpen({ isReplayModelOpen: false, details: {} });
-            setReplyResponse("");
-            setUpdateCom(true);
-            setCommentEditable(null);
-            isReply
-              ? success(
-                  "Your reply is being reviewed and will be shown after approval."
-                )
-              : success(
-                  "Your answer is being reviewed and will be shown after approval."
-                );
-          }
+          handleResponse(response, isReply);
         })
         .catch(() => {
           hideLoader();
@@ -178,22 +166,27 @@ const CommunityQuestionDetail = ({
         ._create("communitypostreply", postData)
         .then((response) => {
           hideLoader();
-          if (response.status === 200) {
-            setIsReplayModalOpen({ isReplayModelOpen: false, details: {} });
-            setReplyResponse("");
-            setUpdateCom(true);
-            isReply
-              ? success(
-                  "Your reply is being reviewed and will be shown after approval."
-                )
-              : success(
-                  "Your answer is being reviewed and will be shown after approval."
-                );
-          }
+          handleResponse(response, isReply);
         })
         .catch(() => {
           hideLoader();
         });
+    }
+  };
+
+  const handleResponse = (response, isReply) => {
+    hideLoader();
+    if (response.status === 200) {
+      setIsReplayModalOpen({ isReplayModelOpen: false, details: {} });
+      setReplyResponse("");
+      setUpdateCom(true);
+      isReply
+        ? success(
+            "Your reply is being reviewed and will be shown after approval."
+          )
+        : success(
+            "Your answer is being reviewed and will be shown after approval."
+          );
     }
   };
 
