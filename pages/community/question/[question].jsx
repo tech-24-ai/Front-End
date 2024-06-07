@@ -146,7 +146,6 @@ const CommunityQuestionDetail = ({
 
   const [updateCom, setUpdateCom] = useState(false);
   const [form] = Form.useForm();
-  const onChange = (key) => {};
 
   const editor = React.useRef(null);
   function focusEditor() {
@@ -167,46 +166,31 @@ const CommunityQuestionDetail = ({
   };
 
   const handleOk = (parent_id, community_post_id, replyText, isReply) => {
-    if (replyText == undefined || replyText == null || replyText.trim() == "") {
+    if (!replyText || replyText.trim() === "") {
       showAlert("Please add description.");
       return;
     }
+
     const postData = {
       parent_id: parent_id,
       community_post_id: community_post_id,
       description: replyText,
     };
+
     showLoader();
     setIsModalOpen(false);
     setIsReplayModalOpen({ isReplayModelOpen: false, details: {} });
+
     if (answerEditable || commentEditable) {
-      // update the question's answer
-      showLoader();
       crudService
         ._update("communitypostreply", answerEditable || commentEditable, {
-          // parent_id: commentEditable, not required can have that later
           community_post_id: answerEditable || commentPostId,
           description: replyText,
         })
         .then((response) => {
-          hideLoader();
+          handleResponse(response, isReply);
           setAnswerEditable(null);
           setCommentEditable(null);
-          if (response.status === 200) {
-            if (isReply) {
-              setIsReplayModalOpen({ isReplayModelOpen: false, details: {} });
-              setReplyResponse("");
-              success(
-                "Your reply is being reviewed and will be shown after approval."
-              );
-            } else {
-              setIsModalOpen(false);
-              setDescription("");
-              success(
-                "Your answer is being reviewed and will be shown after approval."
-              );
-            }
-          }
         })
         .catch(() => {
           hideLoader();
@@ -217,26 +201,30 @@ const CommunityQuestionDetail = ({
       crudService
         ._create("communitypostreply", postData)
         .then((response) => {
-          hideLoader();
-          if (response.status === 200) {
-            if (isReply) {
-              setIsReplayModalOpen({ isReplayModelOpen: false, details: {} });
-              setReplyResponse("");
-              success(
-                "Your reply is being reviewed and will be shown after approval."
-              );
-            } else {
-              setIsModalOpen(false);
-              setDescription("");
-              success(
-                "Your answer is being reviewed and will be shown after approval."
-              );
-            }
-          }
+          handleResponse(response, isReply);
         })
         .catch(() => {
           hideLoader();
         });
+    }
+  };
+
+  const handleResponse = (response, isReply) => {
+    hideLoader();
+    if (response.status === 200) {
+      if (isReply) {
+        setIsReplayModalOpen({ isReplayModelOpen: false, details: {} });
+        setReplyResponse("");
+        success(
+          "Your reply is being reviewed and will be shown after approval."
+        );
+      } else {
+        setIsModalOpen(false);
+        setDescription("");
+        success(
+          "Your answer is being reviewed and will be shown after approval."
+        );
+      }
     }
   };
 
