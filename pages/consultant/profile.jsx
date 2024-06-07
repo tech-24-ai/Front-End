@@ -123,14 +123,13 @@ const ConsultantProfile = ({
               </div>
               <div className="rate-detail">
                 <p>Starts at</p>
-                {consultant && consultant.is_company ? (
+                {consultant?.is_company ? (
                   <p>
                     <span>$5000</span>/Project
                   </p>
                 ) : (
                   <p>
-                    <span>${findMinRate(consultant && consultant.rates)}</span>/
-                    Hour
+                    <span>${findMinRate(consultant?.rates)}</span>/ Hour
                   </p>
                 )}
               </div>
@@ -141,13 +140,7 @@ const ConsultantProfile = ({
                 <div
                   className="custom-btn with-bg"
                   onClick={() => goToMessagePage(consultant)}
-                  disabled={
-                    consultant &&
-                    consultant.chat_history &&
-                    consultant.chat_history.length
-                      ? false
-                      : true
-                  }
+                  disabled={consultant?.chat_history?.length ? false : true}
                 >
                   Message
                 </div>
@@ -196,14 +189,13 @@ const ConsultantProfile = ({
             <Space className="rate-card-wrapper" size={12}>
               <div className="rate-detail">
                 <p>Starts at</p>
-                {consultant && consultant.is_company ? (
+                {consultant?.is_company ? (
                   <p>
                     <span>$5000</span>/Project
                   </p>
                 ) : (
                   <p>
-                    <span>${findMinRate(consultant && consultant.rates)}</span>/
-                    Hour
+                    <span>${findMinRate(consultant?.rates)}</span>/ Hour
                   </p>
                 )}
               </div>

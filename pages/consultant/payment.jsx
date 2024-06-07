@@ -27,6 +27,7 @@ import { PayPalButton } from "react-paypal-button-v2";
 import Link from "next/link";
 import { isBrowser, isMobile } from "react-device-detect";
 import themeConfig from "../../config/themeConfig";
+import { getConditionalValue } from "../../_global";
 
 const Payment = ({
   consultant,
@@ -367,8 +368,12 @@ const Payment = ({
                 <div
                   className="custom-btn with-bg"
                   style={{
-                    pointerEvents: purchaseHours > 0 ? "unset" : "none",
-                    opacity: purchaseHours > 0 ? 1 : 0.5,
+                    pointerEvents: getConditionalValue(
+                      purchaseHours > 0,
+                      "unset",
+                      "none"
+                    ),
+                    opacity: getConditionalValue(purchaseHours > 0, 1, 0.5),
                   }}
                   onClick={() =>
                     purchaseHours > 0 ? setIsPaypalOpenTwo(true) : ""
@@ -426,8 +431,12 @@ const Payment = ({
                 <div
                   style={{
                     marginTop: "50px",
-                    opacity: isTermCheckedTwo ? "1" : "0.5",
-                    pointerEvents: isTermCheckedTwo ? "unset" : "none",
+                    opacity: getConditionalValue(isTermCheckedTwo, "1", "0.5"),
+                    pointerEvents: getConditionalValue(
+                      isTermCheckedTwo,
+                      "unset",
+                      "none"
+                    ),
                   }}
                 >
                   <PayPalButton
@@ -447,7 +456,6 @@ const Payment = ({
                     }}
                     onError={(data) => {
                       failCreditTransaction(data);
-                      console.log("failed tns", data);
                     }}
                   />
                 </div>
@@ -558,8 +566,12 @@ const Payment = ({
             <div
               style={{
                 marginTop: "50px",
-                opacity: isTermChecked ? "1" : "0.5",
-                pointerEvents: isTermChecked ? "unset" : "none",
+                opacity: getConditionalValue(isTermChecked, "1", "0.5"),
+                pointerEvents: getConditionalValue(
+                  isTermChecked,
+                  "unset",
+                  "none"
+                ),
               }}
             >
               <PayPalButton

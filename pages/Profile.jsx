@@ -651,10 +651,11 @@ const Profile = ({
       const levelCount = visitor_profile_levels?.[0]?.leavels.length;
       const interval = levelCount ? 100 / levelCount : 0;
       let currentValue = -1;
+      const whiteSpace = !isMobile ? "pre" : "";
 
       topMarks[0] = {
         label: "Level 0",
-        style: { whiteSpace: !isMobile ? "pre" : "" },
+        style: { whiteSpace: whiteSpace },
       };
       bottomMarks[0] = 0;
 
@@ -662,7 +663,7 @@ const Profile = ({
         const label = Math.round(interval * (index + 1));
         topMarks[label] = {
           label: `${level.level} \n ${level.title}`,
-          style: { whiteSpace: !isMobile ? "pre" : "" },
+          style: { whiteSpace: whiteSpace },
         };
         bottomMarks[label] = level.max_range;
         if (
@@ -678,7 +679,7 @@ const Profile = ({
         label: `${
           visitor_profile_levels?.[0]?.leavels[levelCount - 1].level
         } \n ${visitor_profile_levels?.[0]?.leavels[levelCount - 1].title}`,
-        style: { whiteSpace: !isMobile ? "pre" : "" },
+        style: { whiteSpace: whiteSpace },
       };
 
       return { bottomMarks, topMarks, currentValue };

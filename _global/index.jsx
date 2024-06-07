@@ -8,7 +8,6 @@ export const calculateDateTime = (
   apiDate,
   { format = "LLL", isDateTime = false } = {}
 ) => {
-
   // const formatDate = (date) => {
   //   const userLocale = navigator.language; // Get user's locale setting
   //   console.log("userLocale", userLocale);
@@ -21,7 +20,6 @@ export const calculateDateTime = (
   //     // second: "numeric",
   //   }).format(date.toDate());
   // };
-
 
   const parsedDate = moment(new Date(apiDate));
   const utcDateTime = parsedDate.utc(true).format();
@@ -38,4 +36,11 @@ export const calculateDateTime = (
   } else {
     return moment(utcDateTime).fromNow();
   }
+};
+
+export const getConditionalValue = (condition, trueValue, falseValue) => {
+  if (condition) {
+    return trueValue;
+  }
+  return falseValue;
 };

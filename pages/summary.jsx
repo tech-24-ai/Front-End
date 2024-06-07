@@ -26,7 +26,7 @@ class Summary extends Component {
     let tabsDatas = [];
     if (steps && steps != "null" && typeof steps != "string") {
       steps.map((step) => {
-        if (step && step.questions && step.questions.length) {
+        if (step?.questions?.length) {
           step.questions.map((question) => {
             tabsDatas.push(question);
           });
@@ -38,8 +38,8 @@ class Summary extends Component {
       <div className="select-category-block summary-wrapper">
         <div className="summary-dec-btn">
           <p>
-            We found <span> {products && products.length} </span> products that
-            match your selection criteria
+            We found <span> {products?.length} </span> products that match your
+            selection criteria
           </p>
         </div>
         <div className="summary-block">
@@ -63,54 +63,53 @@ class Summary extends Component {
                 <img src={Pen.src} />
               </a>
               <ul>
-                {tabsDatas &&
-                  tabsDatas.map((item) => {
-                    let filterQuestion = questionData.filter(
-                      (data) => data.question_id == item.id
-                    );
-                    let value = [];
-                    if (filterQuestion.length != 0 && filterQuestion[0].label) {
-                      value = filterQuestion[0].label;
-                    }
-                    return (
-                      <div>
-                        <li>
-                          <span></span>
-                          <h6>
-                            {item.name}
-                            <span>
-                              {" "}
-                              -{" "}
-                              {value
-                                .map((data) => {
-                                  let optionValue = data.name;
+                {tabsDatas?.map((item) => {
+                  let filterQuestion = questionData.filter(
+                    (data) => data.question_id == item.id
+                  );
+                  let value = [];
+                  if (filterQuestion.length != 0 && filterQuestion[0].label) {
+                    value = filterQuestion[0].label;
+                  }
+                  return (
+                    <div>
+                      <li>
+                        <span></span>
+                        <h6>
+                          {item.name}
+                          <span>
+                            {" "}
+                            -{" "}
+                            {value
+                              .map((data) => {
+                                let optionValue = data.name;
 
-                                  if (
-                                    data.hasOwnProperty("subOptions") &&
-                                    data.subOptions.length
-                                  ) {
-                                    optionValue = `${optionValue} : ${data.subOptions
-                                      .map((obj) => obj.name)
-                                      .join(", ")}`;
-                                  }
+                                if (
+                                  data.hasOwnProperty("subOptions") &&
+                                  data.subOptions.length
+                                ) {
+                                  optionValue = `${optionValue} : ${data.subOptions
+                                    .map((obj) => obj.name)
+                                    .join(", ")}`;
+                                }
 
-                                  if (
-                                    data.hasOwnProperty("priority") &&
-                                    data.priority.length
-                                  ) {
-                                    optionValue = `${optionValue} / ${data.priority
-                                      .map((obj) => obj.value)
-                                      .join(", ")}`;
-                                  }
-                                  return optionValue;
-                                })
-                                .join(", ")}
-                            </span>
-                          </h6>
-                        </li>
-                      </div>
-                    );
-                  })}
+                                if (
+                                  data.hasOwnProperty("priority") &&
+                                  data.priority.length
+                                ) {
+                                  optionValue = `${optionValue} / ${data.priority
+                                    .map((obj) => obj.value)
+                                    .join(", ")}`;
+                                }
+                                return optionValue;
+                              })
+                              .join(", ")}
+                          </span>
+                        </h6>
+                      </li>
+                    </div>
+                  );
+                })}
               </ul>
             </div>
           </div>
